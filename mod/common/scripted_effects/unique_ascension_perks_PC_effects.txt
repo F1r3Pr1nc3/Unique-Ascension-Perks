@@ -1,7 +1,7 @@
 #######################################
-#                                     #
+#									 #
 ######### Primitive Creation ##########
-#                                     #
+#									 #
 #######################################
 
 create_primitive_retro_country = {
@@ -19,7 +19,7 @@ create_primitive_retro_country = {
 				traits = { trait = random_traits }
 			}
 		}
-		#create_early_primitive_empire = yes
+		# create_early_primitive_empire = yes
 		create_country = {
 			name = random
 			authority = random
@@ -194,12 +194,12 @@ create_vassal_country = {
 			origin = origin_default
 			effect = {
 				event_target:this_planet = {
-					set_controller = PREV
-					set_owner = PREV
-					#owner = { establish_communications_no_message = event_target:owning_empire }
+					set_controller = prev
+					set_owner = prev
+					# owner = { establish_communications_no_message = event_target:owning_empire }
 					if = {
 						limit = { has_building = no }
-						create_colony = { owner = PREV species = owner_main_species }
+						create_colony = { owner = prev species = owner_main_species }
 						while = { count = 22 create_pop = { species = owner_main_species } }
 					}
 				}
@@ -229,7 +229,7 @@ create_vassal_country = {
 			add_trust = { who = event_target:owning_empire amount = 100 }
 			add_intel = { who = event_target:owning_empire amount = 200 }
 			event_target:owning_empire = { add_intel = { who = event_target:new_empire amount = 200 } }
-			add_modifier = { modifier = perfect_vassal_boost days = -1 }
+			add_modifier = { modifier = perfect_vassal_boost }
 			while = { count = 2 create_leader = { class = scientist species = owner_main_species name = random skill = 3 } }
 			while = { count = 1 create_leader = { class = admiral species = owner_main_species name = random skill = 3 } }
 			while = { count = 1 create_leader = { class = governor species = owner_main_species name = random skill = 3 } }
@@ -251,10 +251,10 @@ create_vassal_country = {
 						}
 					}
 				}
-				create_fleet = { effect = { set_owner = event_target:new_empire while = { count = 3 create_ship = { name = random random_existing_design = corvette } } set_location = { target = PREV distance = 20 angle = random } } }
-				while = { count = 2 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = colonizer } set_location = { target = PREV distance = 20 angle = random } } } }
-				while = { count = 1 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = constructor } set_location = { target = PREV distance = 20 angle = random } } } }
-				while = { count = 1 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = science } set_location = { target = PREV distance = 20 angle = random } } } }
+				create_fleet = { effect = { set_owner = event_target:new_empire while = { count = 3 create_ship = { name = random random_existing_design = corvette } } set_location = { target = prev distance = 20 angle = random } } }
+				while = { count = 2 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = colonizer } set_location = { target = prev distance = 20 angle = random } } } }
+				while = { count = 1 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = constructor } set_location = { target = prev distance = 20 angle = random } } } }
+				while = { count = 1 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = science } set_location = { target = prev distance = 20 angle = random } } } }
 			}
 		}
 		event_target:owning_empire = {
@@ -277,9 +277,9 @@ create_vassal_country = {
 		event_target:new_empire = {
 			every_planet_within_border = {
 				limit = { has_planet_flag = planet_marked_for_handover }
-				set_controller = PREV
-				set_owner = PREV
-				create_colony = { owner = PREV species = owner_main_species }
+				set_controller = prev
+				set_owner = prev
+				create_colony = { owner = prev species = owner_main_species }
 				remove_planet_flag = planet_marked_for_handover
 			}
 		}
@@ -290,7 +290,7 @@ create_navy_fleet_for_subject = {
 	create_fleet = {
 		settings = { can_upgrade = no can_disband = no can_change_composition = no can_change_leader = yes uses_naval_capacity = no spawn_debris = no }
 		effect = {
-			set_owner = ROOT
+			set_owner = root
 			set_fleet_stance = aggressive
 			set_aggro_range_measure_from = self
 			set_aggro_range = 1000

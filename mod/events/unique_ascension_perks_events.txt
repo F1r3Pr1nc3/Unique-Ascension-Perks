@@ -3678,7 +3678,7 @@ country_event = {
 						set_timed_country_flag = { flag = ai_no_wars days = 3650 }
 						root = { set_timed_country_flag = { flag = ai_no_wars days = 3650 } }
 						every_playable_country = {
-							limit = {  }
+							# limit = { }
 							set_timed_country_flag = { flag = ai_no_wars days = 3650 }
 						}
 					}
@@ -3705,7 +3705,6 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = EXCELLENT add_resource = { unity = 2000 influence = 100 } default_hide_option = yes }
 }
-
 
 planet_event = {
 	id = UniqueAscensionPerksEvents.81
@@ -9957,10 +9956,8 @@ ship_event = {
 	trigger = {
 		from = { has_strategic_resource = yes }
 		owner = {
-			AND = {
-				root.owner = { resource_stockpile_compare = { resource = anti_matter value > 0 } }
-				NOT = { has_country_flag = anti_matter_found }
-			}
+			root.owner = { resource_stockpile_compare = { resource = anti_matter value > 0 } }
+			NOT = { has_country_flag = anti_matter_found }
 		}
 	}
 	immediate = { from = { if = { limit = { resource_stockpile_compare = { resource = anti_matter value > 0 } } root.owner = { set_country_flag = anti_matter_found } } } }

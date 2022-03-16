@@ -1,7 +1,7 @@
 #######################################
-#                                     #
+#									 #
 ###### Civilian Space Activities ######
-#                                     #
+#									 #
 #######################################
 
 create_civilian_activities_country = {
@@ -11,8 +11,7 @@ create_civilian_activities_country = {
 		random_country = {
 			limit = { has_relation_flag = { who = event_target:main_country flag = civilian_activities_country } }
 			save_event_target_as = civilian_activities_country
-		}
-		else = {
+		} else = {
 			create_country = {
 				name = "Civilian Faction"
 				type = civilian_activities
@@ -24,7 +23,7 @@ create_civilian_activities_country = {
 				effect = {
 					every_country = {
 						limit = { has_communications = event_target:main_country }
-						establish_communications_no_message = PREV
+						establish_communications_no_message = prev
 					}
 					set_name = "\[main_country.GetSpeciesNamePlural\] Civilian Faction"
 					randomize_flag_symbol = "corporate"
@@ -215,7 +214,7 @@ civilian_space_activities_civilian_convoy_fleet_arrival = {
 			else = { planet_event = { id = UniqueAscensionPerksEvents.268 } }
 		}
 	}
-	#remove_fleet_flag = civilian_convoy_fleet
-	#remove_fleet_flag = civilian_convoy_fleet_moving_order
+	# remove_fleet_flag = civilian_convoy_fleet
+	# remove_fleet_flag = civilian_convoy_fleet_moving_order
 	delete_fleet = this
 }

@@ -1,7 +1,7 @@
 #######################################
-#                                     #
+#									 #
 ########### Fallen Disciple ###########
-#                                     #
+#									 #
 #######################################
 
 fe_select_gift = {
@@ -20,8 +20,8 @@ fe_select_gift = {
 
 fe_gift_action = {
 	hidden_effect = { set_country_flag = fe_gift_received }
-		if = { limit = { has_country_flag = fe_gift_resources_small } add_resource = { minerals = 1500 } add_resource = { energy = 500 } }
-		if = { limit = { has_country_flag = fe_gift_resources_large } add_resource = { minerals = 3000 } add_resource = { energy = 1000 } }
+		if = { limit = { has_country_flag = fe_gift_resources_small } add_resource = { minerals = 1500 energy = 500 } }
+		if = { limit = { has_country_flag = fe_gift_resources_large } add_resource = { minerals = 3000 energy = 1000 } }
 		if = { limit = { has_country_flag = fe_gift_resources_alloys } add_resource = { alloys = 750 } }
 		if = { limit = { has_country_flag = fe_gift_resources_consumer } add_resource = { consumer_goods = 750 } }
 		if = { limit = { has_country_flag = fe_gift_databanks } add_modifier = { modifier = fallen_empire_gift_databanks days = 3600 } }
@@ -47,12 +47,12 @@ fe_gift_action = {
 					create_fleet = {
 						settings = { spawn_debris = no }
 						effect = {
-							set_owner = ROOT
+							set_owner = root
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_authority = auth_machine_intelligence } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Gamma" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Sage" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Warden" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Zealot" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
-							set_location = PREV
+							set_location = prev
 						}
 					}
 				}
@@ -66,12 +66,12 @@ fe_gift_action = {
 					create_fleet = {
 						settings = { spawn_debris = no }
 						effect = {
-							set_owner = ROOT
+							set_owner = root
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_authority = auth_machine_intelligence } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Beta" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Scholar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Custodian" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
 							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Avatar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
-							set_location = PREV
+							set_location = prev
 						}
 					}
 				}

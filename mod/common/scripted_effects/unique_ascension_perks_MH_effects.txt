@@ -1,7 +1,7 @@
 #######################################
-#                                     #
+#									 #
 ############# Mega Hivemind ###########
-#                                     #
+#									 #
 #######################################
 
 realm_select_north = {
@@ -201,7 +201,6 @@ realm_society_select = { hidden_effect = { realm_clear_flags = yes set_country_f
 realm_engineering_select = { hidden_effect = { realm_clear_flags = yes set_country_flag = realm_encounter_result_engineering realm_encounter_results = yes country_event = { id = UniqueAscensionPerksEvents.114 } } }
 realm_breeding_select = { hidden_effect = { realm_clear_flags = yes set_country_flag = realm_encounter_result_breeding realm_encounter_results = yes country_event = { id = UniqueAscensionPerksEvents.114 } } }
 
-
 realm_select_small_swarm_group = {
 	hidden_effect = {
 		realm_clear_flags = yes
@@ -245,7 +244,7 @@ realm_swarm_small_group_success = {
 		name = "Domesticated Swarm"
 		settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 		effect = {
-			set_owner = PREV
+			set_owner = prev
 			while = { count = 5 create_ship = { name = "" design = "NAME_Swarm_Large" graphical_culture = "swarm_01" } }
 			while = { count = 4 create_ship = { name = "" design = "NAME_Swarm_Carrier" graphical_culture = "swarm_01" } }
 			while = { count = 17 create_ship = { name = "" design = "NAME_Swarm_Small" graphical_culture = "swarm_01" } }
@@ -264,7 +263,7 @@ realm_swarm_medium_group_success = {
 		name = "Domesticated Swarm"
 		settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 		effect = {
-			set_owner = PREV
+			set_owner = prev
 			create_ship = { name = random design = "NAME_Swarm_Queen" graphical_culture = "swarm_01" }
 			while = { count = 10 create_ship = { name = "" design = "NAME_Swarm_Large" graphical_culture = "swarm_01" } }
 			while = { count = 8 create_ship = { name = "" design = "NAME_Swarm_Carrier" graphical_culture = "swarm_01" } }
@@ -284,7 +283,7 @@ realm_swarm_big_group_success = {
 		name = "Domesticated Swarm"
 		settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 		effect = {
-			set_owner = PREV
+			set_owner = prev
 			while = { count = 3 create_ship = { name = "" design = "NAME_Swarm_Queen" graphical_culture = "swarm_01" } }
 			while = { count = 20 create_ship = { name = "" design = "NAME_Swarm_Large" graphical_culture = "swarm_01" } }
 			while = { count = 16 create_ship = { name = "" design = "NAME_Swarm_Carrier" graphical_culture = "swarm_01" } }
@@ -306,7 +305,7 @@ realm_swarm_small_group_failure = {
 			name = "Uncontrolled Swarm"
 			settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 			effect = {
-				set_owner = PREV
+				set_owner = prev
 				while = { count = 3 create_ship = { name = "" design = "NAME_Swarm_Large" graphical_culture = "swarm_01" } }
 				while = { count = 2 create_ship = { name = "" design = "NAME_Swarm_Carrier" graphical_culture = "swarm_01" } }
 				while = { count = 14 create_ship = { name = "" design = "NAME_Swarm_Small" graphical_culture = "swarm_01" } }
@@ -328,7 +327,7 @@ realm_swarm_medium_group_failure = {
 			name = "Uncontrolled Swarm"
 			settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 			effect = {
-				set_owner = PREV
+				set_owner = prev
 				create_ship = { name = random design = "NAME_Swarm_Queen" graphical_culture = "swarm_01" }
 				while = { count = 7 create_ship = { name = "" design = "NAME_Swarm_Large" graphical_culture = "swarm_01" } }
 				while = { count = 6 create_ship = { name = "" design = "NAME_Swarm_Carrier" graphical_culture = "swarm_01" } }
@@ -351,7 +350,7 @@ realm_swarm_big_group_failure = {
 			name = "Uncontrolled Swarm"
 			settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 			effect = {
-				set_owner = PREV
+				set_owner = prev
 				while = { count = 2 create_ship = { name = "" design = "NAME_Swarm_Queen" graphical_culture = "swarm_01" } }
 				while = { count = 14 create_ship = { name = "" design = "NAME_Swarm_Large" graphical_culture = "swarm_01" } }
 				while = { count = 11 create_ship = { name = "" design = "NAME_Swarm_Carrier" graphical_culture = "swarm_01" } }
@@ -380,7 +379,7 @@ create_uncontrolled_swarm_country = {
 					colors = { "orange" "grey" "null" "null" }
 				}
 				effect = {
-					every_country = { establish_communications_no_message = PREV }
+					every_country = { establish_communications_no_message = prev }
 					save_event_target_as = uncontrolled_swarm
 					set_country_flag = uncontrolled_swarm
 					set_faction_hostility = { set_hostile = yes }
@@ -486,7 +485,6 @@ realm_destination_restart_or_not = {
 		country_event = { id = UniqueAscensionPerksEvents.114 }
 	}
 }
-
 
 realm_clear_flags = {
 	hidden_effect = {
