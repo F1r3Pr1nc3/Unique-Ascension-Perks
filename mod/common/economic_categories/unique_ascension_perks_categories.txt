@@ -1,0 +1,71 @@
+# Base income of country
+country_base = {
+	parent = country
+	generate_add_modifiers = { produces }
+	generate_mult_modifiers = { produces }
+}
+
+planets = {
+	parent = country
+	use_for_ai_budget = yes
+	ai_use_parent_for_resources_upkeep = { energy }
+	generate_add_modifiers = { produces }
+	generate_mult_modifiers = { produces }
+	hidden = yes
+}
+
+station_observers = {
+	parent = stations
+	generate_add_modifiers = { produces }
+	generate_mult_modifiers = { produces }
+}
+
+starbase_buildings = {
+	parent = starbase_constructions
+	generate_mult_modifiers = {
+		cost
+		upkeep
+	}
+}
+
+starbase_modules = {
+	parent = starbase_constructions
+	generate_mult_modifiers = {
+		cost
+		upkeep
+	}
+}
+
+megastructures = {
+	use_for_ai_budget = yes
+	ai_use_parent_for_resources_upkeep = {
+		energy
+		consumer_goods
+	}
+	parent = country
+	generate_mult_modifiers = {
+		cost
+		upkeep
+		produces
+	}
+}
+
+planet_districts = {
+	parent = planet_structures
+
+	generate_mult_modifiers = {
+		cost
+		upkeep
+		produces
+	}
+}
+
+planet_buildings = {
+	parent = planet_structures
+
+	generate_mult_modifiers = {
+		cost
+		upkeep
+		produces
+	}
+}
