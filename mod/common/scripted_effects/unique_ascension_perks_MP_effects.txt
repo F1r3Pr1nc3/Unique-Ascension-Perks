@@ -9,7 +9,7 @@ launch_machine_uprising = {
 	owner = { save_event_target_as = organic_empire set_country_flag = had_uprising }
 	owner = { save_event_target_as = current_uprising_originator }
 	set_planet_flag = machup_capital@root.owner
-	owner = { every_owned_fleet = { set_event_locked = yes } } # Event lock all fleets to prevent exploits	
+	owner = { every_owned_fleet = { set_event_locked = yes } } # Event lock all fleets to prevent exploits.
 	owner = { # Find and flag planets
 		effect_on_blob = {
 			center = root.solar_system
@@ -20,8 +20,8 @@ launch_machine_uprising = {
 			}
 			effect = { set_star_flag = machup_system_flip }
 		}
-    }
-	create_species = { name = random class = MACHINE portrait = random traits = random immortal = yes }	# Create machine species	
+	}
+	create_species = { name = random class = MACHINE portrait = random traits = random immortal = yes }	# Create machine species
 	random_list = { # Create machine country
 		30 = { # exterminator
 			owner = {
@@ -105,7 +105,7 @@ launch_machine_uprising_settings = {
 		establish_contact = { who = root location = from }
 	}
 	# Baseline resource stockpile
-	add_resource = { energy = 20000 minerals = 20000 influence = 750 alloys = 9000 } 
+	add_resource = { energy = 20000 minerals = 20000 influence = 750 alloys = 9000 }
 	add_100_unity_per_year_passed = yes # Scripted effect
 	# (Mod) Stuff
 	add_opinion_modifier = { who = event_target:MachineEmpireUprisingOrigin modifier = opinion_empire_origine }
@@ -138,13 +138,13 @@ launch_machine_uprising_settings = {
 		set_owner = root
 		set_controller = root
 		set_capital = yes
-		solar_system = { 
+		solar_system = {
 			if = { limit = { exists = starbase } starbase = { set_owner = root } } else = { create_starbase = { size = starbase_starport module = shipyard owner = root } }
-        }
+		}
 		while = { count = 10 create_pop = { species = root } }
-		if = { 
+		if = {
 			limit = { count_owned_pop = { count < 5 limit = { is_exact_same_species = root } } }
-			while = { 
+			while = {
 				limit = { count_owned_pop = { count < 5 limit = { is_exact_same_species = root } } }
 				random_owned_pop = {
 					limit = { NOT = { is_exact_same_species = root } }
@@ -191,9 +191,9 @@ launch_machine_uprising_settings = {
 				}
 				# Create armies on planets
 				if = { limit = { root = { has_civic = civic_machine_terminator } } while = { count = 6 create_army = { owner = root species = root type = machine_assault_1 } } } # More armies if exterminator
-				else = { while = { count = 3 create_army = { owner = root species = root type = machine_assault_1 } } } # Regular armies 
-			} 
-		}	
+				else = { while = { count = 3 create_army = { owner = root species = root type = machine_assault_1 } } } # Regular armies
+			}
+		}
 	}
 	# Get host's technologies
 	copy_techs_from = {
@@ -250,7 +250,7 @@ launch_machine_uprising_settings = {
 	# Declare war on host
 	declare_war = {
 		target = event_target:current_uprising_originator
-		name = "NAME_Machine_Uprising_War"		
+		name = "NAME_Machine_Uprising_War"
 		attacker_war_goal = "wg_machine_uprising" # "\[This.MainDefender.GetAdj] Machine Uprising"
 	}
 	# Create fleets
@@ -265,9 +265,9 @@ launch_machine_uprising_settings = {
 		random_owned_planet = { last_created_fleet = { set_location = prev } }
 		create_fleet_from_naval_cap = 0.6
 		random_owned_planet = { last_created_fleet = { set_location = prev } }
-    }
+	}
 	# Regular fleets, 80% naval cap
-	else = {	
+	else = {
 		create_fleet_from_naval_cap = 0.1
 		random_owned_planet = { last_created_fleet = { set_location = prev } }
 		create_fleet_from_naval_cap = 0.3
@@ -284,17 +284,17 @@ launch_machine_uprising_settings = {
 		effect = {
 			set_owner = root
 			create_ship = { name = random random_existing_design = science }
-			set_fleet_stance = evasive				
-			set_location = root.capital_scope			
+			set_fleet_stance = evasive
+			set_location = root.capital_scope
 			owner = { create_leader = { class = scientist sub_type = survey name = random species = owner_main_species } }
 			set_leader = last_created_leader
-		}			
-	}		
+		}
+	}
 	# constructor
 	create_fleet = {
 		effect = {
-			set_owner = root	
-			create_ship = { name = random random_existing_design = constructor }		
+			set_owner = root
+			create_ship = { name = random random_existing_design = constructor }
 			set_fleet_stance = evasive
 			set_location = root.capital_scope
 		}

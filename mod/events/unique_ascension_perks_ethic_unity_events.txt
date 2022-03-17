@@ -205,12 +205,12 @@ country_event = { # Spiritualist - Unity by number of happy pop.
 	immediate = {
 		# set_variable = { which = pops_var value = value:pops_count }
 		export_trigger_value_to_variable = {
-            trigger = count_owned_pop
-            parameters = {
-                limit = { is_enslaved = no is_being_purged = no is_robot_pop = no happiness > 0.7 }
-            }
-            variable = pops_var
-        }
+			trigger = count_owned_pop
+			parameters = {
+				limit = { is_enslaved = no is_being_purged = no is_robot_pop = no happiness > 0.7 }
+			}
+			variable = pops_var
+		}
 		divide_variable = { which = pops_var value = 10 }
 		round_variable = pops_var
 		if = { limit = { check_variable = { which = pops_var value > 90 } }
@@ -250,12 +250,14 @@ country_event = { # Authoritarian & Xenophobe - Unity by number of slaves.
 	immediate = {
 		# set_variable = { which = pops_var value = value:pops_enslaved_count }
 		export_trigger_value_to_variable = {
-            trigger = count_owned_pop
-            parameters = {
-                limit = { is_enslaved = yes }
-            }
-            variable = pops_var
-        }
+			trigger = count_owned_pop
+			parameters = {
+				limit = { is_enslaved = yes }
+			}
+			variable = pops_var
+		}
+		divide_variable = { which = pops_var value = 10 }
+		round_variable = pops_var
 		if = { limit = { check_variable = { which = pops_var value > 100 } }
 			set_variable = { which = pops_var value = 100 }
 		}
@@ -322,7 +324,7 @@ planet_event = { # Gestalt - Unity by colony ages.
 	}
 }
 
-# TODO this looks like somehow overpowered and less scaled
+# TODO this looks like somehow overpowered and less scaled.
 country_event = { # Gestalt Consciousness - Unity by number of pop.
 	id = EthicUnityEvents.10
 	hide_window = yes

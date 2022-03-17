@@ -11,7 +11,7 @@ fe_select_gift = {
 			20 = { set_country_flag = fe_gift_databanks }
 			15 = { set_country_flag = fe_gift_rare_tech }
 			10 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_escorts } else = { set_country_flag = fe_gift_resources_large } }
-			5 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_battlecruiser  } else = { set_country_flag = fe_gift_resources_large } }
+			5 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_battlecruiser } else = { set_country_flag = fe_gift_resources_large } }
 			15 = { modifier = { factor = 3.0 is_at_war = yes } set_country_flag = fe_gift_resources_alloys }
 			10 = { modifier = { factor = 0 OR = { is_at_war = yes is_gestalt = yes } }set_country_flag = fe_gift_resources_consumer }
 		}
@@ -82,7 +82,7 @@ fe_gift_action = {
 
 fe_refuse_gift_action = {
 	hidden_effect = { event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_spurned_fallen_empire_gift } }	}
-	if = { limit = { event_target:FallenEmpireTaskOrigin = {  is_enigmatic_to = root } } custom_tooltip = fallen_empire_enigmatic_tooltip }
+	if = { limit = { event_target:FallenEmpireTaskOrigin = { is_enigmatic_to = root } } custom_tooltip = fallen_empire_enigmatic_tooltip }
 	else = { custom_tooltip = fallen_empire_unhappy_tooltip }
 	fe_clear_gift_flags = yes
 }
