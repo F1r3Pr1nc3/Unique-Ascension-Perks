@@ -40,11 +40,18 @@ civilian_factory = {
 	max_speed = 60
 	acceleration = 0.1
 	rotation_speed = 0.15
-	max_hitpoints = 5000
+	max_hitpoints = 5000 # @battleship_hp
 	modifier = {
-		ship_armor_add = 2000
-		ship_shield_add = 4000
+		ship_armor_add = 4000
+		ship_shield_add = 8000
 		ships_upkeep_mult = 0.55
+	}
+	resources = {
+		category = ships
+		upkeep = {
+			energy = @cruiser_upkeep_energy
+			alloys = @cruiser_upkeep_alloys
+		}
 	}
 	size_multiplier = 10
 	fleet_slot_size = 2
@@ -52,7 +59,7 @@ civilian_factory = {
 	num_target_locators = 0
 	is_space_station = no
 	icon = ship_size_military_16
-	base_buildtime = 360
+	base_buildtime = @battleship_build_time # 360
 	enable_default_design = yes	# If yes, countries will have an auto-generated design at start.
 	is_designable = yes
 	components_add_to_cost = yes
@@ -70,18 +77,28 @@ civilian_factory = {
 	required_component_set = "civilian_factory_components"
 	required_component_set = "civilian_factory_components"
 	valid_target_aggressive_stance = no
-	empire_limit = { base = 5 max = 999 naval_cap_div = 50 }
+	empire_limit = { base = 3 max = 33 naval_cap_div = 50 }
+	min_upgrade_cost = {
+		alloys = 14
+	}
 }
 
 civilian_industrial_ship = {
 	max_speed = 20
 	acceleration = 0.05
 	rotation_speed = 0.07
-	max_hitpoints = 100000
+	max_hitpoints = @juggernaut_hp
 	modifier = {
 		ship_armor_add = 75000
 		ship_shield_add = 50000
 		ships_upkeep_mult = 1.50
+	}
+	resources = {
+		category = ships
+		upkeep = {
+			energy = @juggernaut_upkeep_energy
+			alloys = @juggernaut_upkeep_alloys
+		}
 	}
 	size_multiplier = 20
 	fleet_slot_size = 6
@@ -89,7 +106,7 @@ civilian_industrial_ship = {
 	num_target_locators = 0
 	is_space_station = no
 	icon = ship_size_military_16
-	base_buildtime = 1440
+	base_buildtime = @titan_build_time
 	enable_default_design = yes	# If yes, countries will have an auto-generated design at start.
 	is_designable = yes
 	components_add_to_cost = yes
@@ -108,5 +125,61 @@ civilian_industrial_ship = {
 	required_component_set = "civilian_industrial_ship_components"
 	required_component_set = "civilian_industrial_ship_components"
 	valid_target_aggressive_stance = no
+	potential_construction = {
+		OR = {
+			AND = {
+				is_scope_type = starbase
+				NOT = { has_starbase_size = juggernaut }
+			}
+			AND = {
+				is_scope_type = megastructure
+				OR = {
+					is_megastructure_type = mega_shipyard_3
+					is_megastructure_type = mega_shipyard_restored
+				}
+			}
+		}
+	}
+
+	possible_construction = {
+		custom_tooltip = {
+			fail_text = starbase_citadel_trigger
+			OR = {
+				AND = {
+					is_scope_type = megastructure
+					OR = {
+						is_megastructure_type = mega_shipyard_3
+						is_megastructure_type = mega_shipyard_restored
+					}
+				}
+				AND = {
+					is_scope_type = starbase
+					has_starbase_size >= starbase_citadel
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = starbase_titan_yards_trigger
+			OR = {
+				AND = {
+					is_scope_type = megastructure
+					OR = {
+						is_megastructure_type = mega_shipyard_3
+						is_megastructure_type = mega_shipyard_restored
+					}
+				}
+				AND = {
+					is_scope_type = starbase
+					OR = {
+						has_starbase_building = titan_yards
+						has_starbase_building = colossus_yards
+					}
+				}
+			}
+		}
+	}
 	empire_limit = { base = 1 max = 3 naval_cap_div = 500 }
+	min_upgrade_cost = {
+		alloys = 40
+	}
 }

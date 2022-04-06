@@ -2,12 +2,13 @@ namespace = CortanaEvent
 
 country_event = {# Cortana Research - Main Menu
 	id = "CortanaEvent.0"
-	title = "Cortana Cooldown Completed"
-	desc = "The cooldown of Cortana has been completed, she is now in stand by."
+	title = "CortanaEvent.0.Name"
+	desc = "CortanaEvent.0.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
-	mean_time_to_happen = { days = 15 }
+	mean_time_to_happen = { days = 25 }
 	trigger = {
+		is_ai = no
 		has_ascension_perk = ap_ai_cortana
 		NOR = {
 			has_country_flag = cortana_cooldown
@@ -17,11 +18,11 @@ country_event = {# Cortana Research - Main Menu
 	immediate = { set_country_flag = cortana_ready }
 	option = { name = OK }
 	option = {
-		name = "Let's use her now."
+		name = "CortanaEvent.0.a"
 		allow = {
 			OR = {
-				AND = { NOT = { has_technology = tech_cortana_optimized } resource_stockpile_compare = { resource = energy value >= 5000 } }
-				AND = { has_technology = tech_cortana_optimized resource_stockpile_compare = { resource = energy value >= 4000 } }
+				AND = { NOT = { has_technology = tech_cortana_optimized } resource_stockpile_compare = { resource = energy value > 5000 } }
+				AND = { has_technology = tech_cortana_optimized resource_stockpile_compare = { resource = energy value > 4000 } }
 			}
 		}
 		add_resource = { energy = -5000 }
@@ -32,31 +33,31 @@ country_event = {# Cortana Research - Main Menu
 
 country_event = {# Cortana Research - Main Menu
 	id = "CortanaEvent.1"
-	title = "Cortana Waiting For Orders"
-	desc = "Cortana has been powered up and is now ready for the next research. Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
 	is_triggered_only = yes
-	#immediate = { remove_country_flag = cortana_ready }
-	option = { name = "Buildings & Jobs" trigger = { NOT = { has_country_flag = cortana_cooldown } } hidden_effect = { country_event = { id = CortanaEvent.2 } } }
-	option = { name = "Ships Modules" trigger = { cortana_can_modules_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.3 } } }
-	option = { name = "Ships Weapons" trigger = { cortana_can_weapons_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.4 } } }
-	option = { name = "Planet Blockers" trigger = { cortana_can_blockers_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.5 } } }
-	option = { name = "Other " trigger = { cortana_can_other_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.10 } } }
-	option = { name = "Repeatable Techs" trigger = { cortana_can_repeatable_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.11 } } }
-	option = { name = "Abort " trigger = { NOT = { has_country_flag = cortana_cooldown } } add_resource = { energy = 5000 } if = { limit = { has_technology = tech_cortana_optimized } add_resource = { energy = -1000 } } }
-	option = { name = "Cancel " trigger = { has_country_flag = cortana_cooldown } add_resource = { energy = 5000 } if = { limit = { has_technology = tech_cortana_optimized } add_resource = { energy = -1000 } } }
+	# immediate = { remove_country_flag = cortana_ready }
+	option = { name = "CortanaEvent.1.Building" trigger = { NOT = { has_country_flag = cortana_cooldown } } hidden_effect = { country_event = { id = CortanaEvent.2 } } }
+	option = { name = "CortanaEvent.1.Module" trigger = { cortana_can_modules_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.3 } } }
+	option = { name = "CortanaEvent.1.Weapon" trigger = { cortana_can_weapons_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.4 } } }
+	option = { name = "CortanaEvent.1.Blocker" trigger = { cortana_can_blockers_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.5 } } }
+	option = { name = "CortanaEvent.1.Other" trigger = { cortana_can_other_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.10 } } }
+	option = { name = "CortanaEvent.1.Repeatable" trigger = { cortana_can_repeatable_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.11 } } }
+	option = { name = ABORT trigger = { NOT = { has_country_flag = cortana_cooldown } } add_resource = { energy = 5000 } if = { limit = { has_technology = tech_cortana_optimized } add_resource = { energy = -1000 } } }
+	option = { name = CANCEL trigger = { has_country_flag = cortana_cooldown } add_resource = { energy = 5000 } if = { limit = { has_technology = tech_cortana_optimized } add_resource = { energy = -1000 } } }
 }
 
 country_event = {# Cortana Research - Buildings
 	id = "CortanaEvent.2"
-	title = "Cortana Waiting For Orders"
-	desc = "Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	is_triggered_only = yes
 	immediate = {}
 	option = {
-		name = "Technician Jobs"
+		name = "CortanaEvent.2.Technician"
 		trigger = { NOT = { has_technology = tech_power_plant_4 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_power_plant_1 } } give_technology = { tech = tech_power_plant_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -66,7 +67,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Power Hubs"
+		name = "CortanaEvent.2.PowerHub"
 		trigger = { NOT = { has_technology = tech_power_hub_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_power_hub_1 } } give_technology = { tech = tech_power_hub_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -74,7 +75,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Miner Jobs"
+		name = "CortanaEvent.2.Mining"
 		trigger = { NOT = { has_technology = tech_mining_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_mining_1 } } give_technology = { tech = tech_mining_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -83,7 +84,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Mineral Purification"
+		name = "CortanaEvent.2.Mineral"
 		trigger = { NOT = { has_technology = tech_mineral_purification_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_mineral_purification_1 } } give_technology = { tech = tech_mineral_purification_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -91,7 +92,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Farmer Jobs"
+		name = "CortanaEvent.2.Farmer"
 		trigger = { NOT = { has_technology = tech_nutrient_replication } NOT = { has_authority = auth_machine_intelligence } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_eco_simulation } } give_technology = { tech = tech_eco_simulation } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -101,7 +102,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Food Processing"
+		name = "CortanaEvent.2.Food"
 		trigger = { NOT = { has_technology = tech_food_processing_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_food_processing_1 } } give_technology = { tech = tech_food_processing_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -109,7 +110,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Hospitals "
+		name = "CortanaEvent.2.Hospital"
 		trigger = { NOT = { has_technology = tech_frontier_hospital } is_gestalt = no }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_frontier_health } } give_technology = { tech = tech_frontier_health } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -117,7 +118,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Physicst Jobs"
+		name = "CortanaEvent.2.Physics"
 		trigger = { NOT = { has_technology = tech_physics_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_physics_1 } } give_technology = { tech = tech_physics_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -126,7 +127,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Biologist Jobs"
+		name = "CortanaEvent.2.Biologist"
 		trigger = { NOT = { has_technology = tech_society_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_society_1 } } give_technology = { tech = tech_society_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -135,7 +136,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Engineering Jobs"
+		name = "CortanaEvent.2.Engineering"
 		trigger = { NOT = { has_technology = tech_engineering_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_engineering_1 } } give_technology = { tech = tech_engineering_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -144,7 +145,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Foundry Jobs"
+		name = "CortanaEvent.2.Foundry"
 		trigger = { NOT = { has_technology = tech_alloys_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_alloys_1 } } give_technology = { tech = tech_alloys_1 } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
@@ -152,7 +153,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Artisan Jobs"
+		name = "CortanaEvent.2.Artisan"
 		trigger = { NOT = { has_technology = tech_luxuries_2 } is_gestalt = no }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_luxuries_1 } } give_technology = { tech = tech_luxuries_1 } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
@@ -160,7 +161,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Clerk Jobs"
+		name = "CortanaEvent.2.Clerk"
 		trigger = { NOT = { has_technology = tech_interstellar_economics } is_gestalt = no }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_space_trading } } give_technology = { tech = tech_space_trading } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
@@ -168,7 +169,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Culture Jobs"
+		name = "CortanaEvent.2.Culture"
 		trigger = { NOT = { has_technology = tech_autocurating_vault } is_hive_empire = no is_spiritualist = no }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_cultural_heritage } } give_technology = { tech = tech_cultural_heritage } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -178,7 +179,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Priest Jobs"
+		name = "CortanaEvent.2.Priest"
 		trigger = { NOT = { has_technology = tech_transcendent_faith } is_spiritualist = yes }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_cultural_heritage } } give_technology = { tech = tech_cultural_heritage } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -188,7 +189,7 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Node Drone Jobs"
+		name = "CortanaEvent.2.Drone"
 		trigger = { NOT = { has_technology = tech_hive_confluence } is_hive_empire = yes }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_hive_node } } give_technology = { tech = tech_hive_node } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -197,25 +198,25 @@ country_event = {# Cortana Research - Buildings
 		}
 	}
 	option = {
-		name = "Housing "
+		name = "CortanaEvent.2.Housing"
 		trigger = { NOT = { has_technology = tech_housing_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_housing_1 } } give_technology = { tech = tech_housing_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
 			if = { limit = { NOT = { has_technology = tech_housing_2 } } give_technology = { tech = tech_housing_2 } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
 		}
 	}
-	option = { name = "Back " hidden_effect = { country_event = { id = CortanaEvent.1 } } }
+	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
 
 country_event = {# Cortana Research - Ships Modules
 	id = "CortanaEvent.3"
-	title = "Select a Technology"
-	desc = "Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	is_triggered_only = yes
 	immediate = {}
 	option = {
-		name = "Energy Reactors"
+		name = "CortanaEvent.3.Reactor"
 		trigger = { NOT = { has_technology = tech_zero_point_power } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_fission_power } } give_technology = { tech = tech_fission_power } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -226,7 +227,7 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Energy Shields"
+		name = "CortanaEvent.3.Shields"
 		trigger = { NOT = { has_technology = tech_shields_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_shields_1 } } give_technology = { tech = tech_shields_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -237,14 +238,14 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Shield Capacitors"
+		name = "CortanaEvent.3.Rechargers"
 		trigger = { NOT = { has_technology = tech_shield_rechargers_1 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_shield_rechargers_1 } } give_technology = { tech = tech_shield_rechargers_1 } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
 		}
 	}
 	option = {
-		name = "Armors "
+		name = "CortanaEvent.3.Armors"
 		trigger = { NOT = { has_technology = tech_ship_armor_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_ship_armor_1 } } give_technology = { tech = tech_ship_armor_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -255,7 +256,7 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Sensors "
+		name = "CortanaEvent.3.Sensors"
 		trigger = { NOT = { has_technology = tech_sensors_4 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_sensors_2 } } give_technology = { tech = tech_sensors_2 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -264,7 +265,7 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Thrusters "
+		name = "CortanaEvent.3.Thrusters"
 		trigger = { NOT = { has_technology = tech_thrusters_4 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_thrusters_1 } } give_technology = { tech = tech_thrusters_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -274,7 +275,7 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Afterburners "
+		name = "CortanaEvent.3.Afterburners"
 		trigger = { has_technology = tech_thrusters_2 NOT = { has_technology = tech_afterburners_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_afterburners_1 } } give_technology = { tech = tech_afterburners_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -282,7 +283,7 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Hyperdrives "
+		name = "CortanaEvent.3.HyperDrives"
 		trigger = { NOT = { has_technology = tech_hyper_drive_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_hyper_drive_2 } } give_technology = { tech = tech_hyper_drive_2 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -290,25 +291,25 @@ country_event = {# Cortana Research - Ships Modules
 		}
 	}
 	option = {
-		name = "Reactor Boosters"
+		name = "CortanaEvent.3.Boosters"
 		trigger = { has_technology = tech_antimatter_power NOT = { has_technology = tech_reactor_boosters_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_reactor_boosters_2 } } give_technology = { tech = tech_reactor_boosters_2 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
 			if = { limit = { NOT = { has_technology = tech_reactor_boosters_3 } } give_technology = { tech = tech_reactor_boosters_3 } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
 		}
 	}
-	option = { name = "Back " hidden_effect = { country_event = { id = CortanaEvent.1 } } }
+	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
 
 country_event = {# Cortana Research - Ships Weapons
 	id = "CortanaEvent.4"
-	title = "Select a Technology"
-	desc = "Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	is_triggered_only = yes
 	immediate = {}
 	option = {
-		name = "Mass Drivers"
+		name = "CortanaEvent.4.Mass"
 		trigger = { NOT = { has_technology = tech_mass_drivers_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_mass_drivers_2 } } give_technology = { tech = tech_mass_drivers_2 } set_timed_country_flag = { flag = cortana_cooldown days = 360 }  remove_country_flag = cortana_ready break = yes }
@@ -318,7 +319,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Autocannons "
+		name = "CortanaEvent.4.Autocannon"
 		trigger = { has_technology = tech_mass_drivers_2 NOT = { has_technology = tech_autocannons_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_autocannons_1 } } give_technology = { tech = tech_autocannons_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -327,7 +328,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Artilleries "
+		name = "CortanaEvent.4.Artillery"
 		trigger = { has_technology = tech_mass_drivers_4 NOT = { has_technology = tech_kinetic_artillery_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_kinetic_artillery_1 } } give_technology = { tech = tech_kinetic_artillery_1 } set_timed_country_flag = { flag = cortana_cooldown days = 864 } remove_country_flag = cortana_ready break = yes }
@@ -335,7 +336,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Mass Accelerators"
+		name = "CortanaEvent.4.Accelerator"
 		trigger = { has_technology = tech_mass_drivers_5 has_technology = tech_battleships NOR = { has_technology = tech_mass_accelerator_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_mass_accelerator_1 } } give_technology = { tech = tech_mass_accelerator_1 } set_timed_country_flag = { flag = cortana_cooldown days = 1080 } remove_country_flag = cortana_ready break = yes }
@@ -343,7 +344,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Flak Batteries"
+		name = "CortanaEvent.4.Flak"
 		trigger = { NOT = { has_technology = tech_flak_batteries_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_flak_batteries_2 } } give_technology = { tech = tech_flak_batteries_2 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -351,7 +352,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Point Defenses"
+		name = "CortanaEvent.4.PD"
 		trigger = { NOT = { has_technology = tech_pd_tracking_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_pd_tracking_2 } } give_technology = { tech = tech_pd_tracking_2 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -359,7 +360,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Missiles "
+		name = "CortanaEvent.4.Missile"
 		trigger = { NOT = { has_technology = tech_missiles_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_missiles_1 } } give_technology = { tech = tech_missiles_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -370,7 +371,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Swarmer Missiles"
+		name = "CortanaEvent.4.Swarmer"
 		trigger = { has_technology = tech_missiles_2 NOR = { has_technology = tech_swarmer_missiles_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_swarmer_missiles_1 } } give_technology = { tech = tech_swarmer_missiles_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -378,7 +379,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Torpedoes "
+		name = "CortanaEvent.4.Torpedo"
 		trigger = { has_technology = tech_missiles_1 NOR = { has_technology = tech_torpedoes_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_torpedoes_1 } } give_technology = { tech = tech_torpedoes_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -387,7 +388,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Lasers "
+		name = "CortanaEvent.4.Laser"
 		trigger = { NOT = { has_technology = tech_lasers_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_lasers_2 } } give_technology = { tech = tech_lasers_2 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -397,7 +398,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Plasmas "
+		name = "CortanaEvent.4.Plasma"
 		trigger = { has_technology = tech_lasers_2 NOT = { has_technology = tech_plasma_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_plasma_1 } } give_technology = { tech = tech_plasma_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -406,7 +407,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Disruptors "
+		name = "CortanaEvent.4.Disruptor"
 		trigger = { has_technology = tech_lasers_2 NOT = { has_technology = tech_disruptors_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_disruptors_1 } } give_technology = { tech = tech_disruptors_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -415,7 +416,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Energy Torpedoes"
+		name = "CortanaEvent.4.EnergyTorpedo"
 		trigger = { has_technology = tech_lasers_4 NOT = { has_technology = tech_energy_torpedoes_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_energy_torpedoes_1 } } give_technology = { tech = tech_energy_torpedoes_1 } set_timed_country_flag = { flag = cortana_cooldown days = 576 } remove_country_flag = cortana_ready break = yes }
@@ -423,7 +424,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Energy Lances"
+		name = "CortanaEvent.4.Lance"
 		trigger = { has_technology = tech_lasers_4 has_technology = tech_battleships NOT = { has_technology = tech_energy_lance_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_energy_lance_1 } } give_technology = { tech = tech_energy_lance_1 } set_timed_country_flag = { flag = cortana_cooldown days = 1080 } remove_country_flag = cortana_ready break = yes }
@@ -431,7 +432,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Arc Emitters"
+		name = "CortanaEvent.4.Emitter"
 		trigger = { has_technology = tech_disruptors_3 has_technology = tech_battleships NOT = { has_technology = tech_arc_emitter_2 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_arc_emitter_1 } } give_technology = { tech = tech_arc_emitter_1 } set_timed_country_flag = { flag = cortana_cooldown days = 1080 } remove_country_flag = cortana_ready break = yes }
@@ -439,7 +440,7 @@ country_event = {# Cortana Research - Ships Weapons
 		}
 	}
 	option = {
-		name = "Strikecrafts "
+		name = "CortanaEvent.4.Craft"
 		trigger = { NOT = { has_technology = tech_strike_craft_3 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_strike_craft_1 } } give_technology = { tech = tech_strike_craft_1 } set_timed_country_flag = { flag = cortana_cooldown days = 1080 } remove_country_flag = cortana_ready break = yes }
@@ -447,37 +448,37 @@ country_event = {# Cortana Research - Ships Weapons
 			if = { limit = { NOT = { has_technology = tech_strike_craft_3 } } give_technology = { tech = tech_strike_craft_3 } set_timed_country_flag = { flag = cortana_cooldown days = 1080 } remove_country_flag = cortana_ready break = yes }
 		}
 	}
-	option = { name = "Back " hidden_effect = { country_event = { id = CortanaEvent.1 } } }
+	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
 
 country_event = {# Cortana Research - Blockers
 	id = "CortanaEvent.5"
-	title = "Select a Technology"
-	desc = "Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	is_triggered_only = yes
 	immediate = {}
-	option = { name = "Deep Crust Engineering" trigger = { NOT = { has_technology = tech_volcano } } hidden_effect = { give_technology = { tech = tech_volcano } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Planetary Resurfacing" trigger = { NOT = { has_technology = tech_mountain_range } } hidden_effect = { give_technology = { tech = tech_mountain_range } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Dangerous Wildlife Removal" trigger = { NOT = { has_technology = tech_dangerous_wildlife } } hidden_effect = { give_technology = { tech = tech_dangerous_wildlife } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Selective Defoliants" trigger = { NOT = { has_technology = tech_dense_jungle } } hidden_effect = { give_technology = { tech = tech_dense_jungle } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Soil Remediation" trigger = { NOT = { has_technology = tech_quicksand_basin } } hidden_effect = { give_technology = { tech = tech_quicksand_basin } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Xeno-Hydraulic Mastery" trigger = { NOT = { has_technology = tech_noxious_swamp } } hidden_effect = { give_technology = { tech = tech_noxious_swamp } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Climate Control Network" trigger = { NOT = { has_technology = tech_massive_glacier } } hidden_effect = { give_technology = { tech = tech_massive_glacier } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Ocean Ecology Management" trigger = { NOT = { has_technology = tech_toxic_kelp } } hidden_effect = { give_technology = { tech = tech_toxic_kelp } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Subterranean Colonization" trigger = { NOT = { has_technology = tech_deep_sinkhole } } hidden_effect = { give_technology = { tech = tech_deep_sinkhole } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
-	option = { name = "Back " hidden_effect = { country_event = { id = CortanaEvent.1 } } }
+	option = { name = "tech_volcano" trigger = { NOT = { has_technology = tech_volcano } } hidden_effect = { give_technology = { tech = tech_volcano } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_mountain_range" trigger = { NOT = { has_technology = tech_mountain_range } } hidden_effect = { give_technology = { tech = tech_mountain_range } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_dangerous_wildlife" trigger = { NOT = { has_technology = tech_dangerous_wildlife } } hidden_effect = { give_technology = { tech = tech_dangerous_wildlife } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_dense_jungle" trigger = { NOT = { has_technology = tech_dense_jungle } } hidden_effect = { give_technology = { tech = tech_dense_jungle } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_quicksand_basin" trigger = { NOT = { has_technology = tech_quicksand_basin } } hidden_effect = { give_technology = { tech = tech_quicksand_basin } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_noxious_swamp" trigger = { NOT = { has_technology = tech_noxious_swamp } } hidden_effect = { give_technology = { tech = tech_noxious_swamp } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_massive_glacier" trigger = { NOT = { has_technology = tech_massive_glacier } } hidden_effect = { give_technology = { tech = tech_massive_glacier } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_toxic_kelp" trigger = { NOT = { has_technology = tech_toxic_kelp } } hidden_effect = { give_technology = { tech = tech_toxic_kelp } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_deep_sinkhole" trigger = { NOT = { has_technology = tech_deep_sinkhole } } hidden_effect = { give_technology = { tech = tech_deep_sinkhole } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready } }
+	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
 
 country_event = {# Cortana Research - Others
 	id = "CortanaEvent.10"
-	title = "Select a Technology"
-	desc = "Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	is_triggered_only = yes
 	immediate = {}
 	option = {
-		name = "Terraformation "
+		name = "CortanaEvent.10.Terraformation"
 		trigger = { NOT = { has_technology = tech_climate_restoration } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_terrestrial_sculpting } } give_technology = { tech = tech_terrestrial_sculpting } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -486,7 +487,7 @@ country_event = {# Cortana Research - Others
 		}
 	}
 	option = {
-		name = "Colonization "
+		name = "CortanaEvent.10.Colonization"
 		trigger = { NOR = { has_technology = tech_colonization_5 has_authority = auth_machine_intelligence } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_colonization_1 } } give_technology = { tech = tech_colonization_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -497,7 +498,7 @@ country_event = {# Cortana Research - Others
 		}
 	}
 	option = {
-		name = "Mining Stations"
+		name = "CortanaEvent.10.Mining"
 		trigger = { NOT = { has_technology = tech_space_mining_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_space_mining_1 } } give_technology = { tech = tech_space_mining_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -508,7 +509,7 @@ country_event = {# Cortana Research - Others
 		}
 	}
 	option = {
-		name = "Research Stations"
+		name = "CortanaEvent.10.Research"
 		trigger = { NOT = { has_technology = tech_space_science_5 } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_space_science_1 } } give_technology = { tech = tech_space_science_1 } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -519,14 +520,14 @@ country_event = {# Cortana Research - Others
 		}
 	}
 	option = {
-		name = "Tomb World Adaptation"
+		name = "CortanaEvent.10.Adaption"
 		trigger = { has_technology = tech_colonization_2 NOT = { has_technology = tech_tomb_world_adaption } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_tomb_world_adaption } } give_technology = { tech = tech_tomb_world_adaption } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
 		}
 	}
 	option = {
-		name = "Robotic Workers"
+		name = "CortanaEvent.10.Robotic"
 		trigger = { NOT = { has_technology = tech_synthetic_workers } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_robotic_workers } } give_technology = { tech = tech_robotic_workers } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
@@ -535,55 +536,54 @@ country_event = {# Cortana Research - Others
 		}
 	}
 	option = {
-		name = "Assembly Pattern"
+		name = "CortanaEvent.10.Assembly"
 		trigger = { NOT = { has_technology = tech_construction_templates } }
 		hidden_effect = {
 			if = { limit = { NOT = { has_technology = tech_assembly_pattern } } give_technology = { tech = tech_assembly_pattern } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
 			if = { limit = { NOT = { has_technology = tech_construction_templates } } give_technology = { tech = tech_construction_templates } set_timed_country_flag = { flag = cortana_cooldown days = 360 } remove_country_flag = cortana_ready break = yes }
 		}
 	}
-	option = { name = "Back " hidden_effect = { country_event = { id = CortanaEvent.1 } } }
+	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
 
 country_event = {# Cortana Research - Others
 	id = "CortanaEvent.11"
-	title = "Select a Technology"
-	desc = "Please select a technology in the menu."
+	title = "CortanaEvent.1.Name"
+	desc = "CortanaEvent.1.Desc"
 	picture = GFX_evt_ai_cortana
 	is_triggered_only = yes
 	immediate = {}
-	option = { name = "Applied Superconductivity" hidden_effect = { give_technology = { tech = tech_repeatable_improved_tile_energy_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Shield Harmonics" hidden_effect = { give_technology = { tech = tech_repeatable_improved_shield_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Focusing Arrays" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_energy_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Flash Coolant" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_energy_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Gravitational Analysis" hidden_effect = { give_technology = { tech = tech_repeatable_reduced_building_cost } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Assembly Algorithms" hidden_effect = { give_technology = { tech = tech_repeatable_reduced_building_time } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Transgenic Crops" hidden_effect = { give_technology = { tech = tech_repeatable_improved_tile_food_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Administrative Efficiency" hidden_effect = { give_technology = { tech = tech_repeatable_improved_core_system_cap } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	# option = { name = "Proclamation Broadcasts" hidden_effect = { give_technology = { tech = tech_repeatable_improved_edict_length } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Aggressive Conditioning" hidden_effect = { give_technology = { tech = tech_repeatable_improved_army_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Nerve Dampeners" hidden_effect = { give_technology = { tech = tech_repeatable_improved_army_health } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Interstellar Expansion" hidden_effect = { give_technology = { tech = tech_repeatable_improved_starbase_capacity } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Fleet Management Procedures" hidden_effect = { give_technology = { tech = tech_repeatable_naval_cap } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Admiralty Support Staff" hidden_effect = { give_technology = { tech = tech_repeatable_command_limit } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Extraction Patterns" hidden_effect = { give_technology = { tech = tech_repeatable_improved_tile_mineral_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Synchronized Firing Patterns" hidden_effect = { give_technology = { tech = tech_repeatable_improved_military_station_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Fortified Core Layers" hidden_effect = { give_technology = { tech = tech_repeatable_improved_military_station_health } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Synapse Interceptors" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_strike_craft_fire_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Heat Recyclers" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_strike_craft_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Matter Compression" hidden_effect = { give_technology = { tech = tech_repeatable_improved_armor_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Thermodynamic Yield Control" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_explosive_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Miniaturized Pre-Igniters" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_explosive_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "High-Density Munitions" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_kinetic_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Loader Efficiency" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_kinetic_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
-	option = { name = "Back " hidden_effect = { country_event = { id = CortanaEvent.1 } } }
+	option = { name = "tech_repeatable_improved_tile_energy_output" hidden_effect = { give_technology = { tech = tech_repeatable_improved_tile_energy_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_shield_output" hidden_effect = { give_technology = { tech = tech_repeatable_improved_shield_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_energy_damage" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_energy_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_energy_fire_rate" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_energy_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_reduced_building_cost" hidden_effect = { give_technology = { tech = tech_repeatable_reduced_building_cost } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_reduced_building_time" hidden_effect = { give_technology = { tech = tech_repeatable_reduced_building_time } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_tile_food_output" hidden_effect = { give_technology = { tech = tech_repeatable_improved_tile_food_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_core_system_cap" hidden_effect = { give_technology = { tech = tech_repeatable_improved_core_system_cap } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	# option = { name = "tech_repeatable_improved_edict_length" hidden_effect = { give_technology = { tech = tech_repeatable_improved_edict_length } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_army_damage" hidden_effect = { give_technology = { tech = tech_repeatable_improved_army_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_army_health" hidden_effect = { give_technology = { tech = tech_repeatable_improved_army_health } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_starbase_capacity" hidden_effect = { give_technology = { tech = tech_repeatable_improved_starbase_capacity } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_naval_cap" hidden_effect = { give_technology = { tech = tech_repeatable_naval_cap } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_command_limit" hidden_effect = { give_technology = { tech = tech_repeatable_command_limit } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_tile_mineral_output" hidden_effect = { give_technology = { tech = tech_repeatable_improved_tile_mineral_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_military_station_damage" hidden_effect = { give_technology = { tech = tech_repeatable_improved_military_station_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_military_station_health" hidden_effect = { give_technology = { tech = tech_repeatable_improved_military_station_health } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_strike_craft_fire_damage" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_strike_craft_fire_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_strike_craft_fire_rate" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_strike_craft_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_improved_armor_output" hidden_effect = { give_technology = { tech = tech_repeatable_improved_armor_output } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_explosive_damage" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_explosive_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_explosive_fire_rate" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_explosive_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_kinetic_damage" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_kinetic_damage } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = "tech_repeatable_weapon_type_kinetic_fire_rate" hidden_effect = { give_technology = { tech = tech_repeatable_weapon_type_kinetic_fire_rate } set_timed_country_flag = { flag = cortana_cooldown days = 1440 } remove_country_flag = cortana_ready } }
+	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
-
 
 country_event = { # Cortana Research - Auto - Tech
 	id = "CortanaEvent.12"
-	title = "Cortana taking Initiatives"
-	desc = "Hello sir. I have thought that it might be useful for you, if I managed to make my own research by managing my power myself. I can't tell if it is the tech your were looking for or not. But I hope at least that it will help you in the future. I will always be by your side, take care."
+	title = "CortanaEvent.12.Name"
+	desc = "CortanaEvent.12.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
 	mean_time_to_happen = { months = 12 modifier = { factor = 0.5 has_technology = tech_cortana_advanced } }
@@ -595,16 +595,16 @@ country_event = { # Cortana Research - Auto - Tech
 		}
 	}
 	option = {
-		name = "A good initiative Cortana."
-		custom_tooltip = "Will unlock a random repeatable technology."
+		name = "CortanaEvent.12.a"
+		custom_tooltip = "CortanaEvent.12.a.tooltip"
 		hidden_effect = {
 			cortana_research_random_repeatable_technology = yes
 			if = { limit = { has_technology = tech_cortana_perfect } cortana_research_random_repeatable_technology = yes }
 		}
 	}
-	option = { name = "Don't show this message again."
+	option = { name = "UniqueAscensionPerks.no_message"
 		set_country_flag = cortana_research_random_repeatable_technology_no_warning
-		custom_tooltip = "Will unlock a random repeatable technology."
+		custom_tooltip = "CortanaEvent.12.a.tooltip"
 		hidden_effect = {
 			cortana_research_random_repeatable_technology = yes
 			if = { limit = { has_technology = tech_cortana_perfect } cortana_research_random_repeatable_technology = yes }
@@ -629,8 +629,8 @@ country_event = { # Cortana Research - Auto - Tech - Hidde
 
 country_event = { # Cortana Research - Help - Tech - Progress
 	id = "CortanaEvent.14"
-	title = "Cortana Helping Research"
-	desc = "Hello sir, let me help you in the research of that specific technology. Even without my full power, I can still be useful to you by helping in the progress of the technologies that you are currently researching."
+	title = "CortanaEvent.14.Name"
+	desc = "CortanaEvent.14.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
 	mean_time_to_happen = { months = 12 modifier = { factor = 0.5 has_technology = tech_cortana_advanced } }
@@ -642,14 +642,14 @@ country_event = { # Cortana Research - Help - Tech - Progress
 		}
 	}
 	option = {
-		name = "Thanks for the help Cortana."
-		custom_tooltip = "Will improve one of your research by 40% or give some research points if you are not researching anything."
+		name = "CortanaEvent.14.a"
+		custom_tooltip = "CortanaEvent.14.a.tooltip"
 		cortana_helps_research_current_technology = yes
 		if = { limit = { has_technology = tech_cortana_perfect } cortana_helps_research_current_technology = yes }
 	}
-	option = { name = "Don't show this message again."
+	option = { name = "UniqueAscensionPerks.no_message"
 		set_country_flag = cortana_helps_research_current_technology_no_warning
-		custom_tooltip = "Will improve one of your research by 40% or give some research points if you are not researching anything."
+		custom_tooltip = "CortanaEvent.14.a.tooltip"
 		cortana_helps_research_current_technology = yes
 		if = { limit = { has_technology = tech_cortana_perfect } cortana_helps_research_current_technology = yes }
 	}
@@ -672,12 +672,13 @@ country_event = { # Cortana Research - Help - Tech - Hidde
 
 country_event = {
 	id = CortanaEvent.20
-	title = "Cortana Fully Operational"
-	desc = "Sir, I am now ready to serve you at my full potential. You have now the possibility to use me as one of your special relics in order to research a massive amount of repeatable technologies at once. I will not need influence but energy as always to be activated, good luck."
+	title = "CortanaEvent.20.Name"
+	desc = "CortanaEvent.20.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
 	mean_time_to_happen = { months = 12 }
 	trigger = {
+		is_ai = no
 		has_ascension_perk = ap_ai_cortana
 		has_technology = tech_cortana_initiatives
 		has_technology = tech_cortana_help

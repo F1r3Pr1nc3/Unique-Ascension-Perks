@@ -7,109 +7,141 @@
 surgical_strike_take_resources = {
 	event_target:surgical_strike_planet = { set_timed_planet_flag = { flag = had_surgical_strike_resources_raid years = 5 } }
 	surgical_strike_resources = yes
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 50 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 100 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 150 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 200 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 250 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 300 } } surgical_strike_resources = yes }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 50 } } surgical_strike_resources = yes }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 100 } } surgical_strike_resources = yes }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 150 } } surgical_strike_resources = yes }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } surgical_strike_resources = yes }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 250 } } surgical_strike_resources = yes }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 300 } } surgical_strike_resources = yes }
 }
 
 surgical_strike_kill_pop = {
 	random_owned_pop = { surgical_strike_killed_pop = yes }
-	while = { count = 9 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 40 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 80 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 120 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 160 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 200 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 240 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 280 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 320 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { surgical_strike_killed_pop = yes } } 50 = {} } } }
+	while = { count = 9 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
 }
 
 surgical_strike_abduct_pop = {
 	random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes
 	while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 40 } } while = { count = 2 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 80 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 120 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 160 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 200 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 240 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 280 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 320 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 2 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
 }
 
 surgical_strike_destroy_districts = {
 	surgical_strike_districts = yes
-	while = { count = 3 random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 40 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 80 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 120 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 160 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 200 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 240 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 280 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 320 } } random_list = { 50 = { surgical_strike_districts = yes } 50 = {} } }
+	while = { count = 3 random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } random = { chance = 50 surgical_strike_districts = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } random = { chance = 50 surgical_strike_districts = yes } }
 }
 
 surgical_strike_destroy_buildings = {
 	surgical_strike_buildings = yes
-	while = { count = 1 random_list = { 50 = { surgical_strike_buildings = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 60 } } random_list = { 50 = { surgical_strike_buildings = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 120 } } random_list = { 50 = { surgical_strike_buildings = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 180 } } random_list = { 50 = { surgical_strike_buildings = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 240 } } random_list = { 50 = { surgical_strike_buildings = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size >= 300 } } random_list = { 50 = { surgical_strike_buildings = yes } 50 = {} } }
+	while = { count = 1 random = { chance = 50 surgical_strike_buildings = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 60 } } random = { chance = 50 surgical_strike_buildings = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_buildings = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 180 } } random = { chance = 50 surgical_strike_buildings = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_buildings = yes } }
+	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 300 } } random = { chance = 50 surgical_strike_buildings = yes } }
 }
 
 surgical_strike_killed_pop = {
-	random_list = { 5 = { surgical_strike_genocidal_opinion = yes } 95 = {} }
+	random = { chance = 5
+		# surgical_strike_genocidal_opinion = yes
+		# species = { save_event_target_as = purged_species }
+		random_country = {
+			limit = {
+				has_communications = root
+				exists = species
+				OR = {
+					merg_is_default_empire = yes
+					has_ai_personality = awakened_fallen_empire_xenophile
+				}
+				NOR = {
+					is_same_empire = root
+					species = { is_same_species = root.species }
+					has_ai_personality_behaviour = purger
+					has_opinion_modifier = { who = root modifier = opinion_genocidal }
+				}
+			}
+			add_opinion_modifier = { who = root modifier = opinion_genocidal }
+		}
+		random_country = {
+			limit = {
+				has_communications = root
+				exists = species
+				NOR = {
+					is_same_empire = root
+					has_opinion_modifier = { who = root modifier = opinion_genocidal_our_species }
+				}
+				species = { is_same_species = prevprev.species } # event_target:purged_species
+			}
+			add_opinion_modifier = { who = root modifier = opinion_genocidal_our_species }
+		}
+	}
 	kill_pop = yes
 }
 
-surgical_strike_genocidal_opinion = {
-	save_event_target_as = purged_species
-	every_country = {
-		limit = {
-			has_communications = root
-			NOR = {
-				is_country = root
-				is_same_species = root
-				has_ai_personality_behaviour = purger
-			}
-			OR = {
-				merg_is_default_empire = yes
-				has_ai_personality = awakened_fallen_empire_xenophile
-			}
-		}
-		add_opinion_modifier = { who = root modifier = opinion_genocidal }
-	}
-	every_country = {
-		limit = {
-			has_communications = root
-			NOT = { is_country = root }
-			is_same_species = event_target:purged_species
-		}
-		add_opinion_modifier = { who = root modifier = opinion_genocidal_our_species }
-	}
-}
+# surgical_strike_genocidal_opinion = {
+# 	save_event_target_as = purged_species
+# 	every_country = {
+# 		limit = {
+# 			has_communications = root
+# 			NOR = {
+# 				is_same_empire = root
+# 				is_same_species = root
+# 				has_ai_personality_behaviour = purger
+# 			}
+# 			OR = {
+# 				merg_is_default_empire = yes
+# 				has_ai_personality = awakened_fallen_empire_xenophile
+# 			}
+# 		}
+# 		add_opinion_modifier = { who = root modifier = opinion_genocidal }
+# 	}
+# 	every_country = {
+# 		limit = {
+# 			has_communications = root
+# 			NOT = { is_same_empire = root }
+# 			is_same_species = event_target:purged_species
+# 		}
+# 		add_opinion_modifier = { who = root modifier = opinion_genocidal_our_species }
+# 	}
+# }
 
 surgical_strike_abducted_pop_colony_transfer = {
 	ROOT = { random_owned_planet = { create_pop = { species = event_target:abducted_pop.species } } }
 	random_list = { 1 = { add_threat = { who = root amount = 1 } } 180 = {} }
 	event_target:abducted_pop = {
 		random_list = {
-			1 = { modifier = { factor = 1000 has_ethic = ethic_materialist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_materialist } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_spiritualist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_spiritualist } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_xenophile } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_xenophile } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_xenophobe } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_xenophobe } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_militarist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_militarist } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_pacifist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_pacifist } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_egalitarian } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_egalitarian } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_authoritarian } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_authoritarian } }
-			1 = { modifier = { factor = 1000 has_ethic = ethic_gestalt_consciousness } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_gestalt_consciousness } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_materialist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_materialist } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_spiritualist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_spiritualist } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_xenophile } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_xenophile } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_xenophobe } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_xenophobe } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_militarist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_militarist } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_pacifist } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_pacifist } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_egalitarian } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_egalitarian } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_authoritarian } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_authoritarian } }
+			2 = { modifier = { factor = 100 has_ethic = ethic_gestalt_consciousness } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_gestalt_consciousness } }
 		}
 		kill_pop = yes
 	}
@@ -303,27 +335,27 @@ surgical_strike_buildings = {
 	random_list = { 3 = { add_threat = { who = root amount = 1 } } 97 = {} }
 	random_list = {
 		### Capital Buildings
-		0 = { modifier = { factor = 0 NOT = { has_building = building_colony_shelter } } remove_building = building_colony_shelter }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_capital } } remove_building = building_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_major_capital } } remove_building = building_major_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_system_capital } } remove_building = building_system_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_deployment_post } } remove_building = building_deployment_post }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_machine_capital } } remove_building = building_machine_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_machine_major_capital } } remove_building = building_machine_major_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_machine_system_capital } } remove_building = building_machine_system_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_hive_capital } } remove_building = building_hive_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_hive_major_capital } } remove_building = building_hive_major_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_hab_capital } } remove_building = building_hab_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_hab_major_capital } } remove_building = building_hab_major_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_resort_capital } } remove_building = building_resort_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_resort_major_capital } } remove_building = building_resort_major_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_slave_capital } } remove_building = building_slave_capital }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_slave_major_capital } } remove_building = building_slave_major_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_colony_shelter } } remove_building = building_colony_shelter }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_capital } } remove_building = building_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_major_capital } } remove_building = building_major_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_system_capital } } remove_building = building_system_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_deployment_post } } remove_building = building_deployment_post }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_machine_capital } } remove_building = building_machine_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_machine_major_capital } } remove_building = building_machine_major_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_machine_system_capital } } remove_building = building_machine_system_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_hive_capital } } remove_building = building_hive_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_hive_major_capital } } remove_building = building_hive_major_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_hab_capital } } remove_building = building_hab_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_hab_major_capital } } remove_building = building_hab_major_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_resort_capital } } remove_building = building_resort_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_resort_major_capital } } remove_building = building_resort_major_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_slave_capital } } remove_building = building_slave_capital }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_slave_major_capital } } remove_building = building_slave_major_capital }
 		### Military Buildings
-		2 = { modifier = { factor = 0 NOT = { has_building = building_military_academy } } remove_building = building_military_academy }
-		2 = { modifier = { factor = 0 NOT = { has_building = building_stronghold } } remove_building = building_stronghold }
-		1 = { modifier = { factor = 0 NOT = { has_building = building_fortress } } remove_building = building_fortress }
-		1 = { modifier = { factor = 0 NOT = { has_building = building_planetary_shield_generator } } remove_building = building_planetary_shield_generator }
+		4 = { modifier = { factor = 0 NOT = { has_building = building_military_academy } } remove_building = building_military_academy }
+		4 = { modifier = { factor = 0 NOT = { has_building = building_stronghold } } remove_building = building_stronghold }
+		2 = { modifier = { factor = 0 NOT = { has_building = building_fortress } } remove_building = building_fortress }
+		2 = { modifier = { factor = 0 NOT = { has_building = building_planetary_shield_generator } } remove_building = building_planetary_shield_generator }
 		### Other Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = building_robot_assembly_plant } } remove_building = building_robot_assembly_plant }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_machine_assembly_plant } } remove_building = building_machine_assembly_plant }
@@ -494,7 +526,7 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_iodizium_research } } remove_building = building_iodizium_research }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_shroud_capacitor } } remove_building = building_shroud_capacitor }
 		### (Mod) Gigastructural Engineering & More - Buildings
-		1 = { modifier = { factor = 0 NOT = { has_building = gpm_building_stronghold } } remove_building = gpm_building_stronghold }
+		2 = { modifier = { factor = 0 NOT = { has_building = gpm_building_stronghold } } remove_building = gpm_building_stronghold }
 		### (Mod) Planetary Diversity - Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_mines } } remove_building = building_eludium_mines }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_graveyard_recycler } } remove_building = building_graveyard_recycler }
@@ -511,12 +543,12 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_ammonia_electrodeposition } } remove_building = building_ammonia_electrodeposition }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_zro_harvester } } remove_building = building_zro_harvester }
 		### (Mod) More Events Mod - Buildings
-		0 = { modifier = { factor = 0 NOT = { has_building = building_mem_primitive_capital } } remove_building = building_mem_primitive_capital }
-		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_planetary_shield_generator } } remove_building = building_mem_planetary_shield_generator }
-		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_planetary_shield_generator_heavy } } remove_building = building_mem_planetary_shield_generator_heavy }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_mem_lunar_age_elevator } } remove_building = building_mem_lunar_age_elevator }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_mem_lost_emperor_ancient_palace } } remove_building = building_mem_lost_emperor_ancient_palace }
-		0 = { modifier = { factor = 0 NOT = { has_building = building_mem_colony_ship_shelter } } remove_building = building_mem_colony_ship_shelter }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_primitive_capital } } remove_building = building_mem_primitive_capital }
+		2 = { modifier = { factor = 0 NOT = { has_building = building_mem_planetary_shield_generator } } remove_building = building_mem_planetary_shield_generator }
+		2 = { modifier = { factor = 0 NOT = { has_building = building_mem_planetary_shield_generator_heavy } } remove_building = building_mem_planetary_shield_generator_heavy }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_lunar_age_elevator } } remove_building = building_mem_lunar_age_elevator }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_lost_emperor_ancient_palace } } remove_building = building_mem_lost_emperor_ancient_palace }
+		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_colony_ship_shelter } } remove_building = building_mem_colony_ship_shelter }
 		### (Mod) Extra Ship Components - Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = nhsc_building_centralresearchbureau } } remove_building = nhsc_building_centralresearchbureau }
 		100 = { modifier = { factor = 0 NOT = { has_building = nhsc_building_culture_nexus } } remove_building = nhsc_building_culture_nexus }
@@ -541,31 +573,31 @@ surgical_strike_buildings = {
 }
 
 surgical_strike_resources = {
-	random_list = { 1 = { add_threat = { who = root amount = 1 } } 99 = {} }
+	random_list = { chance = 1 add_threat = { who = root amount = 1 } }
 	event_target:surgical_strike_planet = {
 		# Energy
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_technician = yes } } count_owned_pop = { count >= 1 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_technician = yes } } count_owned_pop = { count >= 10 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_technician = yes } } count_owned_pop = { count >= 20 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_technician = yes } } count_owned_pop = { count >= 30 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_technician = yes } } count_owned_pop = { count >= 40 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_technician = yes } } count_owned_pop = { count > 1 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_technician = yes } } count_owned_pop = { count > 10 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_technician = yes } } count_owned_pop = { count > 20 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_technician = yes } } count_owned_pop = { count > 30 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_technician = yes } } count_owned_pop = { count > 40 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_technician = yes } } } ROOT = { add_monthly_resource_mult = { resource = energy value = 6 min = 600 max = 2500 } } }
 		# Minerals
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_miner = yes } } count_owned_pop = { count >= 1 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_miner = yes } } count_owned_pop = { count >= 10 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_miner = yes } } count_owned_pop = { count >= 20 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_miner = yes } } count_owned_pop = { count >= 30 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_miner = yes } } count_owned_pop = { count >= 40 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_miner = yes } } count_owned_pop = { count > 1 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_miner = yes } } count_owned_pop = { count > 10 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_miner = yes } } count_owned_pop = { count > 20 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_miner = yes } } count_owned_pop = { count > 30 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_miner = yes } } count_owned_pop = { count > 40 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_miner = yes } } } ROOT = { add_monthly_resource_mult = { resource = minerals value = 6 min = 600 max = 2500 } } }
 		# Food
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_farmer = yes } } count_owned_pop = { count >= 1 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_farmer = yes } } count_owned_pop = { count >= 10 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_farmer = yes } } count_owned_pop = { count >= 20 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_farmer = yes } } count_owned_pop = { count >= 30 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_farmer = yes } } count_owned_pop = { count >= 40 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_farmer = yes } } count_owned_pop = { count > 1 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_farmer = yes } } count_owned_pop = { count > 10 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_farmer = yes } } count_owned_pop = { count > 20 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_farmer = yes } } count_owned_pop = { count > 30 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_farmer = yes } } count_owned_pop = { count > 40 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_farmer = yes } } } ROOT = { add_monthly_resource_mult = { resource = food value = 6 min = 600 max = 2500 } } }
 		# Alloys
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_foundry = yes } } count_owned_pop = { count >= 1 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_foundry = yes } } count_owned_pop = { count >= 10 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_foundry = yes } } count_owned_pop = { count >= 20 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_foundry = yes } } count_owned_pop = { count >= 30 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_foundry = yes } } count_owned_pop = { count >= 40 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_foundry = yes } } count_owned_pop = { count > 1 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_foundry = yes } } count_owned_pop = { count > 10 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_foundry = yes } } count_owned_pop = { count > 20 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_foundry = yes } } count_owned_pop = { count > 30 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_foundry = yes } } count_owned_pop = { count > 40 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_foundry = yes } } } ROOT = { add_monthly_resource_mult = { resource = alloys value = 6 min = 600 max = 2500 } } }
 		# Consumer Goods
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_artisan = yes } } count_owned_pop = { count >= 1 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_artisan = yes } } count_owned_pop = { count >= 10 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_artisan = yes } } count_owned_pop = { count >= 20 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_artisan = yes } } count_owned_pop = { count >= 30 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_artisan = yes } } count_owned_pop = { count >= 40 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_artisan = yes } } count_owned_pop = { count > 1 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_artisan = yes } } count_owned_pop = { count > 10 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_artisan = yes } } count_owned_pop = { count > 20 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_artisan = yes } } count_owned_pop = { count > 30 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_artisan = yes } } count_owned_pop = { count > 40 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_artisan = yes } } } ROOT = { add_monthly_resource_mult = { resource = consumer_goods value = 6 min = 600 max = 2500 } } }
 		# Physics
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_physics = yes } } count_owned_pop = { count >= 1 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_physics = yes } } count_owned_pop = { count >= 10 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_physics = yes } } count_owned_pop = { count >= 20 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_physics = yes } } count_owned_pop = { count >= 30 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_physics = yes } } count_owned_pop = { count >= 40 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_physics = yes } } count_owned_pop = { count > 1 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_physics = yes } } count_owned_pop = { count > 10 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_physics = yes } } count_owned_pop = { count > 20 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_physics = yes } } count_owned_pop = { count > 30 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_physics = yes } } count_owned_pop = { count > 40 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_physics = yes } } } ROOT = { add_monthly_resource_mult = { resource = physics_research value = 6 min = 600 max = 2500 } } }
 		# Society
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_society = yes } } count_owned_pop = { count >= 1 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_society = yes } } count_owned_pop = { count >= 10 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_society = yes } } count_owned_pop = { count >= 20 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_society = yes } } count_owned_pop = { count >= 30 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_society = yes } } count_owned_pop = { count >= 40 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_society = yes } } count_owned_pop = { count > 1 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_society = yes } } count_owned_pop = { count > 10 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_society = yes } } count_owned_pop = { count > 20 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_society = yes } } count_owned_pop = { count > 30 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_society = yes } } count_owned_pop = { count > 40 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_society = yes } } } ROOT = { add_monthly_resource_mult = { resource = society_research value = 6 min = 600 max = 2500 } } }
 		# Engineering
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_engineering = yes } } count_owned_pop = { count >= 1 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_engineering = yes } } count_owned_pop = { count >= 10 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_engineering = yes } } count_owned_pop = { count >= 20 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_engineering = yes } } count_owned_pop = { count >= 30 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_engineering = yes } } count_owned_pop = { count >= 40 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_engineering = yes } } count_owned_pop = { count > 1 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_engineering = yes } } count_owned_pop = { count > 10 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_engineering = yes } } count_owned_pop = { count > 20 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_engineering = yes } } count_owned_pop = { count > 30 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_engineering = yes } } count_owned_pop = { count > 40 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_engineering = yes } } } ROOT = { add_monthly_resource_mult = { resource = engineering_research value = 6 min = 600 max = 2500 } } }
 		# Unity
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_unity = yes } } count_owned_pop = { count >= 1 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_unity = yes } } count_owned_pop = { count >= 10 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_unity = yes } } count_owned_pop = { count >= 20 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_unity = yes } } count_owned_pop = { count >= 30 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_unity = yes } } count_owned_pop = { count >= 40 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_unity = yes } } count_owned_pop = { count > 1 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_unity = yes } } count_owned_pop = { count > 10 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_unity = yes } } count_owned_pop = { count > 20 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_unity = yes } } count_owned_pop = { count > 30 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_unity = yes } } count_owned_pop = { count > 40 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_unity = yes } } } ROOT = { add_monthly_resource_mult = { resource = unity value = 6 min = 600 max = 2500 } } }
 		# Rare Crystals
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_rare_crystals = yes } } count_owned_pop = { count >= 1 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_rare_crystals = yes } } count_owned_pop = { count >= 10 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_rare_crystals = yes } } count_owned_pop = { count >= 20 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_rare_crystals = yes } } count_owned_pop = { count >= 30 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_rare_crystals = yes } } count_owned_pop = { count >= 40 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_rare_crystals = yes } } count_owned_pop = { count > 1 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_rare_crystals = yes } } count_owned_pop = { count > 10 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_rare_crystals = yes } } count_owned_pop = { count > 20 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_rare_crystals = yes } } count_owned_pop = { count > 30 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_rare_crystals = yes } } count_owned_pop = { count > 40 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_rare_crystals = yes } } } ROOT = { add_monthly_resource_mult = { resource = rare_crystals value = 6 min = 600 max = 2500 } } }
 		# Exotic Gases
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_exotic_gases = yes } } count_owned_pop = { count >= 1 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_exotic_gases = yes } } count_owned_pop = { count >= 10 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_exotic_gases = yes } } count_owned_pop = { count >= 20 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_exotic_gases = yes } } count_owned_pop = { count >= 30 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_exotic_gases = yes } } count_owned_pop = { count >= 40 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_exotic_gases = yes } } count_owned_pop = { count > 1 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_exotic_gases = yes } } count_owned_pop = { count > 10 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_exotic_gases = yes } } count_owned_pop = { count > 20 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_exotic_gases = yes } } count_owned_pop = { count > 30 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_exotic_gases = yes } } count_owned_pop = { count > 40 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_exotic_gases = yes } } } ROOT = { add_monthly_resource_mult = { resource = exotic_gases value = 6 min = 600 max = 2500 } } }
 		# Volatile Motes
-		if = { limit = { count_owned_pop = { count < 10 limit = { EI_volatile_motes = yes } } count_owned_pop = { count >= 1 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_volatile_motes = yes } } count_owned_pop = { count >= 10 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_volatile_motes = yes } } count_owned_pop = { count >= 20 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_volatile_motes = yes } } count_owned_pop = { count >= 30 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_volatile_motes = yes } } count_owned_pop = { count >= 40 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count >= 50 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 6 min = 600 max = 2500 } } }
+		if = { limit = { count_owned_pop = { count < 10 limit = { EI_volatile_motes = yes } } count_owned_pop = { count > 1 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 1 min = 100 max = 200 } } } else_if = { limit = { count_owned_pop = { count < 20 limit = { EI_volatile_motes = yes } } count_owned_pop = { count > 10 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 2 min = 200 max = 400 } } } else_if = { limit = { count_owned_pop = { count < 30 limit = { EI_volatile_motes = yes } } count_owned_pop = { count > 20 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 3 min = 300 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 40 limit = { EI_volatile_motes = yes } } count_owned_pop = { count > 30 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 4 min = 400 max = 600 } } } else_if = { limit = { count_owned_pop = { count < 50 limit = { EI_volatile_motes = yes } } count_owned_pop = { count > 40 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 5 min = 500 max = 1000 } } } else_if = { limit = { count_owned_pop = { count > 50 limit = { EI_volatile_motes = yes } } } ROOT = { add_monthly_resource_mult = { resource = volatile_motes value = 6 min = 600 max = 2500 } } }
 	}
 }

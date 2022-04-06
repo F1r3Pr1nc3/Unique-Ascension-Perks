@@ -4,14 +4,18 @@
 #									 #
 #######################################
 
-create_treasures_pirate_country = {
-	if = {
-		limit = { any_country = { has_country_flag = treasures_pirate_country } }
-		random_country = {
-			limit = { has_country_flag = treasures_pirate_country }
-			save_event_target_as = treasures_pirate_country
-		}
-		else = {
+treasures_pirate_mission_generation = {
+	random_system_within_border = {
+		save_event_target_as = special_project_target_system
+		random_system_planet = { save_event_target_as = special_project_target }
+		# create_treasures_pirate_country = yes
+		if = {
+			limit = { any_country = { has_country_flag = treasures_pirate_country } }
+			random_country = {
+				limit = { has_country_flag = treasures_pirate_country }
+				save_event_target_as = treasures_pirate_country
+			}
+		} else = {
 			create_country = {
 				name = "NAME_Pirates"
 				type = pirate
@@ -23,16 +27,7 @@ create_treasures_pirate_country = {
 					set_country_flag = treasures_pirate_country
 				}
 			}
-			#last_created_country = { randomize_flag_symbol = "pirate" }
 		}
-	}
-}
-
-treasures_pirate_mission_generation = {
-	random_system_within_border = {
-		save_event_target_as = special_project_target_system
-		random_system_planet = { save_event_target_as = special_project_target }
-		create_treasures_pirate_country = yes
 		create_fleet = {
 			name = "NAME_Pirate_Fleet"
 			settings = { spawn_debris = no }
@@ -57,7 +52,7 @@ treasures_pirate_mission_generation = {
 
 treasures_project_finish_select_ship = {
 	ROOT = { set_ship_flag = treasures_ship_finished_project }
-	random_playbale_country = {
+	random_playable_country = {
 		limit = {
 			any_owned_ship = {
 				has_ship_flag = target_ship_project
@@ -65,7 +60,7 @@ treasures_project_finish_select_ship = {
 				solar_system = {
 					any_ship_in_system = {
 						has_ship_flag = treasures_ship_finished_project
-						#distance = { source = PREV max_distance <= 100 }
+						# distance = { source = prev max_distance <= 100 }
 					}
 				}
 			}
@@ -77,7 +72,7 @@ treasures_project_finish_select_ship = {
 				solar_system = {
 					any_ship_in_system = {
 						has_ship_flag = treasures_ship_finished_project
-						#distance = { source = PREV max_distance <= 100 }
+						# distance = { source = prev max_distance <= 100 }
 					}
 				}
 			}
@@ -89,10 +84,10 @@ treasures_project_finish_select_ship = {
 
 treasures_opinion_set = {
 	event_target:CountryTargetForPresent = {
-		if = { limit = { OR = { is_hostile_to = ROOT is_rival = ROOT } } add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = ROOT } }
-		else_if = { limit = { OR = { is_domineering_to = ROOT is_unfriendly_to = ROOT is_dismissive_to = ROOT } } add_opinion_modifier = { modifier = opinion_treasures_present_unfriendly who = ROOT } }
-		else_if = { limit = { OR = { is_neutral_to = ROOT } } add_opinion_modifier = { modifier = opinion_treasures_present_normal who = ROOT } }
-		else_if = { limit = { OR = { is_patronizing_to = ROOT is_friendly_to = ROOT is_cordial_to = ROOT } } add_opinion_modifier = { modifier = opinion_treasures_present_normal who = ROOT } }
-		else = { add_opinion_modifier = { modifier = opinion_treasures_present_normal who = ROOT } }
+		if = { limit = { OR = { is_hostile_to = root is_rival = root } } add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = root } }
+		else_if = { limit = { OR = { is_domineering_to = root is_unfriendly_to = root is_dismissive_to = root } } add_opinion_modifier = { modifier = opinion_treasures_present_unfriendly who = root } }
+		else_if = { limit = { OR = { is_neutral_to = root } } add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+		else_if = { limit = { OR = { is_patronizing_to = root is_friendly_to = root is_cordial_to = root } } add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+		else = { add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
 	}
 }

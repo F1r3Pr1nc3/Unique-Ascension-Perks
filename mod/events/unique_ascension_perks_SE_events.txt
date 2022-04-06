@@ -1,0 +1,711 @@
+namespace = UniqueAscensionPerksEvents
+#######################################
+#									 #
+########### Space Engineers ###########
+#									 #
+#######################################
+
+country_event = {
+	id = UniqueAscensionPerksEvents.1
+	title = "ap_space_engineers"
+	desc = "ap_space_engineers_desc"
+	show_sound = event_construction
+	picture = GFX_evt_space_engineers
+	location = capital_scope
+	is_triggered_only = yes
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 22 min = 5000 max = 15000 } }
+}
+
+ship_event = {
+	id = UniqueAscensionPerksEvents.2
+	title = "SPACE_ENGINEERS_PROJECT"
+	desc = "UniqueAscensionPerksEvents.2.Desc"
+	picture = GFX_evt_space_engineers
+	show_sound = event_ship_bridge
+	location = root
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		owner = { is_ai = no has_edict = enable_spacen_engineers_project }
+		is_ship_size = constructor
+		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.2.a"
+		allow = { root.owner = { resource_stockpile_compare = { resource = alloys value > 6000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { alloys = -3000 } }
+		set_ship_flag = ship_has_space_engineer_project
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = SPACE_ENGINEERS_PROJECT location = root owner = root.owner }
+	}
+	option = { name = ABORT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.3
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {}
+	immediate = {
+		random_owned_ship = {
+			limit = { is_same_value = event_target:ship_special_project }
+			remove_ship_flag = ship_has_space_engineer_project
+			save_event_target_as = spawn_location
+		}
+		country_event = { id = UniqueAscensionPerksEvents.4 }
+		create_fleet = {
+			name = "Space Engineer Citadel"
+			settings = { spawn_debris = no uses_naval_capacity = no }
+			effect = {
+				set_owner = root
+				create_ship = { name = random design = "Space Engineer Citadel" }
+				set_location = { target = event_target:spawn_location distance = 5 angle = random }
+				set_fleet_flag = space_engineer_starbase
+				add_modifier = { modifier = eternal_vigilance_fleet }
+			}
+		}
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.4
+	title = "UniqueAscensionPerksEvents.4.Name"
+	desc = "UniqueAscensionPerksEvents.4.Desc"
+	picture = GFX_evt_space_engineers
+	show_sound = event_construction
+	is_triggered_only = yes
+	location = event_target:spawn_location
+	immediate = {}
+	option = { name = EXCELLENT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.5
+	title = "UniqueAscensionPerksEvents.5.Name"
+	desc = "UniqueAscensionPerksEvents.5.Desc"
+	picture = GFX_evt_space_engineers
+	show_sound = event_structural_collapse
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = { random_owned_ship = { limit = { is_same_value = event_target:ship_special_project } remove_ship_flag = ship_has_space_engineer_project } }
+	option = { name = OK }
+}
+
+#######################################
+#									 #
+######## Celestial Manipulation #######
+#									 #
+#######################################
+
+country_event = {
+	id = UniqueAscensionPerksEvents.10
+	title = "ap_stellar_manipulation"
+	desc = "ap_stellar_manipulation_desc"
+	show_sound = event_psionic
+	picture = GFX_evt_planetary_program_2
+	location = capital_scope
+	is_triggered_only = yes
+	option = { name = EXCELLENT add_research_option = tech_stellar_manipulation_1 }
+}
+
+ship_event = {
+	id = UniqueAscensionPerksEvents.11
+	title = "UniqueAscensionPerksEvents.11.Name"
+	desc = "UniqueAscensionPerksEvents.11.Desc"
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_ship_bridge
+	location = root
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		owner = { is_ai = no has_edict = enable_planetary_project }
+		is_ship_size = constructor
+		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
+	}
+	option = {
+		name = "PLANETARY_PROJECT_1"
+		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_stellar_manipulation_1 resource_stockpile_compare = { resource = energy value > 2000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -2000 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_1
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_1 location = root owner = root.owner }
+	}
+	option = {
+		name = "PLANETARY_PROJECT_2"
+		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_stellar_manipulation_2 resource_stockpile_compare = { resource = energy value > 10000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -10000 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_2
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_2 location = root owner = root.owner }
+	}
+	option = {
+		name = "PLANETARY_PROJECT_3"
+		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_stellar_manipulation_3 resource_stockpile_compare = { resource = energy value > 25000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -25000 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_3
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_3 location = root owner = root.owner }
+	}
+	option = {
+		name = "PLANETARY_PROJECT_0"
+		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_habitat_1 resource_stockpile_compare = { resource = alloys value > 3000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { alloys = -3000 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_0
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_0 location = root owner = root.owner }
+	}
+	option = {
+		name = "PLANETARY_PROJECT_0a"
+		trigger = { has_global_flag = gigastructures_enabled NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_orbital_elysium resource_stockpile_compare = { resource = alloys value > 3000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { alloys = -3000 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_0a
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_0a location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.a1
+		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = minerals value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { minerals = -10000 alloys = -1500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100a
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100a location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.b1
+		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = food value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -10000 alloys = -1500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100b
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100b location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.c1
+		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = food value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { food = -10000 alloys = -1500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100c
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100c location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.d1
+		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = food value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { food = -10000 alloys = -1500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100d
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100d location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.e1
+		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -10000 alloys = -1500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100e
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100e location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.f1
+		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
+		allow = { root.owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -10000 alloys = -1500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100f
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100f location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.11
+		trigger = { has_global_flag = ap_stellar_manipulation }
+		allow = { root.owner = { resource_stockpile_compare = { resource = energy value > 200 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -200 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_1
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = "PLANETARY_PROJECT_1" location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.12
+		trigger = { has_global_flag = ap_stellar_manipulation }
+		allow = { root.owner = { resource_stockpile_compare = { resource = energy value > 1000 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -1000 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_2
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = "PLANETARY_PROJECT_2" location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.13
+		trigger = { has_global_flag = ap_stellar_manipulation }
+		allow = { root.owner = { resource_stockpile_compare = { resource = energy value > 2500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -2500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_3
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = "PLANETARY_PROJECT_3" location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.10
+		trigger = { has_global_flag = ap_stellar_manipulation }
+		allow = { root.owner = { resource_stockpile_compare = { resource = alloys value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { alloys = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_0
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_0 location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.10a
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = gigastructures_enabled }
+		allow = { root.owner = { resource_stockpile_compare = { resource = alloys value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { alloys = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_0a
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_0a location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.a
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
+		allow = { root.owner = { resource_stockpile_compare = { resource = minerals value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { minerals = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100a
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100a location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.b
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
+		allow = { root.owner = { resource_stockpile_compare = { resource = energy value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { energy = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100b
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100b location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.c
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
+		allow = { root.owner = { resource_stockpile_compare = { resource = food value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { food = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100c
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100c location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.d
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
+		allow = { root.owner = { resource_stockpile_compare = { resource = minerals value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { minerals = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100d
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100d location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.e
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
+		allow = { root.owner = { resource_stockpile_compare = { resource = minerals value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { minerals = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100e
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100e location = root owner = root.owner }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.100.f
+		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
+		allow = { root.owner = { resource_stockpile_compare = { resource = minerals value > 500 } } NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project } }
+		root.owner = { add_resource = { minerals = -500 } }
+		set_ship_flag = ship_has_planetary_program
+		set_ship_flag = ship_has_planetary_program_100f
+		save_event_target_as = ship_special_project
+		enable_special_project = { name = PLANETARY_PROJECT_100f location = root owner = root.owner }
+	}
+	option = { name = UniqueAscensionPerksEvents.11.Program.Z }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.12
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_ai = no
+		exists = event_target:ship_special_project
+	}
+	immediate = {
+		# finish_plantery_program = yes
+			# random_owned_ship = {
+			# 	limit = { is_same_value = event_target:ship_special_project }
+		event_target:ship_special_project = {
+			if = {
+				limit = { has_ship_flag = ship_has_planetary_program_1 }
+				solar_system = { spawn_planet = { class = pc_asteroid location = prev has_ring = no init_effect = { set_name = "Asteroid" set_planet_flag = new_asteroid set_planet_flag = new_asteroid_unnamed } } }
+				ROOT = {
+					country_event = { id = UniqueAscensionPerksEvents.13 }
+					country_event = { id = UniqueAscensionPerksEvents.17 days = 5 random = 5 }
+				}
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_2 }
+				random_list = {
+					80 = {
+						modifier = { factor = 2.0 owner = { has_technology = tech_stellar_manipulation_z } }
+						if = { limit = { has_global_flag = planetarydiversity } solar_system = { spawn_planet = { class = rl_CM_PD_planet_spawner location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } } }
+						else = { solar_system = { spawn_planet = { class = rl_CM_planet_spawner location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } } }
+						ROOT = { country_event = { id = UniqueAscensionPerksEvents.14 } }
+					}
+					20 = { modifier = { factor = 0 has_global_flag = ap_stellar_manipulation } ROOT = { country_event = { id = UniqueAscensionPerksEvents.16 } } }
+				}
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_3 }
+				random_list = {
+					65 = {
+						modifier = { factor = 2.0 owner = { has_technology = tech_stellar_manipulation_z } }
+						if = { limit = { owner = { is_regular_empire = yes } } solar_system = { spawn_planet = { class = pc_gaia location = prev has_ring = no init_effect = { set_name = "Perfect World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } } }
+						else_if = { limit = { owner = { is_hive_empire = yes } } solar_system = { spawn_planet = { class = pc_hive location = prev has_ring = no init_effect = { set_name = "Perfect World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } } }
+						else_if = { limit = { owner = { is_machine_empire = yes } } solar_system = { spawn_planet = { class = pc_machine location = prev has_ring = no init_effect = { set_name = "Perfect World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } } }
+						ROOT = { country_event = { id = UniqueAscensionPerksEvents.15 } }
+					}
+					35 = { modifier = { factor = 0 has_global_flag = ap_stellar_manipulation } ROOT = { country_event = { id = UniqueAscensionPerksEvents.16 } } }
+				}
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_0 }
+				solar_system = { spawn_planet = { class = pc_habitat location = prev has_ring = no init_effect = { set_name = "Habitat" set_planet_entity = { entity = "habitat_phase_01_entity" graphical_culture = root } set_planet_size = 4 set_planet_flag = megastructure set_planet_flag = habitat set_planet_flag = new_habitat set_planet_flag = new_habitat_unnamed } } }
+				ROOT = {
+					country_event = { id = UniqueAscensionPerksEvents.4020 }
+					country_event = { id = UniqueAscensionPerksEvents.19 days = 5 random = 5 }
+				}
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_0a }
+				solar_system = { spawn_planet = { class = pc_gigaorbital_ring location = prev size = 10 has_ring = no init_effect = { set_name = "Orbital Elysium" set_planet_entity = { entity = "giga_orbital_habitat_entity_01_entity" graphical_culture = root } set_planet_flag = megastructure set_planet_flag = habitat set_planet_flag = new_elysium set_planet_flag = new_elysium_unnamed } } }
+				ROOT = {
+					country_event = { id = UniqueAscensionPerksEvents.4021 }
+					country_event = { id = UniqueAscensionPerksEvents.4022 days = 5 random = 5 }
+				}
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_100a }
+				solar_system = { spawn_planet = { class = pc_mining location = prev has_ring = no init_effect = { set_name = "Mining World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4030 } }
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_100b }
+				solar_system = { spawn_planet = { class = pc_energy location = prev has_ring = no init_effect = { set_name = "Generator World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4031 } }
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_100c }
+				solar_system = { spawn_planet = { class = pc_farming location = prev has_ring = no init_effect = { set_name = "Megafarm World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4032 } }
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_100d }
+				solar_system = { spawn_planet = { class = pc_eco location = prev has_ring = no init_effect = { set_name = "Menagerie World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4033 } }
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_100e }
+				solar_system = { spawn_planet = { class = pc_training location = prev has_ring = no init_effect = { set_name = "Fortress World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4034 } }
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_100f }
+				solar_system = { spawn_planet = { class = pc_trade location = prev has_ring = no init_effect = { set_name = "Commercial World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4035 } }
+			}
+			# clear_planteary_program_ship_flags = yes
+			remove_ship_flag = ship_has_planetary_program
+			remove_ship_flag = ship_has_planetary_program_1
+			remove_ship_flag = ship_has_planetary_program_2
+			remove_ship_flag = ship_has_planetary_program_3
+			remove_ship_flag = ship_has_planetary_program_0
+			remove_ship_flag = ship_has_planetary_program_0a
+			remove_ship_flag = ship_has_planetary_program_100a
+			remove_ship_flag = ship_has_planetary_program_100b
+			remove_ship_flag = ship_has_planetary_program_100c
+			remove_ship_flag = ship_has_planetary_program_100d
+			remove_ship_flag = ship_has_planetary_program_100e
+			remove_ship_flag = ship_has_planetary_program_100f
+		}
+		country_event = { id = UniqueAscensionPerksEvents.18 days = 5 random = 5 }
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.13
+	title = "UniqueAscensionPerksEvents.13.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	picture = GFX_evt_planetary_program_1
+	show_sound = event_ship_bridge
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = {}
+	option = { name = EXCELLENT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.14
+	title = "UniqueAscensionPerksEvents.14.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	picture = GFX_evt_planetary_program_2
+	show_sound = event_ship_bridge
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = {}
+	option = { name = EXCELLENT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.15
+	title = "UniqueAscensionPerksEvents.15.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	picture = GFX_evt_planetary_program_3
+	show_sound = event_ship_bridge
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = {}
+	option = { name = EXCELLENT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.16
+	title = "UniqueAscensionPerksEvents.16.Name"
+	desc = "ap_stellar_manipulation_failed"
+	picture = GFX_evt_exploding_planet
+	show_sound = event_structural_collapse
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = {
+		# unfinished_plantery_program = yes
+		# random_owned_ship = {
+		# 	limit = { is_same_value = event_target:ship_special_project }
+		event_target:ship_special_project = {
+			if = {
+				limit = { has_ship_flag = ship_has_planetary_program_2 }
+				solar_system = { spawn_planet = { class = pc_shattered location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
+			} else_if = {
+				limit = { has_ship_flag = ship_has_planetary_program_3 }
+				solar_system = { spawn_planet = { class = pc_nuked location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
+			}
+			# clear_planteary_program_ship_flags = yes
+			remove_ship_flag = ship_has_planetary_program
+			remove_ship_flag = ship_has_planetary_program_1
+			remove_ship_flag = ship_has_planetary_program_2
+			remove_ship_flag = ship_has_planetary_program_3
+			remove_ship_flag = ship_has_planetary_program_0
+			remove_ship_flag = ship_has_planetary_program_0a
+			remove_ship_flag = ship_has_planetary_program_100a
+			remove_ship_flag = ship_has_planetary_program_100b
+			remove_ship_flag = ship_has_planetary_program_100c
+			remove_ship_flag = ship_has_planetary_program_100d
+			remove_ship_flag = ship_has_planetary_program_100e
+			remove_ship_flag = ship_has_planetary_program_100f
+		}
+	}
+	after = {
+		country_event = { id = UniqueAscensionPerksEvents.18 days = 5 random = 5 }
+	}
+	option = { name = OK }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.17
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_asteroid_unnamed } }
+	# mean_time_to_happen = { days = 10 }
+	immediate = {
+		change_variable = { which = "random_asteroid_name" value = 1 }
+		random_galaxy_planet = {
+			limit = { has_planet_flag = new_asteroid_unnamed }
+			save_event_target_as = planet_to_rename
+			random_galaxy_planet = {
+				limit = { is_asteroid = yes NOT = { has_planet_flag = new_asteroid } }
+				save_event_target_as = current_planet_name
+			}
+		}
+		event_target:planet_to_rename = {
+			remove_planet_flag = new_asteroid_unnamed
+			set_name = "ASTEROID_RANDOM_NAME"
+			clear_deposits = yes
+			random_list = {
+				10 = { add_deposit = d_minerals_6 }
+				10 = { add_deposit = d_minerals_8 }
+				10 = { add_deposit = d_minerals_10 }
+				10 = { add_deposit = d_minerals_4 add_deposit = d_alloys_2 }
+				10 = { add_deposit = d_minerals_1 add_deposit = d_alloys_3 }
+				10 = { add_deposit = d_alloys_4 }
+				10 = { add_deposit = d_minerals_3 add_deposit = d_energy_3 }
+				10 = { add_deposit = d_minerals_2 add_deposit = d_energy_5 }
+			}
+
+		}
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.18
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_planet_unnamed } }
+	# mean_time_to_happen = { days = 10 }
+	immediate = {
+		change_variable = { which = "random_planet_name" value = 1 }
+		random_galaxy_planet = {
+			limit = { has_planet_flag = new_planet_unnamed }
+			save_event_target_as = planet_to_rename
+			solar_system ={
+				random_system_planet = {
+					limit = { is_star = yes }
+					save_event_target_as = current_planet_name
+				}
+			}
+		}
+		event_target:planet_to_rename = {
+			remove_planet_flag = new_planet_unnamed
+			set_name = "PLANET_RANDOM_NAME"
+		}
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.19
+	hide_window = yes
+	trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_habitat_unnamed } }
+	# mean_time_to_happen = { days = 10 }
+	is_triggered_only = yes
+	immediate = {
+		change_variable = { which = "random_habitat_name" value = 1 }
+		random_galaxy_planet = {
+			limit = { has_planet_flag = new_habitat_unnamed }
+			remove_planet_flag = new_habitat_unnamed
+			set_name = "HABITAT_RANDOM_NAME"
+		}
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.4020
+	title = "UniqueAscensionPerksEvents.4020.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	picture = GFX_evt_colony_settlement
+	show_sound = event_mystic_reveal
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = {}
+	option = { name = EXCELLENT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.4021
+	title = "UniqueAscensionPerksEvents.4021.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	picture = GFX_evt_ringworld
+	show_sound = event_mystic_reveal
+	is_triggered_only = yes
+	location = event_target:ship_special_project
+	immediate = {}
+	option = { name = EXCELLENT }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.4022
+	hide_window = yes
+	trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_elysium_unnamed } }
+	is_triggered_only = yes
+	# mean_time_to_happen = { days = 10 }
+	immediate = {
+		change_variable = { which = "random_elysium_name" value = 1 }
+		random_galaxy_planet = {
+			limit = { has_planet_flag = new_elysium_unnamed }
+			remove_planet_flag = new_elysium_unnamed
+			set_name = "ELYSIUM_RANDOM_NAME"
+		}
+	}
+}
+
+# manipulation_planet
+planet_event = {
+	id = UniqueAscensionPerksEvents.4025
+	title = "UniqueAscensionPerksEvents.4025.Name"
+	desc = "UniqueAscensionPerksEvents.4025.Desc"
+	show_sound = event_alien_nature
+	picture = GFX_evt_planetary_program_2
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.4030
+	title = "UniqueAscensionPerksEvents.4030.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	show_sound = event_mystic_reveal
+	picture = GFX_evt_mining_planet
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.4031
+	title = "UniqueAscensionPerksEvents.4031.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	show_sound = event_alien_nature
+	picture = GFX_evt_energy_planet
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.4032
+	title = "UniqueAscensionPerksEvents.4032.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	show_sound = event_mystic_reveal
+	picture = GFX_evt_farming_planet
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.4033
+	title = "UniqueAscensionPerksEvents.4033.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	show_sound = event_mystic_reveal
+	picture = GFX_evt_eco_planet
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.4034
+	title = "UniqueAscensionPerksEvents.4034.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	show_sound = event_mystic_reveal
+	picture = GFX_evt_training_planet
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.4035
+	title = "UniqueAscensionPerksEvents.4035.Name"
+	desc = "ap_stellar_manipulation_succeed"
+	show_sound = event_mystic_reveal
+	picture = GFX_evt_trade_planet
+	location = this
+	is_triggered_only = yes
+	option = { name = EXCELLENT }
+}

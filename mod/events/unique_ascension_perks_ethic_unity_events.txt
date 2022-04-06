@@ -279,7 +279,18 @@ country_event = { # Xenophile - Unity by number of xeno pops.
 		has_ascension_perk = ap_advanced_government_2
 	}
 	immediate = {
-		if = { limit = { num_species = 2 } add_monthly_resource_mult = { resource = unity value = 6 min = 15 max = 6000 } } else_if = { limit = { num_species = 3 } add_monthly_resource_mult = { resource = unity value = 12 min = 30 max = 12000 } } else_if = { limit = { num_species = 4 } add_monthly_resource_mult = { resource = unity value = 18 min = 45 max = 18000 } } else_if = { limit = { num_species = 5 } add_monthly_resource_mult = { resource = unity value = 24 min = 60 max = 24000 } } else_if = { limit = { num_species = 6 } add_monthly_resource_mult = { resource = unity value = 30 min = 75 max = 30000 } } else_if = { limit = { num_species = 7 } add_monthly_resource_mult = { resource = unity value = 36 min = 90 max = 36000 } } else_if = { limit = { num_species = 8 } add_monthly_resource_mult = { resource = unity value = 42 min = 105 max = 42000 } } else_if = { limit = { num_species = 9 } add_monthly_resource_mult = { resource = unity value = 48 min = 120 max = 48000 } } else_if = { limit = { num_species > 10 } add_monthly_resource_mult = { resource = unity value = 50 min = 135 max = 54000 } }
+		switch = {
+			trigger = num_species
+			2 = { add_monthly_resource_mult = { resource = unity value = 6 min = 15 max = 6000 } }
+			3 = { add_monthly_resource_mult = { resource = unity value = 12 min = 30 max = 12000 } }
+			4 = { add_monthly_resource_mult = { resource = unity value = 18 min = 45 max = 18000 } }
+			5 = { add_monthly_resource_mult = { resource = unity value = 24 min = 60 max = 24000 } }
+			6 = { add_monthly_resource_mult = { resource = unity value = 30 min = 75 max = 30000 } }
+			7 = { add_monthly_resource_mult = { resource = unity value = 36 min = 90 max = 36000 } }
+			8 = { add_monthly_resource_mult = { resource = unity value = 42 min = 105 max = 42000 } }
+			9 = { add_monthly_resource_mult = { resource = unity value = 48 min = 120 max = 48000 } }
+			9 > { add_monthly_resource_mult = { resource = unity value = 50 min = 135 max = 54000 } }
+		}
 	}
 }
 

@@ -44,22 +44,22 @@ realm_random_intersection_direction = {
 		random_list = {
 			10 = {
 				modifier = { factor = 0 has_country_flag = realm_destination_intersection_north }
-				modifier = { factor = 1000 realm_destination_intersection_no_direction = yes }
+				modifier = { factor = 100 realm_destination_intersection_no_direction = yes }
 				set_country_flag = realm_destination_intersection_north
 			}
 			10 = {
 				modifier = { factor = 0 has_country_flag = realm_destination_intersection_west }
-				modifier = { factor = 1000 realm_destination_intersection_no_direction = yes }
+				modifier = { factor = 100 realm_destination_intersection_no_direction = yes }
 				set_country_flag = realm_destination_intersection_west
 			}
 			10 = {
 				modifier = { factor = 0 has_country_flag = realm_destination_intersection_south }
-				modifier = { factor = 1000 realm_destination_intersection_no_direction = yes }
+				modifier = { factor = 100 realm_destination_intersection_no_direction = yes }
 				set_country_flag = realm_destination_intersection_south
 			}
 			10 = {
 				modifier = { factor = 0 has_country_flag = realm_destination_intersection_east }
-				modifier = { factor = 1000 realm_destination_intersection_no_direction = yes }
+				modifier = { factor = 100 realm_destination_intersection_no_direction = yes }
 				set_country_flag = realm_destination_intersection_east
 			}
 			40 = {}
@@ -300,6 +300,7 @@ realm_swarm_small_group_failure = {
 	realm_clear_flags = yes
 	random_owned_planet = { save_event_target_as = spawn_location }
 	create_uncontrolled_swarm_country = yes
+	if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } } last_created_country = { save_event_target_as = uncontrolled_swarm } }
 	event_target:uncontrolled_swarm = {
 		create_fleet = {
 			name = "Uncontrolled Swarm"
@@ -322,6 +323,7 @@ realm_swarm_medium_group_failure = {
 	realm_clear_flags = yes
 	random_owned_planet = { save_event_target_as = spawn_location }
 	create_uncontrolled_swarm_country = yes
+	if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } } last_created_country = { save_event_target_as = uncontrolled_swarm } }
 	event_target:uncontrolled_swarm = {
 		create_fleet = {
 			name = "Uncontrolled Swarm"
@@ -345,6 +347,7 @@ realm_swarm_big_group_failure = {
 	realm_clear_flags = yes
 	random_owned_planet = { save_event_target_as = spawn_location }
 	create_uncontrolled_swarm_country = yes
+	if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } } last_created_country = { save_event_target_as = uncontrolled_swarm } }
 	event_target:uncontrolled_swarm = {
 		create_fleet = {
 			name = "Uncontrolled Swarm"
@@ -369,21 +372,20 @@ create_uncontrolled_swarm_country = {
 	if = {
 		limit = { any_country = { has_country_flag = uncontrolled_swarm } }
 		random_country = { limit = { has_country_flag = uncontrolled_swarm } save_event_target_as = uncontrolled_swarm }
-		else = {
-			create_country = {
-				name = "Uncontrolled Swarm"
-				type = domesticated_spaceborn_alien
-				flag = {
-					icon = { category = "special" file = "the_swarm.dds" }
-					background = { category = "backgrounds" file = "new_dawn.dds"}
-					colors = { "orange" "grey" "null" "null" }
-				}
-				effect = {
-					every_country = { establish_communications_no_message = prev }
-					save_event_target_as = uncontrolled_swarm
-					set_country_flag = uncontrolled_swarm
-					set_faction_hostility = { set_hostile = yes }
-				}
+	} else = {
+		create_country = {
+			name = "Uncontrolled Swarm"
+			type = domesticated_spaceborn_alien
+			flag = {
+				icon = { category = "special" file = "the_swarm.dds" }
+				background = { category = "backgrounds" file = "new_dawn.dds"}
+				colors = { "orange" "grey" "null" "null" }
+			}
+			effect = {
+				every_country = { establish_communications_no_message = prev }
+				save_event_target_as = uncontrolled_swarm
+				set_country_flag = uncontrolled_swarm
+				set_faction_hostility = { set_hostile = yes }
 			}
 		}
 	}

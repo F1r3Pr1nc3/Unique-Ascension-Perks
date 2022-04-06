@@ -1,0 +1,61 @@
+ap_eternal_vigilance = {
+	possible = { custom_tooltip = { fail_text = "requires_technology_starbase_4" has_technology = tech_starbase_4 } }
+	modifier = {
+		shipclass_starbase_damage_mult = 0.25
+		shipclass_starbase_hull_mult = 0.25
+		shipclass_military_station_damage_mult = 0.25
+		starbase_defense_platform_capacity_add = 5
+	}
+	on_enabled = {
+		custom_tooltip = "ap_eternal_vigilance_tooltip"
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.129 } }
+	}
+	potential = { NOT = { has_ascension_perk = ap_eternal_vigilance } }
+	ai_weight = {
+		factor = 10
+		modifier = {
+			factor = 2
+			has_civic = civic_inwards_perfection
+		}
+		modifier = {
+			factor = 1.5
+			is_xenophobe = yes
+		}
+		modifier = {
+			factor = 1.5
+			any_neighbor_country = {
+				merg_is_default_empire = yes
+				opinion_level = { who = root level <= poor }
+				relative_power = { who = root value >= superior }
+			}
+		}
+	}
+}
+
+ap_executive_vigor = {
+	modifier = {
+		country_edict_fund_add = 100 # 3.3
+		# edict_length_mult = 0.50
+	}
+	potential = { NOT = { has_ascension_perk = ap_executive_vigor } }
+	on_enabled = {
+		custom_tooltip = "ap_executive_vigor_tooltip"
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.421 } }
+	}
+	ai_weight = {
+		factor = 30 # it's better than average
+	}
+}
+
+ap_transcendent_learning = {
+	modifier = {
+		leader_skill_levels = 2
+		species_leader_exp_gain = 0.50
+	}
+	on_enabled = {
+		custom_tooltip = "ap_transcendent_learning_tooltip"
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.31 } }
+	}
+	potential = { NOT = { has_ascension_perk = ap_transcendent_learning } }
+	ai_weight = { factor = 10 }
+}

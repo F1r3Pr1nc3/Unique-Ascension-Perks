@@ -6,27 +6,27 @@
 
 create_scout_probes_country = {
 	save_event_target_as = main_country
-	if = { 
+	if = {
 		limit = { any_country = { has_relation_flag = { who = event_target:main_country flag = scout_probes } } }
 		random_country = {
 			limit = { has_relation_flag = { who = event_target:main_country flag = scout_probes } }
 			save_event_target_as = scout_probes
-		} else = {
-			create_country = {
-				name = "Scout Probes"
-				type = defense_sentinels
-				flag = { 
-					icon = { category = "ornate" file = "flag_ornate_24.dds" }
-					background= { category = "backgrounds" file = "v.dds" }
-					colors = { "black" "blue" "null" "null" }
-				}
-				effect = {
-					every_country = { limit = { has_communications = event_target:main_country } establish_communications_no_message = prev }
-					save_event_target_as = scout_probes
-					set_country_flag = scout_probes
-					set_relation_flag = { who = event_target:main_country flag = scout_probes }
-					set_subject_of = { who = event_target:main_country subject_type = space_dimestication }
-				}
+		}
+	} else = {
+		create_country = {
+			name = "Scout Probes"
+			type = defense_sentinels
+			flag = {
+				icon = { category = "ornate" file = "flag_ornate_24.dds" }
+				background= { category = "backgrounds" file = "v.dds" }
+				colors = { "black" "blue" "null" "null" }
+			}
+			effect = {
+				every_country = { limit = { has_communications = event_target:main_country } establish_communications_no_message = prev }
+				save_event_target_as = scout_probes
+				set_country_flag = scout_probes
+				set_relation_flag = { who = event_target:main_country flag = scout_probes }
+				set_subject_of = { who = event_target:main_country subject_type = space_dimestication }
 			}
 		}
 	}
@@ -53,14 +53,14 @@ scout_probes_idle_fleet_selection = {
 	save_event_target_as = main_country
 	random_country = {
 		limit = {
-			has_country_flag = scout_probes 
+			has_country_flag = scout_probes
 			has_relation_flag = { who = event_target:main_country flag = scout_probes }
 		}
 		save_event_target_as = scout_probes
-		every_owned_fleet = { # Select Fleets	
-			limit = { 
+		every_owned_fleet = { # Select Fleets
+			limit = {
 				has_fleet_flag = scout_probe_fleet
-				is_fleet_idle = yes 
+				is_fleet_idle = yes
 			}
 			remove_fleet_flag = scout_probe_fleet_scouting
 			# fleet_event = { id = UniqueAscensionPerksEvents.263 days = 1 random = 2 }
@@ -84,7 +84,7 @@ scout_probes_idle_fleet_action = {
 			star = { save_event_target_as = scout_probe_fleet_destination }
 			# set_timed_fleet_flag = { flag = system_no_more_scouting_probe days = 180 }
 		}
-		# event_target:main_country = { 
+		# event_target:main_country = {
 		##	if = {
 		#		limit = { any_system = { event_target:main_country = { intel_level = { level = none system = prev } } } }
 		##		ROOT = {
@@ -95,7 +95,7 @@ scout_probes_idle_fleet_action = {
 		#		}
 		#	}
 		#}
-		set_fleet_flag = scout_probe_fleet_scouting	
+		set_fleet_flag = scout_probe_fleet_scouting
 		set_timed_fleet_flag = { flag = scout_probe_fleet_scouting_order days = 45 }
 		remove_auto_move_target = yes
 		auto_move_to_planet = { target = event_target:scout_probe_fleet_destination clear_auto_move_on_arrival = no }

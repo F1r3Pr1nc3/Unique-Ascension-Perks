@@ -169,16 +169,19 @@ primitive_country_into_next_age = {
 	hidden_effect = {
 		event_target:primitive_creation_country = {
 			remove_country_flag = recently_advanced
-			if = { limit = { has_country_flag = stone_age } country_event = { id = primitive.30 } }
-			else_if = { limit = { has_country_flag = bronze_age } country_event = { id = primitive.20 } }
-			else_if = { limit = { has_country_flag = iron_age } country_event = { id = primitive.22 } }
-			else_if = { limit = { has_country_flag = late_medieval_age } country_event = { id = primitive.24 } }
-			else_if = { limit = { has_country_flag = renaissance_age } country_event = { id = primitive.26 } }
-			else_if = { limit = { has_country_flag = steam_age } country_event = { id = primitive.28 } }
-			else_if = { limit = { has_country_flag = industrial_age } country_event = { id = primitive.10 } }
-			else_if = { limit = { has_country_flag = machine_age } country_event = { id = primitive.12 } }
-			else_if = { limit = { has_country_flag = atomic_age } country_event = { id = primitive.14 } }
-			else_if = { limit = { has_country_flag = early_space_age } country_event = { id = primitive.16 } }
+			switch = {
+				trigger = has_country_flag
+				stone_age		= { country_event = { id = primitive.30 } }
+				bronze_age		= { country_event = { id = primitive.20 } }
+				iron_age		= { country_event = { id = primitive.22 } }
+				late_medieval_age = { country_event = { id = primitive.24 } }
+				renaissance_age	= { country_event = { id = primitive.26 } }
+				steam_age		= { country_event = { id = primitive.28 } }
+				industrial_age	= { country_event = { id = primitive.10 } }
+				machine_age		= { country_event = { id = primitive.12 } }
+				atomic_age		= { country_event = { id = primitive.14 } }
+				early_space_age	= { country_event = { id = primitive.16 } }
+			}
 		}
 	}
 }
@@ -214,13 +217,16 @@ create_vassal_country = {
 			if = { limit = { is_gestalt = no } add_resource = { consumer_goods = 2000 } }
 			else = { add_resource = { alloys = 1000 minerals = 1000 } }
 			event_target:owning_empire = {
-				if = { limit = { has_valid_civic = civic_fanatic_purifiers } event_target:new_empire = { force_add_civic = civic_fanatic_purifiers } }
-				else_if = { limit = { has_valid_civic = civic_hive_devouring_swarm } event_target:new_empire = { force_add_civic = civic_hive_devouring_swarm } }
-				else_if = { limit = { has_valid_civic = civic_machine_terminator } event_target:new_empire = { force_add_civic = civic_machine_terminator } }
-				else_if = { limit = { has_valid_civic = civic_machine_assimilator } event_target:new_empire = { force_add_civic = civic_machine_assimilator } }
-				else_if = { limit = { has_valid_civic = civic_machine_servitor } event_target:new_empire = { force_add_civic = civic_machine_servitor } }
-				else_if = { limit = { has_valid_civic = civic_criminal_heritage } event_target:new_empire = { force_add_civic = civic_criminal_heritage } }
-				else_if = { limit = { has_valid_civic = civic_barbaric_despoilers } event_target:new_empire = { force_add_civic = civic_barbaric_despoilers } }
+				switch = {
+					trigger = has_valid_civic
+					civic_fanatic_purifiers		= { event_target:new_empire = { force_add_civic = civic_fanatic_purifiers } }
+					civic_hive_devouring_swarm	= { event_target:new_empire = { force_add_civic = civic_hive_devouring_swarm } }
+					civic_machine_terminator	= { event_target:new_empire = { force_add_civic = civic_machine_terminator } }
+					civic_machine_assimilator	= { event_target:new_empire = { force_add_civic = civic_machine_assimilator } }
+					civic_machine_servitor		= { event_target:new_empire = { force_add_civic = civic_machine_servitor } }
+					civic_criminal_heritage		= { event_target:new_empire = { force_add_civic = civic_criminal_heritage } }
+					civic_barbaric_despoilers	= { event_target:new_empire = { force_add_civic = civic_barbaric_despoilers } }
+				}
 			}
 			set_subject_of = { who = event_target:owning_empire subject_type = perfect_vassal }
 			set_relation_flag = { who = event_target:owning_empire flag = perfect_vassal_relation }
