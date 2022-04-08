@@ -161,7 +161,6 @@ country_event = {
 				# 30 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 330 max_orientation_angle = 360 hyperlane = no initializer = lh_basic_system } }
 			#}
 		}
-		set_spawn_system_batch = end
 		random_system = { limit = { has_star_flag = lh_basic_system_created } remove_star_flag = lh_basic_system_created save_event_target_as = lh_basic_system }
 		if = {
 			limit = { capital_scope = { solar_system = { has_natural_wormhole = yes } } }
@@ -198,6 +197,8 @@ country_event = {
 				}
 			}
 		}
+		set_spawn_system_batch = end
+
 		# random_system_within_border = {
 		#	save_event_target_as = lh_empire_capital_system
 		#	limit = { is_capital_system = yes }
@@ -208,7 +209,12 @@ country_event = {
 		#	}
 		#}
 	}
-	option = { name = EXCELLENT add_research_option = tech_new_systems_localization }
+	option = {
+		name = EXCELLENT add_research_option = tech_new_systems_localization
+		hidden_effect = {
+			country_event = { id = distar.13060 scopes = { from = event_target:sector_z749_system_capital_system } }
+		}
+	}
 }
 
 system_event = {
@@ -254,6 +260,7 @@ country_event = {
 	show_sound = event_laboratory_sound
 	location = event_target:located_system
 	is_triggered_only = yes
+	immediate = { event_target:located_system = { save_event_target_as = located_system } }
 	option = { name = "UniqueAscensionPerksEvents.23.1" allow = { resource_stockpile_compare = { resource = energy value > 5000 } resource_stockpile_compare = { resource = sr_dark_matter value > 100 } custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } } } add_resource = { energy = -5000 sr_dark_matter = -100 } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown days = 30 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } while = { count = 1 spawn_lh_system = yes } } }
 	option = { name = "UniqueAscensionPerksEvents.23.2" allow = { resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = sr_dark_matter value > 200 } custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } } } add_resource = { energy = -10000 sr_dark_matter = -200 } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown days = 60 } country_event = { id = UniqueAscensionPerksEvents.22 days = 60 } while = { count = 2 spawn_lh_system = yes } } }
 	option = { name = "UniqueAscensionPerksEvents.23.3" allow = { resource_stockpile_compare = { resource = energy value > 15000 } resource_stockpile_compare = { resource = sr_dark_matter value > 300 } custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } } } add_resource = { energy = -15000 sr_dark_matter = -300 } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown days = 90 } country_event = { id = UniqueAscensionPerksEvents.22 days = 90 } while = { count = 3 spawn_lh_system = yes } } }
@@ -530,7 +537,55 @@ planet_event = {
 			resource_stockpile_compare = { resource = automatic_drone value > 200 }
 		}
 	}
-	immediate = { while = { count = 3 nano_drones_auto_upgrade = yes } }
+	immediate = {
+		while = { count = 3
+			# nano_drones_auto_upgrade = yes
+			random_list = {
+				1 = {}
+				999 = { modifier = { factor = 0 NOT = { has_building = building_auto_power_plant_1 } } remove_building = building_auto_power_plant_1 add_building = building_auto_power_plant_2 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_2 owner = { has_technology = tech_power_plant_3 } } } remove_building = building_auto_power_plant_2 add_building = building_auto_power_plant_3 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_3 has_upgraded_capital = yes owner = { has_technology = tech_power_plant_3 } } } remove_building = building_auto_power_plant_3 add_building = building_auto_power_plant_4 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_4 has_major_upgraded_capital = yes owner = { has_technology = tech_power_plant_4 } } } remove_building = building_auto_power_plant_4 add_building = building_auto_power_plant_5 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NOT = { has_building = building_auto_farming_complex_1 } } remove_building = building_auto_farming_complex_1 add_building = building_auto_farming_complex_2 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_2 owner = { has_technology = tech_gene_crops } } } remove_building = building_auto_farming_complex_2 add_building = building_auto_farming_complex_3 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_gene_crops } } } remove_building = building_auto_farming_complex_3 add_building = building_auto_farming_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_nano_vitality_crops } } } remove_building = building_auto_farming_complex_4 add_building = building_auto_farming_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NOT = { has_building = building_auto_mining_complex_1 } } remove_building = building_auto_mining_complex_1 add_building = building_auto_mining_complex_2 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_2 owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_2 add_building = building_auto_mining_complex_3 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_3 add_building = building_auto_mining_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_mining_3 } } } remove_building = building_auto_mining_complex_4 add_building = building_auto_mining_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NOT = { has_building = building_auto_physics_campus_1 } } remove_building = building_auto_physics_campus_1 add_building = building_auto_physics_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_2 owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_2 add_building = building_auto_physics_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_3 add_building = building_auto_physics_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_physics_3 } } } remove_building = building_auto_physics_campus_4 add_building = building_auto_physics_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NOT = { has_building = building_auto_sociological_campus_1 } } remove_building = building_auto_sociological_campus_1 add_building = building_auto_sociological_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_2 owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_2 add_building = building_auto_sociological_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_3 add_building = building_auto_sociological_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_society_3 } } } remove_building = building_auto_sociological_campus_4 add_building = building_auto_sociological_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NOT = { has_building = building_auto_engineering_campus_1 } } remove_building = building_auto_engineering_campus_1 add_building = building_auto_engineering_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_2 owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_2 add_building = building_auto_engineering_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_3 add_building = building_auto_engineering_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_engineering_3 } } } remove_building = building_auto_engineering_campus_4 add_building = building_auto_engineering_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_1 has_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_1 add_building = building_nanite_facility_2 owner = { add_resource = { automatic_drone = -400 } } }
+				999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_2 add_building = building_nanite_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
+				999 = {
+					modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_1 } }
+					random_list = {
+						1 = {}
+						100 = { modifier = { factor = 0 has_upgraded_capital = no } remove_building = building_auto_drone_facility_1 add_building = building_auto_drone_facility_2 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_power_plant_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_power_plant_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_mining_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_eco_simulation } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_physics_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_society_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+						20 = { modifier = { factor = 0 NOT = { owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
+					}
+				}
+				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_drone_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_drones } } } remove_building = building_auto_drone_facility_2 add_building = building_auto_drone_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
+			}
+		}
+	}
 }
 
 country_event = {
@@ -916,11 +971,35 @@ country_event = {
 	show_sound = event_administrative_work
 	picture = GFX_evt_expansion_infinity
 	location = event_target:ap_expansion_infinity_planet
-	mean_time_to_happen = { months = 9 }
+	is_triggered_only = yes
 	trigger = {
 		is_ai = no
 		has_ascension_perk = ap_expansion_infinity
 		NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning }
+		any_owned_planet = {
+			OR = {
+				is_capital = yes
+				colony_age > 2
+			}
+			count_owned_pop = { count > 10 limit = { has_job = yes } }
+			NOT = { has_planet_flag = ap_expansion_infinity_collection }
+		}
+	}
+	immediate = { }
+	option = { name = EXCELLENT }
+	option = { name = "UniqueAscensionPerks.no_message"
+		set_country_flag = ap_expansion_infinity_collection_no_warning
+		custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.8000
+	hide_window = yes
+	mean_time_to_happen = { months = 9 }
+	trigger = {
+		is_ai = no
+		has_ascension_perk = ap_expansion_infinity
 		any_owned_planet = {
 			OR = {
 				is_capital = yes
@@ -940,43 +1019,10 @@ country_event = {
 			save_event_target_as = ap_expansion_infinity_planet
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
 		}
-	}
-	option = { name = EXCELLENT event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes } }
-	option = { name = "UniqueAscensionPerks.no_message"
-		set_country_flag = ap_expansion_infinity_collection_no_warning
-		custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
 		event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes }
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.8000
-	hide_window = yes
-	mean_time_to_happen = { months = 3 }
-	trigger = {
-		is_ai = no
-		has_ascension_perk = ap_expansion_infinity
-		has_country_flag = ap_expansion_infinity_collection_no_warning
-		any_owned_planet = {
-			OR = {
-				is_capital = yes
-				colony_age > 1
-			}
-			count_owned_pop = { count > 10 limit = { has_job = yes } }
-			NOT = { has_planet_flag = ap_expansion_infinity_collection }
+		if = { limit = { NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning } }
+			country_event = { id = UniqueAscensionPerksEvents.46 }
 		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				colony_age > 1
-				count_owned_pop = { count > 10 limit = { has_job = yes } }
-				NOT = { has_planet_flag = ap_expansion_infinity_collection }
-			}
-			save_event_target_as = ap_expansion_infinity_planet
-			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 5 }
-		}
-		event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes }
 	}
 }
 
@@ -1002,7 +1048,71 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { has_ascension_perk = ap_recycling_drones }
-	immediate = { fromfrom = { perform_recycling_expedition = yes } }
+	immediate = {
+		fromfrom = {
+			# perform_recycling_expedition = yes
+			switch = {
+				trigger = is_ship_size
+				# Default Empire
+				science							= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				constructor						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				colonizer						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				sponsored_colonizer				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				transport						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				corvette						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				destroyer						= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				cruiser							= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
+				battleship						= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				titan							= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } break = yes } }
+				colossus						= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } break = yes } }
+				juggernaut 						= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } break = yes } }
+				crisis_corvette 				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				crisis_destroyer 				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				crisis_cruiser 					= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
+				star_eater 						= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } break = yes } }
+				military_station_small		  = { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				military_station_medium			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
+				military_station_large			= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				ion_cannon						= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				mining_station					= { ROOT = { add_resource = { minerals = 25 } break = yes } }
+				research_station				= { ROOT = { add_resource = { minerals = 25 } break = yes } }
+				observation_station				= { ROOT = { add_resource = { minerals = 25 } break = yes } }
+				# Pirates
+				pirate_corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				pirate_destroyer				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				pirate_cruiser					= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
+				galleon							= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } break = yes } }
+				pirate_station					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				# Marauders
+				marauder_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				marauder_destroyer				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				marauder_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
+				marauder_galleon				= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } break = yes } }
+				marauder_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				marauder_void_dwelling			= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				# Fallen Empire
+				massive_ship_fallen_empire		= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } break = yes } }
+				large_ship_fallen_empire		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				small_ship_fallen_empire		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				# Ancient Drone
+				ancient_mining_drone			= { ROOT = { add_resource = { minerals = 40 alloys = 10 } break = yes } }
+				ancient_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				ancient_destroyer				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				# Contingency
+				small_ship_ai					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				large_ship_ai					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				military_station_small_ai		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				military_station_large_ai		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				core_ai							= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } break = yes } }
+				final_core_ai					= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } break = yes } }
+				construction_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				colony_ship_ai					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				transport_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				# Leviathans
+				npc_warship_01					= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } break = yes } }
+			}
+		}
+	}
 }
 
 country_event = {
@@ -1030,9 +1140,24 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { has_country_flag = ap_recycling_drones_project }
-	immediate = { fromfrom = { perform_recover_ship_check = yes } }
+	immediate = {
+		fromfrom = {
+			# perform_recover_ship_check = yes
+			random = {
+				chance = 35
+				switch = {
+					trigger = is_ship_size
+					corvette		= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } break = yes } }
+					destroyer		= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } break = yes } }
+					cruiser			= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } break = yes } }
+					battleship		= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } break = yes } }
+					titan			= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } break = yes } }
+				}
+			}
+		}
+	}
 }
-
+# on_yearly_pulse
 event = {
 	id = UniqueAscensionPerksEvents.51
 	hide_window = yes
@@ -1062,7 +1187,75 @@ country_event = {
 	picture = GFX_evt_scavenger_bot
 	location = event_target:recovery_fleet_position
 	is_triggered_only = yes
-	immediate = { perform_recovery_fleet = yes }
+	immediate = {
+		# perform_recovery_fleet = yes
+		random_system_within_border = {
+			limit = { has_star_flag = recycle_fleet_spawn_system }
+			star = { save_event_target_as = recovery_fleet_position }
+		}
+		if = { limit = { NOT = { exists = event_target:recovery_fleet_position } }
+			random_system_within_border = {
+				limit = { exists = starbase }
+				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
+				star = { save_event_target_as = recovery_fleet_position }
+			}
+		}
+		create_fleet = {
+			name = "Recovered Fleet"
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = prev
+				if = { limit = { ROOT = { has_country_flag = ap_recycling_drones_project_upgrade } }
+					while = {
+						count = root.ship_corvette_recovered
+						create_ship = { name = random random_existing_design = corvette }
+					}
+					while = {
+						count = root.ship_destroyer_recovered
+						create_ship = { name = random random_existing_design = destroyer }
+					}
+					while = {
+						count = root.ship_cruiser_recovered
+						create_ship = { name = random random_existing_design = cruiser }
+					}
+					while = {
+						count = root.ship_battleship_recovered
+						create_ship = { name = random random_existing_design = battleship }
+					}
+					while = {
+						count = root.ship_titan_recovered
+						create_ship = { name = random random_existing_design = titan }
+					}
+				} else = {
+					while = {
+						count = root.ship_corvette_recovered
+						create_ship = { name = random design = "Standard Basic Corvette" }
+					}
+					while = {
+						count = root.ship_destroyer_recovered
+						create_ship = { name = random design = "Standard Basic Destroyer" }
+					}
+					while = {
+						count = root.ship_cruiser_recovered
+						create_ship = { name = random design = "Standard Basic Cruiser" }
+					}
+					while = {
+						count = root.ship_battleship_recovered
+						create_ship = { name = random design = "Standard Basic Battleship" }
+					}
+					while = {
+						count = root.ship_titan_recovered
+						create_ship = { name = random design = "Standard Basic Titan" }
+					}
+				}
+				set_location = { target = event_target:recovery_fleet_position distance = 8 angle = random }
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = recovery_fleet
+			}
+		}
+	}
 	option = { name = EXCELLENT }
 }
 
@@ -1225,7 +1418,7 @@ country_event = {
 		has_ascension_perk = ap_advanced_security
 		any_system_within_border = {
 			NOT = { has_star_flag = recent_security_strike_force }
-			any_ship_in_system = {
+			any_fleet_in_system = {
 				exists = owner
 				owner = {
 					OR = {
@@ -1243,7 +1436,7 @@ country_event = {
 		random_system_within_border = {
 			limit = {
 				NOT = { has_star_flag = recent_security_strike_force }
-				any_ship_in_system = { exists = owner owner = { OR = { is_country_type = pirate is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
+				any_fleet_in_system = { exists = owner owner = { OR = { is_country_type = pirate is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
 			}
 			save_event_target_as = spawn_location_system
 			set_timed_star_flag = { flag = recent_security_strike_force years = 1 }
@@ -2126,75 +2319,17 @@ planet_event = {
 	picture = GFX_evt_stability_celebration
 	location = root
 	pre_triggers = { has_owner = yes }
-	immediate = { set_timed_planet_flag = { flag = stability_celebration_message days = 1080 } }
-	trigger = {
-		exists = owner
-		owner = {
-			has_ascension_perk = ap_stability_celebration
-			NOT = { has_country_flag = ap_stability_celebration_no_warning }
-		}
-		planet_stability > 55
-		planet_crime < 20
-		free_housing > 0
-		free_jobs > 0
-		free_amenities > 0
-		num_pops > 20
-		NOR = {
-			# has_modifier = has_criminal_branch_office
-			# has_modifier = criminal_underworld
-			# has_modifier = drone_deviancy
-			# has_modifier = drone_corruption
-			has_modifier = stability_celebration
-			has_planet_flag = stability_celebration_message
-		}
-		count_owned_pop = {
-			count > 20
-			limit = {
-				is_enslaved = no
-				is_being_purged = no
-				is_being_assimilated = no
-				is_unemployed = no
-				OR = {
-					is_robot_pop = no
-					AND = {
-						is_robot_pop = yes
-						root.owner = {
-							OR = {
-								has_policy_flag = ai_full_rights
-								has_country_flag = synthetic_empire
-								has_authority = auth_machine_intelligence
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-	mean_time_to_happen = { months = 4 }
+	is_triggered_only = yes
+	trigger = { owner = { NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
+	option = { name = EXCELLENT }
 	option = {
-		name = EXCELLENT
-		default_hide_option = yes
-		owner = {
-			add_monthly_resource_mult = { resource = energy value = 4 min = 500 max = 2000 }
-			add_monthly_resource_mult = { resource = minerals value = 4 min = 500 max = 2000 }
-			add_monthly_resource_mult = { resource = influence value = 2 min = 15 max = 35 }
-			add_monthly_resource_mult = { resource = unity value = 6 min = 100 max = 500 }
-		}
-		add_modifier = { modifier = stability_celebration days = 3600 }
-	}
-	option = { name = "UniqueAscensionPerks.no_message"
-		owner = {
-			set_country_flag = ap_stability_celebration_no_warning
-			custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
-			add_monthly_resource_mult = { resource = energy value = 4 min = 500 max = 2000 }
-			add_monthly_resource_mult = { resource = minerals value = 4 min = 500 max = 2000 }
-			add_monthly_resource_mult = { resource = influence value = 2 min = 15 max = 35 }
-			add_monthly_resource_mult = { resource = unity value = 6 min = 100 max = 500 }
-		}
-		add_modifier = { modifier = stability_celebration days = 3600 }
+		name = "UniqueAscensionPerks.no_message"
+		custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
+		owner = { set_country_flag = ap_stability_celebration_no_warning }
 	}
 }
 
+# TODO performance opt
 planet_event = {
 	id = UniqueAscensionPerksEvents.8082
 	hide_window = yes
@@ -2202,10 +2337,7 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = owner
-		owner = {
-			has_ascension_perk = ap_stability_celebration
-			has_country_flag = ap_stability_celebration_no_warning
-		}
+		owner = { has_ascension_perk = ap_stability_celebration }
 		planet_stability > 55
 		planet_crime < 20
 		free_housing > 0
@@ -2216,25 +2348,33 @@ planet_event = {
 			has_modifier = stability_celebration
 			has_planet_flag = stability_celebration_message
 		}
-		count_owned_pop = {
-			count > 20
-			limit = {
-				is_enslaved = no
-				is_being_purged = no
-				is_being_assimilated = no
-				is_unemployed = no
-				OR = {
-					is_robot_pop = no
-					AND = {
-						is_robot_pop = yes
-						root.owner = {
-							OR = {
-								has_policy_flag = ai_full_rights
-								has_country_flag = synthetic_empire
-								has_authority = auth_machine_intelligence
-							}
-						}
+		OR = {
+			AND = {
+				owner = {
+					OR = {
+						has_policy_flag = ai_full_rights
+						is_synthetic_empire = yes
 					}
+				}
+				count_owned_pop = {
+					count > 20
+					limit = {
+						is_enslaved = no
+						is_being_purged = no
+						is_being_assimilated = no
+						is_unemployed = no
+						is_robot_pop = yes
+					}
+				}
+			}
+			count_owned_pop = {
+				count > 20
+				limit = {
+					is_enslaved = no
+					is_being_purged = no
+					is_being_assimilated = no
+					is_unemployed = no
+					is_robot_pop = no
 				}
 			}
 		}
@@ -2248,6 +2388,9 @@ planet_event = {
 			add_monthly_resource_mult = { resource = unity value = 6 min = 100 max = 500 }
 		}
 		add_modifier = { modifier = stability_celebration days = 3600 }
+		if = { limit = { owner = { NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
+			planet_event = { id = UniqueAscensionPerksEvents.81 }
+		}
 	}
 }
 
@@ -2749,23 +2892,32 @@ country_event = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.103 } add_resource = { food = 750 } }
 	}
 }
-# on_ship_built
+
+# Clone Ship (on_ship_built)
 ship_event = {
 	id = UniqueAscensionPerksEvents.102
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { exists = owner owner = { has_ascension_perk = ap_super_hive_mind }	}
+	trigger = {
+		exists = owner
+		exists = fleet
+		owner = { has_ascension_perk = ap_super_hive_mind }
+	}
 	immediate = {
-		random = {
-			chance = 30
-			create_fleet = {
-				name = "Cloned Ship"
-				effect = {
-					set_owner = root.owner
-					if = { limit = { root = { is_ship_size = corvette } } create_ship = { name = random random_existing_design = corvette prefix = yes } } else_if = { limit = { root = { is_ship_size = destroyer } } create_ship = { name = random random_existing_design = destroyer prefix = yes } } else_if = { limit = { root = { is_ship_size = cruiser } } create_ship = { name = random random_existing_design = cruiser prefix = yes } } else_if = { limit = { root = { is_ship_size = battleship } } create_ship = { name = random random_existing_design = battleship prefix = yes } }
-					set_fleet_flag = cloned_fleet
-					set_location = root
-				}
+		fleet = {
+			# save_event_target_as = fleet_location
+			random = {
+				chance = 30
+				# create_fleet = {
+				# 	name = "Cloned Ship"
+				# effect = {
+				# set_owner = root.owner
+				if = { limit = { root = { is_ship_size = corvette } } create_ship = { name = random random_existing_design = corvette prefix = yes } }
+				else_if = { limit = { root = { is_ship_size = destroyer } } create_ship = { name = random random_existing_design = destroyer prefix = yes } }
+				else_if = { limit = { root = { is_ship_size = cruiser } } create_ship = { name = random random_existing_design = cruiser prefix = yes } }
+				else_if = { limit = { root = { is_ship_size = battleship } } create_ship = { name = random random_existing_design = battleship prefix = yes } }
+				# set_fleet_flag = cloned_fleet
+				# set_location = event_target:fleet_location # root
 			}
 		}
 	}
@@ -2810,13 +2962,13 @@ country_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = { event_target:leader_cloned = { save_event_target_as = leader_cloned } set_variable = { which = "cloned_leader_number" value = 0 } }
-	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { resource_stockpile_compare = { resource = food value > 750 } } add_resource = { food = -750 } hidden_effect = { while = { count = 1 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { resource_stockpile_compare = { resource = food value > 1500 } } add_resource = { food = -1500 } hidden_effect = { while = { count = 2 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { resource_stockpile_compare = { resource = food value > 2250 } } add_resource = { food = -2250 } hidden_effect = { while = { count = 3 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { resource_stockpile_compare = { resource = food value > 3000 } } add_resource = { food = -3000 } hidden_effect = { while = { count = 4 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { resource_stockpile_compare = { resource = food value > 3750 } } add_resource = { food = -3750 } hidden_effect = { while = { count = 5 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { resource_stockpile_compare = { resource = food value > 4500 } } add_resource = { food = -4500 } hidden_effect = { while = { count = 6 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { resource_stockpile_compare = { resource = food value > 5250 } } add_resource = { food = -5250 } hidden_effect = { while = { count = 7 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { resource_stockpile_compare = { resource = influence value > 75	} } add_resource = { influence = -75	} hidden_effect = { while = { count = 1 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { resource_stockpile_compare = { resource = influence value > 150	} } add_resource = { influence = -150	} hidden_effect = { while = { count = 2 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { resource_stockpile_compare = { resource = influence value > 225	} } add_resource = { influence = -225	} hidden_effect = { while = { count = 3 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { resource_stockpile_compare = { resource = influence value > 300	} } add_resource = { influence = -300	} hidden_effect = { while = { count = 4 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { resource_stockpile_compare = { resource = influence value > 375	} } add_resource = { influence = -375	} hidden_effect = { while = { count = 5 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { resource_stockpile_compare = { resource = influence value > 450	} } add_resource = { influence = -450	} hidden_effect = { while = { count = 6 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { resource_stockpile_compare = { resource = influence value > 525	} } add_resource = { influence = -525	} hidden_effect = { while = { count = 7 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
 	option = { name = ABORT default_hide_option = yes }
 }
 
@@ -3118,6 +3270,7 @@ event = {
 	}
 }
 
+# on_yearly_pulse
 country_event = {
 	id = UniqueAscensionPerksEvents.124
 	title = "UniqueAscensionPerksEvents.124.Name"
@@ -3132,30 +3285,61 @@ country_event = {
 			limit = { has_star_flag = recycle_fleet_spawn_system }
 			star = { save_event_target_as = recovery_fleet_position }
 		}
+		if = { limit = { NOT = { exists = event_target:recovery_fleet_position } }
+			random_system_within_border = {
+				limit = { exists = starbase }
+				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
+				star = { save_event_target_as = recovery_fleet_position }
+			}
+		}
+
 		create_fleet = {
 			name = "Infested Fleet"
 			settings = { spawn_debris = no }
 			effect = {
 				set_owner = prev
-				while = {
-					count = root.ship_corvette_infested
-					if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } } create_ship = { name = random random_existing_design = corvette } } else = { create_ship = { name = random design = "Standard Basic Corvette" } }
-				}
-				while = {
-					count = root.ship_destroyer_infested
-					if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } } create_ship = { name = random random_existing_design = destroyer } } else = { create_ship = { name = random design = "Standard Basic Destroyer" } }
-				}
-				while = {
-					count = root.ship_cruiser_infested
-					if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } } create_ship = { name = random random_existing_design = cruiser } } else = { create_ship = { name = random design = "Standard Basic Cruiser" } }
-				}
-				while = {
-					count = root.ship_battleship_infested
-					if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } } create_ship = { name = random random_existing_design = battleship } } else = { create_ship = { name = random design = "Standard Basic Battleship" } }
-				}
-				while = {
-					count = root.ship_titan_infested
-					if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } } create_ship = { name = random random_existing_design = titan } } else = { create_ship = { name = random design = "Standard Basic Titan" } }
+				if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } }
+					while = {
+						count = root.ship_corvette_infested
+						create_ship = { name = random random_existing_design = corvette }
+					}
+					while = {
+						count = root.ship_destroyer_infested
+						create_ship = { name = random random_existing_design = destroyer }
+					}
+					while = {
+						count = root.ship_cruiser_infested
+						create_ship = { name = random random_existing_design = cruiser }
+					}
+					while = {
+						count = root.ship_battleship_infested
+						create_ship = { name = random random_existing_design = battleship }
+					}
+					while = {
+						count = root.ship_titan_infested
+						create_ship = { name = random random_existing_design = titan }
+					}
+				} else = {
+					while = {
+						count = root.ship_corvette_infested
+						create_ship = { name = random design = "Standard Basic Corvette" }
+					}
+					while = {
+						count = root.ship_destroyer_infested
+						create_ship = { name = random design = "Standard Basic Destroyer" }
+					}
+					while = {
+						count = root.ship_cruiser_infested
+						create_ship = { name = random design = "Standard Basic Cruiser" }
+					}
+					while = {
+						count = root.ship_battleship_infested
+						create_ship = { name = random design = "Standard Basic Battleship" }
+					}
+					while = {
+						count = root.ship_titan_infested
+						create_ship = { name = random design = "Standard Basic Titan" }
+					}
 				}
 				set_location = { target = event_target:recovery_fleet_position distance = 8 angle = random }
 				set_fleet_stance = aggressive
@@ -3299,6 +3483,7 @@ planet_event = {
 	show_sound = event_mystic_reveal
 	location = root
 	pre_triggers = { has_owner = yes is_ai = no }
+	is_triggered_only = yes
 	trigger = {
 		exists = owner
 		owner = { is_ai = no has_ascension_perk = ap_hivemind_reserve NOT = { has_country_flag = ap_hivemind_reserve_new_pop_no_warning } }
@@ -3400,11 +3585,11 @@ country_event = {
 	mean_time_to_happen = { years = 2 }
 	trigger = {
 		has_country_flag = ap_eternal_vigilance_project
-		any_system_within_border = { NOR = { any_ship_in_system = { fleet = { has_fleet_flag = eternal_vigilance_fleet } exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
+		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
 	}
 	immediate = {
 		random_system_within_border = {
-			limit = { NOR = { any_ship_in_system = { fleet = { has_fleet_flag = eternal_vigilance_fleet } exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
+			limit = { NOR = { any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
 			set_timed_star_flag = { flag = vigilance_system years = 15 }
 			star = { save_event_target_as = spawn_location }
 			create_fleet = {
@@ -3422,7 +3607,6 @@ country_event = {
 				count = 3
 				random = {
 					chance = 50
-					star = { save_event_target_as = spawn_location }
 					create_fleet = {
 						name = "Eternal Vigilance Fleet"
 						settings = { spawn_debris = no uses_naval_capacity = no }
@@ -5046,12 +5230,12 @@ country_event = {
 	trigger = {
 		is_ai = no
 		has_ascension_perk = ap_defense_sentinels
-		any_system_within_border = { NOR = { any_ship_in_system = { fleet = { has_fleet_flag = defense_sentinels_platforms } } has_star_flag = defense_sentinels_system } }
+		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
 	}
 	immediate = {
 		create_defense_sentinels_country = yes
 		random_system_within_border = {
-			limit = { NOR = { any_ship_in_system = { fleet = { has_fleet_flag = defense_sentinels_platforms } } has_star_flag = defense_sentinels_system } }
+			limit = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
 			weights = { base = 1 modifier = { add = 5 is_capital_system = no } }
 			set_timed_star_flag = { flag = defense_sentinels_system years = 15 }
 			star = { save_event_target_as = spawn_location }
@@ -5707,7 +5891,12 @@ country_event = {
 			set_spawn_system_batch = end
 		}
 	}
-	option = { name = EXCELLENT }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			country_event = { id = distar.13060 scopes = { from = event_target:sector_z749_system_capital_system } }
+		}
+	}
 }
 
 country_event = {
@@ -7656,470 +7845,474 @@ planet_event = {
 ######### Deep Space Scanners #########
 #									 #
 #######################################
+# TODO
+# It not working properly because AI probably gonna research all anomalies in galaxy, so... you cant reach new of them because they all already gone. Probably need rework and decrease % to science.
+# AE is also not working with vanilla relics and archaeologicals, probably because of flags. Like, you cant find by DSS omnicodex if other empire own it or find Planetary machine with anomaly. It also not working with custom relics just because. Probably be better to disable them until rework (but i dunno what need to do with them to be better in theory)
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.440
+# 	title = "ap_deep_scanner"
+# 	desc = "ap_deep_scanner_desc"
+# 	show_sound = event_laboratory_sound
+# 	location = capital_scope
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = deep_scanner_room }
+# 	is_triggered_only = yes
+# 	option = { name = EXCELLENT add_research_option = tech_deep_scanner }
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.440
-	title = "ap_deep_scanner"
-	desc = "ap_deep_scanner_desc"
-	show_sound = event_laboratory_sound
-	location = capital_scope
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = deep_scanner_room }
-	is_triggered_only = yes
-	option = { name = EXCELLENT add_research_option = tech_deep_scanner }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.441
+# 	title = "UniqueAscensionPerksEvents.441.Name"
+# 	desc = "UniqueAscensionPerksEvents.441.Desc"
+# 	show_sound = event_laboratory_sound
+# 	picture = GFX_evt_deep_scanner
+# 	location = event_target:deep_scanner_planet
+# 	is_triggered_only = yes
+# 	option = { name = OK default_hide_option = yes }
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.441
-	title = "UniqueAscensionPerksEvents.441.Name"
-	desc = "UniqueAscensionPerksEvents.441.Desc"
-	show_sound = event_laboratory_sound
-	picture = GFX_evt_deep_scanner
-	location = event_target:deep_scanner_planet
-	is_triggered_only = yes
-	option = { name = OK default_hide_option = yes }
-}
-
-planet_event = {
-	id = UniqueAscensionPerksEvents.442
-	title = "UniqueAscensionPerksEvents.442.Name"
-	desc = "UniqueAscensionPerksEvents.442.Desc"
-	show_sound = event_laboratory_sound
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = deep_scanner_room }
-	is_triggered_only = yes
-	location = event_target:deep_scanned_planet
-	immediate = {
-		# find_planet_for_new_anomaly = yes
-		if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
-			if = {
-				limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
-				random_system = {
-					limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-					random_system_planet = {
-						limit = { can_be_deep_scanned = yes }
-						save_event_target_as = deep_scanned_planet
-					}
-				}
-			}
-			# nothing
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
-				random_system_planet = {
-					limit = { can_be_deep_scanned = yes }
-					save_event_target_as = deep_scanned_planet
-				}
-			}
-		}
-		event_target:deep_scanned_planet = {
-			# deep_space_scanner_spawn_anomaly = yes
-			random_list = {
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = crashed_ship_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = origin_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = emissions_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = hatch_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = collision_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = station_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_asteroid_category } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_WAVELENGTHS_1_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_ILLICIT_DARK_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DIMENSIONAL_POCKET_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_CRATER_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_CLUSTER_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_MINING_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_LOST_CARGO_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_GEAR_CAT } }
-				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_MYSTICAL_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = object_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = moon_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = storms_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = aerostat_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = cargo_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = signal_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = ship_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } is_moon = yes } set_planet_flag = planet_deep_scanned add_anomaly = { category = terminal_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_gasgiant_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAS_ZRO_ICE_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAS_CLOUDY_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_toxic_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = inhabited_toxic_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_PURPLE_RAIN_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_MAT_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_STRUCTURES_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_PLANET_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_frozen_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_BASE_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_ILLUMINATED_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_BOX_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_frozen any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = frozen_exploration_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = BARR_BASE_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_barren_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = BAR_COLONY_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_barren planet_size < 26 planet_size > 9 } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FRBR_GRIMACING_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_barren_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_PETS_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = SEA_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = WAT_PLANET_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_OCEAN_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_molten } } set_planet_flag = planet_deep_scanned add_anomaly = { category = MOLTEN_BASE_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_molten any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = lava_citadel_category } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAIA_MOVE_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAEA_CHECKERED_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arctic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_BASE2_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arctic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_ARCTIC_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_DESERT_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DES_BURIED_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DES_PLANET_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_SNAKEOID_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_DESERT_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_WOODS_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_BIOLOGY_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_CONDITIONS_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_TROPICAL_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = ARID_SENSOR_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = ARID_PLANET_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_ARID_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = CON_BIOLOGY_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_CONTINENTAL_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tundra } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_TUNDRA_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_nuked } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_ROACHOID_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_nuked } } set_planet_flag = planet_deep_scanned add_anomaly = { category = NUKE_PLANET_CAT } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_a_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = a_star_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_b_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = b_star_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_f_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = f_star_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_g_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = g_star_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_k_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = k_star_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_m_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = m_star_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = black_hole_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_pulsar any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = pulsar_anomaly_category } }
-				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_neutron_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = neutron_anomaly_category } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_nuked any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = NUKE_PLANET_CAT } }
-				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_GENERIC_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_arid is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_ABANDONED_SHIP_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_gaia is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAIA_RECORD_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tundra is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_DERELICT_SHIP_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_desert is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = SUN_RAYS_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_k_star is_planet_class = pc_m_star } } set_planet_flag = planet_deep_scanned add_anomaly = { category = SUN_TEAPOT_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = HAB_CORN_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = HAB_MAT_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_tundra } } set_planet_flag = planet_deep_scanned add_anomaly = { category = CONT_SIGNS_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tundra is_planet_class = pc_nuked is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_OLD_WAR_CAT } }
-				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tundra is_planet_class = pc_frozen is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = COLD_RESEARCH_CAT } }
-				100 = { modifier = { factor = 0 NOT = { is_star_class = sc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = HOLE_RADIATION_CAT } }
-				100 = { modifier = { factor = 0 habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = HBL_MUSIC_1_CAT } }
-				100 = { modifier = { factor = 0 habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = LEVELED_CAT } }
-				100 = { modifier = { factor = 0 habitable_planet = no NOT = { any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = holy_city_category } }
-				100 = { modifier = { factor = 0 habitable_planet = no NOT = { any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = lone_computer_category } }
-				100 = { modifier = { factor = 0 habitable_planet = no NOT = { any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = planet_mysterious_activity_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = impact_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = energy_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = signal_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = asteroid_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = solar_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = battle_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = shipyard_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = writing_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = beacon_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = mountain_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = object_uninhabitable_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = inhabited_toxic_category } }
-				50 = { modifier = { factor = 0 NOR = { colonizable_planet = yes any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = huge_galaxy_category } }
-				50 = { modifier = { factor = 0 NOR = { colonizable_planet = yes any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = mini_natural_wormhole_category } }
-				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = station_uninhabitable_category } }
-				100 = { modifier = { factor = 0 has_modifier = terraforming_candidate NOR = { is_planet_class = pc_barren is_planet_class = pc_barren_cold } planet_size < 9 planet_size > 26 } set_planet_flag = planet_deep_scanned add_anomaly = { category = station_uninhabitable_category } }
-				100 = { modifier = { factor = 0 NOR = { is_asteroid = yes is_planet_class = pc_barren is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = living_metal_category } }
-				100 = { modifier = { factor = 0 is_star = yes is_asteroid = yes is_ringworld = yes habitable_planet = yes is_planet_class = pc_gas_giant } set_planet_flag = planet_deep_scanned add_anomaly = { category = UHB_ANCIENT_RUINS_1_CAT } }
-				100 = { modifier = { factor = 0 is_star = yes is_asteroid = yes is_ringworld = yes habitable_planet = yes is_planet_class = pc_gas_giant } set_planet_flag = planet_deep_scanned add_anomaly = { category = ATM_ANOMALY_CAT } }
-				100 = { modifier = { factor = 0 is_star = yes is_asteroid = yes is_ringworld = yes is_planet_class = pc_gas_giant } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_PLAYGROUND_CAT } }
-				100 = { modifier = { factor = 0 is_star = yes is_planet_class = pc_gas_giant has_moon = no num_moons > 1 } set_planet_flag = planet_deep_scanned add_anomaly = { category = PROJ_MOON_CAT } }
-				100 = { modifier = { factor = 0 is_planet_class = pc_toxic is_planet_class = pc_barren_cold is_planet_class = pc_barren is_planet_class = pc_frozen is_planet_class = pc_nuked } set_planet_flag = planet_deep_scanned add_anomaly = { category = UHB_BUOY_CAT } }
-				# Distant Start - DLC
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_GEODE_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_PUZZLE_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = ast_debris_field_1_cat_2 } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = stolen_ship_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_trojan_asteroid_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_stranded_scientist_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_alien_machine_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_speed_demon_cat } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_LOST_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_gasgiant_category_temp } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_gas_giant is_inside_nebula = yes } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_RUM_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gas_giant } years_passed < 100 } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_MEDGAS_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_ICE_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_molten } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_MOLTEN_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_METAL_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_WARFORM_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_impossible_organism_cat } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_THIRSTY_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_OCEAN_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = gaia_planet_cat }	}
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren_cold is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_NANO_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren_cold is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_NANOCITY_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_desert is_planet_class = pc_barren is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_NANOSAND_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_desert is_planet_class = pc_arid is_planet_class = pc_savannah } } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_molluscoid_miners_cat } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_asteroid = yes is_planet_class = pc_barren_cold is_planet_class = pc_molten is_planet_class = pc_barren is_planet_class = pc_toxic is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_ELECTRO_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren_cold is_planet_class = pc_molten is_planet_class = pc_barren is_planet_class = pc_toxic is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_MERCURY_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_savannah is_planet_class = pc_alpine is_planet_class = pc_ocean is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SOY_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_savannah is_planet_class = pc_ocean is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = peculiar_patterns_cat } }
-				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren is_planet_class = pc_toxic is_planet_class = pc_barren_cold is_planet_class = pc_nuked } } set_planet_flag = planet_deep_scanned add_anomaly = { category = tomb_world_cat } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SOOTHE_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SOOTHE_GC_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_ZONE_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = corrupt_data_cat } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = alien_life_cat } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no planet_size < 15 } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_EXO_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no NOT = { has_planet_modifier = pm_dangerous_wildlife } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_BRAINSLUG_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no OR = { is_planet_class = pc_desert is_planet_class = pc_arctic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_FLYTRAP_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_moon = no habitable_planet = yes } set_planet_flag = planet_deep_scanned add_anomaly = { category = moon_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = yes years_passed < 100 } set_planet_flag = planet_deep_scanned add_anomaly = { category = transmitter_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SIGNAL_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = irregular_energy_cat } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no NOT = { is_star_class = sc_f } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_DIAMOND_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no NOT = { is_star_class = sc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_RAINBOW_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no NOT = { is_star_class = sc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_HOLO_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no NOR = { is_star_class = sc_neutron_star is_star_class = sc_pulsar } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_TIME_CAT } }
-				100 = { modifier = { factor = 0 has_distar = no is_star = no NOR = { is_star_class = sc_black_hole is_star_class = sc_neutron_star is_star_class = sc_pulsar } } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_breathing_rift_cat } }
-			}
-		}
-	}
-	option = { name = EXCELLENT custom_tooltip = "UniqueAscensionPerksEvents.442.Tooltip" }
-}
+# planet_event = {
+# 	id = UniqueAscensionPerksEvents.442
+# 	title = "UniqueAscensionPerksEvents.442.Name"
+# 	desc = "UniqueAscensionPerksEvents.442.Desc"
+# 	show_sound = event_laboratory_sound
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = deep_scanner_room }
+# 	is_triggered_only = yes
+# 	location = event_target:deep_scanned_planet
+# 	immediate = {
+# 		# find_planet_for_new_anomaly = yes
+# 		if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
+# 			if = {
+# 				limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
+# 				random_system = {
+# 					limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 					random_system_planet = {
+# 						limit = { can_be_deep_scanned = yes }
+# 						save_event_target_as = deep_scanned_planet
+# 					}
+# 				}
+# 			}
+# 			# nothing
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_be_deep_scanned = yes } }
+# 				random_system_planet = {
+# 					limit = { can_be_deep_scanned = yes }
+# 					save_event_target_as = deep_scanned_planet
+# 				}
+# 			}
+# 		}
+# 		event_target:deep_scanned_planet = {
+# 			# deep_space_scanner_spawn_anomaly = yes
+# 			random_list = {
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = crashed_ship_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = origin_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = emissions_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = hatch_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = collision_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = station_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_asteroid_category } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_WAVELENGTHS_1_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_ILLICIT_DARK_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DIMENSIONAL_POCKET_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_CRATER_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_CLUSTER_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_MINING_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_LOST_CARGO_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = AST_GEAR_CAT } }
+# 				100 = { modifier = { factor = 0 is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_MYSTICAL_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = object_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = moon_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = storms_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = aerostat_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = cargo_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = signal_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = ship_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } is_moon = yes } set_planet_flag = planet_deep_scanned add_anomaly = { category = terminal_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_gasgiant_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAS_ZRO_ICE_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAS_CLOUDY_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_toxic_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = inhabited_toxic_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_PURPLE_RAIN_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_MAT_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_STRUCTURES_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TOX_PLANET_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_frozen_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_BASE_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_ILLUMINATED_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_BOX_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_frozen any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = frozen_exploration_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = BARR_BASE_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_barren_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = BAR_COLONY_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_barren planet_size < 26 planet_size > 9 } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FRBR_GRIMACING_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = life_barren_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_PETS_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = SEA_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = WAT_PLANET_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_OCEAN_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_molten } } set_planet_flag = planet_deep_scanned add_anomaly = { category = MOLTEN_BASE_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_molten any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = lava_citadel_category } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAIA_MOVE_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAEA_CHECKERED_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arctic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = FROZ_BASE2_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arctic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_ARCTIC_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_DESERT_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DES_BURIED_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DES_PLANET_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_SNAKEOID_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_DESERT_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_WOODS_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_BIOLOGY_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = TROP_CONDITIONS_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_TROPICAL_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = ARID_SENSOR_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = ARID_PLANET_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_ARID_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = CON_BIOLOGY_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_CONTINENTAL_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_tundra } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_TUNDRA_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_nuked } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_ROACHOID_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_planet_class = pc_nuked } } set_planet_flag = planet_deep_scanned add_anomaly = { category = NUKE_PLANET_CAT } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_a_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = a_star_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_b_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = b_star_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_f_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = f_star_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_g_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = g_star_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_k_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = k_star_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_m_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = m_star_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = black_hole_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_pulsar any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = pulsar_anomaly_category } }
+# 				50 = { modifier = { factor = 0 NOR = { is_planet_class = pc_neutron_star any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = neutron_anomaly_category } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_nuked any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = NUKE_PLANET_CAT } }
+# 				25 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = UPLIFT_GENERIC_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_arid is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_ABANDONED_SHIP_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_gaia is_planet_class = pc_continental } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GAIA_RECORD_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tundra is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_DERELICT_SHIP_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_desert is_planet_class = pc_arid } } set_planet_flag = planet_deep_scanned add_anomaly = { category = SUN_RAYS_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_k_star is_planet_class = pc_m_star } } set_planet_flag = planet_deep_scanned add_anomaly = { category = SUN_TEAPOT_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = HAB_CORN_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = HAB_MAT_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_tundra } } set_planet_flag = planet_deep_scanned add_anomaly = { category = CONT_SIGNS_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tundra is_planet_class = pc_nuked is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_OLD_WAR_CAT } }
+# 				100 = { modifier = { factor = 0 NOR = { is_planet_class = pc_tundra is_planet_class = pc_frozen is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = COLD_RESEARCH_CAT } }
+# 				100 = { modifier = { factor = 0 NOT = { is_star_class = sc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = HOLE_RADIATION_CAT } }
+# 				100 = { modifier = { factor = 0 habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = HBL_MUSIC_1_CAT } }
+# 				100 = { modifier = { factor = 0 habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = LEVELED_CAT } }
+# 				100 = { modifier = { factor = 0 habitable_planet = no NOT = { any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = holy_city_category } }
+# 				100 = { modifier = { factor = 0 habitable_planet = no NOT = { any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = lone_computer_category } }
+# 				100 = { modifier = { factor = 0 habitable_planet = no NOT = { any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = planet_mysterious_activity_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = impact_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = energy_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = signal_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = asteroid_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = solar_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = battle_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = shipyard_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = writing_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = beacon_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = mountain_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = object_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = inhabited_toxic_category } }
+# 				50 = { modifier = { factor = 0 NOR = { colonizable_planet = yes any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = huge_galaxy_category } }
+# 				50 = { modifier = { factor = 0 NOR = { colonizable_planet = yes any_country = { has_policy_flag = custom_anomalies_activated } } } set_planet_flag = planet_deep_scanned add_anomaly = { category = mini_natural_wormhole_category } }
+# 				100 = { modifier = { factor = 0 uninhabitable_regular_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = station_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 has_modifier = terraforming_candidate NOR = { is_planet_class = pc_barren is_planet_class = pc_barren_cold } planet_size < 9 planet_size > 26 } set_planet_flag = planet_deep_scanned add_anomaly = { category = station_uninhabitable_category } }
+# 				100 = { modifier = { factor = 0 NOR = { is_asteroid = yes is_planet_class = pc_barren is_planet_class = pc_barren_cold } } set_planet_flag = planet_deep_scanned add_anomaly = { category = living_metal_category } }
+# 				100 = { modifier = { factor = 0 is_star = yes is_asteroid = yes is_ringworld = yes habitable_planet = yes is_planet_class = pc_gas_giant } set_planet_flag = planet_deep_scanned add_anomaly = { category = UHB_ANCIENT_RUINS_1_CAT } }
+# 				100 = { modifier = { factor = 0 is_star = yes is_asteroid = yes is_ringworld = yes habitable_planet = yes is_planet_class = pc_gas_giant } set_planet_flag = planet_deep_scanned add_anomaly = { category = ATM_ANOMALY_CAT } }
+# 				100 = { modifier = { factor = 0 is_star = yes is_asteroid = yes is_ringworld = yes is_planet_class = pc_gas_giant } set_planet_flag = planet_deep_scanned add_anomaly = { category = GEN_PLAYGROUND_CAT } }
+# 				100 = { modifier = { factor = 0 is_star = yes is_planet_class = pc_gas_giant has_moon = no num_moons > 1 } set_planet_flag = planet_deep_scanned add_anomaly = { category = PROJ_MOON_CAT } }
+# 				100 = { modifier = { factor = 0 is_planet_class = pc_toxic is_planet_class = pc_barren_cold is_planet_class = pc_barren is_planet_class = pc_frozen is_planet_class = pc_nuked } set_planet_flag = planet_deep_scanned add_anomaly = { category = UHB_BUOY_CAT } }
+# 				# Distant Start - DLC
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_GEODE_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_PUZZLE_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = ast_debris_field_1_cat_2 } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = stolen_ship_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_trojan_asteroid_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_stranded_scientist_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_alien_machine_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_asteroid = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_speed_demon_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_LOST_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gas_giant } } set_planet_flag = planet_deep_scanned add_anomaly = { category = debris_gasgiant_category_temp } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_gas_giant is_inside_nebula = yes } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_RUM_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gas_giant } years_passed < 100 } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_MEDGAS_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_ICE_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_molten } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_MOLTEN_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_METAL_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_WARFORM_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_toxic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_impossible_organism_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_barren } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_THIRSTY_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_OCEAN_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = gaia_planet_cat }	}
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren_cold is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_NANO_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren_cold is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_NANOCITY_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_desert is_planet_class = pc_barren is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_NANOSAND_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_desert is_planet_class = pc_arid is_planet_class = pc_savannah } } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_molluscoid_miners_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_asteroid = yes is_planet_class = pc_barren_cold is_planet_class = pc_molten is_planet_class = pc_barren is_planet_class = pc_toxic is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_ELECTRO_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren_cold is_planet_class = pc_molten is_planet_class = pc_barren is_planet_class = pc_toxic is_planet_class = pc_frozen } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_MERCURY_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_savannah is_planet_class = pc_alpine is_planet_class = pc_ocean is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SOY_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_tropical is_planet_class = pc_continental is_planet_class = pc_savannah is_planet_class = pc_ocean is_planet_class = pc_gaia } } set_planet_flag = planet_deep_scanned add_anomaly = { category = peculiar_patterns_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no NOR = { is_planet_class = pc_barren is_planet_class = pc_toxic is_planet_class = pc_barren_cold is_planet_class = pc_nuked } } set_planet_flag = planet_deep_scanned add_anomaly = { category = tomb_world_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SOOTHE_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SOOTHE_GC_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_ZONE_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = corrupt_data_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = alien_life_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no planet_size < 15 } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_EXO_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no NOT = { has_planet_modifier = pm_dangerous_wildlife } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_BRAINSLUG_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no habitable_planet = no OR = { is_planet_class = pc_desert is_planet_class = pc_arctic } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_FLYTRAP_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_moon = no habitable_planet = yes } set_planet_flag = planet_deep_scanned add_anomaly = { category = moon_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = yes years_passed < 100 } set_planet_flag = planet_deep_scanned add_anomaly = { category = transmitter_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_SIGNAL_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no } set_planet_flag = planet_deep_scanned add_anomaly = { category = irregular_energy_cat } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no NOT = { is_star_class = sc_f } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_DIAMOND_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no NOT = { is_star_class = sc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_RAINBOW_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no NOT = { is_star_class = sc_black_hole } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_HOLO_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no NOR = { is_star_class = sc_neutron_star is_star_class = sc_pulsar } } set_planet_flag = planet_deep_scanned add_anomaly = { category = DISTAR_TIME_CAT } }
+# 				100 = { modifier = { factor = 0 has_distar = no is_star = no NOR = { is_star_class = sc_black_hole is_star_class = sc_neutron_star is_star_class = sc_pulsar } } set_planet_flag = planet_deep_scanned add_anomaly = { category = disco_breathing_rift_cat } }
+# 			}
+# 		}
+# 	}
+# 	option = { name = EXCELLENT custom_tooltip = "UniqueAscensionPerksEvents.442.Tooltip" }
+# }
 
 #######################################
 #									 #
 ########### Artifacts Hunter ##########
 #									 #
 #######################################
+# TODO
+# It not working properly because AI probably gonna research all anomalies in galaxy, so... you cant reach new of them because they all already gone. Probably need rework and decrease % to science.
+# AE is also not working with vanilla relics and archaeologicals, probably because of flags. Like, you cant find by DSS omnicodex if other empire own it or find Planetary machine with anomaly. It also not working with custom relics just because. Probably be better to disable them until rework (but i dunno what need to do with them to be better in theory)
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.450
+# 	title = "ap_artifact_hunter"
+# 	desc = "ap_artifact_hunter_desc"
+# 	show_sound = event_dig_site
+# 	location = capital_scope
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = artifact_hunter_room }
+# 	is_triggered_only = yes
+# 	option = { name = EXCELLENT }
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.450
-	title = "ap_artifact_hunter"
-	desc = "ap_artifact_hunter_desc"
-	show_sound = event_dig_site
-	location = capital_scope
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = artifact_hunter_room }
-	is_triggered_only = yes
-	option = { name = EXCELLENT }
-}
+# planet_event = {
+# 	id = UniqueAscensionPerksEvents.451
+# 	title = "UniqueAscensionPerksEvents.451.Name"
+# 	desc = "UniqueAscensionPerksEvents.451.Desc"
+# 	show_sound = event_mystic_reveal
+# 	location = event_target:planet_archaeological_site
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = artifact_hunter_room }
+# 	mean_time_to_happen = { months = 8 }
+# 	pre_triggers = { has_owner = yes }
+# 	trigger = {
+# 		exists = owner
+# 		owner = {
+# 			has_ascension_perk = ap_artifact_hunter
+# 			NOT = { has_country_flag = ap_artifact_hunter_cooldown }
+# 		}
+# 		can_deep_scan_a_new_archaeological_site = yes
+# 	}
+# 	immediate = {
+# 		owner = { set_timed_country_flag = { flag = ap_artifact_hunter_cooldown days = 720 } }
+# 		# find_planet_for_new_archaeological_site = yes
+# 		if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
+# 			if = {
+# 				limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
+# 				random_system = {
+# 					limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 					random_system_planet = {
+# 						limit = { can_spawn_archaeological_site = yes }
+# 						save_event_target_as = planet_archaeological_site
+# 					}
+# 				}
+# 			}
+# 			# nothing
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		} else_if = {
+# 			limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
+# 			random_system = {
+# 				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
+# 				random_system_planet = {
+# 					limit = { can_spawn_archaeological_site = yes }
+# 					save_event_target_as = planet_archaeological_site
+# 				}
+# 			}
+# 		}
+# 		# event_target:planet_archaeological_site = { artifact_hunter_spawn_archaeological_site = yes }
+# 		event_target:planet_archaeological_site = { create_archaeological_site = random }
+# 	}
+# 	option = { name = EXCELLENT custom_tooltip = "UniqueAscensionPerksEvents.451.Tooltip" }
+# }
 
-planet_event = {
-	id = UniqueAscensionPerksEvents.451
-	title = "UniqueAscensionPerksEvents.451.Name"
-	desc = "UniqueAscensionPerksEvents.451.Desc"
-	show_sound = event_mystic_reveal
-	location = event_target:planet_archaeological_site
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = artifact_hunter_room }
-	mean_time_to_happen = { months = 8 }
-	pre_triggers = { has_owner = yes }
-	trigger = {
-		exists = owner
-		owner = {
-			has_ascension_perk = ap_artifact_hunter
-			NOT = { has_country_flag = ap_artifact_hunter_cooldown }
-		}
-		can_deep_scan_a_new_archaeological_site = yes
-	}
-	immediate = {
-		owner = { set_timed_country_flag = { flag = ap_artifact_hunter_cooldown days = 720 } }
-		# find_planet_for_new_archaeological_site = yes
-		if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
-			if = {
-				limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
-				random_system = {
-					limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-					random_system_planet = {
-						limit = { can_spawn_archaeological_site = yes }
-						save_event_target_as = planet_archaeological_site
-					}
-				}
-			}
-			# nothing
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
-			random_system = {
-				limit = { distance = {source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } exists = space_owner space_owner = { is_same_empire = root.owner } any_system_planet = { can_spawn_archaeological_site = yes } }
-				random_system_planet = {
-					limit = { can_spawn_archaeological_site = yes }
-					save_event_target_as = planet_archaeological_site
-				}
-			}
-		}
-		# event_target:planet_archaeological_site = { artifact_hunter_spawn_archaeological_site = yes }
-		event_target:planet_archaeological_site = { create_archaeological_site = random }
-	}
-	option = { name = EXCELLENT custom_tooltip = "UniqueAscensionPerksEvents.451.Tooltip" }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.452
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = { any_planet_within_border = { can_spawn_archaeological_site = yes } }
-	immediate = {
-		random_planet_within_border = {
-			limit = { can_spawn_archaeological_site = yes }
-			create_archaeological_site = random
-		}
-	}
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.452
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = { any_planet_within_border = { can_spawn_archaeological_site = yes } }
+# 	immediate = {
+# 		random_planet_within_border = {
+# 			limit = { can_spawn_archaeological_site = yes }
+# 			create_archaeological_site = random
+# 		}
+# 	}
+# }
 
 #######################################
 #									 #

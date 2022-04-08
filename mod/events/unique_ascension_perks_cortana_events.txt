@@ -580,43 +580,30 @@ country_event = {# Cortana Research - Others
 	option = { name = BACK hidden_effect = { country_event = { id = CortanaEvent.1 } } }
 }
 
-country_event = { # Cortana Research - Auto - Tech
+# Cortana Research - Auto - Tech
+country_event = {
 	id = "CortanaEvent.12"
 	title = "CortanaEvent.12.Name"
 	desc = "CortanaEvent.12.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
-	mean_time_to_happen = { months = 12 modifier = { factor = 0.5 has_technology = tech_cortana_advanced } }
+	is_triggered_only = yes
 	trigger = { has_technology = tech_cortana_initiatives NOR = { has_country_flag = cortana_initiave_tech_cooldown has_country_flag = cortana_research_random_repeatable_technology_no_warning } }
-	immediate = {
-		if = {
-			limit = { has_technology = tech_cortana_advanced } set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 20 }
-			else = { set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 36 } }
-		}
-	}
 	option = {
 		name = "CortanaEvent.12.a"
 		custom_tooltip = "CortanaEvent.12.a.tooltip"
-		hidden_effect = {
-			cortana_research_random_repeatable_technology = yes
-			if = { limit = { has_technology = tech_cortana_perfect } cortana_research_random_repeatable_technology = yes }
-		}
 	}
 	option = { name = "UniqueAscensionPerks.no_message"
 		set_country_flag = cortana_research_random_repeatable_technology_no_warning
 		custom_tooltip = "CortanaEvent.12.a.tooltip"
-		hidden_effect = {
-			cortana_research_random_repeatable_technology = yes
-			if = { limit = { has_technology = tech_cortana_perfect } cortana_research_random_repeatable_technology = yes }
-		}
 	}
 }
-
-country_event = { # Cortana Research - Auto - Tech - Hidde
+# Cortana Research - Auto - Tech - Hidde
+country_event = {
 	id = "CortanaEvent.13"
 	hide_window = yes
 	mean_time_to_happen = { months = 12 modifier = { factor = 0.5 has_technology = tech_cortana_advanced } }
-	trigger = { has_technology = tech_cortana_initiatives NOT = { has_country_flag = cortana_initiave_tech_cooldown } has_country_flag = cortana_research_random_repeatable_technology_no_warning }
+	trigger = { has_technology = tech_cortana_initiatives NOT = { has_country_flag = cortana_initiave_tech_cooldown } }
 	immediate = {
 		if = {
 			limit = { has_technology = tech_cortana_advanced } set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 20 }
@@ -624,42 +611,35 @@ country_event = { # Cortana Research - Auto - Tech - Hidde
 		}
 		cortana_research_random_repeatable_technology = yes
 		if = { limit = { has_technology = tech_cortana_perfect } cortana_research_random_repeatable_technology = yes }
+		if = { limit = { NOT = { has_country_flag = cortana_research_random_repeatable_technology_no_warning } }
+			country_event = { id = "CortanaEvent.12" }
+		}
 	}
 }
-
-country_event = { # Cortana Research - Help - Tech - Progress
+ # Cortana Research - Help - Tech - Progress
+country_event = {
 	id = "CortanaEvent.14"
 	title = "CortanaEvent.14.Name"
 	desc = "CortanaEvent.14.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
-	mean_time_to_happen = { months = 12 modifier = { factor = 0.5 has_technology = tech_cortana_advanced } }
+	is_triggered_only = yes
 	trigger = { has_technology = tech_cortana_help NOR = { has_country_flag = cortana_help_tech_cooldown has_country_flag = cortana_helps_research_current_technology_no_warning } }
-	immediate = {
-		if = {
-			limit = { has_technology = tech_cortana_advanced } set_timed_country_flag = { flag = cortana_help_tech_cooldown months = 12 }
-			else = { set_timed_country_flag = { flag = cortana_help_tech_cooldown months = 24 } }
-		}
-	}
 	option = {
 		name = "CortanaEvent.14.a"
 		custom_tooltip = "CortanaEvent.14.a.tooltip"
-		cortana_helps_research_current_technology = yes
-		if = { limit = { has_technology = tech_cortana_perfect } cortana_helps_research_current_technology = yes }
 	}
 	option = { name = "UniqueAscensionPerks.no_message"
 		set_country_flag = cortana_helps_research_current_technology_no_warning
 		custom_tooltip = "CortanaEvent.14.a.tooltip"
-		cortana_helps_research_current_technology = yes
-		if = { limit = { has_technology = tech_cortana_perfect } cortana_helps_research_current_technology = yes }
 	}
 }
-
-country_event = { # Cortana Research - Help - Tech - Hidde
+ # Cortana Research - Help - Tech - Hidde
+country_event = {
 	id = "CortanaEvent.15"
 	hide_window = yes
 	mean_time_to_happen = { months = 12 modifier = { factor = 0.5 has_technology = tech_cortana_advanced } }
-	trigger = { has_technology = tech_cortana_help NOT = { has_country_flag = cortana_help_tech_cooldown } has_country_flag = cortana_helps_research_current_technology_no_warning }
+	trigger = { has_technology = tech_cortana_help NOT = { has_country_flag = cortana_help_tech_cooldown } }
 	immediate = {
 		if = {
 			limit = { has_technology = tech_cortana_advanced } set_timed_country_flag = { flag = cortana_help_tech_cooldown months = 12 }
@@ -667,6 +647,9 @@ country_event = { # Cortana Research - Help - Tech - Hidde
 		}
 		cortana_helps_research_current_technology = yes
 		if = { limit = { has_technology = tech_cortana_perfect } cortana_helps_research_current_technology = yes }
+		if = { limit = { NOT = { has_country_flag = cortana_helps_research_current_technology_no_warning } }
+			country_event = { id = "CortanaEvent.14" }
+		}
 	}
 }
 

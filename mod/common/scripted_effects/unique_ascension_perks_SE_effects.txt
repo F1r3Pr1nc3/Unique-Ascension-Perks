@@ -5,11 +5,11 @@
 #######################################
 
 create_security_forces_country = {
-	save_event_target_as = main_country
+	# save_event_target_as = main_country
 	if = {
-		limit = { any_country = { has_relation_flag = { who = event_target:main_country flag = security_strike_force } } }
+		limit = { any_country = { has_relation_flag = { who = root flag = security_strike_force } } }
 		random_country = {
-			limit = { has_relation_flag = { who = event_target:main_country flag = security_strike_force } }
+			limit = { has_relation_flag = { who = root flag = security_strike_force } }
 			save_event_target_as = security_forces_country
 		}
 	} else = {
@@ -22,14 +22,14 @@ create_security_forces_country = {
 				colors = { "black" "blue" "null" "null" }
 			}
 			effect = {
+				save_event_target_as = security_forces_country
 				every_country = {
-					limit = { has_communications = event_target:main_country }
+					limit = { has_communications = root }
 					establish_communications_no_message = prev
 				}
-				save_event_target_as = security_forces_country
 				set_country_flag = security_strike_force
-				set_relation_flag = { who = event_target:main_country flag = security_strike_force }
-				set_subject_of = { who = event_target:main_country subject_type = space_dimestication }
+				set_relation_flag = { who = root flag = security_strike_force }
+				set_subject_of = { who = root subject_type = space_dimestication }
 			}
 		}
 	}
@@ -53,5 +53,8 @@ deploy_security_escort_fleet = {
 			save_event_target_as = security_fleet
 		}
 	}
-	event_target:security_fleet = { set_owner = event_target:security_forces_country auto_follow_fleet = { target = event_target:ship_escorted_fleet attack_fleet = no } }
+	# event_target:security_fleet = {
+	last_created_fleet = {
+		set_owner = event_target:security_forces_country auto_follow_fleet = { target = event_target:ship_escorted_fleet attack_fleet = no }
+	}
 }

@@ -165,25 +165,25 @@ ap_nano_drones = {
 	potential = { NOT = { has_ascension_perk = ap_nano_drones } }
 	ai_weight = { factor = 0 }
 }
-
+# 3.3 halved the value
 ap_nano_to_nanite = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_1" has_ascension_perk = ap_nano_drones }
-		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_2" resource_stockpile_compare = { resource = automatic_drone value >= 75000 } }
+		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_2" resource_stockpile_compare = { resource = automatic_drone value > 37500 } }
 		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_3" host_has_dlc = "Distant Stars Story Pack" }
 	}
 	modifier = {
-		ship_hull_regen_add_static = 5
-		ship_armor_regen_add_static = 4
-		ship_shield_regen_add_static = 3
-		country_base_nanites_produces_add = 4
+		ship_hull_regen_add_static = 2.5
+		ship_armor_regen_add_static = 2
+		ship_shield_regen_add_static = 1.5
+		country_base_nanites_produces_add = 2
 	}
 	on_enabled = {
 		custom_tooltip = "ap_nano_to_nanite_tooltip_1"
 		custom_tooltip = "ap_nano_to_nanite_tooltip_2"
 		custom_tooltip = "ap_nano_to_nanite_tooltip_3"
 		custom_tooltip = "ap_nano_to_nanite_tooltip_4"
-		add_resource = { automatic_drone = -75000 }
+		add_resource = { automatic_drone = -37500 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8001 } }
 	}
 	potential = { NOT = { has_ascension_perk = ap_nano_to_nanite } }
@@ -553,7 +553,7 @@ ap_stability_celebration = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.80 } }
 	}
 	potential = { NOT = { has_ascension_perk = ap_stability_celebration } }
-	ai_weight = { factor = 2 }
+	ai_weight = { factor = 1 }
 }
 
 ap_galaxy_center = {
@@ -930,45 +930,46 @@ ap_antimatter = {
 	potential = { NOT = { has_ascension_perk = ap_antimatter } }
 	ai_weight = { factor = 0 }
 }
+# TODO
+# ap_deep_scanner = {
+# 	possible = {
+# 		custom_tooltip = { fail_text = "ap_deep_scanner_req_1" has_technology = tech_physics_2 }
+# 		custom_tooltip = { fail_text = "ap_deep_scanner_req_2" has_technology = tech_automated_exploration }
+# 		custom_tooltip = { fail_text = "ap_deep_scanner_req_3" has_technology = tech_sensors_2 }
+# 		custom_tooltip = { fail_text = "ap_deep_scanner_req_4" has_technology = tech_combat_computers_1 }
+# 	}
+# 	modifier = {
+# 		ship_anomaly_generation_chance_mult = 1.00
+# 		country_physics_tech_research_speed = 0.75
+# 	}
+# 	on_enabled = {
+# 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.440 } }
+# 		custom_tooltip = "ap_deep_scanner_tooltip"
+# 	}
+# 	potential = { NOT = { has_ascension_perk = ap_deep_scanner } }
+# 	ai_weight = { factor = 5 }
+# }
 
-ap_deep_scanner = {
-	possible = {
-		custom_tooltip = { fail_text = "ap_deep_scanner_req_1" has_technology = tech_physics_2 }
-		custom_tooltip = { fail_text = "ap_deep_scanner_req_2" has_technology = tech_automated_exploration }
-		custom_tooltip = { fail_text = "ap_deep_scanner_req_3" has_technology = tech_sensors_2 }
-		custom_tooltip = { fail_text = "ap_deep_scanner_req_4" has_technology = tech_combat_computers_1 }
-	}
-	modifier = {
-		ship_anomaly_generation_chance_mult = 1.00
-		country_physics_tech_research_speed = 0.75
-	}
-	on_enabled = {
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.440 } }
-		custom_tooltip = "ap_deep_scanner_tooltip"
-	}
-	potential = { NOT = { has_ascension_perk = ap_deep_scanner } }
-	ai_weight = { factor = 5 }
-}
-
-ap_artifact_hunter = {
-	possible = {
-		custom_tooltip = { fail_text = "ap_artifact_hunter_req_1" has_ascension_perk = ap_deep_scanner }
-		custom_tooltip = { fail_text = "ap_artifact_hunter_req_2" has_technology = tech_physics_3 }
-		custom_tooltip = { fail_text = "ap_artifact_hunter_req_3" has_technology = tech_sensors_3 }
-		custom_tooltip = { fail_text = "ap_artifact_hunter_req_4" has_technology = tech_combat_computers_2 }
-		custom_tooltip = { fail_text = "ap_artifact_hunter_req_5" host_has_dlc = "Ancient Relics Story Pack" }
-	}
-	modifier = {
-		ship_archaeological_site_excavation_speed_mult = 1.50
-		ship_archeaological_site_clues_add = 4
-	}
-	on_enabled = {
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.450 } }
-		custom_tooltip = "ap_artifact_hunter_tooltip"
-	}
-	potential = { NOT = { has_ascension_perk = ap_artifact_hunter } }
-	ai_weight = { factor = 5 }
-}
+# TODO
+# ap_artifact_hunter = {
+# 	possible = {
+# 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_1" has_ascension_perk = ap_deep_scanner }
+# 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_2" has_technology = tech_physics_3 }
+# 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_3" has_technology = tech_sensors_3 }
+# 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_4" has_technology = tech_combat_computers_2 }
+# 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_5" host_has_dlc = "Ancient Relics Story Pack" }
+# 	}
+# 	modifier = {
+# 		ship_archaeological_site_excavation_speed_mult = 1.50
+# 		ship_archeaological_site_clues_add = 4
+# 	}
+# 	on_enabled = {
+# 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.450 } }
+# 		custom_tooltip = "ap_artifact_hunter_tooltip"
+# 	}
+# 	potential = { NOT = { has_ascension_perk = ap_artifact_hunter } }
+# 	ai_weight = { factor = 5 }
+# }
 
 ap_self_aware_colony = {
 	possible = {
