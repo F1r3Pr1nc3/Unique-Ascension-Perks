@@ -4,11 +4,12 @@
 #									 #
 #######################################
 
+# This = planet
 create_civilian_activities_convoy = {
 	create_fleet = {
 		name = "Civilian Convoy"
 		effect = {
-			set_owner = event_target:main_country
+			set_owner = root # event_target:main_country
 			random_list = {
 				1 = {}
 				999 = { # Normal Transport
@@ -115,14 +116,8 @@ create_civilian_activities_convoy = {
 # From = planet (if any)
 civilian_space_activities_civilian_convoy_fleet_arrival = {
 	save_event_target_as = civilian_convoy_fleet
-	from = {
-		if = {
-			limit = { owner = { NOT = { has_country_flag = ap_civilian_activities_no_warning } } }
-			planet_event = { id = UniqueAscensionPerksEvents.264 }
-			else = { planet_event = { id = UniqueAscensionPerksEvents.268 } }
-		}
-	}
+	from = { planet_event = { id = UniqueAscensionPerksEvents.268 } }
 	# remove_fleet_flag = civilian_convoy_fleet
 	# remove_fleet_flag = civilian_convoy_fleet_moving_order
-	delete_fleet = this
+	# delete_fleet = this
 }
