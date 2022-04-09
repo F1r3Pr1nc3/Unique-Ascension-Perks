@@ -573,13 +573,13 @@ planet_event = {
 					random_list = {
 						1 = {}
 						100 = { modifier = { factor = 0 has_upgraded_capital = no } remove_building = building_auto_drone_facility_1 add_building = building_auto_drone_facility_2 owner = { add_resource = { automatic_drone = -200 } } }
-						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_power_plant_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_power_plant_1 owner = { add_resource = { automatic_drone = -200 } } }
-						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_mining_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
-						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_eco_simulation } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
-						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_physics_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_society_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-						10 = { modifier = { factor = 0 NOT = { owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-						20 = { modifier = { factor = 0 NOT = { owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
+						10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_power_plant_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_power_plant_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_mining_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_eco_simulation } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_physics_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_society_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+						10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_engineering_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+						20 = { modifier = { factor = 0 owner = { NOR = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value > 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
 					}
 				}
 				999 = { modifier = { factor = 0 NAND = { has_building = building_auto_drone_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_drones } } } remove_building = building_auto_drone_facility_2 add_building = building_auto_drone_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
@@ -998,7 +998,6 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 9 }
 	trigger = {
-		is_ai = no
 		has_ascension_perk = ap_expansion_infinity
 		any_owned_planet = {
 			OR = {
@@ -1020,7 +1019,7 @@ country_event = {
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
 		}
 		event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes }
-		if = { limit = { NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning } }
+		if = { limit = { is_ai = no NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning } }
 			country_event = { id = UniqueAscensionPerksEvents.46 }
 		}
 	}
@@ -2318,9 +2317,9 @@ planet_event = {
 	show_sound = event_celebration
 	picture = GFX_evt_stability_celebration
 	location = root
-	pre_triggers = { has_owner = yes }
+	pre_triggers = { has_owner = yes is_ai = no }
 	is_triggered_only = yes
-	trigger = { owner = { NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
+	trigger = { owner = { is_ai = no NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
 	option = { name = EXCELLENT }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
@@ -2388,7 +2387,7 @@ planet_event = {
 			add_monthly_resource_mult = { resource = unity value = 6 min = 100 max = 500 }
 		}
 		add_modifier = { modifier = stability_celebration days = 3600 }
-		if = { limit = { owner = { NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
+		if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
 			planet_event = { id = UniqueAscensionPerksEvents.81 }
 		}
 	}
@@ -3523,15 +3522,15 @@ planet_event = {
 		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 27 } }
 		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 29 } }
 	}
-	pre_triggers = { has_owner = yes is_ai = no }
+	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = owner
-		owner = { is_ai = no is_hive_empire = yes has_ascension_perk = ap_hivemind_reserve }
+		owner = { is_hive_empire = yes has_ascension_perk = ap_hivemind_reserve }
 		has_deposit = d_hivemind_reserve
 	}
 	immediate = {
 		create_pop = { species = owner_main_species }
-		if = { limit = { NOT = { owner = { has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
+		if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
 			planet_event = { id = UniqueAscensionPerksEvents.3129 } # notify
 		}
 	}
@@ -5413,7 +5412,7 @@ country_event = {
 			}
 			# civilian_space_activities_create_resources_transport = yes
 			save_event_target_as = spawn_location
-			if = { limit = { NOT = { owner = { has_country_flag = ap_civilian_activities_no_warning } } } planet_event = { id = UniqueAscensionPerksEvents.263 } }
+			if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } } planet_event = { id = UniqueAscensionPerksEvents.263 } }
 			set_timed_planet_flag = { flag = spawned_civilian_convoy_fleet months = 2 }
 			if = { limit = { NOR = { has_planet_flag = civilian_cargo_focus } } set_timed_planet_flag = { flag = spawned_civilian_convoy_fleet_used years = 3 } }
 			owner = {
@@ -5485,7 +5484,7 @@ planet_event = {
 	picture = GFX_evt_busy_spaceport
 	location = root
 	is_triggered_only = yes
-	trigger = { NOT = { owner = { has_country_flag = ap_civilian_activities_no_warning } } }
+	trigger = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } }
 	option = { name = OK }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
@@ -5520,8 +5519,11 @@ planet_event = {
 	picture = GFX_evt_ship_offloading_cargo
 	location = root
 	is_triggered_only = yes
-	trigger = { NOT = { owner = { has_country_flag = ap_civilian_activities_no_warning } } }
-	after = { event_target:civilian_convoy_fleet = { delete_fleet = this } }
+	trigger = {
+		owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } }
+		exists = event_target:civilian_convoy_fleet
+	}
+	after = { delete_fleet = event_target:civilian_convoy_fleet }
 	option = { name = OK }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
@@ -5709,25 +5711,14 @@ planet_event = {
 			}
 		}
 		if = {
-			limit = { has_deposit = d_civilian_cargo_colony_world }
-			if = {
-				limit = { check_variable = { which = d_civilian_cargo_colony_world_cooldown value = 0 } }
-				change_variable = { which = d_civilian_cargo_colony_world_cooldown value = 4 }
-				random_deposit = { limit = { is_deposit_type = d_civilian_cargo_colony_world } remove_deposit = d_civilian_cargo_colony_world }
-			} else_if = {
-				limit = { check_variable = { which = d_civilian_cargo_colony_world_cooldown value > 0 } }
-				change_variable = { which = d_civilian_cargo_colony_world_cooldown value = -1 }
-			}
-		}
-		if = {
 			limit = { has_deposit = d_civilian_cargo_fortress_world }
 			if = {
-				limit = { check_variable = { which = civilian_convoy_fleet_fortress_world_cooldown value = 0 } }
-				change_variable = { which = civilian_convoy_fleet_fortress_world_cooldown value = 4 }
+				limit = { check_variable = { which = d_civilian_cargo_fortress_world_cooldown value = 0 } }
+				change_variable = { which = d_civilian_cargo_fortress_world_cooldown value = 4 }
 				random_deposit = { limit = { is_deposit_type = d_civilian_cargo_fortress_world } remove_deposit = d_civilian_cargo_fortress_world }
 			} else_if = {
-				limit = { check_variable = { which = civilian_convoy_fleet_fortress_world_cooldown value > 0 } }
-				change_variable = { which = civilian_convoy_fleet_fortress_world_cooldown value = -1 }
+				limit = { check_variable = { which = d_civilian_cargo_fortress_world_cooldown value > 0 } }
+				change_variable = { which = d_civilian_cargo_fortress_world_cooldown value = -1 }
 			}
 		}
 	}
@@ -5802,26 +5793,32 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_capital_world } } add_deposit = d_civilian_cargo_capital_world hidden_effect = { change_variable = { which = d_civilian_cargo_capital_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_energy_world } } add_deposit = d_civilian_cargo_gene_world hidden_effect = { change_variable = { which = d_civilian_cargo_gene_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_mining_world } } add_deposit = d_civilian_cargo_mining_world hidden_effect = { change_variable = { which = d_civilian_cargo_mining_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_food_world } } add_deposit = d_civilian_cargo_agri_world hidden_effect = { change_variable = { which = d_civilian_cargo_agri_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_consumers_world } } add_deposit = d_civilian_cargo_indus_world hidden_effect = { change_variable = { which = d_civilian_cargo_indus_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_alloys_world } } add_deposit = d_civilian_cargo_forge_world hidden_effect = { change_variable = { which = d_civilian_cargo_forge_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_research_world } } add_deposit = d_civilian_cargo_tech_world hidden_effect = { change_variable = { which = d_civilian_cargo_tech_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_refinery_world } } add_deposit = d_civilian_cargo_refinery_world hidden_effect = { change_variable = { which = d_civilian_cargo_refinery_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_trade_world } } add_deposit = d_civilian_cargo_trade_world hidden_effect = { change_variable = { which = d_civilian_cargo_trade_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_urban_world } } add_deposit = d_civilian_cargo_urban_world hidden_effect = { change_variable = { which = d_civilian_cargo_urban_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_nest_world } } add_deposit = d_civilian_cargo_nest_world hidden_effect = { change_variable = { which = d_civilian_cargo_nest_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_nexus_world } } add_deposit = d_civilian_cargo_nexus_world hidden_effect = { change_variable = { which = d_civilian_cargo_nexus_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_rural_world } } add_deposit = d_civilian_cargo_rural_world hidden_effect = { change_variable = { which = d_civilian_cargo_rural_world_cooldown value = 20 } } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_colony_world } } add_deposit = d_civilian_cargo_colony_world hidden_effect = { change_variable = { which = d_civilian_cargo_colony_world_cooldown value = 20 } } create_pop = { species = owner_species } }
-		else_if = { limit = { event_target:civilian_convoy_fleet = { has_fleet_flag = civilian_convoy_fleet_fortress_world } } add_deposit = d_civilian_cargo_fortress_world hidden_effect = { change_variable = { which = d_civilian_cargo_fortress_world_cooldown value = 20 } } }
-		if = { limit = { NOT = { owner = { has_country_flag = ap_civilian_activities_no_warning } } }
-			event_target:civilian_convoy_fleet = { save_event_target_as = civilian_convoy_fleet }
+		from = {
+			switch = {
+				trigger = has_fleet_flag
+				civilian_convoy_fleet_capital_world = { root = { add_deposit = d_civilian_cargo_capital_world hidden_effect = { change_variable = { which = d_civilian_cargo_capital_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_energy_world = { root = { add_deposit = d_civilian_cargo_gene_world hidden_effect = { change_variable = { which = d_civilian_cargo_gene_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_mining_world = { root = { add_deposit = d_civilian_cargo_mining_world hidden_effect = { change_variable = { which = d_civilian_cargo_mining_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_food_world = { root = { add_deposit = d_civilian_cargo_agri_world hidden_effect = { change_variable = { which = d_civilian_cargo_agri_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_consumers_world = { root = { add_deposit = d_civilian_cargo_indus_world hidden_effect = { change_variable = { which = d_civilian_cargo_indus_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_alloys_world = { root = { add_deposit = d_civilian_cargo_forge_world hidden_effect = { change_variable = { which = d_civilian_cargo_forge_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_research_world = { root = { add_deposit = d_civilian_cargo_tech_world hidden_effect = { change_variable = { which = d_civilian_cargo_tech_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_refinery_world = { root = { add_deposit = d_civilian_cargo_refinery_world hidden_effect = { change_variable = { which = d_civilian_cargo_refinery_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_trade_world = { root = { add_deposit = d_civilian_cargo_trade_world hidden_effect = { change_variable = { which = d_civilian_cargo_trade_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_urban_world = { root = { add_deposit = d_civilian_cargo_urban_world hidden_effect = { change_variable = { which = d_civilian_cargo_urban_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_nest_world = { root = { add_deposit = d_civilian_cargo_nest_world hidden_effect = { change_variable = { which = d_civilian_cargo_nest_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_nexus_world = { root = { add_deposit = d_civilian_cargo_nexus_world hidden_effect = { change_variable = { which = d_civilian_cargo_nexus_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_rural_world = { root = { add_deposit = d_civilian_cargo_rural_world hidden_effect = { change_variable = { which = d_civilian_cargo_rural_world_cooldown value = 20 } } } }
+				civilian_convoy_fleet_colony_world = { root = { add_deposit = d_civilian_cargo_colony_world hidden_effect = { change_variable = { which = d_civilian_cargo_colony_world_cooldown value = 20 } } create_pop = { species = owner_species } } }
+				civilian_convoy_fleet_fortress_world = { root = { add_deposit = d_civilian_cargo_fortress_world hidden_effect = { change_variable = { which = d_civilian_cargo_fortress_world_cooldown value = 20 } } } }
+			}
+		}
+
+		if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } }
+			from = { save_event_target_as = civilian_convoy_fleet }
 			planet_event = { id = UniqueAscensionPerksEvents.264 }
 		} else = {
-			event_target:civilian_convoy_fleet = { delete_fleet = this }
+			delete_fleet = from
 		}
 	}
 }
