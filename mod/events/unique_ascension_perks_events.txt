@@ -272,7 +272,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.23.9" allow = { resource_stockpile_compare = { resource = energy value > 45000 } resource_stockpile_compare = { resource = sr_dark_matter value > 900 } custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } } } add_resource = { energy = -45000 sr_dark_matter = -900 } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown days = 270 } country_event = { id = UniqueAscensionPerksEvents.22 days = 270 } while = { count = 9 spawn_lh_system = yes } } }
 	option = { name = "UniqueAscensionPerksEvents.23.10" allow = { resource_stockpile_compare = { resource = energy value > 50000 } resource_stockpile_compare = { resource = sr_dark_matter value > 1000 } custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } } } add_resource = { energy = -50000 sr_dark_matter = -1000 } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown days = 300 } country_event = { id = UniqueAscensionPerksEvents.22 days = 300 } while = { count = 10 spawn_lh_system = yes } } }
 	option = { name = "UniqueAscensionPerksEvents.23.cheat" trigger = { has_global_flag = ap_lost_heritage } allow = { resource_stockpile_compare = { resource = energy value > 500 } custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } } } add_resource = { energy = -500 } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown days = 30 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } while = { count = 1 spawn_lh_system = yes } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -327,7 +327,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "ALLOW_LEADER_MIN_LVL_2"
 		add_modifier = { modifier = expandable_brain_1 }
 		hidden_effect = {
@@ -347,7 +347,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "ALLOW_LEADER_MIN_LVL_3"
 		custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_2"
 		add_research_option = tech_expandable_brain_1
@@ -384,7 +384,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "ALLOW_LEADER_MIN_LVL_4"
 		add_modifier = { modifier = expandable_brain_2 }
 		add_research_option = tech_expandable_brain_2
@@ -600,7 +600,7 @@ country_event = {
 		name = EXCELLENT
 		enable_special_project = { name = NANITES_SHIP_SECTION location = capital_scope owner = root }
 		add_research_option = tech_nanite_transmutation
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -1042,6 +1042,7 @@ country_event = {
 	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_RECOVER_SHIPS location = capital_scope owner = root } }
 }
 
+# on_ship_destroyed_victim
 country_event = {
 	id = UniqueAscensionPerksEvents.48
 	hide_window = yes
@@ -1049,66 +1050,81 @@ country_event = {
 	trigger = { has_ascension_perk = ap_recycling_drones }
 	immediate = {
 		fromfrom = {
+			if = {
+				limit = { has_country_flag = ap_recycling_drones_project }
+				# perform_recover_ship_check = yes
+				random = {
+					chance = 35
+					switch = {
+						trigger = is_ship_size
+						corvette		= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } } }
+						destroyer		= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } } }
+						cruiser			= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } } }
+						battleship		= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } } }
+						titan			= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
+					}
+				}
+			}
 			# perform_recycling_expedition = yes
 			switch = {
 				trigger = is_ship_size
 				# Default Empire
-				science							= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				constructor						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				colonizer						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				sponsored_colonizer				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				transport						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				corvette						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				destroyer						= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				cruiser							= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
-				battleship						= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
-				titan							= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } break = yes } }
-				colossus						= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } break = yes } }
-				juggernaut 						= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } break = yes } }
-				crisis_corvette 				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				crisis_destroyer 				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				crisis_cruiser 					= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
-				star_eater 						= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } break = yes } }
-				military_station_small		  = { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				military_station_medium			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
-				military_station_large			= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
-				ion_cannon						= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
-				mining_station					= { ROOT = { add_resource = { minerals = 25 } break = yes } }
-				research_station				= { ROOT = { add_resource = { minerals = 25 } break = yes } }
-				observation_station				= { ROOT = { add_resource = { minerals = 25 } break = yes } }
+				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
+				research_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
 				# Pirates
-				pirate_corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				pirate_destroyer				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				pirate_cruiser					= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
-				galleon							= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } break = yes } }
-				pirate_station					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
 				# Marauders
-				marauder_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				marauder_destroyer				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				marauder_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } break = yes } }
-				marauder_galleon				= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } break = yes } }
-				marauder_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				marauder_void_dwelling			= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
+				marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
 				# Fallen Empire
-				massive_ship_fallen_empire		= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } break = yes } }
-				large_ship_fallen_empire		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
-				small_ship_fallen_empire		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
 				# Ancient Drone
-				ancient_mining_drone			= { ROOT = { add_resource = { minerals = 40 alloys = 10 } break = yes } }
-				ancient_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				ancient_destroyer				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
+				ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
+				ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
 				# Contingency
-				small_ship_ai					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				large_ship_ai					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
-				military_station_small_ai		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } break = yes } }
-				military_station_large_ai		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } break = yes } }
-				core_ai							= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } break = yes } }
-				final_core_ai					= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } break = yes } }
-				construction_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				colony_ship_ai					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
-				transport_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } break = yes } }
+				small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+				final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
+				construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 				# Leviathans
-				npc_warship_01					= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } break = yes } }
+				npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
 			}
 		}
 	}
@@ -1122,10 +1138,16 @@ country_event = {
 	picture = GFX_evt_scavenger_bot
 	location = capital_scope
 	is_triggered_only = yes
-	immediate = { set_country_flag = ap_recycling_drones_project }
+	immediate = {
+		set_country_flag = ap_recycling_drones_project
+		set_variable = { which = ship_corvette_recovered value = 0 }
+		set_variable = { which = ship_destroyer_recovered value = 0 }
+		set_variable = { which = ship_cruiser_recovered value = 0 }
+		set_variable = { which = ship_battleship_recovered value = 0 }
+		set_variable = { which = ship_titan_recovered value = 0 }
+	}
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.3053 days = 30 random = 30 }
@@ -1134,23 +1156,75 @@ country_event = {
 	}
 }
 
+# on_ship_destroyed_perp
 country_event = {
 	id = UniqueAscensionPerksEvents.50
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_country_flag = ap_recycling_drones_project }
+	trigger = { has_ascension_perk = ap_recycling_drones } # has_country_flag = ap_recycling_drones_project
 	immediate = {
-		fromfrom = {
-			# perform_recover_ship_check = yes
+		fromfromfrom = {
 			random = {
 				chance = 35
 				switch = {
 					trigger = is_ship_size
-					corvette		= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } break = yes } }
-					destroyer		= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } break = yes } }
-					cruiser			= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } break = yes } }
-					battleship		= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } break = yes } }
-					titan			= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } break = yes } }
+					# Default Empire
+					science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+					battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+					colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+					juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+					crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+					star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+					military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+					military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
+					research_station			= { ROOT = { add_resource = { minerals = 25 } } }
+					observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
+					# Pirates
+					pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+					galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+					pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					# Marauders
+					marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+					marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+					marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					# Fallen Empire
+					massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+					large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					# Ancient Drone
+					ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
+					ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					# Contingency
+					small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+					military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+					core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+					final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
+					construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					# Leviathans
+					npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
 				}
 			}
 		}
@@ -1166,14 +1240,14 @@ event = {
 			limit = {
 				has_country_flag = ap_recycling_drones_project
 				OR = {
-					check_variable = { which = ship_corvette_recovered value > 1 }
-					check_variable = { which = ship_destroyer_recovered value > 1 }
-					check_variable = { which = ship_cruiser_recovered value > 1 }
-					check_variable = { which = ship_battleship_recovered value > 1 }
-					check_variable = { which = ship_titan_recovered value > 1 }
+					check_variable = { which = ship_corvette_recovered value > 0 }
+					check_variable = { which = ship_destroyer_recovered value > 0 }
+					check_variable = { which = ship_cruiser_recovered value > 0 }
+					check_variable = { which = ship_battleship_recovered value > 0 }
+					check_variable = { which = ship_titan_recovered value > 0 }
 				}
 			}
-			country_event = { id = UniqueAscensionPerksEvents.52 }
+			country_event = { id = UniqueAscensionPerksEvents.52 days = 5 }
 		}
 	}
 }
@@ -1255,7 +1329,16 @@ country_event = {
 			}
 		}
 	}
-	option = { name = EXCELLENT }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			set_variable = { which = ship_corvette_recovered value = 0 }
+			set_variable = { which = ship_destroyer_recovered value = 0 }
+			set_variable = { which = ship_cruiser_recovered value = 0 }
+			set_variable = { which = ship_battleship_recovered value = 0 }
+			set_variable = { which = ship_titan_recovered value = 0 }
+		}
+	}
 }
 
 country_event = {
@@ -1337,8 +1420,8 @@ country_event = {
 		trigger = { exists = event_target:recycle_system_6 }
 		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_6 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
-	option = { name = "UniqueAscensionPerksEvents.3055.Select" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } } }
-	option = { name = CANCEL default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.3055.Select" ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } } }
+	option = { name = CANCEL ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -1517,7 +1600,7 @@ planet_event = {
 	}
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_small } owner = { add_resource = { energy = 250 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_medium } owner = { add_resource = { energy = 500 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_big } owner = { add_resource = { energy = 750 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_huge } owner = { add_resource = { energy = 1000 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_minerals } owner = { add_resource = { minerals = 500 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_consumers } owner = { add_resource = { consumer_goods = 500 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_members } owner = { add_resource = { unity = 500 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_leaders } owner = { add_resource = { influence = 30 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_weapons } owner = { add_resource = { engineering_research = 600 } } } else_if = { limit = { has_planet_flag = recent_security_preventive_strike_energy_ships } owner = { add_resource = { alloys = 300 } } }
 	}
 }
@@ -1673,7 +1756,7 @@ planet_event = {
 	}
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "UniqueAscensionPerksEvents.3061.a.tooltip"
 		nature_rare_deposits_found = yes
 	}
@@ -1699,7 +1782,7 @@ country_event = {
 			give_technology = { tech = tech_droid_workers }
 			add_research_option = tech_synthetic_workers
 		} else = { add_monthly_resource_mult = { resource = engineering_research value = 1 min = 20000 max = 20000 } }
-		give_technology = { tech = tech_unit_assembler } default_hide_option = yes
+		give_technology = { tech = tech_unit_assembler } ai_chance = { factor = 0 }
 	}
 }
 
@@ -1953,7 +2036,7 @@ country_event = {
 	immediate = { set_country_flag = recomposer_project }
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		add_monthly_resource_mult = { resource = engineering_research value = 22 min = 5000 max = 15000 }
 		custom_tooltip = "ap_recomposer_tooltip"
 	}
@@ -2101,7 +2184,7 @@ country_event = {
 		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.69.Select" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.69 } } }
-	option = { name = "UniqueAscensionPerksEvents.69.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.69.b" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -2205,7 +2288,7 @@ country_event = {
 		trigger = { exists = event_target:fallen_empire_6 }
 		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
 	}
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { influence = 1000 } default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { influence = 1000 } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -2509,7 +2592,7 @@ planet_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.84.Menu.tooltip"
 		hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
 	}
-	option = { name = EXIT default_hide_option = yes }
+	option = { name = EXIT ai_chance = { factor = 0 } }
 }
 
 planet_event = {
@@ -2607,7 +2690,7 @@ planet_event = {
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
-	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } ai_chance = { factor = 0 } }
 }
 
 planet_event = {
@@ -2657,7 +2740,7 @@ planet_event = {
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
 	}
-	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } ai_chance = { factor = 0 } }
 }
 # on_bi_yearly_pulse
 event = {
@@ -2792,7 +2875,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 10 } } } add_resource = { influence = 10 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 20 } } } add_resource = { influence = 20 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 30 } } } add_resource = { influence = 30 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 40 } } } add_resource = { influence = 40 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 50 } } } add_resource = { influence = 50 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 60 } } } add_resource = { influence = 60 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 70 } } } add_resource = { influence = 70 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 80 } } } add_resource = { influence = 80 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 90 } } } add_resource = { influence = 90 } }
 		else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 100 } } } add_resource = { influence = 100 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 110 } } } add_resource = { influence = 110 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 120 } } } add_resource = { influence = 120 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 130 } } } add_resource = { influence = 130 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 140 } } } add_resource = { influence = 140 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 150 } } } add_resource = { influence = 150 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 160 } } } add_resource = { influence = 160 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 170 } } } add_resource = { influence = 170 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 180 } } } add_resource = { influence = 180 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 190 } } } add_resource = { influence = 190 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 200 } } } add_resource = { influence = 200 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count > 200 } } } add_resource = { influence = 200 } }
 	}
@@ -2885,7 +2968,7 @@ country_event = {
 	immediate = { set_country_flag = super_hivemind_project }
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "ap_super_hive_mind_tooltip_3"
 		add_research_option = tech_super_hivemind
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.103 } add_resource = { food = 750 } }
@@ -2949,7 +3032,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.7" trigger = { exists = event_target:leader_7 } hidden_effect = { event_target:leader_7 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.8" trigger = { exists = event_target:leader_8 } hidden_effect = { event_target:leader_8 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
 	option = { name = "UniqueAscensionPerks.select_leader" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.103 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -2968,7 +3051,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { resource_stockpile_compare = { resource = influence value > 375	} } add_resource = { influence = -375	} hidden_effect = { while = { count = 5 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
 	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { resource_stockpile_compare = { resource = influence value > 450	} } add_resource = { influence = -450	} hidden_effect = { while = { count = 6 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
 	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { resource_stockpile_compare = { resource = influence value > 525	} } add_resource = { influence = -525	} hidden_effect = { while = { count = 7 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3013,7 +3096,7 @@ country_event = {
 	immediate = { set_country_flag = mega_hivemind_project }
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "ap_mega_hive_mind_tooltip_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.112 } }
 	}
@@ -3034,7 +3117,7 @@ country_event = {
 		add_resource = { exotic_gases = -500 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.113 } }
 	}
-	option = { name = "cara_home_exit" default_hide_option = yes }
+	option = { name = "cara_home_exit" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3055,7 +3138,7 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.114 }
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.113.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.113.b" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3170,7 +3253,7 @@ country_event = {
 	option = { name = OK trigger = { has_country_flag = realm_destination_dropper_activated has_country_flag = realm_destination_dropper_engineering } add_monthly_resource_mult = { resource = engineering_research value = 1 min = 3000 max = 3000 } realm_destination_restart_or_not = yes }
 	option = { name = OK trigger = { has_country_flag = realm_destination_dropper_activated has_country_flag = realm_destination_dropper_physics } add_monthly_resource_mult = { resource = physics_research value = 1 min = 3000 max = 3000 } realm_destination_restart_or_not = yes }
 	option = { name = OK trigger = { has_country_flag = realm_destination_dropper_activated has_country_flag = realm_destination_dropper_crystals } add_resource = { rare_crystals = 250 } realm_destination_restart_or_not = yes }
-	option = { trigger = { realm_can_normal_exit = yes } name = "UniqueAscensionPerksEvents.113.b" default_hide_option = yes }
+	option = { trigger = { realm_can_normal_exit = yes } name = "UniqueAscensionPerksEvents.113.b" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3183,7 +3266,7 @@ country_event = {
 	picture_event_data = { room = mega_hive_mind_room }
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerksEvents.115.a" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.112 } } }
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -3214,7 +3297,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.3125 days = 30 random = 30 }
@@ -3453,7 +3536,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = event_target:hivemind_reserve_planet
 	is_triggered_only = yes
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 	option = {
 		name = "UniqueAscensionPerksEvents.3128.a"
 		allow = {
@@ -3722,7 +3805,7 @@ country_event = {
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.3143.a" default_hide_option = yes add_resource = { alloys = 350 } }
+	option = { name = "UniqueAscensionPerksEvents.3143.a" ai_chance = { factor = 0 } add_resource = { alloys = 350 } }
 	option = { name = "UniqueAscensionPerksEvents.3143.b" random = { chance = 20 primitive_country_into_next_age = yes } }
 }
 
@@ -3734,7 +3817,7 @@ country_event = {
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.3144.a" default_hide_option = yes add_resource = { food = 500 } }
+	option = { name = "UniqueAscensionPerksEvents.3144.a" ai_chance = { factor = 0 } add_resource = { food = 500 } }
 	option = { name = "UniqueAscensionPerksEvents.3143.b" random = { chance = 40 primitive_country_into_next_age = yes } }
 }
 
@@ -3746,7 +3829,7 @@ country_event = {
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = INTERESTING default_hide_option = yes add_monthly_resource_mult = { resource = society_research value = 5 min = 250 max = 1000 } }
+	option = { name = INTERESTING ai_chance = { factor = 0 } add_monthly_resource_mult = { resource = society_research value = 5 min = 250 max = 1000 } }
 }
 
 country_event = {
@@ -3757,7 +3840,7 @@ country_event = {
 	picture = GFX_evt_metropolis
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = INTERESTING default_hide_option = yes add_monthly_resource_mult = { resource = unity value = 5 min = 500 max = 1500 } }
+	option = { name = INTERESTING ai_chance = { factor = 0 } add_monthly_resource_mult = { resource = unity value = 5 min = 500 max = 1500 } }
 }
 
 country_event = {
@@ -3768,7 +3851,7 @@ country_event = {
 	picture = GFX_evt_mining_operations
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.3147.a" default_hide_option = yes add_resource = { minerals = 1000 } }
+	option = { name = "UniqueAscensionPerksEvents.3147.a" ai_chance = { factor = 0 } add_resource = { minerals = 1000 } }
 	option = { name = "UniqueAscensionPerksEvents.3143.b" random_list = { 95 = {} 5 = { modifier = { factor = 0 is_primitive_stage_three = yes } primitive_country_into_next_age = yes } } }
 }
 
@@ -3780,7 +3863,7 @@ country_event = {
 	picture = GFX_evt_drilling_for_gas
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.3148.a" default_hide_option = yes add_resource = { energy = 1000 } }
+	option = { name = "UniqueAscensionPerksEvents.3148.a" ai_chance = { factor = 0 } add_resource = { energy = 1000 } }
 	option = { name = "UniqueAscensionPerksEvents.3143.b" random_list = { 95 = {} 5 = { modifier = { factor = 0 is_primitive_stage_three = yes } primitive_country_into_next_age = yes } } }
 }
 
@@ -3792,7 +3875,7 @@ country_event = {
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
-	option = { name = AMAZING default_hide_option = yes add_resource = { influence = 30 } primitive_country_into_next_age = yes }
+	option = { name = AMAZING ai_chance = { factor = 0 } add_resource = { influence = 30 } primitive_country_into_next_age = yes }
 }
 
 country_event = {
@@ -3816,7 +3899,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.3150.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.3150.b" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3856,7 +3939,7 @@ country_event = {
 		hidden_effect = { set_country_flag = early_space_age_contact_not_same_species_confirmed }
 		response_text = "UniqueAscensionPerksEvents.3151.NotSame.Species"
 	}
-	option = { name = "cara_home_exit" default_hide_option = yes }
+	option = { name = "cara_home_exit" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3873,7 +3956,7 @@ country_event = {
 		room = event_target:primitive_creation_country.ruler
 	}
 	option = { name = "UniqueAscensionPerksEvents.3152.a" add_resource = { consumer_goods = 500 } }
-	option = { name = "cara_home_exit" default_hide_option = yes }
+	option = { name = "cara_home_exit" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3908,7 +3991,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "cara_home_exit" default_hide_option = yes }
+	option = { name = "cara_home_exit" ai_chance = { factor = 0 } }
 }
 
 planet_event = {
@@ -3936,7 +4019,7 @@ country_event = {
 	picture = GFX_evt_powerful_vassals
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = EXCELLENT default_hide_option = yes }
+	option = { name = EXCELLENT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -3995,7 +4078,7 @@ country_event = {
 		hidden_effect = { event_target:country_6 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -4041,7 +4124,7 @@ country_event = {
 		hidden_effect = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.5.tooltip"
 	}
-	option = { name = BACK default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
+	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
 }
 
 country_event = {
@@ -4113,7 +4196,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget } }
 	# option = { name = "Let's select another subject." hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -4229,7 +4312,7 @@ country_event = {
 			move_to_next_sector = yes
 		}
 	}
-	option = { name = EXIT default_hide_option = yes }
+	option = { name = EXIT ai_chance = { factor = 0 } }
 }
 
 event = {
@@ -4332,7 +4415,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerksEvents.153.a" hidden_effect = { expeditition_monthly_event = yes } }
-	option = { name = "UniqueAscensionPerksEvents.153.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.153.b" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -4343,7 +4426,7 @@ country_event = {
 	picture = GFX_evt_ship_in_orbit
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -4389,7 +4472,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		random_list = {
 			10 = { add_resource = { volatile_motes = 1000 } }
 			10 = { add_resource = { rare_crystals = 1000 } }
@@ -4499,7 +4582,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		add_monthly_resource_mult = { resource = physics_research value = 12 min = 2000 max = 8000 }
 		add_monthly_resource_mult = { resource = society_research value = 12 min = 2000 max = 8000 }
 		add_monthly_resource_mult = { resource = engineering_research value = 12 min = 2000 max = 8000 }
@@ -4549,7 +4632,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.1"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -1 } }
 		add_resource = { minerals = 400 energy = 400 }
@@ -4566,7 +4649,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.2"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -2 } }
 		add_resource = { food = 250 }
@@ -4584,7 +4667,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.4"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -4 } }
 		add_resource = { alloys = 400 minerals = 800 energy = 800 }
@@ -4601,7 +4684,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.8"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -8 } }
 		add_resource = { nanites = 900 }
@@ -4619,7 +4702,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.8"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -8 } }
 		add_resource = { alloys = 1500 }
@@ -4637,7 +4720,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.16"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -16 } }
 		add_resource = { influence = 100 }
@@ -4655,7 +4738,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = OK
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "expedition.ship.destroyed.32"
 		hidden_effect = { change_variable = { which = "expedition_research_ships" value = -32 } }
 		add_resource = { energy = 4000 sr_dark_matter = 1000 }
@@ -4766,7 +4849,7 @@ country_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
 	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.202 } } }
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 50000 influence = 200 } default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 50000 influence = 200 } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -4885,7 +4968,7 @@ country_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
 	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.206 } } }
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 10000 unity = 2500 influence = 75 } default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 10000 unity = 2500 influence = 75 } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -4945,7 +5028,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.209.a"
 		event_target:MachineEmpireInfiltrationTarget = { add_opinion_modifier = { who = root modifier = opinion_failed_machine_infiltration } }
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		custom_tooltip = "UniqueAscensionPerksEvents.209.a.tooltip"
 	}
 }
@@ -4973,7 +5056,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 14 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		any_country = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
 	}
@@ -5070,7 +5153,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 } # 14
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		any_country = {
 			is_country_type = defense_sentinels
@@ -5121,7 +5204,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 } # 14
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		has_country_flag = ap_defense_sentinels_retriever_project
 		any_country = {
@@ -5160,7 +5243,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		has_technology = tech_defense_sentinels_2
 		NOR = {
@@ -5227,7 +5310,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { years = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
 	}
@@ -5314,7 +5397,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.7" trigger = { exists = event_target:leader_7 } hidden_effect = { event_target:leader_7 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.8" trigger = { exists = event_target:leader_8 } hidden_effect = { event_target:leader_8 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
 	option = { name = "UniqueAscensionPerks.select_leader" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.251 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -5333,7 +5416,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { resource_stockpile_compare = { resource = energy value > 4000 } } add_resource = { energy = -4000 } hidden_effect = { while = { count = 5 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
 	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { resource_stockpile_compare = { resource = energy value > 4800 } } add_resource = { energy = -4800 } hidden_effect = { while = { count = 6 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
 	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { resource_stockpile_compare = { resource = energy value > 5600 } } add_resource = { energy = -5600 } hidden_effect = { while = { count = 7 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -5923,10 +6006,10 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = UniqueAscensionPerksEvents.271.Gate
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.271.Req01 check_variable = { which = invasion_gate_type value = 0 } } }
+		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.271.Req01 check_variable = { which = invasion_gate_type value != 0 } } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.272 } }
 	}
-	option = { name = EXIT default_hide_option = yes }
+	option = { name = EXIT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -5954,7 +6037,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.272.Zeta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 5 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 6 } } }
 	option = { name = UniqueAscensionPerksEvents.272.Kappa	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 6 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 7 } } }
 	option = { name = UniqueAscensionPerksEvents.272.Omega	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 7 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 8 } } }
-	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } ai_chance = { factor = 0 } }
 }
 # TODO
 country_event = {
@@ -5989,7 +6072,7 @@ country_event = {
 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 8 } } add_resource = { energy = -18000 } }
 		country_event = { id = UniqueAscensionPerksEvents.274 }
 	}
-	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } ai_chance = { factor = 0 } }
 }
 
 # TODO a lot, eg different fleets
@@ -6438,7 +6521,7 @@ country_event = {
 		allow = { has_technology = tech_ragnarok_strike event_target:surgical_strike_fleet = { fleet_size > 200 any_owned_ship = { is_ship_size = titan } } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.314 } }
 	}
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -6470,7 +6553,7 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.315 days = 30 }
 		}
 	}
-	option = { name = ABORT default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.312 } } }
+	option = { name = ABORT ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.312 } } }
 }
 
 country_event = {
@@ -6594,7 +6677,7 @@ country_event = {
 		event_target:target_planet = { add_modifier = { modifier = chosen_ruler_crime_preventive_counterstrike years = 3 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity days = 1800 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -6653,7 +6736,7 @@ country_event = {
 		event_target:target_planet = { add_modifier = { modifier = chosen_ruler_stability_local_meeting years = 3 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity days = 1800 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -6712,7 +6795,7 @@ country_event = {
 		event_target:target_planet = { add_modifier = { modifier = chosen_ruler_temporal_housing years = 3 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity days = 1800 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -6778,7 +6861,7 @@ country_event = {
 		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity days = 1800 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -6839,7 +6922,7 @@ country_event = {
 		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity days = 1800 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7070,7 +7153,7 @@ country_event = {
 		set_timed_country_flag = { flag = treasures_found_cooldown years = 5 }
 	}
 	option = {
-		name = EXCELLENT default_hide_option = yes
+		name = EXCELLENT ai_chance = { factor = 0 }
 		add_resource = { treasures = 25 }
 		event_target:spawn_location = {
 			random_list = {
@@ -7124,7 +7207,7 @@ country_event = {
 		if = { limit = { is_gestalt = no } add_modifier = { modifier = treasures_distribution years = 20 } } else_if = { limit = { is_gestalt = yes } add_modifier = { modifier = treasures_distribution_gesalt years = 20 } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } }
 	}
-	option = { name = EXIT default_hide_option = yes }
+	option = { name = EXIT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7159,7 +7242,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
 	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
 	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.343 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7175,7 +7258,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.344.500 allow = { resource_stockpile_compare = { resource = treasures value > 500 } } add_resource = { treasures = -500 } event_target:PlanetTarget = { add_modifier = { modifier = treasures_trade_500 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
 	option = { name = UniqueAscensionPerksEvents.344.1000 allow = { resource_stockpile_compare = { resource = treasures value > 1000 } } add_resource = { treasures = -1000 } event_target:PlanetTarget = { add_modifier = { modifier = treasures_trade_1000 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
 	option = { name = UniqueAscensionPerksEvents.344.2000 allow = { resource_stockpile_compare = { resource = treasures value > 2000 } } add_resource = { treasures = -2000 } event_target:PlanetTarget = { add_modifier = { modifier = treasures_trade_2000 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7202,7 +7285,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.344.500 allow = { resource_stockpile_compare = { resource = treasures value > 500 } } add_resource = { treasures = -500 } add_modifier = { modifier = treasures_trade_500_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
 	option = { name = UniqueAscensionPerksEvents.344.1000 allow = { resource_stockpile_compare = { resource = treasures value > 1000 } } add_resource = { treasures = -1000 } add_modifier = { modifier = treasures_trade_1000_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
 	option = { name = UniqueAscensionPerksEvents.344.2000 allow = { resource_stockpile_compare = { resource = treasures value > 2000 } } add_resource = { treasures = -2000 } add_modifier = { modifier = treasures_trade_2000_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = ABORT default_hide_option = yes }
+	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7224,7 +7307,7 @@ country_event = {
 	picture = GFX_evt_pirates_attacking_cargo
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerksEvents.348.a" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.349 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7240,7 +7323,7 @@ country_event = {
 		set_timed_country_flag = { flag = pirates_treasures_cooldown years = 4 }
 		country_event = { id = UniqueAscensionPerksEvents.355 days = 1440 }
 	}
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 ship_event = {
@@ -7275,7 +7358,7 @@ country_event = {
 		}
 		set_timed_country_flag = { flag = treasures_on_colony_found_cooldown years = 8 }
 	}
-	option = { name = EXCELLENT default_hide_option = yes add_resource = { treasures = 50 } event_target:spawn_location = { add_deposit = d_treasures_planet } }
+	option = { name = EXCELLENT ai_chance = { factor = 0 } add_resource = { treasures = 50 } event_target:spawn_location = { add_deposit = d_treasures_planet } }
 }
 
 country_event = {
@@ -7289,7 +7372,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.352.200 allow = { resource_stockpile_compare = { resource = treasures value > 200 } } add_resource = { treasures = -200 minor_artifacts = 10 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
 	option = { name = UniqueAscensionPerksEvents.352.400 allow = { resource_stockpile_compare = { resource = treasures value > 400 } } add_resource = { treasures = -400 minor_artifacts = 20 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
 	option = { name = UniqueAscensionPerksEvents.352.800 allow = { resource_stockpile_compare = { resource = treasures value > 800 } } add_resource = { treasures = -800 minor_artifacts = 40 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7311,7 +7394,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7323,7 +7406,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7335,7 +7418,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7406,7 +7489,7 @@ country_event = {
 		hidden_effect = { event_target:country_6 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
 	}
 	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.357 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7422,7 +7505,7 @@ country_event = {
 		city_level = event_target:CountryTargetForPresent
 		room = event_target:CountryTargetForPresent.ruler
 	}
-	option = { name = "UniqueAscensionPerksEvents.358.a" treasures_opinion_set = yes default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.358.a" treasures_opinion_set = yes ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -7445,7 +7528,7 @@ country_event = {
 		enable_special_project = { name = SLOW_LEARNER_ARMY location = capital_scope owner = root }
 	}
 }
-
+# 3.3 values reduced
 country_event = {
 	id = UniqueAscensionPerksEvents.401
 	title = "UniqueAscensionPerksEvents.401.Name"
@@ -7455,12 +7538,12 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = slow_learner_room }
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.401.Alpha" allow = { NOT = { has_modifier = slow_learner_bonus_1 } } add_modifier = { modifier = slow_learner_bonus_1 } add_resource = { unity = 5000 } }
-	option = { name = "UniqueAscensionPerksEvents.401.Beta" allow = { NOT = { has_modifier = slow_learner_bonus_2 } } add_modifier = { modifier = slow_learner_bonus_2 } add_resource = { unity = 5000 } }
-	option = { name = "UniqueAscensionPerksEvents.401.Gamma" allow = { NOT = { has_modifier = slow_learner_bonus_3 } } add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 5000 } }
-	option = { name = "UniqueAscensionPerksEvents.401.Delta" allow = { NOT = { has_modifier = slow_learner_bonus_4 } } add_modifier = { modifier = slow_learner_bonus_4 } add_resource = { unity = 5000 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Alpha"	trigger = { NOT = { has_modifier = slow_learner_bonus_1 } } add_modifier = { modifier = slow_learner_bonus_1 } add_resource = { unity = 3500 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Beta" 	trigger = { NOT = { has_modifier = slow_learner_bonus_2 } } add_modifier = { modifier = slow_learner_bonus_2 } add_resource = { unity = 3500 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Gamma"	trigger = { NOT = { has_modifier = slow_learner_bonus_3 } } add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 3500 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Delta"	trigger = { NOT = { has_modifier = slow_learner_bonus_4 } } add_modifier = { modifier = slow_learner_bonus_4 } add_resource = { unity = 3500 } }
 }
-
+# 3.3 value reduced
 country_event = {
 	id = UniqueAscensionPerksEvents.402
 	title = "SLOW_LEARNER_ARMY"
@@ -7469,7 +7552,7 @@ country_event = {
 	picture = GFX_evt_slow_learner
 	is_triggered_only = yes
 	immediate = { set_country_flag = slow_learner_army }
-	option = { name = EXCELLENT add_resource = { unity = 15000 } }
+	option = { name = EXCELLENT add_resource = { unity = 12000 } }
 }
 
 #######################################
@@ -7490,7 +7573,7 @@ country_event = {
 	option = {
 		name = EXCELLENT
 		enable_special_project = { name = UTOPIAN_REALISATION location = capital_scope owner = root }
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 	}
 }
 
@@ -7507,7 +7590,7 @@ country_event = {
 	immediate = { random_owned_planet = { limit = { is_capital = yes } save_event_target_as = capital_planet } }
 	option = {
 		name = "UniqueAscensionPerksEvents.411.a"
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		random_owned_planet = {
 			limit = { is_capital = yes }
 			change_pc = pc_gaia
@@ -7711,8 +7794,8 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Weapons
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 850 } NOT = { has_modifier = anti_matter_energy_weapons } }
-		add_resource = { anti_matter = -850 }
+		allow = { resource_stockpile_compare = { resource = anti_matter value > 900 } NOT = { has_modifier = anti_matter_energy_weapons } }
+		add_resource = { anti_matter = -900 }
 		add_modifier = { modifier = anti_matter_energy_weapons years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
@@ -7752,13 +7835,15 @@ country_event = {
 			set_timed_country_flag = { flag = space_clouds_generation_cooldown years = 3 }
 			country_event = { id = UniqueAscensionPerksEvents.434 }
 			country_event = { id = UniqueAscensionPerksEvents.438 days = 1080 }
-			random_owned_planet = { limit = { is_capital = yes } save_event_target_as = spawn_location }
+			if = { limit = { exists = capital_scope }
+				capital_scope = { save_event_target_as = spawn_location }
+			} else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
 			create_fleet = {
 				name = "Space Clouds"
 				effect = {
 					set_owner = root
-					while = { count = 8 create_ship = { name = "" design = "Domesticated Space Cloud" effect = { add_modifier = { modifier = domesticated_aliens } } } }
-					while = { count = 8 random_list = { 50 = {} 50 = { create_ship = { name = "" design = "Domesticated Space Cloud" effect = { add_modifier = { modifier = domesticated_aliens } } } } } }
+					while = { count = 7 create_ship = { name = "" design = "Domesticated Space Cloud" effect = { add_modifier = { modifier = domesticated_aliens } } } }
+					while = { count = 7 random = { chance = 50 create_ship = { name = "" design = "Domesticated Space Cloud" effect = { add_modifier = { modifier = domesticated_aliens } } } } }
 					set_location = { target = event_target:spawn_location distance = 250 angle = random }
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
@@ -7769,7 +7854,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = EXIT default_hide_option = yes }
+	option = { name = EXIT ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7780,7 +7865,7 @@ country_event = {
 	picture = GFX_evt_antimatter
 	is_triggered_only = yes
 	option = { name = "edict_anti_matter_menu" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } } }
-	option = { name = "UniqueAscensionPerksEvents.436.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -7791,7 +7876,7 @@ country_event = {
 	picture = GFX_evt_antimatter
 	is_triggered_only = yes
 	option = { name = "edict_anti_matter_menu" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } } }
-	option = { name = "UniqueAscensionPerksEvents.436.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0 } }
 }
 
 ship_event = {
@@ -7831,7 +7916,7 @@ country_event = {
 	picture = GFX_evt_antimatter
 	is_triggered_only = yes
 	option = { name = "edict_anti_matter_menu" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } } }
-	option = { name = "UniqueAscensionPerksEvents.436.b" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0 } }
 }
 
 planet_event = {
@@ -7882,7 +7967,7 @@ planet_event = {
 # 	picture = GFX_evt_deep_scanner
 # 	location = event_target:deep_scanner_planet
 # 	is_triggered_only = yes
-# 	option = { name = OK default_hide_option = yes }
+# 	option = { name = OK ai_chance = { factor = 0 } }
 # }
 
 # planet_event = {
@@ -8369,7 +8454,7 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.461.NoFocus" allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_no_focus } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
 	option = { name = "UniqueAscensionPerksEvents.461.Reset" reset_self_aware_planet = yes hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } custom_tooltip = "decision_self_aware_colony_reset_tooltip" }
 	option = { name = "UniqueAscensionPerksEvents.461.Off" allow = { has_modifier = self_aware_colony } remove_self_aware_planet = yes remove_modifier = self_aware_colony custom_tooltip = "decision_self_aware_colony_to_normal_tooltip" }
-	option = { name = EXIT default_hide_option = yes }
+	option = { name = EXIT ai_chance = { factor = 0 } }
 }
 
 planet_event = {
@@ -8451,7 +8536,7 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.466.Assembly" allow = { has_200_minerals = yes NOT = { has_deposit = d_aware_assembly_building } } add_deposit = d_aware_assembly_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Growth" allow = { has_200_minerals = yes NOT = { has_deposit = d_aware_growth_building } } add_deposit = d_aware_growth_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Strategic" allow = { has_200_minerals = yes has_modifier = self_aware_strategic } add_deposit = d_aware_refinery_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } default_hide_option = yes }
+	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -8472,7 +8557,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		default_hide_option = yes
+		ai_chance = { factor = 0 }
 		if = { limit = { is_regular_empire = yes } add_modifier = { modifier = flourishing_technocracy } } else_if = { limit = { is_hive_empire = yes } add_modifier = { modifier = flourishing_technocracy_hivemind } } else_if = { limit = { is_machine_empire = yes } add_modifier = { modifier = flourishing_technocracy_machine } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 } }
 	}
@@ -8488,7 +8573,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = flourishing_technocracy_room }
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.471.a" default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.472 } } }
+	option = { name = "UniqueAscensionPerksEvents.471.a" ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.472 } } }
 }
 
 country_event = {
@@ -8499,10 +8584,10 @@ country_event = {
 	picture = GFX_evt_physics_research
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "field_manipulation" add_modifier = { modifier = flourishing_technocracy_field_manipulation days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } default_hide_option = yes }
+	option = { name = "field_manipulation" add_modifier = { modifier = flourishing_technocracy_field_manipulation days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } ai_chance = { factor = 0 } }
 	option = { name = "particles" add_modifier = { modifier = flourishing_technocracy_particles days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
 	option = { name = "computing" add_modifier = { modifier = flourishing_technocracy_computing days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
-	option = { name = AMOUNT_NONE default_hide_option = yes }
+	option = { name = AMOUNT_NONE ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -8513,7 +8598,7 @@ country_event = {
 	picture = GFX_evt_society_research
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "new_worlds" add_modifier = { modifier = flourishing_technocracy_new_worlds days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } default_hide_option = yes }
+	option = { name = "new_worlds" add_modifier = { modifier = flourishing_technocracy_new_worlds days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } ai_chance = { factor = 0 } }
 	option = { name = "statecraft" add_modifier = { modifier = flourishing_technocracy_statecraft days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } }
 	option = { name = "biology" add_modifier = { modifier = flourishing_technocracy_biology days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } }
 	option = { name = "military_theory" add_modifier = { modifier = flourishing_technocracy_military_theory days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } }
@@ -8528,7 +8613,7 @@ country_event = {
 	picture = GFX_evt_engineering_research
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "materials" add_modifier = { modifier = flourishing_technocracy_materials days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } default_hide_option = yes }
+	option = { name = "materials" add_modifier = { modifier = flourishing_technocracy_materials days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } ai_chance = { factor = 0 } }
 	option = { name = "industry" add_modifier = { modifier = flourishing_technocracy_industry days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
 	option = { name = "voidcraft" add_modifier = { modifier = flourishing_technocracy_voidcraft days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
 	option = { name = "propulsion" add_modifier = { modifier = flourishing_technocracy_propulsion days = 1800 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
@@ -8602,7 +8687,7 @@ country_event = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } set_timed_country_flag = { flag = ap_library_wisedom_cooldown days = 450 } country_event = { id = UniqueAscensionPerksEvents.492 days = 450 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.491.a.tooltip"
 	}
-	option = { name = GOODBYE default_hide_option = yes }
+	option = { name = GOODBYE ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -8613,7 +8698,7 @@ country_event = {
 	picture = GFX_evt_library_wisedom
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 	option = { name = "UniqueAscensionPerks.lets_again" country_event = { id = UniqueAscensionPerksEvents.491 } }
 }
 
@@ -8639,7 +8724,7 @@ country_event = {
 		add_resource = { influence = -500 }
 		hidden_effect = { set_country_flag = has_wisedom_relic country_event = { id = UniqueAscensionPerksEvents.520 } }
 	}
-	option = { name = GOODBYE default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
+	option = { name = GOODBYE ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
 }
 
 country_event = {
@@ -8665,7 +8750,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.494.Unity" allow = { NOT = { has_country_flag = ap_library_wisedom_unity_cooldown } } add_monthly_resource_mult = { resource = unity value = 8 min = 2000 max = 8000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_unity_cooldown days = 1800 } } custom_tooltip = "UniqueAscensionPerks.no_request_length" }
 	option = { name = "UniqueAscensionPerksEvents.494.Civic" allow = { NOT = { has_modifier = library_wisedom_civic } resource_stockpile_compare = { resource = unity value > 10000 } } add_resource = { unity = -10000 } add_modifier = { modifier = library_wisedom_civic } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
 	option = { name = "UniqueAscensionPerksEvents.494.Ascension" allow = { NOT = { has_modifier = library_wisedom_ascension } resource_stockpile_compare = { resource = unity value > 25000 } } add_resource = { unity = -25000 } add_modifier = { modifier = library_wisedom_ascension } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
-	option = { name = BACK default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
+	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
 country_event = {
@@ -8685,7 +8770,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.495.Trade" trigger = { is_gestalt = no } allow = { NOT = { has_country_flag = ap_library_wisedom_trade_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_trade_campaign } custom_tooltip = "edict_lw_trade_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.495.Scheme" allow = { NOT = { has_country_flag = ap_library_wisedom_construction_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_construction_campaign } custom_tooltip = "edict_lw_construction_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.495.Resource" allow = { NOT = { has_country_flag = ap_library_wisedom_survival_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_survival_campaign } custom_tooltip = "edict_lw_survival_campaign_unlock" }
-	option = { name = BACK default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
+	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
 country_event = {
@@ -8707,7 +8792,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.496.Pierce" allow = { NOT = { has_country_flag = ap_library_wisedom_defense_weakness } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_defense_weakness } custom_tooltip = "edict_lw_defense_weakness_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Damage" allow = { NOT = { has_country_flag = ap_library_wisedom_damage_output } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_damage_output } custom_tooltip = "edict_lw_damage_output_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Alloys" allow = { NOT = { has_country_flag = ap_library_wisedom_alloys_cooldown } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 alloys = 2000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_alloys_cooldown days = 1800 } } custom_tooltip = "UniqueAscensionPerks.no_request_length" }
-	option = { name = BACK default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
+	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
 country_event = {
@@ -8731,7 +8816,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.497.PhysicsTech" allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } wisedom_get_physics_tech = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
 	option = { name = "UniqueAscensionPerksEvents.497.SocietyTech" allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_society_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } wisedom_get_society_tech = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
 	option = { name = "UniqueAscensionPerksEvents.497.EngineeringTech" allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } wisedom_get_engineering_tech = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
-	option = { name = BACK default_hide_option = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
+	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
 country_event = {
@@ -8742,7 +8827,7 @@ country_event = {
 	picture = GFX_evt_library_wisedom
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = OK default_hide_option = yes }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -8837,7 +8922,7 @@ ship_event = {
 		owner = { add_resource = { automatic_drone = -1200 } }
 		deploy_outpost = yes
 	}
-	option = { name = "UniqueAscensionPerksEvents.531.Nope" default_hide_option = yes }
+	option = { name = "UniqueAscensionPerksEvents.531.Nope" ai_chance = { factor = 0 } }
 }
 
 #######################################
@@ -8879,5 +8964,5 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = root room = dark_galaxy_web_room }
 	is_triggered_only = yes
-	option = { name = LEAVE default_hide_option = yes }
+	option = { name = LEAVE ai_chance = { factor = 0 } }
 }
