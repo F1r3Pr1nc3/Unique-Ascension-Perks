@@ -973,7 +973,6 @@ country_event = {
 	location = event_target:ap_expansion_infinity_planet
 	is_triggered_only = yes
 	trigger = {
-		is_ai = no
 		has_ascension_perk = ap_expansion_infinity
 		NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning }
 		any_owned_planet = {
@@ -1496,7 +1495,6 @@ country_event = {
 	mean_time_to_happen = { months = 1 }
 	location = event_target:spawn_location_system
 	trigger = {
-		is_ai = no
 		has_ascension_perk = ap_advanced_security
 		any_system_within_border = {
 			NOT = { has_star_flag = recent_security_strike_force }
@@ -1540,7 +1538,7 @@ country_event = {
 			event_target:security_fleet = { set_owner = event_target:security_forces_country }
 		}
 	}
-	option = { name = OK }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 fleet_event = {
@@ -2131,7 +2129,6 @@ country_event = {
 	picture = GFX_evt_fallen_disciple
 	mean_time_to_happen = { years = 6 }
 	trigger = {
-		is_ai = no
 		has_ascension_perk = ap_fallen_disciple
 		any_country = { is_valid_fallen_empire_for_fallen_disciple = yes }
 	}
@@ -2521,9 +2518,9 @@ planet_event = {
 			success_text = { text = "UniqueAscensionPerksEvents.84.Auto" owner = { is_machine_empire = yes } }
 			success_text = { text = "UniqueAscensionPerksEvents.84.Entrepot" owner = { is_machine_empire = yes } }
 			text = newline
-			success_text = { text = "UniqueAscensionPerksEvents.84.Casino" has_planet_flag = galaxy_center_casino }
-			success_text = { text = "UniqueAscensionPerksEvents.84.Administration" has_planet_flag = galaxy_center_administration }
-			success_text = { text = "UniqueAscensionPerksEvents.84.Museum" has_planet_flag = galaxy_center_museum }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Casino.title" has_planet_flag = galaxy_center_casino }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Administration.title" has_planet_flag = galaxy_center_administration }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Museum.title" has_planet_flag = galaxy_center_museum }
 			success_text = { text = "UniqueAscensionPerksEvents.84.Shipyard.Off" NOT = { has_planet_flag = galaxy_center_super_shipyard } }
 			success_text = { text = "UniqueAscensionPerksEvents.84.Shipyard.On" has_planet_flag = galaxy_center_super_shipyard }
 		}
@@ -2889,7 +2886,7 @@ country_event = {
 	show_sound = event_conversation
 	location = event_target:ethic_planet
 	is_triggered_only = yes
-	option = { name = OK }
+	option = { name = OK ai_chance = { factor = 0 } }
 }
 
 country_event = {
@@ -5056,7 +5053,6 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 14 }
 	trigger = {
-		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		any_country = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
 	}
@@ -5101,7 +5097,7 @@ country_event = {
 		}
 	}
 }
-
+# MTTH days = 14
 fleet_event = {
 	id = UniqueAscensionPerksEvents.232
 	hide_window = yes
@@ -5111,9 +5107,13 @@ fleet_event = {
 		owner = {
 			save_event_target_as = domesticated_spaceborn_alien
 			if = { limit = { NOT = { exists = event_target:main_country } }
-				random_country = {
-					limit = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } }
-					save_event_target_as = main_country
+				if = { limit = { exists = from from = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } } }
+					from = { save_event_target_as = main_country }
+				} else = {
+					random_country = {
+						limit = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } }
+						save_event_target_as = main_country
+					}
 				}
 			}
 		}
@@ -5153,7 +5153,6 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 } # 14
 	trigger = {
-		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		any_country = {
 			is_country_type = defense_sentinels
@@ -5204,7 +5203,6 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 } # 14
 	trigger = {
-		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		has_country_flag = ap_defense_sentinels_retriever_project
 		any_country = {
@@ -5243,7 +5241,6 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	trigger = {
-		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		has_technology = tech_defense_sentinels_2
 		NOR = {
@@ -5267,7 +5264,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate =	{
 		set_country_flag = ap_defense_sentinels_retriever_project
-		remove_country_flag = ap_defense_sentinels_retriever_project_check
+		remove_country_flag = ap_defense_sentinels_retriever_project_check # TODO TEST BUG REPORT
 		while = { count = 3 create_retriever_sentinels_fleet = yes }
 	}
 	option = { name = EXCELLENT }
@@ -5310,7 +5307,6 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { years = 1 }
 	trigger = {
-		# is_ai = no
 		has_ascension_perk = ap_defense_sentinels
 		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
 	}
@@ -5568,7 +5564,7 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	trigger = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } }
-	option = { name = OK }
+	option = { name = OK ai_chance = { factor = 0 } }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
 		custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
@@ -5607,7 +5603,7 @@ planet_event = {
 		exists = event_target:civilian_convoy_fleet
 	}
 	after = { delete_fleet = event_target:civilian_convoy_fleet }
-	option = { name = OK }
+	option = { name = OK ai_chance = { factor = 0 } }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
 		custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
@@ -5812,7 +5808,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 14 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_civilian_activities
 		any_country = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
 	}
@@ -6220,7 +6216,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 42 } # days = 30
 	trigger = {
-		is_ai = no # TODO AI?
+		# is_ai = no # TODO AI?
 		OR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 		OR = {
 			AND = { is_common_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_governor has_deposit = d_district_university has_deposit = d_district_defense has_deposit = d_district_industry } } }
@@ -6601,7 +6597,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill < 10 }
@@ -6632,7 +6628,7 @@ country_event = {
 	location = event_target:target_planet
 	mean_time_to_happen = { months = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -6691,7 +6687,7 @@ country_event = {
 	location = event_target:target_planet
 	mean_time_to_happen = { months = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -6750,7 +6746,7 @@ country_event = {
 	location = event_target:target_planet
 	mean_time_to_happen = { months = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -6814,7 +6810,7 @@ country_event = {
 	location = event_target:target_planet
 	mean_time_to_happen = { months = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -6875,7 +6871,7 @@ country_event = {
 	location = event_target:target_planet
 	mean_time_to_happen = { months = 1 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -6930,7 +6926,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -6968,7 +6964,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -7006,7 +7002,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -7044,7 +7040,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -7084,7 +7080,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 10 }
@@ -8669,6 +8665,7 @@ country_event = {
 	option = { name = EXCELLENT add_monthly_resource_mult = { resource = society_research value = 1 min = 20000 max = 20000 } add_resource = { unity = 5000 } }
 }
 
+# 3.3: - cooldown for library itself increase to 720 days (instead of 440), decreased bonuses from relic to half (also removed society research point when "use").
 country_event = {
 	id = UniqueAscensionPerksEvents.491
 	title = "edict_library_wisedom_menu"
@@ -8684,7 +8681,10 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.491.a"
 		allow = { resource_stockpile_compare = { resource = unity value > 200 } NOT = { has_country_flag = ap_library_wisedom_cooldown } }
 		add_resource = { unity = -200 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } set_timed_country_flag = { flag = ap_library_wisedom_cooldown days = 450 } country_event = { id = UniqueAscensionPerksEvents.492 days = 450 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.493 }
+			set_timed_country_flag = { flag = ap_library_wisedom_cooldown days = 720 }
+			country_event = { id = UniqueAscensionPerksEvents.492 days = 720 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.491.a.tooltip"
 	}
 	option = { name = GOODBYE ai_chance = { factor = 0 } }
@@ -8795,6 +8795,7 @@ country_event = {
 	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
+# 3.3 removed ignore_rare = no
 country_event = {
 	id = UniqueAscensionPerksEvents.497
 	title = "edict_library_wisedom_menu"
@@ -8813,9 +8814,32 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.497.Archeology" allow = { NOT = { has_country_flag = ap_library_wisedom_archeological_knowledge } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_archeological_knowledge } custom_tooltip = "edict_lw_archeological_knowledge_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.Data" allow = { NOT = { has_country_flag = ap_library_wisedom_adv_data_collection } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_adv_data_collection } custom_tooltip = "edict_lw_adv_data_collectione_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.ResearchData" allow = { NOT = { has_country_flag = ap_library_wisedom_research_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } add_monthly_resource_mult = { resource = physics_research value = 8 min = 2000 max = 8000 } add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 8000 } add_monthly_resource_mult = { resource = engineering_research value = 8 min = 2000 max = 8000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_research_cooldown days = 1800 } } custom_tooltip = "UniqueAscensionPerksEvents.497.ResearchData.tooltip" }
-	option = { name = "UniqueAscensionPerksEvents.497.PhysicsTech" allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } wisedom_get_physics_tech = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
-	option = { name = "UniqueAscensionPerksEvents.497.SocietyTech" allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_society_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } wisedom_get_society_tech = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
-	option = { name = "UniqueAscensionPerksEvents.497.EngineeringTech" allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } wisedom_get_engineering_tech = yes hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
+	option = {
+		name = "UniqueAscensionPerksEvents.497.PhysicsTech"
+		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
+		add_resource = { unity = -500 }
+		# wisedom_get_physics_tech = yes
+		custom_tooltip = "UniqueAscensionPerksLW.PhysicsTech.tooltip"
+		add_random_research_option = { area = physics add_progress = 0.2 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = physics_research value = 16 min = 4000 max = 14000 } } }
+		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown days = 1800 } country_event = { id = UniqueAscensionPerksEvents.520 } }
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.497.SocietyTech"
+		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_society_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
+		add_resource = { unity = -500 }
+		# wisedom_get_society_tech = yes
+		custom_tooltip = "UniqueAscensionPerksLW.SocietyTech.tooltip"
+		add_random_research_option = { area = society add_progress = 0.2 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = society_research value = 16 min = 4000 max = 14000 } } }
+		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_society_tech_cooldown days = 1800 } country_event = { id = UniqueAscensionPerksEvents.520 } } }
+	option = {
+		name = "UniqueAscensionPerksEvents.497.EngineeringTech"
+		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
+		add_resource = { unity = -500 }
+		# wisedom_get_engineering_tech = yes
+		custom_tooltip = "UniqueAscensionPerksLW.EngineeringTech.tooltip"
+		add_random_research_option = { area = engineering add_progress = 0.2 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = engineering_research value = 16 min = 4000 max = 14000 } } }
+		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown days = 1800 } country_event = { id = UniqueAscensionPerksEvents.520 } }
+	}
 	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 

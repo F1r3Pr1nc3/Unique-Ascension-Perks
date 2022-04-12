@@ -23,27 +23,29 @@ r_cortana = {
 	}
 	possible = { custom_tooltip = { fail_text = "requires_relic_no_cooldown" NOT = { has_modifier = relic_activation_cooldown } } }
 }
-
+# 3.3 halved values
 r_orb_of_knowledge = {
 	activation_duration = @triumph_duration_short
 	portrait = "GFX_relic_orb_of_knowledge"
 	sound = "relic_activation_generic"
-	resources = { category = relics cost = { influence = @activation_cost } }
+	resources = { category = relics cost = { unity = @activation_cost } }
 	ai_weight = { weight = 100 }
 	triggered_country_modifier = {
-		potential = { always = yes }
-		ship_experience_gain_mult = 5.00
-		army_experience_gain_mult = 5.00
-		species_leader_exp_gain = 2.00
+		# potential = { always = yes }
+		ship_experience_gain_mult = 2.5 # 5
+		army_experience_gain_mult = 2.5 # 5
+		species_leader_exp_gain = 1.00  # 2
 	}
 	score = 0
 	active_effect = {
+		add_monthly_resource_mult = { resource = unity value = 5 min = 1000 max = 10000 }
 		add_monthly_resource_mult = { resource = unity value = 10 min = 2000 max = 20000 }
 		add_monthly_resource_mult = { resource = unity value = 20 min = 4000 max = 40000 }
-		add_monthly_resource_mult = { resource = unity value = 40 min = 8000 max = 80000 }
+		# add_monthly_resource_mult = { resource = unity value = 40 min = 8000 max = 80000 }
+		add_monthly_resource_mult = { resource = society_research value = 5 min = 1000 max = 10000 }
 		add_monthly_resource_mult = { resource = society_research value = 10 min = 2000 max = 20000 }
-		add_monthly_resource_mult = { resource = society_research value = 20 min = 4000 max = 40000 }
-		add_monthly_resource_mult = { resource = society_research value = 40 min = 8000 max = 80000 }
+		# add_monthly_resource_mult = { resource = society_research value = 20 min = 4000 max = 40000 }
+		# add_monthly_resource_mult = { resource = society_research value = 40 min = 8000 max = 80000 }
 		custom_tooltip = relic_triumph_cooldown
 		hidden_effect = { add_modifier = { modifier = "relic_activation_cooldown" days = @triumph_duration } }
 	}
