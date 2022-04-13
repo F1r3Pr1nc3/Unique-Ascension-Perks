@@ -21,9 +21,9 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = space_domestication_room }
 	is_triggered_only = yes
-	trigger = {}
-	immediate = {}
-	after = {}
+	# trigger = {}
+	# immediate = {}
+	# after = {}
 	option = { name = "UniqueAscensionPerksEvents.1000.Tiyanki" allow = { has_technology = tech_space_whale_weapon_1 } custom_tooltip = "domesticated_tyanki_tooltip_1" custom_tooltip = "domesticated_tyanki_tooltip_2" hidden_effect = { set_country_flag = space_domestication_tyanki set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "UniqueAscensionPerksEvents.1000.Amoeba" allow = { has_technology = tech_amoeba_strike_craft_1 } custom_tooltip = "domesticated_amoeba_tooltip_1" custom_tooltip = "domesticated_amoeba_tooltip_2" hidden_effect = { set_country_flag = space_domestication_amoeba set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "UniqueAscensionPerksEvents.1000.Crystal" allow = { OR = { has_technology = tech_crystal_armor_1 has_technology = tech_crystal_armor_2 } } custom_tooltip = "domesticated_cryals_tooltip_1" custom_tooltip = "domesticated_cryals_tooltip_2" hidden_effect = { set_country_flag = space_domestication_crystal set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
@@ -300,7 +300,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { months = 2 } # days = 30
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_space_domestication
 		any_country = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 		OR = {
@@ -310,68 +310,72 @@ country_event = {
 	}
 	immediate = {
 		# space_domestication_constant_breed_event = yes
-		save_event_target_as = main_country
+		# save_event_target_as = main_country
 		random_country = {
-			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = event_target:main_country flag = domesticated_spaceborn_alien } }
+			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 			save_event_target_as = domesticated_spaceborn_alien
 		}
-		if = {
-			limit = { has_country_flag = space_domestication_military_protocol }
-			event_target:domesticated_spaceborn_alien = {
-				if = {
-					limit = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } } }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
-						save_event_target_as = domesticated_mother_fleet
-						if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } }
-							set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 60 } else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 90 } }
-						}
-					}
-					create_fleet = {
-						name = "Domesticated Military Aliens"
-						effect = {
-							set_owner = prev
-							space_domestication_spawn_default_fleet = yes
-							set_location = { target = event_target:domesticated_mother_fleet distance = 5 angle = random }
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 5000
-							set_formation_scale = 4.0
-							save_event_target_as = domesticated_fleet
-							set_fleet_flag = domesticated_fleet
-							set_fleet_flag = domesticated_military_fleet
-						}
+		event_target:domesticated_spaceborn_alien = {
+			if = {
+				limit = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } } }
+				random_owned_fleet = {
+					limit = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
+					save_event_target_as = domesticated_mother_fleet
+					if = {
+						limit = { root = { has_country_flag = space_domestication_amoeba } }
+						set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 60 } else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 90 } }
 					}
 				}
-			}
-		}
-		if = {
-			limit = { has_country_flag = space_domestication_security_protocol }
-			event_target:domesticated_spaceborn_alien = {
-				if = {
-					limit = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } } }
-					random_owned_fleet = {
-						limit = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
-						save_event_target_as = domesticated_mother_fleet
+				create_fleet = {
+					name = ""
+					effect = {
+						set_owner = prev
+						# space_domestication_spawn_default_fleet = yes
 						if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } }
-							set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 60 } else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 90 } }
+							limit = { root = { has_country_flag = space_domestication_tyanki } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Tyanki Calf" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tyanki Calf" } } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Tyanki Bull" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tyanki Bull" } } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Tyanki Cow" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tyanki Cow" } } }
+						} else_if = {
+							limit = { root = { has_country_flag = space_domestication_amoeba } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba" } } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba Mother" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
+						} else_if = {
+							limit = { root = { has_country_flag = space_domestication_crystal } }
+							while = { count = 5 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } } }
+							while = { count = 5 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } } }
+							while = { count = 5 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } } }
+						} else_if = {
+							limit = { root = { has_country_flag = space_domestication_cloud } }
+							while = { count = 5 create_ship = { name = "" design = "Domesticated Space Cloud" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Space Cloud" } } }
+						} else_if = {
+							limit = { root = { has_country_flag = space_domestication_drone } }
+							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } } }
+							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } } }
 						}
-					}
-					create_fleet = {
-						name = "Domesticated Security Aliens"
-						effect = {
-							set_owner = prev
-							space_domestication_spawn_default_fleet = yes
-							set_location = { target = event_target:domesticated_mother_fleet distance = 5 angle = random }
-							set_fleet_stance = aggressive
-							set_aggro_range_measure_from = self
-							set_aggro_range = 5000
-							set_formation_scale = 4.0
-							save_event_target_as = domesticated_fleet
-							set_fleet_flag = domesticated_fleet
-							set_fleet_flag = domesticated_security_fleet
+						set_location = { target = event_target:domesticated_mother_fleet distance = 5 angle = random }
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 5000
+						set_formation_scale = 4.0
+						save_event_target_as = domesticated_fleet
+						set_fleet_flag = domesticated_fleet
+						set_fleet_flag = domesticated_military_fleet
+						if = { limit = { prev = { has_country_flag = space_domestication_military_protocol } }
+							set_name = "Domesticated Military Aliens"
+						} else_if = { limit = { prev = { has_country_flag = space_domestication_security_protocol } }
+							set_name = "Domesticated Security Aliens"
 						}
 					}
 				}
@@ -503,7 +507,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 14 }
 	trigger = {
-		is_ai = no
+		# is_ai = no
 		has_ascension_perk = ap_space_domestication
 		any_country = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 	}
