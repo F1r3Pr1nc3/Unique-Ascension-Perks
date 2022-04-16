@@ -29,13 +29,23 @@ country_event = {
 		name = UniqueAscensionPerksMenuEvents.1.Districts.On
 		trigger = { NOT = { has_global_flag = ap_pyramidal_society } }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Districts.On.tooltip"
-		hidden_effect = { set_global_flag = ap_pyramidal_society every_country = { set_country_flag = ap_pyramidal_society } country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			set_global_flag = ap_pyramidal_society
+			every_country = { set_country_flag = ap_pyramidal_society }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1000 days = 10 }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Districts.Off
 		trigger = { has_global_flag = ap_pyramidal_society }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Districts.Off.tooltip"
-		hidden_effect = { remove_global_flag = ap_pyramidal_society every_country = { remove_country_flag = ap_pyramidal_society } country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			remove_global_flag = ap_pyramidal_society
+			every_country = { remove_country_flag = ap_pyramidal_society }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1000 days = 10 }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.LeaderTraits.On
@@ -871,7 +881,10 @@ event = {
 		}
 	}
 	immediate = {
-		if = { limit = { has_global_flag = ap_pyramidal_society } every_country = { limit = { NOT = { has_country_flag = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society } }
-		else_if = { limit = { NOT = { has_global_flag = ap_pyramidal_society } } every_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society } }
+		if = { limit = { has_global_flag = ap_pyramidal_society }
+			every_country = { limit = { NOT = { has_country_flag = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
+		} else = { # limit = { NOT = { has_global_flag = ap_pyramidal_society } }
+			every_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
+		}
 	}
 }

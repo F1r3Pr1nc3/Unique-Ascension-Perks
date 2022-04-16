@@ -8,7 +8,7 @@ can_support_branch_offices = {
 		fail_text = BRANCH_OFFICE_NOT_ON_MEGACORP_PLANET
 		NOR = {
 			is_megacorp = yes # has_authority = auth_corporate
-			has_civic = civic_galactic_sovereign_megacorp
+			has_valid_civic = civic_galactic_sovereign_megacorp
 		}
 	}
 	custom_tooltip = {
@@ -22,7 +22,7 @@ can_support_branch_offices = {
 can_build_branch_office_on_planet = {
 	custom_tooltip = {
 		fail_text = requires_recipient_not_fanatic_purifiers
-		exists = owner owner = { OR = { is_same_species = root NOT = { has_civic = civic_fanatic_purifiers } } }
+		exists = owner owner = { OR = { is_same_species = root NOT = { has_valid_civic = civic_fanatic_purifiers } } }
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_COMMERCIAL_PACT
@@ -38,14 +38,14 @@ can_build_branch_office_on_planet = {
 					# Allow branch offices in subsidiaries and vice versa.
 					root = { is_subject = yes is_subject_type = subsidiary overlord = { is_same_empire = prevprev.owner } }
 					owner = { is_subject = yes is_subject_type = subsidiary overlord = { is_same_value = root } }
-					AND = { root = { has_civic = civic_galactic_sovereign_megacorp } owner = { is_galactic_community_member = yes } }
+					AND = { root = { has_valid_civic = civic_galactic_sovereign_megacorp } owner = { is_galactic_community_member = yes } }
 					AND = { root = { has_modifier = imperial_charter } owner = { is_galactic_community_member = yes } }
 					# Imposed Megacorp allows branch offices without commercial (MOD)
 					root = { has_ascension_perk = ap_megacorp }
 				}
 			}
 			# Imposed Megacorp allows branch offices on Gesalt Empire (MOD)
-			AND = { owner = { has_ethic = ethic_gestalt_consciousness } root = { has_ascension_perk = ap_megacorp } }
+			AND = { owner = { is_gestalt = yes } root = { has_ascension_perk = ap_megacorp } }
 			# Imposed Megacorp allows branch offices on other MegaCorp (MOD)
 			# AND = { owner = { has_authority = auth_corporate } root = { has_ascension_perk = ap_megacorp } }
 		}

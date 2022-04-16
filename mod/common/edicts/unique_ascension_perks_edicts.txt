@@ -293,8 +293,16 @@ dark_galaxy_web_menu = {
 
 unique_perk_menu = {
 	icon = "GFX_edict_type_menu"
-	length = 0
-	potential = { is_ai = no }
-	ai_weight = { weight = 0 }
+	length = -1
+	edict_cap_usage = 0
+	# resources = { category = edicts cost = {} }
+	potential = {
+		is_ai = no
+		NOT = { has_global_flag = dmm_installed }
+	}
+	allow = {
+		NOT = { has_active_event = { UniqueAscensionPerksMenuEvents.1 } }
+	}
 	effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+	ai_weight = { weight = 0 }
 }
