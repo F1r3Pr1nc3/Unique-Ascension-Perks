@@ -32,6 +32,7 @@ country_event = {
 		}
 	}
 }
+
 # Cortana Research - Main Menu
 country_event = {
 	id = "CortanaEvent.1"
@@ -41,14 +42,181 @@ country_event = {
 	show_sound = event_scanner
 	is_triggered_only = yes
 	# immediate = { remove_country_flag = cortana_ready }
-	option = { name = "CortanaEvent.1.Building" trigger = { NOT = { has_country_flag = cortana_cooldown } } hidden_effect = { country_event = { id = CortanaEvent.2 } } }
-	option = { name = "CortanaEvent.1.Module" trigger = { cortana_can_modules_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.3 } } }
-	option = { name = "CortanaEvent.1.Weapon" trigger = { cortana_can_weapons_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.4 } } }
-	option = { name = "CortanaEvent.1.Blocker" trigger = { cortana_can_blockers_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.5 } } }
-	option = { name = "CortanaEvent.1.Other" trigger = { cortana_can_other_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.10 } } }
-	option = { name = "CortanaEvent.1.Repeatable" trigger = { cortana_can_repeatable_techs = yes } hidden_effect = { country_event = { id = CortanaEvent.11 } } }
-	option = { name = ABORT trigger = { NOT = { has_country_flag = cortana_cooldown } } if = { limit = { has_technology = tech_cortana_optimized } add_resource = { energy = -1000 } } add_resource = { energy = 5000 } }
-	option = { name = CANCEL trigger = { has_country_flag = cortana_cooldown } if = { limit = { has_technology = tech_cortana_optimized } add_resource = { energy = -1000 } } add_resource = { energy = 5000 } }
+	option = {
+		name = "CortanaEvent.1.Building"
+		trigger = {
+			NOT = { has_country_flag = cortana_cooldown }
+		}
+		hidden_effect = {
+			country_event = { id = CortanaEvent.2 }
+		}
+	}
+	option = {
+		name = "CortanaEvent.1.Module"
+		trigger = {
+			# cortana_can_modules_techs = yes
+			NOT = { has_country_flag = cortana_cooldown }
+			NAND = {
+				has_technology = tech_reactor_boosters_3
+				has_technology = tech_afterburners_2
+				has_technology = tech_hyper_drive_3
+				has_technology = tech_thrusters_4
+				has_technology = tech_sensors_4
+				has_technology = tech_ship_armor_5
+				has_technology = tech_shield_rechargers_1
+				has_technology = tech_shields_5
+				has_technology = tech_zero_point_power
+			}
+		}
+		hidden_effect = {
+			country_event = { id = CortanaEvent.3 }
+		}
+	}
+	option = {
+		name = "CortanaEvent.1.Weapon"
+		trigger = {
+			# cortana_can_weapons_techs = yes
+			NOT = { has_country_flag = cortana_cooldown }
+			NAND = {
+				has_technology = tech_strike_craft_3
+				has_technology = tech_disruptors_3
+				has_technology = tech_energy_lance_2
+				has_technology = tech_energy_torpedoes_2
+				has_technology = tech_disruptors_3
+				has_technology = tech_plasma_3
+				has_technology = tech_lasers_5
+				has_technology = tech_torpedoes_3
+				has_technology = tech_swarmer_missiles_2
+				has_technology = tech_missiles_5
+				has_technology = tech_pd_tracking_3
+				has_technology = tech_flak_batteries_3
+				has_technology = tech_mass_accelerator_2
+				has_technology = tech_kinetic_artillery_2
+				has_technology = tech_autocannons_3
+				has_technology = tech_mass_drivers_5
+			}
+		}
+		hidden_effect = {
+			country_event = { id = CortanaEvent.4 }
+		}
+	}
+	option = {
+		name = "CortanaEvent.1.Blocker"
+		trigger = {
+			# cortana_can_blockers_techs = yes
+			NOT = { has_country_flag = cortana_cooldown }
+			NAND = {
+				has_technology = tech_volcano
+				has_technology = tech_mountain_range
+				has_technology = tech_dangerous_wildlife
+				has_technology = tech_dense_jungle
+				has_technology = tech_quicksand_basin
+				has_technology = tech_noxious_swamp
+				has_technology = tech_massive_glacier
+				has_technology = tech_toxic_kelp
+				has_technology = tech_deep_sinkhole
+			}
+		}
+		hidden_effect = {
+			country_event = { id = CortanaEvent.5 }
+		}
+	}
+	option = {
+		name = "CortanaEvent.1.Other"
+		trigger = {
+			# cortana_can_other_techs = yes
+			NOT = { has_country_flag = cortana_cooldown }
+			NAND = {
+				has_technology = tech_climate_restoration
+				has_technology = tech_colonization_5
+				has_technology = tech_space_mining_5
+				has_technology = tech_space_science_5
+				has_technology = tech_tomb_world_adaption
+			}
+		}
+		hidden_effect = {
+			country_event = { id = CortanaEvent.10 }
+		}
+	}
+	option = {
+		name = "CortanaEvent.1.Repeatable"
+		trigger = {
+			# cortana_can_repeatable_techs = yes
+			NOT = { has_country_flag = cortana_cooldown }
+			has_technology = tech_colonization_5
+			has_technology = tech_space_mining_5
+			has_technology = tech_space_science_5
+			has_technology = tech_climate_restoration
+			has_technology = tech_tomb_world_adaption
+			#
+			has_technology = tech_strike_craft_3
+			has_technology = tech_disruptors_3
+			has_technology = tech_energy_lance_2
+			has_technology = tech_energy_torpedoes_2
+			has_technology = tech_disruptors_3
+			has_technology = tech_plasma_3
+			has_technology = tech_lasers_5
+			has_technology = tech_torpedoes_3
+			has_technology = tech_swarmer_missiles_2
+			has_technology = tech_missiles_5
+			has_technology = tech_pd_tracking_3
+			has_technology = tech_flak_batteries_3
+			has_technology = tech_mass_accelerator_2
+			has_technology = tech_kinetic_artillery_2
+			has_technology = tech_autocannons_3
+			has_technology = tech_mass_drivers_5
+			has_technology = tech_reactor_boosters_3
+			has_technology = tech_afterburners_2
+			has_technology = tech_hyper_drive_3
+			has_technology = tech_thrusters_4
+			has_technology = tech_sensors_4
+			has_technology = tech_ship_armor_5
+			has_technology = tech_shield_rechargers_1
+			has_technology = tech_shields_5
+			has_technology = tech_zero_point_power
+			has_technology = tech_housing_2
+			has_technology = tech_alloys_2
+			has_technology = tech_engineering_3
+			has_technology = tech_society_3
+			has_technology = tech_physics_3
+			has_technology = tech_mineral_purification_2
+			has_technology = tech_mining_3
+			has_technology = tech_power_hub_2
+			has_technology = tech_power_plant_4
+			has_technology = tech_volcano
+			has_technology = tech_mountain_range
+			has_technology = tech_dangerous_wildlife
+			has_technology = tech_dense_jungle
+			has_technology = tech_quicksand_basin
+			has_technology = tech_noxious_swamp
+			has_technology = tech_massive_glacier
+			has_technology = tech_toxic_kelp
+			has_technology = tech_deep_sinkhole
+		}
+		hidden_effect = {
+			country_event = { id = CortanaEvent.11 }
+		}
+	}
+	option = {
+		name = ABORT
+		trigger = {
+			NOT = { has_country_flag = cortana_cooldown }
+		}
+		if = {
+			limit = { has_technology = tech_cortana_optimized }
+			add_resource = { energy = -1000 }
+		}
+		add_resource = { energy = 5000 }
+	}
+	option = {
+		name = CANCEL
+		trigger = { has_country_flag = cortana_cooldown }
+		if = {
+			limit = { has_technology = tech_cortana_optimized }
+			add_resource = { energy = -1000 }
+		}
+		add_resource = { energy = 5000 }
+	}
 }
 
 country_event = {# Cortana Research - Buildings

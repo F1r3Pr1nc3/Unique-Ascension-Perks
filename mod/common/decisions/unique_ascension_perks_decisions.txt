@@ -465,7 +465,9 @@ decision_nanite_purification = {
 	}
 	effect = {
 		custom_tooltip = "decision_nanite_purification_tooltip"
-		if = { limit = { from = { has_ascension_perk = ap_world_shaper } } change_pc = pc_gaia } else_if = { limit = { from = { has_ascension_perk = ap_hive_worlds } } change_pc = pc_hive } else_if = { limit = { from = { has_ascension_perk = ap_machine_worlds } } change_pc = pc_machine }
+		if = { limit = { from = { has_ascension_perk = ap_world_shaper } } change_pc = pc_gaia }
+		else_if = { limit = { from = { has_ascension_perk = ap_hive_worlds } } change_pc = pc_hive }
+		else_if = { limit = { from = { has_ascension_perk = ap_machine_worlds } } change_pc = pc_machine }
 		reroll_deposits = yes
 		reroll_planet_modifiers = yes
 		set_planet_flag = planet_nanite_purification
@@ -473,24 +475,91 @@ decision_nanite_purification = {
 	ai_weight = { weight = 1 }
 }
 # TODO
-# decision_deep_scanner = {
-# 	owned_planets_only = yes
-# 	sound = event_laboratory_sound
-# 	resources = { category = decisions cost = { energy = 100 } }
-# 	potential = { owner = { has_ascension_perk = ap_deep_scanner } has_building = building_deep_space_scanner }
-# 	allow = {
-# 		custom_tooltip = { fail_text = "decision_deep_scanner_req_1" NOT = { has_planet_flag = decision_deep_scanner_cooldown } }
-# 		custom_tooltip = { fail_text = "decision_deep_scanner_req_2" can_deep_scan_a_new_anomaly = yes }
-# 	}
-# 	effect = {
-# 		custom_tooltip = "decision_deep_scanner_tooltip"
-# 		save_event_target_as = deep_scanner_planet
-# 		planet_event = { id = UniqueAscensionPerksEvents.442 }
-# 		set_timed_planet_flag = { flag = decision_deep_scanner_cooldown days = 360 }
-# 		from = { country_event = { id = UniqueAscensionPerksEvents.441 days = 360 } }
-# 	}
-# 	ai_weight = { weight = 1 }
-# }
+decision_deep_scanner = {
+	owned_planets_only = yes
+	sound = event_laboratory_sound
+	resources = { category = decisions cost = { energy = 100 } }
+	potential = { owner = { has_ascension_perk = ap_deep_scanner } has_active_building = building_deep_space_scanner }
+	allow = {
+		custom_tooltip = {
+			fail_text = "decision_deep_scanner_req_1"
+			NOR = { has_modifier = pm_deep_scanner has_planet_flag = decision_deep_scanner_cooldown }
+	 	}
+		custom_tooltip = {
+			fail_text = "decision_deep_scanner_req_2"
+			# can_deep_scan_a_new_anomaly = yes
+			OR = {
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 1 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 2 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 3 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 4 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 5 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 6 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 7 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 8 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 9 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 10 }
+					any_system = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } exists = space_owner space_owner = { is_same_empire = root.owner }  any_system_planet = { can_be_deep_scanned = yes } }
+				}
+			}
+		}
+	}
+	effect = {
+		custom_tooltip = "decision_deep_scanner_tooltip"
+		save_event_target_as = deep_scanner_planet
+		planet_event = { id = UniqueAscensionPerksEvents.442 }
+		planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } # notify only
+		set_timed_planet_flag = { flag = decision_deep_scanner_cooldown years = 1 }
+		add_modifier = { modifier = pm_deep_scanner }
+	}
+	ai_weight = { weight = 0 }
+}
+
+decision_end_deep_scanner = {
+	owned_planets_only = yes
+	sound = event_laboratory_sound
+	icon = decision_deep_scanner
+	resources = { category = decisions }
+	potential = { owner = { has_ascension_perk = ap_deep_scanner } has_active_building = building_deep_space_scanner has_modifier = pm_deep_scanner }
+	allow = {
+		custom_tooltip = { fail_text = "decision_deep_scanner_req_1" has_modifier = pm_deep_scanner NOT = { has_planet_flag = decision_deep_scanner_cooldown } }
+	}
+	effect = {
+		remove_modifier = pm_deep_scanner
+	}
+	ai_weight = {
+		weight = 1
+		modifier = { factor = 5 NOT = { has_active_building = building_deep_space_scanner } }
+	}
+}
 
 decision_civilian_cargo_focus = {
 	owned_planets_only = yes
