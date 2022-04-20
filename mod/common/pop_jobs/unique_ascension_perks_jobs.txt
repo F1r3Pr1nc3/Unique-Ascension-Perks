@@ -17,15 +17,16 @@ governor_assitant = {
 	}
 	possible_precalc = can_fill_ruler_job
 	resources = {
-		category = planet_jobs
+		category = planet_politicians # planet_jobs
 		produces = { influence = 0.3 }
-		upkeep = { consumer_goods = 2 }
+		upkeep = { consumer_goods = 4 }
 	}
 	planet_modifier = { pop_government_ethic_attraction = 0.05 }
 	country_modifier = { edict_length_mult = 0.03 }
 	weight = {
 		weight = @ruler_job_weight
 		modifier = { factor = 0.2 has_citizenship_rights = no }
+		modifier = { factor = 0.5 is_xenophobe = yes }
 	}
 }
 
@@ -42,7 +43,7 @@ judge = {
 	}
 	possible_precalc = can_fill_ruler_job
 	resources = {
-		category = planet_jobs
+		category = planet_administrators # planet_jobs
 		produces = { unity = 4 }
 		upkeep = { consumer_goods = 2 }
 	}
@@ -66,7 +67,7 @@ ambassador = {
 	}
 	possible_precalc = can_fill_ruler_job
 	resources = {
-		category = planet_jobs
+		category = planet_politicians # planet_jobs
 		produces = { society_research = 12 }
 		upkeep = { consumer_goods = 2 }
 	}
@@ -96,7 +97,7 @@ director = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs
+		category = planet_managers # planet_jobs
 		produces = { unity = 10 }
 		upkeep = { consumer_goods = 1 }
 	}
@@ -121,7 +122,7 @@ border_controller = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs
+		category = planet_enforcers # planet_jobs
 		produces = { energy = 1 }
 		upkeep = { consumer_goods = 1 }
 	}
@@ -147,30 +148,47 @@ influencer = {
 		is_enslaved = no
 		is_being_purged = no
 		is_being_assimilated = no
+		is_sapient = yes
 	}
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
 		category = planet_jobs
 		produces = { unity = 2 }
-		upkeep = { consumer_goods = 1 }
+		upkeep = { consumer_goods = 2 }
 	}
 	planet_modifier = {
-		pop_government_ethic_attraction = 0.3
-		pop_ethics_shift_speed_mult = 0.25
+		pop_government_ethic_attraction = 0.2
+		pop_ethics_shift_speed_mult = 0.2
 		pop_citizen_happiness = 0.04
-		planet_amenities_add = 8
+		planet_amenities_add = 5
 	}
-	country_modifier = { faction_approval = 0.01 }
+	triggered_planet_modifier = {
+		potential = {
+			OR = {
+				has_trait = trait_robot_domestic_protocols
+				has_trait = trait_charismatic
+			}
+		}
+		modifier = { planet_amenities_add = 1 }
+	}
+	triggered_planet_modifier = {
+		potential = { has_trait = trait_repugnant }
+		modifier = { planet_amenities_add = -1 }
+	}
+	# country_modifier = { faction_approval = 0.01 }
 	weight = {
 		weight = @colonist_job_weight
 		modifier = { factor = 0.1 can_take_servant_job = no }
+		modifier = { factor = 0.75 is_xenophobe = yes }
+		modifier = { factor = 1.5 has_job = colonist }
+		modifier = { factor = 2 OR = { has_trait = trait_robot_domestic_protocols has_trait = trait_charismatic } }
 	}
 }
 
 military_expert = {
 	category = specialist
-	condition_string = SPECIALIST_JOB_TRIGGER
+	condition_string = BATTLE_THRALL_JOB_TRIGGER # SPECIALIST_JOB_TRIGGER
 	building_icon = building_fortress
 	clothes_texture_index = 3
 	possible_pre_triggers = {
@@ -180,11 +198,14 @@ military_expert = {
 		is_being_assimilated = no
 	}
 	possible_precalc = can_fill_specialist_job
-	possible = { complex_specialist_job_check_trigger = yes }
+	possible = {
+		# complex_specialist_job_check_trigger = yes
+		battle_thrall_job_check_trigger = yes
+	}
 	resources = {
-		category = planet_jobs
+		category = planet_enforcers # planet_jobs
 		produces = { unity = 2 }
-		upkeep = { consumer_goods = 1 }
+		upkeep = { consumer_goods = 1 food = 1 }
 	}
 	planet_modifier = { army_defense_morale_mult = 0.08 army_defense_damage_mult = 0.08 }
 	pop_modifier = { pop_defense_armies_add = 2 }
@@ -239,7 +260,7 @@ teacher = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_researchers # planet_jobs
 		produces = {
 			unity = 5
 			society_research = 2
@@ -341,7 +362,7 @@ nurse = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_doctors # planet_jobs
 		produces = {
 			food = 1
 			society_research = 1
@@ -417,7 +438,7 @@ improver = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_researchers # planet_jobs
 		produces = { engineering_research = 4 }
 		upkeep = { minerals = 3 }
 	}
@@ -492,7 +513,7 @@ economist = {
 	}
 	possible_precalc = can_fill_ruler_job
 	resources = {
-		category = planet_jobs
+		category = planet_merchants # planet_jobs
 		produces = { energy = 6 }
 		upkeep = { consumer_goods = 2 }
 	}
@@ -653,7 +674,7 @@ player = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_entertainers
 		produces = {
 			unity = 4
 			society_research = 1

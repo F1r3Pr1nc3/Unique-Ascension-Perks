@@ -605,7 +605,7 @@ country_event = {
 		name = EXCELLENT
 		enable_special_project = { name = NANITES_SHIP_SECTION location = capital_scope owner = root }
 		add_research_option = tech_nanite_transmutation
-		ai_chance = { factor = 0 }
+		add_research_option = tech_nanite_repair_system
 	}
 }
 
@@ -618,7 +618,11 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	immediate = { set_country_flag = ap_nano_to_nanite_project }
-	option = { name = EXCELLENT add_resource = { nanites = 1000 } add_research_option = tech_nanite_ship_section }
+	option = {
+		name = EXCELLENT
+		add_resource = { nanites = 1000 }
+		add_research_option = tech_nanite_ship_section
+	}
 }
 
 country_event = {
@@ -5604,39 +5608,39 @@ country_event = {
 
 # on_country_destroyed
 # TODO different rewards + DESC
-country_event = {
-	id = UniqueAscensionPerksEvents.275
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		is_country_type = faction
-		has_country_flag = sector_z749_country
-		exists = from
-		from = { has_ascension_perk = ap_sector_z749 }
-	}
-	immediate =	{
-		change_variable = { which = invasion_gate_wave_type value = 1 }
-		from = {
-			set_variable = { which = invasion_gate_wave_type value = prev.invasion_gate_wave_type }
-			add_resource = {
-				energy = 1000
-				alloys = 1000
-				unity = 1000
-				minerals = 1000
-				influence = 10
-				consumer_goods = 100
-				exotic_gases = 10
-				volatile_motes = 10
-				rare_crystals = 10
-				sr_living_metal = 5
-				nanites = 5
-				sr_dark_matter = 2
-				sr_zro = 1
-				mult = invasion_gate_wave_type
-			}
-		}
-	}
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.275
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		is_country_type = faction
+# 		has_country_flag = sector_z749_country
+# 		exists = from
+# 		from = { has_ascension_perk = ap_sector_z749 }
+# 	}
+# 	immediate =	{
+# 		change_variable = { which = invasion_gate_wave_type value = 1 }
+# 		from = {
+# 			set_variable = { which = invasion_gate_wave_type value = prev.invasion_gate_wave_type }
+# 			add_resource = {
+# 				energy = 1000
+# 				alloys = 1000
+# 				unity = 1000
+# 				minerals = 1000
+# 				influence = 10
+# 				consumer_goods = 100
+# 				exotic_gases = 10
+# 				volatile_motes = 10
+# 				rare_crystals = 10
+# 				sr_living_metal = 5
+# 				nanites = 5
+# 				sr_dark_matter = 2
+# 				sr_zro = 1
+# 				mult = invasion_gate_wave_type
+# 			}
+# 		}
+# 	}
+# }
 
 
 
@@ -5654,10 +5658,7 @@ country_event = {
 	picture = GFX_evt_pyramidal_society
 	location = capital_scope
 	is_triggered_only = yes
-	immediate = {
-		country_event = { id = UniqueAscensionPerksEvents.301 days = -1 }
-	}
-	option = { name = EXCELLENT }
+	option = { name = EXCELLENT country_event = { id = UniqueAscensionPerksEvents.301 days = 3 } }
 }
 
 # 3.3: chance & amount 2/3
@@ -5667,6 +5668,7 @@ country_event = {
 	mean_time_to_happen = { days = 42 } # days = 30
 	trigger = {
 		# is_ai = no # TODO AI?
+		merg_is_default_empire = yes
 		OR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 		OR = {
 			AND = { is_common_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_governor has_deposit = d_district_university has_deposit = d_district_defense has_deposit = d_district_industry } } }
@@ -6658,8 +6660,23 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = {
-		name = "UniqueAscensionPerksEvents.344.Name"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.342.Req01 has_treasures_deal_gestalt = no } }
+		name = "UniqueAscensionPerksEvents.343.Name"
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.342.Req01
+				# has_treasures_deal_gestalt = no
+				NAND = {
+					is_gestalt = yes
+					OR = {
+						has_modifier = treasures_trade_100_gesalt
+						has_modifier = treasures_trade_250_gesalt
+						has_modifier = treasures_trade_500_gesalt
+						has_modifier = treasures_trade_1000_gesalt
+						has_modifier = treasures_trade_2000_gesalt
+					}
+				}
+			}
+		}
 		hidden_effect = {
 			if = { limit = { is_gestalt = no } country_event = { id = UniqueAscensionPerksEvents.343 } } else = { country_event = { id = UniqueAscensionPerksEvents.346 } }
 		}
@@ -6693,7 +6710,7 @@ country_event = {
 
 country_event = {
 	id = UniqueAscensionPerksEvents.343
-	title = "UniqueAscensionPerksEvents.344.Name"
+	title = "UniqueAscensionPerksEvents.343.Name"
 	desc = "UniqueAscensionPerksEvents.343.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
@@ -6728,7 +6745,7 @@ country_event = {
 
 country_event = {
 	id = UniqueAscensionPerksEvents.344
-	title = "UniqueAscensionPerksEvents.344.Name"
+	title = "UniqueAscensionPerksEvents.343.Name"
 	desc = "UniqueAscensionPerksEvents.344.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
@@ -6755,7 +6772,7 @@ country_event = {
 
 country_event = {
 	id = UniqueAscensionPerksEvents.346
-	title = "UniqueAscensionPerksEvents.344.Name"
+	title = "UniqueAscensionPerksEvents.343.Name"
 	desc = "UniqueAscensionPerksEvents.346.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
@@ -6800,26 +6817,164 @@ country_event = {
 	location = event_target:special_project_target
 	is_triggered_only = yes
 	immediate = {
-		treasures_pirate_mission_generation = yes
+		# treasures_pirate_mission_generation = yes
+		random_system_within_border = {
+			save_event_target_as = special_project_target_system
+			random_system_planet = { save_event_target_as = special_project_target }
+			# create_treasures_pirate_country = yes
+			if = {
+				limit = { any_country = { is_pirate = yes has_country_flag = treasures_pirate_country } }
+				random_country = {
+					limit = { is_pirate = yes has_country_flag = treasures_pirate_country }
+					save_event_target_as = treasures_pirate_country
+				}
+			} else = {
+				create_country = {
+					name = "NAME_Pirates"
+					type = pirate
+					name_list = "PRT1"
+					effect = {
+						every_country = { establish_communications_no_message = last_created_country }
+						randomize_flag_symbol = "pirate"
+						save_event_target_as = treasures_pirate_country
+						set_country_flag = treasures_pirate_country
+					}
+				}
+			}
+			create_fleet = {
+				name = "NAME_Pirate_Fleet"
+				settings = { spawn_debris = no }
+				effect = {
+					set_owner = event_target:treasures_pirate_country
+					create_pirate_ships_3 = yes
+					create_pirate_ships_8 = yes
+					create_ship = {
+						name = random
+						design = "NAME_Corsair"
+						effect = {
+							set_ship_flag = target_ship_project
+							set_disable_at_health = 0.05
+							save_event_target_as = target_ship_project_ship
+						}
+					}
+					set_location = { target = event_target:special_project_target distance = 50 angle = random }
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 150
+				}
+			}
+		}
+		enable_special_project = { name = "TREASURES_PIRATES" location = event_target:target_ship_project_ship owner = root }
 		set_timed_country_flag = { flag = pirates_treasures_cooldown years = 4 }
 		country_event = { id = UniqueAscensionPerksEvents.355 days = 1440 }
 	}
 	option = { name = OK ai_chance = { factor = 0 } }
 }
 
+# Special Project TREASURES_PIRATES
 ship_event = {
 	id = UniqueAscensionPerksEvents.350
 	title = "UniqueAscensionPerksEvents.350.Name"
 	desc = "UniqueAscensionPerksEvents.350.Desc"
 	picture = GFX_evt_interior_battle
 	show_sound = event_ground_battle
-	location = event_target:treasures_ship_finished_project
+	location = fleet
 	is_triggered_only = yes
-	immediate =	{ treasures_project_finish_select_ship = yes }
+	immediate =	{
+		# treasures_project_finish_select_ship = yes
+		if = { limit = { NOT = { exists = event_target:target_ship_project_ship } }
+			if = { limit = { exists = solar_system }
+				solar_system = {
+					random_ship_in_system = {
+						limit = { has_ship_flag = target_ship_project is_disabled = yes }
+						save_event_target_as = target_ship_project_ship
+					}
+				}
+			}
+			# Strong Fallback
+			if = { limit = { NOT = { exists = event_target:target_ship_project_ship } }
+				random_country = {
+					limit = {
+						is_pirate = yes
+						has_country_flag = treasures_pirate_country
+						any_owned_ship = {
+							has_ship_flag = target_ship_project
+							is_disabled = yes
+							distance = { source = root max_distance <= 100 }
+						}
+					}
+					random_owned_ship = {
+						limit = {
+							has_ship_flag = target_ship_project
+							is_disabled = yes
+						}
+						save_event_target_as = target_ship_project_ship
+					}
+				}
+			}
+		}
+	}
 	option = {
 		name = EXCELLENT
-		root.owner = { add_monthly_resource_mult = { resource = treasures value = 4 min = 50 max = 1000 } }
-		hidden_effect = { event_target:treasures_ship_finished_project = { destroy_ship = this } }
+		owner = { add_monthly_resource_mult = { resource = treasures value = 4 min = 50 max = 1000 } }
+		hidden_effect = {
+			if = { limit = { exists = event_target:target_ship_project_ship }
+				destroy_fleet = event_target:target_ship_project_ship.fleet
+				owner = { remove_country_flag = treasures_pirate_country }
+			}
+		}
+	}
+}
+
+# TEMP ACTIVE FIX (on_single_player_save_game_load)
+country_event = {
+	id = UniqueAscensionPerksEvents.3599
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		any_playable_country = {
+			has_ascension_perk = ap_wheel_fortune
+			has_country_flag = pirates_treasures_cooldown
+			any_owned_ship = { has_ship_flag = treasures_ship_finished_project }
+		}
+		any_country = {
+			is_pirate = yes
+			has_country_flag = treasures_pirate_country
+			any_owned_ship = {
+				has_ship_flag = target_ship_project
+				is_disabled = yes
+			}
+		}
+	}
+	immediate = {
+		if = { limit = { NOT = { exists = event_target:target_ship_project_ship } }
+			random_country = {
+				limit = {
+					is_pirate = yes
+					has_country_flag = treasures_pirate_country
+					any_owned_ship = {
+						has_ship_flag = target_ship_project
+						is_disabled = yes
+					}
+				}
+				random_owned_ship = {
+					limit = {
+						has_ship_flag = target_ship_project
+						is_disabled = yes
+					}
+					save_event_target_as = target_ship_project_ship
+				}
+			}
+		}
+		random_playable_country = {
+			limit = {
+				has_ascension_perk = ap_wheel_fortune
+				has_country_flag = pirates_treasures_cooldown
+				any_owned_ship = { has_ship_flag = treasures_ship_finished_project }
+			}
+			enable_special_project = { name = "TREASURES_PIRATES" location = event_target:target_ship_project_ship owner = this }
+			set_timed_country_flag = { flag = pirates_treasures_cooldown years = 3 }
+		}
 	}
 }
 
@@ -6831,7 +6986,11 @@ country_event = {
 	picture = GFX_evt_analyzing_artifacts
 	location = event_target:spawn_location
 	mean_time_to_happen = { years = 1 }
-	trigger = { has_ascension_perk = ap_wheel_fortune NOT = { has_country_flag = treasures_on_colony_found_cooldown } any_owned_planet = { NOT = { has_deposit = d_treasures_planet } } }
+	trigger = {
+		has_ascension_perk = ap_wheel_fortune
+		NOT = { has_country_flag = treasures_on_colony_found_cooldown }
+		any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+	}
 	immediate = {
 		random_owned_planet = {
 			limit = { NOT = { has_deposit = d_treasures_planet } }
@@ -6986,7 +7145,18 @@ country_event = {
 		city_level = event_target:CountryTargetForPresent
 		room = event_target:CountryTargetForPresent.ruler
 	}
-	option = { name = "UniqueAscensionPerksEvents.358.a" treasures_opinion_set = yes ai_chance = { factor = 0 } }
+	option = {
+		name = "UniqueAscensionPerksEvents.358.a"
+		# treasures_opinion_set = yes
+		event_target:CountryTargetForPresent = {
+			if = { limit = { OR = { is_hostile_to = root is_rival = root } } add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = root } }
+			else_if = { limit = { OR = { is_domineering_to = root is_unfriendly_to = root is_dismissive_to = root } } add_opinion_modifier = { modifier = opinion_treasures_present_unfriendly who = root } }
+			else_if = { limit = { OR = { is_neutral_to = root } } add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+			else_if = { limit = { OR = { is_patronizing_to = root is_friendly_to = root is_cordial_to = root } } add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+			else = { add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+		}
+		ai_chance = { factor = 0 }
+	}
 }
 
 #######################################
