@@ -95,7 +95,7 @@ country_event = {
 		}
 		custom_tooltip = "breeding_fertilization_protocol_tooltip"
 		# breeding_fertilization_protocol_paying = yes
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -3000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -3000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -3000 } } else_if = { limit = { has_country_flag = space_domestication_cloud }  add_resource = { energy = -3000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -3000 } }
+		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -3000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -3000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -3000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -3000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -3000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1010 days = 360 }
@@ -151,7 +151,7 @@ country_event = {
 		}
 		custom_tooltip = "military_assault_protocol_tooltip"
 		# military_assault_protocol_paying = {
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud }  add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
+		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1012 days = 720 }
@@ -167,7 +167,7 @@ country_event = {
 		}
 		custom_tooltip = "security_defense_protocol_tooltip"
 		# security_defense_protocol_paying = {
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud }  add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
+		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1013 days = 720 }
@@ -307,6 +307,7 @@ country_event = {
 			has_country_flag = space_domestication_military_protocol
 			has_country_flag = space_domestication_security_protocol
 		}
+		count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
 	}
 	immediate = {
 		# space_domestication_constant_breed_event = yes
@@ -355,8 +356,8 @@ country_event = {
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } } }
 						} else_if = {
 							limit = { root = { has_country_flag = space_domestication_cloud } }
-							while = { count = 5 create_ship = { name = "" design = "Domesticated Space Cloud" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Space Cloud" } } }
+							while = { count = 5 create_ship = { name = "" design = NAME_Dom_Cloud } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud } } }
 						} else_if = {
 							limit = { root = { has_country_flag = space_domestication_drone } }
 							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } }
@@ -485,8 +486,8 @@ country_event = {
 					name = "NAME_Effluvial_Offspring"
 					effect = {
 						set_owner = root
-						while = { count = 3 create_ship = { name = "" design = "Domesticated Space Cloud" } }
-						while = { count = 2 random = { chance = 50 create_ship = { name = "" design = "Domesticated Space Cloud" } } }
+						while = { count = 3 create_ship = { name = "" design = NAME_Dom_Cloud } }
+						while = { count = 2 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud } } }
 						set_location = { target = event_target:spawn_location distance = 5 angle = random }
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
@@ -914,35 +915,35 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.2
 		trigger = { exists = event_target:starbase_target_2.star }
-		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.2.tooltip"
+		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
 		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_2.star owner = root }
 		hidden_effect = { event_target:starbase_target_2.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.3
 		trigger = { exists = event_target:starbase_target_3.star }
-		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.3.tooltip"
+		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
 		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_3.star owner = root }
 		hidden_effect = { event_target:starbase_target_3.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.4
 		trigger = { exists = event_target:starbase_target_4.star }
-		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.4.tooltip"
+		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
 		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_4.star owner = root }
 		hidden_effect = { event_target:starbase_target_4.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.5
 		trigger = { exists = event_target:starbase_target_5.star }
-		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.5.tooltip"
+		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
 		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_5.star owner = root }
 		hidden_effect = { event_target:starbase_target_5.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.6
 		trigger = { exists = event_target:starbase_target_6.star }
-		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.6.tooltip"
+		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
 		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_6.star owner = root }
 		hidden_effect = { event_target:starbase_target_6.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
