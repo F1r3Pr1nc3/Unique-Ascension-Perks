@@ -15,7 +15,7 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = EXCELLENT hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.93 } } }
 }
-
+# on_bi_yearly_pulse
 event = {
 	id = UniqueAscensionPerksEvents.92
 	hide_window = yes
@@ -767,8 +767,8 @@ country_event = {
 					create_pop = { species = event_target:selected_robot }
 				}
 			}
+			clear_variable = create_private_robot
 		}
-		clear_variable = create_private_robot
 	}
 	option = { name = "UniqueAscensionPerksEvents.3092.5" allow = { resource_stockpile_compare = { resource = energy value > 5000 } } add_resource = { energy = -5000 } hidden_effect = { set_variable = { which = create_private_robot value = 5 } set_timed_country_flag = { flag = private_robot_cooldown years = 1 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
 	option = { name = "UniqueAscensionPerksEvents.3092.10" allow = { resource_stockpile_compare = { resource = energy value > 10000 } } add_resource = { energy = -10000 } hidden_effect = { set_variable = { which = create_private_robot value = 10 } set_timed_country_flag = { flag = private_robot_cooldown years = 2 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
@@ -836,38 +836,56 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	picture_event_data = { portrait = root room = space_merchant_room }
-	immediate = { every_owned_planet = { limit = { is_capital = yes } save_event_target_as = spawn_location } }
+	immediate = {
+		if = { limit = { exists = capital_scope } capital_scope = { save_event_target_as = spawn_location }
+		} else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3096.Slave"
 		custom_gui = "enclave_trader_option"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_slave_armies value > 1 } } resource_stockpile_compare = { resource = energy value > 100 } }
+		trigger = {
+			is_variable_set = private_galactic_market_slave_armies
+			exists = event_target:private_slave_miner
+		}
+		allow = {
+			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_slave_armies value > 1 } }
+			resource_stockpile_compare = { resource = energy value > 100 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_slave_armies value = -1 } }
-		add_resource = { energy = -100 }
-		create_fleet = {
-			name = "Private Slave Army Transport"
-			effect = {
-				set_owner = root
-				create_army_transport = {
-					ship_name = "Private Slave Army Transport"
-					army_name = "Private Slave Army" army_type = "private_slave_army"
-					species = event_target:private_slave_miner
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_slave_armies value = -1 }
+			create_fleet = {
+				# name = "Private Slave Army Transport"
+				effect = {
+					set_owner = root
+					create_army_transport = {
+						# graphical_culture = "ai_01"
+						ship_name = "Private Slave Army Transport"
+						army_name = "Private Slave Army"
+						army_type = "private_slave_army"
+						species = event_target:private_slave_miner
+					}
+					set_location = { target = event_target:spawn_location distance = 50 angle = random }
 				}
-				set_location = { target = event_target:spawn_location distance = 50 angle = random }
 			}
 		}
+		add_resource = { energy = -100 }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3096.Mercenary"
 		custom_gui = "enclave_trader_option"
+		trigger = {
+			is_variable_set = private_galactic_market_mercenary_armies
+			exists = event_target:private_slave_miner
+		}
 		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_mercenary_armies value > 1 } } resource_stockpile_compare = { resource = energy value > 150 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"
 		hidden_effect = { change_variable = { which = private_galactic_market_mercenary_armies value = -1 } }
 		add_resource = { energy = -150 }
 		create_fleet = {
-			name = "Private Mercenary Army Transport"
+			# name = "Private Mercenary Army Transport"
 			effect = {
 				set_owner = root
 				create_army_transport = {
@@ -883,35 +901,52 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.3096.Robotic"
 		custom_gui = "enclave_trader_option"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_robotic_armies value > 1 } } resource_stockpile_compare = { resource = energy value > 200 } }
+		trigger = {
+			is_variable_set = private_galactic_market_robotic_armies
+			exists = event_target:private_robot_miner
+		}
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3096.Req01
+				check_variable = { which = private_galactic_market_robotic_armies value > 1 }
+			}
+			resource_stockpile_compare = { resource = energy value > 200 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_robotic_armies value = -1 } }
-		add_resource = { energy = -200 }
-		create_fleet = {
-			name = "Private Robotic Army Transport"
-			effect = {
-				set_owner = root
-				create_army_transport = {
-					ship_name = "Private Robotic Army Transport"
-					army_name = "Private Robotic Army"
-					army_type = "private_robotic_army"
-					species = event_target:private_robot_miner
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_robotic_armies value = -1 }
+			create_fleet = {
+				# name = "Private Robotic Army Transport"
+				effect = {
+					set_owner = root
+					create_army_transport = {
+						ship_name = "Private Robotic Army Transport"
+						graphical_culture = "ai_01"
+						army_name = "Private Robotic Army"
+						army_type = "private_robotic_army"
+						species = event_target:private_robot_miner
+					}
+					set_location = { target = event_target:spawn_location distance = 50 angle = random }
 				}
-				set_location = { target = event_target:spawn_location distance = 50 angle = random }
 			}
 		}
+		add_resource = { energy = -200 }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3096.Gene"
 		custom_gui = "enclave_trader_option"
+		trigger = {
+			is_variable_set = private_galactic_market_gene_armies
+			exists = event_target:private_slave_miner
+		}
 		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_gene_armies value > 1 } } resource_stockpile_compare = { resource = energy value > 800 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"
 		hidden_effect = { change_variable = { which = private_galactic_market_gene_armies value = -1 } }
 		add_resource = { energy = -800 }
 		create_fleet = {
-			name = "Private Gene Warrior Army Transport"
+			# name = "Private Gene Warrior Army Transport"
 			effect = {
 				set_owner = root
 				create_army_transport = {
@@ -946,7 +981,10 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	picture_event_data = { portrait = root room = space_merchant_room }
-	immediate = { every_owned_planet = { limit = { is_capital = yes } save_event_target_as = spawn_location } }
+	immediate = {
+		if = { limit = { exists = capital_scope } capital_scope = { save_event_target_as = spawn_location }
+		} else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3097.Corvette"
 		custom_gui = "enclave_trader_option"

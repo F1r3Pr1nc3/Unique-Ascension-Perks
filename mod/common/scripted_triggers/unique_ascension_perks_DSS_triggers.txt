@@ -1,18 +1,25 @@
 can_be_deep_scanned = {
-	has_deposit = no
-	is_colonizable = no
-	has_anomaly = no
-	has_owner = no
-	NOT = { exists = archaeological_site }
+	NOR = {
+		has_deposit = yes
+		is_colonizable = yes
+		has_anomaly = yes
+		# is_planet_class = pc_ice_asteroid
+		has_owner = yes
+		exists = archaeological_site
+	}
 }
 
 can_spawn_archaeological_site = {
-	# has_deposit = no
-	# is_colonizable = no
-	# has_anomaly = no
-	# has_owner = no
-	is_star = no
-	NOT = { exists = archaeological_site }
+	# has_deposit = yes
+	# is_colonizable = yes
+	# has_anomaly = yes
+	# has_owner = yes
+	NOR = {
+		is_star = yes
+		is_planet_class = pc_molten
+		is_planet_class = pc_ice_asteroid
+		exists = archaeological_site
+	}
 }
 
 can_spawn_AH_dig_site = {

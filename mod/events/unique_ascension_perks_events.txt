@@ -1026,7 +1026,9 @@ country_event = {
 			save_event_target_as = ap_expansion_infinity_planet
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
 		}
-		event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes }
+		event_target:ap_expansion_infinity_planet = {
+			ei_resources_collection = yes
+		}
 		if = { limit = { is_ai = no NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning } }
 			country_event = { id = UniqueAscensionPerksEvents.46 }
 		}
@@ -3548,9 +3550,11 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.3128.a"
 		allow = {
 			resource_stockpile_compare = { resource = food value > 900 }
-			OR = {
-				AND = { event_target:hivemind_reserve_planet = { exists = owner is_owned_by = root } }
-				AND = { event_target:hivemind_reserve_planet = { solar_system = { exists = space_owner space_owner = { is_same_empire = root } } } }
+			event_target:hivemind_reserve_planet = {
+				OR = {
+					AND = { has_owner = yes is_owned_by = root }
+					AND = { solar_system = { exists = space_owner space_owner = { is_same_empire = root } } }
+				}
 			}
 		}
 		add_resource = { food = -900 }
@@ -5586,7 +5590,7 @@ country_event = {
 						set_owner = prev
 						while = {
 							count = prev.invasion_gate_wave_count
-							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 1 } } } while = { count = 10 create_ship = { design = "NAME_Outrider" graphical_culture = "pirate_01" } } }# Pirate Corvette
+							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 1 } } } while = { count = 10 create_ship = { design = "NAME_Outrider" graphical_culture = "pirate_01" } } } # Pirate Corvette
 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 2 } } } while = { count = 6 create_ship = { design = "NAME_Lancer" graphical_culture = "pirate_01" } } } # Pirate Destroyer
 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 3 } } } while = { count = 3 create_ship = { design = "NAME_Void_Champion" graphical_culture = "pirate_01" } } } # Pirate Cruiser
 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 4 } } } while = { count = 1 create_ship = { design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" } } } # Marauder Galleon
@@ -5619,6 +5623,7 @@ country_event = {
 # 		from = { has_ascension_perk = ap_sector_z749 }
 # 	}
 # 	immediate =	{
+#		# give_fe_tech = yes
 # 		change_variable = { which = invasion_gate_wave_type value = 1 }
 # 		from = {
 # 			set_variable = { which = invasion_gate_wave_type value = prev.invasion_gate_wave_type }
@@ -7407,8 +7412,8 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { # 3.3 added limit
-		check_variable = { which = white_hole_systems value < 11 }
-		event_target:global_event_country = { check_variable = { which = white_hole_systems value < 32 } }
+		check_variable = { which = white_hole_systems value < 21 }
+		event_target:global_event_country = { check_variable = { which = white_hole_systems value < 64 } }
 	}
 	immediate = {
 		# spawn_white_hole_system = yes
@@ -7532,8 +7537,8 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.434.WhiteHole"
 		trigger = { # 3.3 added limit
-			check_variable = { which = white_hole_systems value < 11 }
-			event_target:global_event_country = { check_variable = { which = white_hole_systems value < 32 } }
+			check_variable = { which = white_hole_systems value < 21 }
+			event_target:global_event_country = { check_variable = { which = white_hole_systems value < 64 } }
 		}
 		allow = { resource_stockpile_compare = { resource = anti_matter value > 250 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req01 NOT = { has_country_flag = white_hole_detection_cooldown } } }
 		add_resource = { anti_matter = -250 }
