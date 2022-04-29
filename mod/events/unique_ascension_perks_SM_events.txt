@@ -23,7 +23,12 @@ event = {
 	immediate = {
 		random_playable_country = {
 			limit = { has_ascension_perk = ap_space_merchant }
-			country_event = { id = UniqueAscensionPerksEvents.93 days = 20 random = 130 }
+			if = { limit = { has_country_flag = ap_space_merchant_cooldown } # Only every 4 years
+				country_event = { id = UniqueAscensionPerksEvents.93 days = 20 random = 130 }
+				remove_country_flag = ap_space_merchant_cooldown
+			} else = {
+				set_country_flag = ap_space_merchant_cooldown
+			}
 		}
 	}
 }
@@ -48,7 +53,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_minerals value = 650 } }
 					10 = { change_variable = { which = private_galactic_market_minerals value = 1300 } }
 					10 = { change_variable = { which = private_galactic_market_minerals value = 1950 } }
-					#10 = { change_variable = { which = private_galactic_market_minerals value = -650 } }
+					# 10 = { change_variable = { which = private_galactic_market_minerals value = -650 } }
 				}
 			}
 			while = {
@@ -58,7 +63,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_food value = 800 } }
 					10 = { change_variable = { which = private_galactic_market_food value = 1600 } }
 					10 = { change_variable = { which = private_galactic_market_food value = 2400 } }
-					#10 = { change_variable = { which = private_galactic_market_food value = -800 } }
+					# 10 = { change_variable = { which = private_galactic_market_food value = -800 } }
 				}
 			}
 			while = {
@@ -68,7 +73,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_alloys value = 250 } }
 					10 = { change_variable = { which = private_galactic_market_alloys value = 500 } }
 					10 = { change_variable = { which = private_galactic_market_alloys value = 750 } }
-					#10 = { change_variable = { which = private_galactic_market_alloys value = -250 } }
+					# 10 = { change_variable = { which = private_galactic_market_alloys value = -250 } }
 				}
 			}
 			while = {
@@ -78,7 +83,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_consumers value = 300 } }
 					10 = { change_variable = { which = private_galactic_market_consumers value = 600 } }
 					10 = { change_variable = { which = private_galactic_market_consumers value = 900 } }
-					#10 = { change_variable = { which = private_galactic_market_consumers value = -300 } }
+					# 10 = { change_variable = { which = private_galactic_market_consumers value = -300 } }
 				}
 			}
 
@@ -89,7 +94,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_gases value = 100 } }
 					10 = { change_variable = { which = private_galactic_market_gases value = 200 } }
 					10 = { change_variable = { which = private_galactic_market_gases value = 300 } }
-					#10 = { change_variable = { which = private_galactic_market_gases value = -100 } }
+					# 10 = { change_variable = { which = private_galactic_market_gases value = -100 } }
 				}
 			}
 			while = {
@@ -99,7 +104,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_motes value = 100 } }
 					10 = { change_variable = { which = private_galactic_market_motes value = 200 } }
 					10 = { change_variable = { which = private_galactic_market_motes value = 300 } }
-					#10 = { change_variable = { which = private_galactic_market_motes value = -100 } }
+					# 10 = { change_variable = { which = private_galactic_market_motes value = -100 } }
 				}
 			}
 			while = {
@@ -109,7 +114,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_crystals value = 100 } }
 					10 = { change_variable = { which = private_galactic_market_crystals value = 200 } }
 					10 = { change_variable = { which = private_galactic_market_crystals value = 300 } }
-					#10 = { change_variable = { which = private_galactic_market_crystals value = -100 } }
+					# 10 = { change_variable = { which = private_galactic_market_crystals value = -100 } }
 				}
 			}
 			country_event = { id = UniqueAscensionPerksEvents.94 }
@@ -126,7 +131,7 @@ country_event = {
 					20 = { change_variable = { which = private_galactic_market_credits value = 1000 } }
 					10 = { change_variable = { which = private_galactic_market_credits value = 2000 } }
 					10 = { change_variable = { which = private_galactic_market_credits value = 3000 } }
-					#10 = { change_variable = { which = private_galactic_market_credits value = -1000 } }
+					# 10 = { change_variable = { which = private_galactic_market_credits value = -1000 } }
 				}
 			}
 			country_event = { id = UniqueAscensionPerksEvents.95 }
@@ -564,17 +569,17 @@ country_event = {
 				}
 			}
 		}
-		every_owned_planet = { limit = { is_colony = yes }
+		random_owned_planet = { limit = { is_colony = yes }
 			save_event_target_as = planet_1
-			root = { every_owned_planet = { limit = { is_colony = yes NOT = { is_same_value = event_target:planet_1 } }
+			root = { random_owned_planet = { limit = { is_colony = yes NOT = { is_same_value = event_target:planet_1 } }
 				save_event_target_as = planet_2
-				root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 } }
+				root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 } }
 					save_event_target_as = planet_3
-					root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 } }
+					root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 } }
 						save_event_target_as = planet_4
-						root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 } }
+						root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 } }
 							save_event_target_as = planet_5
-							root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 is_same_value = event_target:planet_5 } } save_event_target_as = planet_6 } }
+							root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 is_same_value = event_target:planet_5 } } save_event_target_as = planet_6 } }
 						} }
 					} }
 				} }
@@ -623,8 +628,8 @@ country_event = {
 					last_created_pop = { set_citizenship_type = { type = citizenship_slavery cooldown = no } }
 				}
 			}
+			clear_variable = create_private_slave
 		}
-		clear_variable = create_private_slave
 	}
 	option = { name = "UniqueAscensionPerksEvents.98.5" allow = { resource_stockpile_compare = { resource = energy value > 5000 } } add_resource = { energy = -5000 } hidden_effect = { set_variable = { which = create_private_slave value = 5 } set_timed_country_flag = { flag = private_slaves_cooldown years = 1 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
 	option = { name = "UniqueAscensionPerksEvents.98.10" allow = { resource_stockpile_compare = { resource = energy value > 10000 } } add_resource = { energy = -10000 } hidden_effect = { set_variable = { which = create_private_slave value = 10 } set_timed_country_flag = { flag = private_slaves_cooldown years = 2 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
@@ -709,17 +714,17 @@ country_event = {
 				}
 			}
 		}
-		every_owned_planet = { limit = { is_colony = yes }
+		random_owned_planet = { limit = { is_colony = yes }
 			save_event_target_as = planet_1
-			root = { every_owned_planet = { limit = { is_colony = yes NOT = { is_same_value = event_target:planet_1 } }
+			root = { random_owned_planet = { limit = { is_colony = yes NOT = { is_same_value = event_target:planet_1 } }
 				save_event_target_as = planet_2
-				root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 } }
+				root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 } }
 					save_event_target_as = planet_3
-					root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 } }
+					root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 } }
 						save_event_target_as = planet_4
-						root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 } }
+						root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 } }
 							save_event_target_as = planet_5
-							root = { every_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 is_same_value = event_target:planet_5 } } save_event_target_as = planet_6 } }
+							root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_same_value = event_target:planet_1 is_same_value = event_target:planet_2 is_same_value = event_target:planet_3 is_same_value = event_target:planet_4 is_same_value = event_target:planet_5 } } save_event_target_as = planet_6 } }
 						} }
 					} }
 				} }
@@ -745,9 +750,31 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = "UniqueAscensionPerksEvents.3091.Industrial" hidden_effect = { event_target:private_robot_miner = { save_event_target_as = selected_robot } country_event = { id = UniqueAscensionPerksEvents.3092 } } custom_tooltip = "UniqueAscensionPerksEvents.3091.Industrial.tooltip" custom_gui = "enclave_trader_option" }
-	option = { name = "UniqueAscensionPerksEvents.3091.Ingenious" allow = { OR = { has_technology = tech_droid_workers is_machine_empire = yes } } hidden_effect = { event_target:private_robot_technician = { save_event_target_as = selected_robot } country_event = { id = UniqueAscensionPerksEvents.3092 } } custom_tooltip = "UniqueAscensionPerksEvents.3091.Ingenious.tooltip" custom_gui = "enclave_trader_option" }
-	option = { name = "UniqueAscensionPerksEvents.3091.Farmer" hidden_effect = { event_target:private_robot_farmer = { save_event_target_as = selected_robot } country_event = { id = UniqueAscensionPerksEvents.3092 } } custom_tooltip = "UniqueAscensionPerksEvents.3091.Farmer.tooltip" custom_gui = "enclave_trader_option" }
+	option = {
+		name = "UniqueAscensionPerksEvents.3091.Industrial"
+		hidden_effect = {
+			event_target:private_robot_miner = { save_event_target_as = selected_robot }
+			country_event = { id = UniqueAscensionPerksEvents.3092 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.3091.Industrial.tooltip" custom_gui = "enclave_trader_option"
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.3091.Ingenious"
+		allow = { OR = { has_technology = tech_droid_workers is_machine_empire = yes } }
+		hidden_effect = { event_target:private_robot_technician = { save_event_target_as = selected_robot }
+		country_event = { id = UniqueAscensionPerksEvents.3092 } }
+		custom_tooltip = "UniqueAscensionPerksEvents.3091.Ingenious.tooltip"
+		custom_gui = "enclave_trader_option"
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.3091.Farmer"
+		hidden_effect = {
+			event_target:private_robot_farmer = { save_event_target_as = selected_robot }
+			country_event = { id = UniqueAscensionPerksEvents.3092 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.3091.Farmer.tooltip"
+		custom_gui = "enclave_trader_option"
+	}
 	option = { name = GOODBYE ai_chance = { factor = 0 } custom_gui = "enclave_trader_option" }
 }
 

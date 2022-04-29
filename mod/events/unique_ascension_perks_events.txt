@@ -633,7 +633,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = from
 	is_triggered_only = yes
-	immediate = { from = { save_event_target_as = gateway_system } }
+	# immediate = { from = { save_event_target_as = gateway_system } }
 	option = { name = EXCELLENT }
 }
 
@@ -1448,9 +1448,16 @@ country_event = {
 	picture = GFX_evt_emergency_calculation
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = EXCELLENT add_research_option = tech_jump_drive_1 }
+	option = {
+		name = EXCELLENT
+		add_research_option = tech_jump_drive_1
+		if = { limit = { has_distar = yes }
+			add_research_option = tech_nanite_gate
+			generate_lcluster_clue = yes
+		}
+	}
 }
-
+# LEGACY
 country_event = {
 	id = UniqueAscensionPerksEvents.8054
 	title = "UniqueAscensionPerksEvents.8054.Name"
@@ -1459,7 +1466,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = from
 	is_triggered_only = yes
-	immediate = { from = { save_event_target_as = gateway_system } }
+	# immediate = { from = { save_event_target_as = gateway_system } }
 	option = { name = EXCELLENT }
 }
 
@@ -2419,7 +2426,7 @@ planet_event = {
 	}
 }
 
-# TODO performance opt
+# TODO performance opt (random decision)
 planet_event = {
 	id = UniqueAscensionPerksEvents.8082
 	hide_window = yes
@@ -2884,7 +2891,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		ai_chance = { factor = 0 }
 		if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 10 } } } add_resource = { influence = 10 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 20 } } } add_resource = { influence = 20 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 30 } } } add_resource = { influence = 30 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 40 } } } add_resource = { influence = 40 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 50 } } } add_resource = { influence = 50 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 60 } } } add_resource = { influence = 60 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 70 } } } add_resource = { influence = 70 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 80 } } } add_resource = { influence = 80 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 90 } } } add_resource = { influence = 90 } }
 		else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 100 } } } add_resource = { influence = 100 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 110 } } } add_resource = { influence = 110 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 120 } } } add_resource = { influence = 120 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 130 } } } add_resource = { influence = 130 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 140 } } } add_resource = { influence = 140 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 150 } } } add_resource = { influence = 150 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 160 } } } add_resource = { influence = 160 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 170 } } } add_resource = { influence = 170 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 180 } } } add_resource = { influence = 180 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 190 } } } add_resource = { influence = 190 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 200 } } } add_resource = { influence = 200 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count > 200 } } } add_resource = { influence = 200 } }
 	}
@@ -2898,7 +2904,7 @@ country_event = {
 	show_sound = event_conversation
 	location = event_target:ethic_planet
 	is_triggered_only = yes
-	option = { name = OK ai_chance = { factor = 0 } }
+	option = { name = OK }
 }
 
 country_event = {
@@ -2998,7 +3004,7 @@ ship_event = {
 		fleet = {
 			# save_event_target_as = fleet_location
 			random = {
-				chance = 30
+				chance = 10 # 30
 				# create_fleet = {
 				# 	name = "Cloned Ship"
 				# effect = {
@@ -3306,7 +3312,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		ai_chance = { factor = 0 }
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.3125 days = 30 random = 30 }
@@ -3325,7 +3330,7 @@ country_event = {
 		fromfrom = {
 			# perform_aggressive_hivemind_ship_check = yes
 			random = {
-				chance = 25
+				chance = 9 # 25
 				switch = {
 					trigger = is_ship_size
 					corvette	= { ROOT = { change_variable = { which = ship_corvette_infested value = 1 } } }
@@ -3491,7 +3496,7 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-# convert all pops on_yearly_pulse
+# Convert all pops on_yearly_pulse
 event = {
 	id = UniqueAscensionPerksEvents.126
 	hide_window = yes
@@ -4912,7 +4917,7 @@ country_event = {
 	immediate = {
 		set_country_flag = ap_civilian_activities_project
 		if = { limit = { can_research_technology = tech_factory_ship }
-			add_tech_progress = { tech = tech_factory_ship progress = 0.15 }
+			add_tech_progress = { tech = tech_factory_ship progress = 0.1 }
 		}
 	}
 	option = {
@@ -5529,7 +5534,7 @@ country_event = {
 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } ai_chance = { factor = 0 } }
 }
 
-# TODO a lot, eg different fleets
+# TODO a lot, eg different fleets.
 country_event = {
 	id = UniqueAscensionPerksEvents.274
 	hide_window = yes
@@ -5646,8 +5651,6 @@ country_event = {
 # 		}
 # 	}
 # }
-
-
 
 #######################################
 #									 #
@@ -7473,7 +7476,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		NOT = { has_active_event = {
-			# UniqueAscensionPerksEvents.434 does not work for self opening
+			# UniqueAscensionPerksEvents.434 does not work for self opening.
 			UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.437 UniqueAscensionPerksEvents.438
 		} }
 	}

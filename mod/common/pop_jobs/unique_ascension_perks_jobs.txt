@@ -47,7 +47,7 @@ judge = {
 		produces = { unity = 4 }
 		upkeep = { consumer_goods = 2 }
 	}
-	planet_modifier = { planet_stability_add = 0.5 planet_crime_add = -100 }
+	planet_modifier = { planet_stability_add = 0.5 planet_crime_add = -80 }
 	weight = {
 		weight = @ruler_job_weight
 		modifier = { factor = 0.2 has_citizenship_rights = no }
@@ -290,9 +290,15 @@ hive_queen = {
 	resources = {
 		category = planet_jobs
 		produces = { }
-		upkeep = { food = 4 }
+		upkeep = {
+			food = 20 # 4
+			energy = 8
+		}
 	}
-	planet_modifier = { planet_jobs_produces_mult = 0.07 planet_amenities_no_happiness_add = 20 }
+	planet_modifier = {
+		planet_jobs_produces_mult = 0.1 # 0.07
+		planet_amenities_no_happiness_add = 20
+	}
 	weight = { weight = @spawner_drone_job_weight }
 }
 
@@ -315,8 +321,8 @@ royal_guard = {
 		produces = { unity = 10 }
 		upkeep = { food = 2 }
 	}
-	planet_modifier = { planet_crime_add = -60 }
-	pop_modifier = { pop_defense_armies_add = 3 }
+	planet_modifier = { planet_crime_add = -40 }
+	pop_modifier = { pop_defense_armies_add = 5 }
 	weight = { weight = @synapse_drone_job_weight }
 }
 
@@ -348,7 +354,7 @@ stabilizer = {
 }
 
 nurse = {
-	category = simple_drone
+	category = complex_drone
 	condition_string = DRONE_JOB_TRIGGER
 	building_icon = building_hive_node
 	possible_pre_triggers = {
@@ -393,7 +399,7 @@ botanist = {
 			society_research = 2
 		}
 	}
-	country_modifier = { terraform_speed_mult = 0.01 }
+	country_modifier = { terraform_speed_mult = 0.02 }
 	planet_modifier = { pop_environment_tolerance = 0.01 }
 	weight = { weight = 2 }
 }
@@ -416,9 +422,12 @@ protector = {
 	resources = {
 		category = planet_jobs
 		produces = { unity = 8 }
-		upkeep = { minerals = 3 }
+		upkeep = { minerals = 5 } # 3
 	}
-	planet_modifier = { planet_stability_add = 1 planet_crime_add = -30 }
+	planet_modifier = {
+		planet_stability_add = 3 # 1
+		planet_crime_add = -20 # -30
+	}
 	pop_modifier = { pop_defense_armies_add = 3 }
 	weight = { weight = @synapse_drone_job_weight }
 }
@@ -490,13 +499,13 @@ recycler = {
 	resources = {
 		category = planet_jobs
 		produces = {
-			energy = 2
-			minerals = 2
-			food = 2
+			energy = 3
+			minerals = 3
+			food = 3
 		}
 	}
 	planet_modifier = { planet_amenities_no_happiness_add = 1 }
-	weight = { weight = 2 }
+	weight = { weight = 3 }
 }
 
 # Mega Corporation
@@ -782,7 +791,11 @@ controller = {
 		}
 		upkeep = { consumer_goods = 1 }
 	}
-	planet_modifier = { planet_crime_add = -25 planet_crime_mult = -0.08 planet_stability_add = 0.04 }
+	planet_modifier = {
+		planet_crime_add = -20 # -25
+		planet_crime_mult = -0.05 # -0.08
+		planet_stability_add = 0.05
+	}
 	weight = {
 		weight = @colonist_job_weight
 		modifier = { factor = 0.1 can_take_servant_job = no }
@@ -811,7 +824,11 @@ controller_drone = {
 		}
 		upkeep = { minerals = 2 }
 	}
-	planet_modifier = { planet_crime_add = -25 planet_crime_mult = -0.08 planet_stability_add = 0.04 }
+	planet_modifier = {
+		planet_crime_add = -20 # -25
+		planet_crime_mult = -0.05 # -0.08
+		planet_stability_add = 0.05
+	}
 	weight = { weight = @synapse_drone_job_weight }
 }
 
@@ -899,6 +916,7 @@ navy_pilot = {
 	resources = {
 		category = planet_jobs
 		produces = { unity = 1 }
+		upkeep = { food = 1 }
 	}
 	country_modifier = { country_naval_cap_add = 6 country_command_limit_add = 1 }
 	pop_modifier = { pop_defense_armies_add = 1 }
@@ -924,7 +942,8 @@ navy_pilot_drone = {
 	}
 	resources = {
 		category = planet_jobs
-		produces = { unity = 1 }
+		# produces = { unity = 1 }
+		upkeep = { minerals = 1 }
 	}
 	country_modifier = { country_naval_cap_add = 6 country_command_limit_add = 1 }
 	pop_modifier = { pop_defense_armies_add = 1 }
@@ -947,9 +966,25 @@ smuggler = {
 	}
 	resources = {
 		category = planet_jobs
-		produces = { }
+		upkeep = {
+			minerals = 15
+			energy = 5
+		}
+		produces = {
+			volatile_motes = 1
+			exotic_gases = 1
+			rare_crystals = 1
+		}
+		upkeep = {
+			trigger = { is_lithoid = no }
+			food = 3
+		}
+		upkeep = {
+			trigger = { is_lithoid = yes }
+			minerals = 3
+		}
 	}
-	planet_modifier = { planet_crime_add = 2 trade_value_add = 4 }
+	planet_modifier = { planet_crime_add = 4 trade_value_add = 4 }
 	country_modifier = { local_trade_protection_add = 1 }
 	weight = {
 		weight = @worker_job_weight
@@ -973,9 +1008,26 @@ smuggler_drone = {
 	}
 	resources = {
 		category = planet_jobs
-		produces = { energy = 6 }
+		upkeep = {
+			minerals = 12
+			energy = 3
+		}
+		produces = {
+			# energy = 6
+			volatile_motes = 1
+			exotic_gases = 1
+			rare_crystals = 1
+		}
+		upkeep = {
+			trigger = { is_lithoid = no }
+			food = 4
+		}
+		upkeep = {
+			trigger = { is_lithoid = yes }
+			minerals = 4
+		}
 	}
-	planet_modifier = { planet_crime_no_happiness_add = 2 }
+	planet_modifier = { planet_crime_no_happiness_add = 4 }
 	weight = { weight = 2 }
 }
 
@@ -996,7 +1048,7 @@ purifier = {
 	resources = {
 		category = planet_jobs
 		produces = {
-			minerals = 6
+			minerals = 3 # 6
 			energy = 1
 		}
 		upkeep = {
@@ -1004,7 +1056,7 @@ purifier = {
 			consumer_goods = 1
 		}
 	}
-	planet_modifier = { pop_amenities_usage_mult = -0.005 }
+	planet_modifier = { pop_amenities_usage_mult = -0.01 }
 	weight = {
 		weight = @worker_job_weight
 		modifier = { factor = 0.25 is_enslaved = yes can_take_servant_job = no }
@@ -1028,12 +1080,12 @@ purifier_drone = {
 	resources = {
 		category = planet_jobs
 		produces = {
-			minerals = 6
+			minerals = 3 # 6
 			energy = 1
 		}
 		upkeep = { alloys = 1 }
 	}
-	planet_modifier = { pop_amenities_usage_no_happiness_mult = -0.005 }
+	planet_modifier = { pop_amenities_usage_no_happiness_mult = -0.01 }
 	weight = { weight = 2 }
 }
 

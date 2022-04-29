@@ -415,11 +415,17 @@ decision_nanite_extraction = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		is_colonizeable_planet = yes
-		# has_owner = no
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "decision_nanite_extraction_req_1"
+			NOT = { has_planet_flag = planet_nanite_exploitation }
+		}
 	}
 	effect = {
-		custom_tooltip = "decision_dont_give_planet_to_vassal_tooltip"
+		custom_tooltip = "decision_nanite_extraction_tooltip"
 		change_pc = pc_gray_goo
+		destroy_colony = yes
 		clear_deposits = yes
 		clear_planet_modifiers = yes
 		add_deposit = d_minerals_10
@@ -435,6 +441,71 @@ decision_nanite_extraction = {
 		add_deposit = d_alloys_5
 		add_deposit = d_nanites_deposit
 		set_planet_flag = planet_nanite_exploitation
+	}
+	ai_weight = { weight = 1 }
+}
+
+decision_nanite_extraction_molten = {
+	sound = event_ai_started_01
+	icon = decision_drilling_for_gas
+	resources = { category = decisions cost = { nanites = 500 } }
+	potential = {
+		exists = space_owner
+		exists = from
+		space_owner = { is_same_empire = from }
+		from = { has_ascension_perk = ap_nano_to_nanite }
+		has_owner = no
+		OR = {
+			is_planet_class = pc_molten
+			is_planet_class = pc_legendary_forge
+		}
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "decision_nanite_extraction_req_1"
+			NOT = { has_planet_flag = planet_nanite_exploitation_molten }
+		}
+	}
+	effect = {
+		custom_tooltip = "decision_nanite_extraction_molten_tooltip"
+		# destroy_colony = yes # every_owned_pop = { kill_pop = yes }
+		add_deposit = d_minerals_10
+		add_deposit = d_minerals_10
+		add_deposit = d_minerals_10
+		add_deposit = d_nanites_deposit
+		add_deposit = d_nanites_deposit
+		set_planet_flag = planet_nanite_exploitation_molten
+	}
+	ai_weight = { weight = 1 }
+}
+
+decision_nanite_extraction_toxic = {
+	sound = event_ai_started_01
+	icon = decision_drilling_for_gas
+	resources = { category = decisions cost = { nanites = 500 } }
+	potential = {
+		exists = space_owner
+		exists = from
+		space_owner = { is_same_empire = from }
+		from = { has_ascension_perk = ap_nano_to_nanite }
+		has_owner = no
+		is_planet_class = pc_toxic
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "decision_nanite_extraction_req_1"
+			NOT = { has_planet_flag = planet_nanite_exploitation_toxic }
+		}
+	}
+	effect = {
+		custom_tooltip = "decision_nanite_extraction_toxic_tooltip"
+		# destroy_colony = yes # every_owned_pop = { kill_pop = yes }
+		add_deposit = d_energy_10
+		add_deposit = d_energy_10
+		add_deposit = d_energy_10
+		add_deposit = d_nanites_deposit
+		add_deposit = d_nanites_deposit
+		set_planet_flag = planet_nanite_exploitation_toxic
 	}
 	ai_weight = { weight = 1 }
 }
@@ -536,7 +607,7 @@ decision_deep_scanner = {
 		custom_tooltip = "decision_deep_scanner_tooltip"
 		save_event_target_as = deep_scanner_planet
 		planet_event = { id = UniqueAscensionPerksEvents.443 }
-		planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } # notify + rescan
+		planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } # Notify + rescan
 		set_timed_planet_flag = { flag = decision_deep_scanner_cooldown years = 1 }
 		add_modifier = { modifier = pm_deep_scanner }
 	}

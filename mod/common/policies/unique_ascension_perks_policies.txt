@@ -262,10 +262,10 @@ ruler_research_focus = {
 		name = "ruler_research_nothing_policy_name"
 		policy_flags = { ruler_research_nothing_policy }
 		modifier = {
-			all_technology_research_speed = 0.10
-			country_physics_research_produces_mult = 0.04
-			country_society_research_produces_mult = 0.06
-			country_engineering_research_produces_mult = 0.06
+			all_technology_research_speed = 0.05 # 0.10
+			country_physics_research_produces_mult = 0.05 # 0.06
+			country_society_research_produces_mult = 0.05 # 0.06
+			country_engineering_research_produces_mult = 0.05 # 0.06
 		}
 		ai_weight = { weight = 10 }
 	}
@@ -274,8 +274,8 @@ ruler_research_focus = {
 		name = "ruler_research_physics_policy_name"
 		policy_flags = { ruler_research_physics_policy }
 		modifier = {
-			country_physics_tech_research_speed = 0.1
-			country_physics_research_produces_mult = 0.1
+			country_physics_tech_research_speed = 0.15
+			country_physics_research_produces_mult = 0.15
 		}
 		ai_weight = { weight = 5 }
 	}
@@ -283,7 +283,7 @@ ruler_research_focus = {
 		name = "ruler_research_society_policy_name"
 		policy_flags = { ruler_research_society_policy }
 		modifier = {
-			country_society_tech_research_speed = 0.2
+			country_society_tech_research_speed = 0.15
 			country_society_research_produces_mult = 0.15
 		}
 		ai_weight = { weight = 5 }
@@ -292,7 +292,7 @@ ruler_research_focus = {
 		name = "ruler_research_engineering_policy_name"
 		policy_flags = { ruler_research_engineering_policy }
 		modifier = {
-			country_engineering_tech_research_speed = 0.2
+			country_engineering_tech_research_speed = 0.15
 			country_engineering_research_produces_mult = 0.15
 		}
 		ai_weight = { weight = 5 }
@@ -337,22 +337,22 @@ ruler_defense_focus = {
 		name = "ruler_defense_nothing_policy_name"
 		policy_flags = { ruler_defense_nothing_policy }
 		modifier = {
-			ship_hull_mult = 0.04
-			ship_armor_mult = 0.08
-			ship_shield_mult = 0.06
+			ship_hull_mult = 0.07 # 0.04
+			ship_armor_mult = 0.07 # 0.08
+			ship_shield_mult = 0.07 # 0.06
 		}
 		ai_weight = { weight = 10 }
 	}
 	option = {
 		name = "ruler_defense_hull_policy_name"
 		policy_flags = { ruler_defense_hull_policy }
-		modifier = { ship_hull_mult = 0.10 }
+		modifier = { ship_hull_mult = 0.15 } # 0.1
 		ai_weight = { weight = 5 }
 	}
 	option = {
 		name = "ruler_defense_armor_policy_name"
 		policy_flags = { ruler_defense_armor_policy }
-		modifier = { ship_armor_mult = 0.20 }
+		modifier = { ship_armor_mult = 0.15 } # 0.20
 		ai_weight = { weight = 5 }
 	}
 	option = {
@@ -411,10 +411,10 @@ ruler_capacity_focus = {
 		policy_flags = { ruler_resources_nothing_policy }
 		modifier = {
 			country_naval_cap_add = 40
-			# country_admin_cap_add = 20 # removed 3.3
+			# country_admin_cap_add = 20 # Removed 3.3
 			country_starbase_capacity_add = 2
 			country_edict_fund_add = 20 # 3.3 added
-			empire_size_penalty_mult = -0.15 # 3.3 added
+			empire_size_penalty_mult = -0.05 # 3.3 added
 			# country_unity_produces_mult = 0.1
 		}
 		ai_weight = { weight = 10 }
@@ -422,7 +422,7 @@ ruler_capacity_focus = {
 	option = {
 		name = "ruler_capacity_navy_policy_name"
 		policy_flags = { ruler_capacity_navy_policy }
-		modifier = { country_naval_cap_add = 90 country_naval_cap_mult = 0.08 }
+		modifier = { country_naval_cap_add = 50 country_naval_cap_mult = 0.1 }
 		ai_weight = { weight = 5 }
 	}
 	option = {
@@ -459,19 +459,29 @@ ruler_colony_focus = {
 	option = {
 		name = "ruler_colony_housing_policy_name"
 		policy_flags = { ruler_capacity_administration_policy }
-		modifier = { pop_housing_usage_mult = -0.08 planet_housing_add = 2 }
+		modifier = {
+			pop_housing_usage_mult = -0.05 # -0.08
+			planet_housing_add = 5 # 2
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {
 		name = "ruler_colony_amenities_policy_name"
 		policy_flags = { ruler_capacity_navy_policy }
-		modifier = { pop_amenities_usage_mult = -0.08 pop_amenities_usage_no_happiness_mult = -0.08 planet_amenities_add = 10 }
+		modifier = {
+			pop_amenities_usage_mult = -0.1 # -0.08
+			pop_amenities_usage_no_happiness_mult = -0.1 # -0.08
+			planet_amenities_add = 15 # 10
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {
 		name = "ruler_colony_crime_policy_name"
 		policy_flags = { ruler_capacity_starbase_policy }
-		modifier = { planet_crime_mult = -0.20 planet_crime_add = -30 }
+		modifier = {
+			planet_crime_mult = -0.10 # -0.20
+			planet_crime_add = -40 # -30
+		}
 		ai_weight = { weight = 5 }
 	}
 }
@@ -492,13 +502,19 @@ ruler_special_focus = {
 	option = {
 		name = "ruler_special_anomalies_policy_name"
 		policy_flags = { ruler_special_anomalies_policy }
-		modifier = { ship_anomaly_research_speed_mult = 0.65 ship_anomaly_generation_chance_mult = 0.15 }
+		modifier = {
+			ship_anomaly_research_speed_mult = 0.5 # 0.65
+			ship_anomaly_generation_chance_mult = 0.2 # 0.15
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {
 		name = "ruler_special_colony_policy_name"
 		policy_flags = { ruler_special_colony_policy }
-		modifier = { planet_colony_development_speed_mult = 0.65 colony_start_num_pops_add = 1 }
+		modifier = {
+			planet_colony_development_speed_mult = 0.5 # 0.65
+			colony_start_num_pops_add = 2 # 1
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {

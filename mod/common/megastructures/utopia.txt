@@ -61,6 +61,24 @@ utopia_site = {
 				fail_text = "requires_not_ring_world"
 				is_ringworld = no
 			}
+			custom_tooltip = {
+				fail_text = "requires_no_existing_utopia_site"
+				from = {
+					count_owned_megastructure = {
+						count < 3
+						limit = {
+							solar_system = { has_star_flag = utopia_built }
+							# OR = {
+							# 	is_megastructure_type = utopia_site
+							# 	is_megastructure_type = utopia_1
+							# 	is_megastructure_type = utopia_2
+							# 	is_megastructure_type = utopia_3
+							# 	is_megastructure_type = utopia_4
+							# }
+						}
+					}
+				}
+			}
 			# if = { limit = { from = { is_ai = yes } }
 			# 	OR = {
 			# 		has_deposit_for = shipclass_mining_station
@@ -82,16 +100,12 @@ utopia_site = {
 			factor = 0.1
 			any_neighbor_system = {
 				exists = owner
-				NOT = {
-					is_owned_by = from
-				}
+				NOT = { is_owned_by = from }
 			}
 		}
 		modifier = {
 			factor = 2.0
-			from = {
-				is_authoritarian = yes
-			}
+			from = { is_authoritarian = yes }
 		}
 	}
 	on_build_start = {}
@@ -115,7 +129,7 @@ utopia_1 = {
 	resources = {
 		category = megastructures
 		cost = { alloys = 5000 }
-		produces = { unity = 100 }
+		produces = { unity = 90 } # 100
 		upkeep = { energy = 50 }
 	}
 	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
@@ -134,7 +148,7 @@ utopia_2 = {
 	resources = {
 		category = megastructures
 		cost = { alloys = 5000 }
-		produces = { unity = 250 }
+		produces = { unity = 215 } # 250
 		upkeep = { energy = 75 }
 	}
 	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
@@ -153,7 +167,7 @@ utopia_3 = {
 	resources = {
 		category = megastructures
 		cost = { alloys = 5000 }
-		produces = { unity = 500 }
+		produces = { unity = 425 } # 500
 		upkeep = { energy = 120 }
 	}
 	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
@@ -172,9 +186,15 @@ utopia_4 = {
 	resources = {
 		category = megastructures
 		cost = { alloys = 5000 }
-		produces = { unity = 1000 }
+		produces = { unity = 850 } # 1000
 		upkeep = { energy = 150 }
 	}
-	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
+	prerequisites = { "tech_ascension_theory" }
+	possible = {
+		from = {
+			has_ascension_perk = ap_advanced_government_2
+			custom_tooltip = { fail_text = "ap_advanced_government_2_req_4" has_technology = tech_ascension_theory }
+		}
+	}
 	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.90 } }	}
 }
