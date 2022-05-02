@@ -1,0 +1,87 @@
+## For Compatibility
+## Shared with: The Great Khan Expanded, A Deadly Tempest
+
+is_fallen_empire = {
+	OR = {
+		is_country_type = fallen_empire
+		is_country_type = awakened_fallen_empire
+		AND = {
+			has_global_flag = a_deadly_tempest_mod_active
+			is_country_type = awakened_gate_builders
+		}
+	}
+}
+
+has_total_war_cb = {
+	OR = {
+		# Attacker checks
+		AND = {
+			OR = {
+				is_country_type_with_subjects = yes
+				is_fallen_empire = yes
+			}
+			OR = {
+				is_country_type = awakened_fallen_empire
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_machine_assimilator
+				AND = {
+					has_valid_civic = civic_machine_terminator
+					from = {
+						is_synthetic_empire = no
+					}
+				}
+				AND = {
+					has_valid_civic = civic_fanatic_purifiers
+					NOT = { is_same_species = from }
+				}
+			}
+		}
+		# End threat checks
+		AND = {
+			CmtTriggerIsPlayableEmpire = yes
+			NOR = {
+				# is_country_type = awakened_fallen_empire meaningless
+				has_valid_civic = civic_fanatic_purifiers
+				has_valid_civic = civic_hive_devouring_swarm
+				has_valid_civic = civic_machine_assimilator
+				has_valid_civic = civic_machine_terminator
+			}
+			from = {
+				OR = {
+					is_country_type = awakened_fallen_empire
+					has_valid_civic = civic_fanatic_purifiers
+					has_valid_civic = civic_hive_devouring_swarm
+					has_valid_civic = civic_machine_assimilator
+					has_valid_civic = civic_machine_terminator
+				}
+			}
+		}
+	}
+}
+
+# Workaround: as is_overlord_to is not working for Khan.
+# This = Satrapy
+is_subject_of_khan = {
+	is_subject = yes
+	exists = overlord
+	exists = event_target:raider_khanate
+	# overlord = { is_same_empire = prevprev }
+	overlord = { is_same_empire = event_target:raider_khanate }
+	# OR = { # Only to be sure
+	# 	is_subject_type = machinesmith
+	# 	is_subject_type = satrapy
+	# 	is_subject_type = fabricator_satrapy
+	# 	is_subject_type = war_satrapy
+	# 	# is_subject_type = nsc_freebooter_satrapy ### NSC SUPPORT has_global_flag = has_nsc_active
+	# }
+}
+
+# As is_pirate is bugged (still 3.3)
+is_pirate_country = {
+	OR = {
+		is_pirate = yes # is_country_type = pirate
+		is_country_type = pirate_waves_country
+		is_country_type = dormant_marauders
+		is_country_type = ruined_marauders
+	}
+}

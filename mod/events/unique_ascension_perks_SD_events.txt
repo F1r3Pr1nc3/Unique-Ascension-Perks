@@ -324,7 +324,7 @@ country_event = {
 					save_event_target_as = domesticated_mother_fleet
 					if = {
 						limit = { root = { has_country_flag = space_domestication_amoeba } }
-						set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 60 } else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith days = 90 } }
+						set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 2 } else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 3 } }
 					}
 				}
 				create_fleet = {
@@ -604,7 +604,7 @@ fleet_event = {
 							random_fleet_in_system = {
 								limit = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes }
 								save_event_target_as = domesticated_military_fleet_target
-								random = { chance = 16 set_timed_fleet_flag = { flag = domesticated_military_fleet_target_no_more_hunters days = 180 } }
+								random = { chance = 16 set_timed_fleet_flag = { flag = domesticated_military_fleet_target_no_more_hunters months = 6 } }
 							}
 						}
 					}
@@ -616,7 +616,7 @@ fleet_event = {
 								random_fleet_in_system = {
 									limit = { is_valid_target_for_domesticated_aliens_military = yes }
 									save_event_target_as = domesticated_military_fleet_target
-									random = { chance = 25 set_timed_fleet_flag = { flag = domesticated_military_fleet_target_no_more_hunters days = 180 } }
+									random = { chance = 25 set_timed_fleet_flag = { flag = domesticated_military_fleet_target_no_more_hunters months = 6 } }
 								}
 							}
 						}
@@ -637,7 +637,7 @@ fleet_event = {
 						random_fleet_in_system = {
 							limit = { is_valid_target_for_domesticated_aliens_security = yes }
 							save_event_target_as = domesticated_security_fleet_defend_against
-							random = { chance = 16 set_timed_fleet_flag = { flag = domesticated_security_fleet_defend_against_no_more_defenders days = 180 } }
+							random = { chance = 16 set_timed_fleet_flag = { flag = domesticated_security_fleet_defend_against_no_more_defenders months = 6 } }
 						}
 					}
 				}
@@ -650,7 +650,7 @@ fleet_event = {
 					save_event_target_as = domesticated_security_fleet_patroling
 					set_fleet_flag = domesticated_security_fleet_patroling
 					set_timed_fleet_flag = { flag = domesticated_security_fleet_defending_order days = 10 }
-					set_timed_fleet_flag = { flag = domesticated_security_fleet_patroling_order days = 120 }
+					set_timed_fleet_flag = { flag = domesticated_security_fleet_patroling_order months = 4 }
 					auto_move_to_planet = { target = event_target:domesticated_security_fleet_destination clear_auto_move_on_arrival = no }
 				}
 			}
@@ -712,7 +712,6 @@ country_event = {
 	}
 	option = { name = EXCELLENT
 		enable_special_project = { name = LEVIATHAN_MASTER location = capital_scope owner = root }
-		ai_chance = { factor = 0 }
 	}
 }
 
@@ -1206,7 +1205,6 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		ai_chance = { factor = 0 }
 		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
 		# leviathan_master_summon_leviathan = {
 		hidden_effect = {
@@ -1248,7 +1246,7 @@ planet_event = {
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
 	location = root
-	option = { name = OK ai_chance = { factor = 0 } }
+	option = { name = OK }
 }
 
 country_event = {
@@ -1272,7 +1270,6 @@ country_event = {
 	immediate = { random_planet_within_border = { limit = { has_planet_flag = leviathan_summon_defense_project } save_event_target_as = look_location } }
 	option = {
 		name = EXCELLENT
-		ai_chance = { factor = 0 }
 		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
 		# leviathan_master_summon_leviathan_defense = yes
 		hidden_effect = {

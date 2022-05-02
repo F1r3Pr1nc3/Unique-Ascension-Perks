@@ -1,17 +1,26 @@
+
+# v3.3 doubled costs
+@campaignCost = 20
+@activateCost = 1000 # 500
+
 library_wisedom_menu = {
 	icon = "GFX_edict_type_menu"
-	length = 0
+	length = -1
 	potential = { has_ascension_perk = ap_library_wisedom }
-	allow = { custom_tooltip = { fail_text = "edict_library_wisedom_menu_req_1" NOT = { has_country_flag = ap_library_wisedom_cooldown } } }
-	ai_weight = { weight = 0 }
+	allow = {
+		custom_tooltip = {
+			fail_text = "edict_library_wisedom_menu_req_1"
+			NOR = { has_country_flag = ap_library_wisedom_cooldown } has_active_event = { UniqueAscensionPerksEvents.491 }  }
+		}
 	effect = { country_event = { id = UniqueAscensionPerksEvents.491 } }
+	ai_weight = { weight = 0 }
 }
 
 lw_propaganda_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_propaganda_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_propaganda_campaign }
 	modifier = { pop_government_ethic_attraction = 0.80 }
 	ai_weight = { weight = 0 }
 }
@@ -19,8 +28,8 @@ lw_propaganda_campaign = {
 lw_faction_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_faction_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_faction_campaign }
 	modifier = { pop_factions_produces_mult = 0.25 pop_factions_unity_produces_mult = 0.1 }
 	ai_weight = { weight = 0 }
 }
@@ -28,8 +37,8 @@ lw_faction_campaign = {
 lw_diplomacy_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_diplomacy_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_diplomacy_campaign }
 	effect = { custom_tooltip = "lw_diplomacy_campaign_tooltip" }
 	ai_weight = { weight = 0 }
 }
@@ -37,8 +46,8 @@ lw_diplomacy_campaign = {
 lw_trust_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_trust_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_trust_campaign }
 	modifier = { country_trust_growth = 0.50 }
 	ai_weight = { weight = 0 }
 }
@@ -46,8 +55,8 @@ lw_trust_campaign = {
 lw_vassalization_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_vassalization_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_vassalization_campaign }
 	modifier = { country_subject_acceptance_add = 40 }
 	ai_weight = { weight = 0 }
 }
@@ -55,8 +64,8 @@ lw_vassalization_campaign = {
 lw_territorial_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_territorial_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_territorial_campaign }
 	modifier = { country_border_friction_mult = -0.3 }
 	ai_weight = { weight = 0 }
 }
@@ -64,8 +73,8 @@ lw_territorial_campaign = {
 lw_commercial_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_commercial_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_commercial_campaign }
 	modifier = { country_trade_attractiveness = 0.3 }
 	ai_weight = { weight = 0 }
 }
@@ -73,8 +82,8 @@ lw_commercial_campaign = {
 lw_teaching_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_teaching_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_teaching_campaign }
 	modifier = { species_leader_exp_gain = 0.66 }
 	ai_weight = { weight = 0 }
 }
@@ -82,8 +91,8 @@ lw_teaching_campaign = {
 lw_edict_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_edict_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_edict_campaign }
 	modifier = { edict_length_mult = 0.75 }
 	ai_weight = { weight = 0 }
 }
@@ -91,8 +100,8 @@ lw_edict_campaign = {
 lw_prosperity_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_prosperity_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_prosperity_campaign }
 	modifier = { planet_jobs_produces_mult = 0.07 }
 	ai_weight = { weight = 0 }
 }
@@ -100,8 +109,8 @@ lw_prosperity_campaign = {
 lw_upkeep_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_upkeep_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_upkeep_campaign }
 	modifier = {
 		planet_jobs_upkeep_mult = -0.3
 		planet_buildings_upkeep_mult = -0.3
@@ -116,8 +125,8 @@ lw_collection_campaign = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_collection_campaign }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_collection_campaign }
 	modifier = { station_gatherers_produces_mult = 0.50 }
 	ai_weight = { weight = 0 }
 }
@@ -125,8 +134,8 @@ lw_collection_campaign = {
 lw_trade_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_trade_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_trade_campaign }
 	modifier = { trade_value_mult = 0.10 }
 	ai_weight = { weight = 0 }
 }
@@ -134,15 +143,15 @@ lw_trade_campaign = {
 lw_construction_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 2000 } }
-	potential = { has_country_flag = ap_library_wisedom_construction_campaign }
+	resources = { category = campaigns cost = { energy = 4000 } } # 2000
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_construction_campaign }
 	modifier = {
-		planet_districts_cost_mult = -0.20
-		planet_buildings_cost_mult = -0.20
-		deposit_blockers_cost_mult = -0.20
-		starbase_buildings_cost_mult = -0.10
-		starbase_modules_cost_mult = -0.10
-		starbase_upgrade_cost_mult = -0.10
+		planet_districts_cost_mult		= -0.20
+		planet_buildings_cost_mult		= -0.20
+		deposit_blockers_cost_mult		= -0.20
+		starbase_buildings_cost_mult	= -0.10
+		starbase_modules_cost_mult		= -0.10
+		starbase_upgrade_cost_mult		= -0.10
 	}
 	ai_weight = { weight = 0 }
 }
@@ -150,12 +159,12 @@ lw_construction_campaign = {
 lw_survival_campaign = {
 	icon = "GFX_edict_type_time"
 	length = 1800
-	resources = { category = campaigns cost = { energy = 500 } }
-	potential = { has_country_flag = ap_library_wisedom_survival_campaign }
+	resources = { category = campaigns cost = { energy = @activateCost } }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_survival_campaign }
 	modifier = {
-		country_base_energy_produces_add = 40
-		country_base_minerals_produces_add = 40
-		country_base_food_produces_add = 20
+		country_base_energy_produces_add	= 30 # 40
+		country_base_minerals_produces_add	= 30 # 40
+		country_base_food_produces_add		= 15 # 20
 	}
 	ai_weight = { weight = 0 }
 }
@@ -164,9 +173,9 @@ lw_war_preparation = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
 	allow = { is_at_war = no }
-	potential = { has_country_flag = ap_library_wisedom_war_preparation }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_war_preparation }
 	modifier = {
 		country_base_alloys_produces_mult = 0.15
 		starbase_module_build_speed_mult = 1.50
@@ -183,8 +192,8 @@ lw_evade_danger = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_evade_danger }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_evade_danger }
 	modifier = {
 		ship_disengage_chance_mult = 0.50
 		ship_emergency_ftl_min_days_mult = -0.20
@@ -197,8 +206,8 @@ lw_ground_field_experience = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_ground_field_experience }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_ground_field_experience }
 	modifier = {
 		army_damage_mult = 0.50
 		army_morale_damage_mult = 0.50
@@ -212,8 +221,8 @@ lw_fast_routes = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_fast_routes }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_fast_routes }
 	modifier = {
 		ship_speed_mult = 0.3
 		ship_windup_mult = -0.3
@@ -226,8 +235,8 @@ lw_experience_sharing = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_experience_sharing }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_experience_sharing }
 	modifier = {
 		ship_experience_gain_mult = 5.00
 		army_experience_gain_mult = 5.00
@@ -239,8 +248,8 @@ lw_defense_weakness = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_defense_weakness }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_defense_weakness }
 	modifier = {
 		ship_shield_penetration_mult = 0.20
 		ship_armor_penetration_mult = 0.20
@@ -253,8 +262,8 @@ lw_damage_output = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_damage_output }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_damage_output }
 	modifier = {
 		ship_weapon_damage = 0.25
 		ship_fire_rate_mult = 0.15
@@ -267,8 +276,8 @@ lw_extended_opportunities = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_extended_opportunities }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_extended_opportunities }
 	modifier = { num_tech_alternatives_add = 5 }
 	ai_weight = { weight = 0 }
 }
@@ -277,10 +286,10 @@ lw_physics_documentation = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
 	allow = { NOR = { has_edict = lw_society_documentation has_edict = lw_engineering_documentation } }
-	potential = { has_country_flag = ap_library_wisedom_physics_documentation }
-	modifier = { country_physics_tech_research_speed = 0.75 }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_physics_documentation }
+	modifier = { country_physics_tech_research_speed = 0.4 } # 0.75
 	ai_weight = { weight = 0 }
 }
 
@@ -288,10 +297,10 @@ lw_society_documentation = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
 	allow = { NOR = { has_edict = lw_physics_documentation has_edict = lw_engineering_documentation } }
-	potential = { has_country_flag = ap_library_wisedom_society_documentation }
-	modifier = { country_society_tech_research_speed = 0.75 }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_society_documentation }
+	modifier = { country_society_tech_research_speed = 0.4 } # 0.75
 	ai_weight = { weight = 0 }
 }
 
@@ -299,10 +308,10 @@ lw_engineering_documentation = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
 	allow = { NOR = { has_edict = lw_society_documentation has_edict = lw_physics_documentation } }
-	potential = { has_country_flag = ap_library_wisedom_engineering_documentation }
-	modifier = { country_engineering_tech_research_speed = 0.75 }
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_engineering_documentation }
+	modifier = { country_engineering_tech_research_speed = 0.4 } # 0.75
 	ai_weight = { weight = 0 }
 }
 
@@ -310,8 +319,8 @@ lw_archeological_knowledge = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_archeological_knowledge }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_archeological_knowledge }
 	modifier = { ship_archeaological_site_clues_add = 8 }
 	ai_weight = { weight = 0 }
 }
@@ -320,8 +329,8 @@ lw_adv_data_collection = {
 	icon = "GFX_edict_type_policy"
 	edict_cap_usage = 1
 	length = -1
-	resources = { category = edicts cost = { influence = 50 } }
-	potential = { has_country_flag = ap_library_wisedom_adv_data_collection }
-	modifier = { station_researchers_produces_mult = 0.75 }
+	resources = { category = edicts cost = { influence = 100 unity = 100 } upkeep = { energy = @campaignCost } } # influence = 50
+	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_adv_data_collection }
+	modifier = { station_researchers_produces_mult = 0.5 } # 0.75
 	ai_weight = { weight = 0 }
 }

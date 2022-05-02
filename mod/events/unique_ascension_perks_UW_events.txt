@@ -141,7 +141,6 @@ country_event = {
 	}
 	option = {
 		name = OK
-		ai_chance = { factor = 0 }
 		# underworld_smuggler_resources_loot_collection = yes
 		if = { limit = { has_country_flag = underworld_smuggler_food_1 } remove_country_flag = underworld_smuggler_food_1 add_monthly_resource_mult = { resource = food value = 2 min = 20 max = 50 } }
 		if = { limit = { has_country_flag = underworld_smuggler_food_2 } remove_country_flag = underworld_smuggler_food_2 add_monthly_resource_mult = { resource = food value = 4 min = 100 max = 500 } }
@@ -179,7 +178,7 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.375.a"
 		allow = { resource_stockpile_compare = { resource = treasures value > 300 } NOT = { has_modifier = underworld_crime_contract } }
 		add_resource = { treasures = -300 }
-		add_modifier = { modifier = underworld_crime_contract days = 3600 }
+		add_modifier = { modifier = underworld_crime_contract years = 10 }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.375.Contract"
 	}
@@ -334,7 +333,7 @@ planet_event = {
 	picture_event_data = { portrait = from room = underworld_room }
 	location = this
 	is_triggered_only = yes
-	option = { name = EXCELLENT add_modifier = { modifier = underworld_crime_attack days = 7200 } }
+	option = { name = EXCELLENT add_modifier = { modifier = underworld_crime_attack years = 20 } }
 }
 
 country_event = {
@@ -350,7 +349,7 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.375.a"
 		allow = { resource_stockpile_compare = { resource = treasures value > 300 } NOT = { has_modifier = underworld_pirates_contract } }
 		add_resource = { treasures = -300 }
-		add_modifier = { modifier = underworld_pirates_contract days = 3600 }
+		add_modifier = { modifier = underworld_pirates_contract years = 10 }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.379.Contract"
 	}
@@ -691,7 +690,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		# underworld_marauder_raid = yes
-		# set_timed_country_flag = { flag = recently_raided_or_threatened days = 1800 }
+		# set_timed_country_flag = { flag = recently_raided_or_threatened years = 5 }
 		set_country_flag = raid_target_of@event_target:raiding_marauder
 		set_country_flag = under_marauder_attack
 		if = {
