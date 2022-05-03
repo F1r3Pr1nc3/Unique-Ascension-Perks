@@ -419,32 +419,54 @@ decision_hivemind_reserve = {
 	owned_planets_only = yes
 	sound = event_alien_nature
 	enactment_time = 180
-	resources = { category = decisions cost = { food = 700 } }
+	resources = {
+		category = decisions
+		cost = { influence = 25 food = 700 }
+	}
 	potential = { owner = { has_ascension_perk = ap_hivemind_reserve } is_under_colonization = no }
 	allow = {
 		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
-		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_2"
-			NAND = { is_variable_set = decision_hivemind_reserve_count check_variable = { which = decision_hivemind_reserve_count value < 5 } }
+		if = { limit = { is_variable_set = hivemind_reserve_happened }
+			custom_tooltip = {
+				fail_text = requires_max_5_times_fail_simple
+				success_text = requires_max_5_times_hivemind_reserve
+				check_variable = {
+					which = hivemind_reserve_happened
+					value < 5
+				}
+			}
+		} else = {
+			custom_tooltip = {
+				text = requires_max_5_times_pass_simple
+				always = yes
+			}
 		}
 	}
 	effect = {
 		custom_tooltip = "decision_hivemind_reserve_tooltip"
 		add_deposit = d_hivemind_reserve
 		save_event_target_as = hivemind_reserve_planet # TODO remove me
-		if = { limit = { NOT = { is_variable_set = decision_hivemind_reserve_count } }
-			set_variable = { which = decision_hivemind_reserve_count value = 0 }
-		}
-		change_variable = { which = decision_hivemind_reserve_count value = 1 }
+		# if = { limit = { NOT = { is_variable_set = hivemind_reserve_happened } }
+		# 	set_variable = { which = hivemind_reserve_happened value = 0 }
+		# }
+		change_variable = { which = hivemind_reserve_happened value = 1 }
 		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown years = 1 }
 		planet_event = { id = UniqueAscensionPerksEvents.3128 days = 364 }
 	}
-	ai_weight = { weight = 1 }
+	ai_weight = {
+		weight = 1
+		modifier = { factor = 2 num_pops > 24 }
+		modifier = { factor = 3 num_pops > 48 }
+	}
 }
 
 decision_hivemind_reserve_unhabited = {
 	sound = event_alien_nature
 	icon = decision_hivemind_reserve
-	resources = { category = decisions cost = { food = 900 } }
+	resources = {
+		category = decisions
+		cost = { influence = 25 food = 900 }
+	}
 	potential = {
 		exists = space_owner
 		exists = from
@@ -455,18 +477,30 @@ decision_hivemind_reserve_unhabited = {
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
-		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_2"
-			NAND = { is_variable_set = decision_hivemind_reserve_count check_variable = { which = decision_hivemind_reserve_count value < 5 } }
+		if = { limit = { is_variable_set = hivemind_reserve_happened }
+			custom_tooltip = {
+				fail_text = requires_max_5_times_fail_simple
+				success_text = requires_max_5_times_hivemind_reserve
+				check_variable = {
+					which = hivemind_reserve_happened
+					value < 5
+				}
+			}
+		} else = {
+			custom_tooltip = {
+				text = requires_max_5_times_pass_simple
+				always = yes
+			}
 		}
 	}
 	effect = {
 		custom_tooltip = "decision_hivemind_reserve_tooltip"
 		add_deposit = d_hivemind_reserve
 		save_event_target_as = hivemind_reserve_planet # TODO remove me
-		if = { limit = { NOT = { is_variable_set = decision_hivemind_reserve_count } }
-			set_variable = { which = decision_hivemind_reserve_count value = 0 }
-		}
-		change_variable = { which = decision_hivemind_reserve_count value = 1 }
+		# if = { limit = { NOT = { is_variable_set = hivemind_reserve_happened } }
+		# 	set_variable = { which = hivemind_reserve_happened value = 0 }
+		# }
+		change_variable = { which = hivemind_reserve_happened value = 1 }
 		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown years = 1 }
 		planet_event = { id = UniqueAscensionPerksEvents.3128 days = 364 }
 	}

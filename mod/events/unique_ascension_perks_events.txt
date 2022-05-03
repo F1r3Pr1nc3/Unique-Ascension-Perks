@@ -1641,76 +1641,108 @@ country_event = {
 				}
 			}
 		}
+		no_scope = { save_event_target_as = ship_escorted }
+	}
+	after = {
+		if = { limit = { exists = event_target:ship_escorted }
+			create_security_forces_country = yes
+			event_target:ship_escorted = {
+				solar_system = { star = { save_event_target_as = spawn_location } }
+				ship_event = { id = UniqueAscensionPerksEvents.8060 }
+				fleet = { save_event_target_as = ship_escorted }
+			}
+			create_fleet = {
+				name = "Security Strike Forces"
+				effect = {
+					set_owner = root # event_target:main_country
+					while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
+					while = { count = 10 random = { chance = 50 create_ship = { name = random random_existing_design = corvette } } }
+					set_location = { target = event_target:spawn_location distance = 325 angle = random }
+					set_fleet_stance = passive
+					set_fleet_flag = security_escort_fleet
+					save_event_target_as = security_fleet
+				}
+			}
+			if = { limit = { NOT = { exists = event_target:security_forces_country } last_created_country = { has_country_flag = security_strike_force } }
+				last_created_country = { save_event_target_as = security_forces_country }
+			}
+			# event_target:security_fleet = {
+			last_created_fleet = {
+				set_owner = event_target:security_forces_country auto_follow_fleet = { target = event_target:ship_escorted attack_fleet = no }
+			}
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.1
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_1 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_1 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_1 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.2
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_2 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_2 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_2 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.3
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_3 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_3 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.4
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_4 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_4 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_4 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.5
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_5 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_5 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_5 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.6
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_6 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_6 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_6 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.7
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_7 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_7 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_7 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.8
 		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_8 }
+		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		add_resource = { energy = -500 influence = -10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8060 } event_target:ship_8 = { save_event_target_as = ship_escorted } deploy_security_escort_fleet = yes }
+		hidden_effect = { event_target:ship_8 = { save_event_target_as = ship_escorted } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.8059.Select" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8059 } } }
 	option = { name = ABORT }
 }
 
-country_event = {
+ship_event = {
 	id = UniqueAscensionPerksEvents.8060
 	title = "UniqueAscensionPerksEvents.8060.Name"
 	desc = "UniqueAscensionPerksEvents.8060.Desc"
 	show_sound = event_public_unrest
 	picture = GFX_evt_security_forces
-	location = event_target:ship_escorted
+	location = this
 	is_triggered_only = yes
-	immediate = { event_target:ship_escorted = { save_event_target_as = ship_escorted } }
+	immediate = {
+		save_event_target_as = ship_escorted # TODO remove me
+	}
 	option = { name = EXCELLENT }
 }
 
@@ -3070,19 +3102,19 @@ country_event = {
 		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7 }
 		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
 	}
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.1" trigger = { exists = event_target:leader_1 } hidden_effect = { event_target:leader_1 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.2" trigger = { exists = event_target:leader_2 } hidden_effect = { event_target:leader_2 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.3" trigger = { exists = event_target:leader_3 } hidden_effect = { event_target:leader_3 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.4" trigger = { exists = event_target:leader_4 } hidden_effect = { event_target:leader_4 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.5" trigger = { exists = event_target:leader_5 } hidden_effect = { event_target:leader_5 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.6" trigger = { exists = event_target:leader_6 } hidden_effect = { event_target:leader_6 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.7" trigger = { exists = event_target:leader_7 } hidden_effect = { event_target:leader_7 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.8" trigger = { exists = event_target:leader_8 } hidden_effect = { event_target:leader_8 = { save_event_target_as = leader_cloned } country_event = { id = UniqueAscensionPerksEvents.104 } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.1" trigger = { exists = event_target:leader_1 } hidden_effect = { event_target:leader_1 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.2" trigger = { exists = event_target:leader_2 } hidden_effect = { event_target:leader_2 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.3" trigger = { exists = event_target:leader_3 } hidden_effect = { event_target:leader_3 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.4" trigger = { exists = event_target:leader_4 } hidden_effect = { event_target:leader_4 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.5" trigger = { exists = event_target:leader_5 } hidden_effect = { event_target:leader_5 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.6" trigger = { exists = event_target:leader_6 } hidden_effect = { event_target:leader_6 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.7" trigger = { exists = event_target:leader_7 } hidden_effect = { event_target:leader_7 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.8" trigger = { exists = event_target:leader_8 } hidden_effect = { event_target:leader_8 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
 	option = { name = "UniqueAscensionPerks.select_leader" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.103 } } }
 	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
-country_event = {
+leader_event = {
 	id = UniqueAscensionPerksEvents.104
 	title = "UniqueAscensionPerksEvents.104.Name"
 	desc = "UniqueAscensionPerksEvents.104.Desc"
@@ -3090,27 +3122,55 @@ country_event = {
 	show_sound = event_alien_nature
 	location = from
 	is_triggered_only = yes
-	immediate = { event_target:leader_cloned = { save_event_target_as = leader_cloned } set_variable = { which = "cloned_leader_number" value = 0 } }
-	option = { name = "UniqueAscensionPerksEvents.252.1"	allow = { resource_stockpile_compare = { resource = influence value > 75	} } add_resource = { influence = -75	} hidden_effect = { while = { count = 1 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.2"	allow = { resource_stockpile_compare = { resource = influence value > 150	} } add_resource = { influence = -150	} hidden_effect = { while = { count = 2 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.3"	allow = { resource_stockpile_compare = { resource = influence value > 225	} } add_resource = { influence = -225	} hidden_effect = { while = { count = 3 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.4"	allow = { resource_stockpile_compare = { resource = influence value > 300	} } add_resource = { influence = -300	} hidden_effect = { while = { count = 4 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.5"	allow = { resource_stockpile_compare = { resource = influence value > 375	} } add_resource = { influence = -375	} hidden_effect = { while = { count = 5 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.6"	allow = { resource_stockpile_compare = { resource = influence value > 450	} } add_resource = { influence = -450	} hidden_effect = { while = { count = 6 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.7"	allow = { resource_stockpile_compare = { resource = influence value > 525	} } add_resource = { influence = -525	} hidden_effect = { while = { count = 7 make_leader_clone = yes } country_event = { id = UniqueAscensionPerksEvents.105 } } }
+	immediate = {
+		save_event_target_as = leader_cloned # TODO remove me
+	}
+	after = {
+		from = {
+			if = { limit = { is_variable_set = cloned_leader_number }
+				add_resource = { influence = -75 energy = -75 mult = cloned_leader_number }
+				root = {
+					while = { count = prev.cloned_leader_number
+						switch = {
+							trigger = leader_class
+							scientist = { from = { clone_leader = { target = prev class = scientist } } }
+							admiral = { from = { clone_leader = { target = prev class = admiral } } }
+							governor = { from = { clone_leader = { target = prev class = governor } } }
+							general = { from = { clone_leader = { target = prev class = general } } }
+						}
+						from = {
+							last_created_leader = { set_age = 17 set_name = "CLONED_LEADER_NAME" }
+							change_variable = { which = "cloned_leader_number" value = -1 }
+						}
+					}
+					leader_event = { id = UniqueAscensionPerksEvents.105 days = 1 }
+				}
+				clear_variable = cloned_leader_number
+			}
+		}
+	}
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = influence value > 75  } resource_stockpile_compare = { resource = energy value > 75  } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { resource_stockpile_compare = { resource = influence value > 150 } resource_stockpile_compare = { resource = energy value > 150 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { resource_stockpile_compare = { resource = influence value > 225 } resource_stockpile_compare = { resource = energy value > 225 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { resource_stockpile_compare = { resource = influence value > 300 } resource_stockpile_compare = { resource = energy value > 300 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { from = { resource_stockpile_compare = { resource = influence value > 375 } resource_stockpile_compare = { resource = energy value > 375 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 5 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { resource_stockpile_compare = { resource = influence value > 450 } resource_stockpile_compare = { resource = energy value > 450 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { resource_stockpile_compare = { resource = influence value > 525 } resource_stockpile_compare = { resource = energy value > 525 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
 	option = { name = ABORT ai_chance = { factor = 0 } }
 }
 
-country_event = {
+leader_event = {
 	id = UniqueAscensionPerksEvents.105
 	title = "UniqueAscensionPerksEvents.105.Name"
 	desc = "UniqueAscensionPerksEvents.105.Desc"
 	picture = GFX_evt_hive_mind
 	show_sound = event_alien_nature
-	location = capital_scope
+	location = owner.capital_scope
 	is_triggered_only = yes
-	immediate = { event_target:leader_cloned = { save_event_target_as = leader_cloned } }
-	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.103 } } }
+	immediate = {
+		save_event_target_as = leader_cloned # TODO remove me
+	}
+	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.103 } } } }
 	option = { name = EXCELLENT }
 }
 
@@ -3586,14 +3646,14 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = { exists = owner is_colonizable = no }
 	immediate = {
-		if = { limit = { NOT = { is_variable_set = decision_hivemind_reserve_count } }
-			set_variable = { which = decision_hivemind_reserve_count value = 0 }
+		if = { limit = { NOT = { is_variable_set = hivemind_reserve_happened } }
+			set_variable = { which = hivemind_reserve_happened value = 0 }
 		}
 	}
 	option = { name = OK ai_chance = { factor = 0 } }
 	option = {
 		name = "UniqueAscensionPerksEvents.3128.a"
-		trigger = { NOR = { has_planet_flag = decision_hivemind_reserve_cooldown check_variable = { which = decision_hivemind_reserve_count value > 5 }	} }
+		trigger = { NOR = { has_planet_flag = decision_hivemind_reserve_cooldown check_variable = { which = hivemind_reserve_happened value > 5 }	} }
 		allow = {
 			owner = { resource_stockpile_compare = { resource = food value > 900 } }
 			OR = {
@@ -3606,7 +3666,7 @@ planet_event = {
 		add_deposit = d_hivemind_reserve
 		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown months = 18 }
 		planet_event = { id = UniqueAscensionPerksEvents.3128 days = 542 }
-		change_variable = { which = decision_hivemind_reserve_count value = 1 }
+		change_variable = { which = hivemind_reserve_happened value = 1 }
 	}
 }
 
@@ -3641,22 +3701,22 @@ planet_event = {
 	location = root
 	mean_time_to_happen = {
 		months = 70
-		# modifier = { factor = value:hivemind_reserves } # v3.3 using scripted value not working TODO
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 1 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 3 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 5 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 7 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 9 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 11 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 13 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 15 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 17 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 19 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 21 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 23 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 25 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 27 } }
-		modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 29 } }
+		modifier = { factor = value:hivemind_reserves } # v3.3 using scripted value not working TODO
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 1 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 3 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 5 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 7 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 9 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 11 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 13 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 15 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 17 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 19 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 21 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 23 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 25 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 27 } }
+		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 29 } }
 	}
 	pre_triggers = { has_owner = yes }
 	trigger = {
@@ -4878,19 +4938,19 @@ country_event = {
 		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7 }
 		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
 	}
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.1" trigger = { exists = event_target:leader_1 } hidden_effect = { event_target:leader_1 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.2" trigger = { exists = event_target:leader_2 } hidden_effect = { event_target:leader_2 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.3" trigger = { exists = event_target:leader_3 } hidden_effect = { event_target:leader_3 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.4" trigger = { exists = event_target:leader_4 } hidden_effect = { event_target:leader_4 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.5" trigger = { exists = event_target:leader_5 } hidden_effect = { event_target:leader_5 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.6" trigger = { exists = event_target:leader_6 } hidden_effect = { event_target:leader_6 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.7" trigger = { exists = event_target:leader_7 } hidden_effect = { event_target:leader_7 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
-	option = { name = "UniqueAscensionPerksEvents.251.Leader.8" trigger = { exists = event_target:leader_8 } hidden_effect = { event_target:leader_8 = { save_event_target_as = leader_uploaded } country_event = { id = UniqueAscensionPerksEvents.252 } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.1" trigger = { exists = event_target:leader_1 } hidden_effect = { event_target:leader_1 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.2" trigger = { exists = event_target:leader_2 } hidden_effect = { event_target:leader_2 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.3" trigger = { exists = event_target:leader_3 } hidden_effect = { event_target:leader_3 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.4" trigger = { exists = event_target:leader_4 } hidden_effect = { event_target:leader_4 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.5" trigger = { exists = event_target:leader_5 } hidden_effect = { event_target:leader_5 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.6" trigger = { exists = event_target:leader_6 } hidden_effect = { event_target:leader_6 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.7" trigger = { exists = event_target:leader_7 } hidden_effect = { event_target:leader_7 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
+	option = { name = "UniqueAscensionPerksEvents.251.Leader.8" trigger = { exists = event_target:leader_8 } hidden_effect = { event_target:leader_8 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
 	option = { name = "UniqueAscensionPerks.select_leader" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.251 } } }
-	option = { name = ABORT ai_chance = { factor = 0 } hidden_effect = { if = { limit = { exists = from } add_resource = { energy = 100 } } } }
+	option = { name = ABORT ai_chance = { factor = 0 } hidden_effect = { if = { limit = { exists = from } hidden_effect = { add_resource = { energy = 100 } } } } }
 }
 
-country_event = {
+leader_event = {
 	id = UniqueAscensionPerksEvents.252
 	title = "UniqueAscensionPerksEvents.252.Name"
 	desc = "UniqueAscensionPerksEvents.252.Desc"
@@ -4898,27 +4958,61 @@ country_event = {
 	show_sound = event_psionic
 	location = from
 	is_triggered_only = yes
-	immediate = { event_target:leader_uploaded = { save_event_target_as = leader_uploaded } set_variable = { which = "uploaded_leader_number" value = 0 } }
-	option = { name = "UniqueAscensionPerksEvents.252.1"	allow = { resource_stockpile_compare = { resource = energy value > 800 } } add_resource = { energy = -800 } hidden_effect = { while = { count = 1 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.2"	allow = { resource_stockpile_compare = { resource = energy value > 1600 } } add_resource = { energy = -1600 } hidden_effect = { while = { count = 2 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.3"	allow = { resource_stockpile_compare = { resource = energy value > 2400 } } add_resource = { energy = -2400 } hidden_effect = { while = { count = 3 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.4"	allow = { resource_stockpile_compare = { resource = energy value > 3200 } } add_resource = { energy = -3200 } hidden_effect = { while = { count = 4 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.5"	allow = { resource_stockpile_compare = { resource = energy value > 4000 } } add_resource = { energy = -4000 } hidden_effect = { while = { count = 5 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.6"	allow = { resource_stockpile_compare = { resource = energy value > 4800 } } add_resource = { energy = -4800 } hidden_effect = { while = { count = 6 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = "UniqueAscensionPerksEvents.252.7"	allow = { resource_stockpile_compare = { resource = energy value > 5600 } } add_resource = { energy = -5600 } hidden_effect = { while = { count = 7 make_leader_upload = yes } country_event = { id = UniqueAscensionPerksEvents.253 } } }
-	option = { name = ABORT ai_chance = { factor = 0 } hidden_effect = { if = { limit = { exists = fromfrom } add_resource = { energy = 100 } } } }
+	immediate = {
+		save_event_target_as = leader_uploaded # TODO remove me
+	}
+	after = {
+		from = {
+			if = { limit = { is_variable_set = cloned_leader_number }
+				add_resource = { energy = -800 mult = cloned_leader_number }
+				root = {
+					while = { count = prev.cloned_leader_number
+						switch = {
+							trigger = leader_class
+							scientist = { from = { clone_leader = { target = prev class = scientist } } }
+							admiral = { from = { clone_leader = { target = prev class = admiral } } }
+							governor = { from = { clone_leader = { target = prev class = governor } } }
+							general = { from = { clone_leader = { target = prev class = general } } }
+						}
+						from = {
+							last_created_leader = { set_age = 1 set_name = "UPLOADED_LEADER_NAME" }
+							change_variable = { which = "cloned_leader_number" value = -1 }
+						}
+					}
+					leader_event = { id = UniqueAscensionPerksEvents.253 days = 1 }
+				}
+				clear_variable = cloned_leader_number
+			}
+		}
+	}
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = energy value > 800 } } }  hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { resource_stockpile_compare = { resource = energy value > 1600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { resource_stockpile_compare = { resource = energy value > 2400 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { resource_stockpile_compare = { resource = energy value > 3200 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { from = { resource_stockpile_compare = { resource = energy value > 4000 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 5 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { resource_stockpile_compare = { resource = energy value > 4800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { resource_stockpile_compare = { resource = energy value > 5600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
+	option = {
+		name = ABORT ai_chance = { factor = 0 }
+		hidden_effect = {
+			if = { limit = { exists = fromfrom } from = { add_resource = { energy = 100 } } }
+		}
+	}
 }
 
-country_event = {
+# fromfrom = owner
+leader_event = {
 	id = UniqueAscensionPerksEvents.253
 	title = "UniqueAscensionPerksEvents.253.Name"
 	desc = "UniqueAscensionPerksEvents.253.Desc"
 	picture = GFX_evt_machine_sapience
 	show_sound = event_psionic
-	location = capital_scope
+	location = owner.capital_scope
 	is_triggered_only = yes
-	immediate = { event_target:leader_uploaded = { save_event_target_as = leader_uploaded } }
-	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.251 } } }
+	immediate = {
+		save_event_target_as = leader_uploaded # TODO remove me
+	}
+	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.251 } } } }
 	option = { name = EXCELLENT }
 }
 
@@ -6378,7 +6472,9 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.322.a"
 		allow = { resource_stockpile_compare = { resource = energy value > 200 } }
 		add_resource = { energy = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
+		if = { limit = { is_gestalt = no }
+			event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
+		} else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.322.b"
@@ -6386,7 +6482,9 @@ country_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
 		set_country_flag = ap_chosen_ruler_no_warning
 		add_resource = { energy = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
+		if = { limit = { is_gestalt = no }
+			event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
+		} else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
 	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0 } }
@@ -6603,7 +6701,9 @@ country_event = {
 			save_event_target_as = target_planet
 		}
 		add_resource = { energy = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
+		if = { limit = { is_gestalt = no }
+			event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
+		} else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
 	}
 }
 
