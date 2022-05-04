@@ -1026,7 +1026,7 @@ country_event = {
 		event_target:ap_expansion_infinity_planet = {
 			ei_resources_collection = yes
 		}
-		if = { limit = { is_ai = no NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning } }
+		if = { limit = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } }
 			country_event = { id = UniqueAscensionPerksEvents.46 }
 		}
 	}
@@ -2482,7 +2482,7 @@ planet_event = {
 	location = root
 	pre_triggers = { has_owner = yes is_ai = no }
 	is_triggered_only = yes
-	trigger = { owner = { is_ai = no NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
+	trigger = { owner = { NOR = { is_ai = yes has_country_flag = ap_stability_celebration_no_warning } } }
 	option = { name = EXCELLENT }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
@@ -2550,7 +2550,7 @@ planet_event = {
 			add_monthly_resource_mult = { resource = unity value = 6 min = 100 max = 500 }
 		}
 		add_modifier = { modifier = stability_celebration years = 10 }
-		if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_stability_celebration_no_warning } } }
+		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_stability_celebration_no_warning } } }
 			planet_event = { id = UniqueAscensionPerksEvents.81 }
 		}
 	}
@@ -3139,7 +3139,7 @@ leader_event = {
 							general = { from = { clone_leader = { target = prev class = general } } }
 						}
 						from = {
-							last_created_leader = { set_age = 17 set_name = "CLONED_LEADER_NAME" }
+							last_created_leader = { set_age = 20 set_name = "CLONED_LEADER_NAME" }
 							change_variable = { which = "cloned_leader_number" value = -1 }
 						}
 					}
@@ -3701,7 +3701,7 @@ planet_event = {
 	location = root
 	mean_time_to_happen = {
 		months = 70
-		modifier = { factor = value:hivemind_reserves } # v3.3 using scripted value not working TODO
+		modifier = { factor = value:hivemind_reserves } # v3.3 using only 5 and scripted value TODO working test
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 1 } }
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 3 } }
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 5 } }
@@ -3726,7 +3726,7 @@ planet_event = {
 	}
 	immediate = {
 		create_pop = { species = owner_main_species }
-		if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
+		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
 			planet_event = { id = UniqueAscensionPerksEvents.3129 } # notify
 		}
 	}
@@ -5079,7 +5079,7 @@ country_event = {
 			}
 			# civilian_space_activities_create_resources_transport = yes
 			save_event_target_as = spawn_location
-			if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } } planet_event = { id = UniqueAscensionPerksEvents.263 } }
+			if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_civilian_activities_no_warning } } } planet_event = { id = UniqueAscensionPerksEvents.263 } }
 			set_timed_planet_flag = { flag = spawned_civilian_convoy_fleet months = 2 }
 			if = { limit = { NOR = { has_planet_flag = civilian_cargo_focus } } set_timed_planet_flag = { flag = spawned_civilian_convoy_fleet_used years = 3 } }
 			owner = {
@@ -5151,7 +5151,7 @@ planet_event = {
 	picture = GFX_evt_busy_spaceport
 	location = root
 	is_triggered_only = yes
-	trigger = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } }
+	trigger = { owner = { NOR = { is_ai = yes has_country_flag = ap_civilian_activities_no_warning } } }
 	option = { name = OK ai_chance = { factor = 0 } }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
@@ -5187,7 +5187,7 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	trigger = {
-		owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } }
+		owner = { NOR = { is_ai = yes has_country_flag = ap_civilian_activities_no_warning } }
 		exists = event_target:civilian_convoy_fleet
 	}
 	after = { delete_fleet = event_target:civilian_convoy_fleet }
@@ -5481,7 +5481,7 @@ planet_event = {
 			}
 		}
 
-		if = { limit = { owner = { is_ai = no NOT = { has_country_flag = ap_civilian_activities_no_warning } } }
+		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_civilian_activities_no_warning } } }
 			from = { save_event_target_as = civilian_convoy_fleet }
 			planet_event = { id = UniqueAscensionPerksEvents.264 }
 		} else = { delete_fleet = from }
