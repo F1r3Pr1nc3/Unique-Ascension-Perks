@@ -363,7 +363,7 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-planet_event = {
+country_event = {
 	id = UniqueAscensionPerksEvents.451
 	title = "UniqueAscensionPerksEvents.451.Name"
 	desc = "UniqueAscensionPerksEvents.451.Desc"
@@ -373,128 +373,178 @@ planet_event = {
 	force_open = yes
 	picture_event_data = { room = artifact_hunter_room }
 	mean_time_to_happen = { months = 8 }
-	pre_triggers = { has_owner = yes }
+	# pre_triggers = { has_owner = yes }
 	trigger = {
-		exists = owner
-		owner = {
-			has_ascension_perk = ap_artifact_hunter
-			NOT = { has_country_flag = ap_artifact_hunter_cooldown }
-		}
-		has_active_building = building_deep_space_scanner
-		# can_deep_scan_a_new_archaeological_site = yes
-		OR = {
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 1 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 2 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 3 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 4 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 5 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 6 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 7 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 8 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 9 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes } }
-			}
-			AND = {
-				num_buildings = { type = building_deep_space_scanner value = 10 }
-				owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes } }
+		# exists = owner
+		# owner = {
+		has_ascension_perk = ap_artifact_hunter
+		NOT = { has_country_flag = ap_artifact_hunter_cooldown }
+		# }
+		any_owned_planet = {
+			has_active_building = building_deep_space_scanner
+			# can_deep_scan_a_new_archaeological_site = yes
+			OR = {
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 1 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 2 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 3 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 4 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 5 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 6 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 7 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 8 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 9 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes } }
+				}
+				AND = {
+					num_buildings = { type = building_deep_space_scanner value = 10 }
+					owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes } }
+				}
 			}
 		}
 	}
 	immediate = {
-		owner = { set_timed_country_flag = { flag = ap_artifact_hunter_cooldown years = 2 } }
-		# find_planet_for_new_archaeological_site = yes
-		if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
+		set_timed_country_flag = { flag = ap_artifact_hunter_cooldown years = 2 }
+		random_owned_planet = {
+			limit = {
+				has_active_building = building_deep_space_scanner
+				# can_deep_scan_a_new_archaeological_site = yes
+				OR = {
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 1 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 2 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 3 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 4 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 5 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 6 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 7 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 8 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 9 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes } }
+					}
+					AND = {
+						num_buildings = { type = building_deep_space_scanner value = 10 }
+						owner = { any_planet_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes } }
+					}
+				}
+			}
+			# find_planet_for_new_archaeological_site = yes
 			if = {
-				limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
+				limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
+				if = {
+					limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
+					owner = { random_planet_within_border = {
+						limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes }
+						save_event_target_as = planet_archaeological_site
+					} }
+				}
+				# nothing
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
 				owner = { random_planet_within_border = {
-					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes }
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes }
+					save_event_target_as = planet_archaeological_site
+				} }
+			} else_if = {
+				limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
+				owner = { random_planet_within_border = {
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes }
 					save_event_target_as = planet_archaeological_site
 				} }
 			}
-			# nothing
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
-		} else_if = {
-			limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
-			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes }
-				save_event_target_as = planet_archaeological_site
-			} }
+			# event_target:planet_archaeological_site = { artifact_hunter_spawn_archaeological_site = yes }
+			event_target:planet_archaeological_site = { create_archaeological_site = random }
 		}
-		# event_target:planet_archaeological_site = { artifact_hunter_spawn_archaeological_site = yes }
-		event_target:planet_archaeological_site = { create_archaeological_site = random }
 	}
 	option = { name = EXCELLENT custom_tooltip = "UniqueAscensionPerksEvents.451.Tooltip" }
 }

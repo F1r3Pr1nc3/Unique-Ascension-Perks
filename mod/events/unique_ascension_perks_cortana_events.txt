@@ -1,12 +1,13 @@
 namespace = CortanaEvent
-# Cortana Research - Main Menu
+# Cortana Research - Main Menu (on_monthly_pulse_country)
 country_event = {
 	id = "CortanaEvent.0"
 	title = "CortanaEvent.0.Name"
 	desc = "CortanaEvent.0.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
-	mean_time_to_happen = { days = 25 }
+	is_triggered_only = yes
+	# mean_time_to_happen = { days = 25 }
 	trigger = {
 		# is_ai = no
 		has_ascension_perk = ap_ai_cortana
@@ -15,7 +16,41 @@ country_event = {
 			has_country_flag = cortana_ready
 		}
 	}
-	immediate = { set_country_flag = cortana_ready }
+	immediate = {
+		set_country_flag = cortana_ready
+		if = { limit = { has_technology = tech_cortana_initiatives }
+			# Cortana Research
+			if = { limit = { is_ai = no }
+				if = { limit = { has_technology = tech_cortana_advanced }
+					country_event = { id = CortanaEvent.13 days = 9 random = 9 }
+				} else = {
+					random = { chance = 50 country_event = { id = CortanaEvent.13 days = 50 } }
+				}
+			}
+		}
+		if = { limit = { has_technology = tech_cortana_help }
+			# Cortana Research
+			if = { limit = { is_ai = no }
+				if = { limit = { has_technology = tech_cortana_advanced }
+					country_event = { id = CortanaEvent.15 days = 9 random = 9 }
+				} else = {
+					random = { chance = 50 country_event = { id = CortanaEvent.15 days = 50 } }
+				}
+			}
+			# get relic
+			if = {
+				limit = {
+					has_technology = tech_cortana_initiatives
+					has_technology = tech_cortana_optimized
+					# has_technology = tech_cortana_help
+					# has_technology = tech_cortana_advanced
+					has_technology = tech_cortana_perfect
+					NOT = { has_country_flag = has_cortana_relic }
+				}
+				random = { chance = 75 country_event = { id = CortanaEvent.20 days = 15 } }
+			}
+		}
+	}
 	option = { name = OK ai_chance = { factor = 0 } }
 	option = {
 		name = "CortanaEvent.0.a"
@@ -820,12 +855,12 @@ country_event = {
 country_event = {
 	id = "CortanaEvent.13"
 	hide_window = yes
-	mean_time_to_happen = {
-		months = 18
-		modifier = { factor = 0.5 has_technology = tech_cortana_advanced }
-	}
+	is_triggered_only = yes
+	# mean_time_to_happen = {
+	# 	months = 18
+	# 	modifier = { factor = 0.5 has_technology = tech_cortana_advanced }
+	# }
 	trigger = {
-		is_ai = no
 		has_technology = tech_cortana_initiatives
 		NOT = { has_country_flag = cortana_initiave_tech_cooldown }
 	}
@@ -864,12 +899,12 @@ country_event = {
 country_event = {
 	id = CortanaEvent.15
 	hide_window = yes
-	mean_time_to_happen = {
-		months = 18
-		modifier = { factor = 0.5 has_technology = tech_cortana_advanced }
-	}
+	is_triggered_only = yes
+	# mean_time_to_happen = {
+	# 	months = 18
+	# 	modifier = { factor = 0.5 has_technology = tech_cortana_advanced }
+	# }
 	trigger = {
-		is_ai = no
 		has_technology = tech_cortana_help
 		NOT = { has_country_flag = cortana_help_tech_cooldown }
 	}
@@ -892,9 +927,9 @@ country_event = {
 	desc = "CortanaEvent.20.Desc"
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
-	mean_time_to_happen = { months = 18 }
+	is_triggered_only = yes
+	# mean_time_to_happen = { months = 18 }
 	trigger = {
-		# is_ai = no
 		has_ascension_perk = ap_ai_cortana
 		has_technology = tech_cortana_initiatives
 		has_technology = tech_cortana_help

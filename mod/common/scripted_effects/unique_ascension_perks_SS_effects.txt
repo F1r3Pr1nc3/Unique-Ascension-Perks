@@ -4,66 +4,6 @@
 #									 #
 #######################################
 
-surgical_strike_take_resources = {
-	event_target:surgical_strike_planet = { set_timed_planet_flag = { flag = had_surgical_strike_resources_raid years = 5 } }
-	surgical_strike_resources = yes
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 50 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 100 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 150 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 250 } } surgical_strike_resources = yes }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 300 } } surgical_strike_resources = yes }
-}
-
-surgical_strike_kill_pop = {
-	random_owned_pop = { surgical_strike_killed_pop = yes }
-	while = { count = 9 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
-}
-
-surgical_strike_abduct_pop = {
-	random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes
-	while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 2 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } while = { count = 5 random_list = { 50 = { random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } 50 = {} } } }
-}
-
-surgical_strike_destroy_districts = {
-	surgical_strike_districts = yes
-	while = { count = 3 random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } random = { chance = 50 surgical_strike_districts = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } random = { chance = 50 surgical_strike_districts = yes } }
-}
-
-surgical_strike_destroy_buildings = {
-	surgical_strike_buildings = yes
-	while = { count = 1 random = { chance = 50 surgical_strike_buildings = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 60 } } random = { chance = 50 surgical_strike_buildings = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_buildings = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 180 } } random = { chance = 50 surgical_strike_buildings = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_buildings = yes } }
-	if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 300 } } random = { chance = 50 surgical_strike_buildings = yes } }
-}
-
 surgical_strike_killed_pop = {
 	random = { chance = 5
 		# surgical_strike_genocidal_opinion = yes
@@ -100,33 +40,6 @@ surgical_strike_killed_pop = {
 	}
 	kill_pop = yes
 }
-
-# surgical_strike_genocidal_opinion = {
-# 	save_event_target_as = purged_species
-# 	every_country = {
-# 		limit = {
-# 			has_communications = root
-# 			NOR = {
-# 				is_same_empire = root
-# 				is_same_species = root
-# 				has_ai_personality_behaviour = purger
-# 			}
-# 			OR = {
-# 				merg_is_default_empire = yes
-# 				has_ai_personality = awakened_fallen_empire_xenophile
-# 			}
-# 		}
-# 		add_opinion_modifier = { who = root modifier = opinion_genocidal }
-# 	}
-# 	every_country = {
-# 		limit = {
-# 			has_communications = root
-# 			NOT = { is_same_empire = root }
-# 			is_same_species = event_target:purged_species
-# 		}
-# 		add_opinion_modifier = { who = root modifier = opinion_genocidal_our_species }
-# 	}
-# }
 
 surgical_strike_abducted_pop_colony_transfer = {
 	ROOT = { random_owned_planet = { create_pop = { species = event_target:abducted_pop.species } } }

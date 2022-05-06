@@ -29,7 +29,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.1000.Crystal" allow = { OR = { has_technology = tech_crystal_armor_1 has_technology = tech_crystal_armor_2 } } custom_tooltip = "domesticated_cryals_tooltip_1" custom_tooltip = "domesticated_cryals_tooltip_2" hidden_effect = { set_country_flag = space_domestication_crystal set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "UniqueAscensionPerksEvents.1000.Cloud" allow = { has_technology = tech_space_cloud_weapon_1 } custom_tooltip = "domesticated_cloud_tooltip_1" custom_tooltip = "domesticated_cloud_tooltip_2" hidden_effect = { set_country_flag = space_domestication_cloud set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "UniqueAscensionPerksEvents.1000.Drone" allow = { has_technology = tech_mining_drone_weapon_1 } custom_tooltip = "domesticated_drones_tooltip_1" custom_tooltip = "domesticated_drones_tooltip_2" hidden_effect = { set_country_flag = space_domestication_drone set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = EXIT ai_chance = { factor = 0 } }
+	option = { name = EXIT default_hide_option = yes }
 }
 
 country_event = {
@@ -50,7 +50,8 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = space_domestication_room }
 	is_triggered_only = yes
-	option = { name = EXCELLENT enable_special_project = { name = SPACE_DOMESTICATION location = capital_scope owner = root } }
+	immediate = { get_empire_capital = yes }
+	option = { name = EXCELLENT enable_special_project = { name = SPACE_DOMESTICATION location = event_target:empire_capital owner = root } }
 }
 
 country_event = {
@@ -189,7 +190,7 @@ country_event = {
 			research_assistance_protocol = yes
 		}
 	}
-	option = { name = EXIT ai_chance = { factor = 0 } }
+	option = { name = EXIT default_hide_option = yes }
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Kill"
 		allow = {
@@ -295,10 +296,12 @@ country_event = {
 	option = { name = OK ai_chance = { factor = 0 } }
 }
 
+# on_monthly_pulse_country
 country_event = {
 	id = UniqueAscensionPerksEvents.1020
 	hide_window = yes
-	mean_time_to_happen = { months = 2 } # days = 30
+	is_triggered_only = yes
+	# mean_time_to_happen = { months = 2 } # days = 30
 	trigger = {
 		# is_ai = no
 		has_ascension_perk = ap_space_domestication
@@ -310,6 +313,10 @@ country_event = {
 		count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
 	}
 	immediate = {
+		if = { limit = { has_country_flag = killed_guardian NOT = { has_country_flag = has_killed_leviathan } }
+			set_country_flag = has_killed_leviathan
+		}
+		country_event = { id = UniqueAscensionPerksEvents.1030 days = 2 }
 		# space_domestication_constant_breed_event = yes
 		# save_event_target_as = main_country
 		random_country = {
@@ -506,7 +513,8 @@ country_event = {
 country_event = {
 	id = UniqueAscensionPerksEvents.1030
 	hide_window = yes
-	mean_time_to_happen = { days = 14 }
+	is_triggered_only = yes
+	# mean_time_to_happen = { days = 14 }
 	trigger = {
 		# is_ai = no
 		has_ascension_perk = ap_space_domestication
@@ -663,6 +671,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		NOT = { has_country_flag = has_killed_leviathan }
 		fromfromfrom = {
 			OR = {
 				is_ship_size = space_dragon_red
@@ -679,21 +688,20 @@ country_event = {
 				is_ship_size = leviathan_01_voidspawn
 			}
 		}
-		NOT = { has_country_flag = has_killed_leviathan }
 	}
 	immediate = { set_country_flag = has_killed_leviathan }
 }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.1050
-	hide_window = yes
-	mean_time_to_happen = { months = 1 }
-	trigger = {
-		has_country_flag = killed_guardian
-		NOT = { has_country_flag = has_killed_leviathan }
-	}
-	immediate = { set_country_flag = has_killed_leviathan }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.1050
+# 	hide_window = yes
+# 	mean_time_to_happen = { months = 1 }
+# 	trigger = {
+# 		has_country_flag = killed_guardian
+# 		NOT = { has_country_flag = has_killed_leviathan }
+# 	}
+# 	immediate = { set_country_flag = has_killed_leviathan }
+# }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.1051
@@ -710,8 +718,9 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.1051.Desc"
 		}
 	}
+	immediate = { get_empire_capital = yes }
 	option = { name = EXCELLENT
-		enable_special_project = { name = LEVIATHAN_MASTER location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER location = event_target:empire_capital owner = root }
 	}
 }
 
@@ -804,60 +813,61 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = leviathan_master_room }
 	is_triggered_only = yes
+	immediate = { get_empire_capital = yes }
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Drake"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 15000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -15000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_drake set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Devourer"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_stellarite set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Wraith"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_spectre set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Dreadnought"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_dreadnought set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Scavenger"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_scavenger set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Tiyanki"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 5000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -5000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_matriarch set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Voidspawn"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 5000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -5000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_voidspawn set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Machine"
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = capital_scope owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:empire_capital owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_machine set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
 	}
 	option = {
