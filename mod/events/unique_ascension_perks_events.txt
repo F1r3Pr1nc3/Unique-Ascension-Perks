@@ -3913,13 +3913,13 @@ planet_event = {
 		}
 	}
 }
-# v3.3 converted from planet_event
-country_event = {
+
+planet_event = {
 	id = UniqueAscensionPerksEvents.3130
 	hide_window = yes
 	location = root
 	mean_time_to_happen = {
-		months = 36 # 70
+		months = 70
 		modifier = { factor = value:hivemind_reserves } # v3.3 using only 5 and scripted value TODO working test
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 1 } }
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 3 } }
@@ -3937,19 +3937,17 @@ country_event = {
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 27 } }
 		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 29 } }
 	}
-	# pre_triggers = { has_owner = yes }
+	pre_triggers = { has_owner = yes }
 	trigger = {
-		is_hive_empire = yes
-		has_ascension_perk = ap_hivemind_reserve
-		any_owned_planet = { has_deposit = d_hivemind_reserve }
+		exists = owner
+		owner = { is_hive_empire = yes has_ascension_perk = ap_hivemind_reserve }
+		has_deposit = d_hivemind_reserve
 	}
 	immediate = {
-		random_owned_planet = {
-			limit = { has_deposit = d_hivemind_reserve }
-			create_pop = { species = owner_main_species }
-			if = { limit = { root = { NOR = { is_ai = yes has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
-				planet_event = { id = UniqueAscensionPerksEvents.3129 } # notify
-			}
+		# random_owned_planet = { limit = { has_deposit = d_hivemind_reserve }
+		create_pop = { species = owner_main_species }
+		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
+			planet_event = { id = UniqueAscensionPerksEvents.3129 } # notify
 		}
 	}
 }
