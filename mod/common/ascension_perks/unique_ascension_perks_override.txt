@@ -1,5 +1,10 @@
 ap_eternal_vigilance = {
-	possible = { custom_tooltip = { fail_text = "requires_technology_starbase_4" has_technology = tech_starbase_4 } }
+	possible = {
+		custom_tooltip = {
+			fail_text = "requires_technology_starbase_4"
+			has_technology = tech_starbase_4
+		}
+	}
 	modifier = {
 		shipclass_starbase_damage_mult = 0.25
 		shipclass_starbase_hull_mult = 0.25
@@ -8,17 +13,20 @@ ap_eternal_vigilance = {
 	}
 	on_enabled = {
 		custom_tooltip = "ap_eternal_vigilance_tooltip"
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.129 } }
-
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.129 }
+		}
 		if = {
-			limit= { has_global_flag = gigastructures_enabled }
+			limit = { has_global_flag = gigastructures_enabled }
 			custom_tooltip = "adds_4_asteroid_artillery_points"
 			hidden_effect = {
 				change_variable = { which = asteroid_artillery_points_max value = 4 }
 			}
- }
+		}
 	}
-	potential = { NOT = { has_ascension_perk = ap_eternal_vigilance } }
+	potential = {
+		NOT = { has_ascension_perk = ap_eternal_vigilance }
+	}
 	ai_weight = {
 		factor = 10
 		modifier = { factor = 2 has_civic = civic_inwards_perfection }
@@ -27,8 +35,14 @@ ap_eternal_vigilance = {
 			factor = 1.5
 			any_neighbor_country = {
 				merg_is_default_empire = yes
-				opinion_level = { who = root level <= poor }
-				relative_power = { who = root value >= superior }
+				opinion_level = {
+					who = root
+					level <= poor
+				}
+				relative_power = {
+					who = root
+					value >= superior
+				}
 			}
 		}
 	}
@@ -36,29 +50,37 @@ ap_eternal_vigilance = {
 
 ap_executive_vigor = {
 	modifier = {
-		country_edict_fund_add = 100 # 3.3
+		country_edict_fund_add = 100		# 3.3
 		# edict_length_mult = 0.50
 	}
-	potential = { NOT = { has_ascension_perk = ap_executive_vigor } }
+	potential = {
+		NOT = { has_ascension_perk = ap_executive_vigor }
+	}
 	on_enabled = {
 		custom_tooltip = "ap_executive_vigor_tooltip"
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.421 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.421 }
+		}
 	}
-	ai_weight = {
-		factor = 30 # it's better than average
-	}
+	# it's better than average
+	ai_weight = { factor = 30 }
 }
 
+# Nevertheless there is a 1 year MTTH fallback
 ap_transcendent_learning = {
 	modifier = {
 		leader_skill_levels = 2
-		species_leader_exp_gain = 0.50
+		species_leader_exp_gain = 0.5
 	}
 	on_enabled = {
 		custom_tooltip = "ap_transcendent_learning_tooltip"
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.31 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.31 }
+		}
 	}
-	potential = { NOT = { has_ascension_perk = ap_transcendent_learning } }
+	potential = {
+		NOT = { has_ascension_perk = ap_transcendent_learning }
+	}
 	ai_weight = { factor = 10 }
 }
 
@@ -66,7 +88,6 @@ ap_machine_worlds = {
 	on_enabled = {
 		custom_tooltip = "allow_machine_worlds"
 		custom_tooltip = "describe_machine_worlds"
-
 		if = {
 			limit = { has_civic = civic_machine_servitor }
 			custom_tooltip = "01_BERSERK_MACHINE_EMPIRE_ERROR"
@@ -74,13 +95,11 @@ ap_machine_worlds = {
 			custom_tooltip = "01_BERSERK_MACHINE_EMPIRE_ERROR"
 		}
 	}
-
 	potential = {
 		host_has_dlc = "Synthetic Dawn Story Pack"
 		is_synthetic_empire = yes
 		NOT = { has_ascension_perk = ap_machine_worlds }
 	}
-
 	possible = {
 		custom_tooltip = {
 			fail_text = "requires_technology_tech_climate_restoration"
@@ -91,12 +110,8 @@ ap_machine_worlds = {
 			num_ascension_perks > 1
 		}
 	}
-
 	ai_weight = {
 		factor = 100
-		modifier = {
-			factor = 0
-			has_valid_civic = civic_machine_servitor
-		}
+		modifier = { factor = 0 has_valid_civic = civic_machine_servitor }
 	}
 }

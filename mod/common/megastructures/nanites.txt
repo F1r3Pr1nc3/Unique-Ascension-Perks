@@ -11,8 +11,12 @@ nanite_gateway = {
 	construction_blocks_others = no
 	build_time = 720
 	resources = { category = megastructures cost = { nanites = 1200 energy = 1000 minerals = 1000 } }
+	# upgrade_from = { lgate_disabled }
+	prerequisites = { "tech_lgate_construction" "tech_nanite_gate" }
 	potential = {
+		has_global_flag = l_cluster_opened
 		# OR = { has_ascension_perk = ap_emergency_calculation
+		# OR = { has_technology = tech_lgate_construction
 		has_technology = tech_nanite_gate
 	}
 	possible = {
@@ -22,7 +26,7 @@ nanite_gateway = {
 		custom_tooltip = { fail_text = "requires_no_existing_gateway" NOT = { has_megastructure = nanite_gateway } }
 		custom_tooltip = { fail_text = "requires_technology_gateway_construction" from = { has_technology = tech_nanite_gate } }
 	}
-	bypass_type = nanite_gateway
+	bypass_type = lgate # nanite_gateway
 	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.8003 } } }
 }
 
