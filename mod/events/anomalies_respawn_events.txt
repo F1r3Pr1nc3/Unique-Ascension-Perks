@@ -33,7 +33,16 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 5 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = {
+		if = {
+			limit = {
+				NOT = { any_playable_country = { has_ascension_perk = ap_deep_scanner } }
+			}
+			remove_global_flag = anomalies_respawner_active
+		} else = {
+			while = { count = 5 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } }
+		}
+	}
 }
 
 event = {
@@ -121,7 +130,7 @@ planet_event = {
 	is_triggered_only = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
 	# immediate = {	}
-	option = { name = INTERESTING default_hide_option = yes }
+	option = { name = INTERESTING ai_chance = { factor = 0 } }
 	option = { name = UniqueAscensionPerks.no_message from = { set_country_flag = new_anomalies_no_warning } }
 }
 
