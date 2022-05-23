@@ -2530,7 +2530,11 @@ country_event = {
 		trigger = { exists = event_target:fallen_empire_6 }
 		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
 	}
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { influence = 1000 } ai_chance = { factor = 0 } }
+	option = {
+		name = "UniqueAscensionPerksEvents.72.Abort"
+		hidden_effect = { add_resource = { influence = 950 } }
+		ai_chance = { factor = 0 }
+	}
 }
 
 country_event = {
@@ -2550,7 +2554,7 @@ country_event = {
 		event_target:FallenEmpireTaskOrigin = {
 			add_opinion_modifier = { modifier = opinion_influenced_awaken_fallen_empire who = prevprev }
 			if = {
-				limit = { is_country_type = fallen_empire has_authority = auth_machine_intelligence }
+				limit = { merg_is_fallen_empire = yes has_authority = auth_machine_intelligence }
 				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 } else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
 			}
 		}
@@ -2575,9 +2579,8 @@ country_event = {
 				40 = { # War in Heaven with Fallen Empire of opposing ethos.
 					random_country = {
 						limit = {
-							NOT = { is_same_value = root }
-							is_country_type = fallen_empire
-							NOT = { has_ethic = ethic_gestalt_consciousness }
+							merg_is_fallen_empire = yes # merg_is_fallen_empire = yes
+							NOR = { is_same_empire = root has_ethic = ethic_gestalt_consciousness }
 							OR = {
 								AND = { has_ethic = ethic_fanatic_xenophobe ROOT = { has_ethic = ethic_fanatic_xenophile } }
 								AND = { has_ethic = ethic_fanatic_xenophile ROOT = { has_ethic = ethic_fanatic_xenophobe } }
@@ -2586,12 +2589,11 @@ country_event = {
 							}
 						}
 						set_country_flag = sleepers_awake_ancient_rival
-						set_timed_country_flag = { flag = timed_ancient_rival days = 3650 }
-						set_timed_country_flag = { flag = ai_no_wars days = 3650 }
-						root = { set_timed_country_flag = { flag = ai_no_wars days = 3650 } }
+						set_timed_country_flag = { flag = timed_ancient_rival years = 10 }
+						set_timed_country_flag = { flag = ai_no_wars years = 10 }
+						root = { set_timed_country_flag = { flag = ai_no_wars years = 10 } }
 						every_playable_country = {
-							# limit = { }
-							set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+							set_timed_country_flag = { flag = ai_no_wars years = 10 }
 						}
 					}
 				}
@@ -2599,16 +2601,15 @@ country_event = {
 					random_country = {
 						limit = {
 							NOT = { is_same_value = root }
-							is_country_type = fallen_empire
+							merg_is_fallen_empire = yes
 							NOT = { has_ethic = ethic_gestalt_consciousness }
 						}
 						set_country_flag = sleepers_awake_ancient_rival
-						set_timed_country_flag = { flag = timed_ancient_rival days = 3650 }
-						set_timed_country_flag = { flag = ai_no_wars days = 3650 }
-						root = { set_timed_country_flag = { flag = ai_no_wars days = 3650 } }
+						set_timed_country_flag = { flag = timed_ancient_rival years = 10 }
+						set_timed_country_flag = { flag = ai_no_wars years = 10 }
+						root = { set_timed_country_flag = { flag = ai_no_wars years = 10 } }
 						every_playable_country = {
-							# limit = { }
-							set_timed_country_flag = { flag = ai_no_wars days = 3650 }
+							set_timed_country_flag = { flag = ai_no_wars years = 10 }
 						}
 					}
 				}
@@ -4545,281 +4546,6 @@ country_event = {
 
 #######################################
 #									 #
-######### Mechanical Prophet ##########
-#									 #
-#######################################
-
-country_event = {
-	id = UniqueAscensionPerksEvents.200
-	title = "ap_mechanical_prophet"
-	desc = "ap_mechanical_prophet_desc"
-	show_sound = event_ai_started
-	picture = GFX_evt_mechanical_prophet
-	location = event_target:empire_capital
-	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = MECHANICAL_PROPHET location = event_target:empire_capital owner = root } }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.201
-	title = "UniqueAscensionPerksEvents.201.Name"
-	desc = "UniqueAscensionPerksEvents.201.Desc"
-	show_sound = event_ai_started
-	picture = GFX_evt_mechanical_prophet
-	location = capital_scope
-	is_triggered_only = yes
-	immediate = { set_country_flag = ap_mechanical_prophet_project }
-	option = { name = EXCELLENT custom_tooltip = "ap_mechanical_prophet_tooltip_2" }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.202
-	title = "UniqueAscensionPerksEvents.202.Name"
-	desc = {
-		trigger = {
-			text = "UniqueAscensionPerksEvents.202.Desc"
-			text = newline
-			text = "UniqueAscensionPerksEvents.202.Criteria.1"
-			text = "UniqueAscensionPerksEvents.202.Criteria.2"
-			text = "UniqueAscensionPerksEvents.202.Criteria.3"
-			text = "UniqueAscensionPerksEvents.202.Criteria.4"
-			text = "UniqueAscensionPerksEvents.202.Criteria.5"
-			text = newline
-			text = "UniqueAscensionPerksEvents.202.Ask"
-		}
-	}
-	show_sound = event_ai_started
-	picture = GFX_evt_mechanical_prophet
-	is_triggered_only = yes
-	immediate = {
-		random_country = { limit = { is_valid_country_for_machine_uprising = yes NOT = { is_same_empire = root } }
-			save_event_target_as = country_1
-			random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } }
-				save_event_target_as = country_2
-				random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
-					save_event_target_as = country_3
-					random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
-						save_event_target_as = country_4
-						random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
-							save_event_target_as = country_5
-							random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
-						}
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.1"
-		trigger = { exists = event_target:country_1 }
-		hidden_effect = { save_event_target_as = MachineEmpireUprisingOrigin event_target:country_1 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
-		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.2"
-		trigger = { exists = event_target:country_2 }
-		hidden_effect = { save_event_target_as = MachineEmpireUprisingOrigin event_target:country_2 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
-		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.3"
-		trigger = { exists = event_target:country_3 }
-		hidden_effect = { save_event_target_as = MachineEmpireUprisingOrigin event_target:country_3 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
-		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.4"
-		trigger = { exists = event_target:country_4 }
-		hidden_effect = { save_event_target_as = MachineEmpireUprisingOrigin event_target:country_4 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
-		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.5"
-		trigger = { exists = event_target:country_5 }
-		hidden_effect = { save_event_target_as = MachineEmpireUprisingOrigin event_target:country_5 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
-		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.6"
-		trigger = { exists = event_target:country_6 }
-		hidden_effect = { save_event_target_as = MachineEmpireUprisingOrigin event_target:country_6 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
-		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
-	}
-	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.202 } } }
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 50000 influence = 200 } ai_chance = { factor = 0 } }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.203
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		event_target:MachineEmpireUprisingOrigin = { save_event_target_as = MachineEmpireUprisingOrigin }
-		remove_country_flag = incoming_machine_uprising
-		remove_country_flag = machine_infiltration_completed
-		random_owned_planet = { planet_event = { id = UniqueAscensionPerksEvents.204 } }
-	}
-}
-
-planet_event = {
-	id = UniqueAscensionPerksEvents.204
-	title = syndaw.1020.name
-	desc = { trigger = { owner = { is_materialist = yes } } text = syndaw.1020.desc.mater }
-	desc = { trigger = { owner = { is_spiritualist = yes } } text = syndaw.1020.desc.spiri }
-	desc = { trigger = { owner = { is_militarist = yes } } text = syndaw.1020.desc.milit }
-	desc = { trigger = { owner = { is_pacifist = yes } } text = syndaw.1020.desc.pacif }
-	desc = { trigger = { owner = { is_egalitarian = yes } } text = syndaw.1020.desc.egali }
-	desc = { trigger = { owner = { is_authoritarian = yes } } text = syndaw.1020.desc.autho }
-	desc = { trigger = { owner = { is_xenophile = yes } } text = syndaw.1020.desc.phile }
-	desc = { trigger = { owner = { is_xenophobe = yes } } text = syndaw.1020.desc.phobe }
-	desc = { trigger = { owner = { NOR = { is_xenophobe = yes is_xenophile = yes is_authoritarian = yes is_egalitarian = yes is_pacifist = yes is_militarist = yes is_spiritualist = yes is_materialist = yes } } } text = syndaw.1020.desc }
-	picture = GFX_evt_machine_sapience
-	show_sound = event_ai_started
-	is_triggered_only = yes
-	immediate = { launch_machine_uprising = yes }
-	option = { name = syndaw.1020.a custom_tooltip = syndaw.1020.a.tooltip }
-	option = { name = syndaw.1020.b custom_tooltip = syndaw.1020.b.tooltip hidden_effect = { if = { limit = { event_target:organic_empire = { num_owned_planets > 0 } } event_target:current_uprising = { set_player = event_target:current_uprising_originator } } } }
-	after = { hidden_effect = { event_target:current_uprising_originator = { every_owned_fleet = { set_event_locked = no } } } }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.205
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = { launch_machine_uprising_settings = yes }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.206
-	title = "edict_machine_infiltration_menu"
-	desc = {
-		trigger = {
-			text = "UniqueAscensionPerksEvents.206.Desc"
-			text = newline
-			text = "UniqueAscensionPerksEvents.206.Criteria.1"
-			text = "UniqueAscensionPerksEvents.206.Criteria.2"
-			text = "UniqueAscensionPerksEvents.206.Criteria.3"
-			text = "UniqueAscensionPerksEvents.206.Criteria.4"
-			text = "UniqueAscensionPerksEvents.206.Criteria.5"
-			text = "UniqueAscensionPerksEvents.206.Criteria.6"
-			text = newline
-			text = "UniqueAscensionPerksEvents.206.Ask"
-		}
-	}
-	show_sound = event_robo
-	picture = GFX_evt_robot_assembly_plant
-	is_triggered_only = yes
-	immediate = {
-		random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOT = { is_same_empire = root } }
-			save_event_target_as = country_1
-			random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } }
-				save_event_target_as = country_2
-				random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
-					save_event_target_as = country_3
-					random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
-						save_event_target_as = country_4
-						random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
-							save_event_target_as = country_5
-							random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
-						}
-					}
-				}
-			}
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.1"
-		trigger = { exists = event_target:country_1 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_1 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.2"
-		trigger = { exists = event_target:country_2 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_2 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.3"
-		trigger = { exists = event_target:country_3 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_3 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.4"
-		trigger = { exists = event_target:country_4 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_4 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.5"
-		trigger = { exists = event_target:country_5 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_5 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.206.Country.6"
-		trigger = { exists = event_target:country_6 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_6 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
-	}
-	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.206 } } }
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 10000 unity = 2500 influence = 75 } ai_chance = { factor = 0 } }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.207
-	is_triggered_only = yes
-	hide_window = yes
-	immediate = {
-		remove_country_flag = incoming_machine_infiltration
-		random_list = {
-			20 = { modifier = { factor = 2.0 has_technology = tech_combat_computers_3 } modifier = { factor = 2.0 has_technology = tech_synthetic_workers } modifier = { factor = 1.5 has_technology = tech_droid_workers } modifier = { factor = 1.5 any_owned_pop = { pop_has_trait = trait_mechanical } } modifier = { factor = 1.1 has_technology = tech_robotic_workers } }
-			10 = { modifier = { factor = 2.0 has_ascension_perk = ap_mind_over_matter } modifier = { factor = 3.0 has_country_flag = machine_infiltration_aware } set_country_flag = incoming_machine_infiltration_failure }
-		}
-		if = {
-			limit = { has_country_flag = incoming_machine_infiltration_success }
-			remove_country_flag = incoming_machine_infiltration_success
-			set_country_flag = machine_infiltration_completed
-			save_event_target_as = MachineEmpireInfiltrationTarget
-			event_target:MachineEmpireInfiltrationOrigin = { country_event = { id = UniqueAscensionPerksEvents.208 } }
-		} else_if = {
-			limit = { has_country_flag = incoming_machine_infiltration_failure }
-			remove_country_flag = incoming_machine_infiltration_failure
-			save_event_target_as = MachineEmpireInfiltrationTarget
-			set_timed_country_flag = { flag = machine_infiltration_aware years = 5 }
-			event_target:MachineEmpireInfiltrationOrigin = { country_event = { id = UniqueAscensionPerksEvents.209 } }
-		}
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.208
-	title = "UniqueAscensionPerksEvents.208.Name"
-	desc = "UniqueAscensionPerksEvents.208.Desc"
-	is_triggered_only = yes
-	show_sound = event_robo
-	picture = GFX_evt_mechanical_prophet
-	option = { name = EXCELLENT }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.209
-	title = "UniqueAscensionPerksEvents.209.Name"
-	desc = "UniqueAscensionPerksEvents.209.Desc"
-	is_triggered_only = yes
-	show_sound = event_ai_started
-	picture = GFX_evt_mechanical_prophet
-	option = {
-		name = "UniqueAscensionPerksEvents.209.a"
-		event_target:MachineEmpireInfiltrationTarget = { add_opinion_modifier = { who = root modifier = opinion_failed_machine_infiltration } }
-		custom_tooltip = "UniqueAscensionPerksEvents.209.a.tooltip"
-	}
-}
-
-#######################################
-#									 #
 ########## Defense Sentinels ##########
 #									 #
 #######################################
@@ -5399,7 +5125,7 @@ country_event = {
 							save_event_target_as = civilian_activities_country
 							set_country_flag = civilian_activities_country
 							set_relation_flag = { who = root flag = civilian_activities_country }
-							set_subject_of = { who = root subject_type = space_dimestication }
+							set_subject_of = { who = root preset = preset_space_domestication }
 						}
 					}
 				}
@@ -8664,7 +8390,7 @@ country_event = {
 	}
 }
 
-# 3.3: - cooldown for library itself increase to 720 days (instead of 440), decreased bonuses from relic to half (also removed society research point when "use").
+# 3.3: - cooldown for library itself increase to 730 days (instead of 440), decreased bonuses from relic to half (also removed society research point when "use").
 country_event = {
 	id = UniqueAscensionPerksEvents.491
 	title = "edict_library_wisedom_menu"
@@ -8683,7 +8409,7 @@ country_event = {
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.493 }
 			set_timed_country_flag = { flag = ap_library_wisedom_cooldown years = 2 }
-			country_event = { id = UniqueAscensionPerksEvents.492 days = 720 } }
+			country_event = { id = UniqueAscensionPerksEvents.492 days = 730 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.491.a.tooltip"
 	}
 	option = { name = GOODBYE default_hide_option = yes }

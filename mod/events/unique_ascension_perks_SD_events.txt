@@ -202,7 +202,7 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			set_timed_country_flag = { flag = space_domestication_all_killed years = 1 }
 			# space_domestication_kill_them = yes
-			event_target:domesticated_spaceborn_alien = { every_owned_fleet = { limit = { has_fleet_flag = domesticated_fleet } destroy_fleet = this } }
+			event_target:domesticated_spaceborn_alien = { every_controlled_fleet = { limit = { has_fleet_flag = domesticated_fleet } destroy_fleet = this } }
 		}
 	}
 }
@@ -452,7 +452,7 @@ country_event = {
 		random_country = {
 			limit = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 			save_event_target_as = domesticated_spaceborn_alien
-			every_owned_fleet = {
+			every_controlled_fleet = {
 				limit = { is_ship_class = shipclass_starbase solar_system = { exists = space_owner space_owner = { is_same_empire = event_target:domesticated_spaceborn_alien } } }
 				set_owner = root # event_target:main_country
 				set_controller = root # event_target:main_country
@@ -470,7 +470,7 @@ country_event = {
 		random_country = {
 			limit = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 			save_event_target_as = domesticated_spaceborn_alien
-			every_owned_fleet = { limit = { has_fleet_flag = domesticated_fleet } destroy_fleet = this }
+			every_controlled_fleet = { limit = { has_fleet_flag = domesticated_fleet } destroy_fleet = this }
 			destroy_country = yes
 		}
 	}
