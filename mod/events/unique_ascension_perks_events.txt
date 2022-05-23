@@ -211,7 +211,7 @@ system_event = {
 	show_sound = event_laboratory_sound
 	location = this
 	is_triggered_only = yes
-	immediate = { save_event_target_as = located_system } # TODO remove me
+	# immediate = { save_event_target_as = located_system }
 	option = { name = EXCELLENT }
 }
 
@@ -668,7 +668,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = from
 	is_triggered_only = yes
-	immediate = { from = { save_event_target_as = gateway_system } } # TODO remove me
+	# immediate = { from = { save_event_target_as = gateway_system } }
 	option = { name = EXCELLENT }
 }
 
@@ -680,7 +680,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = from
 	is_triggered_only = yes
-	immediate = { from = { save_event_target_as = gateway_system } }
+	# immediate = { from = { save_event_target_as = gateway_system } }
 	option = { name = EXCELLENT }
 }
 
@@ -692,7 +692,7 @@ country_event = {
 	show_sound = event_think_tank_build_upgrade
 	location = from
 	is_triggered_only = yes
-	immediate = { from = { save_event_target_as = gateway_system } }
+	# immediate = { from = { save_event_target_as = gateway_system } }
 	option = { name = EXCELLENT }
 }
 
@@ -1854,7 +1854,7 @@ ship_event = {
 	location = this
 	is_triggered_only = yes
 	immediate = {
-		save_event_target_as = ship_escorted # TODO remove me
+		# save_event_target_as = ship_escorted
 	}
 	option = { name = EXCELLENT }
 }
@@ -2574,7 +2574,7 @@ country_event = {
 		observer_event = { id = observer.73 }
 		# War in Heaven
 		if = {
-			limit = { host_has_dlc = "Leviathans Story Pack" }
+			limit = { has_leviathans = yes }
 			random_list = {
 				40 = { # War in Heaven with Fallen Empire of opposing ethos.
 					random_country = {
@@ -3340,7 +3340,7 @@ leader_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = {
-		save_event_target_as = leader_cloned # TODO remove me
+		# save_event_target_as = leader_cloned
 	}
 	after = {
 		from = {
@@ -3385,7 +3385,7 @@ leader_event = {
 	location = owner.capital_scope
 	is_triggered_only = yes
 	immediate = {
-		save_event_target_as = leader_cloned # TODO remove me
+		# save_event_target_as = leader_cloned
 	}
 	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.103 } } } }
 	option = { name = EXCELLENT }
@@ -4945,7 +4945,7 @@ leader_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = {
-		save_event_target_as = leader_uploaded # TODO remove me
+		# save_event_target_as = leader_uploaded
 	}
 	after = {
 		from = {
@@ -4996,7 +4996,7 @@ leader_event = {
 	location = owner.capital_scope
 	is_triggered_only = yes
 	immediate = {
-		save_event_target_as = leader_uploaded # TODO remove me
+		# save_event_target_as = leader_uploaded
 	}
 	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.251 } } } }
 	option = { name = EXCELLENT }
@@ -5215,7 +5215,7 @@ planet_event = {
 	}
 }
 
-#  Removing Cycle Civilian Cargo Districts after time
+# Removing Cycle Civilian Cargo Districts after time.
 planet_event = {
 	id = UniqueAscensionPerksEvents.265
 	hide_window = yes
@@ -5542,7 +5542,7 @@ planet_event = {
 	}
 }
 
-# Remove civilian_cargo districts after time
+# Remove civilian_cargo districts after time.
 # v3.3 now global event (on_yearly_pulse)
 event = {
 	id = UniqueAscensionPerksEvents.269
@@ -6950,8 +6950,7 @@ country_event = {
 		add_resource = { energy = -200 influence = 1 }
 		if = { limit = { is_gestalt = no }
 			event_target:target_planet = { add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
-		}
-		else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
+		} else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
 	}
 }
 
@@ -7101,7 +7100,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.352.Name
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.342.Req03 NOT = { has_country_flag = artefacts_treasures_cooldown } } host_has_dlc = "Ancient Relics Story Pack" }
+		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.342.Req03 NOT = { has_country_flag = artefacts_treasures_cooldown } } has_ancrel = yes }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.352 } }
 	}
 	option = {
@@ -7399,6 +7398,28 @@ ship_event = {
 # 		}
 # 	}
 # }
+
+# # TEMP ACTIVE FIX OLD SAVES (on_single_player_save_game_load) remove in > 3.4.3
+event = {
+	id = UniqueAscensionPerksEvents.3600
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		any_system = {
+			is_star_class = sc_whitte_hole
+		}
+	}
+	immediate = {
+		every_system = {
+			limit = { is_star_class = sc_whitte_hole }
+			set_star_class = sc_white_hole
+			every_system_planet = {
+				limit = { is_planet_class = pc_whitte_hole }
+				change_pc = pc_white_hole
+			}
+		}
+	}
+}
 
 # on_yearly_pulse_country
 country_event = {
@@ -8039,7 +8060,7 @@ ship_event = {
 		exists = owner
 		owner = { has_ascension_perk = ap_antimatter }
 		from = {
-			is_star_class = sc_whitte_hole
+			is_star_class = sc_white_hole
 			NOT = { exists = starbase }
 		}
 	}
@@ -8086,14 +8107,14 @@ system_event = {
 	is_triggered_only = yes
 	trigger = {
 		any_system_planet = {
-			is_planet_class = pc_whitte_hole
+			is_planet_class = pc_white_hole
 			NOT = { has_planet_flag = white_hole_physics_deposit }
 		}
 	}
 	immediate = {
 		every_system_planet = {
 			limit = {
-				is_planet_class = pc_whitte_hole
+				is_planet_class = pc_white_hole
 				NOT = { has_planet_flag = white_hole_physics_deposit }
 			}
 			set_planet_flag = white_hole_physics_deposit

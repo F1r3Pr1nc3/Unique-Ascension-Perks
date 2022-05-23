@@ -7,7 +7,7 @@ can_support_branch_offices = {
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_ON_MEGACORP_PLANET
 		NOR = {
-			is_megacorp = yes # has_authority = auth_corporate
+			is_megacorp = yes			# has_authority = auth_corporate
 			has_valid_civic = civic_galactic_sovereign_megacorp
 		}
 	}
@@ -22,7 +22,13 @@ can_support_branch_offices = {
 can_build_branch_office_on_planet = {
 	custom_tooltip = {
 		fail_text = requires_recipient_not_fanatic_purifiers
-		exists = owner owner = { OR = { is_same_species = root NOT = { has_valid_civic = civic_fanatic_purifiers } } }
+		exists = owner
+		owner = {
+			OR = {
+				is_same_species = root
+				NOT = { has_valid_civic = civic_fanatic_purifiers }
+			}
+		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_COMMERCIAL_PACT
@@ -36,18 +42,98 @@ can_build_branch_office_on_planet = {
 					owner = { has_commercial_pact = root }
 					owner = { is_in_federation_with = root }
 					# Allow branch offices in subsidiaries and vice versa.
-					root = { is_subject = yes any_agreement = { agreement_preset = preset_subsidiary } overlord = { is_same_empire = prevprev.owner } }
-					owner = { is_subject = yes any_agreement = { agreement_preset = preset_subsidiary } overlord = { is_same_value = root } }
-					AND = { root = { has_valid_civic = civic_galactic_sovereign_megacorp } owner = { is_galactic_community_member = yes } }
-					AND = { root = { has_modifier = imperial_charter } owner = { is_galactic_community_member = yes } }
+					root = {
+						is_subject = yes
+						# any_agreement = { agreement_preset = preset_subsidiary }
+						OR = {
+							has_authority = auth_corporate
+							has_valid_civic = civic_galactic_sovereign_megacorp
+						}
+						overlord = {
+							OR = {
+								is_same_empire = prevprev.owner
+								is_same_empire = prevprev.owner.overlord
+							}
+						}
+					}
+					owner = {
+						is_subject = yes
+						# any_agreement = { agreement_preset = preset_subsidiary }
+						overlord = {
+							OR = {
+								is_same_empire = root
+								is_same_empire = root.overlord
+							}
+							OR = {
+								has_authority = auth_corporate
+								has_valid_civic = civic_galactic_sovereign_megacorp
+							}
+						}
+					}
+					AND = {
+						root = { has_valid_civic = civic_galactic_sovereign_megacorp }
+						owner = { is_galactic_community_member = yes }
+					}
+					AND = {
+						root = { has_modifier = imperial_charter }
+						owner = { is_galactic_community_member = yes }
+					}
 					# Imposed Megacorp allows branch offices without commercial (MOD)
 					root = { has_ascension_perk = ap_megacorp }
 				}
 			}
 			# Imposed Megacorp allows branch offices on Gesalt Empire (MOD)
-			AND = { owner = { is_gestalt = yes } root = { has_ascension_perk = ap_megacorp } }
+			AND = {
+				owner = { is_gestalt = yes }
+				root = { has_ascension_perk = ap_megacorp }
+			}
 			# Imposed Megacorp allows branch offices on other MegaCorp (MOD)
 			# AND = { owner = { has_authority = auth_corporate } root = { has_ascension_perk = ap_megacorp } }
+		}
+	}
+	custom_tooltip = {
+		fail_text = BRANCH_OFFICE_MEGACORP_OVERLORD
+		exists = owner
+		# Failure message for having a corporate overlord.
+		if = {
+			limit = {
+				OR = {
+					# Not valid if you aren't a subject.
+					root = { is_subject = no }
+					# Or if your overlord isn't a megacorp.
+					root = {
+						is_subject = yes
+						overlord = {
+							NOR = {
+								has_authority = auth_corporate
+								has_valid_civic = civic_galactic_sovereign_megacorp
+							}
+						}
+					}
+				}
+			}
+			always = yes
+		} else = {
+			AND = {
+				root = {
+					is_subject = yes
+					overlord = {
+						OR = {
+							has_authority = auth_corporate
+							has_valid_civic = civic_galactic_sovereign_megacorp
+						}
+					}
+				}
+				owner = {
+					OR = {
+						is_subject = no
+						AND = {
+							is_subject = yes
+							overlord = { NOT = { is_same_empire = root.overlord } }
+						}
+					}
+				}
+			}
 		}
 	}
 	custom_tooltip = {

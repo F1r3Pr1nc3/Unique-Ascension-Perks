@@ -3,36 +3,36 @@
 # These can be added to megastructures.
 #
 # bypass_type = {
-#	name = GATEWAY_GALACTIC		# the localization key used in triggers and effects for the type
-#	is_pathfind = yes			# whether this type can be automatically used by the pathfinding (otherwise you'll have to right click the object containing it)
-#	requires_exploration = no	# whether this bypass type needs to be 'seen' before it can be used
-#	uses_action = no			# whether this type needs an action or can be used automagically
-#	always_active = no			# whether bypasses of these types are automatically active on creation, or if they need to be researched/upgraded to be activated
-#	windup_time = 0.0			# days preparing before travel, translated into ticks on load.
-#	winddown_time = 0.0			# days preparing after travel, translated into ticks on load.
+#	name = GATEWAY_GALACTIC		# The localization key used in triggers and effects for the type.
+#	is_pathfind = yes			# Whether this type can be automatically used by the pathfinding (otherwise you'll have to right click the object containing it)
+#	requires_exploration = no	# Whether this bypass type needs to be 'seen' before it can be used.
+#	uses_action = no			# Whether this type needs an action or can be used automagically.
+#	always_active = no			# Whether bypasses of these types are automatically active on creation, or if they need to be researched/upgraded to be activated.
+#	windup_time = 0.0			# Days preparing before travel, translated into ticks on load.
+#	winddown_time = 0.0			# Days preparing after travel, translated into ticks on load.
 #	ftl_multiplier = 0			# 0 is supposed to mean instant, WARNING: not implemented correctly.
-#	extends_sensors = yes		# whether you can "see through" the bypass and extends your sensor range to the other side
+#	extends_sensors = yes		# Whether you can "see through" the bypass and extends your sensor range to the other side
 #	icon_frame = 25
-#	remember_instances = no	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+#	remember_instances = no	# Whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general.
 #	galactic_map_tooltip_header=GATEWAY_GALACTIC
 #	galactic_map_tooltip_desc=GATEWAY_GALACTIC_DESC
 #	connection_type = any_other
-#	ftl_ship_effect	= "gateway_ftl_ship_effect_entity"		# what effect to spawn on the ship when they jump through the bypass
-#	ftl_bypass_effect	= "gateway_ftl_bypass_effect_entity"	# what effect to spawn on the bypass when a ship jumps through
+#	ftl_ship_effect	= "gateway_ftl_ship_effect_entity"		# What effect to spawn on the ship when they jump through the bypass.
+#	ftl_bypass_effect	= "gateway_ftl_bypass_effect_entity"	# What effect to spawn on the bypass when a ship jumps through.
 #	bypass_effect		= ""
-#	animation_time = 3				# number of days to wait for the jump animation to be played
+#	animation_time = 3				# Number of days to wait for the jump animation to be played.
 #	prerequisites = {
 #		tech_gateway_activation
 #	}
-#	on_pre_explore = {					# an effect that is called just before the jump of a right click "explore" action of a fleet
+#	on_pre_explore = {					# An effect that is called just before the jump of a right click "explore" action of a fleet
 #
 #	}
-#	country_can_use = {					# trigger to evaluate if a country can use bypasses of this type. this: country, from: (optional) system owner; default: { always = yes }
+#	country_can_use = {					# Trigger to evaluate if a country can use bypasses of this type. this: country, from: (optional) system owner; default: { always = yes }
 #	}
 #	on_action = "on_entering_bypass"	# The name of the on-action event that will be fired upon entering FTL (if set)
 #										# THIS = Fleet
 #										# FROM = System jumping to
-#										# FROMFROM = System jumped from
+#										# fromfrom = System jumped from
 # }
 gateway = {
 	name = GATEWAY_GALACTIC
@@ -161,7 +161,7 @@ lgate = {
 	winddown_time = 0
 	ftl_multiplier = 0	# 0 means instant
 	icon_frame = 30
-	remember_instances = no	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	remember_instances = no	# Whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general.
 	galactic_map_tooltip_header = LGATE_GALACTIC
 	galactic_map_tooltip_desc = LGATE_GALACTIC_DESC
 	connection_type = scripted_connection
@@ -193,16 +193,16 @@ lgate = {
 			}
 		}
 	}
-	on_action = "on_entering_lgate" # for compatibility (key free to use)
+	on_action = "on_entering_lgate" # For compatibility (key free to use)
 	scripted_connection = {
-		# defines endpoints that can only reach the "nexus"
+		# Defines endpoints that can only reach the "nexus"
 		node = {
-			# system scope
+			# System scope
 			has_star_flag = lgate
 		}
-		# defines endpoint(s) that can reach all "nodes" (but not other nexuses)
+		# Defines endpoint(s) that can reach all "nodes" (but not other nexuses)
 		nexus = {
-			# system scope
+			# System scope
 			has_star_flag = lcluster1
 		}
 	}
@@ -253,7 +253,7 @@ quantum_catapult = {
 	winddown_time = 360
 	ftl_multiplier = 0			# 0 means instant
 	icon_frame = 25
-	remember_instances = no	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	remember_instances = no	# Whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general.
 	galactic_map_tooltip_header=quantum_catapult_BYPASS
 	galactic_map_tooltip_desc=quantum_catapult_BYPASS_DESC
 	connection_type = to_any_system
@@ -282,11 +282,11 @@ shroud_tunnel = {
 	name = SHROUD_TUNNEL_GALACTIC
 	is_pathfind = yes
 	requires_exploration = no
-	uses_action = yes #opt-in to risky Shroud transit
+	uses_action = yes # opt-in to risky Shroud transit
 	always_active = yes
 	windup_time = 40
 	winddown_time = 20
-	ftl_multiplier = 0 #instant
+	ftl_multiplier = 0 # instant
 	extends_sensors = no
 	icon_frame = 25
 	remember_instances = no
@@ -295,19 +295,19 @@ shroud_tunnel = {
 	connection_type = scripted_connection
 
 	scripted_connection = {
-		node = { #system scope
+		node = { # system scope
 			starbase = {
 				has_starbase_building = shroud_beacon
 			}
 		}
-		nexus = { #system scope
+		nexus = { # system scope
 			has_star_flag = shroud_tunnel_nexus
 		}
 	}
 
 	ftl_ship_effect	= "gateway_ftl_ship_effect_entity"
 	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
-	animation_time = 3 # number of days to wait for the jump animation to be played
+	animation_time = 3 # Number of days to wait for the jump animation to be played.
 
 	country_can_use = { # this = country; from = system owner | default = yes
 		OR = {

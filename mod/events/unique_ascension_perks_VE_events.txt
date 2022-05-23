@@ -259,19 +259,29 @@ country_event = {
 		add_resource = { rare_crystals = 100 mult = expedition_sector_resources_crystals } set_variable = { which = expedition_sector_resources_crystals value = 0 }
 		# expedition_resources_gas_10000_times = yes
 		add_resource = { exotic_gases = 100 mult = expedition_sector_resources_gas } set_variable = { which = expedition_sector_resources_gas value = 0 }
+		# TODO (add_monthly_resource_mult does not accept vars)
 		# expedition_resources_physics_100000_times = yes
 		if = { limit = { check_variable = { which = expedition_sector_science_physics value > 0 } }
-			add_monthly_resource_mult = { resource = physics_research value = expedition_sector_science_physics min = 1 max = 1000 }
+			# add_monthly_resource_mult = { resource = physics_research value = expedition_sector_science_physics min = 1 max = 1000 }
+			while = { count = expedition_sector_science_physics
+				add_monthly_resource_mult = { resource = physics_research value = 1 min = 1 max = 1000 }
+			}
 			set_variable = { which = expedition_sector_science_physics value = 0 }
 		}
-		# expedition_resources_society_100000_times = yes
+		# # expedition_resources_society_100000_times = yes
 		if = { limit = { check_variable = { which = expedition_sector_science_society value > 0 } }
-			add_monthly_resource_mult = { resource = physics_research value = expedition_sector_science_society min = 1 max = 1000 }
+			# add_monthly_resource_mult = { resource = society_research value = expedition_sector_science_society min = 1 max = 1000 }
+			while = { count = expedition_sector_science_society
+				add_monthly_resource_mult = { resource = society_research value = 1 min = 1 max = 1000 }
+			}
 			set_variable = { which = expedition_sector_science_society value = 0 }
 		}
-		# expedition_resources_engineering_100000_times = yes
+		# # expedition_resources_engineering_100000_times = yes
 		if = { limit = { check_variable = { which = expedition_sector_science_engineering value > 0 } }
-			add_monthly_resource_mult = { resource = physics_research value = expedition_sector_science_engineering min = 1 max = 1000 }
+			# add_monthly_resource_mult = { resource = engineering_research value = expedition_sector_science_engineering min = 1 max = 1000 }
+			while = { count = expedition_sector_science_engineering
+				add_monthly_resource_mult = { resource = engineering_research value = 1 min = 1 max = 1000 }
+			}
 			set_variable = { which = expedition_sector_science_engineering value = 0 }
 		}
 		# expedition_yearly_resources_gain_info = yes
