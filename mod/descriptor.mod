@@ -1,4 +1,4 @@
-version="1.5.1"
+version="1.5.2"
 tags={
 	"Buildings"
 	"Galaxy Generation"
@@ -16,7 +16,7 @@ dependencies={
 	"!!!Universal Resource Patch [2.4+]"
 	"!!Universal Modifier Patch (3.4.*)"
 }
-name="Unique Ascension Perks 3.4"
+name="Unique Ascension Perks 3.4 BETA"
 picture="thumbnail.png"
 supported_version="3.4.*"
 remote_file_id="2811428998"
