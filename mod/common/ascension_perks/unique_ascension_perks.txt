@@ -712,7 +712,10 @@ ap_connected_hivemind = {
 }
 
 ap_hivemind_reserve = {
-	possible = { years_passed > 14 }
+	possible = {
+		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		years_passed > 14
+	}
 	modifier = {}
 	on_enabled = {
 		custom_tooltip = "ap_hivemind_reserve_tooltip"
@@ -939,11 +942,14 @@ ap_utopian_realisation = {
 }
 
 ap_antimatter = {
-	possible = {}
+	possible = {
+		custom_tooltip = { fail_text = "ap_requires_3_perk" num_ascension_perks > 2 }
+	}
 	# v3.4 reduced from 0.25
 	modifier = { ship_speed_mult = 0.15 }
 	on_enabled = {
 		custom_tooltip = "ap_antimatter_tooltip"
+		# custom_tooltip = "describe_edict_anti_matter_menu"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.430 } }
 	}
 	potential = { NOT = { has_ascension_perk = ap_antimatter } }

@@ -1,4 +1,4 @@
-version="1.5.3"
+version="1.5.5"
 tags={
 	"Buildings"
 	"Galaxy Generation"
@@ -11,10 +11,6 @@ tags={
 	"Diplomacy"
 	"Technologies"
 	"Spaceships"
-}
-dependencies={
-	"!!!Universal Resource Patch [2.4+]"
-	"!!Universal Modifier Patch (3.4.*)"
 }
 name="Unique Ascension Perks 3.4 BETA"
 picture="thumbnail.png"
