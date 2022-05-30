@@ -1,9 +1,9 @@
-# Returns fallback empire_capital
+# Returns fallback capital_planet
 # This = country
-get_empire_capital = {
+get_capital_planet = {
 	if = {
 		limit = { exists = capital_scope }
-		capital_scope = { save_event_target_as = empire_capital }
+		capital_scope = { save_event_target_as = capital_planet }
 	} else = {
 		random_owned_planet = {
 			limit = {
@@ -16,7 +16,7 @@ get_empire_capital = {
 				modifier = { add = 3 solar_system = { is_capital_system = yes } }
 				modifier = { add = 3 num_pops > 30 }
 			}
-			save_event_target_as = empire_capital
+			save_event_target_as = capital_planet
 		}
 	}
 }

@@ -7,11 +7,13 @@ country_event = { # Kill Special Subject Country if their master is dead.
 	hide_window = yes
 	trigger = {
 		is_subject = no
+		is_unique_perk_special_subject = yes
 		OR = {
 			has_country_flag = domesticated_spaceborn_alien
 			has_country_flag = security_strike_force
 			has_country_flag = defense_sentinels
 		}
+
 	}
 	immediate = {
 		if = {
@@ -19,7 +21,8 @@ country_event = { # Kill Special Subject Country if their master is dead.
 				is_country_type = domesticated_spaceborn_alien
 				has_country_flag = domesticated_spaceborn_alien
 				NOT = {
-					any_playable_country = {
+					any_relation = {
+						merg_is_default_empire = yes
 						is_subject = no
 						reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
 					}
@@ -31,7 +34,8 @@ country_event = { # Kill Special Subject Country if their master is dead.
 				is_country_type = security_forces
 				has_country_flag = security_strike_force
 				NOT = {
-					any_playable_country = {
+					any_relation = {
+						merg_is_default_empire = yes
 						is_subject = no
 						reverse_has_relation_flag = { who = root flag = security_strike_force }
 					}
@@ -43,7 +47,8 @@ country_event = { # Kill Special Subject Country if their master is dead.
 				is_country_type = defense_sentinels
 				has_country_flag = defense_sentinels
 				NOT = {
-					any_playable_country = {
+					any_relation = {
+						merg_is_default_empire = yes
 						is_subject = no
 						reverse_has_relation_flag = { who = root flag = defense_sentinels }
 					}
@@ -321,13 +326,13 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.31.Desc"
 	show_sound = event_engineered_evolution
 	picture = GFX_evt_expandable_brain_1
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
 		NOR = { has_ascension_perk = ap_expandable_brain_2 has_country_flag = ap_transcendent_learning_project }
 	}
-	immediate = { get_empire_capital = yes set_country_flag = ap_transcendent_learning_project }
-	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_1 location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes set_country_flag = ap_transcendent_learning_project }
+	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_1 location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -375,7 +380,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.34.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_3
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
 		has_technology = tech_expandable_brain_1
@@ -383,10 +388,10 @@ country_event = {
 	}
 	immediate = {
 		set_country_flag = tech_expandable_brain_1_project
-		get_empire_capital = yes
+		get_capital_planet = yes
 	}
 	option = { name = EXCELLENT
-		enable_special_project = { name = EXPANDABLE_BRAIN_2 location = event_target:empire_capital owner = root }
+		enable_special_project = { name = EXPANDABLE_BRAIN_2 location = event_target:capital_planet owner = root }
 	}
 }
 
@@ -454,11 +459,11 @@ country_event = {
 	desc = "EXPANDABLE_BRAIN_3_DESC"
 	show_sound = event_engineered_evolution
 	picture = GFX_evt_expandable_brain_6
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = { has_ascension_perk = ap_expandable_brain_2 NOT = { has_country_flag = ap_expandable_brain_2_project } }
-	immediate = { set_country_flag = ap_expandable_brain_2_project get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_3 location = event_target:empire_capital owner = root } }
+	immediate = { set_country_flag = ap_expandable_brain_2_project get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_3 location = event_target:capital_planet owner = root } }
 }
 
 # Final EXPANDABLE_BRAIN_3
@@ -491,15 +496,15 @@ country_event = {
 	desc = "EXPANDABLE_BRAIN_4_DESC"
 	show_sound = event_engineered_evolution
 	picture = GFX_evt_expandable_brain_6
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
 		has_ascension_perk = ap_expandable_brain_2
 		# has_country_flag = ap_expandable_brain_2_project_completed
 		NOT = { has_country_flag = ap_expandable_brain_2_project_2 }
 	}
-	immediate = { set_country_flag = ap_expandable_brain_2_project_2 get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_4 location = event_target:empire_capital owner = root } }
+	immediate = { set_country_flag = ap_expandable_brain_2_project_2 get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_4 location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -632,12 +637,12 @@ country_event = {
 	desc = "ap_nano_to_nanite_desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_nano_to_nanite
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
-		enable_special_project = { name = NANITES_SHIP_SECTION location = event_target:empire_capital owner = root }
+		enable_special_project = { name = NANITES_SHIP_SECTION location = event_target:capital_planet owner = root }
 		add_research_option = tech_nanite_transmutation
 		add_research_option = tech_nanite_repair_system
 		generate_lcluster_clue = yes
@@ -1116,10 +1121,10 @@ country_event = {
 	desc = "ap_recycling_drones_desc"
 	show_sound = event_construction
 	picture = GFX_evt_scavenger_bot
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_RECOVER_SHIPS location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_RECOVER_SHIPS location = event_target:capital_planet owner = root } }
 }
 
 # on_ship_destroyed_victim
@@ -1427,10 +1432,10 @@ country_event = {
 	desc = "RECYCLE_PERFORM_SHIPS_DESC"
 	show_sound = event_construction
 	picture = GFX_evt_scavenger_bot
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes set_country_flag = ap_recycling_drones_project_upgrade_added }
-	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes set_country_flag = ap_recycling_drones_project_upgrade_added }
+	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -2260,10 +2265,10 @@ country_event = {
 	desc = "ap_recomposer_desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_recomposer
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = RECOMPOSER location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = RECOMPOSER location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -2358,10 +2363,10 @@ country_event = {
 	desc = "ap_fallen_disciple_desc"
 	show_sound = event_cityscape
 	picture = GFX_evt_fallen_disciple
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = AWAKEN_FALLEN_EMPIRE_PROJECT location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = AWAKEN_FALLEN_EMPIRE_PROJECT location = event_target:capital_planet owner = root } }
 }
 
 # on_five_year_pulse_country
@@ -3250,8 +3255,8 @@ country_event = {
 	show_sound = event_alien_nature
 	location = from
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = SUPER_HIVEMIND location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = SUPER_HIVEMIND location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -3405,8 +3410,8 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = from
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = MEGA_HIVEMIND location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = MEGA_HIVEMIND location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -3607,8 +3612,8 @@ country_event = {
 	show_sound = event_ai_started
 	location = from
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -3771,10 +3776,10 @@ country_event = {
 	desc = "AGGRESSIVE_HIVEMIND_UPGRADE_DESC"
 	show_sound = event_ai_started
 	picture = GFX_evt_aggressive_hivemind
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes set_country_flag = aggressive_hivemind_project_upgrade_added }
-	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND_UPGRADE location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes set_country_flag = aggressive_hivemind_project_upgrade_added }
+	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND_UPGRADE location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -3976,10 +3981,10 @@ country_event = {
 	desc = "ap_eternal_vigilance_desc"
 	show_sound = event_ship_bridge
 	picture = GFX_evt_eternal_vigilance
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes set_country_flag = ap_eternal_vigilance_project_available }
-	option = { name = EXCELLENT enable_special_project = { name = ETERNAL_VIGILANCE location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes set_country_flag = ap_eternal_vigilance_project_available }
+	option = { name = EXCELLENT enable_special_project = { name = ETERNAL_VIGILANCE location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -4568,18 +4573,18 @@ country_event = {
 	mean_time_to_happen = { days = 14 }
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
-		any_country = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
+		any_relation = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
 	}
 	immediate =	{
 		# defense_sentinels_idle_fleet_selection = yes
 		save_event_target_as = main_country
-		random_country = {
+		random_relation = {
 			limit = {
 				is_country_type = defense_sentinels
 				has_country_flag = defense_sentinels
 				has_relation_flag = { who = root flag = defense_sentinels }
 			}
-			save_event_target_as = domesticated_spaceborn_alien
+			# save_event_target_as = domesticated_spaceborn_alien
 			every_owned_fleet = { # Select Fleets
 				limit = {
 					has_fleet_flag = defense_sentinels_fleet
@@ -4619,12 +4624,12 @@ fleet_event = {
 	immediate =	{
 		# defense_sentinels_idle_fleet_action = yes
 		owner = {
-			save_event_target_as = domesticated_spaceborn_alien
+			# save_event_target_as = domesticated_spaceborn_alien
 			if = { limit = { NOT = { exists = event_target:main_country } }
 				if = { limit = { exists = from from = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } } }
 					from = { save_event_target_as = main_country }
 				} else = {
-					random_country = {
+					random_relation = {
 						limit = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } }
 						save_event_target_as = main_country
 					}
@@ -4670,7 +4675,7 @@ country_event = {
 	# mean_time_to_happen = { months = 2 } # 14
 	# trigger = {
 	# 	has_ascension_perk = ap_defense_sentinels
-	# 	any_country = {
+	# 	any_relation = {
 	# 		is_country_type = defense_sentinels
 	# 		has_relation_flag = { who = root flag = defense_sentinels }
 	# 		OR = {
@@ -4721,7 +4726,7 @@ country_event = {
 	mean_time_to_happen = { months = 2 } # 14
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
-		any_country = {
+		any_relation = {
 			is_country_type = defense_sentinels
 			has_relation_flag = { who = root flag = defense_sentinels }
 			count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 }
@@ -4731,11 +4736,38 @@ country_event = {
 		if = { limit = { has_country_flag = ap_defense_sentinels_retriever_project }
 			create_retriever_sentinels_fleet = yes
 		}
+		if = { limit = { NOT = { exists = event_target:defense_sentinels } }
+			if = {
+				limit = {
+					any_relation = { has_relation_flag = { who = root flag = defense_sentinels } }
+				}
+				random_relation = {
+					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
+					save_event_target_as = defense_sentinels
+				}
+			} else_if = {
+				limit = {
+					is_overlord = yes
+					any_subject = { has_relation_flag = { who = root flag = defense_sentinels } }
+				}
+				random_subject = {
+					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
+					save_event_target_as = defense_sentinels
+				}
+			} else_if = {
+				limit = {
+					any_country = { has_relation_flag = { who = root flag = defense_sentinels } }
+				}
+				random_country = {
+					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
+					save_event_target_as = defense_sentinels
+				}
+			}
+		}
 		if = {
 			limit = {
-				any_country = {
-					is_country_type = defense_sentinels
-					has_relation_flag = { who = root flag = defense_sentinels }
+				exists = event_target:defense_sentinels
+				event_target:defense_sentinels = {
 					OR = {
 						# AND = { num_fleets < 5 ROOT = { NOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
 						# AND = { num_fleets < 10 ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
@@ -4778,7 +4810,7 @@ country_event = {
 	desc = "RETRIEVER_SENTINEL_DESC"
 	show_sound = event_ai_started
 	picture = GFX_evt_retriever_sentinel
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
@@ -4788,8 +4820,8 @@ country_event = {
 			has_country_flag = ap_defense_sentinels_retriever_project
 		}
 	}
-	immediate = { set_country_flag = ap_defense_sentinels_retriever_project_check get_empire_capital = yes }
-	option = { name = EXCELLENT enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:empire_capital owner = root } }
+	immediate = { set_country_flag = ap_defense_sentinels_retriever_project_check get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -4815,7 +4847,7 @@ country_event = {
 	trigger = {
 		has_country_flag = ap_defense_sentinels_retriever_project
 		any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
-		any_country = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
+		any_relation = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
 	}
 	immediate = {
 		create_defense_sentinels_country = yes
@@ -5294,7 +5326,6 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 42 } # days = 30
 	trigger = {
-		# is_ai = no # TODO AI?
 		merg_is_default_empire = yes
 		OR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 		OR = {
@@ -5462,6 +5493,7 @@ country_event = {
 	}
 }
 
+# From = owner = country
 planet_event = {
 	id = UniqueAscensionPerksEvents.302
 	hide_window = yes
@@ -5469,14 +5501,14 @@ planet_event = {
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
 	trigger = {
-		exists = owner
 		has_deposit = yes
-		owner = {
+		exists = from
+		from = {
 			OR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 		}
 		OR = {
 			AND = {
-				owner = { is_common_empire = no }
+				from = { is_common_empire = no }
 				OR = {
 					has_deposit = d_district_governor
 					has_deposit = d_district_university
@@ -5485,7 +5517,7 @@ planet_event = {
 				}
 			}
 			AND = {
-				owner = { is_hive_empire = no }
+				from = { is_hive_empire = no }
 				OR = {
 					has_deposit = d_district_queen
 					has_deposit = d_district_nursery
@@ -5494,7 +5526,7 @@ planet_event = {
 				}
 			}
 			AND = {
-				owner = { is_machine_empire = no }
+				from = { is_machine_empire = no }
 				OR = {
 					has_deposit = d_district_foundry
 					has_deposit = d_district_security
@@ -5503,7 +5535,7 @@ planet_event = {
 				}
 			}
 			AND = {
-				owner = { is_megacorp = no }
+				from = { is_megacorp = no }
 				OR = {
 					has_deposit = d_district_finance
 					has_deposit = d_district_casino
@@ -5515,22 +5547,30 @@ planet_event = {
 	}
 	immediate = {
 		# pinnacle_society_deposit_removal = yes
-		if = { limit = { has_deposit = d_district_governor owner = { is_common_empire = no } } while = { limit = { has_deposit = d_district_governor } remove_deposit = d_district_governor } }
-		else_if = { limit = { has_deposit = d_district_university owner = { is_common_empire = no } } while = { limit = { has_deposit = d_district_university } remove_deposit = d_district_university } }
-		else_if = { limit = { has_deposit = d_district_defense owner = { is_common_empire = no } } while = { limit = { has_deposit = d_district_defense } remove_deposit = d_district_defense } }
-		else_if = { limit = { has_deposit = d_district_industry owner = { is_common_empire = no } } while = { limit = { has_deposit = d_district_industry } remove_deposit = d_district_industry } }
-		else_if = { limit = { has_deposit = d_district_queen owner = { is_hive_empire = no } } while = { limit = { has_deposit = d_district_queen } remove_deposit = d_district_queen } }
-		else_if = { limit = { has_deposit = d_district_nursery owner = { is_hive_empire = no } } while = { limit = { has_deposit = d_district_nursery } remove_deposit = d_district_nursery } }
-		else_if = { limit = { has_deposit = d_district_forest owner = { is_hive_empire = no } } while = { limit = { has_deposit = d_district_forest } remove_deposit = d_district_forest } }
-		else_if = { limit = { has_deposit = d_district_entrepot owner = { is_hive_empire = no } } while = { limit = { has_deposit = d_district_entrepot } remove_deposit = d_district_entrepot } }
-		else_if = { limit = { has_deposit = d_district_security owner = { is_machine_empire = no } } while = { limit = { has_deposit = d_district_security } remove_deposit = d_district_security } }
-		else_if = { limit = { has_deposit = d_district_foundry owner = { is_machine_empire = no } } while = { limit = { has_deposit = d_district_foundry } remove_deposit = d_district_foundry } }
-		else_if = { limit = { has_deposit = d_district_upgrade owner = { is_machine_empire = no } } while = { limit = { has_deposit = d_district_upgrade } remove_deposit = d_district_upgrade } }
-		else_if = { limit = { has_deposit = d_district_recycling owner = { is_machine_empire = no } } while = { limit = { has_deposit = d_district_recycling } remove_deposit = d_district_recycling } }
-		else_if = { limit = { has_deposit = d_district_finance owner = { is_megacorp = no } } while = { limit = { has_deposit = d_district_finance } remove_deposit = d_district_finance } }
-		else_if = { limit = { has_deposit = d_district_casino owner = { is_megacorp = no } } while = { limit = { has_deposit = d_district_casino } remove_deposit = d_district_casino } }
-		else_if = { limit = { has_deposit = d_district_bank owner = { is_megacorp = no } } while = { limit = { has_deposit = d_district_bank } remove_deposit = d_district_bank } }
-		else_if = { limit = { has_deposit = d_district_journalism owner = { is_megacorp = no } } while = { limit = { has_deposit = d_district_journalism } remove_deposit = d_district_journalism } }
+		if = { limit = { from = { is_common_empire = no } }
+			if = { limit = { has_deposit = d_district_governor} while = { limit = { has_deposit = d_district_governor } remove_deposit = d_district_governor } }
+			if = { limit = { has_deposit = d_district_university} while = { limit = { has_deposit = d_district_university } remove_deposit = d_district_university } }
+			if = { limit = { has_deposit = d_district_defense} while = { limit = { has_deposit = d_district_defense } remove_deposit = d_district_defense } }
+			if = { limit = { has_deposit = d_district_industry} while = { limit = { has_deposit = d_district_industry } remove_deposit = d_district_industry } }
+		}
+		if = { limit = { from = { is_hive_empire = no } }
+			if = { limit = { has_deposit = d_district_queen } while = { limit = { has_deposit = d_district_queen } remove_deposit = d_district_queen } }
+			if = { limit = { has_deposit = d_district_nursery } while = { limit = { has_deposit = d_district_nursery } remove_deposit = d_district_nursery } }
+			if = { limit = { has_deposit = d_district_forest } while = { limit = { has_deposit = d_district_forest } remove_deposit = d_district_forest } }
+			if = { limit = { has_deposit = d_district_entrepot } while = { limit = { has_deposit = d_district_entrepot } remove_deposit = d_district_entrepot } }
+		}
+		if = { limit = { from = { is_machine_empire = no } }
+			if = { limit = { has_deposit = d_district_security } while = { limit = { has_deposit = d_district_security } remove_deposit = d_district_security } }
+			if = { limit = { has_deposit = d_district_foundry } while = { limit = { has_deposit = d_district_foundry } remove_deposit = d_district_foundry } }
+			if = { limit = { has_deposit = d_district_upgrade } while = { limit = { has_deposit = d_district_upgrade } remove_deposit = d_district_upgrade } }
+			if = { limit = { has_deposit = d_district_recycling } while = { limit = { has_deposit = d_district_recycling } remove_deposit = d_district_recycling } }
+		}
+		if = { limit = { from = { is_megacorp = no } }
+			if = { limit = { has_deposit = d_district_finance } while = { limit = { has_deposit = d_district_finance } remove_deposit = d_district_finance } }
+			if = { limit = { has_deposit = d_district_casino } while = { limit = { has_deposit = d_district_casino } remove_deposit = d_district_casino } }
+			if = { limit = { has_deposit = d_district_bank } while = { limit = { has_deposit = d_district_bank } remove_deposit = d_district_bank } }
+			if = { limit = { has_deposit = d_district_journalism } while = { limit = { has_deposit = d_district_journalism } remove_deposit = d_district_journalism } }
+		}
 	}
 }
 
@@ -6780,16 +6820,16 @@ event = {
 	is_triggered_only = yes
 	trigger = {
 		any_system = {
-			is_star_class = sc_whitte_hole
+			OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
 		}
 	}
 	immediate = {
 		every_system = {
-			limit = { is_star_class = sc_whitte_hole }
-			set_star_class = sc_white_hole
+			limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
+			# set_star_class = sc_white_hole
 			every_system_planet = {
-				limit = { is_planet_class = pc_whitte_hole }
-				change_pc = pc_white_hole
+				limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
+				change_pc = pc_whc_star
 			}
 		}
 	}
@@ -6997,12 +7037,12 @@ country_event = {
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = slow_learner_room }
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
-		enable_special_project = { name = SLOW_LEARNER_ARMY location = event_target:empire_capital owner = root }
+		enable_special_project = { name = SLOW_LEARNER_ARMY location = event_target:capital_planet owner = root }
 	}
 }
 # 3.3 values reduced
@@ -7047,10 +7087,11 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = utopian_realisation_room }
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
+	location = event_target:capital_planet
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
-		enable_special_project = { name = UTOPIAN_REALISATION location = event_target:empire_capital owner = root }
+		enable_special_project = { name = UTOPIAN_REALISATION location = event_target:capital_planet owner = root }
 	}
 }
 
@@ -7064,7 +7105,7 @@ country_event = {
 	picture_event_data = { room = utopian_realisation_room }
 	is_triggered_only = yes
 	location = event_target:capital_planet
-	immediate = { random_owned_planet = { limit = { is_capital = yes } save_event_target_as = capital_planet } }
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = "UniqueAscensionPerksEvents.411.a"
 		ai_chance = { factor = 0 }
@@ -7112,10 +7153,10 @@ country_event = {
 	desc = "ap_executive_vigor_desc"
 	show_sound = event_factions
 	picture = GFX_evt_galactic_senate
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes set_country_flag = ap_executive_vigor_project_available }
-	option = { name = EXCELLENT enable_special_project = { name = EXECUTIVE_VIGOR location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes set_country_flag = ap_executive_vigor_project_available }
+	option = { name = EXCELLENT enable_special_project = { name = EXECUTIVE_VIGOR location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
@@ -7142,12 +7183,12 @@ country_event = {
 	desc = "ap_antimatter_desc"
 	show_sound = event_activating_unknown_technology
 	picture = GFX_evt_antimatter
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	immediate = {
 		set_spawn_system_batch = begin
-		get_empire_capital = yes
-		event_target:empire_capital = {
+		get_capital_planet = yes
+		event_target:capital_planet = {
 			spawn_system = { min_distance >= 4 max_distance <= 9 initializer = "white_hole_system_1" }
 		}
 		set_spawn_system_batch = end
@@ -8094,10 +8135,10 @@ country_event = {
 	desc = "ap_dark_galaxy_web_desc"
 	show_sound = event_scanner
 	picture = GFX_evt_glitchy_matrix
-	location = event_target:empire_capital
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_empire_capital = yes }
-	option = { name = OK enable_special_project = { name = DARK_GALAXY_WEB_PROJECT location = event_target:empire_capital owner = root } }
+	immediate = { get_capital_planet = yes }
+	option = { name = OK enable_special_project = { name = DARK_GALAXY_WEB_PROJECT location = event_target:capital_planet owner = root } }
 }
 
 country_event = {
