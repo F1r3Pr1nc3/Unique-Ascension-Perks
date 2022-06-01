@@ -80,8 +80,8 @@ country_event = {
 			set_country_flag = space_domestication_project_completed
 			else = {
 				save_event_target_as = main_country
-				random_country = {
-					limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = event_target:main_country flag = domesticated_spaceborn_alien } }
+				random_relation = {
+					limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 					save_event_target_as = domesticated_spaceborn_alien
 				}
 			}
@@ -96,7 +96,11 @@ country_event = {
 		}
 		custom_tooltip = "breeding_fertilization_protocol_tooltip"
 		# breeding_fertilization_protocol_paying = yes
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -3000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -3000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -3000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -3000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -3000 } }
+		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -3000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1010 days = 360 }
@@ -145,7 +149,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Military"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req01 is_subject = no }
+			custom_tooltip = { fail_text = requires_independence is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req03 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
 			custom_tooltip = { fail_text = military_assault_protocol_req can_military_assault_protocol = yes }
 			custom_tooltip = { fail_text = no_fertilized_fleet_req domesticated_alien_has_fertilized_fleet = yes }
@@ -162,7 +166,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Security"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req01 is_subject = no }
+			custom_tooltip = { fail_text = requires_independence is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req04 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
 			custom_tooltip = { fail_text = "military_assault_protocol_req" can_security_defense_protocol = yes }
 		}
@@ -305,7 +309,7 @@ country_event = {
 	trigger = {
 		# is_ai = no
 		has_ascension_perk = ap_space_domestication
-		any_country = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+		any_relation = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 		OR = {
 			has_country_flag = space_domestication_military_protocol
 			has_country_flag = space_domestication_security_protocol
@@ -319,7 +323,7 @@ country_event = {
 		country_event = { id = UniqueAscensionPerksEvents.1030 days = 2 }
 		# space_domestication_constant_breed_event = yes
 		# save_event_target_as = main_country
-		random_country = {
+		random_relation = {
 			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 			save_event_target_as = domesticated_spaceborn_alien
 		}
@@ -423,33 +427,35 @@ event = {
 	id = UniqueAscensionPerksEvents.1022
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		any_playable_country = {
+			has_ascension_perk = ap_space_domestication
+		}
+	}
 	immediate = {
 		random_playable_country = {
 			limit = {
-				is_subject = no
-				merg_is_default_empire = yes
-				any_country = { has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
+				has_ascension_perk = ap_space_domestication
+				# merg_is_default_empire = yes
+				any_relation = { has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
 			}
-			country_event = { id = UniqueAscensionPerksEvents.1023 }
-		}
-		random_playable_country = {
-			limit = {
-				is_subject = yes
-				merg_is_default_empire = yes
-				any_country = { has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
+			if = { limit = { is_subject = yes }
+				country_event = { id = UniqueAscensionPerksEvents.1024 }
+			} else = {
+				country_event = { id = UniqueAscensionPerksEvents.1023 }
 			}
-			country_event = { id = UniqueAscensionPerksEvents.1024 }
 		}
 	}
 }
 
+# Control domesticated_spaceborn_alien
 country_event = {
 	id = UniqueAscensionPerksEvents.1023
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
 		# save_event_target_as = main_country
-		random_country = {
+		random_relation = {
 			limit = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 			save_event_target_as = domesticated_spaceborn_alien
 			every_controlled_fleet = {
@@ -461,15 +467,16 @@ country_event = {
 	}
 }
 
+# Remove domesticated_spaceborn_alien
 country_event = {
 	id = UniqueAscensionPerksEvents.1024
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
 		# save_event_target_as = main_country
-		random_country = {
+		random_relation = {
 			limit = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
-			save_event_target_as = domesticated_spaceborn_alien
+			# save_event_target_as = domesticated_spaceborn_alien
 			every_controlled_fleet = { limit = { has_fleet_flag = domesticated_fleet } destroy_fleet = this }
 			destroy_country = yes
 		}
@@ -518,12 +525,12 @@ country_event = {
 	trigger = {
 		# is_ai = no
 		has_ascension_perk = ap_space_domestication
-		any_country = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+		any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 	}
 	immediate =	{
 		# space_domestication_idle_fleet_selection = yes
 		save_event_target_as = main_country
-		random_country = {
+		random_relation = {
 			limit = {
 				is_country_type = domesticated_spaceborn_alien
 				has_country_flag = domesticated_spaceborn_alien
@@ -585,7 +592,7 @@ fleet_event = {
 		owner = {
 			save_event_target_as = domesticated_spaceborn_alien
 			if = { limit = { NOT = { exists = event_target:main_country } }
-				random_country = {
+				random_relation = {
 					limit = { reverse_has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
 					save_event_target_as = main_country
 				}

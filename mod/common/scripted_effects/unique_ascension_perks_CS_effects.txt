@@ -41,7 +41,7 @@ create_civilian_activities_convoy = {
 					modifier = { factor = 0 event_target:spawn_location = { NOR = { has_designation = col_factory has_designation = col_ecu_factory has_designation = col_mac_factory has_designation = col_habitat_factory } } }
 					create_ship = { name = "Civilian Convoy" design = "Civilian Transport - Consumers" }
 					set_fleet_flag = civilian_convoy_fleet_consumers_world
-					set_name = "Civilian Convoy - Industrial World"
+					set_name = "Civilian Convoy - Factory World"
 				}
 				999 = { # Alloys Transport
 					modifier = { factor = 0 event_target:spawn_location = { NOR = { has_designation = col_foundry has_designation = col_ecu_foundry has_designation = col_mac_foundry has_designation = col_hiv_foundry has_designation = col_habitat_foundry } } }
@@ -103,6 +103,32 @@ create_civilian_activities_convoy = {
 					set_fleet_flag = civilian_convoy_fleet_fortress_world
 					set_name = "Civilian Convoy - Fortress World"
 				}
+				333 = { # Unification
+					modifier = {
+						factor = 0
+						event_target:spawn_location = {
+							NOR = {
+								has_designation = col_bureau
+								has_designation = col_bureau_spiritualist
+								has_designation = col_bureau_hive
+								has_designation = col_bureau_machine
+								has_designation = col_habitat_bureau
+								has_designation = col_habitat_bureau_spiritualist
+								has_designation = col_habitat_bureau_hive
+								has_designation = col_habitat_bureau_machine
+							}
+						}
+					}
+					create_ship = { name = "Civilian Convoy" design = "Civilian Transport - Unity" }
+					set_fleet_flag = civilian_convoy_fleet_unification_world
+					set_name = "Civilian Convoy - Unification World"
+				}
+				333 = { # Industrial
+					modifier = { factor = 0 event_target:spawn_location = { NOR = { has_designation = col_industrial has_designation = col_ecu_industrial has_designation = col_habitat_industrial } } }
+					create_ship = { name = "Civilian Convoy" design = "Civilian Transport - Alloys" }
+					set_fleet_flag = civilian_convoy_fleet_unification_world
+					set_name = "Civilian Convoy - Industrial World"
+				}
 			}
 			set_location = { target = event_target:spawn_location distance = 5 angle = random }
 			set_fleet_stance = passive
@@ -118,7 +144,7 @@ create_civilian_activities_convoy = {
 civilian_space_activities_civilian_convoy_fleet_arrival = {
 	save_event_target_as = civilian_convoy_fleet
 	prev = { planet_event = { id = UniqueAscensionPerksEvents.268 } }
-	# remove_fleet_flag = civilian_convoy_fleet
-	# remove_fleet_flag = civilian_convoy_fleet_moving_order
+	remove_fleet_flag = civilian_convoy_fleet
+	remove_fleet_flag = civilian_convoy_fleet_moving_order
 	delete_fleet = this
 }

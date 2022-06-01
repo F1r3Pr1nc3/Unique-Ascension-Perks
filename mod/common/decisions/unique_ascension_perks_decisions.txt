@@ -389,16 +389,17 @@ decision_ethic_shift = {
 	resources = {
 		category = decisions
 		cost = { unity = 200 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 20 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 40 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 60 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 80 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 100 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 120 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 140 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 160 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 180 } } unity = 100 }
-		cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 200 } } unity = 100 }
+		# v.3.4 now on planet event due performance!?
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 20 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 40 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 60 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 80 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 100 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 120 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 140 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 160 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 180 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 200 } } unity = 100 }
 	}
 	potential = { owner = { has_ascension_perk = ap_advanced_government_1 } is_under_colonization = no }
 	allow = {
@@ -407,10 +408,10 @@ decision_ethic_shift = {
 	}
 	effect = {
 		custom_tooltip = "decision_ethic_shift_tooltip"
-		save_event_target_as = ethic_planet
-		from = { country_event = { id = UniqueAscensionPerksEvents.4089 } }
+		# save_event_target_as = ethic_planet
+		planet_event = { id = UniqueAscensionPerksEvents.4089 }
 		set_timed_planet_flag = { flag = decision_ethic_shift_cooldown years = 5 }
-		from = { country_event = { id = UniqueAscensionPerksEvents.4090 days = 1800 } }
+		planet_event = { id = UniqueAscensionPerksEvents.4090 days = 1800 }
 	}
 	ai_weight = { weight = 1 }
 }
@@ -566,7 +567,7 @@ decision_powerful_vassal = {
 	resources = {
 		category = decisions
 		cost = { influence = 200 food = 2000 minerals = 5000 energy = 5000 unity = 2000 }
-		cost = { trigger = { from = { OR = { has_country_flag = synthetic_empire is_machine_empire = yes } } } food = -2000 minerals = 500 energy = 500 }
+		cost = { trigger = { from = { is_synthetic_empire = yes } } food = -2000 minerals = 500 energy = 500 }
 	}
 	potential = {
 		exists = space_owner

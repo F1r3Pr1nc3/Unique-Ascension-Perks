@@ -3167,7 +3167,8 @@ country_event = {
 	}
 }
 
-country_event = {
+# Root = event_target:ethic_planet
+planet_event = {
 	id = UniqueAscensionPerksEvents.4089
 	title = "decision_ethic_shift"
 	desc = "UniqueAscensionPerksEvents.4089.Desc"
@@ -3175,20 +3176,49 @@ country_event = {
 	picture = GFX_evt_alien_propaganda
 	location = event_target:ethic_planet
 	is_triggered_only = yes
+	immediate = {
+		set_variable = { which = num_ethic_pop_on_planet value = value:num_ethic_pop_on_planet }
+	}
+	after = { clear_variable = num_ethic_pop_on_planet }
 	option = {
 		name = EXCELLENT
-		if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 10 } } } add_resource = { influence = 10 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 20 } } } add_resource = { influence = 20 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 30 } } } add_resource = { influence = 30 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 40 } } } add_resource = { influence = 40 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 50 } } } add_resource = { influence = 50 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 60 } } } add_resource = { influence = 60 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 70 } } } add_resource = { influence = 70 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 80 } } } add_resource = { influence = 80 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 90 } } } add_resource = { influence = 90 } }
-		else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 100 } } } add_resource = { influence = 100 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 110 } } } add_resource = { influence = 110 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 120 } } } add_resource = { influence = 120 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 130 } } } add_resource = { influence = 130 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 140 } } } add_resource = { influence = 140 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 150 } } } add_resource = { influence = 150 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 160 } } } add_resource = { influence = 160 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 170 } } } add_resource = { influence = 170 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 180 } } } add_resource = { influence = 180 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 190 } } } add_resource = { influence = 190 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count <= 200 } } } add_resource = { influence = 200 } } else_if = { limit = { event_target:ethic_planet = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count > 200 } } } add_resource = { influence = 200 } }
+		owner = {
+			add_resource = { influence = 1 mult = num_ethic_pop_on_planet }
+			add_resource = { unity = -5 mult = num_ethic_pop_on_planet }
+		}
+		# hidden_effect = {
+		# 	if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 10 } } owner = { add_resource = { influence = 10 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 20 } } owner = { add_resource = { influence = 20 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 30 } } owner = { add_resource = { influence = 30 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 40 } } owner = { add_resource = { influence = 40 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 50 } } owner = { add_resource = { influence = 50 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 60 } } owner = { add_resource = { influence = 60 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 70 } } owner = { add_resource = { influence = 70 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 80 } } owner = { add_resource = { influence = 80 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 90 } } owner = { add_resource = { influence = 90 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 100 } } owner = { add_resource = { influence = 100 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 110 } } owner = { add_resource = { influence = 110 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 120 } } owner = { add_resource = { influence = 120 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 130 } } owner = { add_resource = { influence = 130 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 140 } } owner = { add_resource = { influence = 140 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 150 } } owner = { add_resource = { influence = 150 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 160 } } owner = { add_resource = { influence = 160 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 170 } } owner = { add_resource = { influence = 170 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 180 } } owner = { add_resource = { influence = 180 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 190 } } owner = { add_resource = { influence = 190 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 200 } } owner = { add_resource = { influence = 200 } } }
+		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 200 } } owner = { add_resource = { influence = 200 } } }
+		# }
 	}
 }
 
-country_event = {
+planet_event = {
 	id = UniqueAscensionPerksEvents.4090
 	title = "UniqueAscensionPerksEvents.4090.Name"
 	desc = "UniqueAscensionPerksEvents.4090.Desc"
 	picture = GFX_evt_galactic_senate
 	show_sound = event_conversation
-	location = event_target:ethic_planet
+	location = root # event_target:ethic_planet
 	is_triggered_only = yes
 	option = { name = OK }
 }
@@ -6261,26 +6291,26 @@ ship_event = {
 # }
 
 # # TEMP ACTIVE FIX OLD SAVES (on_single_player_save_game_load) remove in > 3.4.3
-event = {
-	id = UniqueAscensionPerksEvents.3600
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		any_system = {
-			OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
-		}
-	}
-	immediate = {
-		every_system = {
-			limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
-			# set_star_class = sc_white_hole
-			every_system_planet = {
-				limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
-				change_pc = pc_whc_star
-			}
-		}
-	}
-}
+# event = {
+# 	id = UniqueAscensionPerksEvents.3600
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		any_system = {
+# 			OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
+# 		}
+# 	}
+# 	immediate = {
+# 		every_system = {
+# 			limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
+# 			# set_star_class = sc_white_hole
+# 			every_system_planet = {
+# 				limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
+# 				change_pc = pc_whc_star
+# 			}
+# 		}
+# 	}
+# }
 
 # on_yearly_pulse_country
 country_event = {
@@ -7298,7 +7328,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = "UniqueAscensionPerksEvents.491.a"
-		allow = { resource_stockpile_compare = { resource = unity value > 200 } NOT = { has_country_flag = ap_library_wisedom_cooldown } }
+		allow = { NOT = { has_country_flag = ap_library_wisedom_cooldown } resource_stockpile_compare = { resource = unity value > 200 } }
 		add_resource = { unity = -200 }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.493 }

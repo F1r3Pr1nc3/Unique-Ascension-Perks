@@ -407,7 +407,7 @@ ap_space_domestication = {
 		custom_tooltip = { fail_text = "ap_space_domestication_req_3" has_technology = tech_nano_vitality_crops }
 		custom_tooltip = { fail_text = "ap_space_domestication_req_4" has_technology = tech_mining_3 }
 		custom_tooltip = { fail_text = "ap_space_domestication_req_5" has_leviathans = yes }
-		custom_tooltip = { fail_text = "ap_space_domestication_req_6" is_subject = no }
+		custom_tooltip = { fail_text = "requires_independence" is_subject = no }
 		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
 	}
 	modifier = {}
@@ -426,7 +426,7 @@ ap_leviathan_master = {
 		custom_tooltip = { fail_text = "ap_leviathan_master_req_3" OR = { has_technology = tech_nutrient_replication is_machine_empire = yes } }
 		custom_tooltip = { fail_text = "ap_leviathan_master_req_4" has_country_flag = has_killed_leviathan }
 		custom_tooltip = { fail_text = "ap_leviathan_master_req_5" has_leviathans = yes }
-		custom_tooltip = { fail_text = "ap_leviathan_master_req_6" is_subject = no }
+		custom_tooltip = { fail_text = "requires_independence" is_subject = no }
 	}
 	modifier = {}
 	on_enabled = {
@@ -507,7 +507,7 @@ ap_megacorp = {
 		# planet_branch_offices_produces_mult = 0.20
 		empire_size_branch_office_mult = -0.25
 		planet_branch_offices_cost_mult = -0.15
-		planet_max_branch_office_buildings_add = 5
+		# planet_max_branch_office_buildings_add = 5 # TODO for 3.4
 	}
 	on_enabled = {
 		custom_tooltip = "ap_megacorp_tooltip"
@@ -745,7 +745,7 @@ ap_powerful_vassals = {
 		custom_tooltip = { fail_text = "ap_powerful_vassals_req_2" tradition_domination_finish = yes }
 		custom_tooltip = { fail_text = "ap_powerful_vassals_req_3" has_technology = tech_galactic_administration }
 		custom_tooltip = { fail_text = "ap_powerful_vassals_req_4" has_technology = tech_vassalisation_initiaves }
-		custom_tooltip = { fail_text = "ap_powerful_vassals_req_5" is_subject = no }
+		custom_tooltip = { fail_text = "requires_independence" is_subject = no }
 		# custom_tooltip = { fail_text = "ap_powerful_vassals_req_6" any_subject = { OR = { is_subject = yes any_agreement = { agreement_preset = preset_protectorate } any_agreement = { agreement_preset = preset_tributary } any_agreement = { agreement_preset = preset_subsidiary } } } }
 		custom_tooltip = {
 			fail_text = "ap_powerful_vassals_req_7" OR = { has_valid_civic = civic_fanatic_purifiers has_valid_civic = civic_hive_devouring_swarm has_valid_civic = civic_inwards_perfection has_valid_civic = civic_machine_terminator has_ascension_perk = ap_shared_destiny is_megacorp = yes } }
@@ -763,7 +763,6 @@ ap_mechanical_prophet = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_mechanical_prophet_req_1" has_technology = tech_machine_principle_transfer }
 		custom_tooltip = { fail_text = "ap_mechanical_prophet_req_2" has_technology = tech_machine_rebellion }
-		custom_tooltip = { fail_text = "ap_mechanical_prophet_req_3" has_synthethic_dawn = yes }
 		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
 	}
 	modifier = {}
@@ -771,21 +770,26 @@ ap_mechanical_prophet = {
 		custom_tooltip = "ap_mechanical_prophet_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.200 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_mechanical_prophet } OR = { has_country_flag = synthetic_empire is_machine_empire = yes } }
+	potential = {
+		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
+		NOT = { has_ascension_perk = ap_mechanical_prophet } is_synthetic_empire = yes
+	}
 	ai_weight = { factor = 11 }
 }
 
 ap_machine_core = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_machine_core_req_1" has_technology = tech_machine_core_schemas }
-		custom_tooltip = { fail_text = "ap_machine_core_req_2" has_synthethic_dawn = yes }
 	}
 	modifier = {}
 	on_enabled = {
 		custom_tooltip = "ap_machine_core_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.210 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_machine_core } OR = { has_country_flag = synthetic_empire is_machine_empire = yes } }
+	potential = {
+		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
+		NOT = { has_ascension_perk = ap_machine_core } is_synthetic_empire = yes
+	}
 	ai_weight = { factor = 21 }
 }
 
@@ -797,33 +801,39 @@ ap_defense_sentinels = {
 		custom_tooltip = { fail_text = "ap_defense_sentinels_req_4" has_technology = tech_shields_3 }
 		custom_tooltip = { fail_text = "ap_defense_sentinels_req_5" has_technology = tech_plasma_2 }
 		custom_tooltip = { fail_text = "ap_defense_sentinels_req_6" has_technology = tech_lasers_2 }
-		custom_tooltip = { fail_text = "ap_defense_sentinels_req_7" has_synthethic_dawn = yes }
-		custom_tooltip = { fail_text = "ap_defense_sentinels_req_8" is_subject = no }
+		custom_tooltip = { fail_text = "requires_independence" is_subject = no }
 	}
 	modifier = {}
 	on_enabled = {
 		custom_tooltip = "ap_defense_sentinels_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.230 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_defense_sentinels } OR = { has_country_flag = synthetic_empire is_machine_empire = yes } }
+	potential = {
+		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
+		NOT = { has_ascension_perk = ap_defense_sentinels }
+		OR = { has_country_flag = synthetic_empire is_machine_empire = yes }
+	}
 	ai_weight = { factor = 11 }
 }
 
 ap_leadership_transfer = {
-	possible = {
-		custom_tooltip = { fail_text = "ap_leadership_transfer_req_1" has_synthethic_dawn = yes }
-	}
+	possible = {}
 	modifier = {}
 	on_enabled = {
 		custom_tooltip = "ap_leadership_transfer_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.250 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_leadership_transfer } OR = { has_country_flag = synthetic_empire is_machine_empire = yes } }
+	potential = {
+		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
+		NOT = { has_ascension_perk = ap_leadership_transfer } is_synthetic_empire = yes
+	}
 	ai_weight = { factor = 0 }
 }
 
 ap_civilian_activities = {
-	possible = {}
+	possible = {
+		custom_tooltip = { fail_text = "requires_independence" is_subject = no }
+	}
 	modifier = {}
 	on_enabled = {
 		custom_tooltip = "ap_civilian_activities_tooltip"
