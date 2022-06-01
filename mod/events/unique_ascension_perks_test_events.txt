@@ -1,0 +1,79 @@
+namespace = UniqueAscensionPerksEvents
+############ Test Events ############
+planet_event = {
+	id = UniqueAscensionPerksEvents.9001
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = { add_deposit = d_hivemind_reserve }
+}
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.9002
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = { add_deposit = d_hivemind_reserve }
+}
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.9003
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = { add_deposit = d_hivemind_reserve }
+}
+
+event = {
+	id = UniqueAscensionPerksEvents.9005
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = { every_playable_country = { set_country_flag = ap_pyramidal_society } }
+}
+
+planet_event = { # 50 Pops
+	id = UniqueAscensionPerksEvents.9996
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = { while = { count = 50 create_pop = { species = owner_main_species } } }
+}
+
+planet_event = { # Populate Colony & Repesct Housing Limits.
+	id = UniqueAscensionPerksEvents.9997
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = { while = { limit = { free_housing > 1 } create_pop = { species = owner_main_species } } }
+}
+
+country_event = {
+	id = UniqueAscensionPerksEvents.9998
+	hide_window = yes
+	# mean_time_to_happen = { months = 2 }
+	is_triggered_only = yes
+	trigger = {
+		OR = {
+			AND = { is_country_type = security_forces any_country = { NOT = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
+			AND = { is_country_type = domesticated_spaceborn_alien any_country = { NOT = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
+			AND = { is_country_type = defense_sentinels any_country = { NOT = { reverse_has_relation_flag = { who = root flag = security_strike_force } } } }
+		}
+	}
+	immediate = { destroy_country = yes }
+}
+
+# Pirates Test
+country_event = {
+	id = UniqueAscensionPerksEvents.9999
+	title = "pirate.53.name"
+	picture = GFX_evt_pirates_attacking_cargo
+	desc = pirate.53.desc
+	show_sound = event_ship_bridge
+	location = event_target:pirate_system
+	is_triggered_only = yes
+	immediate = {
+		random_system_within_border = { limit = { is_capital_system = no } save_event_target_as = pirate_system }
+		capital_scope = { solar_system = { save_event_target_as = capital_system } }
+		owner_species = { save_event_target_as = owner_species }
+		create_drone_pirate_country = yes
+		create_pirate_fleet = yes
+		create_pirate_fleet = yes
+		create_pirate_fleet = yes
+	}
+	option = { name = pirate.50.a }
+}
