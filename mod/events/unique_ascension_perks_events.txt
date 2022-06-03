@@ -101,7 +101,7 @@ planet_event = {
 		exists = owner
 		OR = {
 			AND = {
-				is_planet_class = pc_hive
+				merg_is_hive_world = yes
 				OR = {
 					check_variable = { which = deposits_hivemind_reserve value > 1 }
 					check_variable = { which = deposits_district_queen value > 1 }
@@ -115,7 +115,7 @@ planet_event = {
 	}
 	immediate = {
 		if = {
-			limit = { is_planet_class = pc_hive }
+			limit = { merg_is_hive_world = yes }
 			while = {
 				limit = { check_variable = { which = deposits_hivemind_reserve value > 1 } }
 				change_variable = { which = deposits_hivemind_reserve value = -1 }
@@ -5930,13 +5930,13 @@ country_event = {
 		has_ascension_perk = ap_wheel_fortune
 		# NOT = { has_country_flag = treasures_found_cooldown }
 		any_planet_within_border = {
-			NOR = { is_planet_class = pc_gas_giant has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes is_colonizeable_colony = yes }
+			NOR = { merg_is_gas_giant = yes has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes is_colonizeable_colony = yes }
 		}
 	}
 	immediate = {
 		random_planet_within_border = {
 			limit = {
-				NOR = { is_planet_class = pc_gas_giant has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes is_colonizeable_colony = yes }
+				NOR = { merg_is_gas_giant = yes has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes is_colonizeable_colony = yes }
 			}
 			save_event_target_as = spawn_location
 		}
@@ -7065,14 +7065,14 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.461.Construct.Random"	allow = { exists = owner owner = { resource_stockpile_compare = { resource = minerals value > 1000 } } } hidden_effect = { set_planet_flag = self_aware_manual_order planet_event = { id = UniqueAscensionPerksEvents.461 } } self_aware_colony_deposit_selection = yes custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.Random.tooltip" }
 	option = { name = "UniqueAscensionPerksEvents.461.Construct.NoRandom" hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.NoRandom.tooltip" }
 	option = { name = "UniqueAscensionPerksEvents.461.Energy"	allow = { NOT = { has_modifier = self_aware_energy } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_energy } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Minerals"	allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { is_habitat_planet = no AND = { is_habitat_planet = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_minerals } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Food"	allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 is_habitat_planet = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_food } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { is_gestalt = no has_technology = tech_luxuries_2 } } } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 is_habitat_planet = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_consumers } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Alloys"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_alloys_2 } } } NOT = { has_modifier = self_aware_alloys } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 is_habitat_planet = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_alloys } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Research"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_basic_science_lab_3 } } } NOT = { has_modifier = self_aware_research } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { is_habitat_planet = no AND = { is_habitat_planet = yes has_planet_flag = research_habitat } } } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_research } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Minerals"	allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_minerals } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Food"	allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_food } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { is_gestalt = no has_technology = tech_luxuries_2 } } } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_consumers } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Alloys"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_alloys_2 } } } NOT = { has_modifier = self_aware_alloys } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_alloys } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Research"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_basic_science_lab_3 } } } NOT = { has_modifier = self_aware_research } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = research_habitat } } } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_research } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
 	option = { name = "UniqueAscensionPerksEvents.461.Trade"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_interstellar_economics is_gestalt = no } } } NOT = { has_modifier = self_aware_trade } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_trade } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Soldiers"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_centralized_command } } } NOT = { has_modifier = self_aware_army } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 is_habitat_planet = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_army } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Strategic"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_exotic_gases has_technology = tech_volatile_motes has_technology = tech_rare_crystals } } } NOT = { has_modifier = self_aware_strategic } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 is_habitat_planet = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_strategic } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Soldiers"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_centralized_command } } } NOT = { has_modifier = self_aware_army } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_army } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Strategic"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_exotic_gases has_technology = tech_volatile_motes has_technology = tech_rare_crystals } } } NOT = { has_modifier = self_aware_strategic } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_strategic } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
 	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"	allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes add_modifier = { modifier = self_aware_no_focus } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
 	option = {
 		name = "UniqueAscensionPerksEvents.461.Reset"
