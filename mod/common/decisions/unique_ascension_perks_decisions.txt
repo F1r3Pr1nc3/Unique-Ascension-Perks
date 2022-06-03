@@ -270,35 +270,78 @@ decision_robot_command = {
 decision_recomposer_life_to_ai = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
-	enactment_time = 10 # 480
+	enactment_time = 240 # 480
 	resources = {
 		category = decisions
-		cost = { energy = 500 minerals = 500 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 20 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 40 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 60 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 80 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 100 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 120 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 140 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 160 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 180 } } energy = 50 minerals = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 200 } } energy = 50 minerals = 50 }
+		cost = { energy = 400 minerals = 400 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 20 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 40 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 60 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 80 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 100 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 120 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 140 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 160 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 180 } } energy = 50 minerals = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = no } count >= 200 } } energy = 50 minerals = 50 }
 	}
-	potential = { owner = { has_country_flag = recomposer_project } is_under_colonization = no }
+	on_queued = {
+		set_variable = { which = num_non_robot_pop value = value:num_non_robot_pop }
+	}
+	on_unqueued = { clear_variable = num_non_robot_pop }
+	potential = {
+		exists = from
+		exists = owner
+		owner = { is_same_empire = from }
+		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
+		is_under_colonization = no
+
+	}
 	allow = {
-		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_1" count_owned_pop = { limit = { is_robot_pop = no } count >= 1 } }
-		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_2" owner = { any_owned_pop = { is_robot_pop = yes } } }
+		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_1" count_owned_pop = { limit = { is_robot_pop = no } count > 1 } }
+		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = yes } count > 1 } } }
+		owner = {
+			has_country_resource = { type = energy amount > 500 }
+			has_country_resource = { type = minerals amount > 500 }
+		}
 	}
 	effect = {
 		custom_tooltip = "decision_recomposer_life_to_ai_tooltip"
 		hidden_effect = {
-			planet_event = { id = UniqueAscensionPerksEvents.65 }
-			while = {
-				limit = { any_owned_pop = { is_robot_pop = no } }
-				owner = { random_owned_pop = { limit = { is_robot_pop = yes } prevprev = { create_pop = { species = prev } } } }
-				random_owned_pop = { limit = { is_robot_pop = no } kill_pop = yes }
+			export_trigger_value_to_variable = {
+				trigger = count_owned_pop
+				parameters = { limit = { is_robot_pop = no } }
+				variable = num_non_robot_pop
 			}
+			planet_event = { id = UniqueAscensionPerksEvents.65 }
+			# while = { count = num_non_robot_pop
+			# 	# limit = { any_owned_pop = { is_robot_pop = no } }
+			# 	from = {
+			# 		random_owned_pop = { limit = { is_robot_pop = yes }
+			# 			root = { create_pop = { species = prev } }
+			# 		}
+			# 	}
+			# 	# random_owned_pop = { limit = { is_robot_pop = no } kill_pop = yes }
+			# }
+			every_owned_pop = { limit = { is_robot_pop = no }
+				from = {
+					random_owned_pop = { limit = { is_robot_pop = yes }
+						root = { create_pop = { species = prev } }
+					}
+				}
+				if = {
+					limit = {
+						from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = minerals amount > 25 } }
+					}
+					kill_pop = yes
+				} else = { break = yes }
+			}
+		}
+		from = {
+			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
+		}
+		hidden_effect = {
+
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -307,35 +350,74 @@ decision_recomposer_life_to_ai = {
 decision_recomposer_ai_to_life = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
-	enactment_time = 10 # 480
+	enactment_time = 240 # 480
 	resources = {
 		category = decisions
-		cost = { energy = 500 food = 500 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 20 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 40 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 60 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 80 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 100 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 120 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 140 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 160 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 180 } } energy = 50 food = 50 }
-		cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 200 } } energy = 50 food = 50 }
+		cost = { energy = 400 food = 400 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 20 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 40 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 60 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 80 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 100 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 120 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 140 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 160 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 180 } } energy = 50 food = 50 }
+		# cost = { trigger = { count_owned_pop = { limit = { is_robot_pop = yes } count >= 200 } } energy = 50 food = 50 }
 	}
-	potential = { owner = { has_country_flag = recomposer_project } is_under_colonization = no }
+	on_queued = {
+		set_variable = { which = num_robot_pop value = value:num_robot_pop }
+	}
+	on_unqueued = { clear_variable = num_robot_pop }
+	potential = {
+		exists = from
+		exists = owner
+		owner = { is_same_empire = from }
+		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
+		is_under_colonization = no
+	}
 	allow = {
-		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_1" count_owned_pop = { limit = { is_robot_pop = yes } count >= 1 } }
-		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_2" owner = { any_owned_pop = { is_robot_pop = no } } }
+		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_1" count_owned_pop = { limit = { is_robot_pop = yes } count > 1 } }
+		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = no } count > 1 } } }
+		owner = {
+			has_country_resource = { type = energy amount > 500 }
+			has_country_resource = { type = food amount > 500 }
+		}
 	}
 	effect = {
 		custom_tooltip = "decision_recomposer_ai_to_life_tooltip"
 		hidden_effect = {
-			planet_event = { id = UniqueAscensionPerksEvents.66 }
-			while = {
-				limit = { any_owned_pop = { is_robot_pop = yes } }
-				owner = { random_owned_pop = { limit = { is_robot_pop = no } prevprev = { create_pop = { species = prev } } } }
-				random_owned_pop = { limit = { is_robot_pop = yes } kill_pop = yes }
+			export_trigger_value_to_variable = {
+				trigger = count_owned_pop
+				parameters = { limit = { is_robot_pop = yes } }
+				variable = num_robot_pop
 			}
+			planet_event = { id = UniqueAscensionPerksEvents.66 }
+			# while = { count = num_robot_pop
+			# 	# limit = { any_owned_pop = { is_robot_pop = yes } }
+			# 	from = {
+			# 		random_owned_pop = { limit = { is_robot_pop = no }
+			# 			root = { create_pop = { species = prev } }
+			# 		}
+			# 	}
+			# 	# random_owned_pop = { limit = { is_robot_pop = yes } kill_pop = yes }
+			# }
+			every_owned_pop = { limit = { is_robot_pop = yes }
+				from = {
+					random_owned_pop = { limit = { is_robot_pop = no }
+						root = { create_pop = { species = prev } }
+					}
+				}
+				if = {
+					limit = {
+						from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = food amount > 25 } }
+					}
+					kill_pop = yes
+				} else = { break = yes }
+			}
+		}
+		from = {
+			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -403,7 +485,7 @@ decision_ethic_shift = {
 	}
 	potential = { owner = { has_ascension_perk = ap_advanced_government_1 } is_under_colonization = no }
 	allow = {
-		custom_tooltip = { fail_text = "decision_ethic_shift_req_1" count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 10 } }
+		custom_tooltip = { fail_text = "decision_ethic_shift_req_1" count_owned_pop = { limit = { pop_has_right_ethics = yes } count > 9 } }
 		custom_tooltip = { fail_text = "decision_ethic_shift_req_2" NOT = { has_planet_flag = decision_ethic_shift_cooldown } }
 	}
 	effect = {
@@ -431,10 +513,7 @@ decision_hivemind_reserve = {
 			custom_tooltip = {
 				fail_text = requires_max_5_times_fail_simple
 				success_text = requires_max_5_times_hivemind_reserve
-				check_variable = {
-					which = hivemind_reserve_happened
-					value < 5
-				}
+				check_variable = { which = hivemind_reserve_happened value < 5 }
 			}
 		} else = {
 			custom_tooltip = {
@@ -482,10 +561,7 @@ decision_hivemind_reserve_unhabited = {
 			custom_tooltip = {
 				fail_text = requires_max_5_times_fail_simple
 				success_text = requires_max_5_times_hivemind_reserve
-				check_variable = {
-					which = hivemind_reserve_happened
-					value < 5
-				}
+				check_variable = { which = hivemind_reserve_happened value < 5 }
 			}
 		} else = {
 			custom_tooltip = {
@@ -936,9 +1012,7 @@ decision_end_deep_scanner = {
 	allow = {
 		custom_tooltip = { fail_text = "decision_deep_scanner_req_1" has_modifier = pm_deep_scanner NOT = { has_planet_flag = decision_deep_scanner_cooldown } }
 	}
-	effect = {
-		remove_modifier = pm_deep_scanner
-	}
+	effect = { remove_modifier = pm_deep_scanner }
 	ai_weight = {
 		weight = 1
 		modifier = { factor = 5 NOT = { has_active_building = building_deep_space_scanner } }

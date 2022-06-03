@@ -16,7 +16,7 @@ country_event = { # Militarist - Unity by destroying ships.
 			}
 		}
 	}
-	immediate ={
+	immediate = {
 		fromfromfrom = {
 			switch = {
 				trigger = is_ship_size
@@ -163,10 +163,9 @@ country_event = { # Militarist - Unity by destroying ships.
 				military_station_large				= { ROOT = { add_resource = { unity = 12 } break = yes } }
 				military_station_xl_bulwark			= { ROOT = { add_resource = { unity = 32 } break = yes } }
 				military_station_xxl_citadel		= { ROOT = { add_resource = { unity = 20 } break = yes } }
+				default = { ROOT = { add_resource = { unity = 4 } } } # Somehow failed to give unity, so give fixed unity.
 			}
 		}
-		# Somehow failed to give unity, so give fixed unity.
-		add_resource = { unity = 4 }
 	}
 }
 
@@ -224,6 +223,7 @@ country_event = { # Spiritualist - Unity by number of happy pop.
 	}
 }
 
+# v3.4 halved values (due self loop)
 country_event = { # Libetarian - Unity by electing a ruler.
 	id = EthicUnityEvents.5
 	hide_window = yes
@@ -232,7 +232,7 @@ country_event = { # Libetarian - Unity by electing a ruler.
 		is_egalitarian = yes
 		has_ascension_perk = ap_advanced_government_2
 	}
-	immediate = { add_monthly_resource_mult = { resource = unity value = 20 min = 20 max = 5000 } }
+	immediate = { add_monthly_resource_mult = { resource = unity value = 10 min = 10 max = 2500 } }
 }
 
 country_event = { # Authoritarian & Xenophobe - Unity by number of slaves.
@@ -755,6 +755,7 @@ country_event = { # Materialist & Industrialist - Unity by building megastructur
 	immediate = { add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 } }
 }
 
+# v3.4 halved values
 country_event = { # Libetarian - Unity by starting election.
 	id = EthicUnityEvents.41
 	hide_window = yes
@@ -763,7 +764,7 @@ country_event = { # Libetarian - Unity by starting election.
 		is_egalitarian = yes
 		has_ascension_perk = ap_advanced_government_2
 	}
-	immediate = { add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 } }
+	immediate = { add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 } }
 }
 
 # on_yearly_pulse

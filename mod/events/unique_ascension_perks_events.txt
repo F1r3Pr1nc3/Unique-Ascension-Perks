@@ -2277,9 +2277,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.64.Desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_recomposer
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { set_country_flag = recomposer_project }
+	trigger = { has_ascension_perk = ap_recomposer }
+	immediate = { set_country_flag = recomposer_project get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		add_monthly_resource_mult = { resource = engineering_research value = 22 min = 5000 max = 15000 }
@@ -3141,9 +3142,7 @@ country_event = {
 	# pre_triggers = { has_owner = yes }
 	trigger = {
 		has_ascension_perk = ap_advanced_government_1
-		any_owned_planet = {
-			any_owned_pop = { pop_has_right_ethics = no }
-		}
+		any_owned_pop = { exists = planet pop_has_right_ethics = no }
 	}
 	immediate = {
 		# shift_all_pops_ethics while = { limit = { any_owned_pop = { pop_has_right_ethics = no } }
@@ -3177,7 +3176,14 @@ planet_event = {
 	location = event_target:ethic_planet
 	is_triggered_only = yes
 	immediate = {
-		set_variable = { which = num_ethic_pop_on_planet value = value:num_ethic_pop_on_planet }
+		# set_variable = { which = num_ethic_pop_on_planet value = value:num_ethic_pop_on_planet }
+		export_trigger_value_to_variable = {
+			trigger = count_owned_pop
+			parameters = {
+				limit = { pop_has_right_ethics = no }
+			}
+			variable = num_ethic_pop_on_planet
+		}
 	}
 	after = { clear_variable = num_ethic_pop_on_planet }
 	option = {
