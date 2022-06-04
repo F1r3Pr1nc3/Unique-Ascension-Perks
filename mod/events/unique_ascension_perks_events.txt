@@ -1127,6 +1127,7 @@ country_event = {
 	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_RECOVER_SHIPS location = event_target:capital_planet owner = root } }
 }
 
+# TODO needs more ship classes
 # on_ship_destroyed_victim
 country_event = {
 	id = UniqueAscensionPerksEvents.48
@@ -1221,9 +1222,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.49.Desc"
 	show_sound = event_construction
 	picture = GFX_evt_scavenger_bot
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	immediate = {
+		get_capital_planet = yes
 		set_country_flag = ap_recycling_drones_project
 		set_variable = { which = ship_corvette_recovered value = 0 }
 		set_variable = { which = ship_destroyer_recovered value = 0 }
@@ -1235,12 +1237,15 @@ country_event = {
 		name = EXCELLENT
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
 		hidden_effect = {
-			country_event = { id = UniqueAscensionPerksEvents.3053 days = 30 random = 30 }
-			capital_scope = { solar_system = { set_star_flag = recycle_fleet_spawn_system } }
+			event_target:capital_planet = {
+				planet_event = { id = UniqueAscensionPerksEvents.3053 days = 30 random = 30 }
+				solar_system = { set_star_flag = recycle_fleet_spawn_system }
+			}
 		}
 	}
 }
 
+# TODO needs more ship classes
 # on_ship_destroyed_perp
 country_event = {
 	id = UniqueAscensionPerksEvents.50
@@ -1426,27 +1431,33 @@ country_event = {
 	}
 }
 
-country_event = {
+# From = owner
+planet_event = {
 	id = UniqueAscensionPerksEvents.3053
 	title = "RECYCLE_PERFORM_SHIPS"
 	desc = "RECYCLE_PERFORM_SHIPS_DESC"
 	show_sound = event_construction
 	picture = GFX_evt_scavenger_bot
-	location = event_target:capital_planet
+	location = root # event_target:capital_planet
+	pre_triggers = { has_owner = yes }
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes set_country_flag = ap_recycling_drones_project_upgrade_added }
-	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = event_target:capital_planet owner = root } }
+	immediate = {
+		# get_capital_planet = yes
+		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
+	}
+	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = root owner = root.from } }
 }
 
-country_event = {
+planet_event = {
 	id = UniqueAscensionPerksEvents.3054
 	title = "RECYCLE_PERFORM_SHIPS"
 	desc = "UniqueAscensionPerksEvents.3054.Desc"
 	show_sound = event_construction
 	picture = GFX_evt_scavenger_bot
-	location = capital_scope
+	location = root
+	pre_triggers = { has_owner = yes }
 	is_triggered_only = yes
-	immediate = { set_country_flag = ap_recycling_drones_project_upgrade }
+	immediate = { owner = { set_country_flag = ap_recycling_drones_project_upgrade } }
 	option = { name = EXCELLENT }
 }
 
@@ -3005,7 +3016,18 @@ planet_event = {
 		name = "CORVETTE"
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 150 } } }
 		owner = { add_resource = { alloys = -150 } }
-		galaxy_center_build_corvette = yes
+		# galaxy_center_build_corvette = yes
+		create_fleet = {
+			effect = {
+				set_owner = root.owner
+				create_ship = { name = random design = "Standard Basic Corvette" }
+				set_location = { target = root distance = 8 angle = random }
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = recovery_fleet
+			}
+		}
 		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
@@ -3014,7 +3036,18 @@ planet_event = {
 		name = "DESTROYER"
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 300 } has_technology = tech_destroyers } }
 		owner = { add_resource = { alloys = -300 } }
-		galaxy_center_build_destroyer = yes
+		# galaxy_center_build_destroyer = yes
+		create_fleet = {
+			effect = {
+				set_owner = root.owner
+				create_ship = { name = random design = "Standard Basic Destroyer" }
+				set_location = { target = root distance = 8 angle = random }
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = recovery_fleet
+			}
+		}
 		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
@@ -3023,7 +3056,18 @@ planet_event = {
 		name = "CRUISER"
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 550 } has_technology = tech_cruisers } }
 		owner = { add_resource = { alloys = -550 } }
-		galaxy_center_build_cruiser = yes
+		# galaxy_center_build_cruiser = yes
+		create_fleet = {
+			effect = {
+				set_owner = root.owner
+				create_ship = { name = random design = "Standard Basic Cruiser" }
+				set_location = { target = root distance = 8 angle = random }
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = recovery_fleet
+			}
+		}
 		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
@@ -3032,7 +3076,18 @@ planet_event = {
 		name = "BATTLESHIP"
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 900 } has_technology = tech_battleships } }
 		owner = { add_resource = { alloys = -900 } }
-		galaxy_center_build_battleship = yes
+		# galaxy_center_build_battleship = yes
+		create_fleet = {
+			effect = {
+				set_owner = root.owner
+				create_ship = { name = random design = "Standard Basic Battleship" }
+				set_location = { target = root distance = 8 angle = random }
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = recovery_fleet
+			}
+		}
 		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
