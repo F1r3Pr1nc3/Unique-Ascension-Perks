@@ -2359,19 +2359,32 @@ event = {
 	trigger = {
 		OR = {
 			AND = {
-				any_country = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp }
-				any_country = { merg_is_default_empire = yes is_gestalt = no NOT = { has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target } }
+				any_country = { merg_is_default_empire = yes NOR = { is_gestalt = yes has_modifier = aggressive_marketing_target } has_ascension_perk = ap_megacorp }
+				any_country = { merg_is_default_empire = yes NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target } }
 			}
 			any_country = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
 		}
 	}
 	immediate = {
 		random_playable_country = {
-			limit = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
-			remove_modifier = aggressive_marketing_target
+			limit = { merg_is_default_empire = yes NOR = { is_gestalt = yes has_modifier = aggressive_marketing_target } has_ascension_perk = ap_megacorp }
+			save_event_target_as = aggressive_marketing_megacorp
 		}
 		random_playable_country = {
-			limit = { NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target } }
+			limit = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
+			remove_modifier = aggressive_marketing_target
+			save_event_target_as = aggressive_marketing_megacorp
+		}
+		random_playable_country = {
+			limit = {
+				NOR = {
+					is_gestalt = yes
+					has_ascension_perk = ap_megacorp
+					has_modifier = aggressive_marketing_target
+					is_at_war_with = event_target:aggressive_marketing_megacorp
+					is_hostile = event_target:aggressive_marketing_megacorp
+				}
+			}
 			add_modifier = { modifier = aggressive_marketing_target }
 		}
 	}
