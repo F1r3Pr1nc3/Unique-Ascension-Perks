@@ -46,7 +46,7 @@ decision_nature_pacification = {
 		custom_tooltip = "decision_nature_pacification_tooltip"
 		hidden_effect = {
 			# nature_pacification_effect = yes
-			### (Mod) Guilli Planet Modifier - Compability
+			### (Mod) Guilli Planet Modifier - compatibility
 			set_planet_flag = planet_nature_pacified
 			planet_event = { id = UniqueAscensionPerksEvents.60 }
 			# Green Modifers (Unused) ===> titanic_life asteroid_belt carbon_world
@@ -292,7 +292,7 @@ decision_recomposer_life_to_ai = {
 	potential = {
 		exists = from
 		exists = owner
-		owner = { is_same_empire = from }
+		is_owned_by = from
 		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
 		is_under_colonization = no
 
@@ -372,7 +372,7 @@ decision_recomposer_ai_to_life = {
 	potential = {
 		exists = from
 		exists = owner
-		owner = { is_same_empire = from }
+		is_owned_by = from
 		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
 		is_under_colonization = no
 	}
@@ -592,6 +592,7 @@ decision_primitive_creation = {
 		exists = from
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
+		has_owner = no
 		OR = {
 			habitable_planet = yes
 			is_city_planet = yes
@@ -599,7 +600,6 @@ decision_primitive_creation = {
 			merg_is_habitat = yes
 			is_planet_class = pc_nuked
 		}
-		has_owner = no
 	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
@@ -619,6 +619,7 @@ decision_primitive_creation_unhabitable = {
 		exists = from
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
+		has_owner = no
 		OR = {
 			is_planet_class = pc_molten
 			is_planet_class = pc_toxic
@@ -626,11 +627,14 @@ decision_primitive_creation_unhabitable = {
 			is_planet_class = pc_barren
 			is_planet_class = pc_barren_cold
 		}
-		has_owner = no
 	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		if = { limit = { is_planet_class = pc_molten } change_pc = pc_desert } else_if = { limit = { is_planet_class = pc_toxic } change_pc = pc_continental } else_if = { limit = { is_planet_class = pc_frozen } change_pc = pc_alpine } else_if = { limit = { is_planet_class = pc_barren } change_pc = pc_desert } else_if = { limit = { is_planet_class = pc_barren_cold } change_pc = pc_tundra }
+		if = { limit = { is_planet_class = pc_molten } change_pc = pc_desert }
+		else_if = { limit = { is_planet_class = pc_toxic } change_pc = pc_continental }
+		else_if = { limit = { is_planet_class = pc_frozen } change_pc = pc_alpine }
+		else_if = { limit = { is_planet_class = pc_barren } change_pc = pc_desert }
+		else_if = { limit = { is_planet_class = pc_barren_cold } change_pc = pc_tundra }
 		reset_planet = yes
 		set_planet_flag = primitive_creation_done
 		create_primitive_retro_country = yes

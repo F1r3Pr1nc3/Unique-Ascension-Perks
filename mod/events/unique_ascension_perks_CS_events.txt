@@ -196,6 +196,7 @@ planet_event = {
 	}
 }
 
+# Notify
 # From = event_target:civilian_convoy_fleet
 planet_event = {
 	id = UniqueAscensionPerksEvents.264
@@ -452,7 +453,7 @@ country_event = {
 						has_fleet_flag = civilian_convoy_fleet
 						is_fleet_idle = yes
 					}
-					remove_fleet_flag = civilian_convoy_fleet_moving_order
+					# remove_fleet_flag = civilian_convoy_fleet_moving_order
 					fleet_event = { id = UniqueAscensionPerksEvents.267 days = 4 random = 8 }
 				}
 			} else = {
@@ -534,15 +535,16 @@ fleet_event = {
 					NOT = { has_planet_flag = civilian_convoy_fleet_target }
 					is_valid_planet_civilian_space_activities_fleet_action = yes
 				}
-				# save_event_target_as = move_location
+				save_event_target_as = move_location
 				set_timed_planet_flag = { flag = civilian_convoy_fleet_target months = 1 }
 				root = {
 					set_fleet_flag = domesticated_security_fleet_defending
-					set_timed_fleet_flag = { flag = civilian_convoy_fleet_moving_order days = 45 }
+					# set_timed_fleet_flag = { flag = civilian_convoy_fleet_moving_order days = 45 } # TODO never used?
 					auto_move_to_planet = {
-						target = prev # event_target:move_location
-						clear_auto_move_on_arrival = yes
+						target = event_target:move_location
 						arrival_effect = civilian_space_activities_civilian_convoy_fleet_arrival
+						clear_auto_move_on_arrival = no
+						# destroy_on_arrival = yes
 					}
 				}
 			}
@@ -550,13 +552,16 @@ fleet_event = {
 	}
 }
 
+# By civilian_space_activities_civilian_convoy_fleet_arrival
 # From = civilian_convoy_fleet
 planet_event = {
 	id = UniqueAscensionPerksEvents.268
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		# log="\\[From.GetName] arrives at \\[This.GetName]"
 		from = {
+			save_event_target_as = civilian_convoy_fleet
 			switch = {
 				trigger = has_fleet_flag
 				civilian_convoy_fleet_capital_world =	{ root = { if = { limit = { count_deposits = { type = d_civilian_cargo_capital_world count < 5 } }	add_deposit = d_civilian_cargo_capital_world }	change_variable = { which = d_civilian_cargo_capital_world_cooldown value = 20 } } }
@@ -577,8 +582,7 @@ planet_event = {
 			}
 		}
 		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_civilian_activities_no_warning } } }
-			from = { save_event_target_as = civilian_convoy_fleet }
-			planet_event = { id = UniqueAscensionPerksEvents.264 scopes = { from = from } }
+			planet_event = { id = UniqueAscensionPerksEvents.264 scopes = { from = event_target:civilian_convoy_fleet } } # Notify
 		} else = { delete_fleet = from }
 	}
 }

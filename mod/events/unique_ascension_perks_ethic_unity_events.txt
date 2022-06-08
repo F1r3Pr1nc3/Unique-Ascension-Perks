@@ -640,10 +640,7 @@ country_event = { # Pacifist - Unity by ending war.
 		OR = {
 			AND = { has_ethic = ethic_pacifist has_ascension_perk = ap_advanced_government_2 }
 			AND = { has_ethic = ethic_fanatic_pacifist has_ascension_perk = ap_advanced_government_2 }
-			From = {
-				is_pacifist = yes
-				has_ascension_perk = ap_advanced_government_2
-			}
+			AND = { exists = from from = { is_pacifist = yes has_ascension_perk = ap_advanced_government_2 } }
 		}
 	}
 	immediate = {
@@ -651,11 +648,9 @@ country_event = { # Pacifist - Unity by ending war.
 			limit = { is_pacifist = yes }
 			add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 }
 		}
-		From = {
-			if = {
-				limit = { is_pacifist = yes }
-				add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 }
-			}
+		if = {
+			limit = { exists = from from = { is_pacifist = yes } }
+			from = { add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 } }
 		}
 	}
 }

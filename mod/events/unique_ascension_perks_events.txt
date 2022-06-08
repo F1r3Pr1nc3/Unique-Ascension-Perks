@@ -373,7 +373,7 @@ country_event = {
 		}
 	}
 }
-
+# on_tech_increased
 country_event = {
 	id = UniqueAscensionPerksEvents.34
 	title = "tech_expandable_brain_1"
@@ -383,6 +383,7 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
+		merg_is_default_empire = yes
 		has_technology = tech_expandable_brain_1
 		NOT = { has_country_flag = tech_expandable_brain_1_project }
 	}
@@ -390,9 +391,10 @@ country_event = {
 		set_country_flag = tech_expandable_brain_1_project
 		get_capital_planet = yes
 	}
-	option = { name = EXCELLENT
+	after = {
 		enable_special_project = { name = EXPANDABLE_BRAIN_2 location = event_target:capital_planet owner = root }
 	}
+	option = { name = EXCELLENT }
 }
 
 country_event = {
@@ -421,13 +423,17 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.36.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_5
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
+		merg_is_default_empire = yes
 		has_technology = tech_expandable_brain_2
 		NOT = { has_country_flag = tech_expandable_brain_2_project }
 	}
-	immediate = { set_country_flag = tech_expandable_brain_2_project }
+	immediate = {
+		set_country_flag = tech_expandable_brain_2_project
+		get_capital_planet = yes
+	}
 	option = { name = EXCELLENT }
 }
 
@@ -1441,9 +1447,14 @@ planet_event = {
 	location = root # event_target:capital_planet
 	pre_triggers = { has_owner = yes }
 	is_triggered_only = yes
+	trigger = {
+		exists = owner # pre_trigger seems not sufficient
+	}
 	immediate = {
-		# get_capital_planet = yes
-		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
+		from = {
+			# get_capital_planet = yes
+			set_country_flag = ap_recycling_drones_project_upgrade_added
+		}
 	}
 	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = root owner = root.from } }
 }
@@ -1456,6 +1467,9 @@ planet_event = {
 	picture = GFX_evt_scavenger_bot
 	location = root
 	pre_triggers = { has_owner = yes }
+	trigger = {
+		exists = owner # pre_trigger seems not sufficient
+	}
 	is_triggered_only = yes
 	immediate = { owner = { set_country_flag = ap_recycling_drones_project_upgrade } }
 	option = { name = EXCELLENT }
@@ -3099,6 +3113,12 @@ event = {
 	id = UniqueAscensionPerksEvents.86
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		any_playable_country = {
+			has_ascension_perk = ap_galaxy_center
+			any_owned_planet = { has_planet_flag = galaxy_center_planet }
+		}
+	}
 	immediate = {
 		# galaxy_center_yearly_effect = yes
 		random_playable_country = {
@@ -3330,169 +3350,6 @@ country_event = {
 	location = from
 	is_triggered_only = yes
 	option = { name = EXCELLENT }
-}
-
-######################################
-#									 #
-########### Spreading Will ###########
-#									 #
-######################################
-
-country_event = {
-	id = UniqueAscensionPerksEvents.125
-	title = "ap_connected_hivemind"
-	desc = "ap_connected_hivemind_desc"
-	picture = GFX_evt_connected_hivemind
-	show_sound = event_psionic
-	location = from
-	is_triggered_only = yes
-	option = { name = EXCELLENT }
-}
-
-# Convert all pops on_yearly_pulse
-event = {
-	id = UniqueAscensionPerksEvents.126
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		random_playable_country = {
-			limit = {
-				is_hive_empire = yes
-				has_ascension_perk = ap_connected_hivemind
-				any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
-			}
-			every_owned_planet = {
-				limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
-				every_owned_pop = {
-					limit = { is_robot_pop = no NOT = { is_same_species = owner_species } }
-					prev = { create_pop = { species = owner_species } }
-					kill_pop = yes
-				}
-				# while = {
-				# 	limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
-				# 	create_pop = { species = prevprev }
-				# 	random_owned_pop = { limit = { is_robot_pop = no NOT = { is_same_species = owner_species } } kill_pop = yes }
-				# }
-			}
-		}
-	}
-}
-
-######################################
-#									 #
-######### Connected Reserves #########
-#									 #
-######################################
-
-country_event = {
-	id = UniqueAscensionPerksEvents.127
-	title = "ap_hivemind_reserve"
-	desc = "ap_hivemind_reserve_desc"
-	picture = GFX_evt_hivemind_reserve
-	show_sound = event_mystic_reveal
-	location = from
-	is_triggered_only = yes
-	option = { name = EXCELLENT }
-}
-
-# Decision Ready Notify
-# Root = event_target:hivemind_reserve_planet
-planet_event = {
-	id = UniqueAscensionPerksEvents.3128
-	title = "UniqueAscensionPerksEvents.3128.Name"
-	desc = "UniqueAscensionPerksEvents.3128.Desc"
-	picture = GFX_evt_hivemind_reserve
-	show_sound = event_mystic_reveal
-	location = root
-	is_triggered_only = yes
-	pre_triggers = { has_owner = yes }
-	trigger = { exists = owner is_colonizable = no }
-	immediate = {
-		if = { limit = { NOT = { is_variable_set = hivemind_reserve_happened } }
-			set_variable = { which = hivemind_reserve_happened value = 0 }
-		}
-	}
-	option = { name = OK ai_chance = { factor = 0 } }
-	option = {
-		name = "UniqueAscensionPerksEvents.3128.a"
-		trigger = { NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } check_variable = { which = hivemind_reserve_happened value < 5 } }
-		allow = {
-			owner = { resource_stockpile_compare = { resource = food value > 900 } }
-			OR = {
-				is_owned_by = root
-				AND = { solar_system = { exists = space_owner space_owner = { is_same_empire = root } } }
-			}
-		}
-		owner = { add_resource = { food = -900 } }
-		custom_tooltip = "UniqueAscensionPerksEvents.3128.a.tooltip"
-		add_deposit = d_hivemind_reserve
-		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown months = 18 }
-		planet_event = { id = UniqueAscensionPerksEvents.3128 days = 542 }
-		change_variable = { which = hivemind_reserve_happened value = 1 }
-	}
-}
-
-# MTTH notify
-planet_event = {
-	id = UniqueAscensionPerksEvents.3129
-	title = "UniqueAscensionPerksEvents.3129.Name"
-	desc = "UniqueAscensionPerksEvents.3129.Desc"
-	picture = GFX_evt_hivemind_reserve
-	show_sound = event_mystic_reveal
-	location = root
-	pre_triggers = { has_owner = yes is_ai = no }
-	is_triggered_only = yes
-	trigger = {
-		exists = owner
-		owner = { is_ai = no has_ascension_perk = ap_hivemind_reserve NOT = { has_country_flag = ap_hivemind_reserve_new_pop_no_warning } }
-		has_deposit = d_hivemind_reserve
-	}
-	option = { name = EXCELLENT }
-	option = {
-		name = "UniqueAscensionPerks.no_message"
-		owner = {
-			set_country_flag = ap_hivemind_reserve_new_pop_no_warning
-			custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
-		}
-	}
-}
-
-planet_event = {
-	id = UniqueAscensionPerksEvents.3130
-	hide_window = yes
-	location = root
-	mean_time_to_happen = {
-		months = 70
-		modifier = { factor = value:hivemind_reserves } # v3.3 using only 5 and scripted value TODO working test
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 1 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 3 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 5 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 7 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 9 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 11 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 13 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 15 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 17 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 19 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 21 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 23 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 25 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 27 } }
-		# modifier = { factor = 0.9 count_deposits = { type = d_hivemind_reserve count > 29 } }
-	}
-	pre_triggers = { has_owner = yes }
-	trigger = {
-		exists = owner
-		owner = { is_hive_empire = yes has_ascension_perk = ap_hivemind_reserve }
-		has_deposit = d_hivemind_reserve
-	}
-	immediate = {
-		# random_owned_planet = { limit = { has_deposit = d_hivemind_reserve }
-		create_pop = { species = owner_main_species }
-		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
-			planet_event = { id = UniqueAscensionPerksEvents.3129 } # notify
-		}
-	}
 }
 
 ######################################
