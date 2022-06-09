@@ -214,7 +214,7 @@ system_event = {
 	desc = "UniqueAscensionPerksEvents.21.Desc"
 	picture = GFX_evt_system_localization
 	show_sound = event_laboratory_sound
-	location = this
+	location = root
 	is_triggered_only = yes
 	# immediate = { save_event_target_as = located_system }
 	option = { name = EXCELLENT }
@@ -1881,7 +1881,7 @@ ship_event = {
 	desc = "UniqueAscensionPerksEvents.8060.Desc"
 	show_sound = event_public_unrest
 	picture = GFX_evt_security_forces
-	location = this
+	location = root
 	is_triggered_only = yes
 	immediate = {
 		# save_event_target_as = ship_escorted
@@ -2357,25 +2357,25 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			AND = {
-				any_country = { merg_is_default_empire = yes NOR = { is_gestalt = yes has_modifier = aggressive_marketing_target } has_ascension_perk = ap_megacorp }
-				any_country = { merg_is_default_empire = yes NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target } }
+		any_playable_country = {
+			is_gestalt = no
+			has_ascension_perk = ap_megacorp
+			OR = {
+				has_modifier = aggressive_marketing_target
+				any_relation = {
+					merg_is_default_empire = yes
+					NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
+				}
 			}
-			any_country = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
 		}
 	}
 	immediate = {
 		random_playable_country = {
-			limit = { merg_is_default_empire = yes NOR = { is_gestalt = yes has_modifier = aggressive_marketing_target } has_ascension_perk = ap_megacorp }
-			save_event_target_as = aggressive_marketing_megacorp
-		}
-		random_playable_country = {
-			limit = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
-			remove_modifier = aggressive_marketing_target
-			save_event_target_as = aggressive_marketing_megacorp
-		}
-		event_target:aggressive_marketing_megacorp = {
+			limit = { merg_is_default_empire = yes is_gestalt = no has_ascension_perk = ap_megacorp }
+			weights = { base = 1 modifier = { add = 1 has_modifier = aggressive_marketing_target } }
+			if = { limit = { has_modifier = aggressive_marketing_target }
+				remove_modifier = aggressive_marketing_target
+			}
 			random_relation = {
 				limit = {
 					merg_is_default_empire = yes
@@ -2875,7 +2875,7 @@ planet_event = {
 	force_open = yes
 	picture_event_data = { room = galaxy_center_room }
 	is_triggered_only = yes
-	location = this
+	location = root
 	option = { name = "DEPOSITS_TITLE" hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.85 } } }
 	option = {
 		name = "UniqueAscensionPerksEvents.84.Casino"
@@ -7011,7 +7011,8 @@ planet_event = {
 		name = "UniqueAscensionPerksEvents.461.Reset"
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
 		hidden_effect = {
-			reset_self_aware_planet = { POPS = root.trigger:num_pops } # TODO
+			set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
+			reset_self_aware_planet = { POPS = num_pops_self_aware_planet } # TODO
 			planet_event = { id = UniqueAscensionPerksEvents.461 }
 		}
 	}

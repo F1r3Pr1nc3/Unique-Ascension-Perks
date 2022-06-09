@@ -71,27 +71,23 @@ active_cortana_ai = {
 	# resources = { category = edicts cost = { } }
 	allow = {
 		OR = {
-			AND = {
-				NOT = { has_technology = tech_cortana_optimized }
-				resource_stockpile_compare = { resource = energy value > 5000 }
-			}
+			resource_stockpile_compare = { resource = energy value > 5000 }
 			AND = {
 				has_technology = tech_cortana_optimized
 				resource_stockpile_compare = { resource = energy value > 4000 }
 			}
 		}
-		NOT = { has_active_event = { CortanaEvent.1 } }
+		NOT = { has_active_event = { CortanaEvent.0 CortanaEvent.1 } }
 	}
 	potential = {
-		NOT = { has_country_flag = cortana_cooldown }
 		has_ascension_perk = ap_ai_cortana
+		NOT = { has_country_flag = cortana_cooldown }
 	}
 	# resources = { category = edicts cost = { energy = 5000 } }
 	ai_weight = { weight = 0 }
 	effect = {
 		add_resource = { energy = -5000 }
-		if = {
-			limit = { has_technology = tech_cortana_optimized }
+		if = { limit = { has_technology = tech_cortana_optimized }
 			add_resource = { energy = 1000 }
 		}
 		country_event = { id = CortanaEvent.1 }
