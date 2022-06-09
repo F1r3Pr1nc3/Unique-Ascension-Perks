@@ -2375,17 +2375,25 @@ event = {
 			remove_modifier = aggressive_marketing_target
 			save_event_target_as = aggressive_marketing_megacorp
 		}
-		random_playable_country = {
-			limit = {
-				NOR = {
-					is_gestalt = yes
-					has_ascension_perk = ap_megacorp
-					has_modifier = aggressive_marketing_target
-					is_at_war_with = event_target:aggressive_marketing_megacorp
-					is_hostile = event_target:aggressive_marketing_megacorp
+		event_target:aggressive_marketing_megacorp = {
+			random_relation = {
+				limit = {
+					merg_is_default_empire = yes
+					NOR = {
+						is_gestalt = yes
+						has_ascension_perk = ap_megacorp
+						has_modifier = aggressive_marketing_target
+						is_at_war_with = prev
+						is_hostile = prev
+					}
 				}
+				weights = {
+					base = 1
+					modifier = { add = 2 is_friendly_to = prev }
+					modifier = { add = 1 is_protective_to = prev }
+				}
+				add_modifier = { modifier = aggressive_marketing_target }
 			}
-			add_modifier = { modifier = aggressive_marketing_target }
 		}
 	}
 }

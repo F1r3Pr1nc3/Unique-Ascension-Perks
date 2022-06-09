@@ -471,7 +471,6 @@ improver = {
 
 constructor = {
 	category = simple_drone
-	is_capped_by_modifier = no
 	condition_string = DRONE_JOB_TRIGGER
 	building_icon = building_production_center
 	possible_pre_triggers = {
@@ -479,6 +478,7 @@ constructor = {
 		# is_enslaved = no
 		is_being_purged = no
 		is_being_assimilated = no
+		is_sapient = yes
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
@@ -494,7 +494,14 @@ constructor = {
 		upkeep = { minerals = 5 }
 	}
 	planet_modifier = { planet_pop_assembly_add = 0.5 planet_amenities_no_happiness_add = 3 }
-	weight = { weight = 2 }
+	weight = {
+		weight = @simple_drone_job_weight
+		mult = value:job_weights_modifier|JOB|constructor|RESOURCE|alloys|
+		modifier = {
+			factor = 0
+			planet = { num_pops < 2 } # Odd Factory should not risk completely depopulating a colony
+		}
+	}
 }
 
 recycler = {
