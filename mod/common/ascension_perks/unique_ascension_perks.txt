@@ -197,7 +197,9 @@ ap_nano_to_nanite = {
 	potential = { NOT = { has_ascension_perk = ap_nano_to_nanite } }
 	ai_weight = { factor = 0 }
 }
+
 # Genius Pregnancy
+# v3.4 reduced growth_speed
 ap_genius_cloning = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_genius_cloning_req_1" has_technology = tech_cloning }
@@ -205,7 +207,7 @@ ap_genius_cloning = {
 		custom_tooltip = { fail_text = "ap_genius_cloning_req_3" tradition_expansion_finish = yes }
 		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
 	}
-	modifier = { pop_growth_speed = 0.3 }
+	modifier = { pop_growth_speed = 0.2 } # 0.3 < v3.4
 	on_enabled = {
 		custom_tooltip = "ap_genius_cloning_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.41 } }
@@ -219,8 +221,8 @@ ap_genius_cloning = {
 		}
 	}
 	ai_weight = {
-		factor = 10
-		modifier = { factor = 5 is_hive_empire = yes }
+		factor = 0 # 10 TODO performance issue
+		# modifier = { factor = 5 is_hive_empire = yes }
 	}
 }
 
