@@ -723,7 +723,7 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = EXCELLENT give_technology = { tech = tech_breeding_facility } }
 }
-# on_pop_grown
+# on_pop_grown (legacy v3.3)
 planet_event = {
 	id = UniqueAscensionPerksEvents.42
 	hide_window = yes
@@ -732,7 +732,7 @@ planet_event = {
 	trigger = { exists = owner owner = { has_ascension_perk = ap_genius_cloning } OR = { is_capital = yes colony_age > 1 } }
 	immediate = { random = { chance = 33 create_pop = { species = fromfrom } } }
 }
-# on_monthly_pulse_country
+# on_monthly_pulse_country (similar to ap_robot_command)
 country_event = {
 	id = UniqueAscensionPerksEvents.3043
 	hide_window = yes
@@ -741,35 +741,42 @@ country_event = {
 	# pre_triggers = { has_owner = yes }
 	trigger = {
 		has_ascension_perk = ap_genius_cloning
-		any_owned_planet = { is_colony = yes has_building = building_breeding_facility }
+		# any_owned_planet = { is_colony = yes has_building = building_breeding_facility }
 	}
 	immediate = {
-		every_owned_planet = {
-			limit = { is_colony = yes has_building = building_breeding_facility }
-			if = {
-				limit = { num_buildings = { type = building_breeding_facility value > 0 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3044 days = 1 random = 10 } }
+		if = { limit = { has_country_flag = ap_genius_cloning_cycle any_owned_planet = { is_colony = yes has_building = building_breeding_facility } }
+			remove_country_flag = ap_genius_cloning_cycle # all 2 months
+			every_owned_planet = {
+				limit = { is_colony = yes has_building = building_breeding_facility }
+				set_variable = { which = building_breeding_facility value = value:num_breeding_facility }
+				if = { limit = { check_variable = { which = building_breeding_facility value > 0 } }
+					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3044 days = 5 random = 5 } }
+					if = { limit = { check_variable = { which = building_breeding_facility value > 1 } }
+						random = { chance = 75 planet_event = { id = UniqueAscensionPerksEvents.3045 days = 5 random = 5 } }
+						if = { limit = { check_variable = { which = building_breeding_facility value > 2 } }
+							random = { chance = 70 planet_event = { id = UniqueAscensionPerksEvents.3046 days = 5 random = 5 } }
+							if = { limit = { check_variable = { which = building_breeding_facility value > 3 } }
+								random = { chance = 65 planet_event = { id = UniqueAscensionPerksEvents.3047 days = 5 random = 5 } }
+								if = { limit = { check_variable = { which = building_breeding_facility value > 4 } }
+									random = { chance = 60 planet_event = { id = UniqueAscensionPerksEvents.3048 days = 5 random = 5 } }
+								}
+							}
+						}
+					}
+				}
 			}
-			if = {
-				limit = { num_buildings = { type = building_breeding_facility value > 1 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3045 days = 1 random = 10 } }
-			}
-			if = {
-				limit = { num_buildings = { type = building_breeding_facility value > 2 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3046 days = 1 random = 10 } }
-			}
-			if = {
-				limit = { num_buildings = { type = building_breeding_facility value > 3 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3047 days = 1 random = 10 } }
-			}
-			if = {
-				limit = { num_buildings = { type = building_breeding_facility value > 4 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3048 days = 1 random = 10 } }
-			}
+		} else = {
+			set_country_flag = ap_genius_cloning_cycle
 		}
+		# Cycle: Removing breeding_facility deposits/buildings
 		random_owned_planet  = {
 			limit = {
+				is_colony = yes
 				is_colonizable = no
+				OR = {
+					has_building = yes
+					has_deposit = yes
+				}
 				OR = {
 					has_deposit = d_breeding_facility_1
 					has_deposit = d_breeding_facility_2
@@ -779,22 +786,25 @@ country_event = {
 					has_building = building_breeding_facility
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3049 days = 15 random = 20 }
+			planet_event = { id = UniqueAscensionPerksEvents.3049 days = 10 random = 10 }
 		}
 		random_planet_within_border  = {
 			limit = {
 				colonizable_planet = yes
-				is_colonizable = yes
 				OR = {
+					has_building = yes
+					has_deposit = yes
+				}
+				OR = {
+					has_building = building_breeding_facility
 					has_deposit = d_breeding_facility_1
 					has_deposit = d_breeding_facility_2
 					has_deposit = d_breeding_facility_3
 					has_deposit = d_breeding_facility_4
 					has_deposit = d_breeding_facility_5
-					has_building = building_breeding_facility
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3049 days = 15 random = 20 }
+			planet_event = { id = UniqueAscensionPerksEvents.3049 days = 10 random = 10 }
 		}
 	}
 }
@@ -813,11 +823,11 @@ planet_event = {
 			clear_variable = d_breeding_facility_1
 			random_owned_pop = {
 				limit = { is_organic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
-				}
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
 				prev = {
 					create_pop = { species = prev }
 					random = { chance = 33 create_pop = { species = prev } }
@@ -841,11 +851,11 @@ planet_event = {
 			clear_variable = d_breeding_facility_2
 			random_owned_pop = {
 				limit = { is_organic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
-				}
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
 				prev = {
 					create_pop = { species = prev }
 					random = { chance = 33 create_pop = { species = prev } }
@@ -869,11 +879,11 @@ planet_event = {
 			clear_variable = d_breeding_facility_3
 			random_owned_pop = {
 				limit = { is_organic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
-				}
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
 				prev = {
 					create_pop = { species = prev }
 					random = { chance = 33 create_pop = { species = prev } }
@@ -898,11 +908,11 @@ planet_event = {
 			clear_variable = d_breeding_facility_4
 			random_owned_pop = {
 				limit = { is_organic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
-				}
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
 				prev = {
 					create_pop = { species = prev }
 					random = { chance = 33 create_pop = { species = prev } }
@@ -927,11 +937,11 @@ planet_event = {
 			clear_variable = d_breeding_facility_5
 			random_owned_pop = {
 				limit = { is_organic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
-				}
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
 				prev = {
 					create_pop = { species = prev }
 					random = { chance = 33 create_pop = { species = prev } }
@@ -941,15 +951,19 @@ planet_event = {
 	}
 }
 
-# WTF? TODO
 # Cycle: Removing breeding_facility deposits/buildings
+# From UniqueAscensionPerksEvents.3043 (MTTH)
 planet_event = {
 	id = UniqueAscensionPerksEvents.3049
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 6 }
-	pre_triggers = { has_owner = yes }
+	# pre_triggers = { has_owner = yes }
 	trigger = {
+		OR = {
+			has_building = yes
+			has_deposit = yes
+		}
 		OR = {
 			has_deposit = d_breeding_facility_1
 			has_deposit = d_breeding_facility_2
@@ -970,31 +984,41 @@ planet_event = {
 			}
 			while = { limit = { has_building = building_breeding_facility } remove_building = building_breeding_facility }
 		}
-		if = {
-			limit = { has_deposit = d_breeding_facility_5 num_buildings = { type = building_breeding_facility value < 5 } }
-			every_deposit = { limit = { is_deposit_type = d_breeding_facility_5 } remove_deposit = yes }
-			clear_variable = d_breeding_facility_5
+		set_variable = { which = building_breeding_facility value = value:num_breeding_facility }
+		if = { limit = {check_variable = { which = building_breeding_facility value < 5 } has_deposit = yes }
+			if = {
+				limit = { has_deposit = d_breeding_facility_5 }
+				every_deposit = { limit = { is_deposit_type = d_breeding_facility_5 } remove_deposit = yes }
+				clear_variable = d_breeding_facility_5
+			}
+			if = { limit = { check_variable = { which = building_breeding_facility value < 4 } has_deposit = yes }
+				if = {
+					limit = { has_deposit = d_breeding_facility_4 }
+					every_deposit = { limit = { is_deposit_type = d_breeding_facility_4 } remove_deposit = yes }
+					clear_variable = d_breeding_facility_4
+				}
+				if = { limit = { check_variable = { which = building_breeding_facility value < 3 } has_deposit = yes }
+					if = {
+						limit = { has_deposit = d_breeding_facility_3 }
+						every_deposit = { limit = { is_deposit_type = d_breeding_facility_3 } remove_deposit = yes }
+						clear_variable = d_breeding_facility_3
+					}
+					if = { limit = { check_variable = { which = building_breeding_facility value < 2 } has_deposit = yes }
+						if = {
+							limit = { has_deposit = d_breeding_facility_2 }
+							every_deposit = { limit = { is_deposit_type = d_breeding_facility_2 } remove_deposit = yes }
+							clear_variable = d_breeding_facility_2
+						}
+						if = {
+							limit = { check_variable = { which = building_breeding_facility value < 1 } has_deposit = d_breeding_facility_1 }
+							every_deposit = { limit = { is_deposit_type = d_breeding_facility_1 } remove_deposit = yes }
+							clear_variable = d_breeding_facility_1
+						}
+					}
+				}
+			}
 		}
-		if = {
-			limit = { has_deposit = d_breeding_facility_4 num_buildings = { type = building_breeding_facility value < 4 } }
-			every_deposit = { limit = { is_deposit_type = d_breeding_facility_4 } remove_deposit = yes }
-			clear_variable = d_breeding_facility_4
-		}
-		if = {
-			limit = { has_deposit = d_breeding_facility_3 num_buildings = { type = building_breeding_facility value < 3 } }
-			every_deposit = { limit = { is_deposit_type = d_breeding_facility_3 } remove_deposit = yes }
-			clear_variable = d_breeding_facility_3
-		}
-		if = {
-			limit = { has_deposit = d_breeding_facility_2 num_buildings = { type = building_breeding_facility value < 2 } }
-			every_deposit = { limit = { is_deposit_type = d_breeding_facility_2 } remove_deposit = yes }
-			clear_variable = d_breeding_facility_2
-		}
-		if = {
-			limit = { has_deposit = d_breeding_facility_1 num_buildings = { type = building_breeding_facility value < 1 } }
-			every_deposit = { limit = { is_deposit_type = d_breeding_facility_1 } remove_deposit = yes }
-			clear_variable = d_breeding_facility_1
-		}
+		clear_variable = building_breeding_facility
 	}
 }
 
@@ -2033,7 +2057,8 @@ planet_event = {
 	is_triggered_only = yes
 	option = { name = EXCELLENT }
 }
-# on_monthly_pulse_country
+
+# on_monthly_pulse_country (similar to ap_genius_cloning)
 country_event = {
 	id = UniqueAscensionPerksEvents.3063
 	hide_window = yes
@@ -2042,35 +2067,42 @@ country_event = {
 	# pre_triggers = { has_owner = yes }
 	trigger = {
 		has_ascension_perk = ap_robot_command
-		any_owned_planet = { has_building = building_unit_assembler }
+		# any_owned_planet = { has_building = building_unit_assembler }
 	}
 	immediate = {
-		every_owned_planet = {
-			limit = { has_building = building_unit_assembler }
-			if = {
-				limit = { num_buildings = { type = building_unit_assembler value > 1 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3064 days = 1 random = 10 } }
+		if = { limit = { has_country_flag = ap_robot_command_cycle any_owned_planet = { is_colony = yes has_building = building_breeding_facility } }
+			remove_country_flag = ap_robot_command_cycle # all 2 months
+			every_owned_planet = {
+				limit = { is_colony = yes has_building = building_unit_assembler }
+				set_variable = { which = building_unit_assembler value = value:num_unit_assembler }
+				if = { limit = { check_variable = { which = building_unit_assembler value > 0 } }
+					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3064 days = 5 random = 5 } }
+					if = { limit = { check_variable = { which = building_unit_assembler value > 1 } }
+						random = { chance = 75 planet_event = { id = UniqueAscensionPerksEvents.3065 days = 5 random = 5 } }
+						if = { limit = { check_variable = { which = building_unit_assembler value > 2 } }
+							random = { chance = 70 planet_event = { id = UniqueAscensionPerksEvents.3066 days = 5 random = 5 } }
+							if = { limit = { check_variable = { which = building_unit_assembler value > 3 } }
+								random = { chance = 65 planet_event = { id = UniqueAscensionPerksEvents.3067 days = 5 random = 5 } }
+								if = { limit = { check_variable = { which = building_unit_assembler value > 4 } }
+									random = { chance = 60 planet_event = { id = UniqueAscensionPerksEvents.3068 days = 5 random = 5 } }
+								}
+							}
+						}
+					}
+				}
 			}
-			if = {
-				limit = { num_buildings = { type = building_unit_assembler value > 2 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3065 days = 1 random = 10 } }
-			}
-			if = {
-				limit = { num_buildings = { type = building_unit_assembler value > 3 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3066 days = 1 random = 10 } }
-			}
-			if = {
-				limit = { num_buildings = { type = building_unit_assembler value > 4 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3067 days = 1 random = 10 } }
-			}
-			if = {
-				limit = { num_buildings = { type = building_unit_assembler value > 5 } }
-				random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3068 days = 1 random = 10 } }
-			}
+		} else = {
+			set_country_flag = ap_robot_command_cycle
 		}
+		# Cycle: Removing unit_assembler deposits/buildings
 		random_owned_planet  = {
 			limit = {
+				is_colony = yes
 				is_colonizable = no
+				OR = {
+					has_building = yes
+					has_deposit = yes
+				}
 				OR = {
 					has_deposit = d_robot_command_1
 					has_deposit = d_robot_command_2
@@ -2080,12 +2112,15 @@ country_event = {
 					has_building = building_unit_assembler
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 15 random = 20 }
+			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 10 random = 10 }
 		}
 		random_planet_within_border  = {
 			limit = {
 				colonizable_planet = yes
-				is_colonizable = yes
+				OR = {
+					has_building = yes
+					has_deposit = yes
+				}
 				OR = {
 					has_deposit = d_robot_command_1
 					has_deposit = d_robot_command_2
@@ -2095,7 +2130,7 @@ country_event = {
 					has_building = building_unit_assembler
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 15 random = 20 }
+			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 10 random = 10 }
 		}
 	}
 }
@@ -2114,14 +2149,15 @@ planet_event = {
 			set_variable = { which = d_robot_command_1 value = 0 }
 			random_owned_pop = {
 				limit = { is_robotic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
+				prev = {
+					create_pop = { species = prev }
 				}
-				species = { save_event_target_as = selected_species }
 			}
-			create_pop = { species = event_target:selected_species }
 		}
 	}
 }
@@ -2140,14 +2176,15 @@ planet_event = {
 			set_variable = { which = d_robot_command_2 value = 0 }
 			random_owned_pop = {
 				limit = { is_robotic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
+				prev = {
+					create_pop = { species = prev }
 				}
-				species = { save_event_target_as = selected_species }
 			}
-			create_pop = { species = event_target:selected_species }
 		}
 	}
 }
@@ -2166,14 +2203,15 @@ planet_event = {
 			set_variable = { which = d_robot_command_3 value = 0 }
 			random_owned_pop = {
 				limit = { is_robotic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
+				prev = {
+					create_pop = { species = prev }
 				}
-				species = { save_event_target_as = selected_species }
 			}
-			create_pop = { species = event_target:selected_species }
 		}
 	}
 }
@@ -2192,14 +2230,15 @@ planet_event = {
 			set_variable = { which = d_robot_command_4 value = 0 }
 			random_owned_pop = {
 				limit = { is_robotic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
+				prev = {
+					create_pop = { species = prev }
 				}
-				species = { save_event_target_as = selected_species }
 			}
-			create_pop = { species = event_target:selected_species }
 		}
 	}
 }
@@ -2218,24 +2257,32 @@ planet_event = {
 			set_variable = { which = d_robot_command_5 value = 0 }
 			random_owned_pop = {
 				limit = { is_robotic_species = yes has_population_control = { value = no country = prev.owner } is_being_purged = no is_being_assimilated = no }
-				weights = {
-					base = 100
-					modifier = { add = 100 is_same_species = root.owner_species }
-					modifier = { add = -50 is_enslaved = yes }
+				# weights = {
+				# 	base = 10
+				# 	modifier = { add = 10 is_same_species = root.owner_species }
+				# 	modifier = { add = -5 is_enslaved = yes }
+				# }
+				prev = {
+					create_pop = { species = prev }
 				}
-				species = { save_event_target_as = selected_species }
 			}
-			create_pop = { species = event_target:selected_species }
 		}
 	}
 }
 
+# Cycle: Removing unit_assembler deposits/buildings
+# From UniqueAscensionPerksEvents.3063 (MTTH)
 planet_event = {
 	id = UniqueAscensionPerksEvents.3069
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 6 }
+	# pre_triggers = { has_owner = yes }
 	trigger = {
+		OR = {
+			has_building = yes
+			has_deposit = yes
+		}
 		OR = {
 			has_deposit = d_robot_command_1
 			has_deposit = d_robot_command_2
@@ -2247,34 +2294,50 @@ planet_event = {
 	}
 	immediate = {
 		if = {
-			limit = { has_building = building_unit_assembler exists = owner owner = { NOT = { has_ascension_perk = ap_robot_command } } }
+			limit = {
+				has_building = building_unit_assembler
+				NAND = {
+					exists = owner
+					owner = { has_ascension_perk = ap_robot_command }
+				}
+			}
 			while = { limit = { has_building = building_unit_assembler } remove_building = building_unit_assembler }
 		}
-		if = {
-			limit = { has_deposit = d_robot_command_1 num_buildings = { type = building_unit_assembler value < 5 } }
-			every_deposit = { limit = { is_deposit_type = d_robot_command_1 } remove_deposit = yes }
-			set_variable = { which = d_robot_command_1 value = 0 }
+		set_variable = { which = building_unit_assembler value = value:num_unit_assembler }
+		if = { limit = {check_variable = { which = building_unit_assembler value < 5 } has_deposit = yes }
+			if = {
+				limit = { has_deposit = d_robot_command_5 }
+				every_deposit = { limit = { is_deposit_type = d_robot_command_5 } remove_deposit = yes }
+				clear_variable = d_robot_command_5
+			}
+			if = { limit = { check_variable = { which = building_unit_assembler value < 4 } has_deposit = yes }
+				if = {
+					limit = { has_deposit = d_robot_command_4 }
+					every_deposit = { limit = { is_deposit_type = d_robot_command_4 } remove_deposit = yes }
+					clear_variable = d_robot_command_4
+				}
+				if = { limit = { check_variable = { which = building_unit_assembler value < 3 } has_deposit = yes }
+					if = {
+						limit = { has_deposit = d_robot_command_3 }
+						every_deposit = { limit = { is_deposit_type = d_robot_command_3 } remove_deposit = yes }
+						clear_variable = d_robot_command_3
+					}
+					if = { limit = { check_variable = { which = building_unit_assembler value < 2 } has_deposit = yes }
+						if = {
+							limit = { has_deposit = d_robot_command_2 }
+							every_deposit = { limit = { is_deposit_type = d_robot_command_2 } remove_deposit = yes }
+							clear_variable = d_robot_command_2
+						}
+						if = {
+							limit = { check_variable = { which = building_unit_assembler value < 1 } has_deposit = d_robot_command_1 }
+							every_deposit = { limit = { is_deposit_type = d_robot_command_1 } remove_deposit = yes }
+							clear_variable = d_robot_command_1
+						}
+					}
+				}
+			}
 		}
-		if = {
-			limit = { has_deposit = d_robot_command_2 num_buildings = { type = building_unit_assembler value < 2 } }
-			every_deposit = { limit = { is_deposit_type = d_robot_command_2 } remove_deposit = yes }
-			set_variable = { which = d_robot_command_2 value = 0 }
-		}
-		if = {
-			limit = { has_deposit = d_robot_command_3 num_buildings = { type = building_unit_assembler value < 3 } }
-			every_deposit = { limit = { is_deposit_type = d_robot_command_3 } remove_deposit = yes }
-			set_variable = { which = d_robot_command_3 value = 0 }
-		}
-		if = {
-			limit = { has_deposit = d_robot_command_4 num_buildings = { type = building_unit_assembler value < 4 } }
-			every_deposit = { limit = { is_deposit_type = d_robot_command_4 } remove_deposit = yes }
-			set_variable = { which = d_robot_command_4 value = 0 }
-		}
-		if = {
-			limit = { has_deposit = d_robot_command_5 num_buildings = { type = building_unit_assembler value < 1 } }
-			every_deposit = { limit = { is_deposit_type = d_robot_command_5 } remove_deposit = yes }
-			set_variable = { which = d_robot_command_5 value = 0 }
-		}
+		clear_variable = building_unit_assembler
 	}
 }
 

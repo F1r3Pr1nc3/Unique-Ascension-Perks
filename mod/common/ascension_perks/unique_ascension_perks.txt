@@ -221,7 +221,7 @@ ap_genius_cloning = {
 		}
 	}
 	ai_weight = {
-		factor = 0 # 10 TODO performance issue
+		factor = 0 # 10 TODO performance?
 		# modifier = { factor = 5 is_hive_empire = yes }
 	}
 }
@@ -458,6 +458,7 @@ ap_friendly_nature = {
 	}
 }
 # Robotic Assemblers
+# v3.4 reduced growth_speed
 ap_robot_command = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_robot_command_req_1" OR = { is_machine_empire = yes has_technology = tech_robotic_workers } }
@@ -466,16 +467,16 @@ ap_robot_command = {
 		custom_tooltip = { fail_text = "ap_robot_command_req_4" any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } }
 		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
 	}
-	modifier = { planet_pop_assembly_mult = 0.3 }
+	modifier = { planet_pop_assembly_mult = 0.25 } # 0.3 < v3.4
 	on_enabled = {
 		custom_tooltip = "ap_robot_command_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.61 } }
 	}
 	potential = { NOT = { has_ascension_perk = ap_robot_command } is_hive_empire = no }
 	ai_weight = {
-		factor = 10
-		modifier = { factor = 2 has_ethic = ethic_materialist }
-		modifier = { factor = 5 has_ethic = ethic_fanatic_materialist }
+		factor = 0 # 10 TODO performance?
+		# modifier = { factor = 2 has_ethic = ethic_materialist }
+		# modifier = { factor = 5 has_ethic = ethic_fanatic_materialist }
 	}
 }
 
@@ -849,7 +850,7 @@ ap_civilian_activities = {
 	potential = { NOT = { has_ascension_perk = ap_civilian_activities } }
 	ai_weight = { factor = 0 }
 }
-
+# Pinnacle Society
 ap_pyramidal_society = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_pyramidal_society_req_1" has_technology = tech_pinnacle_company_physics }

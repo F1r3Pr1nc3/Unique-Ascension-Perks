@@ -31,7 +31,7 @@ country_event = {
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Districts.On.tooltip"
 		hidden_effect = {
 			set_global_flag = ap_pyramidal_society
-			every_country = { set_country_flag = ap_pyramidal_society }
+			every_playable_country = { set_country_flag = ap_pyramidal_society }
 			country_event = { id = UniqueAscensionPerksMenuEvents.1000 days = 10 }
 			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
 		}
@@ -882,22 +882,22 @@ country_event = {
 	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
 }
 
-# global
+# # global
 country_event = {
 	id = UniqueAscensionPerksMenuEvents.1000
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			AND = { has_global_flag = ap_pyramidal_society any_country = { NOT = { has_country_flag = ap_pyramidal_society } } }
-			AND = { NOT = { has_global_flag = ap_pyramidal_society } any_country = { has_country_flag = ap_pyramidal_society } }
+			AND = { has_global_flag = ap_pyramidal_society any_playable_country = { NOT = { has_country_flag = ap_pyramidal_society } } }
+			AND = { NOT = { has_global_flag = ap_pyramidal_society } any_playable_country = { has_country_flag = ap_pyramidal_society } }
 		}
 	}
 	immediate = {
 		if = { limit = { has_global_flag = ap_pyramidal_society }
-			every_country = { limit = { NOT = { has_country_flag = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
-		} else = { # limit = { NOT = { has_global_flag = ap_pyramidal_society } }
-			every_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
+			every_playable_country = { limit = { NOT = { has_country_flag = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
+		} else = {
+			every_playable_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
 		}
 	}
 }
