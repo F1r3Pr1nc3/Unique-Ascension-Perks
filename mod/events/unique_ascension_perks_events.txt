@@ -109,7 +109,7 @@ planet_event = {
 				}
 			}
 			is_planet_class = pc_machine
-			is_planet_class = pc_arcology
+			is_planet_class = pc_arcology # Which mod?
 		}
 		NOT = { has_planet_flag = mod_deposits_restored }
 	}
@@ -748,7 +748,7 @@ country_event = {
 			remove_country_flag = ap_genius_cloning_cycle # all 2 months
 			every_owned_planet = {
 				limit = { is_colony = yes has_building = building_breeding_facility }
-				set_variable = { which = building_breeding_facility value = value:num_breeding_facility }
+				set_variable = { which = building_breeding_facility value = value:num_active_buildings|BUILDING|building_breeding_facility| }
 				if = { limit = { check_variable = { which = building_breeding_facility value > 0 } }
 					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3044 days = 5 random = 5 } }
 					if = { limit = { check_variable = { which = building_breeding_facility value > 1 } }
@@ -984,8 +984,8 @@ planet_event = {
 			}
 			while = { limit = { has_building = building_breeding_facility } remove_building = building_breeding_facility }
 		}
-		set_variable = { which = building_breeding_facility value = value:num_breeding_facility }
-		if = { limit = {check_variable = { which = building_breeding_facility value < 5 } has_deposit = yes }
+		set_variable = { which = building_breeding_facility value = value:num_active_buildings|BUILDING|building_breeding_facility| }
+		if = { limit = { check_variable = { which = building_breeding_facility value < 5 } has_deposit = yes }
 			if = {
 				limit = { has_deposit = d_breeding_facility_5 }
 				every_deposit = { limit = { is_deposit_type = d_breeding_facility_5 } remove_deposit = yes }
@@ -2025,7 +2025,8 @@ country_event = {
 
 ######################################
 #									 #
-###### Machine Production Focus ######
+########  Robotic Assemblers  ########
+####  (Machine Production Focus)  ####
 #									 #
 ######################################
 
@@ -2074,7 +2075,7 @@ country_event = {
 			remove_country_flag = ap_robot_command_cycle # all 2 months
 			every_owned_planet = {
 				limit = { is_colony = yes has_building = building_unit_assembler }
-				set_variable = { which = building_unit_assembler value = value:num_unit_assembler }
+				set_variable = { which = building_unit_assembler value = value:num_active_buildings|BUILDING|building_unit_assembler| }
 				if = { limit = { check_variable = { which = building_unit_assembler value > 0 } }
 					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3064 days = 5 random = 5 } }
 					if = { limit = { check_variable = { which = building_unit_assembler value > 1 } }
@@ -2095,7 +2096,7 @@ country_event = {
 			set_country_flag = ap_robot_command_cycle
 		}
 		# Cycle: Removing unit_assembler deposits/buildings
-		random_owned_planet  = {
+		random_owned_planet = {
 			limit = {
 				is_colony = yes
 				is_colonizable = no
@@ -2114,7 +2115,7 @@ country_event = {
 			}
 			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 10 random = 10 }
 		}
-		random_planet_within_border  = {
+		random_planet_within_border = {
 			limit = {
 				colonizable_planet = yes
 				OR = {
@@ -2303,8 +2304,8 @@ planet_event = {
 			}
 			while = { limit = { has_building = building_unit_assembler } remove_building = building_unit_assembler }
 		}
-		set_variable = { which = building_unit_assembler value = value:num_unit_assembler }
-		if = { limit = {check_variable = { which = building_unit_assembler value < 5 } has_deposit = yes }
+		set_variable = { which = building_unit_assembler value = value:num_active_buildings|BUILDING|building_unit_assembler| }
+		if = { limit = { check_variable = { which = building_unit_assembler value < 5 } has_deposit = yes }
 			if = {
 				limit = { has_deposit = d_robot_command_5 }
 				every_deposit = { limit = { is_deposit_type = d_robot_command_5 } remove_deposit = yes }
@@ -4972,6 +4973,7 @@ country_event = {
 	}
 }
 
+# Remove deposits
 # From = owner = country
 planet_event = {
 	id = UniqueAscensionPerksEvents.302
@@ -5124,7 +5126,7 @@ country_event = {
 				# surgical_strike_take_resources = yes
 				set_timed_planet_flag = { flag = had_surgical_strike_resources_raid years = 5 }
 				surgical_strike_resources = yes
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 50  } } surgical_strike_resources = yes
+				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 50 } } surgical_strike_resources = yes
 					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 100 } } surgical_strike_resources = yes
 						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 150 } } surgical_strike_resources = yes
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } surgical_strike_resources = yes
