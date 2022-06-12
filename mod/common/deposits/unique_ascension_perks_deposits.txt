@@ -319,6 +319,7 @@ d_unit_entrepot = {
 	planet_modifier = { planet_housing_add = 10 }
 }
 
+# v3.4 nerfed
 d_hivemind_reserve = {
 	is_for_colonizable = yes
 	should_swap_deposit_on_terraforming = no
@@ -328,19 +329,21 @@ d_hivemind_reserve = {
 	potential = { exists = owner owner = { is_hive_empire = yes } }
 	resources = {
 		category = planet_deposits
-		produces = { food = 5 society_research = 5 }
-		produces = { trigger = { planet = { merg_is_hive_world = yes } } energy = 3 minerals = 3 }
+		produces = { food = 4 society_research = 4 } # 5
+		produces = { trigger = { planet = { merg_is_hive_world = yes } } energy = 2 minerals = 2 } # 3
 	}
 	planet_modifier = {
-		pop_environment_tolerance = 0.03
-		pop_growth_speed = 0.05
-		planet_pop_assembly_organic_mult = 0.1
+		pop_environment_tolerance = 0.025 # 0.03
+		# pop_growth_speed = 0.05 too much
+		planet_pop_assembly_organic_mult = 0.025 # 0.1
 		job_royal_guard_add = 1
 		job_stabilizer_add = 1
 		job_purifier_drone_add = 1
 		job_recycler_add = 1
 	}
-	triggered_planet_modifier = { potential = { merg_is_hive_world = yes } pop_growth_speed = 0.03 }
+	triggered_planet_modifier = {
+		potential = { merg_is_hive_world = yes } pop_growth_speed = 0.025 # 0.03
+	}
 	# triggered_planet_modifier = {
 	# 	potential = { always = yes }
 	# 	modifier = {
