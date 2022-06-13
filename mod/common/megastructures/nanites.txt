@@ -39,7 +39,7 @@ nanite_factory_site = {
 	entity_offset = { x = @entity_x y = @entity_y }
 	build_time = 1800
 	resources = { category = megastructures cost = { alloys = 5000 nanites = 500 influence = 150 } upkeep = { energy = 5 } }
-	potential = { is_ai = no has_technology = tech_nanite_factory }
+	potential = { has_technology = tech_nanite_factory }
 	possible = {
 		exists = starbase
 		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
@@ -51,15 +51,15 @@ nanite_factory_site = {
 			custom_tooltip = { fail_text = "requires_not_minor_planetary_body" NOR = { is_asteroid = yes is_moon = yes } }
 			custom_tooltip = { fail_text = "requires_not_star" is_star = no }
 			custom_tooltip = { fail_text = "requires_not_ring_world" is_ringworld = no }
-			# if = { limit = { from = { is_ai = yes } }
-			# 	OR = {
-			# 		has_deposit_for = shipclass_mining_station
-	 		# 		has_deposit_for = shipclass_research_station
-			# 	}
-			# }
+			if = { limit = { from = { is_ai = yes } }
+				OR = {
+					has_deposit_for = shipclass_mining_station
+	 				has_deposit_for = shipclass_research_station
+				}
+			}
 		}
 	}
-	ai_weight = { factor = 10 }
+	ai_weight = { factor = event_target:global_event_country.ap_nano_to_nanite }
 	on_build_start = {}
 	on_build_cancel = {}
 	on_build_complete = { fromfrom.planet = { set_planet_flag = has_megastructure } from = { country_event = { id = UniqueAscensionPerksEvents.8004 } } }

@@ -1871,36 +1871,54 @@ country_event = {
 				}
 			}
 		}
+		no_scope = { save_event_target_as = FallenEmpireTaskOrigin } # clear hack
+	}
+	after = {
+		hidden_effect = {
+			if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+				# fe_select_gift = yes
+				random_list = {
+					50 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_resources_large } else = { set_country_flag = fe_gift_resources_small } }
+					20 = { set_country_flag = fe_gift_databanks }
+					15 = { set_country_flag = fe_gift_rare_tech }
+					10 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_escorts } else = { set_country_flag = fe_gift_resources_large } }
+					5 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_battlecruiser } else = { set_country_flag = fe_gift_resources_large } }
+					15 = { modifier = { factor = 3.0 is_at_war = yes } set_country_flag = fe_gift_resources_alloys }
+					10 = { modifier = { factor = 0 OR = { is_at_war = yes is_gestalt = yes } } set_country_flag = fe_gift_resources_consumer }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.70 }
+			}
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.1"
 		trigger = { exists = event_target:fallen_empire_1 }
-		hidden_effect = { event_target:fallen_empire_1 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
+		hidden_effect = { event_target:fallen_empire_1 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.2"
 		trigger = { exists = event_target:fallen_empire_2 }
-		hidden_effect = { event_target:fallen_empire_2 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
+		hidden_effect = { event_target:fallen_empire_2 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.3"
 		trigger = { exists = event_target:fallen_empire_3 }
-		hidden_effect = { event_target:fallen_empire_3 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
+		hidden_effect = { event_target:fallen_empire_3 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.4"
 		trigger = { exists = event_target:fallen_empire_4 }
-		hidden_effect = { event_target:fallen_empire_4 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
+		hidden_effect = { event_target:fallen_empire_4 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.5"
 		trigger = { exists = event_target:fallen_empire_5 }
-		hidden_effect = { event_target:fallen_empire_5 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
+		hidden_effect = { event_target:fallen_empire_5 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.6"
 		trigger = { exists = event_target:fallen_empire_6 }
-		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } fe_select_gift = yes country_event = { id = UniqueAscensionPerksEvents.70 } }
+		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.69.Select" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.69 } } }
 	option = { name = "UniqueAscensionPerksEvents.69.b" ai_chance = { factor = 0.1 } }
@@ -1936,8 +1954,86 @@ country_event = {
 	desc = { text = fallen_empires_tasks.2.desc.d.materialist trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
 	desc = { text = fallen_empires_tasks.2.desc.d.xenophile trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
 	desc = { text = fallen_empires_tasks.2.desc.d.spiritualist trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	option = { name = fallen_empires_tasks.2.a fe_gift_action = yes }
-	option = { name = fallen_empires_tasks.2.b ai_chance = { factor = 0.1 } fe_refuse_gift_action = yes }
+	location = event_target:capital_planet
+	immediate = { get_capital_planet = yes }
+	after = {
+		# fe_clear_gift_flags = yes
+		remove_country_flag = fe_gift_escorts
+		remove_country_flag = fe_gift_resources_small
+		remove_country_flag = fe_gift_battlecruiser
+		remove_country_flag = fe_gift_resources_large
+		remove_country_flag = fe_gift_databanks
+		remove_country_flag = fe_gift_rare_tech
+		remove_country_flag = fe_gift_resources_alloys
+		remove_country_flag = fe_gift_resources_consumer
+	}
+	option = { name = fallen_empires_tasks.2.a
+		# fe_gift_action = yes
+		hidden_effect = { set_country_flag = fe_gift_received }
+		if = { limit = { has_country_flag = fe_gift_resources_small } add_resource = { minerals = 1500 energy = 500 } }
+		if = { limit = { has_country_flag = fe_gift_resources_large } add_resource = { minerals = 3000 energy = 1000 } }
+		if = { limit = { has_country_flag = fe_gift_resources_alloys } add_resource = { alloys = 750 } }
+		if = { limit = { has_country_flag = fe_gift_resources_consumer } add_resource = { consumer_goods = 750 } }
+		if = { limit = { has_country_flag = fe_gift_databanks } add_modifier = { modifier = fallen_empire_gift_databanks years = 10 } }
+		if = { limit = { has_country_flag = fe_gift_rare_tech }
+			if = { limit = { NOT = { has_technology = tech_planetary_shield_generator } } give_technology = { tech = tech_planetary_shield_generator } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_synchronized_defences } } give_technology = { tech = tech_synchronized_defences } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_selected_lineages } } give_technology = { tech = tech_selected_lineages } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_space_defense_station_improvement } } give_technology = { tech = tech_space_defense_station_improvement } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_gene_banks } } give_technology = { tech = tech_gene_banks } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_modular_engineering } } give_technology = { tech = tech_modular_engineering } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_construction_templates } } give_technology = { tech = tech_construction_templates } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_gateway_activation } } give_technology = { tech = tech_gateway_activation } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			# (MOD ADD MORE TECHS GIFT IN FUTURE)
+			# Just give databanks instead
+			add_modifier = { modifier = fallen_empire_gift_databanks years = 10 }
+		}
+		if = { limit = { has_country_flag = fe_gift_escorts }
+			custom_tooltip = fallen_empires_tasks.2.escorts_tooltip
+			hidden_effect = {
+				event_target:capital_planet = {
+					create_fleet = {
+						settings = { spawn_debris = no }
+						effect = {
+							set_owner = root
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Gamma" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Sage" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Warden" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Zealot" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+							set_location = prev
+						}
+					}
+				}
+			}
+		}
+		if = { limit = { has_country_flag = fe_gift_battlecruiser }
+			custom_tooltip = fallen_empires_tasks.2.battlecruiser_tooltip
+			hidden_effect = {
+				event_target:capital_planet = {
+					create_fleet = {
+						settings = { spawn_debris = no }
+						effect = {
+							set_owner = root
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Beta" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Scholar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Custodian" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Avatar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+							set_location = prev
+						}
+					}
+				}
+			}
+		}
+	}
+	option = { name = fallen_empires_tasks.2.b ai_chance = { factor = 0.1 }
+		# fe_refuse_gift_action = yes
+		hidden_effect = {
+			event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_spurned_fallen_empire_gift } }
+		}
+		if = { limit = { event_target:FallenEmpireTaskOrigin = { is_enigmatic_to = root } } custom_tooltip = fallen_empire_enigmatic_tooltip }
+		else = { custom_tooltip = fallen_empire_unhappy_tooltip }
+
+	}
 }
 
 country_event = {
@@ -1976,36 +2072,42 @@ country_event = {
 				}
 			}
 		}
+		no_scope = { save_event_target_as = FallenEmpireTaskOrigin } # clear hack
+	}
+	after = {
+		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+			country_event = { id = UniqueAscensionPerksEvents.73 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.1"
 		trigger = { exists = event_target:fallen_empire_1 }
-		hidden_effect = { event_target:fallen_empire_1 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
+		hidden_effect = { event_target:fallen_empire_1 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.2"
 		trigger = { exists = event_target:fallen_empire_2 }
-		hidden_effect = { event_target:fallen_empire_2 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
+		hidden_effect = { event_target:fallen_empire_2 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.3"
 		trigger = { exists = event_target:fallen_empire_3 }
-		hidden_effect = { event_target:fallen_empire_3 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
+		hidden_effect = { event_target:fallen_empire_3 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.4"
 		trigger = { exists = event_target:fallen_empire_4 }
-		hidden_effect = { event_target:fallen_empire_4 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
+		hidden_effect = { event_target:fallen_empire_4 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.5"
 		trigger = { exists = event_target:fallen_empire_5 }
-		hidden_effect = { event_target:fallen_empire_5 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
+		hidden_effect = { event_target:fallen_empire_5 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Fallen.6"
 		trigger = { exists = event_target:fallen_empire_6 }
-		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } country_event = { id = UniqueAscensionPerksEvents.73 } }
+		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Abort"
@@ -4161,7 +4263,7 @@ country_event = {
 	option = { name = EXCELLENT country_event = { id = UniqueAscensionPerksEvents.301 days = 3 } }
 }
 
-# 3.3: chance & amount 2/3
+# v3.3: chance & amount 2/3
 country_event = {
 	id = UniqueAscensionPerksEvents.301
 	hide_window = yes
@@ -5887,7 +5989,7 @@ country_event = {
 		enable_special_project = { name = SLOW_LEARNER_ARMY location = event_target:capital_planet owner = root }
 	}
 }
-# 3.3 values reduced
+# v3.3 values reduced
 country_event = {
 	id = UniqueAscensionPerksEvents.401
 	title = "UniqueAscensionPerksEvents.401.Name"
@@ -5902,7 +6004,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.401.Gamma"	trigger = { NOT = { has_modifier = slow_learner_bonus_3 } } add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 3500 } }
 	option = { name = "UniqueAscensionPerksEvents.401.Delta"	trigger = { NOT = { has_modifier = slow_learner_bonus_4 } } add_modifier = { modifier = slow_learner_bonus_4 } add_resource = { unity = 3500 } }
 }
-# 3.3 value reduced
+# v3.3 value reduced
 country_event = {
 	id = UniqueAscensionPerksEvents.402
 	title = "SLOW_LEARNER_ARMY"
@@ -6074,7 +6176,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.432
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { # 3.3 added limit
+	trigger = { # v3.3 added limit
 		check_variable = { which = white_hole_systems value < 9 }
 		event_target:global_event_country = { check_variable = { which = white_hole_systems value < 36 } }
 	}
@@ -6136,7 +6238,7 @@ system_event = {
 }
 
 # Edict A-M Main Menu
-# 3.3: halved the values
+# v3.3: halved the values
 country_event = {
 	id = UniqueAscensionPerksEvents.434
 	title = "edict_anti_matter_menu"
@@ -6210,7 +6312,7 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.434.WhiteHole"
-		trigger = { # 3.3 added limit
+		trigger = { # v3.3 added limit
 			check_variable = { which = white_hole_systems value < 9 }
 			event_target:global_event_country = { check_variable = { which = white_hole_systems value < 36 } }
 		}
@@ -6679,7 +6781,7 @@ country_event = {
 	}
 }
 
-# 3.3: - cooldown for library itself increase to 730 days (instead of 440), decreased bonuses from relic to half (also removed society research point when "use").
+# v3.3: - cooldown for library itself increase to 730 days (instead of 440), decreased bonuses from relic to half (also removed society research point when "use").
 # Edict (and self)
 country_event = {
 	id = UniqueAscensionPerksEvents.491
@@ -6811,7 +6913,7 @@ country_event = {
 	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
-# 3.3 removed ignore_rare = no
+# v3.3 removed ignore_rare = no
 country_event = {
 	id = UniqueAscensionPerksEvents.497
 	title = "edict_library_wisedom_menu"
@@ -6888,7 +6990,7 @@ country_event = {
 }
 
 # on_system_survey_ship
-# 3.3: doubled costs due imbalance
+# v3.3: doubled costs due imbalance
 ship_event = {
 	id = UniqueAscensionPerksEvents.531
 	title = "UniqueAscensionPerksEvents.531.Name"
