@@ -191,7 +191,7 @@ country_event = {
 			event_target:lh_basic_system = {
 				# every_system_planet = { set_surveyed = { surveyed = yes surveyor = root } }
 				# create_starbase = { size = starbase_outpost owner = root }
-				# ROOT = { give_technology = { tech = tech_new_systems_localization } }
+				# ROOT = { give_tech_option_or_progress_effect = { TECH = tech_new_systems_localization } }
 				# ROOT = { while = { count = 10 spawn_lh_system = yes } }
 				prev = { spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 360 } }
 				spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 270 }
@@ -566,7 +566,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = EXCELLENT
-		give_technology = { tech = tech_auto_drone }
+		give_tech_option_or_progress_effect = { TECH = tech_auto_drone }
 		add_resource = { automatic_drone = 3000 }
 		generate_lcluster_clue = yes
 	}
@@ -1148,17 +1148,14 @@ planet_event = {
 	desc = "RECYCLE_PERFORM_SHIPS_DESC"
 	show_sound = event_construction
 	picture = GFX_evt_scavenger_bot
-	location = root # event_target:capital_planet
+	location = root
 	pre_triggers = { has_owner = yes }
 	is_triggered_only = yes
 	trigger = {
-		exists = owner # pre_trigger seems not sufficient
+		exists = from
 	}
 	immediate = {
-		from = {
-			# get_capital_planet = yes
-			set_country_flag = ap_recycling_drones_project_upgrade_added
-		}
+		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
 	}
 	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = root owner = root.from } }
 }
@@ -1976,14 +1973,14 @@ country_event = {
 		if = { limit = { has_country_flag = fe_gift_resources_consumer } add_resource = { consumer_goods = 750 } }
 		if = { limit = { has_country_flag = fe_gift_databanks } add_modifier = { modifier = fallen_empire_gift_databanks years = 10 } }
 		if = { limit = { has_country_flag = fe_gift_rare_tech }
-			if = { limit = { NOT = { has_technology = tech_planetary_shield_generator } } give_technology = { tech = tech_planetary_shield_generator } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_synchronized_defences } } give_technology = { tech = tech_synchronized_defences } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_selected_lineages } } give_technology = { tech = tech_selected_lineages } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_space_defense_station_improvement } } give_technology = { tech = tech_space_defense_station_improvement } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_gene_banks } } give_technology = { tech = tech_gene_banks } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_modular_engineering } } give_technology = { tech = tech_modular_engineering } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_construction_templates } } give_technology = { tech = tech_construction_templates } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_gateway_activation } } give_technology = { tech = tech_gateway_activation } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			if = { limit = { NOT = { has_technology = tech_planetary_shield_generator } } give_tech_option_or_progress_effect = { TECH = tech_planetary_shield_generator } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_synchronized_defences } } give_tech_option_or_progress_effect = { TECH = tech_synchronized_defences } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_selected_lineages } } give_tech_option_or_progress_effect = { TECH = tech_selected_lineages } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_space_defense_station_improvement } } give_tech_option_or_progress_effect = { TECH = tech_space_defense_station_improvement } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_gene_banks } } give_tech_option_or_progress_effect = { TECH = tech_gene_banks } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_modular_engineering } } give_tech_option_or_progress_effect = { TECH = tech_modular_engineering } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_construction_templates } } give_tech_option_or_progress_effect = { TECH = tech_construction_templates } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+			else_if = { limit = { NOT = { has_technology = tech_gateway_activation } } give_tech_option_or_progress_effect = { TECH = tech_gateway_activation } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
 			# (MOD ADD MORE TECHS GIFT IN FUTURE)
 			# Just give databanks instead
 			add_modifier = { modifier = fallen_empire_gift_databanks years = 10 }
@@ -5368,7 +5365,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = EXCELLENT
-		give_technology = { tech = tech_treasures }
+		give_tech_option_or_progress_effect = { TECH = tech_treasures }
 		add_resource = { treasures = 50 }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.342 }

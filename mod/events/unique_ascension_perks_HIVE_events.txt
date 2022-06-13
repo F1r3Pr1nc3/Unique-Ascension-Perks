@@ -35,31 +35,31 @@ country_event = {
 	}
 }
 
+# Do fully DEPRECATE?
 # Clone Ship (on_ship_built)
+# From = Planet
 ship_event = {
 	id = UniqueAscensionPerksEvents.102
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		exists = owner
 		exists = fleet
-		owner = { has_ascension_perk = ap_super_hive_mind }
+		exists = owner
+		owner = {
+			is_ai = yes # added v3.4
+			has_ascension_perk = ap_super_hive_mind
+			event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } }
+		}
 	}
 	immediate = {
-		fleet = {
-			# save_event_target_as = fleet_location
-			random = {
-				chance = 11 # 30
-				# create_fleet = {
-				# 	name = "Cloned Ship"
-				# effect = {
-				# set_owner = root.owner
-				if = { limit = { root = { is_ship_size = corvette } } create_ship = { name = random random_existing_design = corvette prefix = yes } }
-				else_if = { limit = { root = { is_ship_size = destroyer } } create_ship = { name = random random_existing_design = destroyer prefix = yes } }
-				else_if = { limit = { root = { is_ship_size = cruiser } } create_ship = { name = random random_existing_design = cruiser prefix = yes } }
-				else_if = { limit = { root = { is_ship_size = battleship } } create_ship = { name = random random_existing_design = battleship prefix = yes } }
-				# set_fleet_flag = cloned_fleet
-				# set_location = event_target:fleet_location # root
+		random = {
+			chance = 50
+			switch = {
+				trigger = is_ship_size
+				corvette	= { random = { chance = 40 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = corvette prefix = yes } } } }
+				destroyer	= { random = { chance = 30 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = destroyer prefix = yes } } } }
+				cruiser		= { random = { chance = 20 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = cruiser prefix = yes } } } }
+				battleship	= { random = { chance = 10 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = battleship prefix = yes } } } }
 			}
 		}
 	}
@@ -74,14 +74,21 @@ country_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = {
-		random_owned_leader = { limit = { NOT = { leader_class = ruler } } save_event_target_as = leader_1 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 } } save_event_target_as = leader_2 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7 }
-		random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
+		random_owned_leader = { limit = { NOT = { leader_class = ruler } } save_event_target_as = leader_1
+			root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 } } save_event_target_as = leader_2
+				root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3
+					root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4
+						root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5
+							root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6
+								root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7
+									root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 } }
+								} }
+							} }
+						} }
+					} }
+				} }
+			} }
+		}
 	}
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.1" trigger = { exists = event_target:leader_1 } hidden_effect = { event_target:leader_1 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.2" trigger = { exists = event_target:leader_2 } hidden_effect = { event_target:leader_2 = { leader_event = { id = UniqueAscensionPerksEvents.104 } } } }
@@ -710,18 +717,19 @@ country_event = {
 	id = UniqueAscensionPerksEvents.121
 	title = "UniqueAscensionPerksEvents.121.Name"
 	desc = "UniqueAscensionPerksEvents.121.Desc"
-	immediate = { set_country_flag = aggressive_hivemind_project }
 	picture = GFX_evt_aggressive_hivemind
 	show_sound = event_ai_started
 	location = from
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
+	immediate = {
+		set_country_flag = aggressive_hivemind_project
+	}
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.3125 days = 30 random = 30 }
-			event_target:capital_planet.solar_system = { set_star_flag = recycle_fleet_spawn_system }
+			from.solar_system = { set_star_flag = recycle_fleet_spawn_system }
 		}
 	}
 }
@@ -876,7 +884,10 @@ country_event = {
 	picture = GFX_evt_aggressive_hivemind
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes set_country_flag = aggressive_hivemind_project_upgrade_added }
+	immediate = {
+		get_capital_planet = yes
+		set_country_flag = aggressive_hivemind_project_upgrade_added
+	}
 	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND_UPGRADE location = event_target:capital_planet owner = root } }
 }
 
@@ -888,7 +899,10 @@ country_event = {
 	picture = GFX_evt_aggressive_hivemind
 	location = capital_scope
 	is_triggered_only = yes
-	immediate = { set_country_flag = aggressive_hivemind_project_upgrade }
+	immediate = {
+		set_country_flag = aggressive_hivemind_project_upgrade
+		give_tech_option_or_progress_effect = { TECH = tech_hive_corvette_hull_1 }
+	}
 	option = { name = EXCELLENT }
 }
 
