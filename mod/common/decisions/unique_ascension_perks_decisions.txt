@@ -841,7 +841,7 @@ decision_nanite_extraction = {
 decision_nanite_extraction_molten = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 500 } }
+	resources = { category = decisions cost = { nanites = 350 } } # 500
 	potential = {
 		exists = space_owner
 		exists = from
@@ -863,8 +863,9 @@ decision_nanite_extraction_molten = {
 		custom_tooltip = "decision_nanite_extraction_molten_tooltip"
 		# destroy_colony = yes # every_owned_pop = { kill_pop = yes }
 		add_deposit = d_minerals_10
-		add_deposit = d_minerals_10
-		add_deposit = d_minerals_10
+		# add_deposit = d_minerals_10
+		# add_deposit = d_minerals_10
+		add_deposit = d_rare_crystals_2
 		add_deposit = d_nanites_deposit
 		add_deposit = d_nanites_deposit
 		set_planet_flag = planet_nanite_exploitation_molten
@@ -875,7 +876,7 @@ decision_nanite_extraction_molten = {
 decision_nanite_extraction_toxic = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 500 } }
+	resources = { category = decisions cost = { nanites = 350 } } # 500
 	potential = {
 		exists = space_owner
 		exists = from
@@ -894,11 +895,42 @@ decision_nanite_extraction_toxic = {
 		custom_tooltip = "decision_nanite_extraction_toxic_tooltip"
 		# destroy_colony = yes # every_owned_pop = { kill_pop = yes }
 		add_deposit = d_energy_10
-		add_deposit = d_energy_10
-		add_deposit = d_energy_10
+		# add_deposit = d_energy_10
+		# add_deposit = d_energy_10
+		add_deposit = d_exotic_gases_2
 		add_deposit = d_nanites_deposit
 		add_deposit = d_nanites_deposit
 		set_planet_flag = planet_nanite_exploitation_toxic
+	}
+	ai_weight = { weight = 1 }
+}
+
+decision_nanite_extraction_barren = {
+	sound = event_ai_started_01
+	icon = decision_drilling_for_gas
+	resources = { category = decisions cost = { nanites = 350 } }
+	potential = {
+		exists = space_owner
+		exists = from
+		space_owner = { is_same_empire = from }
+		from = { has_ascension_perk = ap_nano_to_nanite }
+		has_owner = no
+		is_planet_class = pc_barren
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "decision_nanite_extraction_req_1"
+			NOT = { has_planet_flag = planet_nanite_exploitation_barren }
+		}
+	}
+	effect = {
+		custom_tooltip = "decision_nanite_extraction_barren_tooltip"
+		add_deposit = d_minerals_5
+		add_deposit = d_energy_5
+		add_deposit = d_nanites_deposit
+		add_deposit = d_nanites_deposit
+		add_deposit = d_volatile_motes_2
+		set_planet_flag = planet_nanite_exploitation_barren
 	}
 	ai_weight = { weight = 1 }
 }
