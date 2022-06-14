@@ -48,7 +48,7 @@ ship_event = {
 		owner = {
 			is_ai = yes # added v3.4
 			has_ascension_perk = ap_super_hive_mind
-			event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } }
+			# event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } }
 		}
 	}
 	immediate = {
@@ -735,23 +735,57 @@ country_event = {
 }
 
 # on_ship_destroyed_perp
+# TODO: very limited to vanilla classes, make somehow more dynamically with less performance impact
 country_event = {
 	id = UniqueAscensionPerksEvents.122
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_country_flag = aggressive_hivemind_project }
+	trigger = {
+		is_ai = yes # added v3.4
+		has_ascension_perk = ap_aggressive_hivemind
+		has_country_flag = aggressive_hivemind_project
+		# event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value > 0 } }
+		exists = fromfrom
+	}
 	immediate = {
-		fromfrom = {
-			# perform_aggressive_hivemind_ship_check = yes
-			random = {
-				chance = 8 # 25
-				switch = {
-					trigger = is_ship_size
-					corvette	= { ROOT = { change_variable = { which = ship_corvette_infested value = 1 } } }
-					destroyer	= { ROOT = { change_variable = { which = ship_destroyer_infested value = 1 } } }
-					cruiser		= { ROOT = { change_variable = { which = ship_cruiser_infested value = 1 } } }
-					battleship	= { ROOT = { change_variable = { which = ship_battleship_infested value = 1 } } }
-					titan		= { ROOT = { change_variable = { which = ship_titan_infested value = 1 } } }
+		random = {
+			chance = 25
+			fromfrom = {
+				# perform_aggressive_hivemind_ship_check = yes
+				if = { limit = { is_ship_class = shipclass_military_station }
+					switch = {
+						trigger = is_ship_size
+						military_station_small		= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						military_station_medium		= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						military_station_large		= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
+						ion_cannon					= { random = { chance = 30 root = { change_variable = { which = ship_battleship_infested value = 1 } } } }
+					}
+				} else_if = { limit = { is_ship_class = shipclass_military }
+					switch = {
+						trigger = is_ship_size
+						corvette					= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						offspring_corvette			= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						crisis_corvette				= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						pirate_corvette				= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						marauder_corvette			= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						destroyer					= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						offspring_destroyer			= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						crisis_destroyer			= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						pirate_destroyer			= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						marauder_destroyer			= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						small_ship_fallen_empire	= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
+						cruiser						= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
+						offspring_cruiser			= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
+						crisis_cruiser				= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
+						pirate_cruiser				= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
+						marauder_cruiser			= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
+						battleship					= { random = { chance = 30 root = { change_variable = { which = ship_battleship_infested value = 1 } } } }
+						offspring_battleship		= { random = { chance = 30 root = { change_variable = { which = ship_battleship_infested value = 1 } } } }
+						marauder_galleon			= { random = { chance = 30 root = { change_variable = { which = ship_battleship_infested value = 1 } } } }
+						large_ship_fallen_empire	= { random = { chance = 30 root = { change_variable = { which = ship_battleship_infested value = 1 } } } }
+						titan						= { random = { chance = 20 root = { change_variable = { which = ship_titan_infested value = 1 } } } }
+						massive_ship_fallen_empire	= { random = { chance = 20 root = { change_variable = { which = ship_titan_infested value = 1 } } } }
+					}
 				}
 			}
 		}
