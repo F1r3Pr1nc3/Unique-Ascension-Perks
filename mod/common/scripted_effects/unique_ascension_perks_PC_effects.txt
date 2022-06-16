@@ -301,11 +301,11 @@ create_navy_fleet_for_subject = {
 			set_aggro_range_measure_from = self
 			set_aggro_range = 1000
 			set_fleet_flag = subject_navy_fleet
-			if = { limit = { event_target:VassalNavyInvesmentTarget = { has_country_flag = subject_navy_investment_1 } } event_target:VassalNavyInvesmentTarget = { set_variable = { which = subject_navy_amount value = 24 } } }
-			else_if = { limit = { event_target:VassalNavyInvesmentTarget = { has_country_flag = subject_navy_investment_2 } } event_target:VassalNavyInvesmentTarget = { set_variable = { which = subject_navy_amount value = 48 } } }
-			else_if = { limit = { event_target:VassalNavyInvesmentTarget = { has_country_flag = subject_navy_investment_3 } } event_target:VassalNavyInvesmentTarget = { set_variable = { which = subject_navy_amount value = 96 } } }
-			else_if = { limit = { event_target:VassalNavyInvesmentTarget = { has_country_flag = subject_navy_investment_4 } } event_target:VassalNavyInvesmentTarget = { set_variable = { which = subject_navy_amount value = 192 } } }
-			else_if = { limit = { event_target:VassalNavyInvesmentTarget = { has_country_flag = subject_navy_investment_5 } } event_target:VassalNavyInvesmentTarget = { set_variable = { which = subject_navy_amount value = 384 } } }
+			if = { limit = { event_target:VassalNavyInvestmentTarget = { has_country_flag = subject_navy_investment_1 } } event_target:VassalNavyInvestmentTarget = { set_variable = { which = subject_navy_amount value = 24 } } }
+			else_if = { limit = { event_target:VassalNavyInvestmentTarget = { has_country_flag = subject_navy_investment_2 } } event_target:VassalNavyInvestmentTarget = { set_variable = { which = subject_navy_amount value = 48 } } }
+			else_if = { limit = { event_target:VassalNavyInvestmentTarget = { has_country_flag = subject_navy_investment_3 } } event_target:VassalNavyInvestmentTarget = { set_variable = { which = subject_navy_amount value = 96 } } }
+			else_if = { limit = { event_target:VassalNavyInvestmentTarget = { has_country_flag = subject_navy_investment_4 } } event_target:VassalNavyInvestmentTarget = { set_variable = { which = subject_navy_amount value = 192 } } }
+			else_if = { limit = { event_target:VassalNavyInvestmentTarget = { has_country_flag = subject_navy_investment_5 } } event_target:VassalNavyInvestmentTarget = { set_variable = { which = subject_navy_amount value = 384 } } }
 			while = { count = 4 create_navy_ships_for_subject = yes }
 		}
 	}
@@ -313,13 +313,13 @@ create_navy_fleet_for_subject = {
 
 create_navy_ships_for_subject = {
 	while = {
-		limit = { event_target:VassalNavyInvesmentTarget = { check_variable = { which = subject_navy_amount value >= 1 } } }
+		limit = { event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value >= 1 } } }
 		random_list = {
-			55 = { create_ship = { name = random random_existing_design = corvette } event_target:VassalNavyInvesmentTarget = { change_variable = { which = subject_navy_amount value = -1 } } }
-			25 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_destroyers } } } modifier = { factor = 0 event_target:VassalNavyInvesmentTarget = { check_variable = { which = subject_navy_amount value < 2 } } } create_ship = { name = random random_existing_design = destroyer } event_target:VassalNavyInvesmentTarget = { change_variable = { which = subject_navy_amount value = -2 } } }
-			14 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_cruisers } } } modifier = { factor = 0 event_target:VassalNavyInvesmentTarget = { check_variable = { which = subject_navy_amount value < 4 } } } create_ship = { name = random random_existing_design = cruiser } event_target:VassalNavyInvesmentTarget = { change_variable = { which = subject_navy_amount value = -4 } } }
-			5 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_battleships } } } modifier = { factor = 0 event_target:VassalNavyInvesmentTarget = { check_variable = { which = subject_navy_amount value < 8 } } } create_ship = { name = random random_existing_design = battleship } event_target:VassalNavyInvesmentTarget = { change_variable = { which = subject_navy_amount value = -8 } } }
-			1 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_titans } } } modifier = { factor = 0 event_target:VassalNavyInvesmentTarget = { check_variable = { which = subject_navy_amount value < 16 } } } create_ship = { name = random random_existing_design = titan } event_target:VassalNavyInvesmentTarget = { change_variable = { which = subject_navy_amount value = -16 } } }
+			55 = { create_ship = { name = random random_existing_design = corvette } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -1 } } }
+			25 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_destroyers } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 2 } } } create_ship = { name = random random_existing_design = destroyer } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -2 } } }
+			14 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_cruisers } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 4 } } } create_ship = { name = random random_existing_design = cruiser } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -4 } } }
+			5 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_battleships } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 8 } } } create_ship = { name = random random_existing_design = battleship } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -8 } } }
+			1 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_titans } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 16 } } } create_ship = { name = random random_existing_design = titan } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -16 } } }
 		}
 	}
 }

@@ -90,7 +90,131 @@ country_event = { # Remove Special Subject Countries from Any Federations & Gala
 	}
 }
 
-# Reset Special Deposits After Terraform.
+# Backup Special Deposits before Terraform (maybe conflicts with similar events).
+# From = Terraforming country
+planet_event = {
+	id = UniqueAscensionPerksEvents.8999
+	is_triggered_only = yes
+	hide_window = yes
+	# mean_time_to_happen = { months = 1 }
+	pre_triggers = { has_owner = yes }
+	trigger = {
+		exists = from
+		has_deposit = yes
+		from = { OR = { is_gestalt = yes is_hive_empire = yes is_machine_empire = yes } }
+		OR = {
+			# Vanilla
+			AND = {
+				from = { is_hive_empire = yes }
+				OR = {
+					has_deposit = d_valley_of_zanaam
+					has_deposit = d_collapsed_burrows
+					has_deposit = d_spawning_complex_blocker
+				}
+			}
+			has_deposit = d_organic_landfill
+			has_deposit = d_central_spire
+			has_deposit = d_cryonic_clones
+			has_deposit = d_underground_farm
+			has_deposit = d_underground_mine
+			has_deposit = d_underground_generator
+			has_deposit = d_underground_contact_zone
+			has_deposit = d_portal_research_zone
+			has_deposit = d_portal_research_zone_gestalt
+			has_deposit = d_egg_cracking
+			# has_deposit = d_the_zone
+			# has_deposit = d_ancient_particle_accelerator
+			# has_deposit = d_odd_factory
+			# has_deposit = d_underground_vault
+			# has_deposit = d_underground_vault_2
+			## Keept by Vanilla for Machine & Hive
+			# has_deposit = d_dust_caverns
+			# has_deposit = d_dust_desert
+			# has_deposit = d_bubbling_swamp
+			# has_deposit = d_fuming_bog
+			# has_deposit = d_crystalline_caverns
+			# has_deposit = d_crystal_forest
+			# has_deposit = d_crystal_reef
+			# has_deposit = d_betharian_deposit
+			# has_deposit = d_alien_pets_deposit
+			## Keept by Vanilla for hive
+			# has_deposit = d_tree_of_life_home
+			# has_deposit = d_tree_of_life_colony
+			# has_deposit = d_lithoid_crater
+			# has_deposit = d_progenitor
+			# UAP
+			AND = {
+				from = {
+					# is_hive_empire = yes
+					OR = {
+						has_ascension_perk = ap_hivemind_reserve
+						has_ascension_perk = ap_pyramidal_society
+						has_country_flag = ap_pyramidal_society
+					}
+				}
+				OR = {
+					has_deposit = d_hivemind_reserve
+					has_deposit = d_district_queen
+					has_deposit = d_district_nursery
+					has_deposit = d_district_entrepot
+					has_deposit = d_district_forest
+				}
+			}
+			AND = {
+				from = {
+					# is_machine_empire = yes
+					OR = {
+						# has_ascension_perk = ap_robot_command
+						has_ascension_perk = ap_pyramidal_society
+						has_country_flag = ap_pyramidal_society
+					}
+				}
+				OR = {
+					has_deposit = d_district_foundry
+					has_deposit = d_district_security
+					has_deposit = d_district_upgrade
+					has_deposit = d_district_recycling
+				}
+			}
+		}
+	}
+	immediate = {
+		if = { limit = { from = { is_hive_empire = yes } }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_hivemind_reserve		} } variable = d_hivemind_reserve }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_queen		} } variable = d_district_queen }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_nursery		} } variable = d_district_nursery }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_entrepot		} } variable = d_district_entrepot }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_forest		} } variable = d_district_forest }
+			# Vanilla
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_valley_of_zanaam				} } variable = d_valley_of_zanaam }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_collapsed_burrows				} } variable = d_collapsed_burrows }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_spawning_complex_blocker		} } variable = d_spawning_complex_blocker }
+		} else_if = { limit = { from = { is_machine_empire = yes } }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_foundry		} } variable = d_district_foundry }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_security		} } variable = d_district_security }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_upgrade		} } variable = d_district_upgrade }
+			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_recycling	} } variable = d_district_recycling }
+		}
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_organic_landfill				} } variable = d_organic_landfill }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_central_spire					} } variable = d_central_spire }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_cryonic_clones				} } variable = d_cryonic_clones }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_underground_farm				} } variable = d_underground_farm }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_underground_mine				} } variable = d_underground_mine }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_underground_generator			} } variable = d_underground_generator }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_underground_contact_zone		} } variable = d_underground_contact_zone }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_portal_research_zone			} } variable = d_portal_research_zone }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_portal_research_zone_gestalt	} } variable = d_portal_research_zone_gestalt }
+		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_egg_cracking					} } variable = d_egg_cracking }
+		# export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_the_zone						} } variable = d_the_zone }
+		# export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_odd_factory					} } variable = d_odd_factory }
+		# export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_ancient_particle_accelerator	} } variable = d_ancient_particle_accelerator }
+		# export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_underground_vault				} } variable = d_underground_vault }
+		# export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_underground_vault_2			} } variable = d_underground_vault_2 }
+	}
+}
+
+# Reset Special Deposits after Terraform.
+# From = Terraforming country
 planet_event = {
 	id = UniqueAscensionPerksEvents.9000
 	is_triggered_only = yes
@@ -98,43 +222,101 @@ planet_event = {
 	# mean_time_to_happen = { months = 1 }
 	pre_triggers = { has_owner = yes }
 	trigger = {
-		exists = owner
+		exists = from
+		from = { OR = { is_gestalt = yes is_hive_empire = yes is_machine_empire = yes } }
 		OR = {
+			# Vanilla
+			is_variable_set = d_valley_of_zanaam
+			is_variable_set = d_collapsed_burrows
+			is_variable_set = d_spawning_complex_blocker
+			is_variable_set = d_organic_landfill
+			is_variable_set = d_central_spire
+			is_variable_set = d_cryonic_clones
+			is_variable_set = d_underground_farm
+			is_variable_set = d_underground_mine
+			is_variable_set = d_underground_generator
+			is_variable_set = d_underground_contact_zone
+			is_variable_set = d_portal_research_zone
+			is_variable_set = d_portal_research_zone_gestalt
+			is_variable_set = d_egg_cracking
+			# is_variable_set = d_the_zone
+			# is_variable_set = d_odd_factory
+			# is_variable_set = d_ancient_particle_accelerator
+			# is_variable_set = d_underground_vault
+			# is_variable_set = d_underground_vault_2
+			# UAP
 			AND = {
 				merg_is_hive_world = yes
+				from = {
+					# is_hive_empire = yes
+					OR = {
+						has_ascension_perk = ap_hivemind_reserve
+						has_ascension_perk = ap_pyramidal_society
+						has_country_flag = ap_pyramidal_society
+					}
+				}
 				OR = {
-					check_variable = { which = deposits_hivemind_reserve value > 1 }
-					check_variable = { which = deposits_district_queen value > 1 }
-					check_variable = { which = deposits_district_nursery value > 1 }
+					is_variable_set = d_hivemind_reserve
+					is_variable_set = d_district_queen
+					is_variable_set = d_district_nursery
+					is_variable_set = d_district_entrepot
+					is_variable_set = d_district_forest
 				}
 			}
-			is_planet_class = pc_machine
-			# is_planet_class = pc_arcology # TODO Which mod?
+			AND = {
+				is_planet_class = pc_machine
+				from = {
+					# is_machine_empire = yes
+					OR = {
+						# has_ascension_perk = ap_robot_command
+						has_ascension_perk = ap_pyramidal_society
+						has_country_flag = ap_pyramidal_society
+					}
+				}
+				OR = {
+					is_variable_set = d_district_foundry
+					is_variable_set = d_district_security
+					is_variable_set = d_district_upgrade
+					is_variable_set = d_district_recycling
+				}
+			}
+			# is_planet_class = pc_arcology # TODO WHICH MOD?
 		}
-		NOT = { has_planet_flag = mod_deposits_restored }
+		# NOT = { has_planet_flag = mod_deposits_restored }
 	}
 	immediate = {
-		if = {
-			limit = { merg_is_hive_world = yes }
-			while = {
-				limit = { check_variable = { which = deposits_hivemind_reserve value > 1 } }
-				change_variable = { which = deposits_hivemind_reserve value = -1 }
-				add_deposit = d_hivemind_reserve
-				set_planet_flag = mod_deposits_restored
-			}
-			while = {
-				limit = { check_variable = { which = deposits_district_queen value > 1 } }
-				change_variable = { which = deposits_district_queen value = -1 }
-				add_deposit = d_hivemind_reserve
-				set_planet_flag = mod_deposits_restored
-			}
-			while = {
-				limit = { check_variable = { which = deposits_district_nursery value > 1 } }
-				change_variable = { which = deposits_district_nursery value = -1 }
-				add_deposit = d_hivemind_reserve
-				set_planet_flag = mod_deposits_restored
-			}
+		# set_planet_flag = mod_deposits_restored
+		if = { limit = { merg_is_hive_world = yes }
+			if = { limit = { is_variable_set = d_hivemind_reserve	NOT = { has_deposit = d_hivemind_reserve } } while = { count = d_hivemind_reserve	add_deposit = d_hivemind_reserve } clear_variable = d_hivemind_reserve }
+			if = { limit = { is_variable_set = d_district_queen		NOT = { has_deposit = d_district_queen } } while = { count = d_district_queen		add_deposit = d_district_queen } clear_variable = d_district_queen }
+			if = { limit = { is_variable_set = d_district_nursery	NOT = { has_deposit = d_district_nursery } } while = { count = d_district_nursery	add_deposit = d_district_nursery } clear_variable = d_district_nursery }
+			if = { limit = { is_variable_set = d_district_entrepot	NOT = { has_deposit = d_district_entrepot } } while = { count = d_district_entrepot	add_deposit = d_district_entrepot } clear_variable = d_district_entrepot }
+			if = { limit = { is_variable_set = d_district_forest	NOT = { has_deposit = d_district_forest } } while = { count = d_district_forest		add_deposit = d_district_forest } clear_variable = d_district_forest }
+			# Vanilla
+			if = { limit = { is_variable_set = d_valley_of_zanaam	NOT = { has_deposit = d_valley_of_zanaam } } while = { count = d_valley_of_zanaam			add_deposit = d_valley_of_zanaam } clear_variable = d_valley_of_zanaam }
+			if = { limit = { is_variable_set = d_collapsed_burrows	NOT = { has_deposit = d_collapsed_burrows } } while = { count = d_collapsed_burrows			add_deposit = d_collapsed_burrows } clear_variable = d_collapsed_burrows }
+			if = { limit = { is_variable_set = d_spawning_complex_blocker NOT = { has_deposit = d_spawning_complex_blocker } } while = { count = d_spawning_complex_blocker add_deposit = d_spawning_complex_blocker } clear_variable = d_spawning_complex_blocker }
+		} else_if = { limit = { is_planet_class = pc_machine }
+			if = { limit = { is_variable_set = d_district_foundry	NOT = { has_deposit = d_district_foundry } } while = { count = d_district_foundry	add_deposit = d_district_foundry } clear_variable = d_district_foundry }
+			if = { limit = { is_variable_set = d_district_security	NOT = { has_deposit = d_district_security } } while = { count = d_district_security	add_deposit = d_district_security } clear_variable = d_district_security }
+			if = { limit = { is_variable_set = d_district_upgrade	NOT = { has_deposit = d_district_upgrade } } while = { count = d_district_upgrade	add_deposit = d_district_upgrade } clear_variable = d_district_upgrade }
+			if = { limit = { is_variable_set = d_district_recycling	NOT = { has_deposit = d_district_recycling } } while = { count = d_district_recycling	add_deposit = d_district_recycling } clear_variable = d_district_recycling }
 		}
+		if = { limit = { is_variable_set = d_organic_landfill		NOT = { has_deposit = d_organic_landfill } } while = { count = d_organic_landfill	add_deposit = d_organic_landfill } clear_variable = d_organic_landfill }
+		if = { limit = { is_variable_set = d_central_spire			NOT = { has_deposit = d_central_spire } } while = { count = d_central_spire				add_deposit = d_central_spire } clear_variable = d_central_spire }
+		if = { limit = { is_variable_set = d_cryonic_clones			NOT = { has_deposit = d_cryonic_clones } } while = { count = d_cryonic_clones				add_deposit = d_cryonic_clones } clear_variable = d_cryonic_clones }
+		if = { limit = { is_variable_set = d_underground_farm		NOT = { has_deposit = d_underground_farm } } while = { count = d_underground_farm			add_deposit = d_underground_farm } clear_variable = d_underground_farm }
+		if = { limit = { is_variable_set = d_underground_mine		NOT = { has_deposit = d_underground_mine } } while = { count = d_underground_mine			add_deposit = d_underground_mine } clear_variable = d_underground_mine }
+		if = { limit = { is_variable_set = d_underground_generator	NOT = { has_deposit = d_underground_generator } } while = { count = d_underground_generator	add_deposit = d_underground_generator } clear_variable = d_underground_generator }
+		if = { limit = { is_variable_set = d_underground_contact_zone NOT = { has_deposit = d_underground_contact_zone } } while = { count = d_underground_contact_zone	add_deposit = d_underground_contact_zone } clear_variable = d_underground_contact_zone }
+		if = { limit = { is_variable_set = d_portal_research_zone	NOT = { has_deposit = d_portal_research_zone } } while = { count = d_portal_research_zone	add_deposit = d_portal_research_zone_gestalt } clear_variable = d_portal_research_zone }
+		if = { limit = { is_variable_set = d_portal_research_zone_gestalt NOT = { has_deposit = d_portal_research_zone_gestalt } } while = { count = d_portal_research_zone_gestalt add_deposit = d_portal_research_zone_gestalt } clear_variable = d_portal_research_zone_gestalt }
+		if = { limit = { is_variable_set = d_egg_cracking			NOT = { has_deposit = d_egg_cracking } } while = { count = d_egg_cracking				add_deposit = d_egg_cracking } clear_variable = d_egg_cracking }
+		# if = { limit = { is_variable_set = d_the_zone	NOT = { has_deposit = d_the_zone } } while = { count = d_the_zone					add_deposit = d_the_zone } clear_variable = d_the_zone }
+		# if = { limit = { is_variable_set = d_odd_factory	NOT = { has_deposit = d_odd_factory } } while = { count = d_odd_factory					add_deposit = d_odd_factory } clear_variable = d_odd_factory }
+		# if = { limit = { is_variable_set = d_ancient_particle_accelerator	NOT = { has_deposit = d_ancient_particle_accelerator } } while = { count = d_ancient_particle_accelerator add_deposit = d_ancient_particle_accelerator } clear_variable = d_ancient_particle_accelerator }
+		# if = { limit = { is_variable_set = d_underground_vault	NOT = { has_deposit = d_underground_vault } } while = { count = d_underground_vault			add_deposit = d_underground_vault } clear_variable = d_underground_vault }
+		# if = { limit = { is_variable_set = d_underground_vault_2	NOT = { has_deposit = d_underground_vault_2 } } while = { count = d_underground_vault_2		add_deposit = d_underground_vault_2 } clear_variable = d_underground_vault_2 }
 	}
 }
 
@@ -1933,24 +2115,24 @@ country_event = {
 		city_level = event_target:FallenEmpireTaskOrigin
 		room = event_target:FallenEmpireTaskOrigin.ruler
 	}
-	desc = { text = fallen_empires_tasks.2.desc.a.materialist trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
-	desc = { text = fallen_empires_tasks.2.desc.a.xenophile trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
-	desc = { text = fallen_empires_tasks.2.desc.a.spiritualist trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	desc = { text = fallen_empires_tasks.2.desc.a.machine.o trigger = { fe_gift_resources = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.a.machine.s trigger = { fe_gift_resources = yes fe_gift_target_is_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.materialist trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.xenophile trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.spiritualist trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.machine.o trigger = { fe_gift_tech = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.machine.s trigger = { fe_gift_tech = yes fe_gift_target_is_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.materialist trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.xenophile trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.spiritualist trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.machine.o trigger = { fe_gift_ships = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.machine.s trigger = { fe_gift_ships = yes fe_gift_target_is_machine = yes	event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.d.materialist trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
-	desc = { text = fallen_empires_tasks.2.desc.d.xenophile trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
-	desc = { text = fallen_empires_tasks.2.desc.d.spiritualist trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.materialist	trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.xenophile		trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.spiritualist	trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.machine.o		trigger = { fe_gift_resources = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.machine.s		trigger = { fe_gift_resources = yes fe_gift_target_is_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.materialist	trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.xenophile		trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.spiritualist	trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.machine.o		trigger = { fe_gift_tech = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.machine.s		trigger = { fe_gift_tech = yes fe_gift_target_is_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.materialist	trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.xenophile		trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.spiritualist	trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.machine.o		trigger = { fe_gift_ships = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.machine.s		trigger = { fe_gift_ships = yes fe_gift_target_is_machine = yes	event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.d.materialist	trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
+	desc = { text = fallen_empires_tasks.2.desc.d.xenophile		trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
+	desc = { text = fallen_empires_tasks.2.desc.d.spiritualist	trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
 	location = event_target:capital_planet
 	immediate = { get_capital_planet = yes }
 	after = {
@@ -3340,32 +3522,32 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
-		hidden_effect = { event_target:country_1 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_1 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
-		hidden_effect = { event_target:country_2 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_2 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
-		hidden_effect = { event_target:country_3 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_3 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
-		hidden_effect = { event_target:country_4 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_4 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
-		hidden_effect = { event_target:country_5 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_5 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
-		hidden_effect = { event_target:country_6 = { save_event_target_as = VassalNavyInvesmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_6 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
 	}
 	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
 	option = { name = ABORT ai_chance = { factor = 0 } }
@@ -3378,40 +3560,40 @@ country_event = {
 	show_sound = event_construction
 	picture = GFX_evt_hangar_bay
 	is_triggered_only = yes
-	immediate = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget } }
+	immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.1
 		allow = { resource_stockpile_compare = { resource = alloys value > 2000 } resource_stockpile_compare = { resource = energy value > 1000 } }
 		add_resource = { alloys = -2000 energy = -1000 }
-		hidden_effect = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget set_country_flag = subject_navy_investment_1 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 30 random = 15 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
+		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_1 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 30 random = 15 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.1.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.2
 		allow = { resource_stockpile_compare = { resource = alloys value > 5000 } resource_stockpile_compare = { resource = energy value > 2000 } }
 		add_resource = { alloys = -5000 energy = -2000 }
-		hidden_effect = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget set_country_flag = subject_navy_investment_2 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 60 random = 30 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
+		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_2 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 60 random = 30 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.2.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.3
 		allow = { resource_stockpile_compare = { resource = alloys value > 10000 } resource_stockpile_compare = { resource = energy value > 4000 } }
 		add_resource = { alloys = -10000 energy = -4000 }
-		hidden_effect = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget set_country_flag = subject_navy_investment_3 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 120 random = 60 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
+		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_3 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 120 random = 60 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.3.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.4
 		allow = { resource_stockpile_compare = { resource = alloys value > 20000 } resource_stockpile_compare = { resource = energy value > 8000 } }
 		add_resource = { alloys = -20000 energy = -8000 }
-		hidden_effect = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget set_country_flag = subject_navy_investment_4 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 240 random = 120 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
+		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_4 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 240 random = 120 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.4.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.5
 		allow = { resource_stockpile_compare = { resource = alloys value > 40000 } resource_stockpile_compare = { resource = energy value > 16000 } }
 		add_resource = { alloys = -40000 energy = -16000 }
-		hidden_effect = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
+		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.5.tooltip"
 	}
 	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
@@ -3426,48 +3608,48 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:camera_location
 	immediate = {
-		event_target:VassalNavyInvesmentTarget = {
-			save_event_target_as = VassalNavyInvesmentTarget
+		event_target:VassalNavyInvestmentTarget = {
+			save_event_target_as = VassalNavyInvestmentTarget
 			# add_modifier = { modifier = vassal_navy_capacity_boost }
 			random_owned_planet = { limit = { is_capital = yes } save_event_target_as = camera_location }
 			if = {
 				limit = { has_country_flag = subject_navy_investment_1 }
 				ROOT = {
 					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.1
-					last_created_fleet = { set_owner = event_target:VassalNavyInvesmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvesmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
+					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
+					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
 				}
 				remove_country_flag = subject_navy_investment_1
 			} else_if = {
 				limit = { has_country_flag = subject_navy_investment_2 }
 				ROOT = {
 					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.2
-					last_created_fleet = { set_owner = event_target:VassalNavyInvesmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvesmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
+					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
+					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
 				}
 				remove_country_flag = subject_navy_investment_2
 			} else_if = {
 				limit = { has_country_flag = subject_navy_investment_3 }
 				ROOT = {
 					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.35
-					last_created_fleet = { set_owner = event_target:VassalNavyInvesmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvesmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
+					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
+					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
 				}
 				remove_country_flag = subject_navy_investment_3
 			} else_if = {
 				limit = { has_country_flag = subject_navy_investment_4 }
 				ROOT = {
 					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.55
-					last_created_fleet = { set_owner = event_target:VassalNavyInvesmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvesmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
+					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
+					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
 				}
 				remove_country_flag = subject_navy_investment_4
 			} else_if = {
 				limit = { has_country_flag = subject_navy_investment_5 }
 				ROOT = {
 					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.75
-					last_created_fleet = { set_owner = event_target:VassalNavyInvesmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvesmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
+					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
+					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
 				}
 				remove_country_flag = subject_navy_investment_5
 			}
@@ -3484,7 +3666,7 @@ country_event = {
 	picture = GFX_evt_hangar_bay
 	location = capital_scope
 	is_triggered_only = yes
-	immediate = { event_target:VassalNavyInvesmentTarget = { save_event_target_as = VassalNavyInvesmentTarget } }
+	immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
 	# option = { name = "Let's select another subject." hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
 	option = { name = OK }
 }
@@ -5755,26 +5937,37 @@ ship_event = {
 # }
 
 # # TEMP ACTIVE FIX OLD SAVES (on_single_player_save_game_load) remove in > 3.4.3
-# event = {
-# 	id = UniqueAscensionPerksEvents.3600
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	trigger = {
-# 		any_system = {
-# 			OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
-# 		}
-# 	}
-# 	immediate = {
-# 		every_system = {
-# 			limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
-# 			# set_star_class = sc_white_hole
-# 			every_system_planet = {
-# 				limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
-# 				change_pc = pc_whc_star
-# 			}
-# 		}
-# 	}
-# }
+event = {
+	id = UniqueAscensionPerksEvents.3600
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		# any_system = {
+		# 	OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
+		# }
+		any_playable_country = {
+			has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
+		}
+
+	}
+	immediate = {
+		# every_system = {
+		# 	limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
+		# 	# set_star_class = sc_white_hole
+		# 	every_system_planet = {
+		# 		limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
+		# 		change_pc = pc_whc_star
+		# 	}
+		# }
+		every_playable_country = {
+			limit = {
+				has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
+			}
+			set_country_flag = space_domestication_tiyanki
+			remove_country_flag = space_domestication_tyanki
+		}
+	}
+}
 
 # on_yearly_pulse_country
 country_event = {
@@ -6628,7 +6821,7 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.466.Energy"		allow = { has_200_minerals = yes } add_deposit = d_aware_energy_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Minerals"		allow = { has_200_minerals = yes } add_deposit = d_aware_mining_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Food"			allow = { has_200_minerals = yes } add_deposit = d_aware_farming_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Amenitites"	allow = { has_200_minerals = yes } add_deposit = d_aware_amenities_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Amenities"	allow = { has_200_minerals = yes } add_deposit = d_aware_amenities_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Security"		allow = { has_200_minerals = yes } add_deposit = d_aware_crime_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Consumers"	allow = { has_200_minerals = yes has_modifier = self_aware_consumers } add_deposit = d_aware_consumer_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.466.Alloys"		allow = { has_200_minerals = yes has_modifier = self_aware_alloys } add_deposit = d_aware_foundry_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }

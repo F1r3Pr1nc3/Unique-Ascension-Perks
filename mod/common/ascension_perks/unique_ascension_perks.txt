@@ -179,6 +179,7 @@ ap_nano_drones = {
 # v3.3 halved values
 ap_nano_to_nanite = {
 	possible = {
+		custom_tooltip = { fail_text = "ap_nano_drones_req_1" has_technology = tech_auto_drone }
 		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_1" has_ascension_perk = ap_nano_drones }
 		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_2" resource_stockpile_compare = { resource = automatic_drone value > 37500 } }
 		has_distar = yes
@@ -741,7 +742,10 @@ ap_primitives_creation = {
 		custom_tooltip = { fail_text = "ap_primitives_creation_req_1" has_technology = tech_society_3 }
 		custom_tooltip = { fail_text = "ap_primitives_creation_req_2" has_technology = tech_primitive_initiatives }
 	}
-	modifier = { station_observers_produces_mult = 1.50 station_observers_unity_produces_add = 10 }
+	modifier = {
+		station_observers_produces_mult = 1 # 1.50
+		station_observers_unity_produces_add = 10
+	}
 	on_enabled = {
 		custom_tooltip = "ap_primitives_creation_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.140 } }

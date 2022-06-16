@@ -65,10 +65,14 @@ create_defense_sentinels_country = {
 				NAND = {
 					exists = sector
 					is_sector_capital = yes
-					solar_system = { is_capital_system = yes }
 				}
+				is_colony = no
 			}
-			solar_system.star = { save_event_target_as = spawn_location }
+			weights = { base = 1
+				modifier = { add = 2 is_colonizeable_planet = yes }
+				modifier = { add = 3 can_spawn_archaeological_site = yes }
+			}
+			star = { save_event_target_as = spawn_location }
 		}
 		event_target:defense_sentinels = {
 			create_fleet = {
@@ -93,15 +97,22 @@ create_defense_sentinels_country = {
 		random_planet_within_border = { limit = { has_planet_flag = defense_sentinels_home } save_event_target_as = spawn_location }
 	}
 	event_target:defense_sentinels = {
-		create_fleet = {
-			name = NAME_defense_sentinels
-			settings = { spawn_debris = no is_boss = yes }
-			effect = {
-				set_owner = prev
-				create_ship = { name = "" design = "Defense Sentinel - Main Core" graphical_culture = "ai_01" }
-				set_location = { target = event_target:spawn_location distance = 15 angle = random }
-				save_event_target_as = defense_sentinels_fleet
-				set_fleet_flag = defense_sentinels_main_core
+		root = { every_planet_within_border = { set_surveyed = { surveyed = yes surveyor = prevprev } } }
+		event_target:spawn_location = {
+			random_system_planet = {
+				limit = { has_planet_flag = defense_sentinels_home }
+				set_surveyed = { surveyed = yes surveyor = root }
+			}
+			create_fleet = {
+				name = NAME_defense_sentinels
+				settings = { spawn_debris = no is_boss = yes }
+				effect = {
+					set_owner = prevprev
+					create_ship = { name = "" design = "Defense Sentinel - Main Core" graphical_culture = "ai_01" }
+					set_location = { target = prev distance = 15 angle = random }
+					save_event_target_as = defense_sentinels_fleet
+					set_fleet_flag = defense_sentinels_main_core
+				}
 			}
 		}
 	}

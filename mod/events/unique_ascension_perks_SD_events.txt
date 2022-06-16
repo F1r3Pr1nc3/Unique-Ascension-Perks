@@ -24,9 +24,9 @@ country_event = {
 	# trigger = {}
 	# immediate = {}
 	# after = {}
-	option = { name = "NAME_Tiyanki_Space_Whale" allow = { has_technology = tech_space_whale_weapon_1 } custom_tooltip = "domesticated_tyanki_tooltip_1" custom_tooltip = "domesticated_tyanki_tooltip_2" hidden_effect = { set_country_flag = space_domestication_tyanki set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
+	option = { name = "NAME_Tiyanki_Space_Whale" allow = { has_technology = tech_space_whale_weapon_1 } custom_tooltip = "domesticated_tiyanki_tooltip_1" custom_tooltip = "domesticated_tiyanki_tooltip_2" hidden_effect = { set_country_flag = space_domestication_tiyanki set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "space_amoeba" allow = { has_technology = tech_amoeba_strike_craft_1 } custom_tooltip = "domesticated_amoeba_tooltip_1" custom_tooltip = "domesticated_amoeba_tooltip_2" hidden_effect = { set_country_flag = space_domestication_amoeba set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = "NAME_Crystalline_Entity" allow = { OR = { has_technology = tech_crystal_armor_1 has_technology = tech_crystal_armor_2 } } custom_tooltip = "domesticated_cryals_tooltip_1" custom_tooltip = "domesticated_cryals_tooltip_2" hidden_effect = { set_country_flag = space_domestication_crystal set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
+	option = { name = "NAME_Crystalline_Entity" allow = { OR = { has_technology = tech_crystal_armor_1 has_technology = tech_crystal_armor_2 } } custom_tooltip = "domesticated_crystals_tooltip_1" custom_tooltip = "domesticated_crystals_tooltip_2" hidden_effect = { set_country_flag = space_domestication_crystal set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "clouds_1_chain_title" allow = { has_technology = tech_space_cloud_weapon_1 } custom_tooltip = "domesticated_cloud_tooltip_1" custom_tooltip = "domesticated_cloud_tooltip_2" hidden_effect = { set_country_flag = space_domestication_cloud set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = "job_mining_drone" allow = { has_technology = tech_mining_drone_weapon_1 } custom_tooltip = "domesticated_drones_tooltip_1" custom_tooltip = "domesticated_drones_tooltip_2" hidden_effect = { set_country_flag = space_domestication_drone set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
 	option = { name = EXIT default_hide_option = yes }
@@ -37,7 +37,7 @@ country_event = {
 	title = "UniqueAscensionPerksEvents.1001.Name"
 	desc = {
 		trigger = {
-			success_text = { text = "UniqueAscensionPerksEvents.1001.Tyanki" has_country_flag = space_domestication_tyanki }
+			success_text = { text = "UniqueAscensionPerksEvents.1001.Tiyanki" has_country_flag = space_domestication_tiyanki }
 			success_text = { text = "UniqueAscensionPerksEvents.1001.Amoeba" has_country_flag = space_domestication_amoeba }
 			success_text = { text = "UniqueAscensionPerksEvents.1001.Crystal" has_country_flag = space_domestication_crystal }
 			success_text = { text = "UniqueAscensionPerksEvents.1001.Cloud" has_country_flag = space_domestication_cloud }
@@ -62,7 +62,7 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.1002.Desc"
 			text = newline
 			text = "UniqueAscensionPerksEvents.1002.Selected"
-			success_text = { text = "UniqueAscensionPerksEvents.1002.Tyanki" has_country_flag = space_domestication_tyanki }
+			success_text = { text = "UniqueAscensionPerksEvents.1002.Tiyanki" has_country_flag = space_domestication_tiyanki }
 			success_text = { text = "UniqueAscensionPerksEvents.1002.Amoeba" has_country_flag = space_domestication_amoeba }
 			success_text = { text = "UniqueAscensionPerksEvents.1002.Crystal" has_country_flag = space_domestication_crystal }
 			success_text = { text = "UniqueAscensionPerksEvents.1002.Cloud" has_country_flag = space_domestication_cloud }
@@ -96,7 +96,7 @@ country_event = {
 		}
 		custom_tooltip = "breeding_fertilization_protocol_tooltip"
 		# breeding_fertilization_protocol_paying = yes
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -3000 } }
+		if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -3000 } }
 		else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -3000 } }
 		else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -3000 } }
 		else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -3000 } }
@@ -108,7 +108,7 @@ country_event = {
 			# breeding_fertilization_protocol = {
 			random_planet_within_border = {
 				limit = { has_planet_flag = domesticated_alien_home }
-				if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tyanki } merg_is_gas_giant = yes } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } is_planet_class = pc_toxic } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } is_planet_class = pc_frozen } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } is_planet_class = pc_black_hole } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } is_planet_class = pc_asteroid } save_event_target_as = spawn_location }
+				if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } merg_is_gas_giant = yes } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } is_planet_class = pc_toxic } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } is_planet_class = pc_frozen } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } is_planet_class = pc_black_hole } save_event_target_as = spawn_location } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } is_planet_class = pc_asteroid } save_event_target_as = spawn_location }
 			}
 			event_target:domesticated_spaceborn_alien = {
 				create_fleet = {
@@ -116,7 +116,7 @@ country_event = {
 					settings = { spawn_debris = no is_boss = yes }
 					effect = {
 						set_owner = prev
-						if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tyanki } } create_ship = { name = "" design = "Domesticated Mother Tyanki" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } } while = { count = 25 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } } create_ship = { name = "" design = "Domesticated Mother Crystal" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } } create_ship = { name = "" design = "Domesticated Mother Cloud" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } } create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } }
+						if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } } create_ship = { name = "" design = "Domesticated Mother Tiyanki" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } } while = { count = 25 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } } create_ship = { name = "" design = "Domesticated Mother Crystal" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } } create_ship = { name = "" design = "Domesticated Mother Cloud" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } } create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } }
 						set_location = { target = event_target:spawn_location distance = 10 angle = random }
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
@@ -156,7 +156,7 @@ country_event = {
 		}
 		custom_tooltip = "military_assault_protocol_tooltip"
 		# military_assault_protocol_paying = {
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
+		if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1012 days = 720 }
@@ -172,7 +172,7 @@ country_event = {
 		}
 		custom_tooltip = "security_defense_protocol_tooltip"
 		# security_defense_protocol_paying = {
-		if = { limit = { has_country_flag = space_domestication_tyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
+		if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -5000 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -5000 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -5000 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -5000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1013 days = 720 }
@@ -344,13 +344,13 @@ country_event = {
 						set_owner = prev
 						# space_domestication_spawn_default_fleet = yes
 						if = {
-							limit = { root = { has_country_flag = space_domestication_tyanki } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Tyanki Calf" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tyanki Calf" } } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Tyanki Bull" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tyanki Bull" } } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Tyanki Cow" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tyanki Cow" } } }
+							limit = { root = { has_country_flag = space_domestication_tiyanki } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } } }
+							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } }
+							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } } }
 						} else_if = {
 							limit = { root = { has_country_flag = space_domestication_amoeba } }
 							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba" } }

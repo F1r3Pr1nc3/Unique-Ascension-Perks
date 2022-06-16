@@ -47,6 +47,7 @@ ship_event = {
 		exists = owner
 		owner = {
 			is_ai = yes # added v3.4
+			is_country_type = default
 			has_ascension_perk = ap_super_hive_mind
 			# event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } }
 		}
@@ -721,9 +722,8 @@ country_event = {
 	show_sound = event_ai_started
 	location = from
 	is_triggered_only = yes
-	immediate = {
-		set_country_flag = aggressive_hivemind_project
-	}
+	trigger = { exists = from }
+	immediate = { set_country_flag = aggressive_hivemind_project }
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
@@ -742,6 +742,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ai = yes # added v3.4
+		is_country_type = default
 		has_ascension_perk = ap_aggressive_hivemind
 		has_country_flag = aggressive_hivemind_project
 		# event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value > 0 } }
