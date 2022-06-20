@@ -34,7 +34,7 @@ create_defense_sentinels_country = {
 		} else = {
 			create_country = {
 				name = NAME_defense_sentinels
-				type = defense_sentinels
+				type = security_forces
 				flag = {
 					icon = { category = "spherical" file = "flag_spherical_3.dds" }
 					background = { category = "backgrounds" file = "diagonal.dds" }
@@ -50,6 +50,11 @@ create_defense_sentinels_country = {
 					set_relation_flag = { who = root flag = defense_sentinels }
 					set_subject_of = { who = root preset = preset_machine_follower }
 					set_graphical_culture = ai_02
+					add_trust = { amount = 100 who = root }
+					random_agreement = {
+						limit = { is_owned_by = root target = { is_same_empire = prev } }
+						add_loyalty = 95
+					}
 				}
 			}
 		}
@@ -97,7 +102,13 @@ create_defense_sentinels_country = {
 		random_planet_within_border = { limit = { has_planet_flag = defense_sentinels_home } save_event_target_as = spawn_location }
 	}
 	event_target:defense_sentinels = {
-		root = { every_planet_within_border = { set_surveyed = { surveyed = yes surveyor = prevprev } } }
+		root = {
+			every_planet_within_border = { set_surveyed = { surveyed = yes surveyor = prevprev } }
+		}
+		random_agreement = {
+			limit = { is_owned_by = root target = { is_same_empire = prev } }
+			add_loyalty = 5
+		}
 		event_target:spawn_location = {
 			random_system_planet = {
 				limit = { has_planet_flag = defense_sentinels_home }

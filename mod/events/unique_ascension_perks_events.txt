@@ -44,7 +44,7 @@ country_event = { # Kill Special Subject Country if their master is dead.
 			destroy_country = yes
 		} else_if = {
 			limit = {
-				is_country_type = defense_sentinels
+				is_country_type = security_forces # defense_sentinels
 				has_country_flag = defense_sentinels
 				NOT = {
 					any_relation = {
@@ -336,9 +336,17 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_spawn_system_batch = begin
-		no_scope = {
+		random_rim_system = {
+			# limit = { <triggers> }
+			# weights = { base = 1 modifier = { add = 1 <triggers> } }
 			spawn_system = {
-				min_distance > 620 max_distance <= 640 max_orientation_angle = 90 hyperlane = no initializer = "lh_basic_system"
+				min_distance >= 26
+				max_distance <= 44
+				min_orientation_angle = -140
+				max_orientation_angle = 140
+				hyperlane = no
+				initializer = "lh_basic_system"
+				direction = rimwards
 				effect = { save_event_target_as = lh_basic_system }
 			}
 			# random_list = {
@@ -1335,6 +1343,7 @@ planet_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = from
+		from = { NOR = { has_country_flag = ap_recycling_drones_project_upgrade_added  has_country_flag = ap_recycling_drones_project_upgrade } }
 	}
 	immediate = {
 		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
@@ -1354,7 +1363,12 @@ planet_event = {
 		exists = owner # pre_trigger seems not sufficient
 	}
 	is_triggered_only = yes
-	immediate = { owner = { set_country_flag = ap_recycling_drones_project_upgrade } }
+	immediate = {
+		owner = {
+			set_country_flag = ap_recycling_drones_project_upgrade
+			remove_country_flag = ap_recycling_drones_project_upgrade_added
+		}
+	}
 	option = { name = EXCELLENT }
 }
 
@@ -3695,14 +3709,14 @@ country_event = {
 	mean_time_to_happen = { days = 14 }
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
-		any_relation = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
+		any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
 	}
 	immediate =	{
 		# defense_sentinels_idle_fleet_selection = yes
 		save_event_target_as = main_country
 		random_relation = {
 			limit = {
-				is_country_type = defense_sentinels
+				is_country_type = security_forces # defense_sentinels
 				has_country_flag = defense_sentinels
 				has_relation_flag = { who = root flag = defense_sentinels }
 			}
@@ -3849,7 +3863,7 @@ country_event = {
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
 		any_relation = {
-			is_country_type = defense_sentinels
+			is_country_type = security_forces # defense_sentinels
 			has_relation_flag = { who = root flag = defense_sentinels }
 			count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 }
 		}
@@ -3969,7 +3983,7 @@ country_event = {
 	trigger = {
 		has_country_flag = ap_defense_sentinels_retriever_project
 		any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
-		any_relation = { is_country_type = defense_sentinels has_relation_flag = { who = root flag = defense_sentinels } }
+		any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
 	}
 	immediate = {
 		create_defense_sentinels_country = yes
@@ -5936,35 +5950,54 @@ ship_event = {
 # 	}
 # }
 
-# # TEMP ACTIVE FIX OLD SAVES (on_single_player_save_game_load) remove in > 3.4.3
+# # TEMP BACKWARD COMPAT. SAVES FIX (on_single_player_save_game_load) remove in > 3.4.3
 event = {
 	id = UniqueAscensionPerksEvents.3600
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		# any_system = {
-		# 	OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
-		# }
-		any_playable_country = {
-			has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
-		}
-
-	}
+	# trigger = {	}
 	immediate = {
-		# every_system = {
-		# 	limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
-		# 	# set_star_class = sc_white_hole
-		# 	every_system_planet = {
-		# 		limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
-		# 		change_pc = pc_whc_star
+		# if = {
+		# 	limit = {
+		# 		any_system = {
+		# 			OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole }
+		# 		}
+		# 	}
+		# 	every_system = {
+		# 		limit = { OR = { is_star_class = sc_white_hole is_star_class = sc_whitte_hole } }
+		# 		# set_star_class = sc_white_hole
+		# 		every_system_planet = {
+		# 			limit = { OR = { is_planet_class = pc_white_hole is_planet_class = pc_whitte_hole } }
+		# 			change_pc = pc_whc_star
+		# 		}
 		# 	}
 		# }
-		every_playable_country = {
+		if = {
 			limit = {
-				has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
+				any_playable_country = {
+					has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
+				}
 			}
-			set_country_flag = space_domestication_tiyanki
-			remove_country_flag = space_domestication_tyanki
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
+				}
+				set_country_flag = space_domestication_tiyanki
+				remove_country_flag = space_domestication_tyanki
+			}
+		}
+		# remove in 3.5
+		if = {
+			limit = { any_country = { is_country_type = defense_sentinels has_any_overlord = yes } }
+			every_country = {
+				limit = { is_country_type = defense_sentinels }
+				set_country_type = security_forces
+				add_trust = { amount = 100 who = overlord }
+				random_agreement = {
+					limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
+					add_loyalty = 100
+				}
+			}
 		}
 	}
 }

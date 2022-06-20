@@ -10,6 +10,7 @@ create_security_forces_country = {
 		limit = { any_relation = { has_relation_flag = { who = root flag = security_strike_force } } }
 		random_relation = {
 			limit = { has_relation_flag = { who = root flag = security_strike_force } }
+			add_loyalty = 5
 			save_event_target_as = security_forces_country
 		}
 	} else = {
@@ -30,6 +31,11 @@ create_security_forces_country = {
 				set_country_flag = security_strike_force
 				set_relation_flag = { who = root flag = security_strike_force }
 				set_subject_of = { who = root preset = preset_machine_follower }
+				add_trust = { amount = 100 who = root }
+				random_agreement = {
+					limit = { is_owned_by = root target = { is_same_empire = prev } }
+					add_loyalty = 100
+				}
 			}
 		}
 	}
