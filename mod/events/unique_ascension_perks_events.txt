@@ -3505,7 +3505,7 @@ country_event = {
 	picture = GFX_evt_powerful_vassals
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = EXCELLENT ai_chance = { factor = 0.1 } }
+	option = { name = EXCELLENT }
 }
 
 country_event = {
@@ -3532,39 +3532,52 @@ country_event = {
 				} }
 			} }
 		}
+		if = { limit = { exists = event_target:VassalNavyInvestmentTarget }
+			no_scope = { save_event_target_as = VassalNavyInvestmentTarget }
+		}
+	}
+	after = {
+		if = { limit = { exists = event_target:VassalNavyInvestmentTarget NOT = { has_active_event = { UniqueAscensionPerksEvents.8144 } } }
+			country_event = { id = UniqueAscensionPerksEvents.8144 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
-		hidden_effect = { event_target:country_1 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_1 = { save_event_target_as = VassalNavyInvestmentTarget } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
-		hidden_effect = { event_target:country_2 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_2 = { save_event_target_as = VassalNavyInvestmentTarget } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
-		hidden_effect = { event_target:country_3 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_3 = { save_event_target_as = VassalNavyInvestmentTarget } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
-		hidden_effect = { event_target:country_4 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_4 = { save_event_target_as = VassalNavyInvestmentTarget } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
-		hidden_effect = { event_target:country_5 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_5 = { save_event_target_as = VassalNavyInvestmentTarget } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
-		hidden_effect = { event_target:country_6 = { save_event_target_as = VassalNavyInvestmentTarget } country_event = { id = UniqueAscensionPerksEvents.8144 } }
+		hidden_effect = { event_target:country_6 = { save_event_target_as = VassalNavyInvestmentTarget } }
 	}
-	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
-	option = { name = ABORT ai_chance = { factor = 0 } }
+	option = {
+		name = "UniqueAscensionPerks.select_country"
+		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } }
+		ai_chance = { factor = 0 }
+	}
+	option = { name = ABORT ai_chance = { factor = 0.1 } }
 }
 
 country_event = {
@@ -3610,7 +3623,7 @@ country_event = {
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.5.tooltip"
 	}
-	option = { name = BACK ai_chance = { factor = 0 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
+	option = { name = BACK ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
 }
 
 country_event = {
@@ -3620,53 +3633,57 @@ country_event = {
 	show_sound = event_ship_thrusters
 	picture = GFX_evt_fleet_neutral
 	is_triggered_only = yes
-	location = event_target:camera_location
+	location = event_target:capital_planet
 	immediate = {
 		event_target:VassalNavyInvestmentTarget = {
 			save_event_target_as = VassalNavyInvestmentTarget
 			# add_modifier = { modifier = vassal_navy_capacity_boost }
-			random_owned_planet = { limit = { is_capital = yes } save_event_target_as = camera_location }
-			if = {
-				limit = { has_country_flag = subject_navy_investment_1 }
-				ROOT = {
-					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.1
-					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
-				}
-				remove_country_flag = subject_navy_investment_1
-			} else_if = {
-				limit = { has_country_flag = subject_navy_investment_2 }
-				ROOT = {
-					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.2
-					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
-				}
-				remove_country_flag = subject_navy_investment_2
-			} else_if = {
-				limit = { has_country_flag = subject_navy_investment_3 }
-				ROOT = {
-					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.35
-					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
-				}
-				remove_country_flag = subject_navy_investment_3
-			} else_if = {
-				limit = { has_country_flag = subject_navy_investment_4 }
-				ROOT = {
-					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.55
-					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
-				}
-				remove_country_flag = subject_navy_investment_4
-			} else_if = {
-				limit = { has_country_flag = subject_navy_investment_5 }
-				ROOT = {
-					create_navy_fleet_for_subject = yes # create_fleet_from_naval_cap = 0.75
-					last_created_fleet = { set_owner = event_target:VassalNavyInvestmentTarget add_modifier = { modifier = eternal_vigilance_fleet } }
-					event_target:VassalNavyInvestmentTarget = { random_owned_planet = { limit = { is_capital = yes } last_created_fleet = { set_location = prev } } }
-				}
-				remove_country_flag = subject_navy_investment_5
+			get_capital_planet = yes
+			switch = {
+				trigger = has_country_flag
+				subject_navy_investment_1 = { set_variable = { which = subject_navy_amount value = 24	remove_country_flag = subject_navy_investment_1 } }
+				subject_navy_investment_2 = { set_variable = { which = subject_navy_amount value = 48	remove_country_flag = subject_navy_investment_2 } }
+				subject_navy_investment_3 = { set_variable = { which = subject_navy_amount value = 96	remove_country_flag = subject_navy_investment_3 } }
+				subject_navy_investment_4 = { set_variable = { which = subject_navy_amount value = 192	remove_country_flag = subject_navy_investment_4 } }
+				subject_navy_investment_5 = { set_variable = { which = subject_navy_amount value = 384	remove_country_flag = subject_navy_investment_5 } }
 			}
+			multiply_variable = { which = subject_navy_amount value = 4 }
+
+		}
+		create_fleet = {
+			settings = {
+				can_upgrade = no
+				can_disband = no
+				can_change_composition = no
+				can_change_leader = yes
+				uses_naval_capacity = no
+				spawn_debris = no
+			}
+			effect = {
+				set_owner = root
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = subject_navy_fleet
+
+				while = {
+					count = event_target:VassalNavyInvestmentTarget.subject_navy_amount
+					limit = { event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value > 0 } } }
+					# create_navy_ships_for_subject = yes
+					random_list = {
+						55 = { create_ship = { name = random random_existing_design = corvette } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -1 } } }
+						25 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_destroyers } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 2 } } } create_ship = { name = random random_existing_design = destroyer } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -2 } } }
+						14 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_cruisers } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 4 } } } create_ship = { name = random random_existing_design = cruiser } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -4 } } }
+						5 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_battleships } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 8 } } } create_ship = { name = random random_existing_design = battleship } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -8 } } }
+						1 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_titans } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 16 } } } create_ship = { name = random random_existing_design = titan } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -16 } } }
+					}
+				}
+			}
+		}
+		last_created_fleet = {
+			set_owner = event_target:VassalNavyInvestmentTarget
+			add_modifier = { modifier = eternal_vigilance_fleet }
+			set_location = event_target:capital_planet
 		}
 	}
 	option = { name = EXCELLENT }
@@ -3680,7 +3697,7 @@ country_event = {
 	picture = GFX_evt_hangar_bay
 	location = capital_scope
 	is_triggered_only = yes
-	immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
+	# immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
 	# option = { name = "Let's select another subject." hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
 	option = { name = OK }
 }
