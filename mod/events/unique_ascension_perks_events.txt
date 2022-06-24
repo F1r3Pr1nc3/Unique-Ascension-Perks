@@ -1000,9 +1000,7 @@ country_event = {
 			save_event_target_as = ap_expansion_infinity_planet
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
 		}
-		event_target:ap_expansion_infinity_planet = {
-			ei_resources_collection = yes
-		}
+		event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes }
 		if = { limit = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } }
 			country_event = { id = UniqueAscensionPerksEvents.46 }
 		}
@@ -3229,14 +3227,116 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-country_event = {
+# create_primitive_retro_country
+planet_event = {
 	id = UniqueAscensionPerksEvents.141
 	title = "UniqueAscensionPerksEvents.141.Name"
 	desc = "UniqueAscensionPerksEvents.141.Desc"
 	show_sound = event_primitive_civilization
 	picture = GFX_evt_medieval_alien_civilization
-	location = event_target:new_primitive_world
+	location = root
 	is_triggered_only = yes
+	immediate = {
+		set_planet_flag = new_primitive_world
+		# save_event_target_as = new_primitive_world
+		from = {
+			save_event_target_as = origin_country
+			create_species = {
+				name = this
+				plural = this
+				class = this
+				portrait = this
+				homeworld = root
+				traits = { trait = random_traits }
+			}
+		}
+		# create_early_primitive_empire = yes
+		create_country = {
+			name = random
+			authority = random
+			ethos = event_target:origin_country
+			civics = {
+				civic = civic_landed_nobility
+				civic = civic_flat_world_theory
+			}
+			species = last_created_species
+			flag = {
+				icon = { category = "special" file = "primitive.dds" }
+				background = { category = "backgrounds" file = "new_dawn.dds" }
+				colors = { "turquoise" "green" "null" "null" }
+			}
+			type = primitive
+			effect = {
+				set_graphical_culture = preindustrial_01
+				random_list = {
+					20 = {
+						set_country_flag = stone_age
+						set_primitive_age = stone_age
+						change_government = {
+							authority = random
+							civics = {
+								civic = civic_secret_of_fire
+								civic = civic_the_wheel
+							}
+						}
+					}
+					20 = {
+						set_country_flag = bronze_age
+						set_primitive_age = bronze_age
+						change_government = {
+							authority = random
+							civics = {
+								civic = civic_secret_of_fire
+								civic = civic_the_wheel
+							}
+						}
+						change_country_flag = {
+							icon = { category = "special" file = "primitive.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "green" "dark_green" "null" "null" }
+						}
+					}
+					20 = {
+						set_country_flag = iron_age
+						set_primitive_age = iron_age
+						change_country_flag = {
+							icon = { category = "special" file = "primitive.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "purple" "dark_purple" "null" "null" }
+						}
+					}
+					20 = {
+						set_country_flag = late_medieval_age
+						set_primitive_age = late_medieval_age
+						change_country_flag = {
+							icon = { category = "special" file = "primitive.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "light_blue" "blue" "null" "null" }
+						}
+					}
+					20 = {
+						set_country_flag = renaissance_age
+						set_primitive_age = renaissance_age
+						change_country_flag = {
+							icon = { category = "special" file = "primitive.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "pink" "burgundy" "null" "null" }
+						}
+					}
+					20 = {
+						set_country_flag = steam_age
+						set_primitive_age = steam_age
+						change_country_flag = {
+							icon = { category = "special" file = "primitive.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "orange" "red" "null" "null" }
+						}
+					}
+				}
+			}
+		}
+	}
+	after = { setup_primitive_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -4365,7 +4465,7 @@ country_event = {
 						day_zero_contact = no
 						flag = {
 							icon = { category = "domination" file = "domination_20.dds" }
-							background= { category = "backgrounds" file = "circle.dds" }
+							background = { category = "backgrounds" file = "circle.dds" }
 							colors = { "red" "black" "null" "null" }
 						}
 						effect = {
@@ -4823,8 +4923,8 @@ country_event = {
 				# surgical_strike_destroy_districts = yes
 				surgical_strike_districts = yes
 				while = { count = 3 random = { chance = 50 surgical_strike_districts = yes } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40  } } random = { chance = 50 surgical_strike_districts = yes }
-					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80  } } random = { chance = 50 surgical_strike_districts = yes }
+				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } random = { chance = 50 surgical_strike_districts = yes }
+					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } random = { chance = 50 surgical_strike_districts = yes }
 						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_districts = yes }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } random = { chance = 50 surgical_strike_districts = yes }
 								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } random = { chance = 50 surgical_strike_districts = yes }
@@ -4850,7 +4950,7 @@ country_event = {
 				# surgical_strike_destroy_buildings = yes
 				surgical_strike_buildings = yes
 				while = { count = 1 random = { chance = 50 surgical_strike_buildings = yes } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 60  } } random = { chance = 50 surgical_strike_buildings = yes }
+				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 60 } } random = { chance = 50 surgical_strike_buildings = yes }
 					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_buildings = yes }
 						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 180 } } random = { chance = 50 surgical_strike_buildings = yes }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_buildings = yes }
@@ -4871,8 +4971,8 @@ country_event = {
 				# surgical_strike_abduct_pop = yes
 				random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes
 				while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40  } } while = { count = 2 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
-					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80  } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
+				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 2 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
+					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
@@ -4897,8 +4997,8 @@ country_event = {
 				# surgical_strike_kill_pop = yes
 				random_owned_pop = { surgical_strike_killed_pop = yes }
 				while = { count = 9 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40  } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80  } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
@@ -5042,9 +5142,7 @@ country_event = {
 				country_event = { id = UniqueAscensionPerksEvents.334 days = 3 }
 				country_event = { id = UniqueAscensionPerksEvents.335 days = 4 }
 				country_event = { id = UniqueAscensionPerksEvents.336 days = 5 }
-			} else = {
-				remove_country_flag = ap_chosen_ruler_bi_month
-			}
+			} else = { remove_country_flag = ap_chosen_ruler_bi_month }
 		}
 	}
 }
@@ -5972,7 +6070,7 @@ event = {
 	id = UniqueAscensionPerksEvents.3600
 	hide_window = yes
 	is_triggered_only = yes
-	# trigger = {	}
+	# trigger = { }
 	immediate = {
 		# if = {
 		# 	limit = {
@@ -5991,14 +6089,10 @@ event = {
 		# }
 		if = {
 			limit = {
-				any_playable_country = {
-					has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
-				}
+				any_playable_country = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
 			}
 			every_playable_country = {
-				limit = {
-					has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki
-				}
+				limit = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
 				set_country_flag = space_domestication_tiyanki
 				remove_country_flag = space_domestication_tyanki
 			}
@@ -6726,8 +6820,8 @@ system_event = {
 		from = {
 			random_list = {
 				10 = {}
-				5 = { modifier = { factor = 0 has_technology = tech_mine_dark_matter	 } modifier = { factor = 0.5 has_tech_option = tech_mine_dark_matter	 } add_research_option = tech_mine_dark_matter }
-				5 = { modifier = { factor = 0 has_technology = tech_mine_anti_matter	 } modifier = { factor = 0.5 has_tech_option = tech_mine_anti_matter	 } add_research_option = tech_mine_anti_matter }
+				5 = { modifier = { factor = 0 has_technology = tech_mine_dark_matter } modifier = { factor = 0.5 has_tech_option = tech_mine_dark_matter } add_research_option = tech_mine_dark_matter }
+				5 = { modifier = { factor = 0 has_technology = tech_mine_anti_matter } modifier = { factor = 0.5 has_tech_option = tech_mine_anti_matter } add_research_option = tech_mine_anti_matter }
 				5 = { modifier = { factor = 0 has_technology = tech_space_cloud_weapon_1 } modifier = { factor = 0.5 has_tech_option = tech_space_cloud_weapon_1 } add_research_option = tech_space_cloud_weapon_1 }
 			}
 		}

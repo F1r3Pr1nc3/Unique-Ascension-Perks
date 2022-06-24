@@ -7,11 +7,22 @@
 create_security_forces_country = {
 	# save_event_target_as = main_country
 	if = {
-		limit = { any_relation = { has_relation_flag = { who = root flag = security_strike_force } } }
+		limit = { exists = event_target:security_forces_country }
+		random_agreement = {
+			limit = { is_owned_by = root target = { is_same_empire = prev } }
+			add_loyalty = 5
+		}
+	} else_if = {
+		limit = {
+			any_relation = { has_relation_flag = { who = root flag = security_strike_force } }
+		}
 		random_relation = {
 			limit = { has_relation_flag = { who = root flag = security_strike_force } }
-			add_loyalty = 5
 			save_event_target_as = security_forces_country
+			random_agreement = {
+				limit = { is_owned_by = root target = { is_same_empire = prev } }
+				add_loyalty = 5
+			}
 		}
 	} else = {
 		create_country = {
