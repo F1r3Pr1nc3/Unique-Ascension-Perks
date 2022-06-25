@@ -4,7 +4,10 @@ decision_stellar_manipulation = {
 	resources = {
 		category = decisions
 		cost = { minerals = 4000 food = 2000 exotic_gases = 50 }
-		cost = { trigger = { owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } } minerals = 4000 food = 2000 exotic_gases = 50 }
+		cost = {
+			trigger = { exists = owner owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } }
+			minerals = 4000 food = 2000 exotic_gases = 50
+		}
 		cost = { trigger = { has_global_flag = ap_stellar_manipulation } food = 500 minerals = 500 }
 	}
 	potential = {
@@ -336,12 +339,13 @@ decision_recomposer_life_to_ai = {
 					kill_pop = yes
 				} else = { break = yes }
 			}
-		}
-		from = {
-			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
-		}
-		hidden_effect = {
-
+			from = {
+				if = { prev = { is_variable_set = num_non_robot_pop } }
+					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
+				} else = {
+					add_resource = { energy = -2.5 minerals = -2.5 mult = value:num_non_robot_pop }
+				}
+			}
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -415,9 +419,14 @@ decision_recomposer_ai_to_life = {
 					kill_pop = yes
 				} else = { break = yes }
 			}
-		}
-		from = {
-			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
+
+			from = {
+				if = { prev = { is_variable_set = num_robot_pop } }
+					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
+				} else = {
+					add_resource = { energy = -2.5 minerals = -2.5 mult = value:num_robot_pop }
+				}
+			}
 		}
 	}
 	ai_weight = { weight = 1 }

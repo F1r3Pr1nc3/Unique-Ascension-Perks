@@ -50,10 +50,26 @@ create_defense_sentinels_country = {
 					set_relation_flag = { who = root flag = defense_sentinels }
 					set_subject_of = { who = root preset = preset_machine_follower }
 					set_graphical_culture = ai_02
-					add_trust = { amount = 100 who = root }
+					add_trust = { amount = 95 who = root }
+					add_intel = { amount = 95 who = root }
+					# Opinion hack
+					add_opinion_modifier = { who = root modifier = opinion_common_ground }
+					add_opinion_modifier = { who = root modifier = opinion_ceded_starbase }
+					add_opinion_modifier = { who = root modifier = opinion_shade_giver }
+					add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
+					add_opinion_modifier = { who = root modifier = opinion_liberated_us }
+					add_opinion_modifier = { who = root modifier = opinion_imperial_vassal_ai_opinion }
 					random_agreement = {
 						limit = { is_owned_by = root target = { is_same_empire = prev } }
 						add_loyalty = 95
+					}
+					root = {
+						add_trust = { amount = 95 who = prev }
+						add_intel = { amount = 95 who = prev }
+						add_opinion_modifier = { who = prev modifier = opinion_common_ground }
+						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
+						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
+						add_opinion_modifier = { who = prev modifier = opinion_imperial_overlord_ai_opinion }
 					}
 				}
 			}
@@ -104,7 +120,9 @@ create_defense_sentinels_country = {
 	event_target:defense_sentinels = {
 		root = {
 			every_planet_within_border = { set_surveyed = { surveyed = yes surveyor = prevprev } }
+			add_trust = { amount = 5 who = prev }
 		}
+		add_trust = { amount = 5 who = root }
 		random_agreement = {
 			limit = { is_owned_by = root target = { is_same_empire = prev } }
 			add_loyalty = 5
