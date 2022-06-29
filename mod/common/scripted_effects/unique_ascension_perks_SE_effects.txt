@@ -14,6 +14,23 @@ create_security_forces_country = {
 				limit = { has_relation_flag = { who = root flag = security_strike_force } }
 				save_event_target_as = security_forces_country
 			}
+		} else_if = {
+			limit = {
+				is_overlord = yes
+				any_subject = { has_relation_flag = { who = root flag = security_strike_force } }
+			}
+			random_subject = {
+				limit = { has_relation_flag = { who = root flag = security_strike_force } }
+				save_event_target_as = security_forces_country
+			}
+		} else_if = {
+			limit = {
+				any_country = { has_relation_flag = { who = root flag = security_strike_force } }
+			}
+			random_country = {
+				limit = { has_relation_flag = { who = root flag = security_strike_force } }
+				save_event_target_as = security_forces_country
+			}
 		} else = {
 			create_country = {
 				name = "Security Forces"
@@ -33,7 +50,6 @@ create_security_forces_country = {
 					set_relation_flag = { who = root flag = security_strike_force }
 					set_subject_of = { who = root preset = preset_machine_follower }
 					add_trust = { amount = 95 who = root }
-					add_intel = { amount = 95 who = root }
 					# Opinion hack
 					add_opinion_modifier = { who = root modifier = opinion_common_ground }
 					add_opinion_modifier = { who = root modifier = opinion_ceded_starbase }
@@ -43,7 +59,6 @@ create_security_forces_country = {
 					add_opinion_modifier = { who = root modifier = opinion_imperial_vassal_ai_opinion }
 					root = {
 						add_trust = { amount = 95 who = prev }
-						add_intel = { amount = 95 who = prev }
 						add_opinion_modifier = { who = prev modifier = opinion_common_ground }
 						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
 						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }

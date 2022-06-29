@@ -3,7 +3,7 @@ namespace = UniqueAscensionPerksEvents
 country_event = { # Kill Special Subject Country if their master is dead.
 	id = UniqueAscensionPerksEvents.8787
 	# is_triggered_only = yes
-	mean_time_to_happen = { months = 4 }
+	mean_time_to_happen = { months = 6 } # 4
 	hide_window = yes
 	trigger = {
 		is_subject = no
@@ -1498,7 +1498,7 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = EXCELLENT add_resource = { unity = 1000 } }
 }
-
+# (on_monthly_pulse_country)
 country_event = {
 	id = UniqueAscensionPerksEvents.56
 	title = "UniqueAscensionPerksEvents.56.Name"
@@ -3824,7 +3824,7 @@ country_event = {
 country_event = {
 	id = UniqueAscensionPerksEvents.231
 	hide_window = yes
-	mean_time_to_happen = { days = 14 }
+	mean_time_to_happen = { days = 20 } # 14
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
 		any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
@@ -3948,10 +3948,12 @@ country_event = {
 	immediate =	{
 		# create_defense_sentinels_fleet = yes
 		create_defense_sentinels_country = yes
-		random_planet_within_border = {
-			limit = { has_planet_flag = defense_sentinels_home }
-			weights = { base = 1 modifier = { add = 5 is_sector_capital = no } }
-			save_event_target_as = spawn_location
+		if = { limit = { NOT = { exists = event_target:spawn_location } }
+			random_planet_within_border = {
+				limit = { has_planet_flag = defense_sentinels_home }
+				weights = { base = 1 modifier = { add = 5 is_sector_capital = no } }
+				save_event_target_as = spawn_location
+			}
 		}
 		event_target:defense_sentinels = {
 			create_fleet = {
@@ -6099,11 +6101,35 @@ event = {
 		# 	}
 		# }
 		# remove in 3.5
+		# FIX SUBJECT TRUST
 		if = {
-			limit = { any_country = { is_country_type = security_forces } }
+			limit = {
+				any_country = { OR = { is_country_type = security_forces is_country_type = defense_sentinels } }
+			}
 			every_country = {
-				limit = { is_country_type = defense_sentinels }
+				limit = { OR = { is_country_type = security_forces is_country_type = defense_sentinels } }
+				if = { limit = { is_country_type = defense_sentinels }
+					set_country_type = security_forces
+				}
 				if = { limit = { has_any_overlord = yes }
+					if = { limit = { is_at_war_with = overlord }
+						random_war = {
+							limit = {
+								any_attacker = { is_same_empire = prevprev }
+								any_defender = { is_same_empire = prevprev.overlord }
+							}
+							end_war_effect = yes
+						}
+						destroy_country = yes
+						break = yes
+					}
+					else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = security_strike_force } } }
+						destroy_country = yes
+						break = yes
+					}
+					else_if = { limit = { is_hostile_to = overlord }
+						set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
+					}
 					add_trust = { amount = 100 who = overlord }
 					random_agreement = {
 						limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
@@ -6127,27 +6153,40 @@ event = {
 			}
 		}
 		if = {
-			limit = { any_country = { is_country_type = defense_sentinels } }
+			limit = { any_country = { is_country_type = domesticated_spaceborn_alien } }
 			every_country = {
-				limit = { is_country_type = defense_sentinels }
-				if = { limit = { has_any_overlord = yes }
-					set_country_type = security_forces
+				limit = { is_country_type = domesticated_spaceborn_alien }
+				if = {
+					limit = { has_any_overlord = yes exists = overlord has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } }
+					if = { limit = { is_at_war_with = overlord }
+						random_war = {
+							limit = {
+								any_attacker = { is_same_empire = prevprev }
+								any_defender = { is_same_empire = prevprev.overlord }
+							}
+							end_war_effect = yes
+						}
+						destroy_country = yes
+						break = yes
+					}
+					else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } } }
+						destroy_country = yes
+						break = yes
+					}
+					else_if = { limit = { is_hostile_to = overlord }
+						set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
+					}
 					add_trust = { amount = 100 who = overlord }
 					random_agreement = {
 						limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
 						add_loyalty = 100
 					}
-					if = { limit = { NOT = { has_opinion_modifier = { who = overlord modifier = opinion_common_ground } } }
+					if = { limit = { NOT = { has_opinion_modifier = { who = overlord modifier = opinion_nurtured } } }
 						overlord = {
 							add_trust = { amount = 10 who = prev }
-							# Opinion hack
 							prev = {
-								add_opinion_modifier = { who = prev modifier = opinion_common_ground }
-								add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
-								add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
-								add_opinion_modifier = { who = prev modifier = opinion_enlightened_us }
-								add_opinion_modifier = { who = prev modifier = opinion_liberated_us }
-								add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_ai_opinion }
+								add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
+								add_opinion_modifier = { who = root modifier = opinion_nurtured }
 							}
 						}
 					}
@@ -6378,10 +6417,19 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = slow_learner_room }
 	is_triggered_only = yes
+	trigger = {
+		NAND = {
+			has_modifier = slow_learner_bonus_1
+			has_modifier = slow_learner_bonus_2
+			has_modifier = slow_learner_bonus_3
+			has_modifier = slow_learner_bonus_4
+		}
+	}
 	option = { name = "UniqueAscensionPerksEvents.401.Alpha"	trigger = { NOT = { has_modifier = slow_learner_bonus_1 } } add_modifier = { modifier = slow_learner_bonus_1 } add_resource = { unity = 3500 } }
 	option = { name = "UniqueAscensionPerksEvents.401.Beta" 	trigger = { NOT = { has_modifier = slow_learner_bonus_2 } } add_modifier = { modifier = slow_learner_bonus_2 } add_resource = { unity = 3500 } }
 	option = { name = "UniqueAscensionPerksEvents.401.Gamma"	trigger = { NOT = { has_modifier = slow_learner_bonus_3 } } add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 3500 } }
 	option = { name = "UniqueAscensionPerksEvents.401.Delta"	trigger = { NOT = { has_modifier = slow_learner_bonus_4 } } add_modifier = { modifier = slow_learner_bonus_4 } add_resource = { unity = 3500 } }
+	option = { name = OK default_hide_option = yes }
 }
 # v3.3 value reduced
 country_event = {
@@ -6489,9 +6537,17 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_galactic_senate
 	is_triggered_only = yes
+	trigger = {
+		NAND = {
+			has_modifier = executive_vigor_bonus_1
+			has_modifier = executive_vigor_bonus_2
+			has_modifier = executive_vigor_bonus_3
+		}
+	}
 	option = { name = "UniqueAscensionPerksEvents.422.First"	allow = { NOT = { has_modifier = executive_vigor_bonus_1 } } add_modifier = { modifier = executive_vigor_bonus_1 } }
 	option = { name = "UniqueAscensionPerksEvents.422.Second"	allow = { NOT = { has_modifier = executive_vigor_bonus_2 } } add_modifier = { modifier = executive_vigor_bonus_2 } }
 	option = { name = "UniqueAscensionPerksEvents.422.Third"	allow = { NOT = { has_modifier = executive_vigor_bonus_3 } } add_modifier = { modifier = executive_vigor_bonus_3 } }
+	option = { name = OK default_hide_option = yes }
 }
 
 ######################################

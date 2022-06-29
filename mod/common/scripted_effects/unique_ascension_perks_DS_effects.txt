@@ -48,10 +48,10 @@ create_defense_sentinels_country = {
 					save_event_target_as = defense_sentinels
 					set_country_flag = defense_sentinels
 					set_relation_flag = { who = root flag = defense_sentinels }
+					set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
 					set_subject_of = { who = root preset = preset_machine_follower }
 					set_graphical_culture = ai_02
 					add_trust = { amount = 95 who = root }
-					add_intel = { amount = 95 who = root }
 					# Opinion hack
 					add_opinion_modifier = { who = root modifier = opinion_common_ground }
 					add_opinion_modifier = { who = root modifier = opinion_ceded_starbase }
@@ -59,13 +59,13 @@ create_defense_sentinels_country = {
 					add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
 					add_opinion_modifier = { who = root modifier = opinion_liberated_us }
 					add_opinion_modifier = { who = root modifier = opinion_imperial_vassal_ai_opinion }
+					add_opinion_modifier = { who = root modifier = opinion_emperor_support_us }
 					random_agreement = {
 						limit = { is_owned_by = root target = { is_same_empire = prev } }
 						add_loyalty = 95
 					}
 					root = {
 						add_trust = { amount = 95 who = prev }
-						add_intel = { amount = 95 who = prev }
 						add_opinion_modifier = { who = prev modifier = opinion_common_ground }
 						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
 						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
@@ -109,7 +109,14 @@ create_defense_sentinels_country = {
 					set_formation_scale = 1.0
 					save_event_target_as = defense_sentinels_fleet
 					set_fleet_flag = defense_sentinels_fleet
-					solar_system = { spawn_planet = { class = pc_ai location = prev has_ring = no init_effect = { set_name = "NAME_SENTINELS_HOMEWORLD" set_planet_flag = defense_sentinels_home set_planet_size = 30 clear_deposits = yes set_owner = event_target:defense_sentinels } } }
+					solar_system = {
+						spawn_planet = {
+							class = pc_ai
+							location = prev
+							has_ring = no
+							init_effect = { set_name = "NAME_SENTINELS_HOMEWORLD" set_planet_flag = defense_sentinels_home set_planet_size = 20 clear_deposits = yes set_owner = event_target:defense_sentinels }
+						}
+					}
 				}
 			}
 		}

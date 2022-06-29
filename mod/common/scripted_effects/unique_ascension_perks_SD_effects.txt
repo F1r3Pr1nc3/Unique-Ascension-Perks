@@ -5,11 +5,11 @@
 ######################################
 
 create_domestication_spaceborn_alien_country = {
-	save_event_target_as = main_country
+	# save_event_target_as = main_country
 	if = {
-		limit = { any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = event_target:main_country flag = domesticated_spaceborn_alien } } }
+		limit = { any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } }
 		random_relation = {
-			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = event_target:main_country flag = domesticated_spaceborn_alien } }
+			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 			save_event_target_as = domesticated_spaceborn_alien
 		}
 	} else = {
@@ -23,28 +23,51 @@ create_domestication_spaceborn_alien_country = {
 			}
 			effect = {
 				every_country = {
-					limit = { has_communications = event_target:main_country }
+					limit = { has_communications = root }
 					establish_communications_no_message = prev
 				}
 				add_modifier = { modifier = domesticated_aliens }
 				save_event_target_as = domesticated_spaceborn_alien
 				set_country_flag = domesticated_spaceborn_alien
-				set_relation_flag = { who = event_target:main_country flag = domesticated_spaceborn_alien }
-				set_subject_of = { who = event_target:main_country preset = preset_space_domestication }
-				# set_faction_hostility = { target = event_target:main_country set_hostile = no set_neutral = no set_friendly = yes }
-				if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } } set_country_flag = domesticated_spaceborn_alien_tiyanki } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } } set_country_flag = domesticated_spaceborn_alien_amoeba } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } } set_country_flag = domesticated_spaceborn_alien_crystal } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } } set_country_flag = domesticated_spaceborn_alien_cloud } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } } set_country_flag = domesticated_spaceborn_alien_drone }
+				set_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+				set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+				set_subject_of = { who = root preset = preset_space_domestication }
+				add_trust = { amount = 95 who = root }
+				add_intel = { amount = 95 who = root }
+				add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
+				add_opinion_modifier = { who = root modifier = opinion_nurtured }
+				random_agreement = {
+					limit = { is_owned_by = root target = { is_same_empire = prev } }
+					add_loyalty = 95
+				}
+				if = { limit = { root = { has_country_flag = space_domestication_tiyanki } } set_country_flag = domesticated_spaceborn_alien_tiyanki }
+				else_if = { limit = { root = { has_country_flag = space_domestication_amoeba } } set_country_flag = domesticated_spaceborn_alien_amoeba }
+				else_if = { limit = { root = { has_country_flag = space_domestication_crystal } } set_country_flag = domesticated_spaceborn_alien_crystal }
+				else_if = { limit = { root = { has_country_flag = space_domestication_cloud } } set_country_flag = domesticated_spaceborn_alien_cloud }
+				else_if = { limit = { root = { has_country_flag = space_domestication_drone } } set_country_flag = domesticated_spaceborn_alien_drone }
 			}
 		}
 	}
-	capital_star = { save_event_target_as = spawn_location }
+	get_capital_planet = yes
+	# event_target:capital_planet = { save_event_target_as = spawn_location }
 	event_target:domesticated_spaceborn_alien = {
+		root = { add_trust = { amount = 5 who = prev } }
+		add_trust = { amount = 5 who = root }
+		random_agreement = {
+			limit = { is_owned_by = root target = { is_same_empire = prev } }
+			add_loyalty = 5
+		}
 		create_fleet = {
 			name = "Domesticated Fertilized Aliens"
 			settings = { spawn_debris = no is_boss = yes }
 			effect = {
 				set_owner = prev
-				if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } } create_ship = { name = "" design = "Domesticated Mother Tiyanki" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } } while = { count = 25 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } } create_ship = { name = "" design = "Domesticated Mother Crystal" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } } create_ship = { name = "" design = "Domesticated Mother Cloud" } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } } create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } }
-				set_location = { target = event_target:spawn_location distance = 250 angle = random }
+				if = { limit = { root = { has_country_flag = space_domestication_tiyanki } } create_ship = { name = "" design = "Domesticated Mother Tiyanki" } }
+				else_if = { limit = { root = { has_country_flag = space_domestication_amoeba } } while = { count = 25 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
+				else_if = { limit = { root = { has_country_flag = space_domestication_crystal } } create_ship = { name = "" design = "Domesticated Mother Crystal" } }
+				else_if = { limit = { root = { has_country_flag = space_domestication_cloud } } create_ship = { name = "" design = "Domesticated Mother Cloud" } }
+				else_if = { limit = { root = { has_country_flag = space_domestication_drone } } create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } }
+				set_location = { target = event_target:capital_planet distance = 250 angle = random }
 				set_fleet_stance = aggressive
 				set_aggro_range_measure_from = self
 				set_aggro_range = 5000
@@ -53,8 +76,11 @@ create_domestication_spaceborn_alien_country = {
 				set_fleet_flag = domesticated_fleet
 				set_fleet_flag = domesticated_mother_fleet
 				solar_system = {
-					if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home } } } } spawn_planet = { class = pc_gas_giant location = prev has_ring = no init_effect = { set_name = "NAME_TIYANKI_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_tiyanki set_planet_size = 50 clear_deposits = yes } } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_amoeba } } } } spawn_planet = { class = pc_toxic location = prev has_ring = no init_effect = { set_name = "NAME_AMEOBA_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_amoeba set_planet_size = 40 clear_deposits = yes } } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_crystal } } } } spawn_planet = { class = pc_frozen location = prev has_ring = no init_effect = { set_name = "NAME_CRYSTAL_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_crystal set_planet_size = 40 clear_deposits = yes } } }
-					else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_cloud } } } } spawn_planet = { class = pc_black_hole location = prev has_ring = no init_effect = { set_name = "NAME_CLOUD_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_cloud clear_deposits = yes } } } else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_drone } } } } spawn_planet = { class = pc_asteroid location = prev has_ring = no init_effect = { set_name = "NAME_DRONE_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_drone set_planet_size = 25 clear_deposits = yes } } }
+					if = { limit = { root = { has_country_flag = space_domestication_tiyanki NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home } } } } spawn_planet = { class = pc_gas_giant location = prev has_ring = no init_effect = { set_name = "NAME_TIYANKI_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_tiyanki set_planet_size = 50 clear_deposits = yes } } }
+					else_if = { limit = { root = { has_country_flag = space_domestication_amoeba NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_amoeba } } } } spawn_planet = { class = pc_toxic location = prev has_ring = no init_effect = { set_name = "NAME_AMEOBA_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_amoeba set_planet_size = 40 clear_deposits = yes } } }
+					else_if = { limit = { root = { has_country_flag = space_domestication_crystal NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_crystal } } } } spawn_planet = { class = pc_frozen location = prev has_ring = no init_effect = { set_name = "NAME_CRYSTAL_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_crystal set_planet_size = 40 clear_deposits = yes } } }
+					else_if = { limit = { root = { has_country_flag = space_domestication_cloud NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_cloud } } } } spawn_planet = { class = pc_black_hole location = prev has_ring = no init_effect = { set_name = "NAME_CLOUD_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_cloud clear_deposits = yes } } }
+					else_if = { limit = { root = { has_country_flag = space_domestication_drone NOT = { any_planet_within_border = { has_planet_flag = domesticated_alien_home_drone } } } } spawn_planet = { class = pc_asteroid location = prev has_ring = no init_effect = { set_name = "NAME_DRONE_HOMEWORLD" set_planet_flag = domesticated_alien_home set_planet_flag = domesticated_alien_home_drone set_planet_size = 25 clear_deposits = yes } } }
 				}
 			}
 		}
@@ -62,11 +88,19 @@ create_domestication_spaceborn_alien_country = {
 }
 
 resources_gathering_protocol_paying = {
-	if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -800 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -800 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -800 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -800 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -800 } }
+	if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -800 } }
 }
 
 research_assistance_protocol_paying = {
-	if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -800 } } else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -800 } } else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -800 } } else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -800 } } else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -800 } }
+	if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -800 } }
+	else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -800 } }
 }
 
 resources_gathering_protocol = {
@@ -178,15 +212,15 @@ research_assistance_protocol = {
 space_domestication_constant_hostility_event = {
 	save_event_target_as = main_country
 	random_relation = {
-		limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = event_target:main_country flag = domesticated_spaceborn_alien } }
+		limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 		save_event_target_as = domesticated_spaceborn_alien
 	}
 	every_country = {
-		limit = { is_hostile = event_target:main_country NOT = { is_hostile = event_target:domesticated_spaceborn_alien } }
+		limit = { is_hostile = root NOT = { is_hostile = event_target:domesticated_spaceborn_alien } }
 		set_faction_hostility = { target = event_target:domesticated_spaceborn_alien set_hostile = yes set_neutral = no set_friendly = no }
 	}
 	every_country = {
-		limit = { NOT = { is_hostile = event_target:main_country } is_hostile = event_target:domesticated_spaceborn_alien }
+		limit = { NOT = { is_hostile = root } is_hostile = event_target:domesticated_spaceborn_alien }
 		set_faction_hostility = { target = event_target:domesticated_spaceborn_alien set_hostile = no set_neutral = yes set_friendly = no }
 	}
 }
@@ -258,29 +292,4 @@ leviathan_master_enraged_leviathan = {
 		}
 		last_created_fleet = { auto_move_to_planet = { target = event_target:destination_location clear_auto_move_on_arrival = no } }
 	}
-}
-
-leviathan_master_gives_modifier = {
-	random_list = {
-		10 = { add_modifier = { modifier = leviathan_spell_energy years = 20 } }
-		10 = { add_modifier = { modifier = leviathan_spell_minerals years = 20 } }
-		10 = { add_modifier = { modifier = leviathan_spell_food years = 20 } }
-		10 = { add_modifier = { modifier = leviathan_spell_defense years = 20 } }
-		10 = { add_modifier = { modifier = leviathan_spell_offense years = 20 } }
-	}
-}
-
-leviathan_master_consume_planet = {
-	planet_event = { id = UniqueAscensionPerksEvents.1072 }
-	every_owned_pop = { kill_pop = yes }
-	destroy_colony = yes
-	change_pc = pc_molten
-}
-
-leviathan_master_attack_rivals = {
-	country_event = { id = UniqueAscensionPerksEvents.1073 }
-	save_event_target_as = target_country
-	create_leviathan_master_country = yes
-	set_faction_hostility = { target = event_target:leviathan_master_country set_hostile = yes set_neutral = no set_friendly = no }
-	while = { count = 3 leviathan_master_enraged_leviathan = yes }
 }
