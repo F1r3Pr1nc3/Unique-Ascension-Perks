@@ -207,8 +207,10 @@ decision_genious_pregnancy = {
 	enactment_time = 540
 	resources = {
 		category = decisions
-		cost = { energy = 50 food = 500 }
-		cost = { trigger = { owner = { is_hive_empire = yes } } energy = 10 food = 100 }
+		cost = { energy = 500 } # v3.4 energy = 50 food = 500
+		cost = { trigger = { owner = { is_hive_empire = yes } } energy = 250 } # v3.4 energy = 10 food = 100
+		cost = { trigger = { owner = { is_lithoid = yes } } minerals = 1000 }
+		cost = { trigger = { owner = { is_lithoid = no } } food = 1000 }
 	}
 	potential = {
 		exists = owner
@@ -225,13 +227,13 @@ decision_genious_pregnancy = {
 			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown days = 920 }
 			planet_event = { id = UniqueAscensionPerksEvents.3050 }
 			while = {
-				count = 5
+				count = 9
 				random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
 			}
 			if = {
 				limit = { owner = { is_hive_empire = yes } }
 				while = {
-					count = 2
+					count = 3
 					random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
 				}
 			}
@@ -1009,6 +1011,41 @@ decision_nanite_purification = {
 		hidden_effect = {
 			set_planet_flag = planet_nanite_purification
 		}
+	}
+	ai_weight = { weight = 1 }
+}
+
+decision_nanite_extraction_gas = {
+	sound = event_ai_started_01
+	icon = decision_drilling_for_gas
+	resources = { category = decisions cost = { nanites = 350 } }
+	potential = {
+		exists = space_owner
+		exists = from
+		space_owner = { is_same_empire = from }
+		from = { has_ascension_perk = ap_nano_to_nanite }
+		has_owner = no
+		is_planet_class = pc_gas_giant
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "decision_nanite_extraction_req_1"
+			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_exploitation_gas } }
+		}
+	}
+	effect = {
+		custom_tooltip = "decision_nanite_extraction_barren_tooltip"
+		random = { chance = 50 add_deposit = d_energy_5 }
+		random = { chance = 50 add_deposit = d_energy_5 }
+		random = { chance = 50 add_deposit = d_exotic_gases_1 }
+		random = { chance = 50 add_deposit = d_exotic_gases_1 }
+		add_deposit = d_energy_5
+		add_deposit = d_exotic_gases_2
+		# hidden_effect = {
+		# 	every_owned_pop = { kill_pop = yes }
+		# 	set_planet_flag = planet_nanite_exploitation_gas
+		# 	set_surveyed = { surveyed = yes surveyor = from }
+		# }
 	}
 	ai_weight = { weight = 1 }
 }

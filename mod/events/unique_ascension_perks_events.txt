@@ -2069,12 +2069,12 @@ country_event = {
 			if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
 				# fe_select_gift = yes
 				random_list = {
-					50 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_resources_large } else = { set_country_flag = fe_gift_resources_small } }
+					50 = { if = { limit = { mid_game_years_passed > 0 } set_country_flag = fe_gift_resources_large } else = { set_country_flag = fe_gift_resources_small } }
 					20 = { set_country_flag = fe_gift_databanks }
 					15 = { set_country_flag = fe_gift_rare_tech }
-					10 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_escorts } else = { set_country_flag = fe_gift_resources_large } }
-					5 = { if = { limit = { mid_game_years_passed >= 0 } set_country_flag = fe_gift_battlecruiser } else = { set_country_flag = fe_gift_resources_large } }
-					15 = { modifier = { factor = 3.0 is_at_war = yes } set_country_flag = fe_gift_resources_alloys }
+					10 = { if = { limit = { mid_game_years_passed > 0 } set_country_flag = fe_gift_escorts } else = { set_country_flag = fe_gift_resources_large } }
+					5 = { if = { limit = { mid_game_years_passed > 0 } set_country_flag = fe_gift_battlecruiser } else = { set_country_flag = fe_gift_resources_large } }
+					15 = { modifier = { factor = 3 is_at_war = yes } set_country_flag = fe_gift_resources_alloys }
 					10 = { modifier = { factor = 0 OR = { is_at_war = yes is_gestalt = yes } } set_country_flag = fe_gift_resources_consumer }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.70 }
@@ -2130,18 +2130,18 @@ country_event = {
 	desc = { text = fallen_empires_tasks.2.desc.a.materialist	trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
 	desc = { text = fallen_empires_tasks.2.desc.a.xenophile		trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
 	desc = { text = fallen_empires_tasks.2.desc.a.spiritualist	trigger = { fe_gift_resources = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	desc = { text = fallen_empires_tasks.2.desc.a.machine.o		trigger = { fe_gift_resources = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.a.machine.s		trigger = { fe_gift_resources = yes fe_gift_target_is_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.materialist	trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.xenophile		trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.spiritualist	trigger = { fe_gift_tech = yes event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.machine.o		trigger = { fe_gift_tech = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.b.machine.s		trigger = { fe_gift_tech = yes fe_gift_target_is_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.machine.o		trigger = { fe_gift_resources = yes is_synthetic_empire = no event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.a.machine.s		trigger = { fe_gift_resources = yes is_synthetic_empire = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.materialist	trigger = { OR = { has_country_flag = fe_gift_databanks has_country_flag = fe_gift_rare_tech } event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.xenophile		trigger = { OR = { has_country_flag = fe_gift_databanks has_country_flag = fe_gift_rare_tech } event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.spiritualist	trigger = { OR = { has_country_flag = fe_gift_databanks has_country_flag = fe_gift_rare_tech } event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.machine.o		trigger = { OR = { has_country_flag = fe_gift_databanks has_country_flag = fe_gift_rare_tech } is_synthetic_empire = no event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.b.machine.s		trigger = { OR = { has_country_flag = fe_gift_databanks has_country_flag = fe_gift_rare_tech } is_synthetic_empire = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
 	desc = { text = fallen_empires_tasks.2.desc.c.materialist	trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
 	desc = { text = fallen_empires_tasks.2.desc.c.xenophile		trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
 	desc = { text = fallen_empires_tasks.2.desc.c.spiritualist	trigger = { has_country_flag = fe_gift_escorts event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.machine.o		trigger = { fe_gift_ships = yes fe_gift_target_is_not_machine = yes event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
-	desc = { text = fallen_empires_tasks.2.desc.c.machine.s		trigger = { fe_gift_ships = yes fe_gift_target_is_machine = yes	event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.machine.o		trigger = { OR = { has_country_flag = fe_gift_escorts has_country_flag = fe_gift_battlecruiser } is_synthetic_empire = no event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
+	desc = { text = fallen_empires_tasks.2.desc.c.machine.s		trigger = { OR = { has_country_flag = fe_gift_escorts has_country_flag = fe_gift_battlecruiser } is_synthetic_empire = yes	event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } }
 	desc = { text = fallen_empires_tasks.2.desc.d.materialist	trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } }
 	desc = { text = fallen_empires_tasks.2.desc.d.xenophile		trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } }
 	desc = { text = fallen_empires_tasks.2.desc.d.spiritualist	trigger = { has_country_flag = fe_gift_battlecruiser event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } }
@@ -3979,7 +3979,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.239
 	hide_window = yes
 	# is_triggered_only = yes
-	mean_time_to_happen = { months = 2 } # 14
+	mean_time_to_happen = { months = 2 } # 14 days
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
 		any_relation = {
@@ -5815,12 +5815,17 @@ country_event = {
 			} }
 		}
 	}
-	option = { name = UniqueAscensionPerksEvents.96.Planet.1 trigger = { exists = event_target:planet_1 } hidden_effect = { event_target:planet_1 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.2 trigger = { exists = event_target:planet_2 } hidden_effect = { event_target:planet_2 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.3 trigger = { exists = event_target:planet_3 } hidden_effect = { event_target:planet_3 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.4 trigger = { exists = event_target:planet_4 } hidden_effect = { event_target:planet_4 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.344 } } }
+	after = {
+		if = { limit = { exists = event_target:PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.344 }
+		}
+	}
+	option = { name = UniqueAscensionPerksEvents.96.Planet.1 trigger = { exists = event_target:planet_1 } hidden_effect = { event_target:planet_1 = { save_event_target_as = PlanetTarget } } }
+	option = { name = UniqueAscensionPerksEvents.96.Planet.2 trigger = { exists = event_target:planet_2 } hidden_effect = { event_target:planet_2 = { save_event_target_as = PlanetTarget } } }
+	option = { name = UniqueAscensionPerksEvents.96.Planet.3 trigger = { exists = event_target:planet_3 } hidden_effect = { event_target:planet_3 = { save_event_target_as = PlanetTarget } } }
+	option = { name = UniqueAscensionPerksEvents.96.Planet.4 trigger = { exists = event_target:planet_4 } hidden_effect = { event_target:planet_4 = { save_event_target_as = PlanetTarget } } }
+	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } } }
+	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } } }
 	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.343 } } }
 	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
 }

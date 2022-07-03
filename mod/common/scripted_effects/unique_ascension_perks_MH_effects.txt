@@ -140,23 +140,27 @@ realm_encounter_results = {
 
 create_uncontrolled_swarm_country = {
 	save_event_target_as = main_country
-	if = {
-		limit = { any_country = { has_country_flag = uncontrolled_swarm } }
-		random_country = { limit = { has_country_flag = uncontrolled_swarm } save_event_target_as = uncontrolled_swarm }
-	} else = {
-		create_country = {
-			name = "Uncontrolled Swarm"
-			type = domesticated_spaceborn_alien
-			flag = {
-				icon = { category = "special" file = "the_swarm.dds" }
-				background = { category = "backgrounds" file = "new_dawn.dds"}
-				colors = { "orange" "grey" "null" "null" }
-			}
-			effect = {
-				every_country = { establish_communications_no_message = prev }
+	if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } }
+		if = {
+			limit = { any_country = { has_country_flag = uncontrolled_swarm } }
+			random_country = { limit = { has_country_flag = uncontrolled_swarm }
 				save_event_target_as = uncontrolled_swarm
-				set_country_flag = uncontrolled_swarm
-				set_faction_hostility = { set_hostile = yes }
+			}
+		} else = {
+			create_country = {
+				name = "Uncontrolled Swarm"
+				type = domesticated_spaceborn_alien
+				flag = {
+					icon = { category = "special" file = "the_swarm.dds" }
+					background = { category = "backgrounds" file = "new_dawn.dds"}
+					colors = { "orange" "grey" "null" "null" }
+				}
+				effect = {
+					every_country = { establish_communications_no_message = prev }
+					save_event_target_as = uncontrolled_swarm
+					set_country_flag = uncontrolled_swarm
+					set_faction_hostility = { set_hostile = yes }
+				}
 			}
 		}
 	}

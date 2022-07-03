@@ -7,44 +7,66 @@
 create_domestication_spaceborn_alien_country = {
 	# save_event_target_as = main_country
 	if = {
-		limit = { any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } }
-		random_relation = {
-			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
-			save_event_target_as = domesticated_spaceborn_alien
-		}
-	} else = {
-		create_country = {
-			name = "Domesticated Spaceborn Aliens"
-			type = domesticated_spaceborn_alien
-			flag = {
-				icon = { category = "zoological" file = "flag_zoological_1.dds" }
-				background= { category = "backgrounds" file = "00_solid.dds" }
-				colors = { "black" "black" "null" "null" }
-			}
-			effect = {
-				every_country = {
-					limit = { has_communications = root }
-					establish_communications_no_message = prev
-				}
-				add_modifier = { modifier = domesticated_aliens }
+		limit = { NOT = { exists = event_target:domesticated_spaceborn_alien } }
+		if = {
+			limit = { any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } }
+			random_relation = {
+				limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 				save_event_target_as = domesticated_spaceborn_alien
-				set_country_flag = domesticated_spaceborn_alien
-				set_relation_flag = { who = root flag = domesticated_spaceborn_alien }
-				set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
-				set_subject_of = { who = root preset = preset_space_domestication }
-				add_trust = { amount = 95 who = root }
-				add_intel = { amount = 95 who = root }
-				add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
-				add_opinion_modifier = { who = root modifier = opinion_nurtured }
-				random_agreement = {
-					limit = { is_owned_by = root target = { is_same_empire = prev } }
-					add_loyalty = 95
+			}
+		} else_if = {
+			limit = {
+				is_overlord = yes
+				any_subject = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+			}
+			random_subject = {
+				limit = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+				save_event_target_as = domesticated_spaceborn_alien
+			}
+		} else_if = {
+			limit = {
+				any_country = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+			}
+			random_country = {
+				limit = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+				save_event_target_as = domesticated_spaceborn_alien
+			}
+		} else = {
+			create_country = {
+				name = "Domesticated Spaceborn Aliens"
+				type = domesticated_spaceborn_alien
+				flag = {
+					icon = { category = "zoological" file = "flag_zoological_1.dds" }
+					background= { category = "backgrounds" file = "00_solid.dds" }
+					colors = { "black" "black" "null" "null" }
 				}
-				if = { limit = { root = { has_country_flag = space_domestication_tiyanki } } set_country_flag = domesticated_spaceborn_alien_tiyanki }
-				else_if = { limit = { root = { has_country_flag = space_domestication_amoeba } } set_country_flag = domesticated_spaceborn_alien_amoeba }
-				else_if = { limit = { root = { has_country_flag = space_domestication_crystal } } set_country_flag = domesticated_spaceborn_alien_crystal }
-				else_if = { limit = { root = { has_country_flag = space_domestication_cloud } } set_country_flag = domesticated_spaceborn_alien_cloud }
-				else_if = { limit = { root = { has_country_flag = space_domestication_drone } } set_country_flag = domesticated_spaceborn_alien_drone }
+				effect = {
+					every_country = {
+						limit = { has_communications = root }
+						establish_communications_no_message = prev
+					}
+					add_modifier = { modifier = domesticated_aliens }
+					save_event_target_as = domesticated_spaceborn_alien
+					set_country_flag = domesticated_spaceborn_alien
+					set_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+					set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
+					set_subject_of = { who = root preset = preset_space_domestication }
+					add_trust = { amount = 95 who = root }
+					add_intel = { amount = 95 who = root }
+					add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
+					add_opinion_modifier = { who = root modifier = opinion_nurtured }
+					random_agreement = {
+						limit = { is_owned_by = root target = { is_same_empire = prev } }
+						add_loyalty = 95
+					}
+					add_modifier = { modifier = pledged_allegiance }
+					add_modifier = { modifier = pledge_loyalty_2 }
+					if = { limit = { root = { has_country_flag = space_domestication_tiyanki } } set_country_flag = domesticated_spaceborn_alien_tiyanki }
+					else_if = { limit = { root = { has_country_flag = space_domestication_amoeba } } set_country_flag = domesticated_spaceborn_alien_amoeba }
+					else_if = { limit = { root = { has_country_flag = space_domestication_crystal } } set_country_flag = domesticated_spaceborn_alien_crystal }
+					else_if = { limit = { root = { has_country_flag = space_domestication_cloud } } set_country_flag = domesticated_spaceborn_alien_cloud }
+					else_if = { limit = { root = { has_country_flag = space_domestication_drone } } set_country_flag = domesticated_spaceborn_alien_drone }
+				}
 			}
 		}
 	}
@@ -55,7 +77,7 @@ create_domestication_spaceborn_alien_country = {
 		add_trust = { amount = 5 who = root }
 		random_agreement = {
 			limit = { is_owned_by = root target = { is_same_empire = prev } }
-			add_loyalty = 5
+			add_loyalty = 10
 		}
 		create_fleet = {
 			name = "Domesticated Fertilized Aliens"
