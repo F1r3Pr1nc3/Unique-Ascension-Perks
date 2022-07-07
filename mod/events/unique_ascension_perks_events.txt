@@ -2594,8 +2594,16 @@ planet_event = {
 	picture_event_data = { room = galaxy_center_room }
 	is_triggered_only = yes
 	location = root
-	after = {}
-	option = { name = "DEPOSITS_TITLE" hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.85 } } }
+	immediate = {
+		if = { limit = { NOT = { is_variable_set = galaxy_center_features } }
+			set_variable = { which = galaxy_center_features value = 0 }
+		}
+	}
+	# after = {}
+	option = {
+		allow = { hidden_trigger = { check_variable = { which = galaxy_center_features value < 100 } } }
+		name = "DEPOSITS_TITLE" hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.85 } }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.84.Casino"
 		trigger = { NOT = { has_planet_flag = galaxy_center_casino } }
@@ -2657,6 +2665,7 @@ planet_event = {
 	option = { name = EXIT ai_chance = { factor = 0.1 } }
 }
 
+## Planetary Features
 planet_event = {
 	id = UniqueAscensionPerksEvents.85
 	title = "UniqueAscensionPerksEvents.85.Name"
@@ -2682,73 +2691,84 @@ planet_event = {
 	location = root
 	option = {
 		name = "d_energy_generator"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_energy_generator
-		hidden_effect = { change_variable = { which = energy_generator value = 1 } }# planet_event = { id = UniqueAscensionPerksEvents.85 }
+		hidden_effect = { change_variable = { which = energy_generator value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_mineral_replicator"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_mineral_replicator
-		hidden_effect = { change_variable = { which = mineral_replicator value = 1 } }
+		hidden_effect = { change_variable = { which = mineral_replicator value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_house_farming"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_house_farming
-		hidden_effect = { change_variable = { which = house_farming value = 1 } }
+		hidden_effect = { change_variable = { which = house_farming value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_research_center"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_research_center
-		hidden_effect = { change_variable = { which = research_center value = 1 } }
+		hidden_effect = { change_variable = { which = research_center value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_trade_depot"
-		allow = { owner = { is_gestalt = no resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { is_gestalt = no resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_trade_depot
-		hidden_effect = { change_variable = { which = trade_depot value = 1 } }
+		hidden_effect = { change_variable = { which = trade_depot value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_hivemind_node"
-		allow = { owner = { is_hive_empire = yes resource_stockpile_compare = { resource = food value > 850 } } }
-		owner = { add_resource = { food = -850 } }
+		trigger = { is_lithoid = no }
+		allow = { owner = { is_hive_empire = yes resource_stockpile_compare = { resource = food value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 food = -1000 } }
 		add_deposit = d_hivemind_node
-		hidden_effect = { change_variable = { which = hivemind_node value = 1 } }
+		hidden_effect = { change_variable = { which = hivemind_node value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
+		is_dialog_only = yes
+		response_text = "UniqueAscensionPerksEvents.85.Desc"
+	}
+	option = {
+		name = "d_hivemind_node"
+		trigger = { is_lithoid = yes }
+		allow = { owner = { is_hive_empire = yes resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
+		add_deposit = d_hivemind_node
+		hidden_effect = { change_variable = { which = hivemind_node value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_auto_factory"
-		allow = { owner = { is_machine_empire = yes resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { is_machine_empire = yes resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_auto_factory
-		hidden_effect = { change_variable = { which = auto_factory value = 1 } }
+		hidden_effect = { change_variable = { which = auto_factory value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
 	option = {
 		name = "d_unit_entrepot"
-		allow = { owner = { is_machine_empire = yes resource_stockpile_compare = { resource = minerals value > 850 } } }
-		owner = { add_resource = { minerals = -850 } }
+		allow = { owner = { is_machine_empire = yes resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_unit_entrepot
-		hidden_effect = { change_variable = { which = unity_entrepot value = 1 } }
+		hidden_effect = { change_variable = { which = unity_entrepot value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
@@ -3742,14 +3762,13 @@ country_event = {
 			get_capital_planet = yes
 			switch = {
 				trigger = has_country_flag
-				subject_navy_investment_1 = { set_variable = { which = subject_navy_amount value = 24	remove_country_flag = subject_navy_investment_1 } }
-				subject_navy_investment_2 = { set_variable = { which = subject_navy_amount value = 48	remove_country_flag = subject_navy_investment_2 } }
-				subject_navy_investment_3 = { set_variable = { which = subject_navy_amount value = 96	remove_country_flag = subject_navy_investment_3 } }
-				subject_navy_investment_4 = { set_variable = { which = subject_navy_amount value = 192	remove_country_flag = subject_navy_investment_4 } }
-				subject_navy_investment_5 = { set_variable = { which = subject_navy_amount value = 384	remove_country_flag = subject_navy_investment_5 } }
+				subject_navy_investment_1 = { set_variable = { which = subject_navy_amount value = 24	} remove_country_flag = subject_navy_investment_1 }
+				subject_navy_investment_2 = { set_variable = { which = subject_navy_amount value = 48	} remove_country_flag = subject_navy_investment_2 }
+				subject_navy_investment_3 = { set_variable = { which = subject_navy_amount value = 96	} remove_country_flag = subject_navy_investment_3 }
+				subject_navy_investment_4 = { set_variable = { which = subject_navy_amount value = 192	} remove_country_flag = subject_navy_investment_4 }
+				subject_navy_investment_5 = { set_variable = { which = subject_navy_amount value = 384	} remove_country_flag = subject_navy_investment_5 }
 			}
 			multiply_variable = { which = subject_navy_amount value = 4 }
-
 		}
 		create_fleet = {
 			settings = {
@@ -7510,43 +7529,43 @@ ship_event = {
 
 ######################################
 #									 #
-##########  Dark Galaxy Web ##########
+########### Dark Galaxy Web ##########
 #									 #
 ######################################
 
-country_event = {
-	id = UniqueAscensionPerksEvents.540
-	title = "ap_dark_galaxy_web"
-	desc = "ap_dark_galaxy_web_desc"
-	show_sound = event_scanner
-	picture = GFX_evt_glitchy_matrix
-	location = event_target:capital_planet
-	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = OK enable_special_project = { name = DARK_GALAXY_WEB_PROJECT location = event_target:capital_planet owner = root } }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.540
+# 	title = "ap_dark_galaxy_web"
+# 	desc = "ap_dark_galaxy_web_desc"
+# 	show_sound = event_scanner
+# 	picture = GFX_evt_glitchy_matrix
+# 	location = event_target:capital_planet
+# 	is_triggered_only = yes
+# 	immediate = { get_capital_planet = yes }
+# 	option = { name = OK enable_special_project = { name = DARK_GALAXY_WEB_PROJECT location = event_target:capital_planet owner = root } }
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.541
-	title = "UniqueAscensionPerksEvents.541.Name"
-	desc = "UniqueAscensionPerksEvents.541.Desc"
-	show_sound = event_scanner
-	picture = GFX_evt_glitchy_matrix
-	location = capital_scope
-	is_triggered_only = yes
-	immediate = { set_country_flag = ap_dark_galaxy_web_project }
-	option = { name = EXCELLENT add_resource = { energy = 5000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.542 } } }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.541
+# 	title = "UniqueAscensionPerksEvents.541.Name"
+# 	desc = "UniqueAscensionPerksEvents.541.Desc"
+# 	show_sound = event_scanner
+# 	picture = GFX_evt_glitchy_matrix
+# 	location = capital_scope
+# 	is_triggered_only = yes
+# 	immediate = { set_country_flag = ap_dark_galaxy_web_project }
+# 	option = { name = EXCELLENT add_resource = { energy = 5000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.542 } } }
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.542
-	title = "edict_dark_galaxy_web_menu"
-	desc = "UniqueAscensionPerksEvents.542.Desc"
-	show_sound = event_scanner
-	location = capital_scope
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { portrait = root room = dark_galaxy_web_room }
-	is_triggered_only = yes
-	option = { name = LEAVE }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.542
+# 	title = "edict_dark_galaxy_web_menu"
+# 	desc = "UniqueAscensionPerksEvents.542.Desc"
+# 	show_sound = event_scanner
+# 	location = capital_scope
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { portrait = root room = dark_galaxy_web_room }
+# 	is_triggered_only = yes
+# 	option = { name = LEAVE }
+# }
