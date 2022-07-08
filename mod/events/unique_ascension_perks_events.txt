@@ -332,7 +332,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.20.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_lost_heritage
-	location = capital_scope
+	location = event_target:lh_empire_capital_system # capital_scope
 	is_triggered_only = yes
 	immediate = {
 		set_spawn_system_batch = begin
@@ -947,30 +947,17 @@ country_event = {
 	option = { name = EXCELLENT add_resource = { unity = 5000 } }
 }
 
-country_event = {
+planet_event = {
 	id = UniqueAscensionPerksEvents.46
 	title = "UniqueAscensionPerksEvents.46.Name"
 	desc = "UniqueAscensionPerksEvents.46.Desc"
 	show_sound = event_administrative_work
 	picture = GFX_evt_expansion_infinity
-	location = event_target:ap_expansion_infinity_planet
+	location = this # event_target:ap_expansion_infinity_planet
 	is_triggered_only = yes
-	trigger = {
-		has_ascension_perk = ap_expansion_infinity
-		NOT = { has_country_flag = ap_expansion_infinity_collection_no_warning }
-		any_owned_planet = {
-			OR = {
-				is_capital = yes
-				colony_age > 2
-			}
-			count_owned_pop = { count > 10 limit = { has_job = yes } }
-			NOT = { has_planet_flag = ap_expansion_infinity_collection }
-		}
-	}
-	immediate = { }
 	option = { name = EXCELLENT }
 	option = { name = "UniqueAscensionPerks.no_message"
-		set_country_flag = ap_expansion_infinity_collection_no_warning
+		from = { set_country_flag = ap_expansion_infinity_collection_no_warning }
 		custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
 	}
 }
@@ -982,10 +969,9 @@ country_event = {
 	trigger = {
 		has_ascension_perk = ap_expansion_infinity
 		any_owned_planet = {
-			OR = {
-				is_capital = yes
-				colony_age > 2
-			}
+			# OR = {
+			# 	is_capital = yes
+			colony_age > 2
 			count_owned_pop = { count > 10 limit = { has_job = yes } }
 			NOT = { has_planet_flag = ap_expansion_infinity_collection }
 		}
@@ -997,12 +983,12 @@ country_event = {
 				count_owned_pop = { count > 10 limit = { has_job = yes } }
 				NOT = { has_planet_flag = ap_expansion_infinity_collection }
 			}
-			save_event_target_as = ap_expansion_infinity_planet
+			# save_event_target_as = ap_expansion_infinity_planet
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
-		}
-		event_target:ap_expansion_infinity_planet = { ei_resources_collection = yes }
-		if = { limit = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } }
-			country_event = { id = UniqueAscensionPerksEvents.46 }
+			ei_resources_collection = yes
+			if = { limit = { root = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } } }
+				planet_event = { id = UniqueAscensionPerksEvents.46 }
+			}
 		}
 	}
 }
@@ -6146,12 +6132,10 @@ event = {
 						}
 						destroy_country = yes
 						break = yes
-					}
-					else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = security_strike_force } } }
+					} else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = security_strike_force } } }
 						destroy_country = yes
 						break = yes
-					}
-					else_if = { limit = { is_hostile_to = overlord }
+					} else_if = { limit = { is_hostile_to = overlord }
 						set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
 					}
 					add_trust = { amount = 100 who = overlord }
@@ -6192,12 +6176,10 @@ event = {
 						}
 						destroy_country = yes
 						break = yes
-					}
-					else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } } }
+					} else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } } }
 						destroy_country = yes
 						break = yes
-					}
-					else_if = { limit = { is_hostile_to = overlord }
+					} else_if = { limit = { is_hostile_to = overlord }
 						set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
 					}
 					add_trust = { amount = 100 who = overlord }

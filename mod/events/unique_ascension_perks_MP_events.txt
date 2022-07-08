@@ -217,6 +217,7 @@ planet_event = {
 	after = { hidden_effect = { event_target:current_uprising_originator = { every_owned_fleet = { set_event_locked = no } } } }
 }
 
+# Partial taken from syndaw.1022
 country_event = {
 	id = UniqueAscensionPerksEvents.205
 	hide_window = yes
@@ -386,7 +387,8 @@ country_event = {
 		# Survey host's surveyed planets
 		every_galaxy_planet = {
 			limit = { is_surveyed = { who = event_target:current_uprising_originator status = yes } }
-			set_surveyed = { surveyed = yes surveyor = root.owner }
+		# event_target:current_uprising_originator = { every_planet_within_border = {
+			set_surveyed = { surveyed = yes surveyor = root }
 		}
 		# Declare war on host
 		declare_war = {
@@ -395,7 +397,6 @@ country_event = {
 				key = "NAME_Machine_Uprising_War"
 				variable_string = "This.MainDefender.GetAdj"
 			}
-			# "[This.MainDefender.GetAdj] Machine Uprising"
 			attacker_war_goal = "wg_machine_uprising"
 		}
 		# Create fleets

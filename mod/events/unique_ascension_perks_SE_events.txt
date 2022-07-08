@@ -26,7 +26,13 @@ ship_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = { is_ai = no has_edict = enable_spacen_engineers_project }
+		owner = {
+			OR = {
+				is_ai = no
+				event_target:global_event_country = { check_variable = { which = ap_space_engineers value > 0 } }
+			}
+			has_edict = enable_spacen_engineers_project
+		}
 		is_ship_size = constructor
 		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
 	}
@@ -118,7 +124,13 @@ ship_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = { is_ai = no has_edict = enable_planetary_project }
+		owner = {
+			OR = {
+				is_ai = no
+				event_target:global_event_country = { check_variable = { which = ap_stellar_manipulation value > 0 } }
+			}
+			has_edict = enable_planetary_project
+		}
 		is_ship_size = constructor
 		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
 	}
@@ -417,11 +429,8 @@ country_event = {
 				ROOT = { country_event = { id = UniqueAscensionPerksEvents.4020 } }
 			} else_if = {
 				limit = { has_ship_flag = ship_has_planetary_program_0a }
-				solar_system = { spawn_planet = { class = pc_gigaorbital_ring location = prev size = 10 has_ring = no init_effect = { set_name = "Orbital Elysium" set_planet_entity = { entity = "giga_orbital_habitat_entity_01_entity" graphical_culture = root } set_planet_flag = megastructure set_planet_flag = habitat set_planet_flag = new_elysium set_planet_flag = new_elysium_unnamed } } }
-				ROOT = {
-					country_event = { id = UniqueAscensionPerksEvents.4021 }
-					country_event = { id = UniqueAscensionPerksEvents.4022 days = 7 random = 5 }
-				}
+				solar_system = { spawn_planet = { class = pc_gigaorbital_ring location = prev size = 10 has_ring = no init_effect = { set_name = "Orbital Elysium" set_planet_entity = { entity = "giga_orbital_habitat_entity_01_entity" graphical_culture = root } set_planet_flag = megastructure set_planet_flag = habitat set_planet_flag = new_elysium set_planet_flag = new_elysium_unnamed planet_event = { id = UniqueAscensionPerksEvents.4022 days = 7 random = 5 } } } }
+				ROOT = { country_event = { id = UniqueAscensionPerksEvents.4021 } }
 			} else_if = {
 				limit = { has_ship_flag = ship_has_planetary_program_100a }
 				solar_system = { spawn_planet = { class = pc_mining location = prev has_ring = no init_effect = { set_name = "Mining World" clear_blockers = yes set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } system_event = { id = UniqueAscensionPerksEvents.4030 } }
@@ -467,7 +476,7 @@ country_event = {
 	show_sound = event_ship_bridge
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = {}
+	immediate = { change_variable = { which = "random_asteroid_name" value = 1 } }
 	option = { name = EXCELLENT }
 }
 
@@ -550,12 +559,14 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# trigger = {
-	# 	is_ai = no
 	# 	any_galaxy_planet = { has_planet_flag = new_asteroid_unnamed }
 	# }
 	# mean_time_to_happen = { days = 10 }
 	immediate = {
-		from = { change_variable = { which = "random_asteroid_name" value = 1 } }
+		if = { limit = { NAND = { exists = from from = { is_scope_type = country } } }
+			log="planet spawn from is not country"
+		}
+		# from = { change_variable = { which = "random_asteroid_name" value = 1 } } not sure from is country
 		# random_galaxy_planet = {
 		# 	limit = { has_planet_flag = new_asteroid_unnamed }
 		# 	save_event_target_as = planet_to_rename
@@ -591,7 +602,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.18
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_planet_unnamed } }
+	trigger = { any_galaxy_planet = { has_planet_flag = new_planet_unnamed } }
 	# mean_time_to_happen = { days = 10 }
 	immediate = {
 		change_variable = { which = "random_planet_name" value = 1 }
@@ -607,11 +618,14 @@ country_event = {
 planet_event = {
 	id = UniqueAscensionPerksEvents.19
 	hide_window = yes
-	# trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_habitat_unnamed } }
+	# trigger = { any_galaxy_planet = { has_planet_flag = new_habitat_unnamed } }
 	# mean_time_to_happen = { days = 10 }
 	is_triggered_only = yes
 	immediate = {
-		from = { change_variable = { which = "random_habitat_name" value = 1 } }
+		if = { limit = { NAND = { exists = from from = { is_scope_type = country } } }
+			log="planet spawn from is not country"
+		}
+		# from = { change_variable = { which = "random_habitat_name" value = 1 } } not sure from is country
 		# random_galaxy_planet = { limit = { has_planet_flag = new_habitat_unnamed }
 		remove_planet_flag = new_habitat_unnamed
 		add_modifier = { modifier = pm_stellar_manipulation_habitat } # +20% resource output and -10% pop job upkeep, +4 max districts and +4 building slots.
@@ -627,7 +641,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = {}
+	immediate = { change_variable = { which = "random_habitat_name" value = 1 } }
 	option = { name = EXCELLENT }
 }
 
@@ -639,23 +653,25 @@ country_event = {
 	show_sound = event_mystic_reveal
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = {}
+	immediate = { change_variable = { which = "random_elysium_name" value = 1 } }
 	option = { name = EXCELLENT }
 }
 
-country_event = {
+planet_event = {
 	id = UniqueAscensionPerksEvents.4022
 	hide_window = yes
-	trigger = { is_ai = no any_galaxy_planet = { has_planet_flag = new_elysium_unnamed } }
+	# trigger = { any_galaxy_planet = { has_planet_flag = new_elysium_unnamed } }
 	is_triggered_only = yes
 	# mean_time_to_happen = { days = 10 }
 	immediate = {
-		change_variable = { which = "random_elysium_name" value = 1 }
-		random_galaxy_planet = {
-			limit = { has_planet_flag = new_elysium_unnamed }
-			remove_planet_flag = new_elysium_unnamed
-			set_name = "ELYSIUM_RANDOM_NAME"
+		if = { limit = { NAND = { exists = from from = { is_scope_type = country } } }
+			log="planet spawn from is not country"
 		}
+		# from = { change_variable = { which = "random_elysium_name" value = 1 } } not sure from is country
+		# random_galaxy_planet = {
+		# 	limit = { has_planet_flag = new_elysium_unnamed }
+		remove_planet_flag = new_elysium_unnamed
+		set_name = "ELYSIUM_RANDOM_NAME"
 	}
 }
 

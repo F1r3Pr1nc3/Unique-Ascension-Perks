@@ -54,7 +54,7 @@ country_event = {
 		has_country_flag = ap_civilian_activities_project
 		num_owned_planets > 1
 		is_subject = no
-		NOT = { has_country_flag = spawned_civilian_convoy_fleet_cooldown }
+		# NOT = { has_country_flag = spawned_civilian_convoy_fleet_cooldown }
 		any_owned_planet = {
 			NOR = {
 				has_designation = col_resort
@@ -144,15 +144,12 @@ country_event = {
 				}
 			}
 			if = {
-				limit = {
-					root = { any_owned_planet = { NOR = { has_planet_flag = spawned_civilian_convoy_fleet has_planet_flag = civilian_convoy_fleet_target } } }
-				}
+				limit = { root = { any_owned_planet = { NOR = { has_planet_flag = spawned_civilian_convoy_fleet has_planet_flag = civilian_convoy_fleet_target } } } }
 				create_civilian_activities_convoy = yes
 				if =	 { limit = { num_pops > 100 owner = { num_owned_planets > 7 } } while = { count = 6 random = { chance = 50 create_civilian_activities_convoy = yes } } }
 				else_if = { limit = { num_pops > 90 owner = { num_owned_planets > 6 } } while = { count = 5 random = { chance = 50 create_civilian_activities_convoy = yes } } }
 				else_if = { limit = { num_pops > 80 owner = { num_owned_planets > 5 } } while = { count = 4 random = { chance = 50 create_civilian_activities_convoy = yes } } }
-			}
-			else_if = { limit = { num_pops > 60 owner = { num_owned_planets > 4 } } while = { count = 3 random = { chance = 50 create_civilian_activities_convoy = yes } } }
+			} else_if = { limit = { num_pops > 60 owner = { num_owned_planets > 4 } } while = { count = 3 random = { chance = 50 create_civilian_activities_convoy = yes } } }
 			else_if = { limit = { num_pops > 40 owner = { num_owned_planets > 3 } } while = { count = 2 random = { chance = 50 create_civilian_activities_convoy = yes } } }
 			else_if = { limit = { num_pops > 20 owner = { num_owned_planets > 2 } } while = { count = 1 random = { chance = 50 create_civilian_activities_convoy = yes } } }
 		}
