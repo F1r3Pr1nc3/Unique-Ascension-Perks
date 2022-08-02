@@ -224,7 +224,7 @@ decision_genious_pregnancy = {
 	effect = {
 		custom_tooltip = "decision_genious_pregnancy_tooltip"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown days = 920 }
+			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown years = 3 } # if change, do also tooltip
 			planet_event = { id = UniqueAscensionPerksEvents.3050 }
 			while = {
 				count = 9
@@ -261,7 +261,7 @@ decision_robot_command = {
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 }
+			set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # if change, do also tooltip
 			planet_event = { id = UniqueAscensionPerksEvents.62 }
 			while = {
 				count = 9
@@ -1000,6 +1000,10 @@ decision_nanite_purification = {
 				}
 			}
 		}
+		custom_tooltip = {
+			fail_text = "decision_nanite_extraction_req_1"
+			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_purification } }
+		}
 	}
 	effect = {
 		custom_tooltip = "decision_nanite_purification_tooltip"
@@ -1010,6 +1014,7 @@ decision_nanite_purification = {
 		reroll_planet_modifiers = yes
 		hidden_effect = {
 			set_planet_flag = planet_nanite_purification
+			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -1034,18 +1039,16 @@ decision_nanite_extraction_gas = {
 		}
 	}
 	effect = {
-		custom_tooltip = "decision_nanite_extraction_barren_tooltip"
-		random = { chance = 50 add_deposit = d_energy_5 }
-		random = { chance = 50 add_deposit = d_energy_5 }
-		random = { chance = 50 add_deposit = d_exotic_gases_1 }
-		random = { chance = 50 add_deposit = d_exotic_gases_1 }
-		add_deposit = d_energy_5
-		add_deposit = d_exotic_gases_2
-		# hidden_effect = {
-		# 	every_owned_pop = { kill_pop = yes }
-		# 	set_planet_flag = planet_nanite_exploitation_gas
-		# 	set_surveyed = { surveyed = yes surveyor = from }
-		# }
+		custom_tooltip = "decision_nanite_extraction_gas_tooltip"
+		add_deposit = d_energy_2
+		random = { chance = 50 add_deposit = d_energy_3 }
+		random = { chance = 75 add_deposit = d_energy_2 }
+		random = { chance = 25 add_deposit = d_exotic_gases_1 }
+		random = { chance = 25 add_deposit = d_exotic_gases_1 }
+		hidden_effect = {
+			set_planet_flag = planet_nanite_exploitation_gas
+			set_surveyed = { surveyed = yes surveyor = from }
+		}
 	}
 	ai_weight = { weight = 1 }
 }

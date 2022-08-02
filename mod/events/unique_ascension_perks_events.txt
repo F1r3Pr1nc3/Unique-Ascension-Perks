@@ -3995,6 +3995,7 @@ country_event = {
 	}
 	immediate =	{
 		if = { limit = { has_country_flag = ap_defense_sentinels_retriever_project }
+			create_defense_sentinels_country = yes
 			create_retriever_sentinels_fleet = yes
 		}
 		if = { limit = { NOT = { exists = event_target:defense_sentinels } }
@@ -4096,6 +4097,7 @@ country_event = {
 	immediate =	{
 		set_country_flag = ap_defense_sentinels_retriever_project
 		remove_country_flag = ap_defense_sentinels_retriever_project_check # TODO TEST BUG REPORT
+		create_defense_sentinels_country = yes
 		while = { count = 3 create_retriever_sentinels_fleet = yes }
 	}
 	option = { name = EXCELLENT }
@@ -6407,7 +6409,10 @@ country_event = {
 	picture_event_data = { room = slow_learner_room }
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
+	immediate = {
+		get_capital_planet = yes
+		country_event = { id = UniqueAscensionPerksEvents.401 days = 3584 }
+	}
 	option = {
 		name = EXCELLENT
 		enable_special_project = { name = SLOW_LEARNER_ARMY location = event_target:capital_planet owner = root }
@@ -6431,13 +6436,70 @@ country_event = {
 			has_modifier = slow_learner_bonus_4
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.401.Alpha"	trigger = { NOT = { has_modifier = slow_learner_bonus_1 } } add_modifier = { modifier = slow_learner_bonus_1 } add_resource = { unity = 3500 } }
-	option = { name = "UniqueAscensionPerksEvents.401.Beta" 	trigger = { NOT = { has_modifier = slow_learner_bonus_2 } } add_modifier = { modifier = slow_learner_bonus_2 } add_resource = { unity = 3500 } }
-	option = { name = "UniqueAscensionPerksEvents.401.Gamma"	trigger = { NOT = { has_modifier = slow_learner_bonus_3 } } add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 3500 } }
-	option = { name = "UniqueAscensionPerksEvents.401.Delta"	trigger = { NOT = { has_modifier = slow_learner_bonus_4 } } add_modifier = { modifier = slow_learner_bonus_4 } add_resource = { unity = 3500 } }
+	immediate = {
+		if = { limit = { NOT = { has_modifier = slow_learner_bonus_5 } }
+			# Do self call for performance reason.
+			if = {
+				limit = {
+					NOR = {
+						has_modifier = slow_learner_bonus_1
+						has_modifier = slow_learner_bonus_2
+						has_modifier = slow_learner_bonus_3
+						has_modifier = slow_learner_bonus_4
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.401 days = 6144 } # 10800
+			} else_if = {
+				limit = {
+					calc_true_if = {
+						amount = 1
+						has_modifier = slow_learner_bonus_1
+						has_modifier = slow_learner_bonus_2
+						has_modifier = slow_learner_bonus_3
+						has_modifier = slow_learner_bonus_4
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.401 days = 9216 } # 25200
+				add_resource = { unity = 1024 }
+			} else_if = {
+				limit = {
+					calc_true_if = {
+						amount = 2
+						has_modifier = slow_learner_bonus_1
+						has_modifier = slow_learner_bonus_2
+						has_modifier = slow_learner_bonus_3
+						has_modifier = slow_learner_bonus_4
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.401 days = 18432 } # 54000
+				add_resource = { unity = 2048 }
+			} else = {
+				add_resource = { unity = 1024 }
+			}
+		}
+	}
+	after = {
+		if = { # Final reward
+			limit = {
+				has_modifier = slow_learner_bonus_1
+				has_modifier = slow_learner_bonus_2
+				has_modifier = slow_learner_bonus_3
+				has_modifier = slow_learner_bonus_4
+				NOT = { has_modifier = slow_learner_bonus_5 }
+			}
+			add_modifier = { modifier = slow_learner_bonus_5 }
+			add_resource = { unity = 2048 }
+		}
+	}
+	# halved values
+	option = { name = "UniqueAscensionPerksEvents.401.Alpha"	trigger = { NOT = { has_modifier = slow_learner_bonus_1 } } add_modifier = { modifier = slow_learner_bonus_1 } add_resource = { unity = 2000 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Beta" 	trigger = { NOT = { has_modifier = slow_learner_bonus_2 } } add_modifier = { modifier = slow_learner_bonus_2 } add_resource = { unity = 2000 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Gamma"	trigger = { NOT = { has_modifier = slow_learner_bonus_3 } } add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 2000 } }
+	option = { name = "UniqueAscensionPerksEvents.401.Delta"	trigger = { NOT = { has_modifier = slow_learner_bonus_4 } } add_modifier = { modifier = slow_learner_bonus_4 } add_resource = { unity = 2000 } }
 	option = { name = OK default_hide_option = yes }
 }
 # v3.3 value reduced
+# Project
 country_event = {
 	id = UniqueAscensionPerksEvents.402
 	title = "SLOW_LEARNER_ARMY"
@@ -6445,7 +6507,9 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_slow_learner
 	is_triggered_only = yes
-	immediate = { set_country_flag = slow_learner_army }
+	immediate = {
+		set_country_flag = slow_learner_army
+	}
 	option = { name = EXCELLENT add_resource = { unity = 12000 } }
 }
 
@@ -7418,6 +7482,7 @@ country_event = {
 ###### Expansionist Development ######
 #									 #
 ######################################
+# TODO FIXME: Deletes any anomaly probability that the system might have.
 
 country_event = {
 	id = UniqueAscensionPerksEvents.530
@@ -7432,6 +7497,7 @@ country_event = {
 
 # on_system_survey_ship
 # v3.3: doubled costs due imbalance
+# v3.4: exclude anomalies
 ship_event = {
 	id = UniqueAscensionPerksEvents.531
 	title = "UniqueAscensionPerksEvents.531.Name"
@@ -7444,11 +7510,26 @@ ship_event = {
 		exists = owner
 		owner = { has_ascension_perk = ap_expansionist_development }
 		exists = from
-		from = { NOT = { exists = starbase } }
+		from = {
+			NOR = {
+				exists = starbase
+				exists = space_owner
+				any_system_planet = { has_anomaly = yes }
+			}
+		}
 	}
 	immediate = {
 		owner = { save_event_target_as = science_ship_owner }
-		# from = { save_event_target_as = survey_system }
+		# from = {
+		# 	save_event_target_as = survey_system
+		# 	if = {
+		# 		limit = { any_system_planet = { has_anomaly = yes } }
+		# 		every_system_planet = {
+		# 			limit = { has_anomaly = no }
+		# 			set_surveyed = { surveyed = yes surveyor = this }
+		# 		}
+		# 	}
+		# }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Influence"

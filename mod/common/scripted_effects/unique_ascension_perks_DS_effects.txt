@@ -79,7 +79,11 @@ create_defense_sentinels_country = {
 	}
 	if = {
 		limit = {
-			NAND = { exists = event_target:spawn_location any_planet_within_border = { has_planet_flag = defense_sentinels_home } }
+			NOR = {
+				exists = event_target:spawn_location
+				any_planet_within_border = { has_planet_flag = defense_sentinels_home }
+				event_target:defense_sentinels = { any_owned_planet = { has_planet_flag = defense_sentinels_home } }
+			}
 		}
 		# capital_star = { save_event_target_as = spawn_location } this will destroy the core sector, so take another system
 		random_planet_within_border = {
@@ -116,7 +120,14 @@ create_defense_sentinels_country = {
 							class = pc_ai
 							location = prev
 							has_ring = no
-							init_effect = { set_name = "NAME_SENTINELS_HOMEWORLD" set_planet_flag = defense_sentinels_home set_planet_size = 20 clear_deposits = yes set_owner = event_target:defense_sentinels }
+							init_effect = {
+								set_name = "NAME_SENTINELS_HOMEWORLD"
+								set_planet_flag = defense_sentinels_home
+								set_planet_size = 18
+								clear_deposits = yes
+								set_owner = root
+								set_controller = event_target:defense_sentinels
+							}
 						}
 					}
 				}
@@ -124,7 +135,20 @@ create_defense_sentinels_country = {
 		}
 	} else_if = {
 		limit = { NOT = { exists = event_target:spawn_location } }
-		random_planet_within_border = { limit = { has_planet_flag = defense_sentinels_home } save_event_target_as = spawn_location }
+		if = {
+			limit = { any_planet_within_border = { has_planet_flag = defense_sentinels_home } }
+			random_planet_within_border = {
+				limit = { has_planet_flag = defense_sentinels_home }
+				save_event_target_as = spawn_location
+			}
+		} else = {
+			event_target:defense_sentinels = {
+				random_owned_planet = {
+					limit = { has_planet_flag = defense_sentinels_home }
+					save_event_target_as = spawn_location
+				}
+			}
+		}
 	}
 	event_target:defense_sentinels = {
 		root = {
@@ -136,20 +160,21 @@ create_defense_sentinels_country = {
 			limit = { is_owned_by = root target = { is_same_empire = prev } }
 			add_loyalty = 10
 		}
-		event_target:spawn_location = {
-			random_system_planet = {
-				limit = { has_planet_flag = defense_sentinels_home }
+		if = {
+			limit = { NOT = { any_owned_fleet = { has_fleet_flag = defense_sentinels_main_core } } }
+			event_target:spawn_location = {
 				set_surveyed = { surveyed = yes surveyor = root }
-			}
-			create_fleet = {
-				name = NAME_defense_sentinels
-				settings = { spawn_debris = no is_boss = yes }
-				effect = {
-					set_owner = prevprev
-					create_ship = { name = "" design = "Defense Sentinel - Main Core" graphical_culture = "ai_01" }
-					set_location = { target = prev distance = 15 angle = random }
-					save_event_target_as = defense_sentinels_fleet
-					set_fleet_flag = defense_sentinels_main_core
+				solar_system = { set_surveyed = { surveyed = yes surveyor = root } }
+				create_fleet = {
+					name = NAME_defense_sentinels
+					settings = { spawn_debris = no is_boss = yes }
+					effect = {
+						set_owner = prevprev
+						create_ship = { name = "" design = "Defense Sentinel - Main Core" graphical_culture = "ai_01" }
+						set_location = { target = prev distance = 15 angle = random }
+						save_event_target_as = defense_sentinels_fleet
+						set_fleet_flag = defense_sentinels_main_core
+					}
 				}
 			}
 		}
@@ -167,7 +192,6 @@ defense_sentinels_spawn_default_fleet = {
 }
 
 create_retriever_sentinels_fleet = {
-	create_defense_sentinels_country = yes
 	random_planet_within_border = {
 		limit = { has_planet_flag = defense_sentinels_home }
 		weights = { base = 1 modifier = { add = 5 is_sector_capital = no } }
