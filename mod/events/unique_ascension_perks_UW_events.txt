@@ -683,7 +683,7 @@ country_event = {
 # From = MarauderContact = raiding_marauder
 # This = CountryMarauderTarget
 country_event = {
-	id = UniqueAscensionPerksEvents.387
+	id = UniqueAscensionPerksEvents.387 # (parts marauder.33)
 	title = "UniqueAscensionPerksEvents.383.Name"
 	desc = "UniqueAscensionPerksEvents.387.Desc"
 	diplomatic = yes
@@ -728,9 +728,14 @@ country_event = {
 			flag = event_target:raiding_marauder
 			effect = {
 				save_event_target_as = marauder_raiding_country
-				if = { limit = { event_target:raiding_marauder = { has_country_flag = marauder_1 } } set_country_flag = marauder_1 }
-				else_if = { limit = { event_target:raiding_marauder = { has_country_flag = marauder_2 } } set_country_flag = marauder_2 }
-				else_if = { limit = { event_target:raiding_marauder = { has_country_flag = marauder_3 } } set_country_flag = marauder_3 }
+				event_target:raiding_marauder = {
+					switch = {
+						trigger = has_country_flag
+						marauder_1 = { prev = { set_country_flag = marauder_1 } }
+						marauder_2 = { prev = { set_country_flag = marauder_2 } }
+						marauder_3 = { prev = { set_country_flag = marauder_3 } }
+					}
+				}
 				set_country_flag = raid_ongoing
 			}
 		}
@@ -760,19 +765,44 @@ country_event = {
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
 					set_fleet_flag = raiding_fleet
-					set_owner = event_target:marauder_raiding_country # Real owner
 					assign_leader = last_created_leader
-					random_system = {
-						limit = { any_system_planet = { exists = owner is_owned_by = root num_pops > 0 } }
-						save_event_target_as = raid_system
+				}
+			}
+			last_created_fleet = {
+				set_owner = prev # Real owner
+				random_system = {
+					limit = {
+						exists = space_owner
+						is_owned_by = root
+						any_system_planet = { exists = owner is_owned_by = root num_pops > 0 }
+						prev = { can_access_system = prev }
 					}
-					event_target:raid_system = {
-						random_system_planet = {
-							limit = { exists = owner is_owned_by = root num_pops > 0 }
-							save_event_target_as = raid_planet
-						}
+					save_event_target_as = raid_system
+					random_system_planet = {
+						limit = { exists = owner is_owned_by = root num_pops > 0 }
+						save_event_target_as = raid_planet
+					}
+				}
+				if = {
+					limit = {
+						exists = event_target:raid_planet
+						can_access_system = event_target:raid_planet.solar_system
 					}
 					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+				} else_if = { # compat. fallback
+					limit = {
+						OR = {
+							has_global_flag = gf_great_khan_active
+							has_global_flag = pirate_waves_active
+							AND = {
+								years_passed > 10
+								any_playable_country = { is_ai = no is_variable_set = pirate_waves_chance }
+							}
+						}
+					}
+					fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
+				} else = {
+					log="FAIL: Marauder raiding fleet can't access raid target."
 				}
 			}
 			set_faction_hostility = { target = event_target:marauder_target set_hostile = yes set_neutral = no set_friendly = no }

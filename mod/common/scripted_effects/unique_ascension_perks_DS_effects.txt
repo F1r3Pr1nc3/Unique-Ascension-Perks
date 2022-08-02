@@ -32,6 +32,7 @@ create_defense_sentinels_country = {
 				save_event_target_as = defense_sentinels
 			}
 		} else = {
+			set_update_modifiers_batch = begin
 			create_country = {
 				name = NAME_defense_sentinels
 				type = security_forces
@@ -41,10 +42,11 @@ create_defense_sentinels_country = {
 					colors = { "black" "blue" "null" "null" }
 				}
 				effect = {
-					every_country = {
+					every_playable_country = {
 						limit = { has_communications = root }
 						establish_communications_no_message = prev
 					}
+					establish_communications_no_message = root
 					save_event_target_as = defense_sentinels
 					set_country_flag = defense_sentinels
 					set_relation_flag = { who = root flag = defense_sentinels }
@@ -75,6 +77,7 @@ create_defense_sentinels_country = {
 					}
 				}
 			}
+			set_update_modifiers_batch = end
 		}
 	}
 	if = {

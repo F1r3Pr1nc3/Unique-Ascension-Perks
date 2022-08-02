@@ -125,20 +125,21 @@ country_event = {
 								key = "NAME_Civilian_Faction"
 								variable_string = "[Root.GetSpeciesAdj]" # GetSpeciesNamePlural
 							}
-
 							set_country_flag = first_alien_life
 							set_country_flag = has_encountered_other_empire
-							establish_communications_no_message = root
 							randomize_flag_symbol = "corporate"
 							save_event_target_as = civilian_activities_country
 							# copy_ethos_and_authority = root
 							set_country_flag = civilian_activities_country
 							set_relation_flag = { who = root flag = civilian_activities_country }
 							set_subject_of = { who = root preset = preset_machine_follower }
-							random_playable_country = {
-								limit = { has_communications = root }
-								establish_communications_no_message = prev
+							root = {
+								every_relation = {
+									limit = { has_communications = root }
+									establish_communications_no_message = prevprev
+								}
 							}
+							establish_communications_no_message = root
 						}
 					}
 				}

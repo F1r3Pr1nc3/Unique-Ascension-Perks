@@ -32,6 +32,7 @@ create_security_forces_country = {
 				save_event_target_as = security_forces_country
 			}
 		} else = {
+			set_update_modifiers_batch = begin
 			create_country = {
 				name = "Security Forces"
 				type = security_forces
@@ -42,10 +43,6 @@ create_security_forces_country = {
 				}
 				effect = {
 					save_event_target_as = security_forces_country
-					every_country = {
-						limit = { has_communications = root }
-						establish_communications_no_message = prev
-					}
 					set_country_flag = security_strike_force
 					set_relation_flag = { who = root flag = security_strike_force }
 					set_subject_of = { who = root preset = preset_machine_follower }
@@ -63,7 +60,12 @@ create_security_forces_country = {
 						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
 						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
 						add_opinion_modifier = { who = prev modifier = opinion_imperial_overlord_ai_opinion }
+						every_relation = {
+							limit = { has_communications = root }
+							establish_communications_no_message = prevprev
+						}
 					}
+					establish_communications_no_message = root
 					random_agreement = {
 						limit = { is_owned_by = root target = { is_same_empire = prev } }
 						add_loyalty = 95
@@ -72,6 +74,7 @@ create_security_forces_country = {
 					add_modifier = { modifier = pledge_loyalty_2 }
 				}
 			}
+			set_update_modifiers_batch = end
 		}
 	}
 	if = {
