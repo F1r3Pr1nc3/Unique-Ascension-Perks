@@ -6411,7 +6411,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		get_capital_planet = yes
-		country_event = { id = UniqueAscensionPerksEvents.401 days = 3584 }
+		country_event = { id = UniqueAscensionPerksEvents.401 days = 3584 } # 10 years
 	}
 	option = {
 		name = EXCELLENT
@@ -6437,8 +6437,8 @@ country_event = {
 		}
 	}
 	immediate = {
+		# Do self call for performance reason.
 		if = { limit = { NOT = { has_modifier = slow_learner_bonus_5 } }
-			# Do self call for performance reason.
 			if = {
 				limit = {
 					NOR = {
@@ -6448,7 +6448,7 @@ country_event = {
 						has_modifier = slow_learner_bonus_4
 					}
 				}
-				country_event = { id = UniqueAscensionPerksEvents.401 days = 6144 } # 10800
+				country_event = { id = UniqueAscensionPerksEvents.401 days = 5376 } # 25 years
 			} else_if = {
 				limit = {
 					calc_true_if = {
@@ -6459,7 +6459,7 @@ country_event = {
 						has_modifier = slow_learner_bonus_4
 					}
 				}
-				country_event = { id = UniqueAscensionPerksEvents.401 days = 9216 } # 25200
+				country_event = { id = UniqueAscensionPerksEvents.401 days = 8960 } # 50 years
 				add_resource = { unity = 1024 }
 			} else_if = {
 				limit = {
@@ -6471,24 +6471,12 @@ country_event = {
 						has_modifier = slow_learner_bonus_4
 					}
 				}
-				country_event = { id = UniqueAscensionPerksEvents.401 days = 18432 } # 54000
+				country_event = { id = UniqueAscensionPerksEvents.401 days = 17920 } # 100 years
 				add_resource = { unity = 2048 }
 			} else = {
-				add_resource = { unity = 1024 }
+				add_modifier = { modifier = slow_learner_bonus_5 } # Final reward
+				add_resource = { unity = 4096 }
 			}
-		}
-	}
-	after = {
-		if = { # Final reward
-			limit = {
-				has_modifier = slow_learner_bonus_1
-				has_modifier = slow_learner_bonus_2
-				has_modifier = slow_learner_bonus_3
-				has_modifier = slow_learner_bonus_4
-				NOT = { has_modifier = slow_learner_bonus_5 }
-			}
-			add_modifier = { modifier = slow_learner_bonus_5 }
-			add_resource = { unity = 2048 }
 		}
 	}
 	# halved values
