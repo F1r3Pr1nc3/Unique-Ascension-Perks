@@ -36,7 +36,15 @@ event = {
 	immediate = {
 		if = {
 			limit = {
-				NOT = { any_playable_country = { has_ascension_perk = ap_deep_scanner } }
+				NOT = {
+					any_playable_country = {
+						OR = {
+							has_ascension_perk = ap_deep_scanner
+							# has_ascension_perk = ap_artifact_hunter
+							has_ascension_perk = ap_expansionist_development
+						}
+					}
+				}
 			}
 			remove_global_flag = anomalies_respawner_active
 		} else = {
