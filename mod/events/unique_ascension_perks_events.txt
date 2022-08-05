@@ -2146,58 +2146,69 @@ country_event = {
 	}
 	option = { name = fallen_empires_tasks.2.a
 		# fe_gift_action = yes
-		hidden_effect = { set_country_flag = fe_gift_received }
-		if = { limit = { has_country_flag = fe_gift_resources_small } add_resource = { minerals = 1500 energy = 500 } }
-		if = { limit = { has_country_flag = fe_gift_resources_large } add_resource = { minerals = 3000 energy = 1000 } }
-		if = { limit = { has_country_flag = fe_gift_resources_alloys } add_resource = { alloys = 750 } }
-		if = { limit = { has_country_flag = fe_gift_resources_consumer } add_resource = { consumer_goods = 750 } }
-		if = { limit = { has_country_flag = fe_gift_databanks } add_modifier = { modifier = fallen_empire_gift_databanks years = 10 } }
-		if = { limit = { has_country_flag = fe_gift_rare_tech }
-			if = { limit = { NOT = { has_technology = tech_planetary_shield_generator } } give_tech_option_or_progress_effect = { TECH = tech_planetary_shield_generator } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_synchronized_defences } } give_tech_option_or_progress_effect = { TECH = tech_synchronized_defences } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_selected_lineages } } give_tech_option_or_progress_effect = { TECH = tech_selected_lineages } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_space_defense_station_improvement } } give_tech_option_or_progress_effect = { TECH = tech_space_defense_station_improvement } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_gene_banks } } give_tech_option_or_progress_effect = { TECH = tech_gene_banks } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_modular_engineering } } give_tech_option_or_progress_effect = { TECH = tech_modular_engineering } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_construction_templates } } give_tech_option_or_progress_effect = { TECH = tech_construction_templates } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			else_if = { limit = { NOT = { has_technology = tech_gateway_activation } } give_tech_option_or_progress_effect = { TECH = tech_gateway_activation } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
-			# (MOD ADD MORE TECHS GIFT IN FUTURE)
-			# Just give databanks instead
-			add_modifier = { modifier = fallen_empire_gift_databanks years = 10 }
+		hidden_effect = {
+			set_country_flag = fe_gift_received
+			event_target:FallenEmpireTaskOrigin = {
+				add_opinion_modifier = { who = root modifier = opinion_fallen_empire_gift }
+				add_intel = { who = root amount = 50 }
+			}
+			add_intel = { who = event_target:FallenEmpireTaskOrigin amount = 50 }
 		}
-		if = { limit = { has_country_flag = fe_gift_escorts }
-			custom_tooltip = fallen_empires_tasks.2.escorts_tooltip
-			hidden_effect = {
-				event_target:capital_planet = {
-					create_fleet = {
-						settings = { spawn_debris = no }
-						effect = {
-							set_owner = root
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Gamma" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Sage" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Warden" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Zealot" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
-							set_location = prev
+		switch = { trigger = has_country_flag
+			fe_gift_resources_small = { add_resource = { minerals = 1500 energy = 500 } }
+			fe_gift_resources_large = { add_resource = { minerals = 3000 energy = 1000 } }
+			fe_gift_resources_alloys = { add_resource = { alloys = 750 } }
+			fe_gift_resources_consumer = { add_resource = { consumer_goods = 750 } }
+			fe_gift_databanks = { add_modifier = { modifier = fallen_empire_gift_databanks years = 10 } }
+			fe_gift_rare_tech = {
+				if = { limit = { NOT = { has_technology = tech_planetary_shield_generator } } give_tech_option_or_progress_effect = { TECH = tech_planetary_shield_generator } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_synchronized_defences } } give_tech_option_or_progress_effect = { TECH = tech_synchronized_defences } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_selected_lineages } } give_tech_option_or_progress_effect = { TECH = tech_selected_lineages } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_space_defense_station_improvement } } give_tech_option_or_progress_effect = { TECH = tech_space_defense_station_improvement } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_gene_banks } } give_tech_option_or_progress_effect = { TECH = tech_gene_banks } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_modular_engineering } } give_tech_option_or_progress_effect = { TECH = tech_modular_engineering } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_construction_templates } } give_tech_option_or_progress_effect = { TECH = tech_construction_templates } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				else_if = { limit = { NOT = { has_technology = tech_gateway_activation } } give_tech_option_or_progress_effect = { TECH = tech_gateway_activation } hidden_effect = { remove_country_flag = fe_gift_rare_tech } break = yes }
+				# (MOD ADD MORE TECHS GIFT IN FUTURE)
+				# Just give databanks instead
+				add_modifier = { modifier = fallen_empire_gift_databanks years = 10 }
+			}
+			fe_gift_escorts = {
+				custom_tooltip = fallen_empires_tasks.2.escorts_tooltip
+				hidden_effect = {
+					event_target:FallenEmpireTaskOrigin = {
+						create_fleet = {
+							settings = { spawn_debris = no }
+							effect = {
+								set_owner = prev
+								if = { limit = { prev = { is_machine_empire = yes } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Gamma" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+								else_if = { limit = { prev = { has_ethic = ethic_fanatic_materialist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Sage" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+								else_if = { limit = { prev = { has_ethic = ethic_fanatic_xenophile } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Warden" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+								else_if = { limit = { prev = { has_ethic = ethic_fanatic_spiritualist } } while = { count = 3 create_ship = { name = "NAME_Surplus_I" design = "NAME_Surplus_Zealot" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } } }
+								set_location = event_target:capital_planet
+							}
 						}
 					}
+					last_created_fleet = { set_owner = root }
 				}
 			}
-		}
-		if = { limit = { has_country_flag = fe_gift_battlecruiser }
-			custom_tooltip = fallen_empires_tasks.2.battlecruiser_tooltip
-			hidden_effect = {
-				event_target:capital_planet = {
-					create_fleet = {
-						settings = { spawn_debris = no }
-						effect = {
-							set_owner = root
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { is_machine_empire = yes } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Beta" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_materialist } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Scholar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_xenophile } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Custodian" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
-							if = { limit = { event_target:FallenEmpireTaskOrigin = { has_ethic = ethic_fanatic_spiritualist } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Avatar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
-							set_location = prev
+			fe_gift_battlecruiser = {
+				custom_tooltip = fallen_empires_tasks.2.battlecruiser_tooltip
+				hidden_effect = {
+					event_target:FallenEmpireTaskOrigin = {
+						create_fleet = {
+							settings = { spawn_debris = no }
+							effect = {
+								set_owner = prev
+								if = { limit = { prev = { is_machine_empire = yes } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Beta" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+								else_if = { limit = { prev = { has_ethic = ethic_fanatic_materialist } } create_ship = { name = "NAME_Progress" design = "NAME_Surplus_Scholar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+								else_if = { limit = { prev = { has_ethic = ethic_fanatic_xenophile } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Custodian" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+								else_if = { limit = { prev = { has_ethic = ethic_fanatic_spiritualist } } create_ship = { name = "NAME_Benevolence" design = "NAME_Surplus_Avatar" graphical_culture = event_target:FallenEmpireTaskOrigin upgradable = no } }
+								set_location = event_target:capital_planet
+							}
 						}
 					}
+					last_created_fleet = { set_owner = root }
 				}
 			}
 		}
@@ -2311,8 +2322,9 @@ country_event = {
 			add_opinion_modifier = { modifier = opinion_influenced_awaken_fallen_empire who = prevprev }
 			if = {
 				limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
-				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 } else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
+				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 }
 			}
+			else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
 		}
 	}
 	option = { name = EXCELLENT }
@@ -3913,14 +3925,16 @@ fleet_event = {
 				set_fleet_flag = defense_sentinels_fleet_defending
 				set_timed_fleet_flag = { flag = defense_sentinels_fleet_defending_order days = 45 }
 				remove_auto_move_target = yes
-				auto_follow_fleet = { target = event_target:defense_sentinels_fleet_defend_against attack_fleet = yes } else = {
-					event_target:main_country = { random_planet_within_border = { save_event_target_as = defense_sentinels_fleet_destination } }
-					save_event_target_as = defense_sentinels_fleet_patroling
-					set_fleet_flag = defense_sentinels_fleet_patroling
-					set_timed_fleet_flag = { flag = defense_sentinels_fleet_defending_order days = 10 }
-					set_timed_fleet_flag = { flag = defense_sentinels_fleet_patroling_order months = 4 }
-					auto_move_to_planet = { target = event_target:defense_sentinels_fleet_destination clear_auto_move_on_arrival = no }
-				}
+				auto_follow_fleet = { target = event_target:defense_sentinels_fleet_defend_against attack_fleet = yes }
+
+			}
+			else = {
+				event_target:main_country = { random_planet_within_border = { save_event_target_as = defense_sentinels_fleet_destination } }
+				save_event_target_as = defense_sentinels_fleet_patroling
+				set_fleet_flag = defense_sentinels_fleet_patroling
+				set_timed_fleet_flag = { flag = defense_sentinels_fleet_defending_order days = 10 }
+				set_timed_fleet_flag = { flag = defense_sentinels_fleet_patroling_order months = 4 }
+				auto_move_to_planet = { target = event_target:defense_sentinels_fleet_destination clear_auto_move_on_arrival = no }
 			}
 		}
 	}
@@ -5456,7 +5470,8 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.322.a"
 		allow = { resource_stockpile_compare = { resource = minerals value > 200 } }
 		add_resource = { minerals = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
+		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } }
+		else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.322.b"
@@ -5464,7 +5479,8 @@ country_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
 		set_country_flag = ap_chosen_ruler_no_warning
 		add_resource = { minerals = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
+		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } }
+		else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
 	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } }
@@ -5667,7 +5683,8 @@ country_event = {
 			save_event_target_as = target_planet
 		}
 		add_resource = { minerals = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } } else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
+		if = { limit = { is_gestalt = no } event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } }
+		else = { event_target:target_planet = { add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
 	}
 }
 
@@ -6520,11 +6537,13 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
-		enable_special_project = { name = UTOPIAN_REALISATION location = event_target:capital_planet owner = root }
+		event_target:capital_planet = {
+			enable_special_project = { name = UTOPIAN_REALISATION location = event_target:capital_planet owner = root }
+		}
 	}
 }
 
-country_event = {
+planet_event = {
 	id = UniqueAscensionPerksEvents.411
 	title = "UniqueAscensionPerksEvents.411.Name"
 	desc = "UniqueAscensionPerksEvents.411.Desc"
@@ -6533,29 +6552,40 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = utopian_realisation_room }
 	is_triggered_only = yes
-	location = event_target:capital_planet
-	immediate = { get_capital_planet = yes }
+	location = this
+	# immediate = {}
+	after = {
+		change_planet_size = 10
+		hidden_effect = {
+			while = { count = 12
+				create_species = { name = random class = random_non_machine portrait = random traits = random homeworld = root }
+				create_pop = { species = last_created_species }
+				reroll_random = yes
+			}
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.411.a" # "Do it completely."
+		custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
+		trigger = { NOT = { is_planet_class = pc_gaia } }
+		change_pc = pc_gaia
+		add_modifier = { modifier = "gaia_world" }
+		ai_chance = {
+			factor = 0.5
+			modifier = { factor = 0 owner = { is_gestalt = yes } }
+		}
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.411.a"
-		ai_chance = { factor = 0.1 }
-		random_owned_planet = {
-			limit = { is_capital = yes }
-			change_pc = pc_gaia
-			add_modifier = { modifier = "gaia_world" }
-			change_planet_size = 10
-			custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
-			hidden_effect = { while = { count = 12 create_species = { name = random class = random_non_machine portrait = random traits = random } create_pop = { species = last_created_species } } }
-		}
+		trigger = { is_planet_class = pc_gaia }
+		custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.411.b"
-		random_owned_planet = {
-			limit = { is_capital = yes }
-			change_planet_size = 10
-			custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
-			hidden_effect = { while = { count = 12 create_species = { name = random class = random_non_machine portrait = random traits = random } create_pop = { species = last_created_species } } }
-		}
+		trigger = { NOT = { is_planet_class = pc_gaia } }
+		custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
 	}
+
 }
 
 ######################################
@@ -7424,33 +7454,42 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.497.Engineering"	allow = { NOT = { has_country_flag = ap_library_wisedom_engineering_documentation } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_engineering_documentation } custom_tooltip = "edict_lw_engineering_documentation_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.Archeology"	allow = { NOT = { has_country_flag = ap_library_wisedom_archeological_knowledge } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_archeological_knowledge } custom_tooltip = "edict_lw_archeological_knowledge_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.Data"			allow = { NOT = { has_country_flag = ap_library_wisedom_adv_data_collection } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_adv_data_collection } custom_tooltip = "edict_lw_adv_data_collectione_unlock" }
-	option = { name = "UniqueAscensionPerksEvents.497.ResearchData"	allow = { NOT = { has_country_flag = ap_library_wisedom_research_cooldown } resource_stockpile_compare = { resource = unity value > 500 } } add_resource = { unity = -500 } add_monthly_resource_mult = { resource = physics_research value = 8 min = 1500 max = 8000 } add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 8000 } add_monthly_resource_mult = { resource = engineering_research value = 8 min = 2000 max = 8000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_research_cooldown years = 5 } } custom_tooltip = "UniqueAscensionPerks.no_request_length" }
+	option = { name = "UniqueAscensionPerksEvents.497.ResearchData" custom_tooltip = "UniqueAscensionPerks.no_request_length"
+		allow = { NOT = { has_country_flag = ap_library_wisedom_research_cooldown }
+		resource_stockpile_compare = { resource = unity value > 500 } }
+		add_resource = { unity = -500 }
+		add_monthly_resource_mult = { resource = physics_research value = 8 min = 1500 max = 8000 }
+		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 8000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 8 min = 2000 max = 8000 }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_research_cooldown years = 5 } }
+	}
 	option = {
-		name = "UniqueAscensionPerksEvents.497.PhysicsTech"
+		name = "UniqueAscensionPerksEvents.497.PhysicsTech" custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
 		add_resource = { unity = -500 }
 		# wisedom_get_physics_tech = yes
-		custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		add_random_research_option = { area = physics add_progress = 0.2 fail_effects = { add_monthly_resource_mult = { resource = physics_research value = 16 min = 3500 max = 14000 } } }
 		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown years = 5 } country_event = { id = UniqueAscensionPerksEvents.520 } }
 	}
 	option = {
-		name = "UniqueAscensionPerksEvents.497.SocietyTech"
+		name = "UniqueAscensionPerksEvents.497.SocietyTech" custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_society_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
 		add_resource = { unity = -500 }
 		# wisedom_get_society_tech = yes
-		custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		add_random_research_option = { area = society add_progress = 0.2 fail_effects = { add_monthly_resource_mult = { resource = society_research value = 16 min = 4000 max = 14000 } } }
 		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_society_tech_cooldown years = 5 } country_event = { id = UniqueAscensionPerksEvents.520 } } }
 	option = {
-		name = "UniqueAscensionPerksEvents.497.EngineeringTech"
+		name = "UniqueAscensionPerksEvents.497.EngineeringTech" custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
 		add_resource = { unity = -500 }
 		# wisedom_get_engineering_tech = yes
-		custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		add_random_research_option = { area = engineering add_progress = 0.2 fail_effects = { add_monthly_resource_mult = { resource = engineering_research value = 16 min = 4000 max = 14000 } } }
 		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown years = 5 } country_event = { id = UniqueAscensionPerksEvents.520 } }
 	}
+	option = { name = "UniqueAscensionPerksEvents.497.Growth"			allow = { NOT = { has_country_flag = ap_library_wisedom_growth_campaign } }			hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_growth_campaign } custom_tooltip = "edict_lw_growth_campaign_unlock" }
+	option = { name = "UniqueAscensionPerksEvents.497.Assembly"			allow = { NOT = { has_country_flag = ap_library_wisedom_assembly_campaign } }		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_assembly_campaign } custom_tooltip = "edict_lw_assembly_campaign_unlock" }
+	option = { name = "UniqueAscensionPerksEvents.497.Intelligence"		allow = { NOT = { has_country_flag = ap_library_wisedom_adv_intelligence_agency } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_adv_intelligence_agency } custom_tooltip = "edict_lw_adv_intelligence_agency_unlock" }
+
 	option = { name = BACK ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
