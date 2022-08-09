@@ -21,14 +21,12 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		random_playable_country = {
+		every_playable_country = {
 			limit = { has_ascension_perk = ap_space_merchant }
 			if = { limit = { has_country_flag = ap_space_merchant_cooldown } # Only every 4 years
 				country_event = { id = UniqueAscensionPerksEvents.93 days = 20 random = 130 }
 				remove_country_flag = ap_space_merchant_cooldown
-			} else = {
-				set_country_flag = ap_space_merchant_cooldown
-			}
+			} else = { set_country_flag = ap_space_merchant_cooldown }
 		}
 	}
 }
@@ -620,6 +618,20 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	picture_event_data = { portrait = root room = space_merchant_room }
+	immediate = {
+		set_variable = { which = private_slave_costs value = 2 }
+		if = { limit = { has_policy_flag = slavery_allowed }
+			divide_variable = { which = private_slave_costs value = 2 }
+		} else_if = {
+			limit = {
+				OR = {
+					is_authoritarian = yes
+					is_xenophobe = yes
+				}
+			}
+			divide_variable = { which = private_slave_costs value = 1.5 }
+		}
+	}
 	after = {
 		if = { limit = { is_variable_set = create_private_slave }
 			event_target:PlanetTarget = {
@@ -630,11 +642,12 @@ country_event = {
 			}
 			clear_variable = create_private_slave
 		}
+		clear_variable = private_slave_costs
 	}
-	option = { name = "UniqueAscensionPerksEvents.98.5" allow = { resource_stockpile_compare = { resource = energy value > 5000 } } add_resource = { energy = -5000 } hidden_effect = { set_variable = { which = create_private_slave value = 5 } set_timed_country_flag = { flag = private_slaves_cooldown years = 1 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
-	option = { name = "UniqueAscensionPerksEvents.98.10" allow = { resource_stockpile_compare = { resource = energy value > 10000 } } add_resource = { energy = -10000 } hidden_effect = { set_variable = { which = create_private_slave value = 10 } set_timed_country_flag = { flag = private_slaves_cooldown years = 2 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
-	option = { name = "UniqueAscensionPerksEvents.98.20" allow = { resource_stockpile_compare = { resource = energy value > 20000 } } add_resource = { energy = -20000 } hidden_effect = { set_variable = { which = create_private_slave value = 20 } set_timed_country_flag = { flag = private_slaves_cooldown years = 4 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
-	option = { name = "UniqueAscensionPerksEvents.98.40" allow = { resource_stockpile_compare = { resource = energy value > 40000 } } add_resource = { energy = -40000 } hidden_effect = { set_variable = { which = create_private_slave value = 40 } set_timed_country_flag = { flag = private_slaves_cooldown years = 8 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
+	option = { name = "UniqueAscensionPerksEvents.98.5"  allow = { resource_stockpile_compare = { resource = energy value > 5000  mult = private_slave_costs } } add_resource = { energy = -5000  } hidden_effect = { set_variable = { which = create_private_slave value = 5  } set_timed_country_flag = { flag = private_slaves_cooldown years = 1 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 360  } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
+	option = { name = "UniqueAscensionPerksEvents.98.10" allow = { resource_stockpile_compare = { resource = energy value > 10000 mult = private_slave_costs } } add_resource = { energy = -10000 } hidden_effect = { set_variable = { which = create_private_slave value = 10 } set_timed_country_flag = { flag = private_slaves_cooldown years = 2 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 720  } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
+	option = { name = "UniqueAscensionPerksEvents.98.20" allow = { resource_stockpile_compare = { resource = energy value > 20000 mult = private_slave_costs } } add_resource = { energy = -20000 } hidden_effect = { set_variable = { which = create_private_slave value = 20 } set_timed_country_flag = { flag = private_slaves_cooldown years = 4 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
+	option = { name = "UniqueAscensionPerksEvents.98.40" allow = { resource_stockpile_compare = { resource = energy value > 40000 mult = private_slave_costs } } add_resource = { energy = -40000 } hidden_effect = { set_variable = { which = create_private_slave value = 40 } set_timed_country_flag = { flag = private_slaves_cooldown years = 8 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 } country_event = { id = UniqueAscensionPerksEvents.3093 } } custom_gui = "enclave_trader_option" }
 	option = { name = GOODBYE
 		ai_chance = { factor = 0.1 }
 		custom_gui = "enclave_trader_option"

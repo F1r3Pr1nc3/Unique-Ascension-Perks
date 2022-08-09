@@ -117,14 +117,6 @@ resources_gathering_protocol_paying = {
 	else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -800 } }
 }
 
-research_assistance_protocol_paying = {
-	if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -800 } }
-	else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -800 } }
-	else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -800 } }
-	else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -800 } }
-	else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -800 } }
-}
-
 resources_gathering_protocol = {
 	random_planet_within_border = {
 		limit = { has_planet_flag = domesticated_alien_home }
@@ -231,21 +223,21 @@ research_assistance_protocol = {
 }
 
 # TODO unused??
-space_domestication_constant_hostility_event = {
-	save_event_target_as = main_country
-	random_relation = {
-		limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
-		save_event_target_as = domesticated_spaceborn_alien
-	}
-	every_country = {
-		limit = { is_hostile = root NOT = { is_hostile = event_target:domesticated_spaceborn_alien } }
-		set_faction_hostility = { target = event_target:domesticated_spaceborn_alien set_hostile = yes set_neutral = no set_friendly = no }
-	}
-	every_country = {
-		limit = { NOT = { is_hostile = root } is_hostile = event_target:domesticated_spaceborn_alien }
-		set_faction_hostility = { target = event_target:domesticated_spaceborn_alien set_hostile = no set_neutral = yes set_friendly = no }
-	}
-}
+# space_domestication_constant_hostility_event = {
+# 	save_event_target_as = main_country
+# 	random_relation = {
+# 		limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+# 		save_event_target_as = domesticated_spaceborn_alien
+# 	}
+# 	every_country = {
+# 		limit = { is_hostile = root NOT = { is_hostile = event_target:domesticated_spaceborn_alien } }
+# 		set_faction_hostility = { target = event_target:domesticated_spaceborn_alien set_hostile = yes set_neutral = no set_friendly = no }
+# 	}
+# 	every_country = {
+# 		limit = { NOT = { is_hostile = root } is_hostile = event_target:domesticated_spaceborn_alien }
+# 		set_faction_hostility = { target = event_target:domesticated_spaceborn_alien set_hostile = no set_neutral = yes set_friendly = no }
+# 	}
+# }
 
 create_leviathan_master_country = {
 	if = {
@@ -272,20 +264,20 @@ create_leviathan_master_country = {
 	}
 }
 
-leviathan_clear_summoning_flags = {
-	remove_country_flag = summoning_leviathan
-	remove_country_flag = summoning_leviathan_drake
-	remove_country_flag = summoning_leviathan_stellarite
-	remove_country_flag = summoning_leviathan_spectre
-	remove_country_flag = summoning_leviathan_dreadnought
-	remove_country_flag = summoning_leviathan_scavenger
-	remove_country_flag = summoning_leviathan_matriarch
-	remove_country_flag = summoning_leviathan_voidspawn
-	remove_country_flag = summoning_leviathan_machine
-	remove_country_flag = summoning_leviathan_horror
-	remove_country_flag = summoning_leviathan_fortress
-	remove_country_flag = summoning_leviathan_present
-}
+# leviathan_clear_summoning_flags = {
+# 	remove_country_flag = summoning_leviathan
+# 	remove_country_flag = summoning_leviathan_drake
+# 	remove_country_flag = summoning_leviathan_stellarite
+# 	remove_country_flag = summoning_leviathan_spectre
+# 	remove_country_flag = summoning_leviathan_dreadnought
+# 	remove_country_flag = summoning_leviathan_scavenger
+# 	remove_country_flag = summoning_leviathan_matriarch
+# 	remove_country_flag = summoning_leviathan_voidspawn
+# 	remove_country_flag = summoning_leviathan_machine
+# 	remove_country_flag = summoning_leviathan_horror
+# 	remove_country_flag = summoning_leviathan_fortress
+# 	remove_country_flag = summoning_leviathan_present
+# }
 
 leviathan_master_enraged_leviathan = {
 	random_owned_planet = { save_event_target_as = destination_location }

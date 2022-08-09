@@ -242,6 +242,41 @@ decision_genious_pregnancy = {
 	ai_weight = { weight = 1 }
 }
 
+# Copy of decision_planet_food_boost
+decision_genious_pregnancy2 = {
+	owned_planets_only = yes
+	sound = event_administrative_work
+	icon = decision_resources
+	resources = {
+		category = decisions
+		cost = { food = 1000 }
+	}
+	potential = {
+		exists = owner
+		owner = {
+			is_regular_empire = yes
+			is_lithoid_empire = no
+			has_ascension_perk = ap_genius_cloning
+		}
+		NOR = {
+			has_modifier = planet_growth_discouraged
+			has_modifier = planet_population_control
+		}
+		is_under_colonization = no
+	}
+	allow = {
+		NOT = { has_modifier = planet_food_boost }
+	}
+	effect = {
+		add_modifier = { modifier = "planet_food_boost" days = 3600 }
+	}
+	ai_weight = {
+		weight = 5
+		# don't encourage growth if there is no free housing
+		modifier = { factor = 0 free_housing < 1 }
+	}
+}
+
 decision_robot_command = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
@@ -253,7 +288,11 @@ decision_robot_command = {
 		cost = { trigger = { owner = { has_technology = tech_droid_workers } } energy = 150 minerals = 300 alloys = 35 }
 		cost = { trigger = { owner = { has_technology = tech_synthetic_workers } } energy = 150 minerals = 300 alloys = 35 }
 	}
-	potential = { owner = { has_ascension_perk = ap_robot_command } is_under_colonization = no }
+	potential = {
+		exists = owner
+		owner = { has_ascension_perk = ap_robot_command }
+		is_under_colonization = no
+	}
 	allow = {
 		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } } }
 		custom_tooltip = { fail_text = "decision_robot_command_req_1" NOT = { has_planet_flag = decision_robot_command_cooldown } }
@@ -270,6 +309,40 @@ decision_robot_command = {
 		}
 	}
 	ai_weight = { weight = 1 }
+}
+
+decision_robot_command2 = {
+	owned_planets_only = yes
+	sound = event_ai_started_01
+	enactment_time = 1080
+	icon = decision_cybernetics
+	resources = {
+		category = decisions
+		cost = { minerals = 500 alloys = 250 }
+	}
+	potential = {
+		exists = owner
+		owner = { has_ascension_perk = ap_robot_command }
+		NOR = {
+			has_modifier = broken_assembly_line
+			# has_modifier = martial_law
+			# has_modifier = hunter_killer_drones
+			has_modifier = compliance_protocols
+			has_modifier = planet_robot_assembly_control
+		}
+		is_under_colonization = no
+	}
+	allow = {
+		NOT = { has_modifier = planet_alloy_boost }
+	}
+	effect = {
+		add_modifier = { modifier = "planet_alloy_boost" days = 3600 }
+	}
+	ai_weight = {
+		weight = 4
+		# don't encourage growth if there is no free housing
+		modifier = { factor = 0 free_housing < 1 }
+	}
 }
 
 decision_recomposer_life_to_ai = {
