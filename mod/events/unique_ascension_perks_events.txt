@@ -59,7 +59,7 @@ country_event = { # Kill Special Subject Country if their master is dead.
 	}
 }
 
-country_event = { # Remove Special Subject Countries from Any Federations & Galactic Community & Galactic Council
+country_event = { # Remove Special Subject Empires from Any Federations & Galactic Community & Galactic Council
 	id = UniqueAscensionPerksEvents.8789
 	hide_window = yes
 	mean_time_to_happen = { months = 4 }
@@ -3062,6 +3062,7 @@ planet_event = {
 	option = { name = OK }
 }
 
+### Blind Faith into the Nation ###
 country_event = {
 	id = UniqueAscensionPerksEvents.88
 	title = "ap_advanced_government_2"
@@ -6850,7 +6851,7 @@ country_event = {
 	trigger = {
 		# NOT = { has_active_event = {
 		# 	# UniqueAscensionPerksEvents.434 does not work for self opening.
-		# 	UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.437 UniqueAscensionPerksEvents.438
+		# 	UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.438
 		# } }
 	}
 	# after = {}
@@ -6969,7 +6970,7 @@ country_event = {
 	# hide_window = yes
 	is_triggered_only = yes
 	is_advisor_event = yes
-	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.437 UniqueAscensionPerksEvents.438 } } }
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.438 } } }
 	# immediate = {
 	# 	create_message = {
 	# 		type = TRIGG_MOD_GAINED
@@ -6997,7 +6998,7 @@ country_event = {
 	auto_opens = no
 	is_advisor_event = yes
 	is_triggered_only = yes
-	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.437 UniqueAscensionPerksEvents.438 } } }
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.438 } } }
 	option = {
 		name = "edict_anti_matter_menu"
 		allow = { NOT = { has_active_event = { UniqueAscensionPerksEvents.434 } } }
@@ -7011,28 +7012,29 @@ country_event = {
 }
 
 # LEGACY (on_system_survey_ship)
-ship_event = {
-	id = UniqueAscensionPerksEvents.437
-	title = "UniqueAscensionPerksEvents.531.Name"
-	desc = "UniqueAscensionPerksEvents.437.Desc"
-	picture = GFX_evt_space_station
-	show_sound = event_scanner
-	location = from # event_target:survey_system
-	is_advisor_event = yes
-	is_triggered_only = yes
-	trigger = {
-		exists = owner
-		owner = { has_ascension_perk = ap_antimatter }
-		exists = from
-		from = {
-			is_star_class = sc_white_hole
-			NOT = { exists = starbase }
-		}
-	}
-	immediate = {
-		owner = { save_event_target_as = science_ship_owner }
-	}
-	option = { name = EXCELLENT deploy_outpost = yes } }
+# ship_event = {
+# 	id = UniqueAscensionPerksEvents.437
+# 	title = "UniqueAscensionPerksEvents.531.Name"
+# 	desc = "UniqueAscensionPerksEvents.437.Desc"
+# 	picture = GFX_evt_space_station
+# 	show_sound = event_scanner
+# 	location = from # event_target:survey_system
+# 	is_advisor_event = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		exists = owner
+# 		owner = { has_ascension_perk = ap_antimatter }
+# 		exists = from
+# 		from = {
+# 			is_star_class = sc_whitte_hole
+# 			NOT = { exists = starbase }
+# 		}
+# 	}
+# 	immediate = {
+# 		owner = { save_event_target_as = science_ship_owner }
+# 	}
+# 	option = { name = EXCELLENT deploy_outpost = yes }
+# }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.438
@@ -7044,7 +7046,7 @@ country_event = {
 	auto_opens = no
 	is_advisor_event = yes
 	is_triggered_only = yes
-	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.437 UniqueAscensionPerksEvents.438 } } }
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.438 } } }
 	option = {
 		name = "edict_anti_matter_menu"
 		allow = { NOT = { has_active_event = { UniqueAscensionPerksEvents.434 } } }
@@ -7618,22 +7620,12 @@ ship_event = {
 			NOR = {
 				exists = starbase
 				exists = space_owner
-				any_system_planet = { has_anomaly = yes }
 			}
 		}
 	}
 	immediate = {
 		owner = { save_event_target_as = science_ship_owner }
-		# from = {
-		# 	save_event_target_as = survey_system
-		# 	if = {
-		# 		limit = { any_system_planet = { has_anomaly = yes } }
-		# 		every_system_planet = {
-		# 			limit = { has_anomaly = no }
-		# 			set_surveyed = { surveyed = yes surveyor = this }
-		# 		}
-		# 	}
-		# }
+		# from = { save_event_target_as = survey_system }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Influence"

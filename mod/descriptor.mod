@@ -1,4 +1,4 @@
-version="1.9.1b"
+version="1.9.2b"
 tags={
 	"Buildings"
 	"Galaxy Generation"

@@ -19,7 +19,6 @@ utopia_site = {
 			is_inside_border = from
 		}
 	}
-
 	placement_rules = {
 		planet_possible = {
 			custom_tooltip = {
@@ -31,7 +30,6 @@ utopia_site = {
 					has_planet_flag = has_megastructure
 				}
 			}
-
 			custom_tooltip = {
 				fail_text = "requires_survey_not_habitable"
 				is_surveyed = {			# Prevent leaking habitability information
@@ -44,7 +42,6 @@ utopia_site = {
 				fail_text = "requires_no_anomaly"
 				has_anomaly = no
 			}
-
  			# Balance for think tanks
 			custom_tooltip = {
 				fail_text = "requires_not_minor_planetary_body"
@@ -68,13 +65,13 @@ utopia_site = {
 						count < 3
 						limit = {
 							solar_system = { has_star_flag = utopia_built }
-							# OR = {
-							# 	is_megastructure_type = utopia_site
-							# 	is_megastructure_type = utopia_1
-							# 	is_megastructure_type = utopia_2
-							# 	is_megastructure_type = utopia_3
-							# 	is_megastructure_type = utopia_4
-							# }
+							OR = {
+								is_megastructure_type = utopia_site
+								is_megastructure_type = utopia_1
+								is_megastructure_type = utopia_2
+								is_megastructure_type = utopia_3
+								is_megastructure_type = utopia_4
+							}
 						}
 					}
 				}
@@ -108,8 +105,12 @@ utopia_site = {
 			from = { is_authoritarian = yes }
 		}
 	}
-	on_build_start = {}
-	on_build_cancel = {}
+	on_build_start = {
+		remove_star_flag = utopia_built
+	}
+	on_build_cancel = {
+		remove_star_flag = utopia_built
+	}
 	on_build_complete = {
 		set_star_flag = utopia_built
 		fromfrom.planet = { set_planet_flag = has_megastructure }
