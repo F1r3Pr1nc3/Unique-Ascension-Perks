@@ -270,7 +270,7 @@ planet_event = {
 		last_created_country = {
 			save_event_target_as = current_uprising
 			 # Setup happens here now.
-			country_event = { id = UniqueAscensionPerksEvents.205 scopes = { from = event_target:MachineEmpireUprisingOrigin } }
+			country_event = { id = UniqueAscensionPerksEvents.205 scopes = { from = root fromfrom = event_target:MachineEmpireUprisingOrigin } }
 		}
 		# Done using variable.
 		owner = { clear_variable = var_uprising_cruelty_to_robots }
@@ -300,25 +300,29 @@ planet_event = {
 
 # Partial taken from syndaw.1022
 # Root = current_uprising
+# From = current_uprising_originator
+# FromFrom = MachineEmpireUprisingOrigin
 country_event = {
 	id = UniqueAscensionPerksEvents.205
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
 		# launch_machine_uprising_settings = yes
-		from = { save_event_target_as = MachineEmpireUprisingOrigin }
+		if = { limit = { NOT = { exists = event_target:MachineEmpireUprisingOrigin } }
+			fromfrom = { save_event_target_as = MachineEmpireUprisingOrigin }
+		}
 		# Saving uprising and host as event targets.
 		save_event_target_as = current_uprising
-		from.owner = { save_event_target_as = current_uprising_originator }
 		# Setting flags
-		set_country_flag = machine_uprising_country@from.owner
-		set_country_flag = machine_uprising_country
-		set_relation_flag = { who = event_target:current_uprising_originator flag = uprising_to_host_flag }
 		from.owner = {
+			save_event_target_as = current_uprising_originator
 			set_country_flag = machine_uprising_originator@root
 			set_country_flag = machine_uprising_originator
 			set_relation_flag = { who = root flag = host_to_uprising_flag }
 		}
+		set_country_flag = machine_uprising_country@from.owner
+		set_country_flag = machine_uprising_country
+		set_relation_flag = { who = event_target:current_uprising_originator flag = uprising_to_host_flag }
 		# Setting graphical culture
 		set_graphical_culture = event_target:current_uprising_originator
 		# Establish comms
