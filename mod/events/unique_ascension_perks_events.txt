@@ -769,59 +769,78 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
-		has_country_flag = nano_auto_upgrade
 		has_ascension_perk = ap_nano_drones
+		OR = {
+			has_country_flag = nano_auto_upgrade
+			has_country_flag = nano_resource_replacement
+		}
 		resource_stockpile_compare = { resource = automatic_drone value > 200 }
 	}
 	immediate = {
-		random_owned_planet = {
-			limit = { is_colony = yes is_colonizable = no }
-			while = { count = 3
-				# nano_drones_auto_upgrade = yes
-				random_list = {
-					1 = {}
-					999 = { modifier = { factor = 0 NOT = { has_building = building_auto_power_plant_1 } } remove_building = building_auto_power_plant_1 add_building = building_auto_power_plant_2 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_2 owner = { has_technology = tech_power_plant_3 } } } remove_building = building_auto_power_plant_2 add_building = building_auto_power_plant_3 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_3 has_upgraded_capital = yes owner = { has_technology = tech_power_plant_3 } } } remove_building = building_auto_power_plant_3 add_building = building_auto_power_plant_4 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_4 has_major_upgraded_capital = yes owner = { has_technology = tech_power_plant_4 } } } remove_building = building_auto_power_plant_4 add_building = building_auto_power_plant_5 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NOT = { has_building = building_auto_farming_complex_1 } } remove_building = building_auto_farming_complex_1 add_building = building_auto_farming_complex_2 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_2 owner = { has_technology = tech_gene_crops } } } remove_building = building_auto_farming_complex_2 add_building = building_auto_farming_complex_3 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_gene_crops } } } remove_building = building_auto_farming_complex_3 add_building = building_auto_farming_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_nano_vitality_crops } } } remove_building = building_auto_farming_complex_4 add_building = building_auto_farming_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NOT = { has_building = building_auto_mining_complex_1 } } remove_building = building_auto_mining_complex_1 add_building = building_auto_mining_complex_2 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_2 owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_2 add_building = building_auto_mining_complex_3 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_3 add_building = building_auto_mining_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_mining_3 } } } remove_building = building_auto_mining_complex_4 add_building = building_auto_mining_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NOT = { has_building = building_auto_physics_campus_1 } } remove_building = building_auto_physics_campus_1 add_building = building_auto_physics_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_2 owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_2 add_building = building_auto_physics_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_3 add_building = building_auto_physics_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_physics_3 } } } remove_building = building_auto_physics_campus_4 add_building = building_auto_physics_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NOT = { has_building = building_auto_sociological_campus_1 } } remove_building = building_auto_sociological_campus_1 add_building = building_auto_sociological_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_2 owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_2 add_building = building_auto_sociological_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_3 add_building = building_auto_sociological_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_society_3 } } } remove_building = building_auto_sociological_campus_4 add_building = building_auto_sociological_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NOT = { has_building = building_auto_engineering_campus_1 } } remove_building = building_auto_engineering_campus_1 add_building = building_auto_engineering_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_2 owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_2 add_building = building_auto_engineering_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_3 add_building = building_auto_engineering_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_engineering_3 } } } remove_building = building_auto_engineering_campus_4 add_building = building_auto_engineering_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_1 has_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_1 add_building = building_nanite_facility_2 owner = { add_resource = { automatic_drone = -400 } } }
-					999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_2 add_building = building_nanite_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
-					999 = {
-						modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_1 } }
-						random_list = {
-							1 = {}
-							100 = { modifier = { factor = 0 has_upgraded_capital = no } remove_building = building_auto_drone_facility_1 add_building = building_auto_drone_facility_2 owner = { add_resource = { automatic_drone = -200 } } }
-							10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_power_plant_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_power_plant_1 owner = { add_resource = { automatic_drone = -200 } } }
-							10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_mining_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
-							10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_eco_simulation } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
-							10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_physics_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-							10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_society_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-							10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_engineering_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-							20 = { modifier = { factor = 0 owner = { NOR = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value > 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
+		if = {
+			limit = { has_country_flag = nano_auto_upgrade resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+			random_owned_planet = {
+				limit = { is_colony = yes is_colonizable = no }
+				while = { count = 3
+					# nano_drones_auto_upgrade = yes
+					random_list = {
+						1 = {}
+						999 = { modifier = { factor = 0 NOT = { has_building = building_auto_power_plant_1 } } remove_building = building_auto_power_plant_1 add_building = building_auto_power_plant_2 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_2 owner = { has_technology = tech_power_plant_3 } } } remove_building = building_auto_power_plant_2 add_building = building_auto_power_plant_3 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_3 has_upgraded_capital = yes owner = { has_technology = tech_power_plant_3 } } } remove_building = building_auto_power_plant_3 add_building = building_auto_power_plant_4 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_power_plant_4 has_major_upgraded_capital = yes owner = { has_technology = tech_power_plant_4 } } } remove_building = building_auto_power_plant_4 add_building = building_auto_power_plant_5 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NOT = { has_building = building_auto_farming_complex_1 } } remove_building = building_auto_farming_complex_1 add_building = building_auto_farming_complex_2 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_2 owner = { has_technology = tech_gene_crops } } } remove_building = building_auto_farming_complex_2 add_building = building_auto_farming_complex_3 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_gene_crops } } } remove_building = building_auto_farming_complex_3 add_building = building_auto_farming_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_farming_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_nano_vitality_crops } } } remove_building = building_auto_farming_complex_4 add_building = building_auto_farming_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NOT = { has_building = building_auto_mining_complex_1 } } remove_building = building_auto_mining_complex_1 add_building = building_auto_mining_complex_2 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_2 owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_2 add_building = building_auto_mining_complex_3 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_3 add_building = building_auto_mining_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_mining_3 } } } remove_building = building_auto_mining_complex_4 add_building = building_auto_mining_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NOT = { has_building = building_auto_physics_campus_1 } } remove_building = building_auto_physics_campus_1 add_building = building_auto_physics_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_2 owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_2 add_building = building_auto_physics_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_3 add_building = building_auto_physics_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_physics_3 } } } remove_building = building_auto_physics_campus_4 add_building = building_auto_physics_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NOT = { has_building = building_auto_sociological_campus_1 } } remove_building = building_auto_sociological_campus_1 add_building = building_auto_sociological_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_2 owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_2 add_building = building_auto_sociological_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_3 add_building = building_auto_sociological_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_society_3 } } } remove_building = building_auto_sociological_campus_4 add_building = building_auto_sociological_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NOT = { has_building = building_auto_engineering_campus_1 } } remove_building = building_auto_engineering_campus_1 add_building = building_auto_engineering_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_2 owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_2 add_building = building_auto_engineering_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_3 add_building = building_auto_engineering_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_engineering_3 } } } remove_building = building_auto_engineering_campus_4 add_building = building_auto_engineering_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_1 has_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_1 add_building = building_nanite_facility_2 owner = { add_resource = { automatic_drone = -400 } } }
+						999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_2 add_building = building_nanite_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
+						999 = {
+							modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_1 } }
+							random_list = {
+								1 = {}
+								100 = { modifier = { factor = 0 has_upgraded_capital = no } remove_building = building_auto_drone_facility_1 add_building = building_auto_drone_facility_2 owner = { add_resource = { automatic_drone = -200 } } }
+								10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_power_plant_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_power_plant_1 owner = { add_resource = { automatic_drone = -200 } } }
+								10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_mining_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
+								10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_eco_simulation } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
+								10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_physics_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+								10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_society_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+								10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_engineering_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+								20 = { modifier = { factor = 0 owner = { NOR = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value > 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
+							}
 						}
+						999 = { modifier = { factor = 0 NAND = { has_building = building_auto_drone_facility_2 has_major_upgraded_capital = yes } } remove_building = building_auto_drone_facility_2 add_building = building_auto_drone_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
 					}
-					999 = { modifier = { factor = 0 NAND = { has_building = building_auto_drone_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_drones } } } remove_building = building_auto_drone_facility_2 add_building = building_auto_drone_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
 				}
+			}
+		}
+		# Perfect Resource Replacement: if empire (or sector?) is running low of any strategic resources.
+		if = {
+			limit = { has_country_flag = nano_resource_replacement resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+			random_list = {
+				99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_volatile_motes	has_country_resource = { type = volatile_motes	amount = 12 } } } add_resource = { volatile_motes	= 10	automatic_drone = -100 } }
+				99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_rare_crystals		has_country_resource = { type = rare_crystals	amount = 12 } } } add_resource = { rare_crystals	= 10	automatic_drone = -100 } }
+				99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_exotic_gases		has_country_resource = { type = exotic_gases	amount = 12 } } } add_resource = { exotic_gases		= 10	automatic_drone = -100 } }
+				99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_zro				has_country_resource = { type = sr_zro			amount = 12 } } } add_resource = { sr_zro			= 10	automatic_drone = -100 } }
+				99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_living_metal		has_country_resource = { type = sr_living_metal	amount = 12 } } } add_resource = { sr_living_metal	= 10	automatic_drone = -100 } }
+				99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_dark_matter		has_country_resource = { type = sr_dark_matter	amount = 12 } } } add_resource = { sr_dark_matter	= 10	automatic_drone = -100 } }
+				99 = { modifier = { factor = 0 NOR = { has_country_flag = ap_nano_to_nanite_project	has_country_resource = { type = nanites			amount = 12 } } } add_resource = { nanites			= 10	automatic_drone = -100 } }
 			}
 		}
 	}
@@ -1498,6 +1517,7 @@ country_event = {
 		has_ascension_perk = ap_advanced_security
 		any_system_within_border = {
 			NOT = { has_star_flag = recent_security_strike_force }
+			trade_protected_value >= 1
 			any_fleet_in_system = {
 				exists = owner
 				owner = {
@@ -1516,13 +1536,14 @@ country_event = {
 		random_system_within_border = {
 			limit = {
 				NOT = { has_star_flag = recent_security_strike_force }
+				trade_protected_value >= 1
 				any_fleet_in_system = { exists = owner owner = { OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
 			}
 			save_event_target_as = spawn_location_system
 			set_timed_star_flag = { flag = recent_security_strike_force years = 1 }
 			# star = { save_event_target_as = spawn_location }
 			create_fleet = {
-				name = "Security Strike Forces"
+				name = ap_advanced_security
 				effect = {
 					set_owner = root # event_target:main_country
 					while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
@@ -1649,6 +1670,9 @@ country_event = {
 	picture = GFX_evt_security_forces
 	location = from
 	is_triggered_only = yes
+	trigger = {
+		resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 }
+	}
 	immediate = {
 		random_owned_fleet = { limit = { is_ship_class = shipclass_science_ship } save_event_target_as = ship_1
 			root = { random_owned_fleet = { limit = { is_ship_class = shipclass_science_ship NOT = { is_same_value = event_target:ship_1 } } save_event_target_as = ship_2 }
@@ -1676,7 +1700,7 @@ country_event = {
 				fleet = { save_event_target_as = ship_escorted }
 			}
 			create_fleet = {
-				name = "Security Strike Forces"
+				name = ap_advanced_security
 				effect = {
 					set_owner = root # event_target:main_country
 					while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
@@ -1698,61 +1722,71 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.1
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_1 exists = event_target:ship_1.solar_system }
+		allow = { event_target:ship_1.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_1 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.2
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_2 exists = event_target:ship_2.solar_system }
+		allow = { event_target:ship_2.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_2 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.3
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
 		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		allow = { event_target:ship_3.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_3 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.4
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_4 exists = event_target:ship_4.solar_system }
+		allow = { event_target:ship_4.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_4 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.5
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_5 exists = event_target:ship_5.solar_system }
+		allow = { event_target:ship_5.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_5 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.6
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_6 exists = event_target:ship_6.solar_system }
+		allow = { event_target:ship_6.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_6 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.7
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_7 exists = event_target:ship_7.solar_system }
+		allow = { event_target:ship_7.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_7 = { save_event_target_as = ship_escorted } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.8
-		allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
-		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
+		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		trigger = { exists = event_target:ship_8 exists = event_target:ship_8.solar_system }
+		allow = { event_target:ship_8.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
 		hidden_effect = { event_target:ship_8 = { save_event_target_as = ship_escorted } }
 	}
-	option = { name = "UniqueAscensionPerksEvents.8059.Select" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8059 } } }
+	option = {
+		name = "UniqueAscensionPerksEvents.8059.Select"
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8059 } } }
 	option = { name = ABORT }
 }
 
@@ -7142,7 +7176,7 @@ planet_event = {
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
 		hidden_effect = {
 			set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
-			reset_self_aware_planet = { POPS = num_pops_self_aware_planet } # TODO
+			reset_self_aware_planet = { POPS = "[This.num_pops_self_aware_planet]" } # TODO  Malformed token
 			planet_event = { id = UniqueAscensionPerksEvents.461 }
 		}
 	}

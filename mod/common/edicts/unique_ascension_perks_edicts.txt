@@ -43,6 +43,30 @@ deactive_nano_auto_upgrade = {
 	effect = { remove_country_flag = nano_auto_upgrade }
 }
 
+active_nano_resource_replacement = {
+	icon = "GFX_text_stability"
+	length = -1
+	# resources = { category = edicts cost = { } }
+	potential = {
+		has_ascension_perk = ap_nano_drones
+		NOT = { has_country_flag = nano_resource_replacement }
+	}
+	ai_weight = { weight = 0 }
+	effect = { set_country_flag = nano_resource_replacement }
+}
+
+deactive_nano_resource_replacement = {
+	icon = "GFX_text_stability"
+	length = -1
+	# resources = { category = edicts cost = { } }
+	potential = {
+		has_ascension_perk = ap_nano_drones
+		has_country_flag = nano_resource_replacement
+	}
+	ai_weight = { weight = 0 }
+	effect = { remove_country_flag = nano_resource_replacement }
+}
+
 enable_system_localization = {
 	icon = "GFX_colonies"
 	length = -1
@@ -171,6 +195,7 @@ science_ship_escort = {
 	# resources = { category = edicts cost = { } }
 	allow = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.8059 } }
+		resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 }
 	}
 	potential = { has_ascension_perk = ap_advanced_security }
 	ai_weight = { weight = 0 }
