@@ -268,7 +268,7 @@ decision_genious_pregnancy2 = {
 		NOT = { has_modifier = planet_food_boost }
 	}
 	effect = {
-		add_modifier = { modifier = "planet_food_boost" days = 3600 }
+		add_modifier = { modifier = "planet_food_boost" years = 10 }
 	}
 	ai_weight = {
 		weight = 5
@@ -336,7 +336,7 @@ decision_robot_command2 = {
 		NOT = { has_modifier = planet_alloy_boost }
 	}
 	effect = {
-		add_modifier = { modifier = "planet_alloy_boost" days = 3600 }
+		add_modifier = { modifier = "planet_alloy_boost" years = 10 }
 	}
 	ai_weight = {
 		weight = 4
@@ -576,7 +576,8 @@ decision_ethic_shift = {
 		custom_tooltip = "decision_ethic_shift_tooltip"
 		# save_event_target_as = ethic_planet
 		planet_event = { id = UniqueAscensionPerksEvents.4089 }
-		set_timed_planet_flag = { flag = decision_ethic_shift_cooldown years = 5 }
+		set_planet_flag = decision_ethic_shift_cooldown
+		# set_timed_planet_flag = { flag = decision_ethic_shift_cooldown years = 5 }
 		planet_event = { id = UniqueAscensionPerksEvents.4090 days = 1800 }
 	}
 	ai_weight = { weight = 1 }
@@ -1185,8 +1186,8 @@ decision_deep_scanner = {
 		planet_event = { id = UniqueAscensionPerksEvents.443 }
 		add_modifier = { modifier = pm_deep_scanner }
 		hidden_effect = {
-			planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } # Notify + rescan
 			set_timed_planet_flag = { flag = decision_deep_scanner_cooldown years = 1 }
+			planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } # Notify + rescan
 		}
 	}
 	ai_weight = { weight = event_target:global_event_country.ap_deep_scanner }
