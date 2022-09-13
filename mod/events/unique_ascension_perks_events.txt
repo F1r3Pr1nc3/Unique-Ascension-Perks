@@ -2364,8 +2364,7 @@ country_event = {
 			if = {
 				limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
 				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 }
-			}
-			else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
+			} else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
 		}
 	}
 	option = { name = EXCELLENT }
@@ -2389,7 +2388,7 @@ country_event = {
 					random_country = {
 						limit = {
 							merg_is_fallen_empire = yes # merg_is_fallen_empire = yes
-							NOR = { is_same_empire = root has_ethic = ethic_gestalt_consciousness }
+							NOR = { is_same_empire = root is_gestalt = yes }
 							OR = {
 								AND = { has_ethic = ethic_fanatic_xenophobe ROOT = { has_ethic = ethic_fanatic_xenophile } }
 								AND = { has_ethic = ethic_fanatic_xenophile ROOT = { has_ethic = ethic_fanatic_xenophobe } }
@@ -2411,7 +2410,7 @@ country_event = {
 						limit = {
 							NOT = { is_same_value = root }
 							merg_is_fallen_empire = yes
-							NOT = { has_ethic = ethic_gestalt_consciousness }
+							is_gestalt = no
 						}
 						set_country_flag = sleepers_awake_ancient_rival
 						set_timed_country_flag = { flag = timed_ancient_rival years = 10 }
@@ -3047,24 +3046,40 @@ planet_event = {
 	desc = "UniqueAscensionPerksEvents.4089.Desc"
 	show_sound = event_celebration
 	picture = GFX_evt_alien_propaganda
-	location = event_target:ethic_planet
+	location = root # event_target:ethic_planet
 	is_triggered_only = yes
 	immediate = {
 		# set_variable = { which = num_ethic_pop_on_planet value = value:num_ethic_pop_on_planet }
 		export_trigger_value_to_variable = {
 			trigger = count_owned_pop
 			parameters = {
-				limit = { pop_has_right_ethics = no }
+				limit = { pop_has_right_ethics = yes }
 			}
 			variable = num_ethic_pop_on_planet
 		}
+		set_variable = { which = unity_needed_on_planet value = num_ethic_pop_on_planet }
+		multiply_variable = { which = unity_needed_on_planet value = 5 }
 	}
-	after = { clear_variable = num_ethic_pop_on_planet }
+	after = {
+		hidden_effect = {
+			clear_variable = num_ethic_pop_on_planet
+			clear_variable = unity_needed_on_planet
+		}
+	}
 	option = {
 		name = EXCELLENT
 		owner = {
-			add_resource = { influence = 1 mult = root.num_ethic_pop_on_planet }
-			add_resource = { unity = -5 mult = root.num_ethic_pop_on_planet }
+			if = {
+				limit = { has_country_resource = { type = unity amount > root.unity_needed_on_planet } }
+				add_resource = { influence = 1  unity = -5 mult = root.num_ethic_pop_on_planet }
+
+			} else = {
+				while = {
+					count = root.num_ethic_pop_on_planet
+					limit = { has_country_resource = { type = unity amount > 4 } }
+					add_resource = { influence = 1 unity = -5  }
+				}
+			}
 		}
 		# hidden_effect = {
 		# 	if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 10 } } owner = { add_resource = { influence = 10 } } }
@@ -3134,7 +3149,7 @@ country_event = {
 			success_text = { text = "Unity.Gain.Spiritualist" is_spiritualist = yes }
 			success_text = { text = "Unity.Gain.Authoritarian" is_authoritarian = yes }
 			success_text = { text = "Unity.Gain.Egalitarian" is_egalitarian = yes }
-			success_text = { text = "Unity.Gain.Gestalt" has_ethic = ethic_gestalt_consciousness }
+			success_text = { text = "Unity.Gain.Gestalt" is_gestalt = yes }
 		}
 	}
 	diplomatic = yes
@@ -3973,8 +3988,7 @@ fleet_event = {
 				remove_auto_move_target = yes
 				auto_follow_fleet = { target = event_target:defense_sentinels_fleet_defend_against attack_fleet = yes }
 
-			}
-			else = {
+			} else = {
 				event_target:main_country = { random_planet_within_border = { save_event_target_as = defense_sentinels_fleet_destination } }
 				save_event_target_as = defense_sentinels_fleet_patroling
 				set_fleet_flag = defense_sentinels_fleet_patroling

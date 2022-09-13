@@ -2,7 +2,7 @@ utopia_site = {
 	entity = "construction_platform_entity"
 	construction_entity = "construction_platform_entity"
 	portrait = "GFX_megastructure_construction_background"
-	construction_blocks_and_blocked_by = none
+	show_galactic_map_icon = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
 	build_time = 900
@@ -11,12 +11,69 @@ utopia_site = {
 		cost = { alloys = 5000 influence = 200 }
 		upkeep = { energy = 3 }
 	}
+	construction_blocks_and_blocked_by = self_type # none
 	potential = { has_ascension_perk = ap_advanced_government_2 }
 	possible = {
 		exists = starbase
 		custom_tooltip = {
 			fail_text = "requires_inside_border"
 			is_inside_border = from
+		}
+		custom_tooltip = {
+			fail_text = "requires_surveyed_system"
+			NOT = {
+				any_system_planet = {
+					is_surveyed = {
+						who = prev.from
+						status = no
+					}
+				}
+			}
+		}
+		# custom_tooltip = {
+		# 	fail_text = "requires_no_existing_megastructure" # "requires_no_existing_utopia_built"
+		# 	NOT = { has_star_flag = utopia_built }
+		# }
+		custom_tooltip = {
+			fail_text = "requires_no_existing_megastructure"
+			NOT = {
+				any_system_megastructure = {
+					is_megastructure_type = utopia_site
+					is_megastructure_type = utopia_1
+					is_megastructure_type = utopia_2
+					is_megastructure_type = utopia_3
+					is_megastructure_type = utopia_4
+				}
+			}
+		}
+		custom_tooltip = {
+			fail_text = "requires_no_existing_utopia_site"
+			from = {
+				count_system_within_border = {
+					count < 3
+					limit = { has_star_flag = utopia_built }
+				}
+				count_owned_megastructure = {
+					count < 3
+					limit = {
+						# OR = {
+						# 	has_megastructure_flag = utopia_built
+						# 	AND = {
+						# 		is_megastructure_type = utopia_built_ruined
+						# 		is_upgrading = yes
+						# 	}
+						# }
+						# solar_system = { has_star_flag = utopia_built }
+						OR = {
+							is_megastructure_type = utopia_site
+							is_megastructure_type = utopia_1
+							is_megastructure_type = utopia_2
+							is_megastructure_type = utopia_3
+							is_megastructure_type = utopia_4
+						}
+					}
+				}
+			}
 		}
 	}
 	placement_rules = {
@@ -58,24 +115,6 @@ utopia_site = {
 				fail_text = "requires_not_ring_world"
 				is_ringworld = no
 			}
-			custom_tooltip = {
-				fail_text = "requires_no_existing_utopia_site"
-				from = {
-					count_owned_megastructure = {
-						count < 3
-						limit = {
-							solar_system = { has_star_flag = utopia_built }
-							OR = {
-								is_megastructure_type = utopia_site
-								is_megastructure_type = utopia_1
-								is_megastructure_type = utopia_2
-								is_megastructure_type = utopia_3
-								is_megastructure_type = utopia_4
-							}
-						}
-					}
-				}
-			}
 			# if = { limit = { from = { is_ai = yes } }
 			# 	OR = {
 			# 		has_deposit_for = shipclass_mining_station
@@ -105,16 +144,17 @@ utopia_site = {
 			from = { is_authoritarian = yes }
 		}
 	}
-	on_build_start = {
-		remove_star_flag = utopia_built
-	}
-	on_build_cancel = {
-		remove_star_flag = utopia_built
-	}
+	# on_build_start = { set_star_flag = utopia_built }
+	on_build_cancel = { remove_star_flag = utopia_built }
 	on_build_complete = {
 		set_star_flag = utopia_built
-		fromfrom.planet = { set_planet_flag = has_megastructure }
-		from = { country_event = { id = UniqueAscensionPerksEvents.90 } }
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.90 }
+			from = {
+				set_megastructure_flag = utopia_built
+				planet = { set_planet_flag = has_megastructure }
+			}
+		}
 	}
 }
 
@@ -134,7 +174,13 @@ utopia_1 = {
 		upkeep = { energy = 50 }
 	}
 	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
-	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.90 } }	}
+	# on_build_start = { set_star_flag = utopia_built }
+	on_build_complete = {
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.90 }
+			from = { set_megastructure_flag = utopia_built }
+		}
+	}
 }
 
 utopia_2 = {
@@ -153,7 +199,13 @@ utopia_2 = {
 		upkeep = { energy = 75 }
 	}
 	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
-	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.90 } }	}
+	# on_build_start = { set_star_flag = utopia_built }
+	on_build_complete = {
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.90 }
+			from = { set_megastructure_flag = utopia_built }
+		}
+	}
 }
 
 utopia_3 = {
@@ -172,7 +224,13 @@ utopia_3 = {
 		upkeep = { energy = 120 }
 	}
 	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
-	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.90 } }	}
+	# on_build_start = { set_star_flag = utopia_built }
+	on_build_complete = {
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.90 }
+			from = { set_megastructure_flag = utopia_built }
+		}
+	}
 }
 
 utopia_4 = {
@@ -197,5 +255,11 @@ utopia_4 = {
 			custom_tooltip = { fail_text = "ap_advanced_government_2_req_4" has_technology = tech_ascension_theory }
 		}
 	}
-	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.90 } }	}
+	# on_build_start = { set_star_flag = utopia_built }
+	on_build_complete = {
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.90 }
+			from = { set_megastructure_flag = utopia_built }
+		}
+	}
 }

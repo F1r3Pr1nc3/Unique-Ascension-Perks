@@ -1,7 +1,6 @@
-version="1.9.4b"
+version="1.9.4c"
 tags={
 	"Buildings"
-	"Galaxy Generation"
 	"Gameplay"
 	"Utilities"
 	"Leaders"
@@ -10,7 +9,6 @@ tags={
 	"Events"
 	"Diplomacy"
 	"Technologies"
-	"Spaceships"
 }
 name="Unique Ascension Perks 3.4 BETA"
 picture="thumbnail.png"

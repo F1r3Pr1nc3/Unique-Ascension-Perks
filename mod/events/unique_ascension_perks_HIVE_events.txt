@@ -1042,13 +1042,21 @@ planet_event = {
 		name = "UniqueAscensionPerksEvents.3128.a"
 		trigger = { NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } check_variable = { which = hivemind_reserve_happened value < 5 } }
 		allow = {
-			owner = { resource_stockpile_compare = { resource = food value > 900 } }
+			owner = {
+				OR = {
+					AND = { is_lithoid_empire = no resource_stockpile_compare = { resource = food value > 900 } }
+					AND = { is_lithoid_empire = yes resource_stockpile_compare = { resource = minerals value > 900 } }
+				}
+			}
 			OR = {
 				is_owned_by = root
 				AND = { solar_system = { exists = space_owner space_owner = { is_same_empire = root } } }
 			}
 		}
-		owner = { add_resource = { food = -900 } }
+		if = { limit = { is_lithoid_empire = yes }
+			owner = { add_resource = { minerals = -900 } }
+		} else = { owner = { add_resource = { food = -900 } } }
+
 		custom_tooltip = "UniqueAscensionPerksEvents.3128.a.tooltip"
 		add_deposit = d_hivemind_reserve
 		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown months = 18 }
