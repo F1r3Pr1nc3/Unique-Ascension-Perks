@@ -955,7 +955,9 @@ ap_slow_learner = {
 	on_enabled = {
 		custom_tooltip = "ap_slow_learner_tooltip"
 		hidden_effect = {
-			country_event = { id = UniqueAscensionPerksEvents.400 }
+			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.400 UniqueAscensionPerksEvents.401 } } }
+				country_event = { id = UniqueAscensionPerksEvents.400 }
+			}
 		}
 	}
 	potential = { NOT = { has_ascension_perk = ap_slow_learner } }

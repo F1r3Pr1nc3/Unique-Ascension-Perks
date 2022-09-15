@@ -115,26 +115,28 @@ leader_event = {
 		# save_event_target_as = leader_cloned
 	}
 	after = {
-		from = {
-			if = { limit = { is_variable_set = cloned_leader_number }
-				add_resource = { influence = -75 energy = -75 mult = cloned_leader_number }
-				root = {
-					while = { count = prev.cloned_leader_number
-						switch = {
-							trigger = leader_class
-							scientist = { from = { clone_leader = { target = prev class = scientist } } }
-							admiral = { from = { clone_leader = { target = prev class = admiral } } }
-							governor = { from = { clone_leader = { target = prev class = governor } } }
-							general = { from = { clone_leader = { target = prev class = general } } }
+		hidden_effect = {
+			from = {
+				if = { limit = { is_variable_set = cloned_leader_number }
+					add_resource = { influence = -75 energy = -75 mult = cloned_leader_number }
+					root = {
+						while = { count = prev.cloned_leader_number
+							switch = {
+								trigger = leader_class
+								scientist = { from = { clone_leader = { target = prev class = scientist } } }
+								admiral = { from = { clone_leader = { target = prev class = admiral } } }
+								governor = { from = { clone_leader = { target = prev class = governor } } }
+								general = { from = { clone_leader = { target = prev class = general } } }
+							}
+							from = {
+								last_created_leader = { set_age = 20 set_name = "CLONED_LEADER_NAME" }
+								change_variable = { which = "cloned_leader_number" value = -1 }
+							}
 						}
-						from = {
-							last_created_leader = { set_age = 20 set_name = "CLONED_LEADER_NAME" }
-							change_variable = { which = "cloned_leader_number" value = -1 }
-						}
+						leader_event = { id = UniqueAscensionPerksEvents.105 days = 1 }
 					}
-					leader_event = { id = UniqueAscensionPerksEvents.105 days = 1 }
+					clear_variable = cloned_leader_number
 				}
-				clear_variable = cloned_leader_number
 			}
 		}
 	}
@@ -908,11 +910,13 @@ country_event = {
 		}
 	}
 	after = {
-		set_variable = { which = ship_corvette_infested value = 0 }
-		set_variable = { which = ship_destroyer_infested value = 0 }
-		set_variable = { which = ship_cruiser_infested value = 0 }
-		set_variable = { which = ship_battleship_infested value = 0 }
-		set_variable = { which = ship_titan_infested value = 0 }
+		hidden_effect = {
+			set_variable = { which = ship_corvette_infested value = 0 }
+			set_variable = { which = ship_destroyer_infested value = 0 }
+			set_variable = { which = ship_cruiser_infested value = 0 }
+			set_variable = { which = ship_battleship_infested value = 0 }
+			set_variable = { which = ship_titan_infested value = 0 }
+		}
 	}
 	option = { name = EXCELLENT }
 }

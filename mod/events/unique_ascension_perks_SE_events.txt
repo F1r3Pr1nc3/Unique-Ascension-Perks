@@ -151,11 +151,13 @@ ship_event = {
 		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
 	}
 	after = {
-		if = { limit = { has_ship_flag = planetary_program_cancel }
-			remove_ship_flag = planetary_program_cancel
-		} else = {
-			hidden_effect = { set_ship_flag = ship_has_planetary_program }
-			save_event_target_as = ship_special_project
+		hidden_effect = {
+			if = { limit = { has_ship_flag = planetary_program_cancel }
+				remove_ship_flag = planetary_program_cancel
+			} else = {
+				set_ship_flag = ship_has_planetary_program
+				save_event_target_as = ship_special_project
+			}
 		}
 	}
 	option = {

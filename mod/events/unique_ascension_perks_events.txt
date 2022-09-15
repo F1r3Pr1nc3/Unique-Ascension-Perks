@@ -455,10 +455,12 @@ country_event = {
 			} else = {
 				add_resource = { energy = -5000 sr_dark_matter = -100 mult = amount_spawn_lh_systems }
 			}
-			while = { count = amount_spawn_lh_systems spawn_lh_system = yes }
-			# set_timed_country_flag = { flag = system_localization_cooldown days = @\[ 30 * amount_spawn_lh_systems] }
-			# country_event = { id = UniqueAscensionPerksEvents.22 days = @\[ 30 * amount_spawn_lh_systems] }
-			clear_variable = amount_spawn_lh_systems
+			hidden_effect = {
+				while = { count = amount_spawn_lh_systems spawn_lh_system = yes }
+				# set_timed_country_flag = { flag = system_localization_cooldown days = @\[ 30 * amount_spawn_lh_systems] }
+				# country_event = { id = UniqueAscensionPerksEvents.22 days = @\[ 30 * amount_spawn_lh_systems] }
+				clear_variable = amount_spawn_lh_systems
+			}
 		}
 	}
 	option = { name = "UniqueAscensionPerksEvents.23.1"		allow = { resource_stockpile_compare = { resource = energy value > 5000 } resource_stockpile_compare = { resource = sr_dark_matter value > 100 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
@@ -2175,15 +2177,17 @@ country_event = {
 	location = event_target:capital_planet
 	immediate = { get_capital_planet = yes }
 	after = {
-		# fe_clear_gift_flags = yes
-		remove_country_flag = fe_gift_escorts
-		remove_country_flag = fe_gift_resources_small
-		remove_country_flag = fe_gift_battlecruiser
-		remove_country_flag = fe_gift_resources_large
-		remove_country_flag = fe_gift_databanks
-		remove_country_flag = fe_gift_rare_tech
-		remove_country_flag = fe_gift_resources_alloys
-		remove_country_flag = fe_gift_resources_consumer
+		hidden_effect = {
+			# fe_clear_gift_flags = yes
+			remove_country_flag = fe_gift_escorts
+			remove_country_flag = fe_gift_resources_small
+			remove_country_flag = fe_gift_battlecruiser
+			remove_country_flag = fe_gift_resources_large
+			remove_country_flag = fe_gift_databanks
+			remove_country_flag = fe_gift_rare_tech
+			remove_country_flag = fe_gift_resources_alloys
+			remove_country_flag = fe_gift_resources_consumer
+		}
 	}
 	option = { name = fallen_empires_tasks.2.a
 		# fe_gift_action = yes
@@ -3416,7 +3420,7 @@ planet_event = {
 			}
 		}
 	}
-	after = { setup_primitive_planet = yes }
+	after = { hidden_effect = { setup_primitive_planet = yes } }
 	option = { name = EXCELLENT }
 }
 
@@ -4317,26 +4321,28 @@ leader_event = {
 		# save_event_target_as = leader_uploaded
 	}
 	after = {
-		from = {
-			if = { limit = { is_variable_set = cloned_leader_number }
-				add_resource = { energy = -800 mult = cloned_leader_number }
-				root = {
-					while = { count = prev.cloned_leader_number
-						switch = {
-							trigger = leader_class
-							scientist = { from = { clone_leader = { target = prev class = scientist } } }
-							admiral = { from = { clone_leader = { target = prev class = admiral } } }
-							governor = { from = { clone_leader = { target = prev class = governor } } }
-							general = { from = { clone_leader = { target = prev class = general } } }
+		hidden_effect = {
+			from = {
+				if = { limit = { is_variable_set = cloned_leader_number }
+					add_resource = { energy = -800 mult = cloned_leader_number }
+					root = {
+						while = { count = prev.cloned_leader_number
+							switch = {
+								trigger = leader_class
+								scientist = { from = { clone_leader = { target = prev class = scientist } } }
+								admiral = { from = { clone_leader = { target = prev class = admiral } } }
+								governor = { from = { clone_leader = { target = prev class = governor } } }
+								general = { from = { clone_leader = { target = prev class = general } } }
+							}
+							from = {
+								last_created_leader = { set_age = 1 set_name = "CLONED_LEADER_NAME" }
+								change_variable = { which = "cloned_leader_number" value = -1 }
+							}
 						}
-						from = {
-							last_created_leader = { set_age = 1 set_name = "CLONED_LEADER_NAME" }
-							change_variable = { which = "cloned_leader_number" value = -1 }
-						}
+						leader_event = { id = UniqueAscensionPerksEvents.253 days = 1 }
 					}
-					leader_event = { id = UniqueAscensionPerksEvents.253 days = 1 }
+					clear_variable = cloned_leader_number
 				}
-				clear_variable = cloned_leader_number
 			}
 		}
 	}
@@ -6486,6 +6492,9 @@ country_event = {
 	picture_event_data = { room = slow_learner_room }
 	location = event_target:capital_planet
 	is_triggered_only = yes
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.400 UniqueAscensionPerksEvents.401 } }
+	}
 	immediate = {
 		get_capital_planet = yes
 		country_event = { id = UniqueAscensionPerksEvents.401 days = 3584 } # 10 years
@@ -6512,6 +6521,7 @@ country_event = {
 			has_modifier = slow_learner_bonus_3
 			has_modifier = slow_learner_bonus_4
 		}
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.400 UniqueAscensionPerksEvents.401 } }
 	}
 	immediate = {
 		# Do self call for performance reason.
