@@ -85,7 +85,9 @@ lw_teaching_campaign = {
 	length = 1800
 	resources = { category = campaigns cost = { energy = @activateCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_teaching_campaign }
-	modifier = { species_leader_exp_gain = 0.66 }
+	modifier = {
+		species_leader_exp_gain = 0.4 # 0.66
+	}
 	ai_weight = { weight = 0 }
 }
 
@@ -94,7 +96,9 @@ lw_edict_campaign = {
 	length = 1800
 	resources = { category = campaigns cost = { energy = @activateCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_edict_campaign }
-	modifier = { edict_length_mult = 0.75 }
+	modifier = {
+		edict_length_mult = 0.4 # 0.75
+	}
 	ai_weight = { weight = 0 }
 }
 
@@ -107,17 +111,19 @@ lw_prosperity_campaign = {
 	ai_weight = { weight = 0 }
 }
 
+# Changed in v3.4.5
 lw_upkeep_campaign = {
 	icon = "GFX_edict_type_time"
-	length = 1800
+	edict_cap_usage = 1
+	length = -1 # 1800
 	resources = { category = campaigns cost = { energy = @activateCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_upkeep_campaign }
 	modifier = {
-		planet_jobs_upkeep_mult = -0.3
-		planet_buildings_upkeep_mult = -0.3
-		planet_districts_upkeep_mult = -0.3
-		ships_upkeep_mult = -0.25
-		starbases_upkeep_mult = -0.25
+		planet_jobs_upkeep_mult			= -0.05 # -0.3
+		planet_buildings_upkeep_mult	= -0.05 # -0.3
+		planet_districts_upkeep_mult	= -0.05 # -0.3
+		ships_upkeep_mult				= -0.05 # -0.25
+		starbases_upkeep_mult			= -0.05 # -0.25
 	}
 	ai_weight = { weight = 0 }
 }
@@ -178,13 +184,13 @@ lw_war_preparation = {
 	allow = { is_at_war = no }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_war_preparation }
 	modifier = {
-		country_base_alloys_produces_mult = 0.15
-		starbase_module_build_speed_mult = 1.50
-		starbase_building_build_speed_mult = 1.50
-		starbase_upgrade_speed_mult = 1.50
-		starbase_shipyard_build_speed_mult = 1.50
-		planet_army_build_speed_mult = 1.50
-		army_starting_experience_add = 300
+		country_base_alloys_produces_mult	= 0.1 # 0.15
+		starbase_module_build_speed_mult	= 0.75 # 1.50
+		starbase_building_build_speed_mult	= 0.75 # 1.50
+		starbase_upgrade_speed_mult			= 0.75 # 1.50
+		starbase_shipyard_build_speed_mult	= 0.75 # 1.50
+		planet_army_build_speed_mult		= 0.75 # 1.50
+		army_starting_experience_add		= 150 # 300
 	}
 	ai_weight = { weight = 0 }
 }
@@ -196,9 +202,9 @@ lw_evade_danger = {
 	resources = { category = edicts cost = { influence = 50 unity = 200 } upkeep = { energy = @campaignCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_evade_danger }
 	modifier = {
-		ship_disengage_chance_mult = 0.50
+		ship_disengage_chance_mult = 0.15 # 0.50
 		ship_emergency_ftl_min_days_mult = -0.20
-		ship_evasion_add = 10
+		ship_evasion_add = 5 # 10
 	}
 	ai_weight = { weight = 0 }
 }
@@ -225,9 +231,9 @@ lw_fast_routes = {
 	resources = { category = edicts cost = { influence = 50 unity = 200 } upkeep = { energy = @campaignCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_fast_routes }
 	modifier = {
-		ship_speed_mult = 0.3
-		ship_windup_mult = -0.3
-		ship_winddown_mult = -0.3
+		ship_speed_mult		= 0.15 # 0.3
+		ship_windup_mult	= -0.15 # -0.3
+		ship_winddown_mult	= -0.15 # -0.3
 	}
 	ai_weight = { weight = 0 }
 }
@@ -239,8 +245,8 @@ lw_experience_sharing = {
 	resources = { category = edicts cost = { influence = 50 unity = 200 } upkeep = { energy = @campaignCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_experience_sharing }
 	modifier = {
-		ship_experience_gain_mult = 5.00
-		army_experience_gain_mult = 5.00
+		ship_experience_gain_mult = 1.5 # 5
+		army_experience_gain_mult = 1.5 # 5
 	}
 	ai_weight = { weight = 0 }
 }
@@ -252,9 +258,9 @@ lw_defense_weakness = {
 	resources = { category = edicts cost = { influence = 50 unity = 200 } upkeep = { energy = @campaignCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_defense_weakness }
 	modifier = {
-		ship_shield_penetration_mult = 0.20
-		ship_armor_penetration_mult = 0.20
-		ship_hull_damage_mult = 0.3
+		ship_shield_penetration_mult	= 0.1 # 0.2
+		ship_armor_penetration_mult		= 0.1 # 0.2
+		ship_hull_damage_mult			= 0.15 # 0.3
 	}
 	ai_weight = { weight = 0 }
 }
@@ -266,8 +272,8 @@ lw_damage_output = {
 	resources = { category = edicts cost = { influence = 50 unity = 200 } upkeep = { energy = @campaignCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_damage_output }
 	modifier = {
-		ship_weapon_damage = 0.25
-		ship_fire_rate_mult = 0.15
+		ship_weapon_damage = 0.1 # 0.25
+		ship_fire_rate_mult = 0.05 # 0.15
 		ship_weapon_range_mult = 0.08
 	}
 	ai_weight = { weight = 0 }
@@ -279,7 +285,9 @@ lw_extended_opportunities = {
 	length = -1
 	resources = { category = edicts cost = { influence = 50 unity = 200 } upkeep = { energy = @campaignCost } }
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_extended_opportunities }
-	modifier = { num_tech_alternatives_add = 5 }
+	modifier = {
+		num_tech_alternatives_add = 3 # 5
+	}
 	ai_weight = { weight = 0 }
 }
 
@@ -345,7 +353,7 @@ lw_growth_campaign = {
 	potential = { has_ascension_perk = ap_library_wisedom has_country_flag = ap_library_wisedom_growth_campaign }
 	modifier = {
 		pop_growth_speed = 0.1
-		pop_housing_usage_mult = -0.1
+		# pop_housing_usage_mult = -0.1
 	}
 	ai_weight = { weight = 0 }
 }

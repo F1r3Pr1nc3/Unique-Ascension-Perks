@@ -9,7 +9,7 @@ ap_space_engineers = {
 	modifier = {
 		country_starbase_capacity_mult = 0.1 # 1.0
 		starbases_upkeep_mult = -0.25 # -0.50
-		starbase_upgrade_cost_mult = -0.1 # -0.25
+		# starbase_upgrade_cost_mult = -0.1 # -0.25 removed in v3.4
 		starbase_upgrade_speed_mult = 2 # 4.00
 		# starbase_modules_cost_mult = -0.15
 		starbase_module_build_speed_mult = 2 # 4.00
@@ -152,8 +152,8 @@ ap_ai_cortana = {
 		custom_tooltip = { fail_text = "ap_ai_cortana_req_2" resource_stockpile_compare = { resource = energy value >= 40000 } }
 	}
 	modifier = {
-		all_technology_research_speed = 0.10
-		num_tech_alternatives_add = 2
+		all_technology_research_speed = 0.05 # 0.10
+		num_tech_alternatives_add = 1 # 2
 	}
 	on_enabled = {
 		custom_tooltip = "ap_ai_cortana_tooltip"
@@ -595,7 +595,7 @@ ap_stability_celebration = {
 	}
 	modifier = {
 		planet_stability_add = 5
-		pop_housing_usage_mult = -0.05 # -0.08
+		# pop_housing_usage_mult = -0.05 # -0.08 removed in v3.4
 		pop_amenities_usage_mult = -0.10
 		# pop_amenities_usage_no_happiness_mult = -0.10
 	}
@@ -695,7 +695,7 @@ ap_super_hive_mind = {
 		custom_tooltip = "ap_super_hive_mind_tooltip_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.100 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_super_hive_mind } is_hive_empire = yes }
+	potential = { is_hive_empire = yes NOT = { has_ascension_perk = ap_super_hive_mind } }
 	ai_weight = { factor = event_target:global_event_country.ap_super_hive_mind }
 }
 
@@ -899,7 +899,7 @@ ap_pyramidal_society = {
 		custom_tooltip = "ap_pyramidal_society_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.300 } }
 	}
-	potential = { NOR = { has_ascension_perk = ap_pyramidal_society has_global_flag = ap_pyramidal_society } }
+	potential = { NOR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society has_global_flag = ap_pyramidal_society } }
 	ai_weight = { factor = event_target:global_event_country.ap_pyramidal_society }
 }
 
