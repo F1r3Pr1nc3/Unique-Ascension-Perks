@@ -37,6 +37,7 @@
 #}
 
 civilian_factory = {
+	graphical_culture = no
 	max_speed = 100 # 50
 	acceleration = 0.1
 	rotation_speed = 0.15
@@ -60,7 +61,7 @@ civilian_factory = {
 	is_space_station = no
 	icon = ship_size_military_16
 	base_buildtime = @battleship_build_time # 360
-	enable_default_design = yes	# If yes, empires will have an auto-generated design at start.
+	enable_default_design = no	# If yes, empires will have an auto-generated design at start.
 	is_designable = yes
 	components_add_to_cost = yes
 	prerequisites = { "tech_factory_ship" }
@@ -77,16 +78,31 @@ civilian_factory = {
 	required_component_set = "civilian_factory_components"
 	# required_component_set = "civilian_factory_components"
 	valid_target_aggressive_stance = no
-	ai_ship_data = { min = 3 max = 12 }
 	min_upgrade_cost = {
 		alloys = 14
 	}
 	potential_country = {
 		merg_is_default_empire = yes
 	}
+	ai_ship_data = {
+		min = 3
+		max = 12
+		fraction = {
+			base = 0
+			modifier = {
+				add = 25
+				uses_standard_ship_sizes = yes
+			}
+			modifier = {
+				factor = 1.5
+				is_hive_empire = yes
+			}
+		}
+	}
 }
 
 civilian_industrial_ship = {
+	graphical_culture = no
 	max_speed = 20 # 10
 	acceleration = 0.05
 	rotation_speed = 0.07
@@ -110,7 +126,7 @@ civilian_industrial_ship = {
 	is_space_station = no
 	icon = ship_size_military_16
 	base_buildtime = @titan_build_time
-	enable_default_design = yes	# If yes, empires will have an auto-generated design at start.
+	enable_default_design = no	# If yes, empires will have an auto-generated design at start.
 	is_designable = yes
 	components_add_to_cost = yes
 	prerequisites = { "tech_industrial_ship" }
@@ -181,11 +197,25 @@ civilian_industrial_ship = {
 			}
 		}
 	}
-	ai_ship_data = { min = 1 max = 4 }
 	min_upgrade_cost = {
 		alloys = 40
 	}
 	potential_country = {
 		merg_is_default_empire = yes
+	}
+	ai_ship_data = {
+		min = 1
+		max = 4
+		fraction = {
+			base = 0
+			modifier = {
+				add = 20
+				uses_standard_ship_sizes = yes
+			}
+			modifier = {
+				factor = 1.2
+				is_hive_empire = yes
+			}
+		}
 	}
 }
