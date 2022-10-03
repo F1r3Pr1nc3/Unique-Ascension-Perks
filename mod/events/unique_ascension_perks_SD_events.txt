@@ -1270,28 +1270,45 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.1070.Desc"
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
+	after = {
+		hidden_effect = {
+			# leviathan_clear_summoning_flags
+			remove_country_flag = summoning_leviathan
+			remove_country_flag = summoning_leviathan_present
+			# remove_country_flag = summoning_leviathan_drake
+			# remove_country_flag = summoning_leviathan_stellarite
+			# remove_country_flag = summoning_leviathan_spectre
+			# remove_country_flag = summoning_leviathan_dreadnought
+			# remove_country_flag = summoning_leviathan_scavenger
+			# remove_country_flag = summoning_leviathan_matriarch
+			# remove_country_flag = summoning_leviathan_voidspawn
+			# remove_country_flag = summoning_leviathan_machine
+			# remove_country_flag = summoning_leviathan_horror
+			# remove_country_flag = summoning_leviathan_fortress
+		}
+	}
 	option = {
 		name = EXCELLENT
 		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
 		# leviathan_master_summon_leviathan = {
 		hidden_effect = {
-			random_owned_planet = {
-				limit = { is_capital = yes }
+			event_target:capital_planet = {
 				create_fleet = {
 					name = "Summoned Leviathan"
 					settings = { is_boss = yes spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 					effect = {
 						set_owner = root
-						if = { limit = { ROOT = { has_country_flag = summoning_leviathan_drake } } create_ship = { name = "Summoned Ether Drake" design = "Summoned Ether Drake" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_stellarite } } create_ship = { name = "Summoned Stellarite Devourer" design = "Summoned Stellarite Devourer" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_spectre } } create_ship = { name = "Summoned Spectral Wraith" design = "Summoned Spectral Wraith" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_dreadnought } } create_ship = { name = "Summoned Automated Dreadnought" design = "Summoned Automated Dreadnought" graphical_culture = "npf_01" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_scavenger } } create_ship = { name = "Summoned Scavenger Bot" design = "Summoned Scavenger Bot" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_matriarch } } create_ship = { name = "Summoned Tiyanki Matriarch" design = "Summoned Tiyanki Matriarch" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_voidspawn } } create_ship = { name = "Summoned Voidspawn" design = "Summoned Voidspawn" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_machine } } create_ship = { name = "Summoned Infinity Machine" design = "Summoned Infinity Machine" graphical_culture = "techno" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						if		= { limit = { ROOT = { has_country_flag = summoning_leviathan_drake }		} root = { remove_country_flag = summoning_leviathan_drake			} create_ship = { name = "Summoned Ether Drake"				design = "Summoned Ether Drake"			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_stellarite }	} root = { remove_country_flag = summoning_leviathan_stellarite		} create_ship = { name = "Summoned Stellarite Devourer"		design = "Summoned Stellarite Devourer"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_spectre }		} root = { remove_country_flag = summoning_leviathan_spectre		} create_ship = { name = "Summoned Spectral Wraith"			design = "Summoned Spectral Wraith"		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_dreadnought }	} root = { remove_country_flag = summoning_leviathan_dreadnought	} create_ship = { name = "Summoned Automated Dreadnought"	design = "Summoned Automated Dreadnought" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "npf_01" } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_scavenger }	} root = { remove_country_flag = summoning_leviathan_scavenger		} create_ship = { name = "Summoned Scavenger Bot"			design = "Summoned Scavenger Bot"		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_matriarch }	} root = { remove_country_flag = summoning_leviathan_matriarch		} create_ship = { name = "Summoned Tiyanki Matriarch"		design = "Summoned Tiyanki Matriarch"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_voidspawn }	} root = { remove_country_flag = summoning_leviathan_voidspawn		} create_ship = { name = "Summoned Voidspawn"				design = "Summoned Voidspawn"			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_machine }		} root = { remove_country_flag = summoning_leviathan_machine		} create_ship = { name = "Summoned Infinity Machine"		design = "Summoned Infinity Machine"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "techno" } }
 						set_location = { target = prev distance = 5 angle = random }
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
@@ -1299,19 +1316,6 @@ country_event = {
 					}
 				}
 			}
-			# leviathan_clear_summoning_flags
-			remove_country_flag = summoning_leviathan
-			remove_country_flag = summoning_leviathan_drake
-			remove_country_flag = summoning_leviathan_stellarite
-			remove_country_flag = summoning_leviathan_spectre
-			remove_country_flag = summoning_leviathan_dreadnought
-			remove_country_flag = summoning_leviathan_scavenger
-			remove_country_flag = summoning_leviathan_matriarch
-			remove_country_flag = summoning_leviathan_voidspawn
-			remove_country_flag = summoning_leviathan_machine
-			remove_country_flag = summoning_leviathan_horror
-			remove_country_flag = summoning_leviathan_fortress
-			remove_country_flag = summoning_leviathan_present
 		}
 	}
 }
@@ -1356,6 +1360,13 @@ country_event = {
 	location = event_target:look_location
 	is_triggered_only = yes
 	immediate = { random_planet_within_border = { limit = { has_planet_flag = leviathan_summon_defense_project } save_event_target_as = look_location } }
+	after = {
+		hidden_effect = {
+			# leviathan_clear_summoning_flags
+			remove_country_flag = summoning_leviathan
+			remove_country_flag = summoning_leviathan_present
+		}
+	}
 	option = {
 		name = EXCELLENT
 		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
@@ -1370,16 +1381,17 @@ country_event = {
 					effect = {
 						set_owner = prev
 						if = { limit = { root = { has_country_flag = summoning_leviathan_horror } }
+							root = { remove_country_flag = summoning_leviathan_horror }
 							create_ship = { name = "Summoned Dimensional Horror" design = "NAME_Dimensional_Horror" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } }
 						}
 						# else_if = { limit = { root = { has_country_flag = summoning_leviathan_fortress } } create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Vault" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = {
-							limit = { root = { has_country_flag = summoning_leviathan_fortress } }
+						else_if = { limit = { root = { has_country_flag = summoning_leviathan_fortress } }
+							root = { remove_country_flag = summoning_leviathan_fortress }
 							create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Vault" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } }
-							while = { count = 2 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Guardian" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-							while = { count = 2 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Warden" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-							while = { count = 4 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Defender" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-							while = { count = 8 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Sentinel" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+							while = { count = 2 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Guardian"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+							while = { count = 2 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Warden"		graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+							while = { count = 4 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Defender"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+							while = { count = 8 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Sentinel"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
 						}
 						set_formation_scale = 3.0
 						set_location = { target = event_target:spawn_location_leviathan distance = 100 angle = random }
@@ -1389,19 +1401,6 @@ country_event = {
 					}
 				}
 			}
-			# leviathan_clear_summoning_flags
-			remove_country_flag = summoning_leviathan
-			remove_country_flag = summoning_leviathan_drake
-			remove_country_flag = summoning_leviathan_stellarite
-			remove_country_flag = summoning_leviathan_spectre
-			remove_country_flag = summoning_leviathan_dreadnought
-			remove_country_flag = summoning_leviathan_scavenger
-			remove_country_flag = summoning_leviathan_matriarch
-			remove_country_flag = summoning_leviathan_voidspawn
-			remove_country_flag = summoning_leviathan_machine
-			remove_country_flag = summoning_leviathan_horror
-			remove_country_flag = summoning_leviathan_fortress
-			remove_country_flag = summoning_leviathan_present
 		}
 	}
 }
