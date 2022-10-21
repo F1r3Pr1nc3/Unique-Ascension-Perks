@@ -280,6 +280,7 @@ special_project = {
 	event_scope = country_event
 	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
 	on_success = { country_event = { id = UniqueAscensionPerksEvents.1070 } }
+	# on_fail = { }
 }
 
 special_project = {
@@ -291,6 +292,7 @@ special_project = {
 	event_scope = country_event
 	icon = "gfx/interface/icons/situation_log/situation_log_precursor.dds"
 	on_success = { country_event = { id = UniqueAscensionPerksEvents.1074 } }
+	# on_fail = { }
 }
 
 special_project = {
@@ -425,9 +427,13 @@ special_project = {
 	picture = GFX_evt_pirates_attacking_cargo
 	event_scope = ship_event
 	location = yes
-	timelimit = -1
+	timelimit = 1440
 	requirements = { shipclass_military = 1 }
 	on_success = { ship_event = { id = UniqueAscensionPerksEvents.350 } }
+	on_fail = {
+		destroy_fleet = from.fleet
+		remove_country_flag = treasures_pirate_country
+	}
 }
 
 special_project = {
