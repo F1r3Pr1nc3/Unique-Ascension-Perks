@@ -88,14 +88,12 @@ country_event = {
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
 	is_triggered_only = yes
-	trigger = { NOT = { has_country_flag = cortana_cooldown } }
+	# trigger = { NOT = { has_country_flag = cortana_cooldown } }
 	immediate = { set_country_flag = cortana_ready }
 	after = { remove_country_flag = cortana_ready }
 	option = {
 		name = "CortanaEvent.1.Building"
-		# trigger = {
-		# 	NOT = { has_country_flag = cortana_cooldown }
-		# }
+		trigger = { NOT = { has_country_flag = cortana_cooldown } }
 		hidden_effect = {
 			country_event = { id = CortanaEvent.2 }
 		}
@@ -104,7 +102,7 @@ country_event = {
 		name = "CortanaEvent.1.Module"
 		trigger = {
 			# cortana_can_modules_techs = yes
-			# NOT = { has_country_flag = cortana_cooldown }
+			NOT = { has_country_flag = cortana_cooldown }
 			NAND = {
 				has_technology = tech_reactor_boosters_3
 				has_technology = tech_afterburners_2
@@ -125,7 +123,7 @@ country_event = {
 		name = "CortanaEvent.1.Weapon"
 		trigger = {
 			# cortana_can_weapons_techs = yes
-			# NOT = { has_country_flag = cortana_cooldown }
+			NOT = { has_country_flag = cortana_cooldown }
 			NAND = {
 				has_technology = tech_strike_craft_3
 				has_technology = tech_disruptors_3
@@ -153,7 +151,7 @@ country_event = {
 		name = "CortanaEvent.1.Blocker"
 		trigger = {
 			# cortana_can_blockers_techs = yes
-			# NOT = { has_country_flag = cortana_cooldown }
+			NOT = { has_country_flag = cortana_cooldown }
 			NAND = {
 				has_technology = tech_volcano
 				has_technology = tech_mountain_range
@@ -174,7 +172,7 @@ country_event = {
 		name = "OTHER"
 		trigger = {
 			# cortana_can_other_techs = yes
-			# NOT = { has_country_flag = cortana_cooldown }
+			NOT = { has_country_flag = cortana_cooldown }
 			NAND = {
 				has_technology = tech_climate_restoration
 				has_technology = tech_space_mining_5
@@ -196,7 +194,7 @@ country_event = {
 		name = "CortanaEvent.1.Repeatable"
 		trigger = {
 			# cortana_can_repeatable_techs = yes
-			# NOT = { has_country_flag = cortana_cooldown }
+			NOT = { has_country_flag = cortana_cooldown }
 			has_technology = tech_colonization_5
 			has_technology = tech_space_mining_5
 			has_technology = tech_space_science_5
@@ -253,7 +251,7 @@ country_event = {
 	}
 	option = {
 		name = ABORT
-		# trigger = { NOT = { has_country_flag = cortana_cooldown } }
+		trigger = { NOT = { has_country_flag = cortana_cooldown } }
 		hidden_effect = {
 			if = { limit = { has_technology = tech_cortana_optimized }
 				add_resource = { energy = -1000 }
@@ -261,16 +259,16 @@ country_event = {
 			add_resource = { energy = 5000 }
 		}
 	}
-	# option = {
-	# 	name = CANCEL
-	# 	trigger = { has_country_flag = cortana_cooldown }
-	# 	hidden_effect = {
-	# 		if = { limit = { has_technology = tech_cortana_optimized }
-	# 			add_resource = { energy = -1000 }
-	# 		}
-	# 		add_resource = { energy = 5000 }
-	# 	}
-	# }
+	option = {
+		name = CANCEL
+		trigger = { has_country_flag = cortana_cooldown }
+		hidden_effect = {
+			if = { limit = { has_technology = tech_cortana_optimized }
+				add_resource = { energy = -1000 }
+			}
+			add_resource = { energy = 5000 }
+		}
+	}
 }
 
 country_event = { # Cortana Research - Buildings

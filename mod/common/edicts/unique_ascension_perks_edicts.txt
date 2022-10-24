@@ -92,8 +92,12 @@ enable_system_localization = {
 active_cortana_ai = {
 	icon = "GFX_research_icon"
 	length = -1
-	# resources = { category = edicts cost = { } }
+	# resources = { category = edicts cost = { energy = 5000 } }
 	allow = {
+		NOR = {
+			has_country_flag = cortana_cooldown
+			has_active_event = { CortanaEvent.0 CortanaEvent.1 }
+		}
 		OR = {
 			resource_stockpile_compare = { resource = energy value > 5000 }
 			AND = {
@@ -101,13 +105,10 @@ active_cortana_ai = {
 				resource_stockpile_compare = { resource = energy value > 4000 }
 			}
 		}
-		NOT = { has_active_event = { CortanaEvent.0 CortanaEvent.1 } }
 	}
 	potential = {
 		has_ascension_perk = ap_ai_cortana
-		NOT = { has_country_flag = cortana_cooldown }
 	}
-	# resources = { category = edicts cost = { energy = 5000 } }
 	ai_weight = { weight = 0 }
 	effect = {
 		if = { limit = { has_technology = tech_cortana_optimized }
