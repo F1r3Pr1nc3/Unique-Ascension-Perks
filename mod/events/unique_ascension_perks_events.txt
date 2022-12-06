@@ -6196,94 +6196,94 @@ event = {
 		# 	}
 		# }
 		# remove in 3.5
-		# FIX SUBJECT TRUST
-		if = {
-			limit = {
-				any_country = { OR = { is_country_type = security_forces is_country_type = defense_sentinels } }
-			}
-			every_country = {
-				limit = { OR = { is_country_type = security_forces is_country_type = defense_sentinels } }
-				if = { limit = { is_country_type = defense_sentinels }
-					set_country_type = security_forces
-				}
-				if = { limit = { has_any_overlord = yes }
-					if = { limit = { is_at_war_with = overlord }
-						random_war = {
-							limit = {
-								any_attacker = { is_same_empire = prevprev }
-								any_defender = { is_same_empire = prevprev.overlord }
-							}
-							end_war_effect = yes
-						}
-						destroy_country = yes
-						break = yes
-					} else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = security_strike_force } } }
-						destroy_country = yes
-						break = yes
-					} else_if = { limit = { is_hostile_to = overlord }
-						set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
-					}
-					add_trust = { amount = 100 who = overlord }
-					random_agreement = {
-						limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
-						add_loyalty = 100
-					}
-					if = { limit = { NOT = { has_opinion_modifier = { who = overlord modifier = opinion_common_ground } } }
-						overlord = {
-							add_trust = { amount = 10 who = prev }
-							# Opinion hack
-							prev = {
-								add_opinion_modifier = { who = prev modifier = opinion_common_ground }
-								add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
-								add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
-								add_opinion_modifier = { who = prev modifier = opinion_enlightened_us }
-								add_opinion_modifier = { who = prev modifier = opinion_liberated_us }
-								add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_ai_opinion }
-							}
-						}
-					}
-				} else = { destroy_country = yes }
-			}
-		}
-		if = {
-			limit = { any_country = { is_country_type = domesticated_spaceborn_alien } }
-			every_country = {
-				limit = { is_country_type = domesticated_spaceborn_alien }
-				if = {
-					limit = { has_any_overlord = yes exists = overlord has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } }
-					if = { limit = { is_at_war_with = overlord }
-						random_war = {
-							limit = {
-								any_attacker = { is_same_empire = prevprev }
-								any_defender = { is_same_empire = prevprev.overlord }
-							}
-							end_war_effect = yes
-						}
-						destroy_country = yes
-						break = yes
-					} else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } } }
-						destroy_country = yes
-						break = yes
-					} else_if = { limit = { is_hostile_to = overlord }
-						set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
-					}
-					add_trust = { amount = 100 who = overlord }
-					random_agreement = {
-						limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
-						add_loyalty = 100
-					}
-					if = { limit = { NOT = { has_opinion_modifier = { who = overlord modifier = opinion_nurtured } } }
-						overlord = {
-							add_trust = { amount = 10 who = prev }
-							prev = {
-								add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
-								add_opinion_modifier = { who = root modifier = opinion_nurtured }
-							}
-						}
-					}
-				} else = { destroy_country = yes }
-			}
-		}
+		# FIX SUBJECT TRUST (only works if they suposed to be subjects)
+		# if = {
+		# 	limit = {
+		# 		any_country = { OR = { is_country_type = security_forces is_country_type = defense_sentinels } }
+		# 	}
+		# 	every_country = {
+		# 		limit = { OR = { is_country_type = security_forces is_country_type = defense_sentinels } }
+		# 		if = { limit = { is_country_type = defense_sentinels }
+		# 			set_country_type = security_forces
+		# 		}
+		# 		if = { limit = { has_any_overlord = yes }
+		# 			if = { limit = { is_at_war_with = overlord }
+		# 				random_war = {
+		# 					limit = {
+		# 						any_attacker = { is_same_empire = prevprev }
+		# 						any_defender = { is_same_empire = prevprev.overlord }
+		# 					}
+		# 					end_war_effect = yes
+		# 				}
+		# 				destroy_country = yes
+		# 				break = yes
+		# 			} else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = security_strike_force } } }
+		# 				destroy_country = yes
+		# 				break = yes
+		# 			} else_if = { limit = { is_hostile_to = overlord }
+		# 				set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
+		# 			}
+		# 			add_trust = { amount = 100 who = overlord }
+		# 			random_agreement = {
+		# 				limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
+		# 				add_loyalty = 100
+		# 			}
+		# 			if = { limit = { NOT = { has_opinion_modifier = { who = overlord modifier = opinion_common_ground } } }
+		# 				overlord = {
+		# 					add_trust = { amount = 10 who = prev }
+		# 					# Opinion hack
+		# 					prev = {
+		# 						add_opinion_modifier = { who = prev modifier = opinion_common_ground }
+		# 						add_opinion_modifier = { who = prev modifier = opinion_ceded_starbase }
+		# 						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
+		# 						add_opinion_modifier = { who = prev modifier = opinion_enlightened_us }
+		# 						add_opinion_modifier = { who = prev modifier = opinion_liberated_us }
+		# 						add_opinion_modifier = { who = prev modifier = opinion_imperial_vassal_ai_opinion }
+		# 					}
+		# 				}
+		# 			}
+		# 		} else = { destroy_country = yes }
+		# 	}
+		# }
+		# if = {
+		# 	limit = { any_country = { is_country_type = domesticated_spaceborn_alien } }
+		# 	every_country = {
+		# 		limit = { is_country_type = domesticated_spaceborn_alien }
+		# 		if = {
+		# 			limit = { has_any_overlord = yes exists = overlord has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } }
+		# 			if = { limit = { is_at_war_with = overlord }
+		# 				random_war = {
+		# 					limit = {
+		# 						any_attacker = { is_same_empire = prevprev }
+		# 						any_defender = { is_same_empire = prevprev.overlord }
+		# 					}
+		# 					end_war_effect = yes
+		# 				}
+		# 				destroy_country = yes
+		# 				break = yes
+		# 			} else_if = { limit = { NOT = { has_relation_flag = { who = overlord flag = domesticated_spaceborn_alien } } }
+		# 				destroy_country = yes
+		# 				break = yes
+		# 			} else_if = { limit = { is_hostile_to = overlord }
+		# 				set_faction_hostility = { target = overlord set_hostile = no set_neutral = no set_friendly = yes }
+		# 			}
+		# 			add_trust = { amount = 100 who = overlord }
+		# 			random_agreement = {
+		# 				limit = { is_owned_by = prev.overlord target = { is_same_empire = prev } }
+		# 				add_loyalty = 100
+		# 			}
+		# 			if = { limit = { NOT = { has_opinion_modifier = { who = overlord modifier = opinion_nurtured } } }
+		# 				overlord = {
+		# 					add_trust = { amount = 10 who = prev }
+		# 					prev = {
+		# 						add_opinion_modifier = { who = root modifier = opinion_enlightened_us }
+		# 						add_opinion_modifier = { who = root modifier = opinion_nurtured }
+		# 					}
+		# 				}
+		# 			}
+		# 		} else = { destroy_country = yes }
+		# 	}
+		# }
 	}
 }
 
@@ -7685,7 +7685,10 @@ ship_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = { has_ascension_perk = ap_expansionist_development }
+		owner = {
+			has_ascension_perk = ap_expansionist_development
+			NOT = { has_country_flag = no_expansionist_development }
+		}
 		exists = from
 		from = {
 			NOR = {
@@ -7753,6 +7756,12 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = automatic_drone value > 1200 } } }
 		owner = { add_resource = { automatic_drone = -1200 } }
 		deploy_outpost = yes
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.531.Disable"
+		hidden_effect = {
+			owner = { set_country_flag = no_expansionist_development }
+		}
 	}
 	option = { name = "UniqueAscensionPerksEvents.531.Nope" ai_chance = { factor = 0.1 } }
 }
