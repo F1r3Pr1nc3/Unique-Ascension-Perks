@@ -21,7 +21,12 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = space_domestication_room }
 	is_triggered_only = yes
-	# trigger = {}
+	trigger = {
+		NOR = {
+			has_active_event = { UniqueAscensionPerksEvents.1000 UniqueAscensionPerksEvents.1001 }
+			has_special_project = SPACE_DOMESTICATION
+		}
+	}
 	# immediate = {}
 	# after = {}
 	option = { name = "NAME_Tiyanki_Space_Whale" allow = { has_technology = tech_space_whale_weapon_1 } custom_tooltip = "domesticated_tiyanki_tooltip_1" custom_tooltip = "domesticated_tiyanki_tooltip_2" hidden_effect = { set_country_flag = space_domestication_tiyanki set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
@@ -50,6 +55,12 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = space_domestication_room }
 	is_triggered_only = yes
+	trigger = {
+		NOR = {
+			has_active_event = { UniqueAscensionPerksEvents.1001 }
+			has_special_project = SPACE_DOMESTICATION
+		}
+	}
 	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT enable_special_project = { name = SPACE_DOMESTICATION location = event_target:capital_planet owner = root } }
 }
@@ -118,12 +129,12 @@ country_event = {
 					name = "Domesticated Fertilized Aliens"
 					settings = { spawn_debris = no is_boss = yes }
 					effect = {
-						set_owner = prev
-						if = { limit = { root = { has_country_flag = space_domestication_tiyanki } } create_ship = { name = "" design = "Domesticated Mother Tiyanki" } }
-						else_if = { limit = { root = { has_country_flag = space_domestication_amoeba } } while = { count = 25 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
-						else_if = { limit = { root = { has_country_flag = space_domestication_crystal } } create_ship = { name = "" design = "Domesticated Mother Crystal" } }
-						else_if = { limit = { root = { has_country_flag = space_domestication_cloud } } create_ship = { name = "" design = "Domesticated Mother Cloud" } }
-						else_if = { limit = { root = { has_country_flag = space_domestication_drone } } create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } }
+						set_owner = event_target:domesticated_spaceborn_alien
+						if = { limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } } create_ship = { name = "" design = "Domesticated Mother Tiyanki" } }
+						else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } } while = { count = 25 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
+						else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } } create_ship = { name = "" design = "Domesticated Mother Crystal" } }
+						else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } } create_ship = { name = "" design = "Domesticated Mother Cloud" } }
+						else_if = { limit = { event_target:main_country = { has_country_flag = space_domestication_drone } } create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } }
 						set_location = { target = event_target:spawn_location distance = 10 angle = random }
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
@@ -234,7 +245,14 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } } }
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1010 } }
+	}
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+	}
 	option = { name = OK ai_chance = { factor = 0.1 } }
 }
 
@@ -246,7 +264,14 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } } }
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1011 } }
+	}
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1011.b"
 		allow = {
@@ -273,7 +298,14 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } } }
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1012 } }
+	}
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+	}
 	option = { name = OK ai_chance = { factor = 0.1 } }
 }
 
@@ -285,7 +317,14 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } } }
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1013 } }
+	}
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+	}
 	option = { name = OK ai_chance = { factor = 0.1 } }
 }
 
@@ -297,7 +336,14 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } } }
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1014 } }
+	}
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1011.b"
 		allow = {
@@ -332,6 +378,7 @@ country_event = {
 		count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
 	}
 	immediate = {
+		save_event_target_as = main_country
 		if = { limit = { has_country_flag = killed_guardian NOT = { has_country_flag = has_killed_leviathan } }
 			set_country_flag = has_killed_leviathan
 		}
@@ -355,10 +402,10 @@ country_event = {
 				create_fleet = {
 					name = ""
 					effect = {
-						set_owner = prev
+						set_owner = event_target:domesticated_spaceborn_alien
 						# space_domestication_spawn_default_fleet = yes
 						if = {
-							limit = { root = { has_country_flag = space_domestication_tiyanki } }
+							limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } }
 							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } } }
 							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } }
@@ -366,13 +413,13 @@ country_event = {
 							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } } }
 						} else_if = {
-							limit = { root = { has_country_flag = space_domestication_amoeba } }
+							limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } }
 							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba" } } }
 							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba Mother" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
 						} else_if = {
-							limit = { root = { has_country_flag = space_domestication_crystal } }
+							limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } }
 							while = { count = 5 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } } }
 							while = { count = 5 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } }
@@ -380,11 +427,11 @@ country_event = {
 							while = { count = 5 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } } }
 						} else_if = {
-							limit = { root = { has_country_flag = space_domestication_cloud } }
+							limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } }
 							while = { count = 5 create_ship = { name = "" design = NAME_Dom_Cloud } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud } } }
 						} else_if = {
-							limit = { root = { has_country_flag = space_domestication_drone } }
+							limit = { event_target:main_country = { has_country_flag = space_domestication_drone } }
 							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } }
 							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } } }
 							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } }
@@ -398,9 +445,9 @@ country_event = {
 						save_event_target_as = domesticated_fleet
 						set_fleet_flag = domesticated_fleet
 						set_fleet_flag = domesticated_military_fleet
-						if = { limit = { prev = { has_country_flag = space_domestication_military_protocol } }
+						if = { limit = { event_target:domesticated_spaceborn_alien = { has_country_flag = space_domestication_military_protocol } }
 							set_name = "Domesticated Military Aliens"
-						} else_if = { limit = { prev = { has_country_flag = space_domestication_security_protocol } }
+						} else_if = { limit = { event_target:domesticated_spaceborn_alien = { has_country_flag = space_domestication_security_protocol } }
 							set_name = "Domesticated Security Aliens"
 						}
 					}
@@ -474,6 +521,9 @@ country_event = {
 				set_owner = root
 				set_controller = root
 			}
+			root = {
+				sync_subjects_virtual_relation = yes
+			}
 		}
 	}
 }
@@ -495,6 +545,7 @@ country_event = {
 }
 
 # on_fleet_destroyed_perp
+# FromFrom = fleet combatant
 country_event = {
 	id = UniqueAscensionPerksEvents.1025
 	hide_window = yes
@@ -502,6 +553,7 @@ country_event = {
 	trigger = { has_country_flag = domesticated_spaceborn_alien_cloud }
 	immediate = {
 		# space_domestication_cloud_multiplication = yes
+		save_event_target_as = main_country
 		random = {
 			chance = 40
 			# from = { save_event_target_as = notify_country }
@@ -511,7 +563,7 @@ country_event = {
 				create_fleet = {
 					name = "NAME_Effluvial_Offspring"
 					effect = {
-						set_owner = root
+						set_owner = event_target:main_country
 						while = { count = 3 create_ship = { name = "" design = NAME_Dom_Cloud } }
 						while = { count = 2 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud } } }
 						set_location = { target = event_target:spawn_location distance = 5 angle = random }
@@ -521,8 +573,8 @@ country_event = {
 						set_formation_scale = 4.0
 						save_event_target_as = domesticated_fleet
 						set_fleet_flag = domesticated_fleet
-						if = { limit = { PREV = { has_fleet_flag = domesticated_military_fleet } } set_fleet_flag = domesticated_military_fleet set_name = "Military Effluvial Offspring" }
-						else_if = { limit = { PREV = { has_fleet_flag = domesticated_security_fleet } } set_fleet_flag = domesticated_security_fleet set_name = "Security Effluvial Offspring" }
+						if = { limit = { event_target:spawn_location = { has_fleet_flag = domesticated_military_fleet } } set_fleet_flag = domesticated_military_fleet set_name = "Military Effluvial Offspring" }
+						else_if = { limit = { event_target:spawn_location = { has_fleet_flag = domesticated_security_fleet } } set_fleet_flag = domesticated_security_fleet set_name = "Security Effluvial Offspring" }
 					}
 				}
 			}
@@ -755,8 +807,6 @@ country_event = {
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = leviathan_master_room }
-	is_triggered_only = yes
-	immediate = { set_country_flag = leviathan_master_project }
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.1052.Talk.1"
@@ -764,6 +814,11 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.1052.Talk.2"
 		}
 	}
+	is_triggered_only = yes
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1052 UniqueAscensionPerksEvents.1056 } }
+	}
+	immediate = { set_country_flag = leviathan_master_project }
 	option = {
 		name = "UniqueAscensionPerksEvents.1052.a"
 		add_resource = { food = -1 }
@@ -782,6 +837,9 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = leviathan_master_room }
 	is_triggered_only = yes
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1055 } }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1052.a"
 		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
@@ -838,6 +896,12 @@ country_event = {
 	picture_event_data = { room = leviathan_master_room }
 	location = event_target:capital_planet
 	is_triggered_only = yes
+	trigger = {
+		NOR = {
+			has_active_event = { UniqueAscensionPerksEvents.1056 }
+			has_special_project = LEVIATHAN_MASTER_SUMMON
+		}
+	}
 	immediate = { get_capital_planet = yes }
 	option = {
 		name = "leviathans.510.name"
@@ -900,6 +964,7 @@ country_event = {
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 15000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		custom_tooltip = "UniqueAscensionPerksEvents.1056.Horror.tooltip"
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -15000 } }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:capital_planet owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_horror set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1061 } }
 	}
 	option = {
@@ -907,6 +972,7 @@ country_event = {
 		allow = { OR = { has_country_flag = summoning_leviathan_present resource_stockpile_compare = { resource = food value > 15000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
 		custom_tooltip = "UniqueAscensionPerksEvents.1056.Horror.tooltip"
 		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -15000 } }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:capital_planet owner = root }
 		hidden_effect = { set_country_flag = summoning_leviathan_fortress set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1061 } }
 	}
 	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } } ai_chance = { factor = 0.1 } }
@@ -943,42 +1009,42 @@ country_event = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.1
 		trigger = { exists = event_target:starbase_target_1.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = "LEVIATHAN_MASTER_SUMMON" location = event_target:starbase_target_1.star owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_1.star owner = root }
 		hidden_effect = { event_target:starbase_target_1.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.2
 		trigger = { exists = event_target:starbase_target_2.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = "LEVIATHAN_MASTER_SUMMON" location = event_target:starbase_target_2.star owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_2.star owner = root }
 		hidden_effect = { event_target:starbase_target_2.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.3
 		trigger = { exists = event_target:starbase_target_3.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = "LEVIATHAN_MASTER_SUMMON" location = event_target:starbase_target_3.star owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_3.star owner = root }
 		hidden_effect = { event_target:starbase_target_3.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.4
 		trigger = { exists = event_target:starbase_target_4.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = "LEVIATHAN_MASTER_SUMMON" location = event_target:starbase_target_4.star owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_4.star owner = root }
 		hidden_effect = { event_target:starbase_target_4.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.5
 		trigger = { exists = event_target:starbase_target_5.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = "LEVIATHAN_MASTER_SUMMON" location = event_target:starbase_target_5.star owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_5.star owner = root }
 		hidden_effect = { event_target:starbase_target_5.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.6
 		trigger = { exists = event_target:starbase_target_6.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = "LEVIATHAN_MASTER_SUMMON" location = event_target:starbase_target_6.star owner = root }
+		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_6.star owner = root }
 		hidden_effect = { event_target:starbase_target_6.star = { set_planet_flag = leviathan_summon_defense_project } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.1061.Starbase.Another" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1061 } } ai_chance = { factor = 0.1 } }
@@ -1293,25 +1359,23 @@ country_event = {
 		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
 		# leviathan_master_summon_leviathan = {
 		hidden_effect = {
-			event_target:capital_planet = {
-				create_fleet = {
-					name = "Summoned Leviathan"
-					settings = { is_boss = yes spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
-					effect = {
-						set_owner = root
-						if		= { limit = { ROOT = { has_country_flag = summoning_leviathan_drake }		} root = { remove_country_flag = summoning_leviathan_drake			} create_ship = { name = "Summoned Ether Drake"				design = "Summoned Ether Drake"			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_stellarite }	} root = { remove_country_flag = summoning_leviathan_stellarite		} create_ship = { name = "Summoned Stellarite Devourer"		design = "Summoned Stellarite Devourer"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_spectre }		} root = { remove_country_flag = summoning_leviathan_spectre		} create_ship = { name = "Summoned Spectral Wraith"			design = "Summoned Spectral Wraith"		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_dreadnought }	} root = { remove_country_flag = summoning_leviathan_dreadnought	} create_ship = { name = "Summoned Automated Dreadnought"	design = "Summoned Automated Dreadnought" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "npf_01" } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_scavenger }	} root = { remove_country_flag = summoning_leviathan_scavenger		} create_ship = { name = "Summoned Scavenger Bot"			design = "Summoned Scavenger Bot"		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_matriarch }	} root = { remove_country_flag = summoning_leviathan_matriarch		} create_ship = { name = "Summoned Tiyanki Matriarch"		design = "Summoned Tiyanki Matriarch"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_voidspawn }	} root = { remove_country_flag = summoning_leviathan_voidspawn		} create_ship = { name = "Summoned Voidspawn"				design = "Summoned Voidspawn"			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_machine }		} root = { remove_country_flag = summoning_leviathan_machine		} create_ship = { name = "Summoned Infinity Machine"		design = "Summoned Infinity Machine"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "techno" } }
-						set_location = { target = prev distance = 5 angle = random }
-						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
-						set_aggro_range = 1000
-					}
+			create_fleet = {
+				name = "Summoned Leviathan"
+				settings = { is_boss = yes spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
+				effect = {
+					set_owner = root
+					if		= { limit = { ROOT = { has_country_flag = summoning_leviathan_drake }		} root = { remove_country_flag = summoning_leviathan_drake			} create_ship = { name = "Summoned Ether Drake"				design = "Summoned Ether Drake"			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_stellarite }	} root = { remove_country_flag = summoning_leviathan_stellarite		} create_ship = { name = "Summoned Stellarite Devourer"		design = "Summoned Stellarite Devourer"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_spectre }		} root = { remove_country_flag = summoning_leviathan_spectre		} create_ship = { name = "Summoned Spectral Wraith"			design = "Summoned Spectral Wraith"		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_dreadnought }	} root = { remove_country_flag = summoning_leviathan_dreadnought	} create_ship = { name = "Summoned Automated Dreadnought"	design = "Summoned Automated Dreadnought" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "npf_01" } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_scavenger }	} root = { remove_country_flag = summoning_leviathan_scavenger		} create_ship = { name = "Summoned Scavenger Bot"			design = "Summoned Scavenger Bot"		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_matriarch }	} root = { remove_country_flag = summoning_leviathan_matriarch		} create_ship = { name = "Summoned Tiyanki Matriarch"		design = "Summoned Tiyanki Matriarch"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_voidspawn }	} root = { remove_country_flag = summoning_leviathan_voidspawn		} create_ship = { name = "Summoned Voidspawn"				design = "Summoned Voidspawn"			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_machine }		} root = { remove_country_flag = summoning_leviathan_machine		} create_ship = { name = "Summoned Infinity Machine"		design = "Summoned Infinity Machine"	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "techno" } }
+					set_location = { target = event_target:capital_planet distance = 5 angle = random }
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 1000
 				}
 			}
 		}
@@ -1325,6 +1389,9 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1071 } }
+	}
 	option = { name = BATTLESTATIONS }
 }
 
@@ -1335,6 +1402,12 @@ planet_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
+	trigger = {
+		NAND = {
+			exists = from
+			from = { has_active_event = { UniqueAscensionPerksEvents.1072 } }
+		}
+	}
 	location = root
 	option = { name = OK }
 }
@@ -1346,6 +1419,9 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
+	trigger = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.1073 } }
+	}
 	option = { name = BATTLESTATIONS }
 }
 
@@ -1377,14 +1453,14 @@ country_event = {
 					name = "Summoned Leviathan"
 					settings = { is_boss = yes spawn_debris = no }
 					effect = {
-						set_owner = prev
-						if = { limit = { root = { has_country_flag = summoning_leviathan_horror } }
-							root = { remove_country_flag = summoning_leviathan_horror }
+						set_owner = event_target:domesticated_spaceborn_alien
+						if = { limit = { event_target:main_country = { has_country_flag = summoning_leviathan_horror } }
+							event_target:main_country = { remove_country_flag = summoning_leviathan_horror }
 							create_ship = { name = "Summoned Dimensional Horror" design = "NAME_Dimensional_Horror" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } }
 						}
-						# else_if = { limit = { root = { has_country_flag = summoning_leviathan_fortress } } create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Vault" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-						else_if = { limit = { root = { has_country_flag = summoning_leviathan_fortress } }
-							root = { remove_country_flag = summoning_leviathan_fortress }
+						# else_if = { limit = { event_target:main_country = { has_country_flag = summoning_leviathan_fortress } } create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Vault" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+						else_if = { limit = { event_target:main_country = { has_country_flag = summoning_leviathan_fortress } }
+							event_target:main_country = { remove_country_flag = summoning_leviathan_fortress }
 							create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Vault" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } }
 							while = { count = 2 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Guardian"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
 							while = { count = 2 create_ship = { name = "Summoned Enigmatic Fortress" design = "NAME_Ancient_Warden"		graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }

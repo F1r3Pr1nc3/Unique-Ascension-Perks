@@ -1,6 +1,8 @@
 namespace = UniqueAscensionPerksEvents
 
-country_event = { # Kill Special Subject Country if their master is dead.
+# Kill Special Subject Country if their master is dead.
+# Sync relations.
+country_event = {
 	id = UniqueAscensionPerksEvents.8787
 	# is_triggered_only = yes
 	mean_time_to_happen = { months = 6 } # 4
@@ -20,41 +22,78 @@ country_event = { # Kill Special Subject Country if their master is dead.
 			limit = {
 				is_country_type = domesticated_spaceborn_alien
 				has_country_flag = domesticated_spaceborn_alien
-				NOT = {
-					any_relation = {
-						merg_is_default_empire = yes
-						is_subject = no
-						reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_relation = {
+							merg_is_default_empire = yes
+							is_subject = no
+							reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+						}
 					}
 				}
+				destroy_country = yes
+			} else = {
+				random_relation = {
+					limit = {
+						merg_is_default_empire = yes
+						reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+					}
+					sync_subjects_virtual_relation = yes
+				}
 			}
-			destroy_country = yes
 		} else_if = {
 			limit = {
 				is_country_type = security_forces
 				has_country_flag = security_strike_force
-				NOT = {
-					any_relation = {
-						merg_is_default_empire = yes
-						is_subject = no
-						reverse_has_relation_flag = { who = root flag = security_strike_force }
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_relation = {
+							merg_is_default_empire = yes
+							is_subject = no
+							reverse_has_relation_flag = { who = root flag = security_strike_force }
+						}
 					}
 				}
+				destroy_country = yes
+			} else = {
+				random_relation = {
+					limit = {
+						merg_is_default_empire = yes
+						reverse_has_relation_flag = { who = root flag = security_strike_force }
+					}
+					sync_subjects_virtual_relation = yes
+				}
 			}
-			destroy_country = yes
 		} else_if = {
 			limit = {
 				is_country_type = security_forces # defense_sentinels
 				has_country_flag = defense_sentinels
-				NOT = {
-					any_relation = {
-						merg_is_default_empire = yes
-						is_subject = no
-						reverse_has_relation_flag = { who = root flag = defense_sentinels }
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_relation = {
+							merg_is_default_empire = yes
+							is_subject = no
+							reverse_has_relation_flag = { who = root flag = defense_sentinels }
+						}
 					}
 				}
+				destroy_country = yes
+			} else = {
+				random_relation = {
+					limit = {
+						merg_is_default_empire = yes
+						reverse_has_relation_flag = { who = root flag = defense_sentinels }
+					}
+					sync_subjects_virtual_relation = yes
+				}
 			}
-			destroy_country = yes
 		}
 	}
 }
@@ -73,18 +112,15 @@ country_event = { # Remove Special Subject Empires from Any Federations & Galact
 		}
 	}
 	immediate = {
-		if = {
-			limit = { any_federation = { any_member = { is_unique_perk_special_subject = yes } } }
+		if = { limit = { any_federation = { any_member = { is_unique_perk_special_subject = yes } } }
 			every_federation = { limit = { any_member = { is_unique_perk_special_subject = yes } }
 				every_member = { limit = { is_unique_perk_special_subject = yes } leave_alliance = { override_requirements = yes } }
 			}
 		}
-		if = {
-			limit = { is_galactic_community_formed = yes any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
+		if = { limit = { is_galactic_community_formed = yes any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
 			every_playable_country = { limit = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } remove_from_galactic_community = yes }
 		}
-		if = {
-			limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
+		if = { limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
 			every_playable_country = { limit = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } remove_from_galactic_council = yes }
 		}
 	}
@@ -360,8 +396,7 @@ country_event = {
 			#}
 		}
 		# random_system = { limit = { has_star_flag = lh_basic_system_created } remove_star_flag = lh_basic_system_created save_event_target_as = lh_basic_system }
-		if = {
-			limit = { exists = capital_scope capital_scope = { solar_system = { has_natural_wormhole = yes } } }
+		if = { limit = { exists = capital_scope capital_scope = { solar_system = { has_natural_wormhole = yes } } }
 			capital_scope.solar_system = {
 				closest_system = {
 					limit = { exists = space_owner space_owner = { is_same_empire = root } has_natural_wormhole = no }
@@ -784,8 +819,7 @@ country_event = {
 				random = { chance = 50 remove_country_flag = ap_nano_drones_pulse }
 			} else = { remove_country_flag = ap_nano_drones_pulse }
 
-			if = {
-				limit = { has_country_flag = nano_auto_upgrade resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+			if = { limit = { has_country_flag = nano_auto_upgrade resource_stockpile_compare = { resource = automatic_drone value > 200 } }
 				random_owned_planet = {
 					limit = { is_colony = yes is_colonizable = no }
 					while = { count = 3
@@ -838,8 +872,7 @@ country_event = {
 				}
 			}
 			# Perfect Resource Replacement: if empire (or sector?) is running low of any strategic resources.
-			if = {
-				limit = { has_country_flag = nano_resource_replacement resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+			if = { limit = { has_country_flag = nano_resource_replacement resource_stockpile_compare = { resource = automatic_drone value > 200 } }
 				random_list = {
 					1 = {}
 					99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_volatile_motes	has_country_resource = { type = volatile_motes	amount = 12 } } } add_resource = { volatile_motes	= 10	automatic_drone = -100 } }
@@ -2365,8 +2398,7 @@ country_event = {
 	immediate = {
 		event_target:FallenEmpireTaskOrigin = {
 			add_opinion_modifier = { modifier = opinion_influenced_awaken_fallen_empire who = prevprev }
-			if = {
-				limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
+			if = { limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
 				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 }
 			} else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
 		}
@@ -2385,8 +2417,7 @@ country_event = {
 		every_playable_country = { limit = { is_ai = no } country_event = { id = fallen_empires_awakening.2 } }
 		observer_event = { id = observer.73 }
 		# War in Heaven
-		if = {
-			limit = { has_leviathans = yes }
+		if = { limit = { has_leviathans = yes }
 			random_list = {
 				40 = { # War in Heaven with Fallen Empire of opposing ethos.
 					random_country = {
@@ -2944,8 +2975,7 @@ event = {
 						has_planet_flag = galaxy_center_museum
 					}
 				}
-				if = {
-					limit = { has_planet_flag = galaxy_center_casino }
+				if = { limit = { has_planet_flag = galaxy_center_casino }
 					set_variable = { which = galaxy_center_casino value = 0 }
 					while = {
 						count = 750
@@ -2959,8 +2989,7 @@ event = {
 					}
 					owner = { add_resource = { energy = 100 mult = galaxy_center_casino } }
 				}
-				if = {
-					limit = { has_planet_flag = galaxy_center_administration }
+				if = { limit = { has_planet_flag = galaxy_center_administration }
 					set_variable = { which = galaxy_center_administration value = 0 }
 					while = {
 						count = 75
@@ -2974,8 +3003,7 @@ event = {
 					}
 					owner = { add_resource = { influence = 1 mult = galaxy_center_administration } }
 				}
-				if = {
-					limit = { has_planet_flag = galaxy_center_museum }
+				if = { limit = { has_planet_flag = galaxy_center_museum }
 					set_variable = { which = galaxy_center_museum value = 0 }
 					while = {
 						count = 250
@@ -3073,15 +3101,14 @@ planet_event = {
 	option = {
 		name = EXCELLENT
 		owner = {
-			if = {
-				limit = { has_country_resource = { type = unity amount > root.unity_needed_on_planet } }
+			if = { limit = { has_country_resource = { type = unity amount > root.unity_needed_on_planet } }
 				add_resource = { influence = 1  unity = -5 mult = root.num_ethic_pop_on_planet }
 
 			} else = {
 				while = {
 					count = root.num_ethic_pop_on_planet
 					limit = { has_country_resource = { type = unity amount > 4 } }
-					add_resource = { influence = 1 unity = -5  }
+					add_resource = { influence = 1 unity = -5 }
 				}
 			}
 		}
@@ -3119,9 +3146,7 @@ planet_event = {
 	show_sound = event_conversation
 	location = root # event_target:ethic_planet
 	is_triggered_only = yes
-	immediate = {
-		remove_planet_flag = decision_ethic_shift_cooldown
-	}
+	immediate = { remove_planet_flag = decision_ethic_shift_cooldown }
 	option = { name = OK }
 }
 
@@ -3974,8 +3999,7 @@ fleet_event = {
 		}
 		if = { # Defense & Patrol
 			limit = { has_fleet_flag = defense_sentinels_fleet NOT = { has_fleet_flag = defense_sentinels_fleet_defending_order } }
-			if = {
-				limit = { event_target:main_country = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
+			if = { limit = { event_target:main_country = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
 				event_target:main_country = {
 					random_system_within_border = {
 						limit = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
@@ -4413,8 +4437,7 @@ country_event = {
 			set_spawn_system_batch = begin
 			spawn_system = { min_distance > 20 max_distance <= 50 min_orientation_angle = 0 max_orientation_angle = 359 initializer = "sector_z749_system" hyperlane = no }
 			if = { limit = { NOT = { exists = event_target:sector_z749_system } }
-				if = {
-					limit = { exists = last_created_system last_created_system = { has_star_flag = sector_z749_system } }
+				if = { limit = { exists = last_created_system last_created_system = { has_star_flag = sector_z749_system } }
 					last_created_system = { save_event_target_as = sector_z749_system }
 				} else = {
 					random_system = {
@@ -4537,8 +4560,7 @@ country_event = {
 		# create_invasion_gave_country = yes
 		# save_event_target_as = main_country
 
-		if = {
-			limit = { any_country = { has_country_flag = sector_z749_country } }
+		if = { limit = { any_country = { has_country_flag = sector_z749_country } }
 			random_country = {
 				limit = { has_country_flag = sector_z749_country }
 				save_event_target_as = sector_z749_country
@@ -5214,8 +5236,7 @@ country_event = {
 				ruler = { has_skill > 9 }
 				NOT = { has_country_flag = ap_chosen_ruler_inactivity }
 			}
-			if = {
-				limit = { NOT = { has_country_flag = ap_chosen_ruler_no_warning } }
+			if = { limit = { NOT = { has_country_flag = ap_chosen_ruler_no_warning } }
 				country_event = { id = UniqueAscensionPerksEvents.322 days = 1 }
 				country_event = { id = UniqueAscensionPerksEvents.323 days = 2 }
 				country_event = { id = UniqueAscensionPerksEvents.324 days = 3 }
@@ -5999,8 +6020,7 @@ country_event = {
 			save_event_target_as = special_project_target_system
 			random_system_planet = { save_event_target_as = special_project_target }
 			# create_treasures_pirate_country = yes
-			if = {
-				limit = { any_country = { is_pirate = yes has_country_flag = treasures_pirate_country } }
+			if = { limit = { any_country = { is_pirate = yes has_country_flag = treasures_pirate_country } }
 				random_country = {
 					limit = { is_pirate = yes has_country_flag = treasures_pirate_country }
 					save_event_target_as = treasures_pirate_country
@@ -6582,9 +6602,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_slow_learner
 	is_triggered_only = yes
-	immediate = {
-		set_country_flag = slow_learner_army
-	}
+	immediate = { set_country_flag = slow_learner_army }
 	option = { name = EXCELLENT add_resource = { unity = 12000 } }
 }
 
@@ -6718,9 +6736,7 @@ planet_event = {
 	id = UniqueAscensionPerksEvents.412
 	hide_window = yes
 	is_triggered_only = yes
-	pre_triggers = {
-		has_owner = yes
-	}
+	pre_triggers = { has_owner = yes }
 	trigger = {
 		host_has_dlc = "Megacorp"
 		has_modifier = "utopian_gaia_world"
@@ -6881,8 +6897,7 @@ country_event = {
 				event_target:global_event_country = { check_variable = { which = white_hole_systems value < 22 } }
 			}
 			country_event = { id = UniqueAscensionPerksEvents.432 days = 800 random = 400 }
-		} else_if = {
-			limit = { check_variable = { which = white_hole_systems value = 4 } }
+		} else_if = { limit = { check_variable = { which = white_hole_systems value = 4 } }
 			random = { chance = 34 country_event = { id = UniqueAscensionPerksEvents.432 days = 1080 random = 360 } }
 		}
 	}
