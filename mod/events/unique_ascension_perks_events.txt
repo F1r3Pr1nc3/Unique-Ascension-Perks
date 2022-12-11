@@ -6205,16 +6205,17 @@ event = {
 		# 		}
 		# 	}
 		# }
-		# if = {
-		# 	limit = {
-		# 		any_playable_country = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
-		# 	}
-		# 	every_playable_country = {
-		# 		limit = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
-		# 		set_country_flag = space_domestication_tiyanki
-		# 		remove_country_flag = space_domestication_tyanki
-		# 	}
-		# }
+		# remove in 3.7
+		if = {
+			limit = {
+				any_playable_country = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tiyanki }
+			}
+			every_playable_country = {
+				limit = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
+				set_country_flag = space_domestication_tiyanki
+				remove_country_flag = space_domestication_tyanki
+			}
+		}
 		# remove in 3.5
 		# FIX SUBJECT TRUST (only works if they suposed to be subjects)
 		# if = {
@@ -7365,6 +7366,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = flourishing_technocracy_room }
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
 	option = { name = "UniqueAscensionPerksEvents.471.a" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.472 } } }
 }
 
@@ -7376,10 +7378,23 @@ country_event = {
 	picture = GFX_evt_physics_research
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = "field_manipulation" add_modifier = { modifier = flourishing_technocracy_field_manipulation years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } ai_chance = { factor = 0.1 } }
-	option = { name = "particles" add_modifier = { modifier = flourishing_technocracy_particles years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
-	option = { name = "computing" add_modifier = { modifier = flourishing_technocracy_computing years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
-	option = { name = AMOUNT_NONE ai_chance = { factor = 0.1 } }
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
+	option = {
+		name = "field_manipulation"
+		add_modifier = { modifier = flourishing_technocracy_field_manipulation years = 5 }
+		trigger = { NOT = { has_modifier = flourishing_technocracy_field_manipulation } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } ai_chance = { factor = 0.1 } }
+	option = {
+		name = "particles"
+		add_modifier = { modifier = flourishing_technocracy_particles years = 5 }
+		trigger = { NOT = { has_modifier = flourishing_technocracy_particles } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
+	option = {
+		name = "computing"
+		add_modifier = { modifier = flourishing_technocracy_computing years = 5 }
+		trigger = { NOT = { has_modifier = flourishing_technocracy_computing } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
+	option = { name = AMOUNT_NONE default_hide_option = yes ai_chance = { factor = 0.1 } }
 }
 
 country_event = {
@@ -7390,6 +7405,7 @@ country_event = {
 	picture = GFX_evt_society_research
 	location = capital_scope
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
 	option = { name = "new_worlds" add_modifier = { modifier = flourishing_technocracy_new_worlds years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } ai_chance = { factor = 0.1 } }
 	option = { name = "statecraft" add_modifier = { modifier = flourishing_technocracy_statecraft years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } }
 	option = { name = "biology" add_modifier = { modifier = flourishing_technocracy_biology years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } }
@@ -7405,6 +7421,7 @@ country_event = {
 	picture = GFX_evt_engineering_research
 	location = capital_scope
 	is_triggered_only = yes
+	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
 	option = { name = "materials" add_modifier = { modifier = flourishing_technocracy_materials years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } ai_chance = { factor = 0.1 } }
 	option = { name = "industry" add_modifier = { modifier = flourishing_technocracy_industry years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
 	option = { name = "voidcraft" add_modifier = { modifier = flourishing_technocracy_voidcraft years = 5 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
