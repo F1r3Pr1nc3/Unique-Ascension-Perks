@@ -96,21 +96,39 @@ country_event = {
 				save_event_target_as = domesticated_spaceborn_alien
 			}
 		}
+		# Fallback for wathever reason
+		if = { limit = { NOT = { exists = event_target:domesticated_spaceborn_alien } }
+			if = { limit = { any_country = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } }
+				random_country = {
+					limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+					save_event_target_as = domesticated_spaceborn_alien
+				}
+			} else = { create_domestication_spaceborn_alien_country = yes }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Breeding"
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_fertilization_protocol } }
-			custom_tooltip = { fail_text = breeding_fertilization_protocol_req can_breeding_fertilization_protocol = yes }
+			custom_tooltip = {
+				fail_text = breeding_fertilization_protocol_req # can_breeding_fertilization_protocol = yes
+				OR = {
+					AND = { has_country_flag = space_domestication_tiyanki	resource_stockpile_compare = { resource = food value >= 3000 } }
+					AND = { has_country_flag = space_domestication_amoeba	resource_stockpile_compare = { resource = food value >= 3000 } }
+					AND = { has_country_flag = space_domestication_crystal	resource_stockpile_compare = { resource = minerals value >= 3000 } }
+					AND = { has_country_flag = space_domestication_cloud	resource_stockpile_compare = { resource = energy value >= 3000 } }
+					AND = { has_country_flag = space_domestication_drone	resource_stockpile_compare = { resource = energy value >= 3000 } }
+				}
+			}
 		}
 		custom_tooltip = "breeding_fertilization_protocol_tooltip"
 		# breeding_fertilization_protocol_paying = yes
-		if = { limit = { has_country_flag = space_domestication_tiyanki } add_resource = { food = -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_amoeba } add_resource = { food = -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_crystal } add_resource = { minerals = -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_cloud } add_resource = { energy = -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_drone } add_resource = { energy = -3000 } }
+		if		= { limit = { has_country_flag = space_domestication_tiyanki	} add_resource = { food		= -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_amoeba		} add_resource = { food		= -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_crystal	} add_resource = { minerals	= -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_cloud		} add_resource = { energy	= -3000 } }
+		else_if = { limit = { has_country_flag = space_domestication_drone		} add_resource = { energy	= -3000 } }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 			country_event = { id = UniqueAscensionPerksEvents.1010 days = 360 }
@@ -118,11 +136,11 @@ country_event = {
 			# breeding_fertilization_protocol = {
 			random_planet_within_border = {
 				limit = { has_planet_flag = domesticated_alien_home }
-				if = { limit = { root = { has_country_flag = space_domestication_tiyanki } merg_is_gas_giant = yes } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_amoeba } is_planet_class = pc_toxic } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_crystal } is_planet_class = pc_frozen } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_cloud } is_planet_class = pc_black_hole } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_drone } is_planet_class = pc_asteroid } save_event_target_as = spawn_location }
+				if		= { limit = { root = { has_country_flag = space_domestication_tiyanki	} merg_is_gas_giant = yes } save_event_target_as = spawn_location }
+				else_if = { limit = { root = { has_country_flag = space_domestication_amoeba	} is_planet_class = pc_toxic } save_event_target_as = spawn_location }
+				else_if = { limit = { root = { has_country_flag = space_domestication_crystal	} is_planet_class = pc_frozen } save_event_target_as = spawn_location }
+				else_if = { limit = { root = { has_country_flag = space_domestication_cloud		} is_planet_class = pc_black_hole } save_event_target_as = spawn_location }
+				else_if = { limit = { root = { has_country_flag = space_domestication_drone		} is_planet_class = pc_asteroid } save_event_target_as = spawn_location }
 			}
 			event_target:domesticated_spaceborn_alien = {
 				create_fleet = {
@@ -153,7 +171,10 @@ country_event = {
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_resources_protocol } }
 			custom_tooltip = { fail_text = "resources_gathering_protocol_req" can_resources_gathering_protocol = yes }
-			custom_tooltip = { fail_text = no_fertilized_fleet_req domesticated_alien_has_fertilized_fleet = yes }
+			custom_tooltip = {
+				fail_text = no_fertilized_fleet_req # domesticated_alien_has_fertilized_fleet = yes
+				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
+			}
 		}
 		custom_tooltip = "resources_gathering_protocol_tooltip"
 		resources_gathering_protocol_paying = yes
@@ -169,8 +190,20 @@ country_event = {
 		allow = {
 			custom_tooltip = { fail_text = requires_independence is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req03 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
-			custom_tooltip = { fail_text = military_assault_protocol_req can_military_assault_protocol = yes }
-			custom_tooltip = { fail_text = no_fertilized_fleet_req domesticated_alien_has_fertilized_fleet = yes }
+			custom_tooltip = {
+				fail_text = military_assault_protocol_req # can_military_assault_protocol = yes
+				OR = {
+					AND = { has_country_flag = space_domestication_tiyanki	resource_stockpile_compare = { resource = food value >= 5000 } }
+					AND = { has_country_flag = space_domestication_amoeba	resource_stockpile_compare = { resource = food value >= 5000 } }
+					AND = { has_country_flag = space_domestication_crystal	resource_stockpile_compare = { resource = minerals value >= 5000 } }
+					AND = { has_country_flag = space_domestication_cloud	resource_stockpile_compare = { resource = energy value >= 5000 } }
+					AND = { has_country_flag = space_domestication_drone	resource_stockpile_compare = { resource = energy value >= 5000 } }
+				}
+			}
+			custom_tooltip = {
+				fail_text = no_fertilized_fleet_req # domesticated_alien_has_fertilized_fleet = yes
+				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
+			}
 		}
 		custom_tooltip = "military_assault_protocol_tooltip"
 		# military_assault_protocol_paying = {
@@ -190,7 +223,16 @@ country_event = {
 		allow = {
 			custom_tooltip = { fail_text = requires_independence is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req04 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
-			custom_tooltip = { fail_text = "military_assault_protocol_req" can_security_defense_protocol = yes }
+			custom_tooltip = {
+				fail_text = "military_assault_protocol_req" # can_security_defense_protocol = yes
+				OR = {
+					AND = { has_country_flag = space_domestication_tiyanki	resource_stockpile_compare = { resource = food value >= 5000 } }
+					AND = { has_country_flag = space_domestication_amoeba	resource_stockpile_compare = { resource = food value >= 5000 } }
+					AND = { has_country_flag = space_domestication_crystal	resource_stockpile_compare = { resource = minerals value >= 5000 } }
+					AND = { has_country_flag = space_domestication_cloud	resource_stockpile_compare = { resource = energy value >= 5000 } }
+					AND = { has_country_flag = space_domestication_drone	resource_stockpile_compare = { resource = energy value >= 5000 } }
+				}
+			}
 		}
 		custom_tooltip = "security_defense_protocol_tooltip"
 		# security_defense_protocol_paying = {
@@ -224,7 +266,11 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Kill"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req05 domesticated_kill_all_domesticated_aliens = yes }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req05
+				# domesticated_kill_all_domesticated_aliens = yes
+				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_fleet } }
+			}
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_all_killed } }
 		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1002.Kill.tooltip"
@@ -277,7 +323,10 @@ country_event = {
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_resources_protocol } }
 			custom_tooltip = { fail_text = "resources_gathering_protocol_req" can_resources_gathering_protocol = yes }
-			custom_tooltip = { fail_text = no_fertilized_fleet_req domesticated_alien_has_fertilized_fleet = yes }
+			custom_tooltip = {
+				fail_text = no_fertilized_fleet_req # domesticated_alien_has_fertilized_fleet = yes
+				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
+			}
 		}
 		custom_tooltip = "resources_gathering_protocol_tooltip"
 		resources_gathering_protocol_paying = yes
@@ -696,9 +745,35 @@ fleet_event = {
 					event_target:domesticated_military_fleet_hunting = {
 						solar_system = {
 							closest_system = {
-								limit = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_military = yes } }
+								limit = {
+									any_ship_in_system = { # is_valid_target_for_domesticated_aliens_military
+										is_valid_target_neigthbor_for_domesticated_aliens_military = yes
+										owner = {
+											OR = {
+												merg_is_standard_empire = yes
+												is_country_type = dormant_marauders
+												is_country_type = ruined_marauders
+												is_crisis_faction = yes
+												# is_country_type = ally_faction mod?
+												is_country_type = domesticated_spaceborn_alien
+											}
+										}
+									}
+								}
 								random_fleet_in_system = {
-									limit = { is_valid_target_for_domesticated_aliens_military = yes }
+									limit = { # is_valid_target_for_domesticated_aliens_military
+										is_valid_target_neigthbor_for_domesticated_aliens_military = yes
+										owner = {
+											OR = {
+												merg_is_standard_empire = yes
+												is_country_type = dormant_marauders
+												is_country_type = ruined_marauders
+												is_crisis_faction = yes
+												# is_country_type = ally_faction mod?
+												is_country_type = domesticated_spaceborn_alien
+											}
+										}
+									}
 									save_event_target_as = domesticated_military_fleet_target
 									random = { chance = 25 set_timed_fleet_flag = { flag = domesticated_military_fleet_target_no_more_hunters months = 6 } }
 								}
