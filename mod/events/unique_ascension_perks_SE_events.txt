@@ -620,7 +620,12 @@ planet_event = {
 			5	= { add_deposit = d_rare_crystals_3 }
 			5	= { add_deposit = d_exotic_gases_3 }
 		}
-		set_name = "ASTEROID_RANDOM_NAME"
+		# set_name = "ASTEROID_RANDOM_NAME"
+		set_name = {
+			key = "ASTEROID_RANDOM_NAME"
+			variable_string = "[current_planet_name.GetName]"
+			variable_string = "[Root.random_asteroid_name]"
+		}
 	}
 }
 
@@ -636,7 +641,11 @@ country_event = {
 			limit = { has_planet_flag = new_planet_unnamed }
 			system_star = { save_event_target_as = current_planet_name }
 			remove_planet_flag = new_planet_unnamed
-			set_name = "PLANET_RANDOM_NAME"
+			set_name = {
+				key = "PLANET_RANDOM_NAME"
+				variable_string = "[current_planet_name.GetName]"
+				variable_string = "[Root.random_planet_name]"
+			}
 		}
 	}
 }
@@ -655,7 +664,11 @@ planet_event = {
 		# random_galaxy_planet = { limit = { has_planet_flag = new_habitat_unnamed }
 		remove_planet_flag = new_habitat_unnamed
 		add_modifier = { modifier = pm_stellar_manipulation_habitat } # +20% resource output and -10% pop job upkeep, +4 max districts and +4 building slots.
-		set_name = "HABITAT_RANDOM_NAME"
+		# set_name = "HABITAT_RANDOM_NAME"
+		set_name = {
+			key = "HABITAT_RANDOM_NAME"
+			variable_string = "[Root.random_habitat_name]"
+		}
 	}
 }
 
@@ -697,7 +710,11 @@ planet_event = {
 		# random_galaxy_planet = {
 		# 	limit = { has_planet_flag = new_elysium_unnamed }
 		remove_planet_flag = new_elysium_unnamed
-		set_name = "ELYSIUM_RANDOM_NAME"
+		# set_name = "ELYSIUM_RANDOM_NAME"
+		set_name = {
+			key = "ELYSIUM_RANDOM_NAME"
+			variable_string = "[Root.random_elysium_name]"
+		}
 	}
 }
 

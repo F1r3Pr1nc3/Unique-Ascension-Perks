@@ -4359,7 +4359,15 @@ leader_event = {
 								general = { from = { clone_leader = { target = prev class = general } } }
 							}
 							from = {
-								last_created_leader = { set_age = 1 set_name = "CLONED_LEADER_NAME" }
+								last_created_leader = {
+									set_age = 1
+									# set_name = "CLONED_LEADER_NAME"
+									set_name = {
+										key = "CLONED_LEADER_NAME"
+										variable_string = "[This.GetName]"
+										variable_string = "[From.cloned_leader_number]"
+									}
+								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
 							}
 						}
@@ -4538,7 +4546,7 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerksEvents.273.a"
 		# activate_invasion_gate = yes
-		if = {		limit = { check_variable = { which = invasion_gate_type value = 1 } } add_resource = { energy = -1000 } }
+		if		= { limit = { check_variable = { which = invasion_gate_type value = 1 } } add_resource = { energy = -1000 } }
 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 2 } } add_resource = { energy = -2000 } }
 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 3 } } add_resource = { energy = -3400 } }
 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 4 } } add_resource = { energy = -5000 } }
@@ -5876,6 +5884,7 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.348.Name
 		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.342.Req02 NOT = { has_country_flag = pirates_treasures_cooldown } } }
+		trigger = { hidden_trigger = { is_ai = no } } # TODO for AI?
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.348 } }
 	}
 	option = {
@@ -6127,6 +6136,42 @@ ship_event = {
 	}
 }
 
+# From = Disabler Ship (on_ship_disabled)
+# Workaraound to finish battle!?
+ship_event = {
+	id = UniqueAscensionPerksEvents.3596
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		owner = {
+			is_country_type = pirate
+			has_country_flag = treasures_pirate_country
+		}
+		has_ship_flag = target_ship_project
+		exists = fleet
+	}
+	immediate = {
+		# save_event_target_as = target_ship_project_ship
+		fleet = {
+			set_owner = from.owner
+			set_event_locked = yes
+			fleet_event = { id = UniqueAscensionPerksEvents.3597 days = 1 scopes = { from = root.owner } }
+		}
+	}
+}
+# From = treasure pirates
+fleet_event = {
+	id = UniqueAscensionPerksEvents.3597
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_owner = from.owner
+		set_event_locked = yes
+		# set_event_locked = no
+	}
+}
+
 # # TEMP ACTIVE FIX (on_single_player_save_game_load) remove in 3.4
 # event = {
 # 	id = UniqueAscensionPerksEvents.3599
@@ -6340,10 +6385,10 @@ country_event = {
 	show_sound = event_finding_loot
 	picture = GFX_evt_analyzing_artifacts
 	is_triggered_only = yes
-	option = { name = UniqueAscensionPerksEvents.352.100	allow = { resource_stockpile_compare = { resource = treasures value > 100 } } add_resource = { treasures = -100 minor_artifacts = 5 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.356 days = 300 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.200	allow = { resource_stockpile_compare = { resource = treasures value > 200 } } add_resource = { treasures = -200 minor_artifacts = 10 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.400	allow = { resource_stockpile_compare = { resource = treasures value > 400 } } add_resource = { treasures = -400 minor_artifacts = 20 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.800	allow = { resource_stockpile_compare = { resource = treasures value > 800 } } add_resource = { treasures = -800 minor_artifacts = 40 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.100 allow = { resource_stockpile_compare = { resource = treasures value > 100 } } add_resource = { treasures = -100 minor_artifacts = 5 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.356 days = 300 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.200 allow = { resource_stockpile_compare = { resource = treasures value > 200 } } add_resource = { treasures = -200 minor_artifacts = 10 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.400 allow = { resource_stockpile_compare = { resource = treasures value > 400 } } add_resource = { treasures = -400 minor_artifacts = 20 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.800 allow = { resource_stockpile_compare = { resource = treasures value > 800 } } add_resource = { treasures = -800 minor_artifacts = 40 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
 	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
 }
 
@@ -7347,10 +7392,16 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = flourishing_technocracy_room }
 	is_triggered_only = yes
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 } } }
+	after = {
+		hidden_effect = {
+			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 } } }
+				country_event = { id = UniqueAscensionPerksEvents.471 }
+			}
+		}
+	}
 	option = {
 		name = EXCELLENT
-		if = { limit = { is_regular_empire = yes }		add_modifier = { modifier = flourishing_technocracy } }
+		if	= { limit = { is_regular_empire = yes }		add_modifier = { modifier = flourishing_technocracy } }
 		else_if = { limit = { is_hive_empire = yes }	add_modifier = { modifier = flourishing_technocracy_hivemind } }
 		else_if = { limit = { is_machine_empire = yes }	add_modifier = { modifier = flourishing_technocracy_machine } }
 	}
@@ -7368,7 +7419,13 @@ country_event = {
 	picture_event_data = { room = flourishing_technocracy_room }
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.472 } } }
+	after = {
+		hidden_effect = {
+			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.472 } } }
+				country_event = { id = UniqueAscensionPerksEvents.472 }
+			}
+		}
+	}
 	option = { name = "UniqueAscensionPerksEvents.471.a" }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
 }
@@ -7410,12 +7467,18 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.474 } } }
-	option = { name = "new_worlds"		add_modifier = { modifier = flourishing_technocracy_new_worlds years = 5 } ai_chance = { factor = 0.1 } }
-	option = { name = "statecraft"		add_modifier = { modifier = flourishing_technocracy_statecraft years = 5 } }
-	option = { name = "biology"			add_modifier = { modifier = flourishing_technocracy_biology years = 5 } }
-	option = { name = "military_theory"	add_modifier = { modifier = flourishing_technocracy_military_theory years = 5 } }
-	option = { name = "psionics"		add_modifier = { modifier = flourishing_technocracy_psionics years = 5 } allow = { has_technology = tech_psionic_theory } }
+	after = {
+		hidden_effect = {
+			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.474 } } }
+				country_event = { id = UniqueAscensionPerksEvents.474 }
+			}
+		}
+	}
+	option = { name = "new_worlds"		add_modifier = { modifier = flourishing_technocracy_new_worlds		years = 5 } ai_chance = { factor = 0.1 } }
+	option = { name = "statecraft"		add_modifier = { modifier = flourishing_technocracy_statecraft		years = 5 } }
+	option = { name = "biology"			add_modifier = { modifier = flourishing_technocracy_biology			years = 5 } }
+	option = { name = "military_theory"	add_modifier = { modifier = flourishing_technocracy_military_theory	years = 5 } }
+	option = { name = "psionics"		add_modifier = { modifier = flourishing_technocracy_psionics		years = 5 } allow = { has_technology = tech_psionic_theory } }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.474 UniqueAscensionPerksEvents.471 } }
 }
 
@@ -7429,10 +7492,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.474 } } }
 	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
-	option = { name = "materials"	add_modifier = { modifier = flourishing_technocracy_materials years = 5 } ai_chance = { factor = 0.1 } }
-	option = { name = "industry"	add_modifier = { modifier = flourishing_technocracy_industry years = 5 } }
-	option = { name = "voidcraft"	add_modifier = { modifier = flourishing_technocracy_voidcraft years = 5 } }
-	option = { name = "propulsion"	add_modifier = { modifier = flourishing_technocracy_propulsion years = 5 } }
+	option = { name = "materials"	add_modifier = { modifier = flourishing_technocracy_materials	years = 5 } ai_chance = { factor = 0.1 } }
+	option = { name = "industry"	add_modifier = { modifier = flourishing_technocracy_industry	years = 5 } }
+	option = { name = "voidcraft"	add_modifier = { modifier = flourishing_technocracy_voidcraft	years = 5 } }
+	option = { name = "propulsion"	add_modifier = { modifier = flourishing_technocracy_propulsion	years = 5 } }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.471 } }
 }
 
