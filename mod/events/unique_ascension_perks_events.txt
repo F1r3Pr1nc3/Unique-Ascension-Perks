@@ -1,5 +1,68 @@
 namespace = UniqueAscensionPerksEvents
 
+# Sync_subjects_virtual_relations (on_war_beginning, on_war_ended)
+country_event = {
+	id = UniqueAscensionPerksEvents.8786 # Similar UniqueAscensionPerksEvents.1023
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = {
+		is_subject = no
+	}
+	immediate = {
+		if = {
+			limit = { exists = fromfrom fromfrom = { is_scope_type = war } }
+			fromfrom = {
+				every_war_participant = {
+					limit = {
+						is_subject = no
+						merg_is_default_empire = yes
+						OR = {
+							has_ascension_perk = ap_space_domestication
+							has_ascension_perk = ap_advanced_security
+							has_ascension_perk = ap_defense_sentinels
+							has_ascension_perk = ap_civilian_activities
+						}
+					}
+					every_relation = {
+						limit = {
+							is_unique_perk_special_subject = yes
+							OR = {
+								has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+								has_relation_flag = { who = prev flag = security_strike_force }
+								has_relation_flag = { who = prev flag = defense_sentinels }
+								has_relation_flag = { who = prev flag = civilian_activities_country }
+							}
+						}
+						prev = { sync_subjects_virtual_relation = yes }
+					}
+				}
+			}
+		} else_if = {
+			limit = {
+				merg_is_default_empire = yes
+				OR = {
+					has_ascension_perk = ap_space_domestication
+					has_ascension_perk = ap_advanced_security
+					has_ascension_perk = ap_defense_sentinels
+					has_ascension_perk = ap_civilian_activities
+				}
+			}
+			every_relation = {
+				limit = {
+					is_unique_perk_special_subject = yes
+					OR = {
+						has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+						has_relation_flag = { who = prev flag = security_strike_force }
+						has_relation_flag = { who = prev flag = defense_sentinels }
+						has_relation_flag = { who = prev flag = civilian_activities_country }
+					}
+				}
+				prev = { sync_subjects_virtual_relation = yes }
+			}
+		}
+	}
+}
+
 # Kill Special Subject Country if their master is dead.
 # Sync relations.
 country_event = {
@@ -14,15 +77,14 @@ country_event = {
 			has_country_flag = domesticated_spaceborn_alien
 			has_country_flag = security_strike_force
 			has_country_flag = defense_sentinels
+			has_country_flag = civilian_activities_country
 		}
-
 	}
 	immediate = {
 		if = {
 			limit = {
 				is_country_type = domesticated_spaceborn_alien
 				has_country_flag = domesticated_spaceborn_alien
-
 			}
 			if = {
 				limit = {
@@ -90,6 +152,31 @@ country_event = {
 					limit = {
 						merg_is_default_empire = yes
 						reverse_has_relation_flag = { who = root flag = defense_sentinels }
+					}
+					sync_subjects_virtual_relation = yes
+				}
+			}
+		} else_if = {
+			limit = {
+				is_country_type = civilian_activities
+				has_country_flag = civilian_activities_country
+			}
+			if = {
+				limit = {
+					NOT = {
+						any_relation = {
+							merg_is_default_empire = yes
+							is_subject = no
+							reverse_has_relation_flag = { who = root flag = civilian_activities_country }
+						}
+					}
+				}
+				destroy_country = yes
+			} else = {
+				random_relation = {
+					limit = {
+						merg_is_default_empire = yes
+						reverse_has_relation_flag = { who = root flag = civilian_activities_country }
 					}
 					sync_subjects_virtual_relation = yes
 				}
@@ -3782,7 +3869,6 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerks.select_country"
-		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } }
 		ai_chance = { factor = 0 }
 	}
@@ -3832,7 +3918,13 @@ country_event = {
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.5.tooltip"
 	}
-	option = { name = BACK ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
+	option = { name = BACK ai_chance = { factor = 0.1 }
+		hidden_effect = {
+			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
+				country_event = { id = UniqueAscensionPerksEvents.8143 }
+			}
+		}
+	}
 }
 
 country_event = {
@@ -3879,19 +3971,19 @@ country_event = {
 					limit = { event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value > 0 } } }
 					# create_navy_ships_for_subject = yes
 					random_list = {
-						55 = { create_ship = { name = random random_existing_design = corvette } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -1 } } }
-						25 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_destroyers } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 2 } } } create_ship = { name = random random_existing_design = destroyer } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -2 } } }
-						14 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_cruisers } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 4 } } } create_ship = { name = random random_existing_design = cruiser } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -4 } } }
-						5 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_battleships } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 8 } } } create_ship = { name = random random_existing_design = battleship } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -8 } } }
-						1 = { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_titans } } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 16 } } } create_ship = { name = random random_existing_design = titan } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -16 } } }
+						55	= { create_ship = { name = random random_existing_design = corvette } event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -1 } } }
+						25	= { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_destroyers	} } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 2	} } } create_ship = { name = random random_existing_design = destroyer	} event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -2 } } }
+						14	= { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_cruisers		} } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 4	} } } create_ship = { name = random random_existing_design = cruiser	} event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -4 } } }
+						5	= { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_battleships	} } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 8	} } } create_ship = { name = random random_existing_design = battleship	} event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -8 } } }
+						1	= { modifier = { factor = 0 ROOT = { NOT = { has_technology = tech_titans		} } } modifier = { factor = 0 event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value < 16 } } } create_ship = { name = random random_existing_design = titan		} event_target:VassalNavyInvestmentTarget = { change_variable = { which = subject_navy_amount value = -16 } } }
 					}
 				}
+				set_location = event_target:capital_planet
 			}
 		}
 		last_created_fleet = {
 			set_owner = event_target:VassalNavyInvestmentTarget
 			add_modifier = { modifier = eternal_vigilance_fleet }
-			set_location = event_target:capital_planet
 		}
 	}
 	option = { name = EXCELLENT }
