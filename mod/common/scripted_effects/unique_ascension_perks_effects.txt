@@ -27,20 +27,20 @@ get_capital_planet = {
 					has_owner = yes
 					is_colony = yes
 					OR = {
-						AND = { exists = owner is_owned_by = root }
-						AND = { exists = controller controller = { is_same_value = root } }
+						AND = { exists = owner is_owned_by = prev }
+						AND = { exists = controller controller = { is_same_value = prev } }
 					}
 				}
 				weights = {
 					base = 1
-					modifier = { add = 1 exists = owner is_owned_by = root }
+					modifier = { add = 1 exists = owner is_owned_by = prev }
 					modifier = { add = 1 num_pops > 5 }
 				}
 				save_event_target_as = capital_planet
 			}
 		}
 	} else = {
-		log="Failed: no own planet found for \\[Root.GetName]?!"
+		log="Failed: no own planet found for \\[This.GetName]?!"
 	}
 }
 
