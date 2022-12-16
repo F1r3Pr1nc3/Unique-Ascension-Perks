@@ -11,8 +11,8 @@ decision_stellar_manipulation = {
 		cost = { trigger = { has_global_flag = ap_stellar_manipulation } food = 500 minerals = 500 }
 	}
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		OR = { has_global_flag = ap_stellar_manipulation from = { has_ascension_perk = ap_stellar_manipulation } }
 		is_a_habitable_planet_megastructure = yes
@@ -659,11 +659,11 @@ decision_hivemind_reserve_unhabited = {
 		}
 	}
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_hivemind_reserve }
-		is_colonizeable_planet = yes
+		is_colonizable_planet = yes
 		has_owner = no
 	}
 	allow = {
@@ -699,8 +699,8 @@ decision_primitive_creation = {
 	sound = event_primitive_civilization
 	resources = { category = decisions cost = { food = 1000 minerals = 2500 energy = 2000 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
 		has_owner = no
@@ -728,7 +728,7 @@ decision_primitive_creation_unhabitable = {
 	prerequisites = { tech_climate_restoration }
 	potential = {
 		exists = space_owner
-		exists = from
+
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
 		has_owner = no
@@ -756,6 +756,7 @@ decision_primitive_creation_unhabitable = {
 }
 
 decision_powerful_vassal = {
+	# icon = decision_regent
 	sound = event_mystic_reveal_light
 	resources = {
 		category = decisions
@@ -763,12 +764,12 @@ decision_powerful_vassal = {
 		cost = { trigger = { from = { is_synthetic_empire = yes } } food = -2000 minerals = 500 energy = 500 }
 	}
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
-		from = { has_ascension_perk = ap_powerful_vassals }
+		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
 		OR = {
-			is_colonizeable_colony = yes
+			colonizable_planet = yes
 			AND = {
 				is_colony = yes
 				is_owned_by = from
@@ -781,321 +782,16 @@ decision_powerful_vassal = {
 	}
 	effect = {
 		custom_tooltip = "decision_powerful_vassal_tooltip"
-		# create_vassal_country = yes
+		# create_vassal_country
 		hidden_effect = {
-			set_planet_flag = planet_marked_for_handover
-			# save_event_target_as = this_planet
+			if = { limit = { NOT = { has_planet_flag = planet_marked_for_handover } }
+				set_planet_flag = planet_marked_for_handover
+			} else = { add_resource = { unity = -200 } }
 			from = { save_event_target_as = owning_empire }
-			set_update_modifiers_batch = begin
-			## Get species
-			if = { limit = { is_colonizeable_colony = yes }
-				from.owner_species = { save_event_target_as = vassal_species }
-				create_colony = { owner = from species = event_target:vassal_species }
-				create_pop = { species = event_target:vassal_species }
-			} else = {
-				if = { limit = { num_species = 1 }
-					random_owned_pop = {
-						species = { save_event_target_as = vassal_species }
-					}
-				} else = {
-					random_owned_pop = {
-						limit = {
-							is_sapient = yes
-							prev = {
-								habitability = { who = prev value > 0.6 }
-								count_owned_pop = {
-									limit = {
-										is_enslaved = no
-										is_being_purged = no
-										# is_robot_pop = no
-										happiness > 0.3
-										# can_live_on_planet = yes
-										is_same_species = prevprev.species
-									}
-									count > 1
-								}
-							}
-							OR = {
-								species = { exists = home_planet home_planet = { is_planet = prevprevprev } }
-								AND = {
-									is_enslaved = no
-									is_being_purged = no
-									is_robot_pop = no
-									is_being_assimilated = no
-									# can_live_on_planet = yes
-									has_population_control = { value = no country = event_target:owning_empire }
-									has_migration_control = { value = no country = event_target:owning_empire }
-									has_colonization_control = { value = no country = event_target:owning_empire }
-									prev = { habitability = { who = prev value > 0.65 } }
-								}
-								species = {
-									prevprev = { is_ideal_planet_class = { who = prev status = yes } }
-									OR = {
-										prevprev = { is_majority_species = prev }
-										species_has_happiness_with_owner = event_target:owning_empire
-										has_citizenship_type = { type = citizenship_full country = event_target:owning_empire }
-									}
-								}
-								species = {
-									has_citizenship_type = { type = citizenship_full country = event_target:owning_empire }
-									species_has_happiness_with_owner = event_target:owning_empire
-								}
-								AND = {
-									prev = { is_majority_species = prev.species }
-									NOT = { is_same_species = event_target:owning_empire.owner_species }
-								}
-							}
-						}
-						species = { save_event_target_as = vassal_species }
-					}
-					if = {
-						limit = {
-							NAND = {
-								exists = event_target:vassal_species
-								event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
-							}
-						}
-						random_owned_pop = {
-							limit = { prev = { is_majority_species = prev.species } }
-							species = { save_event_target_as = vassal_species }
-						}
-					}
-				}
-				every_owned_pop = { clear_pop_category = yes }
-			}
-
-			from = {
-				create_country = {
-					name = random
-					type = default
-					species = event_target:vassal_species
-					authority = event_target:owning_empire
-					name_list = event_target:owning_empire
-					ignore_initial_colony_error = yes
-					day_zero_contact = no
-					origin = origin_hegemon_npc # origin_separatists
-					exclude_day_zero_contact = event_target:owning_empire
-					released_by_country = event_target:owning_empire
-					released_from_country = event_target:owning_empire
-					effect = {
-						event_target:owning_empire = {
-							if = { limit = { OR = { has_country_flag = not_encountered_other_empire NOT = { has_country_flag = has_encountered_other_empire } } }
-								prev = { set_country_flag = has_encountered_other_empire }
-							}
-							if = { limit = { OR = { has_country_flag = not_alien_life NOT = { has_country_flag = first_alien_life } } }
-								prev = { set_country_flag = first_alien_life }
-							}
-						}
-						set_custom_capital_location = root
-						set_country_flag = perfect_vassal_country
-						root = {
-							set_controller = prev
-							set_owner = prev
-							if = { limit = { has_building = no }
-								create_colony = { owner = prev species = event_target:vassal_species }
-								while = {
-									count = 15
-									limit = { num_pops < 30 }
-									create_pop = { species = event_target:vassal_species }
-								}
-							}
-							set_capital = yes
-						}
-						copy_ethos_and_authority = event_target:owning_empire
-					}
-				}
-
-				last_created_country = {
-					save_event_target_as = new_empire
-					establish_communications_no_message = event_target:owning_empire
-					add_resource = { minerals = 15000 energy = 15000 food = 5000 unity = 15000 influence = 500 alloys = 4000 }
-					if = { limit = { is_gestalt = no } add_resource = { consumer_goods = 2000 } }
-					else = { add_resource = { alloys = 1000 minerals = 1000 } }
-					add_500_unity_per_year_passed = yes
-					set_faction_hostility = {
-						set_hostile = no
-						set_neutral = no
-						set_friendly = yes
-						target = prev
-					}
-					# action_open_borders
-					set_closed_borders = { who = prev status = no forced = 5 }
-					prev = {
-						switch = {
-							trigger = has_valid_civic
-							civic_fanatic_purifiers		= { prev = { force_add_civic = civic_fanatic_purifiers } }
-							civic_hive_devouring_swarm	= { prev = { force_add_civic = civic_hive_devouring_swarm } }
-							civic_machine_terminator	= { prev = { force_add_civic = civic_machine_terminator } }
-							civic_machine_assimilator	= { prev = { force_add_civic = civic_machine_assimilator } }
-							civic_machine_servitor		= { prev = { force_add_civic = civic_machine_servitor } }
-							civic_criminal_heritage		= { prev = { force_add_civic = civic_criminal_heritage } }
-							civic_barbaric_despoilers	= { prev = { force_add_civic = civic_barbaric_despoilers } }
-						}
-					}
-					set_subject_of = { who = event_target:owning_empire preset = preset_vassal }
-					set_relation_flag = { who = event_target:owning_empire flag = perfect_vassal_relation }
-					copy_techs_from = {
-						target = event_target:owning_empire
-						except = { # Horizon Signal
-							tech_akx_worm_1
-							tech_akx_worm_2
-							tech_akx_worm_3
-						}
-					}
-					add_opinion_modifier = { who = event_target:owning_empire modifier = opinion_empire_origine }
-					add_opinion_modifier = { who = event_target:owning_empire modifier = opinion_scion }
-					add_opinion_modifier = { who = event_target:owning_empire modifier = opinion_ceded_starbase }
-					add_opinion_modifier = { who = event_target:owning_empire modifier = opinion_enlightened_us }
-					add_trust = { who = event_target:owning_empire amount = 100 }
-					add_intel = { who = event_target:owning_empire amount = 200 }
-					event_target:owning_empire = { add_intel = { who = prev amount = 200 } }
-					add_modifier = { modifier = perfect_vassal_boost }
-					create_starting_leaders = yes
-					while = { count = 2 create_leader = { class = scientist species = event_target:vassal_species name = random skill = 3 } }
-					while = { count = 1 create_leader = { class = admiral species = event_target:vassal_species name = random skill = 3 } }
-					while = { count = 1 create_leader = { class = governor species = event_target:vassal_species name = random skill = 3 } }
-
-					country_event = { id = game_start.6 days = 6	random = 2 }	# advanced_empire
-					country_event = { id = game_start.8 days = 9	random = 3 }	# +tech +resources
-					country_event = { id = game_start.9 days = 12	random = 4 }	# empire_init_create_ships
-
-					root = {
-						planet_event = { id = game_start.20 days = 80	random = 30 } # Remove blockers on capital
-						planet_event = { id = game_start.21 days = 120	random = 40 } # Upgrade colony shelter on additional colonies.
-						planet_event = { id = game_start.22 days = 180	random = 60 } # Set up additional buildings (mines, farms, power plants)
-						planet_event = { id = game_start.23 days = 360	random = 90 } # Add additional pops
-						if = { limit = { planet_size < 25 } set_planet_size = 25 }	# Cheating!?
-						set_advanced_colony = yes
-						solar_system = {
-							if = { limit = { exists = starbase }
-								starbase = {
-									set_owner = event_target:new_empire
-									if = { limit = { has_starbase_size < starbase_starport }
-										set_starbase_size = starbase_starport
-										set_starbase_module = { slot = 1 module = shipyard }
-										set_starbase_module = { slot = 2 module = trading_hub }
-									}
-								}
-							}
-							every_system_planet = {
-								limit = {
-									is_star = no
-									is_asteroid = no
-									has_owner = yes
-									is_owned_by = event_target:owning_empire
-									NOT = { is_planet = prevprev }
-								}
-								set_owner = prevprevprev
-							}
-						}
-						create_fleet = { effect = { set_owner = event_target:new_empire while = { count = 3 create_ship = { name = random random_existing_design = corvette } } set_location = { target = prev distance = 20 angle = random } } }
-						while = { count = 2 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = colonizer } set_location = { target = prev distance = 20 angle = random } } } }
-						while = { count = 1 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = constructor } set_location = { target = prev distance = 20 angle = random } } } }
-						while = { count = 1 create_fleet = { effect = { set_owner = event_target:new_empire create_ship = { name = random random_existing_design = science } set_location = { target = prev distance = 20 angle = random } } } }
-					}
-				}
-
-				if = { limit = { has_country_flag = not_encountered_other_empire }
-					remove_country_flag = has_encountered_other_empire
-				}
-				if = { limit = { has_country_flag = not_alien_life }
-					remove_country_flag = first_alien_life
-				}
-				every_owned_planet = {
-					limit = {
-						has_planet_flag = planet_marked_for_handover
-						has_ground_combat = no
-						is_capital = no
-						is_occupied_flag = no
-					}
-					if = { limit = { is_controlled_by = event_target:owning_empire }
-						set_controller = event_target:new_empire
-					}
-					set_owner = event_target:new_empire
-					if = {
-						limit = {
-							exists = solar_system.starbase
-							space_owner = { is_same_empire = event_target:owning_empire }
-						}
-						solar_system.starbase = { set_owner = event_target:new_empire }
-					}
-					remove_planet_flag = planet_marked_for_handover
-				}
-				every_planet_within_border = {
-					limit = {
-						has_planet_flag = planet_marked_for_handover
-						OR = {
-							is_owned_by = event_target:owning_empire
-							is_controlled_by = event_target:owning_empire
-							space_owner = { is_same_empire = event_target:owning_empire }
-						}
-					}
-					if = {
-						limit = {
-							exists = solar_system.starbase
-							space_owner = { is_same_empire = event_target:owning_empire }
-						}
-						solar_system.starbase = { set_owner = event_target:new_empire }
-					}
-					if = { limit = { has_owner = no }
-						start_colony = { owner = event_target:new_empire species = event_target:vassal_species }
-					} else_if = { limit = { is_owned_by = event_target:owning_empire }
-						set_owner = event_target:new_empire
-					} else_if = { limit = { is_controlled_by = event_target:owning_empire }
-						set_controller = event_target:new_empire
-					}
-					remove_planet_flag = planet_marked_for_handover
-				}
-			}
-			event_target:new_empire = {
-				every_planet_within_border = {
-					limit = {
-						has_planet_flag = planet_marked_for_handover
-						OR = {
-							has_owner = no
-							is_owned_by = event_target:owning_empire
-							is_controlled_by = event_target:owning_empire
-						}
-					}
-					if = { limit = { has_owner = no }
-						start_colony = { owner = prev species = event_target:vassal_species }
-					} else_if = { limit = { is_owned_by = event_target:owning_empire }
-						set_owner = prev
-					} else_if = { limit = { is_controlled_by = event_target:owning_empire }
-						set_controller = prev
-					}
-					remove_planet_flag = planet_marked_for_handover
-				}
-				every_owned_planet = {
-					limit = {
-						has_ground_combat = no
-						is_capital = no
-					}
-					solar_system = {
-						every_system_planet = {
-							limit = {
-								is_star = no
-								is_asteroid = no
-								has_owner = yes
-								NOT = { is_planet = prevprev }
-								OR = {
-									is_owned_by = event_target:owning_empire
-									is_controlled_by = event_target:owning_empire
-								}
-							}
-							if = { limit = { is_owned_by = event_target:owning_empire }
-								set_owner = prevprevprev
-							} else_if = { limit = { is_controlled_by = event_target:owning_empire }
-								set_controller = prevprevprev
-							}
-						}
-					}
-				}
-			}
-			set_update_modifiers_batch = end
+			planet_event = { id = regentmaker.1 }
 		}
 	}
-	ai_weight = { weight = 1 }
+	ai_weight = { weight = 0 }
 }
 
 decision_give_planet_to_vassal = {
@@ -1103,32 +799,41 @@ decision_give_planet_to_vassal = {
 	icon = decision_powerful_vassal
 	resources = { category = decisions cost = { unity = 200 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
-		from = { has_ascension_perk = ap_powerful_vassals }
-		is_colonizeable_colony = yes
+		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
+		colonizable_planet = yes
 		is_capital = no
 		is_occupied_flag = no
 		NOT = { has_planet_flag = planet_marked_for_handover }
 	}
-	effect = { custom_tooltip = "decision_give_planet_to_vassal_tooltip" set_planet_flag = planet_marked_for_handover }
-	ai_weight = { weight = 1 }
+	effect = {
+		custom_tooltip = "decision_give_planet_to_vassal_tooltip"
+		add_modifier = { modifier = "perfect_vassal_colony" }
+		hidden_effect = { set_planet_flag = planet_marked_for_handover }
+	}
+	ai_weight = { weight = 0 }
 }
 
 decision_dont_give_planet_to_vassal = {
 	sound = event_mystic_reveal_light
 	icon = decision_powerful_vassal
+	resources = { category = decisions cost = { unity = -200 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
-		from = { has_ascension_perk = ap_powerful_vassals }
-		is_colonizeable_colony = yes
+		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
+		colonizable_planet = yes
 		has_planet_flag = planet_marked_for_handover
 	}
-	effect = { custom_tooltip = "decision_dont_give_planet_to_vassal_tooltip" remove_planet_flag = planet_marked_for_handover }
-	ai_weight = { weight = 1 }
+	effect = {
+		custom_tooltip = "decision_dont_give_planet_to_vassal_tooltip"
+		remove_modifier = "perfect_vassal_colony"
+		hidden_effect = { remove_planet_flag = planet_marked_for_handover }
+	}
+	ai_weight = { weight = 0 }
 }
 
 # v3.4 reduced deposit chance
@@ -1137,11 +842,11 @@ decision_nanite_extraction = {
 	icon = decision_drilling_for_gas
 	resources = { category = decisions cost = { nanites = 1250 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
-		is_colonizeable_planet = yes
+		is_colonizable_planet = yes
 		is_artificial = no
 	}
 	allow = {
@@ -1181,8 +886,8 @@ decision_nanite_extraction_molten = {
 	icon = decision_drilling_for_gas
 	resources = { category = decisions cost = { nanites = 350 } } # 500
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
@@ -1221,8 +926,8 @@ decision_nanite_extraction_toxic = {
 	icon = decision_drilling_for_gas
 	resources = { category = decisions cost = { nanites = 350 } } # 500
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
@@ -1258,8 +963,8 @@ decision_nanite_extraction_barren = {
 	icon = decision_drilling_for_gas
 	resources = { category = decisions cost = { nanites = 350 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
@@ -1295,8 +1000,8 @@ decision_nanite_purification = {
 	icon = decision_consecrated_worlds
 	resources = { category = decisions cost = { nanites = 3000 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		is_planet_class = pc_gray_goo
@@ -1338,8 +1043,8 @@ decision_nanite_extraction_gas = {
 	icon = decision_drilling_for_gas
 	resources = { category = decisions cost = { nanites = 350 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
@@ -1506,8 +1211,8 @@ decision_legendary_forge = {
 	sound = event_mystic_reveal
 	resources = { category = decisions cost = { minerals = 15000 alloys = 1000 sr_living_metal = 75 } }
 	potential = {
-		exists = space_owner
 		exists = from
+		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_legendary_forge }
 		is_planet_class = pc_molten

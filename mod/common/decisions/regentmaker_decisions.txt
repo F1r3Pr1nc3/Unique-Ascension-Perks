@@ -1,0 +1,200 @@
+##########################################################################
+# Decisions
+##########################################################################
+# Regentmaker Decisions
+# decision_regentmaker = {
+# 	icon = decision_de_mark_on
+# 	owned_planets_only = yes
+# 	# prerequisites = { }
+# 	resources = {
+# 		category = decisions
+# 		cost = { influence = 0 }
+# 	}
+# 	potential = {
+# 		NOR = {
+# 			is_capital = yes
+# 			has_planet_flag = regentmaker_handover
+# 		}
+# 		owner = { is_ai = no }
+# 	}
+# 	# allow = {}
+# 	effect = { set_planet_flag = regentmaker_handover }
+# 	ai_weight = { weight = 0 }
+# }
+
+# decision_rem_regentmaker = {
+# 	icon = decision_de_mark_off
+# 	owned_planets_only = yes
+# 	resources = {
+# 		category = decisions
+# 		cost = { influence = 0 }
+# 	}
+# 	potential = {
+# 		has_planet_flag = regentmaker_handover
+# 		owner = { is_ai = no }
+# 	}
+# 	effect = {
+# 		# custom_tooltip = consecrated_worlds_unsuitable
+# 		solar_system = {
+# 			every_system_planet = {
+# 				limit = { has_planet_flag = regentmaker_handover }
+# 				remove_planet_flag = regentmaker_handover
+# 			}
+# 		}
+# 	}
+# 	ai_weight = { weight = 0 }
+# }
+
+# decision_release_regentmaker = {
+# 	icon = decision_regent
+# 	# "gfx/interface/icons/dlc/anniversary_species_pack.dds"
+# 	# gfx/interface/icons/traditions/unused/tradition_supremacy_great_game.dds
+# 	owned_planets_only = yes
+# 	resources = {
+# 		category = decisions
+# 		cost = { influence = 25 }
+# 	}
+# 	potential = {
+# 		owner = {
+# 			is_ai = no
+# 			any_owned_planet = { has_planet_flag = regentmaker_handover }
+# 		}
+# 	}
+# 	effect = {
+# 		owner = {
+# 			random_owned_planet = {
+# 				limit = {
+# 					has_planet_flag = regentmaker_handover
+# 					has_owner = yes
+# 					is_homeworld = no
+# 					# original_owner = yes
+# 					has_ground_combat = no
+# 					is_capital = no
+# 					is_occupied_flag = no
+# 				}
+# 				planet_event = { id = regentmaker.1 }
+# 			}
+# 		}
+# 	}
+# 	ai_weight = { weight = 0 }
+# }
+
+# decision_excld_decentral = {
+# 	icon = decision_de_mark_off
+# 	owned_planets_only = no
+# 	resources = {
+# 		category = decisions
+# 		cost = { influence = 0 }
+# 	}
+# 	potential = {
+# 		is_star = yes
+# 		NOT = { solar_system = { has_star_flag = decentral_excluded } }
+# 		# NOR = {
+# 		# 	is_capital = yes
+# 		# 	has_planet_flag = decentral_excluded
+# 		# }
+# 		exists = space_owner
+# 		space_owner = {
+# 			is_ai = no
+# 			NOT = { has_country_flag = decentralizer }
+# 			has_ascension_perk = ap_decentralization
+# 			# has_special_project = "DECENTRALIZATION_PROJECT"
+# 		}
+# 		# OR = {
+# 		# 	is_star = yes
+# 		# 	has_owner = yes
+# 		# }
+# 	}
+
+# 	effect = { solar_system = { set_timed_star_flag = { flag = decentral_excluded months = 1 } } }
+# 	ai_weight = { weight = 0 }
+# }
+
+# decision_rem_excld_decentral = {
+# 	icon = decision_de_perk_mark_off
+# 	owned_planets_only = no
+# 	resources = {
+# 		category = decisions
+# 		cost = { influence = 0 }
+# 	}
+# 	potential = {
+# 		is_star = yes
+# 		solar_system = { has_star_flag = decentral_excluded }
+# 		exists = space_owner
+# 		space_owner = { is_ai = no }
+# 		# OR = {
+# 		# 	is_star = yes
+# 		# 	has_owner = yes
+# 		# }
+# 	}
+# 	effect = {
+# 		# custom_tooltip = consecrated_worlds_unsuitable
+# 		solar_system = {
+# 			remove_star_flag = decentral_excluded
+# 		}
+# 	}
+# 	ai_weight = { weight = 0 }
+# }
+
+decision_true_emperor = {
+	icon = decision_emperor
+	owned_planets_only = yes
+	enactment_time = 10
+	resources = {
+		category = decisions
+		cost = {
+			influence = 10
+			energy = 50
+		}
+	}
+	potential = {
+		owner = {
+			is_ai = no
+			OR = {
+				NOT = { has_global_flag = regentmaker_control_sel@owner }
+				has_country_flag = regentmaker_control_sel
+			}
+			OR = {
+				has_country_flag = decentralizer
+				has_ascension_perk = ap_decentralization
+				has_ascension_perk = ap_powerful_vassals
+				AND = {
+					is_subject = yes
+					is_perfect_vassal = yes
+					overlord = {
+						is_ai = yes
+						OR = {
+							has_country_flag = decentralizer
+							has_ascension_perk = ap_decentralization
+							has_ascension_perk = ap_powerful_vassals
+						}
+					}
+				}
+			}
+			NOT = { has_active_event = { regentmaker.510 } }
+		}
+		is_capital = yes
+	}
+	effect = {
+		# Find Subjects - Control
+		owner = {
+			if = {
+				limit = {
+					is_overlord = yes
+					OR = {
+						has_country_flag = decentralizer
+						has_ascension_perk = ap_decentralization
+						has_ascension_perk = ap_powerful_vassals
+					}
+				}
+				set_timed_country_flag = { flag = "regentmaker.510" days = 10 }
+				country_event = { id = regentmaker.500 }
+			} else = {
+				remove_country_flag = regentmaker_control_sel
+				remove_global_flag = regentmaker_control_sel@this
+				overlord = { set_player = prev }
+			}
+		}
+	}
+	ai_weight = { weight = 0 }
+}

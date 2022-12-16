@@ -360,7 +360,7 @@
 
 # Perfect Vassal and Machine Follower subject descs and names
  SUBJECT_DESC_machine_follower: ""
- SUBJECT_DESC_perfect_vassal: "Perfect Vassals will act like any other empire, yet they will never turn against their overlord."
+ SUBJECT_DESC_perfect_vassal: "$ap_powerful_vassals$ will act like any other empire, yet they will never turn against their overlord."
  SUBJECT_DESC_space_domestication: ""
  SUBJECT_machine_follower: "Machine Follower"
  SUBJECT_perfect_vassal: "$perfect_vassal_boost$"
@@ -1738,7 +1738,7 @@
  UniqueAscensionPerksMenuEvents.134.Desc: "This Ascension Perk will grant access to a new planetary decision which allows you to create primitives civilizations composed of pops of your own species as a sort of "civilisatory backup". Observations posts will also produce unity in addition to society research. This perk is not available for gestalt empires but I will try to find a solution for that in the future. Additionally increases the chances to interact with these "new" primitives and also grants access to new events during their development."
 
 # Powerful Vassals menudesc
- UniqueAscensionPerksMenuEvents.135.Desc: "This Ascension Perk will grant access to a new planetary decision which allows you to turn your inhabited systems into new "Perfect Vassals" which will have advantages over normal subject types, such as that they will have your current technologies and will never betray you. You will also get access to a new empire edict which allows you to give alloys and energy to construct powerful fleets for your subjects. $ap_subject_compatibility$"
+ UniqueAscensionPerksMenuEvents.135.Desc: "This Ascension Perk will grant access to a new planetary decision which allows you to turn your inhabited systems into new "$ap_powerful_vassals$" which will have advantages over normal subject types, such as that they will have your current technologies and will never betray you. You will also get access to a new empire edict which allows you to give alloys and energy to construct powerful fleets for your subjects. $ap_subject_compatibility$"
 
 # Void Expeditions menudesc
  UniqueAscensionPerksMenuEvents.136.Desc: "This Ascension Perk will allow you to perform an expedition into the void with custom exploration ships. $ap_no_spoil$ $perk_more_content$"
@@ -2790,9 +2790,6 @@
  decision_deep_scanner_req_1: "$TRIGGER_FAIL$The Decision §Y$decision_deep_scanner$§! has a cooldown of 1 Year."
  decision_deep_scanner_req_2: "$TRIGGER_FAIL$Requires at least one celestial body without an anomaly or deposit within the range of the §Y$building_deep_space_scanner$§! on this planet. The range can be increased by constructing more §Y$building_deep_space_scanner$s§!."
  decision_deep_scanner_tooltip: "Will activate the $building_deep_space_scanner$ in order to detect any missed anomalies on celestial bodies without resource deposits. The range of the deep scan is limited by the number of Deep Space Scanners present on the planet and will increase by 2 jumps per building."
- decision_dont_give_planet_to_vassal: "Don't give Planet to Perfect Vassals"
- decision_dont_give_planet_to_vassal_desc: "$ap_powerful_vassals_desc$"
- decision_dont_give_planet_to_vassal_tooltip: "This planet will not be given to the next created Perfect Vassal."
  decision_end_deep_scanner: "End Deep Space Scans"
  decision_end_deep_scanner_desc: "This will remove the $decision_deep_scanner$ from this world."
 
@@ -2821,9 +2818,12 @@
  decision_genious_pregnancy2_desc: "$decision_planet_food_boost_desc$"
 
 # Next Perfect Vassal decision
- decision_give_planet_to_vassal: "Grant Planet to next Perfect Vassal"
+ decision_give_planet_to_vassal: "$ap_powerful_vassals$: Grant Planet"
  decision_give_planet_to_vassal_desc: "$ap_powerful_vassals_desc$"
- decision_give_planet_to_vassal_tooltip: "This planet and the entire system will be given to the next created perfect vassal."
+ decision_give_planet_to_vassal_tooltip: "This planet and the entire system will be given to the next created '$perfect_vassal_boost$'."
+ decision_dont_give_planet_to_vassal: "$ap_powerful_vassals$: Revoke Grant Planet"
+ decision_dont_give_planet_to_vassal_desc: "$ap_powerful_vassals_desc$"
+ decision_dont_give_planet_to_vassal_tooltip: "This planet will not be given to the next created '$perfect_vassal_boost$'."
 
 # Hivemind Reserve decision
  decision_hivemind_reserve: "$ap_hivemind_reserve$"
@@ -2865,10 +2865,10 @@
  decision_nature_pacification_desc: "The "Planetary Nature Pacification" is a process that allows us to remove negative planetary modifiers and even replace them with positive alternatives in exchange for Food £food£ and $energy$ £energy£. Colonies without any green modifiers can also get new positive modifiers. Doing this will also add some other random Planetary Features.\n\n§RThis decision will not be available on artificial worlds without an atmosphere or planets where the nature has been completely demolished such as: §Y$pc_nuked$§! or §Y$pc_habitat$§! or §Y$pc_city$§! or §Y$pc_machine$§!§!"
  decision_nature_pacification_tooltip: "Will add several §GGreen Modifiers§! to the planet. Natural §YYellow Modifiers§! with negative effects have a 70% Chance of being removed and an 80% Chances of being replaced by a better §GGreen Modifiers§! if it exists. Natural §RRed Modifiers§! with negative effects have 100% Chances of being removed and a 66% Chance of being replaced by a better §GGreen Modifiers§! if it exists. §RWill not remove modifiers which are added by events or depend on events.§!"
 
-# Perfect vassal decision
- decision_powerful_vassal: "Create a Perfect Vassal"
+# Perfect Vassal decision
+ decision_powerful_vassal: "$ap_powerful_vassals$: Create"
  decision_powerful_vassal_desc: "$ap_powerful_vassals_desc$"
- decision_powerful_vassal_tooltip: "Will create a perfect vassal which will have powerful modifiers and share all the technologies we have researched. They will also have an additional opinion modifers towards us and will very likely be willing to follow us until the very end."
+ decision_powerful_vassal_tooltip: "Will create a '$perfect_vassal_boost$' which will have powerful modifiers and share all the technologies we have researched. They will also have an additional opinion modifers towards us and will very likely be willing to follow us until the very end."
 
 # Primitive Creation decision
  decision_primitive_creation: "$ap_primitives_creation$"
@@ -4407,6 +4407,10 @@
  perfect_vassal_boost: "Perfect Vassal"
  perfect_vassal_boost_desc: ""
 
+# Perfect Vassal navy boost
+ vassal_navy_capacity_boost: "$perfect_vassal_boost$ Navy"
+ vassal_navy_capacity_boost_desc: ""
+
 # Deep Scanner name and desc reference
  pm_deep_scanner: "$ap_deep_scanner$"
  pm_deep_scanner_desc: "$ap_deep_scanner_desc$"
@@ -4983,7 +4987,7 @@
 # Opinion mods for various AP's
  triggered_opinion_ap_fallen_disciple: "$ap_fallen_disciple$"
  triggered_opinion_diplomacy_campaign: "Diplomacy Campaign"
- triggered_opinion_fellow_perfect_vassal: "Fellow Perfect Vassal"
+ triggered_opinion_fellow_perfect_vassal: "Fellow $perfect_vassal_boost$"
  triggered_opinion_machine_prophet: "Machine Prophet"
  triggered_opinion_perfect_subject: "Perfect Overlord"
 
@@ -5011,10 +5015,6 @@
  utopia_site: "Utopia Building Site"
  utopia_site_DESC: "The construction site for a future Utopia-Class Habitat."
  utopia_site_MEGASTRUCTURE_DETAILS: "The Habitat built here will serve as a refuge for our citizens to get away from intergelactic conflict and a preserve for our cultural legacy."
-
-# Perfect Vassal navy boost
- vassal_navy_capacity_boost: "Perfect Vassal Navy"
- vassal_navy_capacity_boost_desc: ""
 
 # Slow Learners Veteran army name and descs
  veteran_army: "Veteran Army"

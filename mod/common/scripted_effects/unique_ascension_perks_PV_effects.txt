@@ -1,0 +1,168 @@
+### Powerful Vassals scripted effects (decentralized_effects.txt)
+
+## Save target species
+# This = country = event_target:owning_empire
+# Root = planet
+get_vassal_species = {
+	no_scope = { save_event_target_as = vassal_species } # clear
+	root = {
+		if = { limit = { is_colonizable = yes }
+			prev = {
+				random_owned_pop_species = {
+					limit = {
+						is_sapient = yes
+						any_owned_pop = {
+							is_enslaved = no
+							is_being_purged = no
+							OR = {
+								pop_has_happiness = no
+								happiness > 0.3
+							}
+						}
+						can_live_on_planet = root
+						root = { habitability = { who = prev value >= 0.55 } }
+					}
+					weights = {
+						base = 1
+						modifier = { add = 7 is_same_species = prev.owner_species }
+						modifier = { add = 3 root = { habitability = { who = prev value >= 0.7 } } }
+						modifier = { add = 5 root = { habitability = { who = prev value >= 0.8 } } }
+					}
+					save_event_target_as = vassal_species
+				}
+			}
+			# Just cheap fallback
+			if = {
+				limit = {
+					NAND = {
+						exists = event_target:vassal_species
+						event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+					}
+				}
+				owner_species = { save_event_target_as = vassal_species }
+			}
+			create_colony = { owner = prev species = event_target:vassal_species }
+			create_pop = { species = event_target:vassal_species }
+		} else_if = {
+			limit = { is_colony = yes }
+			if = { limit = { num_species = 1 }
+				random_owned_species = {
+					save_event_target_as = vassal_species
+				}
+			} else = {
+				random_owned_pop = {
+					limit = {
+						is_sapient = yes
+						prev = {
+							habitability = { who = prev value > 0.6 }
+							count_owned_pop = {
+								limit = {
+									is_enslaved = no
+									is_being_purged = no
+									# is_robot_pop = no
+									can_live_on_planet = root
+									OR = {
+										pop_has_happiness = no
+										happiness > 0.3
+									}
+									is_same_species = prevprev.species
+								}
+								count > 1
+							}
+						}
+						OR = {
+							species = { exists = home_planet home_planet = { is_planet = root } }
+							AND = {
+								is_enslaved = no
+								is_being_purged = no
+								is_robot_pop = no
+								is_being_assimilated = no
+								can_live_on_planet = root
+								has_population_control = { type = no country = event_target:owning_empire }
+								has_migration_control = { type = no country = event_target:owning_empire }
+								has_colonization_control = { type = no country = event_target:owning_empire }
+								prev = { habitability = { who = prev value > 0.65 } }
+							}
+							species = {
+								prevprev = { is_ideal_planet_class = { who = prev status = yes } }
+								OR = {
+									prevprev = { is_majority_species = prev }
+									species_has_happiness_with_owner = event_target:owning_empire
+									has_citizenship_type = { type = citizenship_full country = event_target:owning_empire }
+								}
+							}
+							species = {
+								has_citizenship_type = { type = citizenship_full country = event_target:owning_empire }
+								species_has_happiness_with_owner = event_target:owning_empire
+							}
+							AND = {
+								prev = { is_majority_species = prev.species }
+								NOT = { is_same_species = event_target:owning_empire.owner_species }
+							}
+						}
+					}
+					species = { save_event_target_as = vassal_species }
+				}
+				if = {
+					limit = {
+						NAND = {
+							exists = event_target:vassal_species
+							event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+						}
+					}
+					random_owned_species = {
+						limit = { prev = { is_majority_species = prev } }
+						save_event_target_as = vassal_species
+					}
+				}
+			}
+			every_owned_pop = { clear_pop_category = yes }
+		}
+		# FULL Fallback (mostly not needed)
+		if = {
+			limit = {
+				is_colony = yes
+				NAND = {
+					exists = event_target:vassal_species
+					event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+				}
+			}
+			if = {
+				limit = { num_unique_species > 1 }
+				random_owned_species = {
+					limit = {
+						NOT = { is_exact_same_species = event_target:owning_empire.owner_species }
+					}
+					save_event_target_as = vassal_species
+				}
+			} else = {
+				random_owned_species = {
+					limit = { is_scope_valid = yes }
+					save_event_target_as = vassal_species
+				}
+			}
+		}
+		if = {
+			limit = {
+				exists = sector
+				sector = { exists = leader }
+				is_sector_capital = yes
+			}
+			sector.leader = {
+				save_event_target_as = vassal_leader
+				unassign_leader = this
+				log="Save leader \\[vassal_leader.GetName]"
+			}
+		}
+	}
+	if = {
+		limit = {
+			NAND = {
+				exists = event_target:vassal_species
+				event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+			}
+		}
+		owner_species = { save_event_target_as = vassal_species }
+		log ="NO VALID vassal_species FOUND on planet \\[Root.GetName]"
+	}
+}
