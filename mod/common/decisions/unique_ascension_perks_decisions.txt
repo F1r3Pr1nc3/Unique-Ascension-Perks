@@ -762,6 +762,7 @@ decision_powerful_vassal = {
 		category = decisions
 		cost = { influence = 200 food = 2000 minerals = 5000 energy = 5000 unity = 2000 }
 		cost = { trigger = { from = { is_synthetic_empire = yes } } food = -2000 minerals = 500 energy = 500 }
+		cost = { trigger = { has_planet_flag = planet_marked_for_handover } unity = -200 }
 	}
 	potential = {
 		exists = from
@@ -778,7 +779,7 @@ decision_powerful_vassal = {
 		has_ground_combat = no
 		is_capital = no
 		is_occupied_flag = no
-		NOT = { has_planet_flag = planet_marked_for_handover }
+		# NOT = { has_planet_flag = planet_marked_for_handover }
 	}
 	effect = {
 		custom_tooltip = "decision_powerful_vassal_tooltip"
@@ -786,7 +787,7 @@ decision_powerful_vassal = {
 		hidden_effect = {
 			if = { limit = { NOT = { has_planet_flag = planet_marked_for_handover } }
 				set_planet_flag = planet_marked_for_handover
-			} else = { add_resource = { unity = -200 } }
+			} # else = { from = { add_resource = { unity = -200 } } }
 			from = { save_event_target_as = owning_empire }
 			planet_event = { id = regentmaker.1 }
 		}
@@ -819,7 +820,7 @@ decision_give_planet_to_vassal = {
 decision_dont_give_planet_to_vassal = {
 	sound = event_mystic_reveal_light
 	icon = decision_powerful_vassal
-	resources = { category = decisions cost = { unity = -200 } }
+	resources = { category = decisions cost = { unity = -180 } }
 	potential = {
 		exists = from
 		exists = space_owner

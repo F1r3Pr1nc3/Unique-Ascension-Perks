@@ -126,7 +126,6 @@ country_event = {
 			country_event = { id = regentmaker.11 }
 		}
 	}
-
 	option = { name = "LEAVE" }
 }
 
@@ -163,30 +162,30 @@ planet_event = {
 	option = {
 		name = "regentmaker.1.a"
 		hidden_effect = {
-			remove_planet_flag = regentmaker_tributary
-			remove_planet_flag = regentmaker_member_state
+			# remove_planet_flag = regentmaker_tributary
+			# remove_planet_flag = regentmaker_member_state
 			planet_event = { id = regentmaker.2 }
 		}
 	}
-	option = {
-		name = "regentmaker.1.b"
-		hidden_effect = {
-			set_timed_planet_flag = { flag = regentmaker_tributary days = 7 }
-			remove_planet_flag = regentmaker_member_state
-			planet_event = { id = regentmaker.2 }
-		}
-	}
-	option = {
-		name = "regentmaker.1.c"
-		trigger = {
-			owner = { has_modifier = perfect_vassal_leader }
-		}
-		hidden_effect = {
-			set_timed_planet_flag = { flag = regentmaker_member_state days = 7 }
-			remove_planet_flag = regentmaker_tributary
-			planet_event = { id = regentmaker.2 }
-		}
-	}
+	# option = {
+	# 	name = "regentmaker.1.b"
+	# 	hidden_effect = {
+	# 		set_timed_planet_flag = { flag = regentmaker_tributary days = 7 }
+	# 		remove_planet_flag = regentmaker_member_state
+	# 		planet_event = { id = regentmaker.2 }
+	# 	}
+	# }
+	# option = {
+	# 	name = "regentmaker.1.c"
+	# 	trigger = {
+	# 		owner = { has_modifier = perfect_vassal_leader }
+	# 	}
+	# 	hidden_effect = {
+	# 		set_timed_planet_flag = { flag = regentmaker_member_state days = 7 }
+	# 		remove_planet_flag = regentmaker_tributary
+	# 		planet_event = { id = regentmaker.2 }
+	# 	}
+	# }
 	option = {
 		name = distar.1055.b		# "Leave it be."
 		hidden_effect = {
@@ -257,7 +256,165 @@ planet_event = {
 		}
 		## Save target species
 		if = { limit = {  NOT = { exists = event_target:vassal_species } }
-			event_target:owning_empire = { get_vassal_species = yes }
+			## Save target species get_vassal_species
+			if = { limit = { is_colonizable = yes }
+				event_target:owning_empire = {
+					random_owned_pop_species = {
+						limit = {
+							is_sapient = yes
+							can_live_on_planet = root
+							root = { habitability = { who = prev value >= 0.55 } }
+							any_species_pop = {
+								is_enslaved = no
+								is_being_purged = no
+								OR = {
+									pop_has_happiness = no
+									happiness > 0.3
+								}
+							}
+						}
+						weights = {
+							base = 1
+							modifier = { add = 7 is_same_species = prev.species }
+							modifier = { add = 3 root = { habitability = { who = prev value >= 0.7 } } }
+							modifier = { add = 5 root = { habitability = { who = prev value >= 0.8 } } }
+						}
+						save_event_target_as = vassal_species
+					}
+				}
+				# Just cheap fallback
+				if = {
+					limit = {
+						NAND = {
+							exists = event_target:vassal_species
+							event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+						}
+					}
+					owner_species = { save_event_target_as = vassal_species }
+				}
+				create_colony = { owner = event_target:owning_empire species = event_target:vassal_species }
+				create_pop = { species = event_target:vassal_species }
+			} else_if = {
+				limit = { is_colony = yes }
+				if = { limit = { num_species = 1 }
+					random_owned_species = {
+						save_event_target_as = vassal_species
+					}
+				} else = {
+					random_owned_pop = {
+						limit = {
+							is_sapient = yes
+							prev = {
+								habitability = { who = prev value > 0.6 }
+								count_owned_pop = {
+									limit = {
+										is_enslaved = no
+										is_being_purged = no
+										# is_robot_pop = no
+										can_live_on_planet = root
+										OR = {
+											pop_has_happiness = no
+											happiness > 0.3
+										}
+										is_same_species = prevprev.species
+									}
+									count > 1
+								}
+							}
+							OR = {
+								species = { exists = home_planet home_planet = { is_planet = root } }
+								AND = {
+									is_enslaved = no
+									is_being_purged = no
+									is_robot_pop = no
+									is_being_assimilated = no
+									can_live_on_planet = root
+									has_population_control = { type = no country = event_target:owning_empire }
+									has_migration_control = { type = no country = event_target:owning_empire }
+									has_colonization_control = { type = no country = event_target:owning_empire }
+									prev = { habitability = { who = prev value > 0.65 } }
+								}
+								species = {
+									prevprev = { is_ideal_planet_class = { who = prev status = yes } }
+									OR = {
+										prevprev = { is_majority_species = prev }
+										species_has_happiness_with_owner = event_target:owning_empire
+										has_citizenship_type = { type = citizenship_full country = event_target:owning_empire }
+									}
+								}
+								species = {
+									has_citizenship_type = { type = citizenship_full country = event_target:owning_empire }
+									species_has_happiness_with_owner = event_target:owning_empire
+								}
+								AND = {
+									prev = { is_majority_species = prev.species }
+									NOT = { is_same_species = event_target:owning_empire.owner_species }
+								}
+							}
+						}
+						species = { save_event_target_as = vassal_species }
+					}
+					if = {
+						limit = {
+							NAND = {
+								exists = event_target:vassal_species
+								event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+							}
+						}
+						random_owned_species = {
+							limit = { prev = { is_majority_species = prev } }
+							save_event_target_as = vassal_species
+						}
+					}
+				}
+				every_owned_pop = { clear_pop_category = yes }
+			}
+			# FULL Fallback (mostly not needed)
+			if = {
+				limit = {
+					is_colony = yes
+					NAND = {
+						exists = event_target:vassal_species
+						event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+					}
+				}
+				if = {
+					limit = { num_unique_species > 1 }
+					random_owned_species = {
+						limit = {
+							NOT = { is_exact_same_species = event_target:owning_empire.owner_species }
+						}
+						save_event_target_as = vassal_species
+					}
+				} else = {
+					random_owned_species = {
+						limit = { is_scope_valid = yes }
+						save_event_target_as = vassal_species
+					}
+				}
+			}
+			if = {
+				limit = {
+					exists = sector
+					sector = { exists = leader }
+					is_sector_capital = yes
+				}
+				sector.leader = {
+					save_event_target_as = vassal_leader
+					unassign_leader = this
+					log="Save leader \\[vassal_leader.GetName]"
+				}
+			}
+			if = {
+				limit = {
+					NAND = {
+						exists = event_target:vassal_species
+						event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
+					}
+				}
+				event_target:owning_empire.owner_species = { save_event_target_as = vassal_species }
+				log ="NO VALID vassal_species FOUND on planet \\[Root.GetName]"
+			}
 		}
 		set_update_modifiers_batch = begin
 		create_country = {
@@ -319,13 +476,16 @@ planet_event = {
 			add_resource = { minerals = 500 energy = 1000 unity = 2000 influence = 100 }
 			if = { limit = { is_gestalt = no } add_resource = { consumer_goods = 2000 } }
 			else = { add_resource = { alloys = 1000 minerals = 1000 } }
-			if = { limit = { root = { has_planet_flag = regentmaker_tributary } }
-				set_subject_of = { who = event_target:owning_empire preset = preset_tributary }
-			} else_if = { limit = { root = { has_planet_flag = regentmaker_member_state } }
-				set_subject_of = { who = event_target:owning_empire preset = preset_bulwark }
-				add_intel = { who = event_target:owning_empire amount = 100 }
-			} else = {
-				set_subject_of = { who = event_target:owning_empire preset = preset_vassal }
+			# if = { limit = { root = { has_planet_flag = regentmaker_tributary } }
+			# 	set_subject_of = { who = event_target:owning_empire preset = preset_tributary allow_instant_negotiation = yes }
+			# } else_if = { limit = { root = { has_planet_flag = regentmaker_member_state } }
+			# 	set_subject_of = { who = event_target:owning_empire preset = preset_bulwark allow_instant_negotiation = yes }
+			# 	add_intel = { who = event_target:owning_empire amount = 100 }
+			# } else = {
+			set_subject_of = {
+				who = event_target:owning_empire
+				# preset = preset_vassal
+				allow_instant_negotiation = yes
 			}
 			set_faction_hostility = {
 				set_hostile = no
@@ -443,6 +603,7 @@ planet_event = {
 			if = { limit = { has_country_flag = not_alien_life }
 				remove_country_flag = first_alien_life
 			}
+			country_event = { id = specialist.1000 days = 3 } # adjust subject type
 		}
 		set_update_modifiers_batch = end
 	}
@@ -455,39 +616,80 @@ country_event = {
 	desc = "regentmaker.4.desc"
 	picture = GFX_evt_throne_room
 	is_triggered_only = yes
-	trigger = {
-		NOT = { has_modifier = electoral }
+	# trigger = {
+	# 	has_subject = yes
+	# 	NOT = { has_modifier = electoral }
+	# }
+	immediate = {
+		export_trigger_value_to_variable = {
+			trigger = count_subject
+			parameters = {
+				limit = { merg_is_default_empire = yes is_perfect_vassal = yes }
+			}
+			variable = num_perfect_vassals
+		}
+		export_trigger_value_to_variable = {
+			trigger = count_subject
+			parameters = {
+				limit = { merg_is_default_empire = yes }
+			}
+			variable = num_vassals
+		}
+		# log="num_vassals \\[This.num_perfect_vassals]"
+		# log="num_vassals \\[This.num_vassals]"
+		multiply_variable = { which = num_perfect_vassals value = 25 }
+		multiply_variable = { which = num_vassals value = 10 }
+		change_variable = { which = num_perfect_vassals value = 25 }
+		change_variable = { which = num_vassals value = 10 }
+
+	}
+	after = {
+		hidden_effect = {
+			clear_variable = num_perfect_vassals
+			clear_variable = num_vassals
+		}
 	}
 	option = {
 		name = "regentmaker.4.a"
 		allow = {
-			hidden_trigger = { has_resource = { type = influence amount > 49 } }
+			has_country_resource = { type = influence amount > num_vassals }
 		}
+		add_resource = { influence = -1 mult = num_vassals }
 		hidden_effect = {
 			every_subject = {
 				limit = { merg_is_default_empire = yes }
 				copy_techs_from = { target = root }
+				# root = { add_resource = { influence = -25 } }
 			}
 		}
-		add_resource = { influence = -50 }
 	}
 	option = {
 		name = "regentmaker.4.b"
 		allow = {
-			hidden_trigger = { has_resource = { type = influence amount > 99 } }
+			has_country_resource = { type = influence amount > num_perfect_vassals }
 		}
+		add_resource = { influence = -1 mult = num_perfect_vassals }
 		hidden_effect = {
 			every_subject = {
-				limit = { merg_is_default_empire = yes }
+				limit = {
+					merg_is_default_empire = yes
+					is_perfect_vassal = yes
+				}
 				root = {
+					# add_resource = { influence = -25 }
 					copy_techs_from = { target = prev }
 				}
 			}
 		}
-		add_resource = { influence = -100 }
 	}
 	# "Leave it be." tech_unlocked_ratio
-	option = { name = distar.1055.b }
+	option = {
+		name = distar.1055.b
+		hidden_effect = {
+			remove_country_flag = regentmaker_control_engaged
+			country_event = { id = regentmaker.0 }
+		}
+	}
 }
 
 # "Regentmaker Ethics Selection"

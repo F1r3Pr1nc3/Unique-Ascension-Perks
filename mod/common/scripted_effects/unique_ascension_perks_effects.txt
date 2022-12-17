@@ -65,26 +65,40 @@ deploy_outpost = {
 # Prev = Virtual Subject (Helper Country)
 # This = Virtual Overlord Country
 sync_subjects_virtual_relation = {
-	every_relation = {
+	every_country = {
 		limit = {
-			# merg_is_default_empire = yes
+			has_communications = prev
+			OR = {
+				is_friendly_to = prev
+				is_neutral_to = prev
+				prevprev = { is_hostile_to = prev }
+			}
 			NOR = {
 				is_hostile_to = prev
 				is_same_empire = prevprev
+				has_attitude_behavior = { target = prev behavior = attack }
 			}
-			prevprev = { is_hostile_to = prev }
 		}
 		prevprev = { set_faction_hostility = { target = prev set_hostile = no set_neutral = yes } }
 	}
 	every_relation = {
 		limit = {
 			# merg_is_default_empire = yes
-			is_hostile_to = prev
+			OR = {
+				is_hostile_to = prev
+				has_attitude_behavior = { target = prev behavior = attack }
+			}
 			NOR = {
+				is_friendly_to = prev
 				is_same_empire = prevprev
 				prevprev = { is_hostile_to = prev }
 			}
 		}
-		prevprev = { set_faction_hostility = { target = prev set_hostile = yes set_neutral = no } }
+		prevprev = { set_faction_hostility = { target = prev set_hostile = yes set_neutral = no set_friendly = no } }
+	}
+	prev = {
+		if = { limit = { NOT = { is_friendly_to = prev } }
+			set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
+		}
 	}
 }

@@ -15,6 +15,7 @@ country_event = {
 				every_war_participant = {
 					limit = {
 						is_subject = no
+						NOT = { has_country_flag = sync_subjects_virtual_relation }
 						merg_is_default_empire = yes
 						OR = {
 							has_ascension_perk = ap_space_domestication
@@ -23,8 +24,10 @@ country_event = {
 							has_ascension_perk = ap_civilian_activities
 						}
 					}
+					set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 5 }
 					every_relation = {
 						limit = {
+							is_subject = no
 							is_unique_perk_special_subject = yes
 							OR = {
 								has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
@@ -33,12 +36,14 @@ country_event = {
 								has_relation_flag = { who = prev flag = civilian_activities_country }
 							}
 						}
-						prev = { sync_subjects_virtual_relation = yes }
+						country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
+						# prev = { sync_subjects_virtual_relation = yes }
 					}
 				}
 			}
 		} else_if = {
 			limit = {
+				NOT = { has_country_flag = sync_subjects_virtual_relation }
 				merg_is_default_empire = yes
 				OR = {
 					has_ascension_perk = ap_space_domestication
@@ -47,8 +52,10 @@ country_event = {
 					has_ascension_perk = ap_civilian_activities
 				}
 			}
+			set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 5 }
 			every_relation = {
 				limit = {
+					is_subject = no
 					is_unique_perk_special_subject = yes
 					OR = {
 						has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
@@ -57,14 +64,47 @@ country_event = {
 						has_relation_flag = { who = prev flag = civilian_activities_country }
 					}
 				}
-				prev = { sync_subjects_virtual_relation = yes }
+				country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
+				# prev = { sync_subjects_virtual_relation = yes }
+			}
+		} else_if = {
+			limit = {
+				exists = from
+				from = {
+					is_scope_type = country
+					NOT = { has_country_flag = sync_subjects_virtual_relation }
+					merg_is_default_empire = yes
+					OR = {
+						has_ascension_perk = ap_space_domestication
+						has_ascension_perk = ap_advanced_security
+						has_ascension_perk = ap_defense_sentinels
+						has_ascension_perk = ap_civilian_activities
+					}
+				}
+			}
+			from = {
+				set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 5 }
+				every_relation = {
+					limit = {
+						is_subject = no
+						is_unique_perk_special_subject = yes
+						OR = {
+							has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+							has_relation_flag = { who = prev flag = security_strike_force }
+							has_relation_flag = { who = prev flag = defense_sentinels }
+							has_relation_flag = { who = prev flag = civilian_activities_country }
+						}
+					}
+					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
+					# prev = { sync_subjects_virtual_relation = yes }
+				}
 			}
 		}
 	}
 }
 
 # Kill Special Subject Country if their master is dead.
-# Sync relations.
+# Root = Special Subject - Sync relations.
 country_event = {
 	id = UniqueAscensionPerksEvents.8787
 	# is_triggered_only = yes
@@ -98,12 +138,23 @@ country_event = {
 				}
 				destroy_country = yes
 			} else = {
-				random_relation = {
+				if = {
 					limit = {
-						merg_is_default_empire = yes
-						reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+						exists = from
+						from = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+						}
 					}
-					sync_subjects_virtual_relation = yes
+					from = { sync_subjects_virtual_relation = yes }
+				} else = {
+					random_relation = {
+						limit = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+						}
+						sync_subjects_virtual_relation = yes
+					}
 				}
 			}
 		} else_if = {
@@ -123,12 +174,23 @@ country_event = {
 				}
 				destroy_country = yes
 			} else = {
-				random_relation = {
+				if = {
 					limit = {
-						merg_is_default_empire = yes
-						reverse_has_relation_flag = { who = root flag = security_strike_force }
+						exists = from
+						from = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = security_strike_force }
+						}
 					}
-					sync_subjects_virtual_relation = yes
+					from = { sync_subjects_virtual_relation = yes }
+				} else = {
+					random_relation = {
+						limit = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = security_strike_force }
+						}
+						sync_subjects_virtual_relation = yes
+					}
 				}
 			}
 		} else_if = {
@@ -147,13 +209,25 @@ country_event = {
 					}
 				}
 				destroy_country = yes
-			} else = {
-				random_relation = {
+			}
+			else = {
+				if = {
 					limit = {
-						merg_is_default_empire = yes
-						reverse_has_relation_flag = { who = root flag = defense_sentinels }
+						exists = from
+						from = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = defense_sentinels }
+						}
 					}
-					sync_subjects_virtual_relation = yes
+					from = { sync_subjects_virtual_relation = yes }
+				} else = {
+					random_relation = {
+						limit = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = defense_sentinels }
+						}
+						sync_subjects_virtual_relation = yes
+					}
 				}
 			}
 		} else_if = {
@@ -173,12 +247,23 @@ country_event = {
 				}
 				destroy_country = yes
 			} else = {
-				random_relation = {
+				if = {
 					limit = {
-						merg_is_default_empire = yes
-						reverse_has_relation_flag = { who = root flag = civilian_activities_country }
+						exists = from
+						from = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = civilian_activities_country }
+						}
 					}
-					sync_subjects_virtual_relation = yes
+					from = { sync_subjects_virtual_relation = yes }
+				} else = {
+					random_relation = {
+						limit = {
+							merg_is_default_empire = yes
+							reverse_has_relation_flag = { who = root flag = civilian_activities_country }
+						}
+						sync_subjects_virtual_relation = yes
+					}
 				}
 			}
 		}
@@ -6246,8 +6331,11 @@ ship_event = {
 	immediate = {
 		# save_event_target_as = target_ship_project_ship
 		fleet = {
-			set_owner = from.owner
 			set_event_locked = yes
+			set_owner = from.owner
+			clear_orders = yes
+			clear_fleet_actions = this
+			prev = { set_disabled = no }
 			fleet_event = { id = UniqueAscensionPerksEvents.3597 days = 1 scopes = { from = root.owner } }
 		}
 	}
@@ -6259,8 +6347,8 @@ fleet_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_owner = from.owner
-		set_event_locked = yes
-		# set_event_locked = no
+		set_event_locked = yes # no
+		every_owned_ship = { set_disabled = yes }
 	}
 }
 
