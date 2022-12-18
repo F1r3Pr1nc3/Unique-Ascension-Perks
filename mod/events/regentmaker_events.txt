@@ -1029,6 +1029,63 @@ country_event = {
 			shift_ethic = ethic_materialist
 		}
 	}
+	# (Mod) Ethics and Civics Classic
+	option = {
+		name = "ethic_fanatic_green"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_green } }
+			shift_ethic = ethic_fanatic_green
+		}
+	}
+	option = {
+		name = "ethic_green"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_green } }
+			shift_ethic = ethic_green
+		}
+	}
+	option = {
+		name = "ethic_fanatic_industrial"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_industrial } }
+			shift_ethic = ethic_fanatic_industrial
+		}
+	}
+	option = {
+		name = "ethic_industrial"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_industrial } }
+			shift_ethic = ethic_industrial
+		}
+	}
+	option = {
+		name = "ethic_fanatic_socialism"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_socialism } }
+			shift_ethic = ethic_fanatic_socialism
+		}
+	}
+	option = {
+		name = "ethic_socialism"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_socialism } }
+			shift_ethic = ethic_socialism
+		}
+	}
+	option = {
+		name = "ethic_fanatic_capitalism"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_capitalism } }
+			shift_ethic = ethic_fanatic_capitalism
+		}
+	}
+	option = {
+		name = "ethic_capitalism"
+		every_subject = {
+			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_capitalism } }
+			shift_ethic = ethic_capitalism
+		}
+	}
 	# option = { # Not wanted side effects
 	#	name = "ethic_gestalt_consciousness"
 	#	every_subject = { shift_ethic = ethic_gestalt_consciousness }
@@ -1083,7 +1140,9 @@ country_event = {
 		name = "regentmaker_auth_democratic"
 		every_subject = {
 			limit = {
-				NOT = { has_authority = auth_democratic }
+				NOR = {
+				has_authority = auth_democratic
+				}
 				is_perfect_vassal = yes
 			}
 			set_timed_country_flag = { flag = auth_democratic days = 2 }
@@ -1153,6 +1212,25 @@ country_event = {
 			set_timed_country_flag = { flag = auth_corporate days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_corporate civics = random remove_invalid_civics = yes cooldown = no }
+		}
+	}
+	# (Mod) Ethics and Civics Classic
+	option = {
+		name = SEPARATOR
+		allow = { hidden_trigger = { always = no } }
+	}
+	option = {
+		name = "regentmaker_auth_direct_democratic"
+		every_subject = {
+			limit = {
+				NOR = {
+				has_authority = auth_direct_democratic
+				}
+				is_perfect_vassal = yes
+			}
+			set_timed_country_flag = { flag = auth_direct_democratic days = 2 }
+			country_event = { id = regentmaker.30 }
+			change_government = { authority = auth_direct_democratic civics = random remove_invalid_civics = yes cooldown = no }
 		}
 	}
 	# option = { # Not wanted
@@ -2574,11 +2652,54 @@ country_event = {
 			event_target:subject_selected = { shift_ethic = ethic_materialist }
 		}
 	}
-	# TODO Extension compat. ?
+	# (Mod) Ethics and Civics Classic
+	option = {
+		name = "ethic_fanatic_green"
+		trigger = {
+			event_target:subject_selected = {
+				NOT = { has_ethic = ethic_fanatic_green }
+			}
+		}
+		hidden_effect = {
+			event_target:subject_selected = { shift_ethic = ethic_fanatic_green }
+		}
+	}
+	option = {
+		name = "ethic_green"
+		trigger = {
+			event_target:subject_selected = {
+				NOT = { has_ethic = ethic_green }
+			}
+		}
+		hidden_effect = {
+			event_target:subject_selected = { shift_ethic = ethic_green }
+		}
+	}
+	option = {
+		name = "ethic_fanatic_industrial"
+		trigger = {
+			event_target:subject_selected = {
+				NOT = { has_ethic = ethic_fanatic_industrial }
+			}
+		}
+		hidden_effect = {
+			event_target:subject_selected = { shift_ethic = ethic_fanatic_industrial }
+		}
+	}
+	option = {
+		name = "ethic_industrial"
+		trigger = {
+			event_target:subject_selected = {
+				NOT = { has_ethic = ethic_industrial }
+			}
+		}
+		hidden_effect = {
+			event_target:subject_selected = { shift_ethic = ethic_industrial }
+		}
+	}
 	option = {
 		name = "ethic_fanatic_socialism"
 		trigger = {
-			has_global_flag = cultural_overhaul_active
 			event_target:subject_selected = {
 				NOT = { has_ethic = ethic_fanatic_socialism }
 			}
@@ -2590,7 +2711,6 @@ country_event = {
 	option = {
 		name = "ethic_socialism"
 		trigger = {
-			has_global_flag = cultural_overhaul_active
 			event_target:subject_selected = {
 				NOT = { has_ethic = ethic_socialism }
 			}
@@ -2602,7 +2722,6 @@ country_event = {
 	option = {
 		name = "ethic_fanatic_capitalism"
 		trigger = {
-			has_global_flag = cultural_overhaul_active
 			event_target:subject_selected = {
 				NOT = { has_ethic = ethic_fanatic_capitalism }
 			}
@@ -2614,7 +2733,6 @@ country_event = {
 	option = {
 		name = "ethic_capitalism"
 		trigger = {
-			has_global_flag = cultural_overhaul_active
 			event_target:subject_selected = {
 				NOT = { has_ethic = ethic_capitalism }
 			}
@@ -2859,6 +2977,30 @@ country_event = {
 			country_event = { id = regentmaker.30 }
 		}
 	}
+	# (Mod) Ethics and Civics Classic
+	option = {
+		name = "auth_direct_democratic"
+		trigger = {
+			event_target:subject_selected = {
+				NOT = { has_authority = auth_direct_democratic }
+			}
+		}
+		event_target:subject_selected = {
+			clear_ethos = yes
+			country_add_ethic = ethic_fanatic_egalitarian
+			set_timed_country_flag = { flag = auth_direct_democratic days = 2 }
+			country_event = { id = regentmaker.30 }
+			change_government = {
+				authority = auth_direct_democratic
+				remove_invalid_civics = yes cooldown = no
+				civics = {
+					civic = random
+					civic = random
+					civic = random
+				}
+			}
+		}
+	}
 	option = {
 		name = rm.3.back # BACK
 	}
@@ -2899,6 +3041,11 @@ country_event = {
 				1 = { country_add_ethic = ethic_fanatic_xenophobe		modifier = { factor = 0 has_ethic = ethic_fanatic_xenophobe } }
 				4 = { country_add_ethic = ethic_fanatic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 				3 = { country_add_ethic = ethic_fanatic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
+				# (Mod) Ethics and Civics Classic
+				1 = { country_add_ethic = ethic_fanatic_green			modifier = { factor = 0 has_ethic = ethic_fanatic_green } }
+				1 = { country_add_ethic = ethic_fanatic_industrial		modifier = { factor = 0 has_ethic = ethic_fanatic_industrial } }
+				1 = { country_add_ethic = ethic_fanatic_socialism		modifier = { factor = 0 has_ethic = ethic_fanatic_socialism } }
+				1 = { country_add_ethic = ethic_fanatic_capitalism		modifier = { factor = 0 has_ethic = ethic_fanatic_capitalism } }
 			}
 			random_list = {
 				1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_materialist has_ethic = ethic_fanatic_spiritualist		has_ethic = ethic_fanatic_materialist } } }
@@ -2909,8 +3056,14 @@ country_event = {
 				1 = { country_add_ethic = ethic_xenophobe		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_xenophobe has_ethic = ethic_fanatic_xenophile			has_ethic = ethic_fanatic_xenophobe } } }
 				3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 				2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic } } }
+				# (Mod) Ethics and Civics Classic
+				1 = { country_add_ethic = ethic_green			modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_green has_ethic = ethic_fanatic_industrial			has_ethic = ethic_fanatic_green } } }
+				1 = { country_add_ethic = ethic_industrial		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_industrial has_ethic = ethic_fanatic_green		has_ethic = ethic_fanatic_industrial } } }
+				1 = { country_add_ethic = ethic_socialism		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_socialism has_ethic = ethic_fanatic_capitalism		has_ethic = ethic_fanatic_socialism } } }
+				1 = { country_add_ethic = ethic_capitalism		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_capitalism has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_capitalism } } }
 			}
-		} else_if = { limit = { num_ethics > 0 }
+		}
+		else_if = { limit = { num_ethics > 0 }
 			random_list = {
 				1 = { shift_ethic = ethic_fanatic_materialist	modifier = { factor = 0 has_ethic = ethic_fanatic_materialist } }
 				1 = { shift_ethic = ethic_fanatic_spiritualist	modifier = { factor = 0 has_ethic = ethic_fanatic_spiritualist } }
@@ -2920,6 +3073,11 @@ country_event = {
 				1 = { shift_ethic = ethic_fanatic_xenophobe		modifier = { factor = 0 has_ethic = ethic_fanatic_xenophobe } }
 				4 = { shift_ethic = ethic_fanatic_egalitarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 				3 = { shift_ethic = ethic_fanatic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
+				# (Mod) Ethics and Civics Classic
+				1 = { country_add_ethic = ethic_fanatic_green			modifier = { factor = 0 has_ethic = ethic_fanatic_green } }
+				1 = { country_add_ethic = ethic_fanatic_industrial		modifier = { factor = 0 has_ethic = ethic_fanatic_industrial } }
+				1 = { country_add_ethic = ethic_fanatic_socialism		modifier = { factor = 0 has_ethic = ethic_fanatic_socialism } }
+				1 = { country_add_ethic = ethic_fanatic_capitalism		modifier = { factor = 0 has_ethic = ethic_fanatic_capitalism } }
 			}
 			random_list = {
 				1 = { shift_ethic = ethic_materialist	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_materialist has_ethic = ethic_fanatic_spiritualist		has_ethic = ethic_fanatic_materialist } } }
@@ -2930,8 +3088,14 @@ country_event = {
 				1 = { shift_ethic = ethic_xenophobe		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_xenophobe has_ethic = ethic_fanatic_xenophile			has_ethic = ethic_fanatic_xenophobe } } }
 				3 = { shift_ethic = ethic_egalitarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 				2 = { shift_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic } } }
+				# (Mod) Ethics and Civics Classic
+				1 = { shift_ethic = ethic_green			modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_green has_ethic = ethic_fanatic_industrial				has_ethic = ethic_fanatic_green } } }
+				1 = { shift_ethic = ethic_industrial	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_industrial has_ethic = ethic_fanatic_green				has_ethic = ethic_fanatic_industrial } } }
+				1 = { shift_ethic = ethic_socialism		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_socialism has_ethic = ethic_fanatic_authoritarian		has_ethic = ethic_fanatic_socialism } } }
+				1 = { shift_ethic = ethic_capitalism	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_authoritarian } } }
 			}
-		} else = {
+		}
+		else = {
 			random_list = {
 				70 = { # Fanatic and non-fanatic
 					random_list = {
@@ -2943,6 +3107,11 @@ country_event = {
 						1 = { country_add_ethic = ethic_fanatic_xenophobe }
 						4 = { country_add_ethic = ethic_fanatic_egalitarian modifier = { factor = 0 OR = { has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 						3 = { country_add_ethic = ethic_fanatic_authoritarian modifier = { factor = 0 OR = { has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
+						# (Mod) Ethics and Civics Classic
+						1 = { country_add_ethic = ethic_fanatic_green }
+						1 = { country_add_ethic = ethic_fanatic_industrial }
+						1 = { country_add_ethic = ethic_fanatic_socialism }
+						1 = { country_add_ethic = ethic_fanatic_authoritarian }
 					}
 					random_list = {
 						1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_materialist	has_ethic = ethic_fanatic_spiritualist } } }
@@ -2953,6 +3122,11 @@ country_event = {
 						1 = { country_add_ethic = ethic_xenophobe		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_xenophobe		has_ethic = ethic_fanatic_xenophile } } }
 						3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_democratic } } }
+						# (Mod) Ethics and Civics Classic
+						1 = { country_add_ethic = ethic_green			modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_green			has_ethic = ethic_fanatic_industrial } } }
+						1 = { country_add_ethic = ethic_industrial		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_industrial		has_ethic = ethic_fanatic_green } } }
+						1 = { country_add_ethic = ethic_socialism		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_authoritarian } } }
+						1 = { country_add_ethic = ethic_capitalism		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_socialism } } }
 					}
 				}
 				30 = { # Only non-fanatic
@@ -2965,6 +3139,11 @@ country_event = {
 						1 = { country_add_ethic = ethic_xenophobe }
 						3 = { country_add_ethic = ethic_egalitarian modifier = { factor = 0 OR = { has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian modifier = { factor = 0 has_country_flag = auth_democratic } }
+						# (Mod) Ethics and Civics Classic
+						1 = { country_add_ethic = ethic_green }
+						1 = { country_add_ethic = ethic_industrial }
+						1 = { country_add_ethic = ethic_socialism }
+						1 = { country_add_ethic = ethic_capitalism }
 					}
 					random_list = {
 						1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_materialist	has_ethic = ethic_spiritualist } } }
@@ -2975,6 +3154,11 @@ country_event = {
 						1 = { country_add_ethic = ethic_xenophobe		modifier = { factor = 0 OR = { has_ethic = ethic_xenophobe		has_ethic = ethic_xenophile } } }
 						3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_egalitarian	has_ethic = ethic_authoritarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_authoritarian	has_ethic = ethic_egalitarian has_country_flag = auth_democratic } } }
+						# (Mod) Ethics and Civics Classic
+						1 = { country_add_ethic = ethic_green			modifier = { factor = 0 OR = { has_ethic = ethic_green			has_ethic = ethic_industrial } } }
+						1 = { country_add_ethic = ethic_industrial		modifier = { factor = 0 OR = { has_ethic = ethic_industrial		has_ethic = ethic_green } } }
+						1 = { country_add_ethic = ethic_socialism		modifier = { factor = 0 OR = { has_ethic = ethic_socialism		has_ethic = ethic_capitalism } } }
+						1 = { country_add_ethic = ethic_capitalism		modifier = { factor = 0 OR = { has_ethic = ethic_capitalism		has_ethic = ethic_socialism } } }
 					}
 					random_list = {
 						1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_materialist	has_ethic = ethic_spiritualist } } }
@@ -2985,6 +3169,11 @@ country_event = {
 						1 = { country_add_ethic = ethic_xenophobe		modifier = { factor = 0 OR = { has_ethic = ethic_xenophobe		has_ethic = ethic_xenophile } } }
 						3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_egalitarian	has_ethic = ethic_authoritarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_authoritarian	has_ethic = ethic_egalitarian has_country_flag = auth_democratic } } }
+						# (Mod) Ethics and Civics Classic
+						1 = { country_add_ethic = ethic_green			modifier = { factor = 0 OR = { has_ethic = ethic_green			has_ethic = ethic_industrial } } }
+						1 = { country_add_ethic = ethic_industrial		modifier = { factor = 0 OR = { has_ethic = ethic_industrial		has_ethic = ethic_green } } }
+						1 = { country_add_ethic = ethic_socialism		modifier = { factor = 0 OR = { has_ethic = ethic_socialism		has_ethic = ethic_capitalism } } }
+						1 = { country_add_ethic = ethic_capitalism		modifier = { factor = 0 OR = { has_ethic = ethic_capitalism		has_ethic = ethic_socialism } } }
 					}
 				}
 			}
