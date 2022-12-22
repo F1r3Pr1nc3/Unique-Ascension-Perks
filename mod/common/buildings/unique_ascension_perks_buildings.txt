@@ -592,15 +592,50 @@ building_unit_assembler = {
 }
 
 # TODO
+# Deep Space Scanner (Compat. E&CC)
 building_deep_space_scanner = {
 	base_buildtime = 360
-	base_cap_amount = 6
+	base_cap_amount = 3 # 1
 	category = research
-	resources = { category = planet_buildings cost = { minerals = 400 } produces = { physics_research = 10 } upkeep = { energy = 4 } }
+	prerequisites = { tech_deep_scanner }
+	potential = {
+		exists = owner
+		owner = {
+			is_regular_empire = yes
+			OR = {
+				has_ascension_perk = ap_deep_scanner
+				has_valid_civic = civic_exploration # Compat. E&CC
+			}
+		}
+		NOT = { has_modifier = slave_colony }
+	}
+	allow = { has_upgraded_capital = yes }
+	resources = { category = planet_buildings cost = { minerals = 400 } produces = { physics_research = 7 unity = 3 } upkeep = { energy = 4 } }
 	triggered_planet_modifier = { potential = { exists = owner owner = { is_gestalt = no } } modifier = { job_u_physicist_add = 1 } }
 	triggered_planet_modifier = { potential = { exists = owner owner = { is_gestalt = yes } } modifier = { job_u_physicist_drone_add = 1 } }
-	prerequisites = { tech_deep_scanner }
-	potential = { owner = { has_ascension_perk = ap_deep_scanner } }
+	triggered_planet_modifier = { potential = { exists = owner owner = { is_regular_empire = yes } } modifier = { job_researcher_add = 1 } }
+	planet_modifier = {
+		planet_sensor_range_add = 3
+		planet_jobs_physics_research_produces_mult = 0.1
+		pop_ethic_materialist_attraction_mult = 0.1
+	}
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = { is_regular_empire = yes }
+		}
+		text = job_researcher_effect_desc
+	}
+	destroy_trigger = {
+		OR = {
+			has_modifier = slave_colony
+			NAND = {
+				exists = owner
+				owner = { has_valid_civic = civic_exploration }
+				owner = { has_ascension_perk = ap_deep_scanner }
+			}
+		}
+	}
 	# ai_weight = { weight = 0 }
 }
 
