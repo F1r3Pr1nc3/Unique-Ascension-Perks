@@ -270,7 +270,8 @@ country_event = {
 	}
 }
 
-country_event = { # Remove Special Subject Empires from Any Federations & Galactic Community & Galactic Council
+# Remove Special Subject Empires from any Federations & Galactic Community & Galactic Council
+country_event = {
 	id = UniqueAscensionPerksEvents.8789
 	hide_window = yes
 	mean_time_to_happen = { months = 4 }
@@ -286,14 +287,25 @@ country_event = { # Remove Special Subject Empires from Any Federations & Galact
 	immediate = {
 		if = { limit = { any_federation = { any_member = { is_unique_perk_special_subject = yes } } }
 			every_federation = { limit = { any_member = { is_unique_perk_special_subject = yes } }
-				every_member = { limit = { is_unique_perk_special_subject = yes } leave_alliance = { override_requirements = yes } }
+				every_member = { limit = { is_unique_perk_special_subject = yes }
+					leave_alliance = { override_requirements = yes }
+					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
+				}
 			}
 		}
-		if = { limit = { is_galactic_community_formed = yes any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
-			every_playable_country = { limit = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } remove_from_galactic_community = yes }
-		}
-		if = { limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
-			every_playable_country = { limit = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } remove_from_galactic_council = yes }
+		if = { limit = { is_galactic_community_formed = yes }
+			if = { limit = { any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
+				every_country = { limit = { is_galactic_community_member = yes is_unique_perk_special_subject = yes }
+					remove_from_galactic_community = yes
+					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
+				}
+			}
+			if = { limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
+				every_country = { limit = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes }
+					remove_from_galactic_council = yes
+					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
+				}
+			}
 		}
 	}
 }
