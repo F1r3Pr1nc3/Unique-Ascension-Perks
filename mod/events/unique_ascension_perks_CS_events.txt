@@ -105,6 +105,20 @@ country_event = {
 						}
 						save_event_target_as = civilian_activities_country
 					}
+				} else_if = {
+					limit = {
+						any_country = {
+							is_country_type = civilian_activities
+							has_relation_flag = { who = root flag = civilian_activities_country }
+						}
+					}
+					random_country = {
+						limit = {
+							is_country_type = civilian_activities
+							has_relation_flag = { who = root flag = civilian_activities_country }
+						}
+						save_event_target_as = civilian_activities_country
+					}
 				} else = {
 					create_country = {
 						name = "Civilian Faction"
@@ -123,7 +137,7 @@ country_event = {
 						effect = {
 							set_name = {
 								key = "NAME_Civilian_Faction"
-								variable_string = "[Root.GetSpeciesAdj]" # GetSpeciesNamePlural
+								variable_string = "Root.GetSpeciesAdj" # GetSpeciesNamePlural
 							}
 							set_country_flag = first_alien_life
 							set_country_flag = has_encountered_other_empire
@@ -434,8 +448,10 @@ country_event = {
 	trigger = {
 		# is_ai = no
 		has_ascension_perk = ap_civilian_activities
-		any_relation = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
-		# any_country = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
+		OR = {
+			any_relation = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
+			any_country = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
+		}
 	}
 	immediate =	{
 		# civilian_space_activities_idle_fleet_selection = yes
@@ -446,6 +462,13 @@ country_event = {
 				save_event_target_as = civilian_activities_country
 			}
 		}
+		if = { limit = { NOT = { exists = event_target:civilian_activities_country } }
+			random_country = {
+				limit = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
+				save_event_target_as = civilian_activities_country
+			}
+		}
+
 		event_target:civilian_activities_country = {
 			if = {
 				limit = {
