@@ -3,7 +3,7 @@ decision_stellar_manipulation = {
 	sound = event_alien_nature
 	resources = {
 		category = decisions
-		cost = { minerals = 4000 food = 2000 exotic_gases = 50 }
+		# cost = { minerals = 4000 food = 2000 exotic_gases = 50 }
 		cost = {
 			trigger = { exists = owner owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } }
 			minerals = 4000 food = 2000 exotic_gases = 50
@@ -696,24 +696,41 @@ decision_hivemind_reserve_unhabited = {
 
 decision_primitive_creation = {
 	sound = event_primitive_civilization
-	resources = { category = decisions cost = { food = 1000 minerals = 2500 energy = 2000 } }
+	enactment_time = 30
+	resources = {
+		category = decisions
+		cost = { influence = 10 food = 1000 minerals = 2500 energy = 2000 }
+	}
 	potential = {
 		exists = from
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
-		has_owner = no
 		OR = {
-			habitable_planet = yes
-			is_city_planet = yes
-			merg_is_hab_ringworld = yes
-			merg_is_habitat = yes
-			is_planet_class = pc_nuked
+			has_owner = no
+			AND = {
+				is_owned_by = from
+				is_capital = no
+				num_pops < 31
+			}
+		}
+		OR = {
+			can_have_habitable_deposits = yes # is_planet_class = pc_nuked
+			is_city_planet = yes # habitable_planet = yes
+			has_ringworld_output_boost = yes # merg_is_hab_ringworld = yes
+			merg_is_habitat = yes # uses_habitat_capitals = yes
+		}
+	}
+	allow = {
+		NOR = {
+			has_planet_flag = primitive_creation_done
+			has_planet_flag = new_primitive_world
+			from = { has_active_event = { UniqueAscensionPerksEvents.141 } }
 		}
 	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		set_planet_flag = primitive_creation_done
+		# set_planet_flag = primitive_creation_done
 		# create_primitive_retro_country = yes
 		planet_event = { id = UniqueAscensionPerksEvents.141 }
 	}
@@ -723,14 +740,25 @@ decision_primitive_creation = {
 decision_primitive_creation_unhabitable = {
 	icon = decision_primitive_creation
 	sound = event_primitive_civilization
-	resources = { category = decisions cost = { influence = 20 food = 2000 minerals = 4000 energy = 5000 } }
+	enactment_time = 30
+	resources = {
+		category = decisions
+		cost = { influence = 20 food = 2000 minerals = 4000 energy = 5000 }
+	}
 	prerequisites = { tech_climate_restoration }
 	potential = {
+		exists = from
 		exists = space_owner
-
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
-		has_owner = no
+		OR = {
+			has_owner = no
+			AND = {
+				is_owned_by = from
+				is_capital = no
+				num_pops < 31
+			}
+		}
 		OR = {
 			is_planet_class = pc_molten
 			is_planet_class = pc_toxic
@@ -739,13 +767,20 @@ decision_primitive_creation_unhabitable = {
 			is_planet_class = pc_barren_cold
 		}
 	}
+	allow = {
+		NOR = {
+			has_planet_flag = primitive_creation_done
+			has_planet_flag = new_primitive_world
+			from = { has_active_event = { UniqueAscensionPerksEvents.141 } }
+		}
+	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		if = { limit = { is_planet_class = pc_molten } change_pc = pc_desert }
-		else_if = { limit = { is_planet_class = pc_toxic } change_pc = pc_continental }
-		else_if = { limit = { is_planet_class = pc_frozen } change_pc = pc_alpine }
-		else_if = { limit = { is_planet_class = pc_barren } change_pc = pc_desert }
-		else_if = { limit = { is_planet_class = pc_barren_cold } change_pc = pc_tundra }
+		if		= { limit = { is_planet_class = pc_molten }			change_pc = pc_desert }
+		else_if = { limit = { is_planet_class = pc_toxic }			change_pc = pc_continental }
+		else_if = { limit = { is_planet_class = pc_frozen  }		change_pc = pc_alpine }
+		else_if = { limit = { is_planet_class = pc_barren }			change_pc = pc_desert }
+		else_if = { limit = { is_planet_class = pc_barren_cold }	change_pc = pc_tundra }
 		reset_planet = yes
 		set_planet_flag = primitive_creation_done
 		# create_primitive_retro_country = yes
@@ -757,11 +792,12 @@ decision_primitive_creation_unhabitable = {
 decision_powerful_vassal = {
 	# icon = decision_regent
 	sound = event_mystic_reveal_light
+	enactment_time = 7
 	resources = {
 		category = decisions
-		cost = { influence = 200 food = 2000 minerals = 5000 energy = 5000 unity = 2000 }
+		cost = { influence = 150 food = 2000 minerals = 5000 energy = 5000 unity = 2000 }
 		cost = { trigger = { from = { is_synthetic_empire = yes } } food = -2000 minerals = 500 energy = 500 }
-		cost = { trigger = { has_planet_flag = planet_marked_for_handover } unity = -200 }
+		# cost = { trigger = { has_planet_flag = planet_marked_for_handover } unity = -200 }
 	}
 	potential = {
 		exists = from
@@ -780,13 +816,20 @@ decision_powerful_vassal = {
 		is_occupied_flag = no
 		# NOT = { has_planet_flag = planet_marked_for_handover }
 	}
+	allow = {
+		has_resource = { type = influence amount > 200 }
+		NOR = {
+			from = { has_active_event = { regentmaker.0 regentmaker.1 regentmaker.2 regentmaker.4 } }
+			exists = event_target:owning_empire
+		}
+	}
 	effect = {
 		custom_tooltip = "decision_powerful_vassal_tooltip"
+		if = { limit = { NOT = { has_planet_flag = planet_marked_for_handover } }
+			set_planet_flag = planet_marked_for_handover
+		} else = { from = { add_resource = { unity = -200 } } }
 		# create_vassal_country
 		hidden_effect = {
-			if = { limit = { NOT = { has_planet_flag = planet_marked_for_handover } }
-				set_planet_flag = planet_marked_for_handover
-			} # else = { from = { add_resource = { unity = -200 } } }
 			from = { save_event_target_as = owning_empire }
 			planet_event = { id = regentmaker.1 }
 		}

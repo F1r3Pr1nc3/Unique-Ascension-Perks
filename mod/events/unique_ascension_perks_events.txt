@@ -3241,19 +3241,19 @@ country_event = {
 				limit = { pop_has_right_ethics = no }
 				clear_ethos = yes
 				random_list = {
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_materialist } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_materialist } } pop_change_ethic = ethic_materialist }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_spiritualist } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_spiritualist } } pop_change_ethic = ethic_spiritualist }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_xenophile } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_xenophile } } pop_change_ethic = ethic_xenophile }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_xenophobe } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_xenophobe } } pop_change_ethic = ethic_xenophobe }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_militarist } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_militarist } } pop_change_ethic = ethic_militarist }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_pacifist } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_pacifist } } pop_change_ethic = ethic_pacifist }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_egalitarian } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_egalitarian } } pop_change_ethic = ethic_egalitarian }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_authoritarian } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_authoritarian } } pop_change_ethic = ethic_authoritarian }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_materialis		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_materialist } } pop_change_ethic = ethic_materialist }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_spiritualist	} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_spiritualist } } pop_change_ethic = ethic_spiritualist }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_xenophile		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_xenophile } } pop_change_ethic = ethic_xenophile }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_xenophobe		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_xenophobe } } pop_change_ethic = ethic_xenophobe }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_militarist		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_militarist } } pop_change_ethic = ethic_militarist }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_pacifist		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_pacifist } } pop_change_ethic = ethic_pacifist }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_egalitarian		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_egalitarian } } pop_change_ethic = ethic_egalitarian }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_authoritarian	} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_authoritarian } } pop_change_ethic = ethic_authoritarian }
 					# (Mod) Ethics and Civics Classic
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_green } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_green } } pop_change_ethic = ethic_green }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_industrial } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_industrial } } pop_change_ethic = ethic_industrial }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_socialism } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_socialism } } pop_change_ethic = ethic_socialism }
-					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_capitalism } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_capitalism } } pop_change_ethic = ethic_capitalism }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_green			} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_green } } pop_change_ethic = ethic_green }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_industrial		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_industrial } } pop_change_ethic = ethic_industrial }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_socialism		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_socialism } } pop_change_ethic = ethic_socialism }
+					1 = { modifier = { factor = 500 owner = { has_ethic = ethic_capitalism		} } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_capitalism } } pop_change_ethic = ethic_capitalism }
 				}
 			}
 		}
@@ -3530,44 +3530,239 @@ planet_event = {
 	title = "UniqueAscensionPerksEvents.141.Name"
 	desc = "UniqueAscensionPerksEvents.141.Desc"
 	show_sound = event_primitive_civilization
-	picture = GFX_evt_medieval_alien_civilization
+	picture = GFX_evt_medieval_alien_civilization # picture = GFX_evt_big_landing_ship
 	location = root
 	is_triggered_only = yes
 	immediate = {
 		set_planet_flag = new_primitive_world
+	}
+	after = {
+		hidden_effect = {
+			if = { limit = { has_planet_flag = new_primitive_world }
+				planet_event = { id = UniqueAscensionPerksEvents.3141 } # setup_primitive_planet = yes
+			} else = { # refund
+				from = {
+					# if = { limit = { NOR = { has_technology = tech_climate_restoration has_planet_flag = primitive_creation_done } }
+					add_resource = { influence = 10 food = 1000 minerals = 2500 energy = 2000 }
+				}
+			}
+		}
+	}
+	# very_early_primitive
+	option = {
+		name = "stone_age"
+		custom_tooltip = "stone_age_desc"
+		trigger = { has_owner = no }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_stone_age days = 5 }
+		}
+	}
+	option = {
+		name = "bronze_age"
+		custom_tooltip = "bronze_age_desc"
+		trigger = { has_owner = no }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_bronze_age days = 5 }
+		}
+	}
+	option = {
+		name = "iron_age"
+		custom_tooltip = "iron_age_desc"
+		trigger = { has_owner = no }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_iron_age days = 5 }
+		}
+	}
+	# early_primitive
+	option = {
+		name = "late_medieval_age"
+		custom_tooltip = "late_medieval_age_desc"
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_medieval_age days = 5 }
+		}
+	}
+	option = {
+		name = "renaissance_age"
+		custom_tooltip = "renaissance_age_desc"
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age days = 5 }
+		}
+	}
+	option = {
+		name = "steam_age"
+		custom_tooltip = "steam_age_desc"
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_steam_age days = 5 }
+		}
+	}
+	option = {
+		name = "random_early_age"
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_iron_age			days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_medieval_age		days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age	days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_steam_age			days = 5 }
+		}
+	}
+	# late_primitive
+	option = {
+		name = "industrial_age"
+		custom_tooltip = "industrial_age_desc"
+		trigger = { has_owner = yes is_colony = yes }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_industrial_age days = 5 }
+		}
+	}
+	option = {
+		name = "machine_age"
+		custom_tooltip = "machine_age_desc"
+		trigger = { has_owner = yes is_colony = yes }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_machine_age days = 5 }
+		}
+	}
+	option = {
+		name = "atomic_age"
+		custom_tooltip = "atomic_age_desc"
+		trigger = { has_owner = yes is_colony = yes }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_atomic_age days = 5 }
+		}
+	}
+	option = {
+		name = "early_space_age"
+		custom_tooltip = "early_space_age_desc"
+		trigger = { has_owner = yes is_colony = yes }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_early_space_age days = 5 }
+		}
+	}
+	option = {
+		name = "random_late_age"
+		trigger = { has_owner = yes is_colony = yes }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = new_primitive_world_industrial_age		days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_machine_age		days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_atomic_age			days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_early_space_age	days = 5 }
+		}
+	}
+	option = {
+		name = "random_age"
+		trigger = { has_owner = yes is_colony = yes }
+		hidden_effect = {
+			random_list = {
+				1 = { set_timed_planet_flag = { flag = new_primitive_world_stone_age	days = 5 } }
+				3 = { set_timed_planet_flag = { flag = new_primitive_world_bronze_age	days = 5 } }
+				6 = { set_timed_planet_flag = { flag = new_primitive_world_iron_age		days = 5 } }
+			}
+			set_timed_planet_flag = { flag = new_primitive_world_medieval_age		days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age	days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_steam_age			days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_industrial_age		days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_machine_age		days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_atomic_age			days = 5 }
+			set_timed_planet_flag = { flag = new_primitive_world_early_space_age	days = 5 }
+		}
+	}
+	# option = {
+	# 	name = "abandon_project"
+	# 	hidden_effect = {
+	# 		remove_planet_flag = new_primitive_world
+	# 		remove_planet_flag = primitive_creation_done
+	# 	}
+	# }
+	# option = { name = EXCELLENT }
+}
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.3141
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
 		# save_event_target_as = new_primitive_world
-		from = {
-			save_event_target_as = origin_country
-			create_species = {
-				name = this
-				plural = this
-				class = this
-				portrait = this
-				starting_colony = root
-				traits = random
-				# traits = { trait = random_traits }
+		# set_planet_flag = new_primitive_world
+		set_planet_flag = primitive_creation_done
+		if = { limit = { has_owner = yes num_pops > 0 }
+			save_event_target_as = primitive_world_species
+		} else = {
+			fromfrom = { save_event_target_as = primitive_world_species }
+		}
+		event_target:primitive_world_species = {
+			random_owned_pop = {
+				limit = {
+					exists = species
+					root = { habitability = { who = prev value >= 0.5 } }
+				}
+				weights = {
+					base = 1
+					modifier = { add = 2 root = { habitability = { who = prev value >= 0.7 } } }
+					modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = root } } }
+				}
+				species = {
+					# save_event_target_as = primitive_world_species
+					create_species = {
+						name = this
+						plural = this
+						class = this
+						portrait = this
+						homeworld = root
+						traits = random
+						is_mod = yes
+						# traits = { trait = random_traits }
+						effect = { save_event_target_as = primitive_world_species }
+					}
+				}
 			}
 		}
 		# create_early_primitive_empire = yes
 		create_country = {
 			name = random
+			type = primitive
+			ethos = fromfrom
 			authority = random
-			ethos = event_target:origin_country
+			government_restrictions = {
+				authority = {
+					NOR = { value = auth_machine_intelligence value = auth_hive_mind }
+				}
+			}
 			civics = {
 				civic = civic_landed_nobility
 				civic = civic_flat_world_theory
 			}
-			species = last_created_species
+			species = event_target:primitive_world_species
+			ignore_initial_colony_error = yes
 			flag = {
 				icon = { category = "special" file = "primitive.dds" }
 				background = { category = "backgrounds" file = "new_dawn.dds" }
 				colors = { "turquoise" "green" "null" "null" }
 			}
-			type = primitive
+			ship_prefix = ""
+			origin = "origin_enlightened" # Should only be visible if they become spacefaring
+			day_zero_contact = no
+			exclude_day_zero_contact = fromfrom
+			released_by_country = fromfrom
+			released_from_country = fromfrom
 			effect = {
 				set_graphical_culture = preindustrial_01
+				# switch = { trigger = has_planet_flag
+				# 	new_primitive_world_stone_age		= { primitive_world_stone_age = yes }
+				# 	new_primitive_world_bronze_age		= { primitive_world_bronze_age = yes }
+				# 	new_primitive_world_iron_age		= { primitive_world_iron_age = yes }
+				# 	new_primitive_world_medieval_age	= { primitive_world_medieval_age = yes }
+				# 	new_primitive_world_renaissance_age	= { primitive_world_renaissance_age = yes }
+				# 	new_primitive_world_steam_age		= { primitive_world_steam_age = yes }
+				# 	new_primitive_world_early_age		= { primitive_world_early_age = yes }
+				# 	new_primitive_world_industrial_age	= { primitive_world_industrial_age = yes }
+				# 	new_primitive_world_machine_age		= { primitive_world_machine_age = yes }
+				# 	new_primitive_world_atomic_age		= { primitive_world_atomic_age = yes }
+				# 	new_primitive_world_early_space_age	= { primitive_world_early_space_age = yes }
+				# 	new_primitive_world_late_age		= { primitive_world_late_age = yes }
+				# 	new_primitive_world_random_age		= { primitive_world_random_age = yes }
+				# }
 				random_list = {
 					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_stone_age } } }
 						set_country_flag = stone_age
 						set_primitive_age = stone_age
 						change_government = {
@@ -3579,6 +3774,7 @@ planet_event = {
 						}
 					}
 					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } } }
 						set_country_flag = bronze_age
 						set_primitive_age = bronze_age
 						change_government = {
@@ -3595,6 +3791,7 @@ planet_event = {
 						}
 					}
 					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_iron_age } } }
 						set_country_flag = iron_age
 						set_primitive_age = iron_age
 						change_country_flag = {
@@ -3604,6 +3801,7 @@ planet_event = {
 						}
 					}
 					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_medieval_age } } }
 						set_country_flag = late_medieval_age
 						set_primitive_age = late_medieval_age
 						change_country_flag = {
@@ -3613,6 +3811,7 @@ planet_event = {
 						}
 					}
 					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_renaissance_age } } }
 						set_country_flag = renaissance_age
 						set_primitive_age = renaissance_age
 						change_country_flag = {
@@ -3622,6 +3821,7 @@ planet_event = {
 						}
 					}
 					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_steam_age } } }
 						set_country_flag = steam_age
 						set_primitive_age = steam_age
 						change_country_flag = {
@@ -3630,12 +3830,108 @@ planet_event = {
 							colors = { "orange" "red" "null" "null" }
 						}
 					}
+					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_industrial_age } } }
+						change_government = {
+							civics = {
+								civic = civic_increasing_urbanization
+								civic = civic_atmospheric_pollution
+							}
+						}
+						set_country_flag = industrial_age
+						set_primitive_age = industrial_age
+						change_country_flag = {
+							icon = { category = "spherical" file = "flag_spherical_22.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "beige" "yellow" "null" "null" }
+						}
+					}
+					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_machine_age } } }
+						change_government = {
+							civics = {
+								civic = civic_increasing_urbanization
+								civic = civic_atmospheric_pollution
+							}
+						}
+						set_country_flag = machine_age
+						set_primitive_age = machine_age
+						change_country_flag = {
+							icon = { category = "spherical" file = "flag_spherical_22.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "yellow" "orange" "null" "null" }
+						}
+					}
+					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_atomic_age } } }
+						change_government = {
+							civics = {
+								civic = civic_increasing_urbanization
+								civic = civic_atmospheric_pollution
+							}
+						}
+						set_country_flag = atomic_age
+						set_primitive_age = atomic_age
+						change_country_flag = {
+							icon = { category = "spherical" file = "flag_spherical_22.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "beige" "brown" "null" "null" }
+						}
+					}
+					20 = {
+						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_early_space_age } } }
+						change_government = {
+							civics = {
+								civic = civic_increasing_urbanization
+								civic = civic_atmospheric_pollution
+							}
+						}
+						set_country_flag = early_space_age
+						set_primitive_age = early_space_age
+						change_country_flag = {
+							icon = { category = "spherical" file = "flag_spherical_22.dds" }
+							background = { category = "backgrounds" file = "new_dawn.dds" }
+							colors = { "grey" "dark_grey" "null" "null" }
+						}
+					}
 				}
 			}
 		}
 	}
-	after = { hidden_effect = { setup_primitive_planet = yes } }
-	option = { name = EXCELLENT }
+	after = {
+		hidden_effect = {
+			setup_primitive_planet = yes
+			if = {
+				limit = {
+					exists = solar_system.starbase
+					solar_system.starbase = { is_owned_by = root.fromfrom }
+				}
+				solar_system = {
+					system_event = { id = UniqueAscensionPerksEvents.3161 days = 3 }
+				}
+			}
+		}
+	}
+}
+
+system_event = {
+	id = UniqueAscensionPerksEvents.3161
+	location = starbase
+	is_triggered_only = yes
+	title = UniqueAscensionPerksEvents.3161.name
+	desc = UniqueAscensionPerksEvents.3161.desc
+	picture = GFX_evt_medieval_alien_civilization
+	trigger = { exists = starbase }
+	option = {
+		name = UniqueAscensionPerksEvents.3161.a
+		custom_tooltip = "UniqueAscensionPerksEvents.3161.a.desc"
+		hidden_effect = {
+			starbase = { destroy_fleet = fleet }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3161.b
+	}
 }
 
 country_event = {
@@ -3667,14 +3963,14 @@ country_event = {
 			set_timed_planet_flag = { flag = primitive_creation_planet_cooldown months = 60 }
 			observation_outpost_owner = {
 				random_list = {
-					5 = { modifier = { factor = 0 is_primitive_stage_one = no } country_event = { id = UniqueAscensionPerksEvents.3143 } }
-					15 = { modifier = { factor = 0 is_primitive_stage_one = no } country_event = { id = UniqueAscensionPerksEvents.3144 } }
-					20 = { modifier = { factor = 0 is_primitive_stage_one = no } country_event = { id = UniqueAscensionPerksEvents.3145 } }
-					10 = { modifier = { factor = 0 is_primitive_stage_two = no } country_event = { id = UniqueAscensionPerksEvents.3146 } }
-					10 = { modifier = { factor = 0 is_primitive_stage_two = no } country_event = { id = UniqueAscensionPerksEvents.3147 } }
-					10 = { modifier = { factor = 0 is_primitive_stage_two = no } country_event = { id = UniqueAscensionPerksEvents.3148 } }
-					3 = { modifier = { factor = 0 is_primitive_stage_three = yes } country_event = { id = UniqueAscensionPerksEvents.3149 } }
-					5 = { modifier = { factor = 0 is_primitive_stage_three = no } country_event = { id = UniqueAscensionPerksEvents.3150 } }
+					5	= { modifier = { factor = 0 is_primitive_stage_one = no } country_event = { id = UniqueAscensionPerksEvents.3143 } }
+					15	= { modifier = { factor = 0 is_primitive_stage_one = no } country_event = { id = UniqueAscensionPerksEvents.3144 } }
+					20	= { modifier = { factor = 0 is_primitive_stage_one = no } country_event = { id = UniqueAscensionPerksEvents.3145 } }
+					10	= { modifier = { factor = 0 is_primitive_stage_two = no } country_event = { id = UniqueAscensionPerksEvents.3146 } }
+					10	= { modifier = { factor = 0 is_primitive_stage_two = no } country_event = { id = UniqueAscensionPerksEvents.3147 } }
+					10	= { modifier = { factor = 0 is_primitive_stage_two = no } country_event = { id = UniqueAscensionPerksEvents.3148 } }
+					3	= { modifier = { factor = 0 is_primitive_stage_three = yes } country_event = { id = UniqueAscensionPerksEvents.3149 } }
+					5	= { modifier = { factor = 0 is_primitive_stage_three = no } country_event = { id = UniqueAscensionPerksEvents.3150 } }
 				}
 			}
 		}
@@ -6916,7 +7212,7 @@ planet_event = {
 				class = random_non_machine
 				portrait = random
 				traits = random
-				# starting_colony = root
+				# homeworld = root
 				# sapient = no
 				effect = {
 					random_list = {
@@ -6956,7 +7252,7 @@ planet_event = {
 					class = random_non_machine
 					portrait = random
 					traits = random
-					starting_colony = root
+					homeworld = root
 					sapient = no
 				}
 				create_pop = { species = last_created_species }
