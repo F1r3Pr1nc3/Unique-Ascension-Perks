@@ -3525,6 +3525,7 @@ country_event = {
 }
 
 # create_primitive_retro_country
+# FromFrom = Country
 planet_event = {
 	id = UniqueAscensionPerksEvents.141
 	title = "UniqueAscensionPerksEvents.141.Name"
@@ -3535,6 +3536,9 @@ planet_event = {
 	is_triggered_only = yes
 	immediate = {
 		set_planet_flag = new_primitive_world
+		if = { limit = { NOT = { exists = event_target:owning_empire } }
+			fromfrom = { save_event_target_as = owning_empire }
+		}
 	}
 	after = {
 		hidden_effect = {
@@ -3598,17 +3602,22 @@ planet_event = {
 	option = {
 		name = "random_early_age"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = new_primitive_world_iron_age			days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_medieval_age		days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age	days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_steam_age			days = 5 }
+			random_list = {
+				1 = { set_timed_planet_flag = { flag = new_primitive_world_stone_age		days = 5 } }
+				3 = { set_timed_planet_flag = { flag = new_primitive_world_bronze_age		days = 5 } }
+				6 = { set_timed_planet_flag = { flag = new_primitive_world_iron_age			days = 5 } }
+				9 = { set_timed_planet_flag = { flag = new_primitive_world_medieval_age		days = 5 } }
+				9 = { set_timed_planet_flag = { flag = new_primitive_world_renaissance_age	days = 5 } }
+				9 = { set_timed_planet_flag = { flag = new_primitive_world_steam_age		days = 5 } }
+			}
 		}
+		ai_chance = { factor = 0.1 }
 	}
 	# late_primitive
 	option = {
 		name = "industrial_age"
 		custom_tooltip = "industrial_age_desc"
-		trigger = { has_owner = yes is_colony = yes }
+		trigger = { has_owner = yes is_colony = yes is_under_colonization = no }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_industrial_age days = 5 }
 		}
@@ -3616,7 +3625,7 @@ planet_event = {
 	option = {
 		name = "machine_age"
 		custom_tooltip = "machine_age_desc"
-		trigger = { has_owner = yes is_colony = yes }
+		trigger = { has_owner = yes is_colony = yes is_under_colonization = no }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_machine_age days = 5 }
 		}
@@ -3624,7 +3633,7 @@ planet_event = {
 	option = {
 		name = "atomic_age"
 		custom_tooltip = "atomic_age_desc"
-		trigger = { has_owner = yes is_colony = yes }
+		trigger = { has_owner = yes is_colony = yes is_under_colonization = no }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_atomic_age days = 5 }
 		}
@@ -3632,38 +3641,42 @@ planet_event = {
 	option = {
 		name = "early_space_age"
 		custom_tooltip = "early_space_age_desc"
-		trigger = { has_owner = yes is_colony = yes }
+		trigger = { has_owner = yes is_colony = yes is_under_colonization = no }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_early_space_age days = 5 }
 		}
 	}
 	option = {
 		name = "random_late_age"
-		trigger = { has_owner = yes is_colony = yes }
+		trigger = { has_owner = yes is_colony = yes is_under_colonization = no }
 		hidden_effect = {
-			set_timed_planet_flag = { flag = new_primitive_world_industrial_age		days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_machine_age		days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_atomic_age			days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_early_space_age	days = 5 }
+			random_list = {
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_industrial_age	days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_machine_age		days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_atomic_age		days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_early_space_age	days = 5 } }
+			}
 		}
+		ai_chance = { factor = 0.5 }
 	}
 	option = {
 		name = "random_age"
 		trigger = { has_owner = yes is_colony = yes }
 		hidden_effect = {
 			random_list = {
-				1 = { set_timed_planet_flag = { flag = new_primitive_world_stone_age	days = 5 } }
-				3 = { set_timed_planet_flag = { flag = new_primitive_world_bronze_age	days = 5 } }
-				6 = { set_timed_planet_flag = { flag = new_primitive_world_iron_age		days = 5 } }
+				1 = { set_timed_planet_flag = { flag = new_primitive_world_stone_age		days = 5 } }
+				3 = { set_timed_planet_flag = { flag = new_primitive_world_bronze_age		days = 5 } }
+				6 = { set_timed_planet_flag = { flag = new_primitive_world_iron_age			days = 5 } }
+				9 = { set_timed_planet_flag = { flag = new_primitive_world_medieval_age		days = 5 } }
+				9 = { set_timed_planet_flag = { flag = new_primitive_world_renaissance_age	days = 5 } }
+				9 = { set_timed_planet_flag = { flag = new_primitive_world_steam_age		days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_industrial_age	days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_machine_age		days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_atomic_age		days = 5 } }
+				10 = { set_timed_planet_flag = { flag = new_primitive_world_early_space_age	days = 5 } }
 			}
-			set_timed_planet_flag = { flag = new_primitive_world_medieval_age		days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age	days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_steam_age			days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_industrial_age		days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_machine_age		days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_atomic_age			days = 5 }
-			set_timed_planet_flag = { flag = new_primitive_world_early_space_age	days = 5 }
 		}
+		ai_chance = { factor = 0.2 }
 	}
 	# option = {
 	# 	name = "abandon_project"
@@ -3680,52 +3693,191 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
+		set_update_modifiers_batch = begin
+		if = { limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = fromfromfrom fromfromfrom = { is_scope_type = country } }
+				fromfromfrom = { save_event_target_as = owning_empire }
+			} else_if = { limit = { exists = space_owner }
+				space_owner = { save_event_target_as = owning_empire }
+			}
+		}
 		# save_event_target_as = new_primitive_world
 		# set_planet_flag = new_primitive_world
 		set_planet_flag = primitive_creation_done
 		if = { limit = { has_owner = yes num_pops > 0 }
 			save_event_target_as = primitive_world_species
+			export_trigger_value_to_variable = { variable = pops_to_resettle trigger = num_pops }
+
+			switch = { trigger = has_planet_flag
+				new_primitive_world_stone_age		= { set_variable = { which = primitive_pops value = 4 } }
+				new_primitive_world_bronze_age		= { set_variable = { which = primitive_pops value = 8 } }
+				new_primitive_world_iron_age		= { set_variable = { which = primitive_pops value = 9 } }
+				new_primitive_world_medieval_age	= { set_variable = { which = primitive_pops value = 10 } }
+				new_primitive_world_renaissance_age	= { set_variable = { which = primitive_pops value = 12 } }
+				new_primitive_world_steam_age		= { set_variable = { which = primitive_pops value = 16 } }
+				new_primitive_world_industrial_age	= { set_variable = { which = primitive_pops value = 22 } }
+				new_primitive_world_machine_age		= { set_variable = { which = primitive_pops value = 24 } }
+				new_primitive_world_atomic_age		= { set_variable = { which = primitive_pops value = 26 } }
+				new_primitive_world_early_space_age	= { set_variable = { which = primitive_pops value = 28 } }
+			}
+			subtract_variable = { which = pops_to_resettle value = primitive_pops }
+			multiply_variable = { which = pops_to_resettle value = 1.25 } # 25% increased chance to get primitive_pops
+			round_variable = pops_to_resettle
 		} else = {
-			fromfrom = { save_event_target_as = primitive_world_species }
+			event_target:owning_empire = { save_event_target_as = primitive_world_species }
+			set_variable = { which = pops_to_resettle value = 0 }
 		}
+
 		event_target:primitive_world_species = {
-			random_owned_pop = {
+			if = {
 				limit = {
-					exists = species
-					root = { habitability = { who = prev value >= 0.5 } }
+					any_owned_pop = {
+						NOR = {
+							is_robot_pop = yes
+							has_trait = trait_hive_mind
+							can_think = no
+							root = { habitability = { who = prev value < 0.5 } }
+						}
+					}
 				}
-				weights = {
-					base = 1
-					modifier = { add = 2 root = { habitability = { who = prev value >= 0.7 } } }
-					modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = root } } }
+				random_owned_pop = {
+					limit = {
+						NOR = {
+							is_robot_pop = yes
+							has_trait = trait_hive_mind
+							can_think = no
+							root = { habitability = { who = prev value < 0.5 } }
+						}
+						exists = species
+					}
+					weights = {
+						base = 1
+						modifier = { add = 2 root = { habitability = { who = prev value >= 0.7 } } }
+						modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = root } } }
+					}
+					species = { save_event_target_as = primitive_world_species }
 				}
-				species = {
-					# save_event_target_as = primitive_world_species
-					create_species = {
-						name = this
-						plural = this
-						class = this
-						portrait = this
-						homeworld = root
-						traits = random
-						is_mod = yes
-						# traits = { trait = random_traits }
-						effect = { save_event_target_as = primitive_world_species }
+			} else_if = {
+				limit = {
+					any_owned_pop = {
+						NOR = {
+							is_robot_pop = yes
+							has_trait = trait_hive_mind
+							can_think = no
+							root = { habitability = { who = prev value < 0.3 } }
+						}
+					}
+				}
+				random_owned_pop = {
+					limit = {
+						NOR = {
+							is_robot_pop = yes
+							has_trait = trait_hive_mind
+							can_think = no
+							root = { habitability = { who = prev value < 0.3 } }
+						}
+						exists = species
+					}
+					weights = {
+						base = 1
+						modifier = { add = 2 root = { habitability = { who = prev value >= 0.6 } } }
+						modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = root } } }
+					}
+					species = { save_event_target_as = primitive_world_species }
+				}
+			} else = { # last fallback
+				random_owned_pop = {
+					weights = {
+						base = 1
+						modifier = { add = 20 is_robot_pop = no }
+						modifier = { add = 2 root = { habitability = { who = prev value >= 0.5 } } }
+						modifier = { add = 10 species = { exists = home_planet home_planet = { is_planet = root } } }
+					}
+					species = { save_event_target_as = primitive_world_species }
+				}
+			}
+		}
+
+		event_target:primitive_world_species = {
+			create_species = {
+				name = this
+				plural = this
+				class = this
+				portrait = this
+				homeworld = root
+				traits = random
+				is_mod = yes
+				# traits = { trait = random_traits }
+				effect = { save_event_target_as = primitive_world_species }
+			}
+		}
+		## Resettle pops
+		if = { limit = { check_variable = { which = pops_to_resettle value > 0 } }
+			while = {
+				count = pops_to_resettle
+				limit = {
+					num_pops > 0
+					any_owned_pop = {
+						NOR = {
+							is_same_species = event_target:primitive_world_species
+							is_pop_category = bio_trophy
+							is_pop_category = purge
+							is_pop_category = assimilation
+							is_pop_category = pre_sapients
+						}
+					}
+				}
+				random_owned_pop = {
+					limit = {
+						NOR = {
+							is_same_species = event_target:primitive_world_species
+							is_pop_category = bio_trophy
+							is_pop_category = purge
+							is_pop_category = assimilation
+							is_pop_category = pre_sapients
+						}
+					}
+					weights = {
+						base = 1
+						modifier = { add = 2 OR = { is_robot_pop = yes has_trait = trait_hive_mind } }
+					}
+					unemploy_pop = yes
+					clear_pop_category = yes
+					event_target:owning_empire = {
+						random_owned_planet = {
+							limit = {
+								NOR = {
+									is_same_value = prevprevprev
+									has_orbital_bombardment = yes
+									is_under_colonization = yes
+									is_occupied_flag = yes
+								}
+							}
+							weights = {
+								base = 1
+								modifier = { add = 2 OR = { free_jobs > 0 free_housing > 0 } }
+							}
+							resettle_pop = {
+								pop = prevprev
+								planet = this
+							}
+						}
 					}
 				}
 			}
 		}
+
 		# create_early_primitive_empire = yes
 		create_country = {
 			name = random
 			type = primitive
-			ethos = fromfrom
+			ethos = event_target:owning_empire
 			authority = random
-			government_restrictions = {
-				authority = {
-					NOR = { value = auth_machine_intelligence value = auth_hive_mind }
-				}
-			}
+			# government_restrictions = {
+			# 	authority = {
+			# 		NOR = { value = auth_machine_intelligence value = auth_hive_mind }
+			# 	}
+			# }
 			civics = {
 				civic = civic_landed_nobility
 				civic = civic_flat_world_theory
@@ -3740,50 +3892,19 @@ planet_event = {
 			ship_prefix = ""
 			origin = "origin_enlightened" # Should only be visible if they become spacefaring
 			day_zero_contact = no
-			exclude_day_zero_contact = fromfrom
-			released_by_country = fromfrom
-			released_from_country = fromfrom
+			exclude_day_zero_contact = event_target:owning_empire
+			released_by_country = event_target:owning_empire
+			released_from_country = event_target:owning_empire
 			effect = {
 				set_graphical_culture = preindustrial_01
-				# switch = { trigger = has_planet_flag
-				# 	new_primitive_world_stone_age		= { primitive_world_stone_age = yes }
-				# 	new_primitive_world_bronze_age		= { primitive_world_bronze_age = yes }
-				# 	new_primitive_world_iron_age		= { primitive_world_iron_age = yes }
-				# 	new_primitive_world_medieval_age	= { primitive_world_medieval_age = yes }
-				# 	new_primitive_world_renaissance_age	= { primitive_world_renaissance_age = yes }
-				# 	new_primitive_world_steam_age		= { primitive_world_steam_age = yes }
-				# 	new_primitive_world_early_age		= { primitive_world_early_age = yes }
-				# 	new_primitive_world_industrial_age	= { primitive_world_industrial_age = yes }
-				# 	new_primitive_world_machine_age		= { primitive_world_machine_age = yes }
-				# 	new_primitive_world_atomic_age		= { primitive_world_atomic_age = yes }
-				# 	new_primitive_world_early_space_age	= { primitive_world_early_space_age = yes }
-				# 	new_primitive_world_late_age		= { primitive_world_late_age = yes }
-				# 	new_primitive_world_random_age		= { primitive_world_random_age = yes }
-				# }
 				random_list = {
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_stone_age } } }
-						set_country_flag = stone_age
-						set_primitive_age = stone_age
-						change_government = {
-							authority = random
-							civics = {
-								civic = civic_secret_of_fire
-								civic = civic_the_wheel
-							}
-						}
+						set_primitive_age_effect = { primitive_age = stone_age }
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } } }
-						set_country_flag = bronze_age
-						set_primitive_age = bronze_age
-						change_government = {
-							authority = random
-							civics = {
-								civic = civic_secret_of_fire
-								civic = civic_the_wheel
-							}
-						}
+						set_primitive_age_effect = { primitive_age = bronze_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3792,8 +3913,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_iron_age } } }
-						set_country_flag = iron_age
-						set_primitive_age = iron_age
+						set_primitive_age_effect = { primitive_age = iron_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3802,8 +3922,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_medieval_age } } }
-						set_country_flag = late_medieval_age
-						set_primitive_age = late_medieval_age
+						set_primitive_age_effect = { primitive_age = late_medieval_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3812,8 +3931,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_renaissance_age } } }
-						set_country_flag = renaissance_age
-						set_primitive_age = renaissance_age
+						set_primitive_age_effect = { primitive_age = renaissance_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3822,8 +3940,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_steam_age } } }
-						set_country_flag = steam_age
-						set_primitive_age = steam_age
+						set_primitive_age_effect = { primitive_age = steam_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3832,14 +3949,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_industrial_age } } }
-						change_government = {
-							civics = {
-								civic = civic_increasing_urbanization
-								civic = civic_atmospheric_pollution
-							}
-						}
-						set_country_flag = industrial_age
-						set_primitive_age = industrial_age
+						set_primitive_age_effect = { primitive_age = industrial_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3848,14 +3958,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_machine_age } } }
-						change_government = {
-							civics = {
-								civic = civic_increasing_urbanization
-								civic = civic_atmospheric_pollution
-							}
-						}
-						set_country_flag = machine_age
-						set_primitive_age = machine_age
+						set_primitive_age_effect = { primitive_age = machine_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3864,14 +3967,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_atomic_age } } }
-						change_government = {
-							civics = {
-								civic = civic_increasing_urbanization
-								civic = civic_atmospheric_pollution
-							}
-						}
-						set_country_flag = atomic_age
-						set_primitive_age = atomic_age
+						set_primitive_age_effect = { primitive_age = atomic_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3880,14 +3976,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_early_space_age } } }
-						change_government = {
-							civics = {
-								civic = civic_increasing_urbanization
-								civic = civic_atmospheric_pollution
-							}
-						}
-						set_country_flag = early_space_age
-						set_primitive_age = early_space_age
+						set_primitive_age_effect = { primitive_age = industrial_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3897,19 +3986,24 @@ planet_event = {
 				}
 			}
 		}
+		set_update_modifiers_batch = end
 	}
 	after = {
 		hidden_effect = {
-			setup_primitive_planet = yes
+			if = { limit = { is_colony = no }
+				setup_primitive_planet = yes
+			}
 			if = {
 				limit = {
 					exists = solar_system.starbase
-					solar_system.starbase = { is_owned_by = root.fromfrom }
+					solar_system.starbase = { is_owned_by = event_target:owning_empire }
 				}
 				solar_system = {
 					system_event = { id = UniqueAscensionPerksEvents.3161 days = 3 }
 				}
 			}
+			clear_variable = pops_to_resettle
+			clear_variable = primitive_pops
 		}
 	}
 }
@@ -7423,12 +7517,12 @@ country_event = {
 			save_event_target_as = origin_system
 			set_spawn_system_batch = begin
 			random_list = {
-				100 = {	spawn_system = { min_distance >= 4 max_distance <= 9  initializer = "white_hole_system_1" hyperlane = no } }
-				100 = {	spawn_system = { min_distance >= 5 max_distance <= 12 initializer = "white_hole_system_2" hyperlane = no } }
-				100 = {	spawn_system = { min_distance >= 6 max_distance <= 15 initializer = "white_hole_system_3" hyperlane = no } }
-				40 = {	spawn_system = { min_distance >= 7 max_distance <= 18 initializer = "white_hole_system_4" hyperlane = no } }
-				40 = {	spawn_system = { min_distance >= 8 max_distance <= 21 initializer = "white_hole_system_5" hyperlane = no } }
-				5 = {	spawn_system = { min_distance >= 9 max_distance <= 24 initializer = "white_hole_system_10" hyperlane = no } }
+				100	= { spawn_system = { min_distance >= 4 max_distance <= 9  initializer = "white_hole_system_1" hyperlane = no } }
+				100	= { spawn_system = { min_distance >= 5 max_distance <= 12 initializer = "white_hole_system_2" hyperlane = no } }
+				100	= { spawn_system = { min_distance >= 6 max_distance <= 15 initializer = "white_hole_system_3" hyperlane = no } }
+				40	= { spawn_system = { min_distance >= 7 max_distance <= 18 initializer = "white_hole_system_4" hyperlane = no } }
+				40	= { spawn_system = { min_distance >= 8 max_distance <= 21 initializer = "white_hole_system_5" hyperlane = no } }
+				5	= { spawn_system = { min_distance >= 9 max_distance <= 24 initializer = "white_hole_system_10" hyperlane = no } }
 			}
 			last_created_system = {
 				# save_event_target_as = white_hole_system
