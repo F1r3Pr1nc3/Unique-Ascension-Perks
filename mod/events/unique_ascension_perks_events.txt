@@ -1,5 +1,15 @@
 namespace = UniqueAscensionPerksEvents
 
+# on_action (delay needed)
+country_event = {
+	id = UniqueAscensionPerksEvents.8785
+	is_triggered_only = yes
+	hide_window = yes
+	immediate = {
+		country_event = { id = UniqueAscensionPerksEvents.8786 days = 3 scopes = { from = from fromfrom = fromfrom } }
+	}
+}
+
 # Sync_subjects_virtual_relations (on_war_beginning, on_war_ended)
 country_event = {
 	id = UniqueAscensionPerksEvents.8786 # Similar UniqueAscensionPerksEvents.1023
@@ -1915,7 +1925,10 @@ country_event = {
 				}
 			}
 		}
-		no_scope = { save_event_target_as = ship_escorted }
+		if = { limit = { exists = event_target:ship_escorted }
+			event_target:ship_escorted = { save_global_event_target_as = ship_escorted }
+			clear_global_event_target = ship_escorted
+		}
 	}
 	after = {
 		if = { limit = { exists = event_target:ship_escorted }
@@ -2308,7 +2321,10 @@ country_event = {
 				}
 			}
 		}
-		no_scope = { save_event_target_as = FallenEmpireTaskOrigin } # clear hack
+		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+			event_target:FallenEmpireTaskOrigin = { save_global_event_target_as = FallenEmpireTaskOrigin }
+			clear_global_event_target = FallenEmpireTaskOrigin
+		}
 	}
 	after = {
 		hidden_effect = {
@@ -2522,7 +2538,10 @@ country_event = {
 				}
 			}
 		}
-		no_scope = { save_event_target_as = FallenEmpireTaskOrigin } # clear hack
+		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+			event_target:FallenEmpireTaskOrigin = { save_global_event_target_as = FallenEmpireTaskOrigin }
+			clear_global_event_target = FallenEmpireTaskOrigin
+		}
 	}
 	after = {
 		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
@@ -4321,7 +4340,8 @@ country_event = {
 			} }
 		}
 		if = { limit = { exists = event_target:VassalNavyInvestmentTarget }
-			no_scope = { save_event_target_as = VassalNavyInvestmentTarget }
+			event_target:VassalNavyInvestmentTarget = { save_global_event_target_as = VassalNavyInvestmentTarget }
+			clear_global_event_target = VassalNavyInvestmentTarget
 		}
 	}
 	after = {
@@ -4948,8 +4968,8 @@ leader_event = {
 									# set_name = "CLONED_LEADER_NAME"
 									set_name = {
 										key = "CLONED_LEADER_NAME"
-										variable_string = "This.GetName"
-										variable_string = "From.cloned_leader_number"
+										variable_string = "[This.GetName]"
+										variable_string = "[From.cloned_leader_number]"
 									}
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
@@ -6859,7 +6879,7 @@ event = {
 					has_ascension_perk = ap_civilian_activities
 				}
 			}
-			country_event = { id = UniqueAscensionPerksEvents.8786 }
+			country_event = { id = UniqueAscensionPerksEvents.8786 days = 1 }
 		}
 		# remove in 3.5
 		# FIX SUBJECT TRUST (only works if they suposed to be subjects)

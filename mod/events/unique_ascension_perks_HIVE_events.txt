@@ -123,13 +123,22 @@ leader_event = {
 						while = { count = prev.cloned_leader_number
 							switch = {
 								trigger = leader_class
-								scientist = { from = { clone_leader = { target = prev class = scientist } } }
-								admiral = { from = { clone_leader = { target = prev class = admiral } } }
-								governor = { from = { clone_leader = { target = prev class = governor } } }
-								general = { from = { clone_leader = { target = prev class = general } } }
+								scientist	= { from = { clone_leader = { target = prev class = scientist } } }
+								admiral		= { from = { clone_leader = { target = prev class = admiral } } }
+								governor	= { from = { clone_leader = { target = prev class = governor } } }
+								general		= { from = { clone_leader = { target = prev class = general } } }
+								# ruler		= { from = { clone_leader = { target = prev class = ruler } } }
 							}
 							from = {
-								last_created_leader = { set_age = 20 set_name = "CLONED_LEADER_NAME" }
+								last_created_leader = {
+									set_age = 20
+									# set_name = "CLONED_LEADER_NAME"
+									set_name = {
+										key = "CLONED_LEADER_NAME"
+										variable_string = "[This.GetName]"
+										variable_string = "[From.cloned_leader_number]"
+									}
+								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
 							}
 						}
