@@ -238,7 +238,7 @@ industrialist = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = {
 			consumer_goods = 4
 			alloys = 2
@@ -275,9 +275,10 @@ teacher = {
 			unity = 5
 			society_research = 2
 		}
+		upkeep = { energy = 2 food = 1 }
 	}
 	weight = {
-		weight = @worker_job_weight
+		weight = @specialist_job_weight
 		modifier = { factor = 0.25 is_enslaved = yes can_take_servant_job = no }
 	}
 }
@@ -299,7 +300,7 @@ hive_queen = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = { }
 		upkeep = {
 			food = 20 # 4
@@ -408,7 +409,7 @@ botanist = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = {
 			food = 1
 			society_research = 2
@@ -492,7 +493,7 @@ constructor = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = {
 			alloys = 2
 			engineering_research = 1
@@ -526,7 +527,7 @@ recycler = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = {
 			energy = 3
 			minerals = 3
@@ -889,7 +890,10 @@ spy = {
 		upkeep = { consumer_goods = 1 }
 	}
 	country_modifier = {
-		all_technology_research_speed = 0.01 # v3.3 halved
+		# all_technology_research_speed = 0.01 # v3.3 halved # v.3.6 replaced not work for jobs
+		country_society_research_produces_mult = 0.01
+		country_physics_research_produces_mult = 0.01
+		country_engineering_research_produces_mult = 0.01
 		country_election_cost_mult = -0.01
 		# empire_size_penalty_mult = -0.005 3.3 removed
 		megastructure_build_speed_mult = 0.02
@@ -926,7 +930,10 @@ spy_drone = {
 		upkeep = { minerals = 2 }
 	}
 	country_modifier = {
-		all_technology_research_speed = 0.01 # v3.3 halved
+		# all_technology_research_speed = 0.01 # v3.3 halved # v.3.6 replaced not work for jobs
+		country_society_research_produces_mult = 0.01
+		country_physics_research_produces_mult = 0.01
+		country_engineering_research_produces_mult = 0.01
 		# empire_size_penalty_mult = -0.005 3.3 removed
 		megastructure_build_speed_mult = 0.02
 	}
@@ -1015,7 +1022,7 @@ smuggler = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		upkeep = {
 			minerals = 15
 			energy = 5
@@ -1058,7 +1065,7 @@ smuggler_drone = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		upkeep = {
 			minerals = 12
 			energy = 3
@@ -1098,7 +1105,7 @@ purifier = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = {
 			minerals = 3 # 6
 			energy = 1
@@ -1131,7 +1138,7 @@ purifier_drone = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = {
 			minerals = 3 # 6
 			energy = 1
@@ -1215,7 +1222,7 @@ living_metal_extractor = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = { sr_living_metal = 2 }
 		upkeep = { alloys = 6 }
 	}
@@ -1241,7 +1248,7 @@ living_metal_extractor_drone = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		produces = { sr_living_metal = 2 }
 		upkeep = { alloys = 6 }
 	}
@@ -1309,7 +1316,7 @@ secret_alchimist = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		upkeep = {
 			minerals = 10
 			food = 10
@@ -1344,7 +1351,7 @@ secret_alchimist_drone = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs
+		category = planet_jobs_productive
 		upkeep = {
 			minerals = 10
 			food = 10

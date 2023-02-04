@@ -620,7 +620,8 @@ country_event = {
 		set_spawn_system_batch = end
 	}
 	option = {
-		name = EXCELLENT add_research_option = tech_new_systems_localization
+		name = EXCELLENT
+		add_research_option = tech_new_systems_localization
 		hidden_effect = {
 			country_event = { id = distar.13060 scopes = { from = event_target:lh_empire_capital_system } }
 		}
@@ -1925,13 +1926,13 @@ country_event = {
 				}
 			}
 		}
-		if = { limit = { exists = event_target:ship_escorted }
-			event_target:ship_escorted = { save_global_event_target_as = ship_escorted }
-			clear_global_event_target = ship_escorted
-		}
+		# if = { limit = { exists = event_target:ship_escorted }
+		# 	event_target:ship_escorted = { save_global_event_target_as = ship_escorted }
+		# 	clear_global_event_target = ship_escorted
+		# }
 	}
 	after = {
-		if = { limit = { exists = event_target:ship_escorted }
+		if = { limit = { exists = event_target:ship_escorted event_target:ship_escorted = { is_scope_type = ship } }
 			create_security_forces_country = yes
 			event_target:ship_escorted = {
 				solar_system = { star = { save_event_target_as = spawn_location } }
@@ -1953,8 +1954,8 @@ country_event = {
 			if = { limit = { NOT = { exists = event_target:security_forces_country } last_created_country = { has_country_flag = security_strike_force } }
 				last_created_country = { save_event_target_as = security_forces_country }
 			}
-			# event_target:security_fleet = {
-			last_created_fleet = {
+			event_target:security_fleet = {
+			# last_created_fleet = {
 				set_owner = event_target:security_forces_country auto_follow_fleet = { target = event_target:ship_escorted attack_fleet = no }
 			}
 		}
