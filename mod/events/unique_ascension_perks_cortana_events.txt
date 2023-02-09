@@ -93,7 +93,28 @@ country_event = {
 	after = { remove_country_flag = cortana_ready }
 	option = {
 		name = "CortanaEvent.1.Building"
-		trigger = { NOT = { has_country_flag = cortana_cooldown } }
+		trigger = {
+			NOT = { has_country_flag = cortana_cooldown }
+			NAND = {
+				has_technology = tech_power_plant_4
+				has_technology = tech_power_hub_2
+				has_technology = tech_mining_3
+				has_technology = tech_mineral_purification_2
+				OR = { has_technology = tech_nutrient_replication is_machine_empire = yes }
+				has_technology = tech_food_processing_2
+				OR = { has_technology = tech_frontier_hospital is_gestalt = yes }
+				has_technology = tech_physics_3
+				has_technology = tech_society_3
+				has_technology = tech_engineering_3
+				has_technology = tech_alloys_2
+				OR = { has_technology = tech_luxuries_2 is_gestalt = yes }
+				OR = { has_technology = tech_interstellar_economics is_gestalt = yes }
+				OR = { has_technology = tech_autocurating_vault is_hive_empire = yes is_spiritualist = yes }
+				OR = { has_technology = tech_transcendent_faith is_spiritualist = no }
+				OR = { has_technology = tech_hive_confluence is_hive_empire = no }
+				has_technology = tech_housing_2
+			}
+		}
 		hidden_effect = {
 			country_event = { id = CortanaEvent.2 }
 		}
@@ -863,7 +884,13 @@ country_event = {
 	picture = GFX_evt_ai_cortana
 	show_sound = event_scanner
 	is_triggered_only = yes
-	trigger = { has_technology = tech_cortana_initiatives NOR = { has_country_flag = cortana_initiave_tech_cooldown has_country_flag = cortana_research_random_repeatable_technology_no_warning } }
+	trigger = {
+		has_technology = tech_cortana_initiatives
+		NOR = {
+			has_country_flag = cortana_initiave_tech_cooldown
+			has_country_flag = cortana_research_random_repeatable_technology_no_warning
+		}
+	}
 	option = {
 		name = "CortanaEvent.12.a"
 		custom_tooltip = "CortanaEvent.12.a.tooltip"
@@ -887,9 +914,10 @@ country_event = {
 		NOT = { has_country_flag = cortana_initiave_tech_cooldown }
 	}
 	immediate = {
-		if = {
-			limit = { has_technology = tech_cortana_advanced } set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 20 }
-			else = { set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 36 } }
+		if = { limit = { has_technology = tech_cortana_advanced }
+			set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 20 }
+		} else = {
+			set_timed_country_flag = { flag = cortana_initiave_tech_cooldown months = 36 }
 		}
 		cortana_research_random_repeatable_technology = yes
 		if = { limit = { has_technology = tech_cortana_perfect } cortana_research_random_repeatable_technology = yes }
