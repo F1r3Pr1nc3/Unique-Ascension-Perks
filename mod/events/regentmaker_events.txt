@@ -44,9 +44,9 @@ country_event = {
 		custom_tooltip = "edict_regentmaker_give_tech_desc"
 		allow = {
 			has_resource = { type = influence amount > 50 }
-			NOR = {
+			NOT = {
 				has_active_event = { regentmaker.4 }
-				has_modifier = electoral
+				# has_modifier = electoral
 			}
 		}
 		hidden_effect = {
@@ -97,10 +97,10 @@ country_event = {
 		custom_tooltip = decision_true_emperor_desc
 		trigger = {
 			NOT = { has_global_flag = regentmaker_control_sel@owner }
-			OR = {
-				has_ascension_perk = ap_decentralization
+			# OR = {
+			# 	has_ascension_perk = ap_decentralization
 				has_ascension_perk = ap_powerful_vassals
-			}
+			# }
 			any_subject = { is_perfect_vassal = yes }
 		}
 		allow = {
@@ -190,6 +190,7 @@ planet_event = {
 					limit = { has_planet_flag = planet_marked_for_handover }
 					remove_planet_flag = planet_marked_for_handover
 					remove_modifier = "perfect_vassal_colony"
+					remove_modifier = "pm_perfect_vassal_colony"
 				}
 				# refund
 				add_resource = { influence = 190 food = 1950 minerals = 4900 energy = 4900 unity = 1950 }
@@ -237,6 +238,7 @@ planet_event = {
 					limit = { has_planet_flag = planet_marked_for_handover }
 					remove_planet_flag = planet_marked_for_handover
 					remove_modifier = "perfect_vassal_colony"
+					remove_modifier = "pm_perfect_vassal_colony"
 				}
 				# refund
 				add_resource = { influence = 190 food = 1950 minerals = 4900 energy = 4900 unity = 1950 }
@@ -458,7 +460,7 @@ planet_event = {
 					set_owner = prev
 					if = { limit = { has_building = no }
 						while = {
-							count = 15
+							count = 12
 							limit = { num_pops < 30 }
 							create_pop = { species = event_target:vassal_species }
 						}
@@ -481,8 +483,8 @@ planet_event = {
 			# } else = {
 			set_subject_of = {
 				who = event_target:owning_empire
-				# preset = preset_vassal
-				allow_instant_negotiation = yes
+				# preset = preset_vassal TODO?
+				# allow_instant_negotiation = yes
 			}
 			set_faction_hostility = {
 				set_hostile = no
@@ -493,7 +495,7 @@ planet_event = {
 			# action_open_borders
 			set_closed_borders = { who = event_target:owning_empire status = no forced = 5 }
 			# TODO test
-			change_dominant_species = { species = event_target:vassal_species change_all = yes } # buggy 3.0.3
+			# change_dominant_species = { species = event_target:vassal_species change_all = yes } # buggy 3.0.3
 			event_target:owning_empire = {
 				set_country_flag = has_communications@prev
 				set_faction_hostility = {
@@ -571,7 +573,10 @@ planet_event = {
 			}
 			add_trust = { who = event_target:owning_empire amount = 100 }
 			add_intel = { who = event_target:owning_empire amount = 200 }
-			add_modifier = { modifier = perfect_vassal_boost }
+			add_modifier = {
+				modifier = perfect_vassal_boost
+				modifier = difficulty_grand_admiral
+			}
 			# create_starting_leaders, create_starting_fleets
 			country_event = { id = regentmaker.209 }
 		}
@@ -765,6 +770,7 @@ planet_event = {
 		}
 		remove_planet_flag = planet_marked_for_handover
 		remove_modifier = "perfect_vassal_colony"
+		add_modifier = "pm_perfect_vassal_colony"
 		solar_system = {
 			if = {
 				limit = {
@@ -793,6 +799,7 @@ planet_event = {
 							if = { limit = { has_planet_flag = planet_marked_for_handover }
 								remove_planet_flag = planet_marked_for_handover
 								remove_modifier = "perfect_vassal_colony"
+								add_modifier = "pm_perfect_vassal_colony"
 								set_controller = last_created_country
 								set_owner = last_created_country
 							} else = {
@@ -805,7 +812,7 @@ planet_event = {
 								any_system_colony = {
 									is_star = no
 									is_asteroid = no
-									}
+								}
 							}
 						}
 						starbase = { set_owner = last_created_country }
@@ -823,6 +830,7 @@ planet_event = {
 					if = { limit = { has_planet_flag = planet_marked_for_handover }
 						remove_planet_flag = planet_marked_for_handover
 						remove_modifier = "perfect_vassal_colony"
+						add_modifier = "pm_perfect_vassal_colony"
 					}
 					set_controller = last_created_country
 					set_owner = last_created_country
@@ -2059,16 +2067,18 @@ country_event = {
 		is_subject = yes
 		is_perfect_vassal = yes
 		overlord = {
+			is_ai = yes
+			has_country_flag = has_communications@root
 			OR = {
-				has_country_flag = owning_empire
-				has_ascension_perk = ap_decentralization
+				# has_country_flag = owning_empire
+				# has_ascension_perk = ap_decentralization
 				has_ascension_perk = ap_powerful_vassals
 				has_valid_civic = civic_feudal_realm
 			}
-			is_ai = yes
 		}
+		has_relation_flag = { who = overlord flag = perfect_vassal_relation }
 	}
-	immediate = { remove_global_flag = regentmaker_control_sel@this }
+	immediate = { remove_global_flag = regentmaker_control_sel@root }
 	option = {
 		name = regentmaker.101.a # NO "fleet1getback"
 		hidden_effect = { set_country_flag = regentmaker_control_sel }
@@ -3188,14 +3198,14 @@ country_event = {
 		}
 	}
 	immediate = {
-		# capital_scope = {
-		# 	if = { limit = { NOT = { has_modifier =  "planetary_nationalism" } }
-		# 		add_modifier = { modifier = "planetary_nationalism" }
-		# 	}
-		# }
-		# if = { limit = { NOT = { has_modifier =  specialist_member_state_subject_modifier } }
-		# 	add_modifier = { modifier = specialist_member_state_subject_modifier }
-		# }
+		capital_scope = {
+			if = { limit = { NOT = { has_modifier =  "pm_perfect_vassal_colony" } }
+				add_modifier = { modifier = "pm_perfect_vassal_colony" }
+			}
+		}
+		if = { limit = { NOT = { has_modifier =  perfect_vassal_boost } }
+			add_modifier = { modifier = perfect_vassal_boost }
+		}
 
 		add_resource = {
 			minerals = 15000

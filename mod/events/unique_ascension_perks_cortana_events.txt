@@ -200,11 +200,15 @@ country_event = {
 				has_technology = tech_space_science_5
 				has_technology = tech_tomb_world_adaption
 				has_technology = tech_construction_templates
-			}
-			NAND = {
-				is_gestalt = no
-				has_technology = tech_colonization_5
-				has_technology = tech_synthetic_workers
+				OR = { has_technology = tech_synthetic_workers is_gestalt = yes }
+				OR = {
+					has_technology = tech_colonization_5
+					NOR = {
+						is_machine_empire = no
+						has_civic = civic_machine_assimilator
+						has_civic = civic_machine_servitor
+					}
+				}
 			}
 		}
 		hidden_effect = {

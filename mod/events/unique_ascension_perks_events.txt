@@ -494,7 +494,7 @@ planet_event = {
 				}
 			}
 			AND = {
-				is_planet_class = pc_machine
+				merg_is_machine_world = yes
 				from = {
 					# is_machine_empire = yes
 					OR = {
@@ -526,7 +526,7 @@ planet_event = {
 			if = { limit = { is_variable_set = d_valley_of_zanaam	NOT = { has_deposit = d_valley_of_zanaam } } while = { count = d_valley_of_zanaam			add_deposit = d_valley_of_zanaam } clear_variable = d_valley_of_zanaam }
 			if = { limit = { is_variable_set = d_collapsed_burrows	NOT = { has_deposit = d_collapsed_burrows } } while = { count = d_collapsed_burrows			add_deposit = d_collapsed_burrows } clear_variable = d_collapsed_burrows }
 			if = { limit = { is_variable_set = d_spawning_complex_blocker NOT = { has_deposit = d_spawning_complex_blocker } } while = { count = d_spawning_complex_blocker add_deposit = d_spawning_complex_blocker } clear_variable = d_spawning_complex_blocker }
-		} else_if = { limit = { is_planet_class = pc_machine }
+		} else_if = { limit = { merg_is_machine_world = yes }
 			if = { limit = { is_variable_set = d_district_foundry	NOT = { has_deposit = d_district_foundry } } while = { count = d_district_foundry	add_deposit = d_district_foundry } clear_variable = d_district_foundry }
 			if = { limit = { is_variable_set = d_district_security	NOT = { has_deposit = d_district_security } } while = { count = d_district_security	add_deposit = d_district_security } clear_variable = d_district_security }
 			if = { limit = { is_variable_set = d_district_upgrade	NOT = { has_deposit = d_district_upgrade } } while = { count = d_district_upgrade	add_deposit = d_district_upgrade } clear_variable = d_district_upgrade }
@@ -3545,7 +3545,7 @@ country_event = {
 }
 
 # create_primitive_retro_country
-# FromFrom = Country
+# fromfrom = Country
 planet_event = {
 	id = UniqueAscensionPerksEvents.141
 	title = "UniqueAscensionPerksEvents.141.Name"
@@ -4969,8 +4969,8 @@ leader_event = {
 									# set_name = "CLONED_LEADER_NAME"
 									set_name = {
 										key = "CLONED_LEADER_NAME"
-										variable_string = "[This.GetName]"
-										variable_string = "[From.cloned_leader_number]"
+										variable_string = "This.GetName"
+										variable_string = "From.cloned_leader_number"
 									}
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
