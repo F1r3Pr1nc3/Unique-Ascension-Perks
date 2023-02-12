@@ -45,40 +45,6 @@
 # 	ai_weight = { weight = 0 }
 # }
 
-# decision_release_regentmaker = {
-# 	icon = decision_regent
-# 	# "gfx/interface/icons/dlc/anniversary_species_pack.dds"
-# 	# gfx/interface/icons/traditions/unused/tradition_supremacy_great_game.dds
-# 	owned_planets_only = yes
-# 	resources = {
-# 		category = decisions
-# 		cost = { influence = 25 }
-# 	}
-# 	potential = {
-# 		owner = {
-# 			is_ai = no
-# 			any_owned_planet = { has_planet_flag = regentmaker_handover }
-# 		}
-# 	}
-# 	effect = {
-# 		owner = {
-# 			random_owned_planet = {
-# 				limit = {
-# 					has_planet_flag = regentmaker_handover
-# 					has_owner = yes
-# 					is_homeworld = no
-# 					# original_owner = yes
-# 					has_ground_combat = no
-# 					is_capital = no
-# 					is_occupied_flag = no
-# 				}
-# 				planet_event = { id = regentmaker.1 }
-# 			}
-# 		}
-# 	}
-# 	ai_weight = { weight = 0 }
-# }
-
 # decision_excld_decentral = {
 # 	icon = decision_de_mark_off
 # 	owned_planets_only = no
@@ -196,6 +162,99 @@ decision_true_emperor = {
 				overlord = { set_player = prev }
 			}
 		}
+	}
+	ai_weight = { weight = 0 }
+}
+
+# release
+decision_powerful_vassal = {
+	# icon = decision_regent
+	sound = event_mystic_reveal_light
+	enactment_time = 7
+	resources = {
+		category = decisions
+		cost = { influence = 150 food = 2000 minerals = 5000 energy = 5000 unity = 2000 }
+		cost = { trigger = { from = { is_synthetic_empire = yes } } food = -2000 minerals = 500 energy = 500 }
+		# cost = { trigger = { has_planet_flag = planet_marked_for_handover } unity = -200 }
+	}
+	potential = {
+		exists = from
+		exists = space_owner
+		space_owner = { is_same_empire = from }
+		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
+		OR = {
+			colonizable_planet = yes
+			AND = {
+				is_colony = yes
+				is_owned_by = from
+			}
+		}
+		has_ground_combat = no
+		is_capital = no
+		is_occupied_flag = no
+		# NOT = { has_planet_flag = planet_marked_for_handover }
+	}
+	allow = {
+		exists = from
+		from = { has_resource = { type = influence amount >= 200 } }
+		NOR = {
+			exists = event_target:owning_empire
+			from = { has_active_event = { regentmaker.0 regentmaker.1 regentmaker.2 regentmaker.4 } }
+		}
+	}
+	effect = {
+		custom_tooltip = "decision_powerful_vassal_tooltip"
+		if = { limit = { NOT = { has_planet_flag = planet_marked_for_handover } }
+			set_planet_flag = planet_marked_for_handover
+		} else = { from = { add_resource = { unity = -200 } } }
+		# create_vassal_country
+		hidden_effect = {
+			from = { save_event_target_as = owning_empire }
+			planet_event = { id = regentmaker.1 }
+		}
+	}
+	ai_weight = { weight = 0 }
+}
+
+decision_give_planet_to_vassal = {
+	sound = event_mystic_reveal_light
+	icon = decision_powerful_vassal_on
+	resources = { category = decisions cost = { unity = 200 } }
+	potential = {
+		exists = from
+		exists = space_owner
+		space_owner = { is_same_empire = from }
+		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
+		colonizable_planet = yes
+		is_capital = no
+		is_occupied_flag = no
+		NOT = { has_planet_flag = planet_marked_for_handover }
+	}
+	effect = {
+		custom_tooltip = "decision_give_planet_to_vassal_tooltip"
+		add_modifier = { modifier = "perfect_vassal_colony" }
+		hidden_effect = { set_planet_flag = planet_marked_for_handover }
+	}
+	ai_weight = { weight = 0 }
+}
+
+decision_dont_give_planet_to_vassal = {
+	sound = event_mystic_reveal_light
+	icon = decision_powerful_vassal_off
+	resources = { category = decisions cost = { unity = -180 } }
+	potential = {
+		exists = from
+		exists = space_owner
+		space_owner = { is_same_empire = from }
+		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
+		colonizable_planet = yes
+		has_planet_flag = planet_marked_for_handover
+	}
+	effect = {
+		custom_tooltip = "decision_dont_give_planet_to_vassal_tooltip"
+		remove_modifier = "perfect_vassal_colony"
+		remove_modifier = "pm_perfect_vassal_colony"
+		hidden_effect = { remove_planet_flag = planet_marked_for_handover }
 	}
 	ai_weight = { weight = 0 }
 }

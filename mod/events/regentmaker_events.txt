@@ -132,6 +132,7 @@ planet_event = {
 	desc = "regentmaker.1.desc"
 	picture = GFX_evt_throne_room
 	is_triggered_only = yes
+	location = root
 	# pre_triggers = { has_owner = yes }
 	# trigger = { }
 	immediate = {
@@ -141,7 +142,11 @@ planet_event = {
 			} else_if = { limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
 				fromfrom = { save_event_target_as = owning_empire }
 			} else = {
-				space_owner = { save_event_target_as = owning_empire }
+				if = { limit = { exists = space_owner }
+					space_owner = { save_event_target_as = owning_empire }
+				} else = {
+					planet_owner = { save_event_target_as = owning_empire }
+				}
 			}
 		}
 		event_target:owning_empire = {
@@ -157,11 +162,7 @@ planet_event = {
 	}
 	option = {
 		name = "regentmaker.1.a"
-		hidden_effect = {
-			# remove_planet_flag = regentmaker_tributary
-			# remove_planet_flag = regentmaker_member_state
-			planet_event = { id = regentmaker.2 }
-		}
+		planet_event = { id = regentmaker.2 }
 	}
 	# option = {
 	# 	name = "regentmaker.1.b"
@@ -207,17 +208,22 @@ planet_event = {
 	desc = "regentmaker.2.desc"
 	picture = GFX_evt_throne_room
 	is_triggered_only = yes
+	location = root
 	immediate = {
 		if = { limit = { NOT = { exists = event_target:owning_empire } }
-			space_owner = { save_event_target_as = owning_empire }
+			if = { limit = { exists = space_owner }
+				space_owner = { save_event_target_as = owning_empire }
+			} else = {
+				planet_owner = { save_event_target_as = owning_empire }
+			}
 		}
 	}
 	option = {
 		name = "regentmaker.2.a"
 		hidden_effect = {
 			event_target:owning_empire.owner_species = { save_event_target_as = vassal_species }
-			planet_event = { id = regentmaker.3 }
 		}
+		planet_event = { id = regentmaker.3 }
 	}
 	option = {
 		name = "regentmaker.2.b"
@@ -226,8 +232,8 @@ planet_event = {
 				event_target:vassal_species = { save_global_event_target_as = vassal_species }
 				clear_global_event_target = vassal_species
 			}
-			planet_event = { id = regentmaker.3 }
 		}
+		planet_event = { id = regentmaker.3 }
 	}
 	option = {
 		# "Leave it be."
@@ -255,7 +261,11 @@ planet_event = {
 	is_triggered_only = yes
 	immediate = {
 		if = { limit = { NOT = { exists = event_target:owning_empire } }
-			space_owner = { save_event_target_as = owning_empire }
+			if = { limit = { exists = space_owner }
+				space_owner = { save_event_target_as = owning_empire }
+			} else = {
+				planet_owner = { save_event_target_as = owning_empire }
+			}
 		}
 		## Save target species
 		if = { limit = {  NOT = { exists = event_target:vassal_species } }
@@ -434,7 +444,7 @@ planet_event = {
 			ethos = random
 			species = event_target:vassal_species
 			# flag = random			# Separate color definition not possible!?
-			origin = origin_hegemon_npc # origin_separatists
+			origin = origin_separatists
 			# auto_delete = yes
 			day_zero_contact = no
 			exclude_day_zero_contact = event_target:owning_empire
@@ -469,6 +479,9 @@ planet_event = {
 				}
 				set_custom_capital_location = root
 				save_event_target_as = new_empire
+				if = { limit = { has_overlord_dlc = yes }
+					set_origin = origin_imperial_vassal
+				}
 			}
 		}
 		last_created_country = {
@@ -573,10 +586,8 @@ planet_event = {
 			}
 			add_trust = { who = event_target:owning_empire amount = 100 }
 			add_intel = { who = event_target:owning_empire amount = 200 }
-			add_modifier = {
-				modifier = perfect_vassal_boost
-				modifier = difficulty_grand_admiral
-			}
+			add_modifier = { modifier = perfect_vassal_boost }
+			add_modifier = { modifier = difficulty_grand_admiral }
 			# create_starting_leaders, create_starting_fleets
 			country_event = { id = regentmaker.209 }
 		}
@@ -770,14 +781,14 @@ planet_event = {
 		}
 		remove_planet_flag = planet_marked_for_handover
 		remove_modifier = "perfect_vassal_colony"
-		add_modifier = "pm_perfect_vassal_colony"
+		add_modifier = { modifier = pm_perfect_vassal_colony }
 		solar_system = {
 			if = {
 				limit = {
 					exists = starbase
 					starbase = { is_owned_by = event_target:owning_empire }
 				}
-				starbase = { set_owner = last_created_country }
+				starbase = { set_owner = root.owner }
 				every_neighbor_system = {
 					limit = {
 						exists = starbase
@@ -790,7 +801,7 @@ planet_event = {
 								has_planet_flag = planet_marked_for_handover
 							}
 						}
-						starbase = { set_owner = last_created_country }
+						starbase = { set_owner = root.owner }
 						every_system_colony = {
 							limit = {
 								is_owned_by = event_target:owning_empire
@@ -799,9 +810,9 @@ planet_event = {
 							if = { limit = { has_planet_flag = planet_marked_for_handover }
 								remove_planet_flag = planet_marked_for_handover
 								remove_modifier = "perfect_vassal_colony"
-								add_modifier = "pm_perfect_vassal_colony"
-								set_controller = last_created_country
-								set_owner = last_created_country
+								add_modifier = { modifier = pm_perfect_vassal_colony }
+								set_controller = root.owner
+								set_owner = root.owner
 							} else = {
 								starbase = { set_owner = event_target:owning_empire }
 							}
@@ -815,7 +826,7 @@ planet_event = {
 								}
 							}
 						}
-						starbase = { set_owner = last_created_country }
+						starbase = { set_owner = root.owner }
 					}
 					# else = { }
 				}
@@ -830,14 +841,14 @@ planet_event = {
 					if = { limit = { has_planet_flag = planet_marked_for_handover }
 						remove_planet_flag = planet_marked_for_handover
 						remove_modifier = "perfect_vassal_colony"
-						add_modifier = "pm_perfect_vassal_colony"
+						add_modifier = { modifier = pm_perfect_vassal_colony }
 					}
-					set_controller = last_created_country
-					set_owner = last_created_country
+					set_controller = root.owner
+					set_owner = root.owner
 				}
 			}
 		}
-		# last_created_country = {
+		# root.owner = {
 		# 	add_resource = { minerals = 250 energy = 500 }
 		# 	capital_scope = { add_modifier = { modifier = "regentmaker_colony" days = -1 } }
 		# }
