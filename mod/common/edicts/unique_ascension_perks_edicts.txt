@@ -572,11 +572,17 @@ anti_matter_menu = {
 
 active_expansionist_development = {
 	icon = "GFX_text_building"
-	length = -1
+	length = 0
 	resources = { category = edicts cost = { } }
 	potential = {
 		has_ascension_perk = ap_expansionist_development
 		has_country_flag = no_expansionist_development
+	}
+	allow = {
+		NOR = {
+			has_country_flag = no_expansionist_development_yet }
+			has_active_event = { UniqueAscensionPerksEvents.531 }
+		}
 	}
 	ai_weight = { weight = 0 }
 	effect = { remove_country_flag = no_expansionist_development }
@@ -592,8 +598,10 @@ flourishing_technocracy = {
 			has_modifier = flourishing_technocracy_field_manipulation
 			has_modifier = flourishing_technocracy_particles
 			has_modifier = flourishing_technocracy_computing
-			has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 }
 		}
+	}
+	allow = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
 	}
 	ai_weight = { weight = event_target:global_event_country.ap_flourishing_technocracy }
 	effect = {

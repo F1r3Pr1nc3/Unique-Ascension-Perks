@@ -8397,6 +8397,7 @@ country_event = {
 }
 
 # on_system_survey_ship
+# from = survey_system
 # v3.3: doubled costs due imbalance
 # v3.4: exclude anomalies
 ship_event = {
@@ -8411,7 +8412,7 @@ ship_event = {
 		exists = owner
 		owner = {
 			has_ascension_perk = ap_expansionist_development
-			NOT = { has_country_flag = no_expansionist_development }
+			NOR = { has_country_flag = no_expansionist_development has_country_flag = no_expansionist_development_yet }
 		}
 		exists = from
 		from = {
@@ -8423,7 +8424,6 @@ ship_event = {
 	}
 	immediate = {
 		owner = { save_event_target_as = science_ship_owner }
-		# from = { save_event_target_as = survey_system }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Influence"
@@ -8433,8 +8433,8 @@ ship_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Energy"
-		allow = { owner = { resource_stockpile_compare = { resource = energy value > 2500 } } }
-		owner = { add_resource = { energy = -2500 } }
+		allow = { owner = { resource_stockpile_compare = { resource = energy value > 3000 } } }
+		owner = { add_resource = { energy = -3000 } }
 		deploy_outpost = yes
 	}
 	option = {
@@ -8445,34 +8445,34 @@ ship_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Alloys"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 800 } } }
+		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 900 } } }
 		trigger = { from = { is_machine_empire = no } }
-		owner = { add_resource = { alloys = -800 } }
+		owner = { add_resource = { alloys = -900 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Alloys"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 1000 } } }
+		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 1100 } } }
 		trigger = { from = { is_machine_empire = yes } }
-		owner = { add_resource = { alloys = -1000 } }
+		owner = { add_resource = { alloys = -1100 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Unity"
-		allow = { owner = { resource_stockpile_compare = { resource = unity value > 1500 } } }
-		owner = { add_resource = { unity = -1500 } }
+		allow = { owner = { resource_stockpile_compare = { resource = unity value > 1750 } } }
+		owner = { add_resource = { unity = -1750 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Food"
-		allow = { owner = { resource_stockpile_compare = { resource = food value > 3000 } } }
-		owner = { add_resource = { food = -3000 } }
+		allow = { owner = { resource_stockpile_compare = { resource = food value > 3200 } } }
+		owner = { add_resource = { food = -3200 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Treasures"
-		allow = { owner = { resource_stockpile_compare = { resource = treasures value > 300 } } }
-		owner = { add_resource = { treasures = -300 } }
+		allow = { owner = { resource_stockpile_compare = { resource = treasures value > 320 } } }
+		owner = { add_resource = { treasures = -320 } }
 		deploy_outpost = yes
 	}
 	option = {

@@ -22,7 +22,9 @@ ap_space_engineers = {
 		custom_tooltip = "ap_space_engineers_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_space_engineers } }
+	potential = { NOT = { has_ascension_perk = ap_space_engineers }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_space_engineers value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_space_engineers
 		modifier = { factor = 2 has_ethic = ethic_militarist }
@@ -47,9 +49,7 @@ ap_stellar_manipulation = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.10 } }
 	}
 	potential = { NOR = { has_ascension_perk = ap_stellar_manipulation has_global_flag = ap_stellar_manipulation } }
-	ai_weight = {
-		factor = 0 # event_target:global_event_country.ap_stellar_manipulation
-	}
+	ai_weight = { factor = 0 } # event_target:global_event_country.ap_stellar_manipulation
 }
 
 ap_lost_heritage = {
@@ -66,9 +66,9 @@ ap_lost_heritage = {
 	}
 	potential = { NOR = { has_ascension_perk = ap_lost_heritage has_global_flag = ap_lost_heritage } }
 	ai_weight = {
-		factor = event_target:global_event_country.ap_lost_heritage # TODO AI!?
-		# modifier = { factor = 2 has_ethic = ethic_materialist }
-		# modifier = { factor = 5 has_ethic = ethic_fanatic_materialist }
+		factor = event_target:global_event_country.ap_lost_heritage
+		modifier = { factor = 2 has_ethic = ethic_materialist }
+		modifier = { factor = 5 has_ethic = ethic_fanatic_materialist }
 	}
 }
 
@@ -89,8 +89,12 @@ ap_void_expedition = {
 		custom_tooltip = "ap_void_expedition_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.143 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_void_expedition } }
-	ai_weight = { factor = event_target:global_event_country.ap_void_expedition }
+	potential = { NOT = { has_ascension_perk = ap_void_expedition }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_void_expedition value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_void_expedition
+	}
 }
 
 # TODO
@@ -124,8 +128,12 @@ ap_expandable_brain_1 = {
 		custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.33 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_expandable_brain_1 } }
-	ai_weight = { factor = event_target:global_event_country.ap_expandable_brain_1 }
+	potential = { NOT = { has_ascension_perk = ap_expandable_brain_1 }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_expandable_brain_1 value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_expandable_brain_1
+	}
 }
 
 ap_expandable_brain_2 = {
@@ -142,8 +150,12 @@ ap_expandable_brain_2 = {
 		custom_tooltip = "ap_expandable_brain_2_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.37 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_expandable_brain_2 } }
-	ai_weight = { factor = event_target:global_event_country.ap_expandable_brain_2 }
+	potential = { NOT = { has_ascension_perk = ap_expandable_brain_2 }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_expandable_brain_2 value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_expandable_brain_2
+	}
 }
 
 ap_ai_cortana = {
@@ -160,8 +172,12 @@ ap_ai_cortana = {
 		set_country_flag = cortana_ready
 		hidden_effect = { country_event = { id = CortanaEvent.100 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_ai_cortana } }
-	ai_weight = { factor = event_target:global_event_country.ap_ai_cortana }
+	potential = { NOT = { has_ascension_perk = ap_ai_cortana }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_ai_cortana value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_ai_cortana
+	}
 }
 
 #  Nano Drone Workers
@@ -174,8 +190,12 @@ ap_nano_drones = {
 		custom_tooltip = "ap_nano_drones_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.40 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_nano_drones } }
-	ai_weight = { factor = event_target:global_event_country.ap_nano_drones }
+	potential = { NOT = { has_ascension_perk = ap_nano_drones }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_nano_drones value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_nano_drones
+	}
 }
 
 # Nanite Composition
@@ -201,8 +221,12 @@ ap_nano_to_nanite = {
 		add_resource = { automatic_drone = -37500 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8001 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_nano_to_nanite } }
-	ai_weight = { factor = event_target:global_event_country.ap_nano_to_nanite }
+	potential = { NOT = { has_ascension_perk = ap_nano_to_nanite }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_nano_to_nanite
+	}
 }
 
 # Genius Pregnancy
@@ -226,10 +250,12 @@ ap_genius_cloning = {
 			has_civic = civic_machine_assimilator
 			has_civic = civic_machine_servitor
 		}
+
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_genius_cloning value > 0 } } } # because ai_weight doesn't work
 	}
 	ai_weight = {
-		factor = event_target:global_event_country.ap_genius_cloning # 10 TODO performance?
-		# modifier = { factor = 5 is_hive_empire = yes }
+		factor = event_target:global_event_country.ap_genius_cloning
+		modifier = { factor = 5 is_hive_empire = yes }
 	}
 }
 
@@ -259,7 +285,9 @@ ap_adv_colonisation = {
 			every_owned_fleet = { limit = { is_ship_class = shipclass_colonizer } destroy_fleet = this }
 		}
 	}
-	potential = { NOT = { has_ascension_perk = ap_adv_colonisation } }
+	potential = { NOT = { has_ascension_perk = ap_adv_colonisation }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_adv_colonisation value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_adv_colonisation
 		modifier = { factor = 5 is_gestalt = yes }
@@ -300,7 +328,9 @@ ap_expansion_infinity = {
 			country_event = { id = UniqueAscensionPerksEvents.45 }
 		}
 	}
-	potential = { NOT = { has_ascension_perk = ap_expansion_infinity } }
+	potential = { NOT = { has_ascension_perk = ap_expansion_infinity }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_expansion_infinity value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_expansion_infinity
 		modifier = { factor = 5 is_gestalt = yes }
@@ -321,7 +351,9 @@ ap_recycling_drones = {
 		custom_tooltip = "ap_recycling_drones_tooltip_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.47 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_recycling_drones } }
+	potential = { NOT = { has_ascension_perk = ap_recycling_drones }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_recycling_drones value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_recycling_drones
 		modifier = { factor = 2 has_ethic = ethic_militarist }
@@ -347,7 +379,9 @@ ap_emergency_calculation = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.53 } }
 		custom_tooltip = "ap_emergency_calculation_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_emergency_calculation } }
+	potential = { NOT = { has_ascension_perk = ap_emergency_calculation }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_emergency_calculation value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_emergency_calculation
 		modifier = { factor = 2 has_ethic = ethic_pacifist }
@@ -372,7 +406,9 @@ ap_economic_prospertity = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.54 } }
 		add_resource = { energy = 10000 }
 	}
-	potential = { NOT = { has_ascension_perk = ap_economic_prospertity } is_gestalt = no }
+	potential = { NOT = { has_ascension_perk = ap_economic_prospertity } is_gestalt = no
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_economic_prospertity
 		modifier = { factor = 5 is_megacorp = yes }
@@ -386,7 +422,9 @@ ap_chosen_ruler = {
 	}
 	modifier = { ruler_skill_levels = 5 }
 	on_enabled = { custom_tooltip = "ap_chosen_ruler_tooltip" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.320 } } }
-	potential = { NOT = { has_ascension_perk = ap_chosen_ruler } }
+	potential = { NOT = { has_ascension_perk = ap_chosen_ruler }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_chosen_ruler value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_chosen_ruler
 		modifier = { factor = 2 has_ethic = ethic_authoritarian }
@@ -409,7 +447,9 @@ ap_advanced_security = {
 		custom_tooltip = "ap_advanced_security_tooltip_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.55 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_advanced_security } }
+	potential = { NOT = { has_ascension_perk = ap_advanced_security }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_advanced_security value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_advanced_security
 		modifier = { factor = 2 has_ethic = ethic_authoritarian }
@@ -438,8 +478,12 @@ ap_space_domestication = {
 		custom_tooltip = "ap_space_domestication_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1000 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_space_domestication } }
-	ai_weight = { factor = event_target:global_event_country.ap_space_domestication }
+	potential = { NOT = { has_ascension_perk = ap_space_domestication }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_space_domestication value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_space_domestication
+	}
 }
 
 ap_leviathan_master = {
@@ -466,8 +510,12 @@ ap_leviathan_master = {
 		custom_tooltip = "ap_leviathan_master_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1051 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_leviathan_master } }
-	ai_weight = { factor = event_target:global_event_country.ap_leviathan_master }
+	potential = { NOT = { has_ascension_perk = ap_leviathan_master }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_leviathan_master value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_leviathan_master
+	}
 }
 
 ap_friendly_nature = {
@@ -481,7 +529,9 @@ ap_friendly_nature = {
 		custom_tooltip = "ap_friendly_nature_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.59 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_friendly_nature } }
+	potential = { NOT = { has_ascension_perk = ap_friendly_nature }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_friendly_nature value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_friendly_nature
 		modifier = { factor = 2 has_ethic = ethic_pacifist }
@@ -504,11 +554,13 @@ ap_robot_command = {
 		custom_tooltip = "ap_robot_command_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.61 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_robot_command } is_hive_empire = no }
+	potential = { NOT = { has_ascension_perk = ap_robot_command } is_hive_empire = no
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_robot_command value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
-		factor = event_target:global_event_country.ap_robot_command # 10 TODO performance?
-		# modifier = { factor = 2 has_ethic = ethic_materialist }
-		# modifier = { factor = 5 has_ethic = ethic_fanatic_materialist }
+		factor = event_target:global_event_country.ap_robot_command
+		modifier = { factor = 2 has_ethic = ethic_materialist }
+		modifier = { factor = 5 has_ethic = ethic_fanatic_materialist }
 	}
 }
 
@@ -525,8 +577,12 @@ ap_recomposer = {
 		custom_tooltip = "ap_recomposer_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.63 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_recomposer } is_gestalt = no }
-	ai_weight = { factor = event_target:global_event_country.ap_recomposer }
+	potential = { NOT = { has_ascension_perk = ap_recomposer } is_gestalt = no
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_recomposer value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_recomposer
+	}
 }
 
 ap_megacorp = {
@@ -565,8 +621,12 @@ ap_megacorp = {
 			}
 		}
 	}
-	potential = { NOT = { has_ascension_perk = ap_megacorp } is_megacorp = yes }
-	ai_weight = { factor = event_target:global_event_country.ap_megacorp }
+	potential = { NOT = { has_ascension_perk = ap_megacorp } is_megacorp = yes
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_megacorp value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_megacorp
+	}
 }
 
 ap_fallen_disciple = {
@@ -585,8 +645,11 @@ ap_fallen_disciple = {
 			has_ascension_perk = ap_fallen_disciple
 			is_homicidal = yes
 		}
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_fallen_disciple value > 0 } } } # because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_fallen_disciple }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_fallen_disciple
+	}
 }
 
 ap_stability_celebration = {
@@ -603,8 +666,12 @@ ap_stability_celebration = {
 		custom_tooltip = "ap_stability_celebration_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.80 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_stability_celebration } }
-	ai_weight = { factor = event_target:global_event_country.ap_stability_celebration }
+	potential = { NOT = { has_ascension_perk = ap_stability_celebration }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_stability_celebration value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_stability_celebration
+	}
 }
 
 ap_galaxy_center = {
@@ -623,8 +690,12 @@ ap_galaxy_center = {
 		custom_tooltip = "ap_galaxy_center_tooltip_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.82 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_galaxy_center } }
-	ai_weight = { factor = event_target:global_event_country.ap_galaxy_center }
+	potential = { NOT = { has_ascension_perk = ap_galaxy_center }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_galaxy_center value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_galaxy_center
+	}
 }
 
 ap_advanced_government_1 = {
@@ -638,7 +709,9 @@ ap_advanced_government_1 = {
 		custom_tooltip = "ap_advanced_government_1_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.87 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_advanced_government_1 } is_gestalt = no }
+	potential = { NOT = { has_ascension_perk = ap_advanced_government_1 } is_gestalt = no
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_advanced_government_1
 		modifier = { factor = 2 has_ethic = ethic_authoritarian }
@@ -662,8 +735,12 @@ ap_advanced_government_2 = {
 		custom_tooltip = "ap_advanced_government_2_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.88 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_advanced_government_2 } }
-	ai_weight = { factor = event_target:global_event_country.ap_advanced_government_2 }
+	potential = { NOT = { has_ascension_perk = ap_advanced_government_2 }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_advanced_government_2 value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_advanced_government_2
+	}
 }
 
 ap_space_merchant = {
@@ -675,8 +752,12 @@ ap_space_merchant = {
 		custom_tooltip = "ap_space_merchant_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.91 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_space_merchant } }
-	ai_weight = { factor = event_target:global_event_country.ap_space_merchant }
+	potential = { NOT = { has_ascension_perk = ap_space_merchant }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_space_merchant value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_space_merchant
+	}
 }
 
 ap_super_hive_mind = {
@@ -695,8 +776,12 @@ ap_super_hive_mind = {
 		custom_tooltip = "ap_super_hive_mind_tooltip_2"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.100 } }
 	}
-	potential = { is_hive_empire = yes NOT = { has_ascension_perk = ap_super_hive_mind } }
-	ai_weight = { factor = event_target:global_event_country.ap_super_hive_mind }
+	potential = { is_hive_empire = yes NOT = { has_ascension_perk = ap_super_hive_mind }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_super_hive_mind
+	}
 }
 
 ap_mega_hive_mind = {
@@ -712,8 +797,12 @@ ap_mega_hive_mind = {
 		custom_tooltip = "ap_mega_hive_mind_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.110 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_mega_hive_mind } is_hive_empire = yes }
-	ai_weight = { factor = event_target:global_event_country.ap_mega_hive_mind }
+	potential = { NOT = { has_ascension_perk = ap_mega_hive_mind } is_hive_empire = yes
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_mega_hive_mind value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_mega_hive_mind
+	}
 }
 
 ap_aggressive_hivemind = {
@@ -733,8 +822,12 @@ ap_aggressive_hivemind = {
 		custom_tooltip = "ap_aggressive_hivemind_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.120 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_aggressive_hivemind } is_hive_empire = yes }
-	ai_weight = { factor = event_target:global_event_country.ap_aggressive_hivemind }
+	potential = { NOT = { has_ascension_perk = ap_aggressive_hivemind } is_hive_empire = yes
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_aggressive_hivemind
+	}
 }
 
 ap_connected_hivemind = {
@@ -747,8 +840,12 @@ ap_connected_hivemind = {
 		custom_tooltip = "ap_connected_hivemind_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.125 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_connected_hivemind } is_hive_empire = yes }
-	ai_weight = { factor = event_target:global_event_country.ap_connected_hivemind }
+	potential = { NOT = { has_ascension_perk = ap_connected_hivemind } is_hive_empire = yes
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_connected_hivemind value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_connected_hivemind
+	}
 }
 
 ap_hivemind_reserve = {
@@ -761,8 +858,12 @@ ap_hivemind_reserve = {
 		custom_tooltip = "ap_hivemind_reserve_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.127 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_hivemind_reserve } is_hive_empire = yes }
-	ai_weight = { factor = event_target:global_event_country.ap_hivemind_reserve }
+	potential = { NOT = { has_ascension_perk = ap_hivemind_reserve } is_hive_empire = yes
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_hivemind_reserve value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_hivemind_reserve
+	}
 }
 
 ap_primitives_creation = {
@@ -778,8 +879,12 @@ ap_primitives_creation = {
 		custom_tooltip = "ap_primitives_creation_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.140 } }
 	}
-	potential = { NOR = { has_ascension_perk = ap_primitives_creation is_gestalt = yes is_unfriendly = yes } }
-	ai_weight = { factor = event_target:global_event_country.ap_primitives_creation }
+	potential = { NOR = { has_ascension_perk = ap_primitives_creation is_gestalt = yes is_unfriendly = yes }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_primitives_creation value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_primitives_creation
+	}
 }
 
 ap_powerful_vassals = {
@@ -817,8 +922,12 @@ ap_mechanical_prophet = {
 	potential = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
 		NOT = { has_ascension_perk = ap_mechanical_prophet } is_synthetic_empire = yes
+
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_mechanical_prophet value > 0 } } } # because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_mechanical_prophet }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_mechanical_prophet
+	}
 }
 
 ap_machine_core = {
@@ -833,8 +942,12 @@ ap_machine_core = {
 	potential = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
 		NOT = { has_ascension_perk = ap_machine_core } is_synthetic_empire = yes
+
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_machine_core value > 0 } } } # because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_machine_core }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_machine_core
+	}
 }
 
 ap_defense_sentinels = {
@@ -856,8 +969,12 @@ ap_defense_sentinels = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
 		NOT = { has_ascension_perk = ap_defense_sentinels }
 		OR = { has_country_flag = synthetic_empire is_machine_empire = yes }
+
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_defense_sentinels value > 0 } } } # because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_defense_sentinels }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_defense_sentinels
+	}
 }
 
 ap_leadership_transfer = {
@@ -870,8 +987,12 @@ ap_leadership_transfer = {
 	potential = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" has_synthethic_dawn = yes }
 		NOT = { has_ascension_perk = ap_leadership_transfer } is_synthetic_empire = yes
+
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_leadership_transfer value > 0 } } } # because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_leadership_transfer }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_leadership_transfer
+	}
 }
 
 ap_civilian_activities = {
@@ -883,8 +1004,12 @@ ap_civilian_activities = {
 		custom_tooltip = "ap_civilian_activities_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.260 days = 1 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_civilian_activities } }
-	ai_weight = { factor = event_target:global_event_country.ap_civilian_activities }
+	potential = { NOT = { has_ascension_perk = ap_civilian_activities }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_civilian_activities value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_civilian_activities
+	}
 }
 
 # Pinnacle Society
@@ -899,8 +1024,12 @@ ap_pyramidal_society = {
 		custom_tooltip = "ap_pyramidal_society_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.300 } }
 	}
-	potential = { NOR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society has_global_flag = ap_pyramidal_society } }
-	ai_weight = { factor = event_target:global_event_country.ap_pyramidal_society }
+	potential = { NOR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society has_global_flag = ap_pyramidal_society }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_pyramidal_society
+	}
 }
 
 ap_orbital_surgical_strike = {
@@ -915,8 +1044,12 @@ ap_orbital_surgical_strike = {
 		custom_tooltip = "ap_orbital_surgical_strike_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.310 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_orbital_surgical_strike } }
-	ai_weight = { factor = event_target:global_event_country.ap_orbital_surgical_strike }
+	potential = { NOT = { has_ascension_perk = ap_orbital_surgical_strike }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_orbital_surgical_strike value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_orbital_surgical_strike
+	}
 }
 
 ap_wheel_fortune = {
@@ -928,8 +1061,12 @@ ap_wheel_fortune = {
 		custom_tooltip = "ap_wheel_fortune_tooltip"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.340 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_wheel_fortune } }
-	ai_weight = { factor = event_target:global_event_country.ap_wheel_fortune }
+	potential = { NOT = { has_ascension_perk = ap_wheel_fortune }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_wheel_fortune value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_wheel_fortune
+	}
 }
 
 ap_underworld = {
@@ -944,8 +1081,12 @@ ap_underworld = {
 		if = { limit = { NOT = { has_valid_civic = civic_criminal_heritage } } add_resource = { treasures = -4000 } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.370 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_underworld } }
-	ai_weight = { factor = event_target:global_event_country.ap_underworld }
+	potential = { NOT = { has_ascension_perk = ap_underworld }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_underworld value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_underworld
+	}
 }
 
 # v3.3 reduced time
@@ -960,8 +1101,12 @@ ap_slow_learner = {
 			}
 		}
 	}
-	potential = { NOT = { has_ascension_perk = ap_slow_learner } }
-	ai_weight = { factor = event_target:global_event_country.ap_slow_learner }
+	potential = { NOT = { has_ascension_perk = ap_slow_learner }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_slow_learner value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_slow_learner
+	}
 }
 
 ap_utopian_realisation = {
@@ -990,8 +1135,12 @@ ap_utopian_realisation = {
 				}
 			}
 		}
+
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_utopian_realisation value > 0 } } } # because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_utopian_realisation }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_utopian_realisation
+	}
 }
 
 ap_antimatter = {
@@ -1005,8 +1154,12 @@ ap_antimatter = {
 		# custom_tooltip = "describe_edict_anti_matter_menu"
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.430 } }
 	}
-	potential = { NOT = { has_ascension_perk = ap_antimatter } }
-	ai_weight = { factor = event_target:global_event_country.ap_antimatter }
+	potential = { NOT = { has_ascension_perk = ap_antimatter }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_antimatter value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_antimatter
+	}
 }
 
 ap_deep_scanner = {
@@ -1024,8 +1177,12 @@ ap_deep_scanner = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.440 } }
 		custom_tooltip = "ap_deep_scanner_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_deep_scanner } }
-	ai_weight = { factor = event_target:global_event_country.ap_deep_scanner } # 5 TODO
+	potential = { NOT = { has_ascension_perk = ap_deep_scanner }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_deep_scanner value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_deep_scanner
+	}
 }
 
 ap_artifact_hunter = {
@@ -1044,8 +1201,12 @@ ap_artifact_hunter = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.450 } }
 		custom_tooltip = "ap_artifact_hunter_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_artifact_hunter } }
-	ai_weight = { factor = event_target:global_event_country.ap_artifact_hunter } # 5 } TODO
+	potential = { NOT = { has_ascension_perk = ap_artifact_hunter }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_artifact_hunter value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_artifact_hunter
+	}
 }
 
 ap_self_aware_colony = {
@@ -1061,8 +1222,12 @@ ap_self_aware_colony = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.460 } }
 		custom_tooltip = "ap_self_aware_colony_tooltip"
 	}
-	potential = { NOR = { has_ascension_perk = ap_self_aware_colony has_global_flag = ap_self_aware_colony } }
-	ai_weight = { factor = event_target:global_event_country.ap_self_aware_colony }
+	potential = { NOR = { has_ascension_perk = ap_self_aware_colony has_global_flag = ap_self_aware_colony }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_self_aware_colony value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_self_aware_colony
+	}
 }
 
 ap_flourishing_technocracy = {
@@ -1105,7 +1270,9 @@ ap_flourishing_technocracy = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.470 } }
 		custom_tooltip = "ap_flourishing_technocracy_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_flourishing_technocracy } }
+	potential = { NOT = { has_ascension_perk = ap_flourishing_technocracy }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_flourishing_technocracy value > 0 } } } # because ai_weight doesn't work
+	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_flourishing_technocracy
 		modifier = { factor = 2 has_ethic = ethic_materialist }
@@ -1124,8 +1291,12 @@ ap_legendary_forge = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.480 } }
 		custom_tooltip = "ap_legendary_forge_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_legendary_forge } }
-	ai_weight = { factor = event_target:global_event_country.ap_legendary_forge }
+	potential = { NOT = { has_ascension_perk = ap_legendary_forge }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_legendary_forge value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_legendary_forge
+	}
 }
 
 ap_library_wisedom = {
@@ -1140,8 +1311,12 @@ ap_library_wisedom = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.490 } }
 		custom_tooltip = "ap_library_wisedom_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_library_wisedom } }
-	ai_weight = { factor = event_target:global_event_country.ap_library_wisedom }
+	potential = { NOT = { has_ascension_perk = ap_library_wisedom }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_library_wisedom value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_library_wisedom
+	}
 }
 
 ap_expansionist_development = {
@@ -1162,8 +1337,12 @@ ap_expansionist_development = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.530 } }
 		custom_tooltip = "ap_expansionist_development_tooltip"
 	}
-	potential = { NOT = { has_ascension_perk = ap_expansionist_development } }
-	ai_weight = { factor = event_target:global_event_country.ap_expansionist_development }
+	potential = { NOT = { has_ascension_perk = ap_expansionist_development }
+		OR = { is_ai = no event_target:global_event_country = { check_variable = { which = ap_expansionist_development value > 0 } } } # because ai_weight doesn't work
+	}
+	ai_weight = {
+		factor = event_target:global_event_country.ap_expansionist_development
+	}
 }
 
 # ap_dark_galaxy_web = {

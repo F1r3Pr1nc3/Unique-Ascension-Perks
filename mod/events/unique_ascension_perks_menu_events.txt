@@ -1,61 +1,61 @@
 namespace = UniqueAscensionPerksMenuEvents
 # AI weight values - needs match UniqueAscensionPerksMenuEvents.100
-# All value = 4 are default disabled
-@ap_space_engineers = 9
-@ap_stellar_manipulation = 4
-@ap_lost_heritage = 4
-@ap_void_expedition = 4 # TODO
-@ap_expandable_brain_1 = 5
-@ap_expandable_brain_2 = 5
-@ap_ai_cortana = 4
-@ap_nano_drones = 4 # v3.3 halved values
-@ap_nano_to_nanite = 4 # Genius Pregnancy
-@ap_genius_cloning = 4 # TODO may split in 2 AP?
-@ap_adv_colonisation = 9 # TODO may split in 2 AP?
-@ap_expansion_infinity = 9 # Recycling Expeditions
-@ap_recycling_drones = 9
-@ap_emergency_calculation = 9
-@ap_economic_prospertity = 9
-@ap_chosen_ruler = 9
-@ap_advanced_security = 9
-@ap_space_domestication = 4
-@ap_leviathan_master = 4
-@ap_friendly_nature = 9 # Robotic Assemblers
-@ap_robot_command = 4
-@ap_recomposer = 4
-@ap_megacorp = 20
-@ap_fallen_disciple = 10
-@ap_stability_celebration = 3
-@ap_galaxy_center = 4
-@ap_advanced_government_1 = 9
-@ap_advanced_government_2 = 10
-@ap_space_merchant = 4
-@ap_super_hive_mind = 10
-@ap_mega_hive_mind = 10
-@ap_aggressive_hivemind = 10
-@ap_connected_hivemind = 10
-@ap_hivemind_reserve = 9
-@ap_primitives_creation = 4
-@ap_powerful_vassals = 4
-@ap_mechanical_prophet = 10
-@ap_machine_core = 20
-@ap_defense_sentinels = 10
-@ap_leadership_transfer = 4
-@ap_civilian_activities = 3 # Pinnacle Society
-@ap_pyramidal_society = 4
-@ap_orbital_surgical_strike = 4
-@ap_wheel_fortune = 4 # TODO  AI spam pirate-fleets with anomaly just float in space and AI not researching it.
-@ap_underworld = 4
-@ap_slow_learner = 5
-@ap_utopian_realisation = 5
-@ap_antimatter = 4
-@ap_deep_scanner = 4
-@ap_artifact_hunter = 4
-@ap_self_aware_colony = 4
-@ap_flourishing_technocracy = 9
-@ap_legendary_forge = 4
-@ap_library_wisedom = 4
-@ap_expansionist_development = 4
+# All value = 3 are default disabled
+@ap_space_engineers = 7
+@ap_stellar_manipulation = 3
+@ap_lost_heritage = 3 # TODO AI!?
+@ap_void_expedition = 3 # TODO
+@ap_expandable_brain_1 = 4
+@ap_expandable_brain_2 = 4
+@ap_ai_cortana = 3
+@ap_nano_drones = 3 # v3.3 halved values
+@ap_nano_to_nanite = 3 # Genius Pregnancy
+@ap_genius_cloning = 3 # TODO may split in 2 AP?
+@ap_adv_colonisation = 7 # TODO may split in 2 AP?
+@ap_expansion_infinity = 7 # Recycling Expeditions
+@ap_recycling_drones = 7
+@ap_emergency_calculation = 7
+@ap_economic_prospertity = 7
+@ap_chosen_ruler = 7
+@ap_advanced_security = 7
+@ap_space_domestication = 3
+@ap_leviathan_master = 3
+@ap_friendly_nature = 7 # Robotic Assemblers
+@ap_robot_command = 3
+@ap_recomposer = 3
+@ap_megacorp = 18
+@ap_fallen_disciple = 9
+@ap_stability_celebration = 2
+@ap_galaxy_center = 3
+@ap_advanced_government_1 = 7
+@ap_advanced_government_2 = 9
+@ap_space_merchant = 3
+@ap_super_hive_mind = 9
+@ap_mega_hive_mind = 9
+@ap_aggressive_hivemind = 9
+@ap_connected_hivemind = 9
+@ap_hivemind_reserve = 7
+@ap_primitives_creation = 3
+@ap_powerful_vassals = 3
+@ap_mechanical_prophet = 9
+@ap_machine_core = 18
+@ap_defense_sentinels = 9
+@ap_leadership_transfer = 3
+@ap_civilian_activities = 2 # Pinnacle Society
+@ap_pyramidal_society = 3
+@ap_orbital_surgical_strike = 3
+@ap_wheel_fortune = 3 # TODO  AI spam pirate-fleets with anomaly just float in space and AI not researching it.
+@ap_underworld = 3
+@ap_slow_learner = 4
+@ap_utopian_realisation = 4
+@ap_antimatter = 3
+@ap_deep_scanner = 3
+@ap_artifact_hunter = 3
+@ap_self_aware_colony = 3
+@ap_flourishing_technocracy = 7
+@ap_legendary_forge = 3
+@ap_library_wisedom = 3
+@ap_expansionist_development = 3
 
 country_event = {
 	id = UniqueAscensionPerksMenuEvents.1
@@ -226,6 +226,30 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksMenuEvents.100 } # reset all
 		}
 	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.1.AIequality.All
+		trigger = { has_global_flag = uap_AIequality NOT = { event_target:global_event_country = { has_country_flag = uap_AIequality } } }
+		allow = { exists = event_target:global_event_country }
+		# custom_tooltip = "UniqueAscensionPerksMenuEvents.1.AIequality.All.tooltip"
+		hidden_effect = {
+			set_global_flag = uap_AIequality
+			event_target:global_event_country = { set_country_flag = uap_AIequality }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1001 } # all in
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.1.AIequality.None
+		trigger = { OR = { event_target:global_event_country = { has_country_flag = uap_AIequality } NOT = { has_global_flag = uap_AIequality } } }
+		allow = { exists = event_target:global_event_country }
+		# custom_tooltip = "UniqueAscensionPerksMenuEvents.1.AIequality.All.tooltip"
+		hidden_effect = {
+			set_global_flag = uap_AIequality
+			event_target:global_event_country = { remove_country_flag = uap_AIequality }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+			country_event = { id = UniqueAscensionPerksMenuEvents.1002 } # all out
+		}
+	}
 	option = { name = EXIT }
 }
 
@@ -374,12 +398,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_engineers value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_engineers value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_engineers value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_space_engineers value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_engineers value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_engineers value = @ap_space_engineers } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_engineers value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_space_engineers value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -396,12 +420,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_stellar_manipulation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stellar_manipulation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stellar_manipulation value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_stellar_manipulation value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { always = no hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_stellar_manipulation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stellar_manipulation value = @ap_stellar_manipulation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stellar_manipulation value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_stellar_manipulation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -418,12 +442,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_lost_heritage value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_lost_heritage value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_lost_heritage value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_lost_heritage value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_lost_heritage value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_lost_heritage value = @ap_lost_heritage } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_lost_heritage value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_lost_heritage value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -440,12 +464,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_1 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_1 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_1 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -462,12 +486,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_2 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_2 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_2 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -484,12 +508,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_ai_cortana value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_ai_cortana value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_ai_cortana value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_ai_cortana value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_ai_cortana value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_ai_cortana value = @ap_ai_cortana } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_ai_cortana value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_ai_cortana value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -506,12 +530,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_drones value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_drones value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_drones value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_nano_drones value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_drones value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_drones value = @ap_nano_drones } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_drones value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_nano_drones value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -528,12 +552,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_to_nanite value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_to_nanite value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_nano_to_nanite value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_to_nanite value = @ap_nano_to_nanite } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_to_nanite value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_nano_to_nanite value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -550,12 +574,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_genius_cloning value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_genius_cloning value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_genius_cloning value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_genius_cloning value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_genius_cloning value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_genius_cloning value = @ap_genius_cloning } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_genius_cloning value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_genius_cloning value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -572,12 +596,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_adv_colonisation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_adv_colonisation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_adv_colonisation value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_adv_colonisation value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_adv_colonisation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_adv_colonisation value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_adv_colonisation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -594,12 +618,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansion_infinity value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansion_infinity value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansion_infinity value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expansion_infinity value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansion_infinity value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansion_infinity value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expansion_infinity value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -616,12 +640,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_recycling_drones value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recycling_drones value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recycling_drones value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_recycling_drones value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_recycling_drones value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recycling_drones value = @ap_recycling_drones } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recycling_drones value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_recycling_drones value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -638,12 +662,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_emergency_calculation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_emergency_calculation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_emergency_calculation value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_emergency_calculation value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_emergency_calculation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_emergency_calculation value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_emergency_calculation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -660,12 +684,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_economic_prospertity value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_economic_prospertity value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_economic_prospertity value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_economic_prospertity value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_economic_prospertity value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -682,12 +706,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_chosen_ruler value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_chosen_ruler value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_chosen_ruler value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_chosen_ruler value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_chosen_ruler value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_chosen_ruler value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_chosen_ruler value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -704,12 +728,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_security value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_security value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_security value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_security value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_security value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_security value = @ap_advanced_security } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_security value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_security value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -726,12 +750,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_domestication value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_domestication value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_domestication value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_space_domestication value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_domestication value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_domestication value = @ap_space_domestication } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_domestication value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_space_domestication value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -748,12 +772,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_leviathan_master value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leviathan_master value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leviathan_master value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_leviathan_master value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_leviathan_master value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leviathan_master value = @ap_leviathan_master } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leviathan_master value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_leviathan_master value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -770,12 +794,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_friendly_nature value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_friendly_nature value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_friendly_nature value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_friendly_nature value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_friendly_nature value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_friendly_nature value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_friendly_nature value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -792,12 +816,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_robot_command value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_robot_command value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_robot_command value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_robot_command value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_robot_command value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_robot_command value = @ap_robot_command } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_robot_command value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_robot_command value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -814,12 +838,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_recomposer value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recomposer value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recomposer value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_recomposer value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_recomposer value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recomposer value = @ap_recomposer } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recomposer value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_recomposer value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -836,12 +860,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_megacorp value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_megacorp value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_megacorp value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_megacorp value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_megacorp value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_megacorp value = @ap_megacorp } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_megacorp value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_megacorp value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -858,12 +882,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_fallen_disciple value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_fallen_disciple value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_fallen_disciple value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_fallen_disciple value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_fallen_disciple value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_fallen_disciple value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_fallen_disciple value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -880,12 +904,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_stability_celebration value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stability_celebration value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stability_celebration value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_stability_celebration value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_stability_celebration value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stability_celebration value = @ap_stability_celebration } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stability_celebration value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_stability_celebration value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -902,12 +926,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_galaxy_center value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_galaxy_center value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_galaxy_center value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_galaxy_center value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_galaxy_center value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_galaxy_center value = @ap_galaxy_center } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_galaxy_center value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_galaxy_center value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -924,12 +948,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_1 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_1 value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_1 value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_1 value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_1 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -946,12 +970,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_2 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_2 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_2 value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_2 value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_2 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_2 value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_2 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -968,12 +992,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_merchant value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_merchant value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_merchant value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_space_merchant value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_merchant value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_merchant value = @ap_space_merchant } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_merchant value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_space_merchant value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -990,12 +1014,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_super_hive_mind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_super_hive_mind value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_super_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_super_hive_mind value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_super_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1012,12 +1036,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_mega_hive_mind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mega_hive_mind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mega_hive_mind value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_mega_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_mega_hive_mind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mega_hive_mind value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_mega_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1034,12 +1058,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_aggressive_hivemind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1056,12 +1080,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_connected_hivemind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_connected_hivemind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_connected_hivemind value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_connected_hivemind value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_connected_hivemind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_connected_hivemind value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_connected_hivemind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1078,12 +1102,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_hivemind_reserve value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_hivemind_reserve value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_hivemind_reserve value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_hivemind_reserve value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_hivemind_reserve value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_hivemind_reserve value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_hivemind_reserve value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1100,12 +1124,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_primitives_creation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_primitives_creation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_primitives_creation value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_primitives_creation value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_primitives_creation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_primitives_creation value = @ap_primitives_creation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_primitives_creation value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_primitives_creation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1122,12 +1146,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_powerful_vassals value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_powerful_vassals value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_powerful_vassals value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_powerful_vassals value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_powerful_vassals value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_powerful_vassals value = @ap_powerful_vassals } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_powerful_vassals value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_powerful_vassals value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1144,12 +1168,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_void_expedition value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_void_expedition value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_void_expedition value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_void_expedition value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_void_expedition value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_void_expedition value = @ap_void_expedition } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_void_expedition value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_void_expedition value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1166,12 +1190,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_mechanical_prophet value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mechanical_prophet value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mechanical_prophet value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_mechanical_prophet value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_mechanical_prophet value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mechanical_prophet value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_mechanical_prophet value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1188,12 +1212,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_machine_core value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_machine_core value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_machine_core value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_machine_core value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_machine_core value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_machine_core value = @ap_machine_core } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_machine_core value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_machine_core value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1210,12 +1234,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_defense_sentinels value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_defense_sentinels value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_defense_sentinels value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_defense_sentinels value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_defense_sentinels value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_defense_sentinels value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_defense_sentinels value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1232,12 +1256,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_leadership_transfer value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leadership_transfer value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leadership_transfer value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_leadership_transfer value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_leadership_transfer value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leadership_transfer value = @ap_leadership_transfer } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leadership_transfer value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_leadership_transfer value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1254,12 +1278,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_civilian_activities value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_civilian_activities value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_civilian_activities value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_civilian_activities value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_civilian_activities value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_civilian_activities value = @ap_civilian_activities } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_civilian_activities value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_civilian_activities value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1276,12 +1300,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_pyramidal_society value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_pyramidal_society value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_pyramidal_society value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_pyramidal_society value = @ap_pyramidal_society } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_pyramidal_society value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_pyramidal_society value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1298,12 +1322,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_orbital_surgical_strike value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_orbital_surgical_strike value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_orbital_surgical_strike value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_orbital_surgical_strike value = @ap_orbital_surgical_strike } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1320,12 +1344,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_wheel_fortune value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_wheel_fortune value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_wheel_fortune value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_wheel_fortune value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_wheel_fortune value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_wheel_fortune value = @ap_wheel_fortune } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_wheel_fortune value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_wheel_fortune value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1342,12 +1366,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_underworld value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_underworld value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_underworld value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_underworld value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_underworld value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_underworld value = @ap_underworld } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_underworld value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_underworld value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1364,12 +1388,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_slow_learner value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_slow_learner value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_slow_learner value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_slow_learner value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_slow_learner value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_slow_learner value = @ap_slow_learner } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_slow_learner value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_slow_learner value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1386,12 +1410,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_utopian_realisation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_utopian_realisation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_utopian_realisation value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_utopian_realisation value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_utopian_realisation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_utopian_realisation value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_utopian_realisation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1408,12 +1432,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_antimatter value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_antimatter value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_antimatter value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_antimatter value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_antimatter value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_antimatter value = @ap_antimatter } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_antimatter value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_antimatter value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1430,12 +1454,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_deep_scanner value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_deep_scanner value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_deep_scanner value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_deep_scanner value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_deep_scanner value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_deep_scanner value = @ap_deep_scanner } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_deep_scanner value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_deep_scanner value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1452,12 +1476,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_artifact_hunter value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_artifact_hunter value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_artifact_hunter value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_artifact_hunter value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_artifact_hunter value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_artifact_hunter value = @ap_artifact_hunter } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_artifact_hunter value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_artifact_hunter value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1474,12 +1498,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_self_aware_colony value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_self_aware_colony value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_self_aware_colony value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_self_aware_colony value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_self_aware_colony value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_self_aware_colony value = @ap_self_aware_colony } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_self_aware_colony value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_self_aware_colony value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1496,12 +1520,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_flourishing_technocracy value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_flourishing_technocracy value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_flourishing_technocracy value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1518,12 +1542,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_legendary_forge value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_legendary_forge value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_legendary_forge value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_legendary_forge value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_legendary_forge value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_legendary_forge value = @ap_legendary_forge } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_legendary_forge value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_legendary_forge value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1540,12 +1564,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_library_wisedom value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_library_wisedom value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_library_wisedom value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_library_wisedom value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_library_wisedom value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_library_wisedom value = @ap_library_wisedom } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_library_wisedom value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_library_wisedom value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1562,12 +1586,12 @@ country_event = {
 	option = { name = DISABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansionist_development value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansionist_development value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansionist_development value = 4 } } custom_tooltip = "AP_Default_Off" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expansionist_development value = 3 } } custom_tooltip = "AP_Default_Off" }
 	}
 	option = { name = ENABLE
 		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
 		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansionist_development value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansionist_development value = @ap_expansionist_development } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansionist_development value = 4 } } custom_tooltip = "AP_Default_Off_warn" }
+		if = { limit = { check_variable_arithmetic = { which = @ap_expansionist_development value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
 	}
 	option = { name = BACK }
 }
@@ -1577,69 +1601,67 @@ event = {
 	id = UniqueAscensionPerksMenuEvents.100
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {}
+	trigger = { NOT = { has_global_flag = has_uap_mod } }
 	immediate = {
-		if = { limit = { NOT = { has_global_flag = has_uap_mod } }
-			event_target:global_event_country = {
-				set_variable = { which = ap_space_engineers value = @ap_space_engineers }
-				set_variable = { which = ap_stellar_manipulation value = 0 }
-				set_variable = { which = ap_lost_heritage value = 0 }
-				set_variable = { which = ap_void_expedition value = 0 } # TODO
-				set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
-				set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
-				set_variable = { which = ap_ai_cortana value = 0 }
-				set_variable = { which = ap_nano_drones value = 0 } # v3.3 halved values
-				set_variable = { which = ap_nano_to_nanite value = 0 } # Genius Pregnancy
-				set_variable = { which = ap_genius_cloning value = 0 } # TODO may split in 2 AP?
-				set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } # TODO may split in 2 AP?
-				set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } # Recycling Expeditions
-				set_variable = { which = ap_recycling_drones value = @ap_recycling_drones }
-				set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation }
-				set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
-				set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
-				set_variable = { which = ap_advanced_security value = @ap_advanced_security }
-				set_variable = { which = ap_space_domestication value = 0 }
-				set_variable = { which = ap_leviathan_master value = 0 }
-				set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } # Robotic Assemblers
-				set_variable = { which = ap_robot_command value = 0 }
-				set_variable = { which = ap_recomposer value = 0 }
-				set_variable = { which = ap_megacorp value = @ap_megacorp }
-				set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
-				set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
-				set_variable = { which = ap_galaxy_center value = 0 }
-				set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
-				set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
-				set_variable = { which = ap_space_merchant value = 0 }
-				set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
-				set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
-				set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
-				set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
-				set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
-				set_variable = { which = ap_primitives_creation value = 0 }
-				set_variable = { which = ap_powerful_vassals value = 0 }
-				set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
-				set_variable = { which = ap_machine_core value = @ap_machine_core }
-				set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
-				set_variable = { which = ap_leadership_transfer value = 0 }
-				set_variable = { which = ap_civilian_activities value = 0 } # Pinnacle Society
-				set_variable = { which = ap_pyramidal_society value = 0 }
-				set_variable = { which = ap_orbital_surgical_strike value = 0 }
-				set_variable = { which = ap_wheel_fortune value = 0 }
-				set_variable = { which = ap_underworld value = 0 }
-				set_variable = { which = ap_slow_learner value = @ap_slow_learner }
-				set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
-				set_variable = { which = ap_antimatter value = 0 }
-				set_variable = { which = ap_deep_scanner value = 0 }
-				set_variable = { which = ap_artifact_hunter value = 0 }
-				set_variable = { which = ap_self_aware_colony value = 0 }
-				set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
-				set_variable = { which = ap_legendary_forge value = 0 }
-				set_variable = { which = ap_library_wisedom value = 0 }
-				set_variable = { which = ap_expansionist_development value = 0 }
-			}
-			set_global_flag = has_uap_mod
-			log="INIT UAP MOD"
+		log="INIT UAP MOD"
+		event_target:global_event_country = {
+			set_variable = { which = ap_space_engineers value = @ap_space_engineers }
+			set_variable = { which = ap_stellar_manipulation value = 0 }
+			set_variable = { which = ap_lost_heritage value = 0 }
+			set_variable = { which = ap_void_expedition value = 0 } # TODO
+			set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
+			set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
+			set_variable = { which = ap_ai_cortana value = 0 }
+			set_variable = { which = ap_nano_drones value = 0 } # v3.3 halved values
+			set_variable = { which = ap_nano_to_nanite value = 0 } # Genius Pregnancy
+			set_variable = { which = ap_genius_cloning value = 0 } # TODO may split in 2 AP?
+			set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } # TODO may split in 2 AP?
+			set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } # Recycling Expeditions
+			set_variable = { which = ap_recycling_drones value = @ap_recycling_drones }
+			set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation }
+			set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
+			set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
+			set_variable = { which = ap_advanced_security value = @ap_advanced_security }
+			set_variable = { which = ap_space_domestication value = 0 }
+			set_variable = { which = ap_leviathan_master value = 0 }
+			set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } # Robotic Assemblers
+			set_variable = { which = ap_robot_command value = 0 }
+			set_variable = { which = ap_recomposer value = 0 }
+			set_variable = { which = ap_megacorp value = @ap_megacorp }
+			set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
+			set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
+			set_variable = { which = ap_galaxy_center value = 0 }
+			set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
+			set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
+			set_variable = { which = ap_space_merchant value = 0 }
+			set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
+			set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
+			set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
+			set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
+			set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
+			set_variable = { which = ap_primitives_creation value = 0 }
+			set_variable = { which = ap_powerful_vassals value = 0 }
+			set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
+			set_variable = { which = ap_machine_core value = @ap_machine_core }
+			set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
+			set_variable = { which = ap_leadership_transfer value = 0 }
+			set_variable = { which = ap_civilian_activities value = 0 } # Pinnacle Society
+			set_variable = { which = ap_pyramidal_society value = 0 }
+			set_variable = { which = ap_orbital_surgical_strike value = 0 }
+			set_variable = { which = ap_wheel_fortune value = 0 }
+			set_variable = { which = ap_underworld value = 0 }
+			set_variable = { which = ap_slow_learner value = @ap_slow_learner }
+			set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
+			set_variable = { which = ap_antimatter value = 0 }
+			set_variable = { which = ap_deep_scanner value = 0 }
+			set_variable = { which = ap_artifact_hunter value = 0 }
+			set_variable = { which = ap_self_aware_colony value = 0 }
+			set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
+			set_variable = { which = ap_legendary_forge value = 0 }
+			set_variable = { which = ap_library_wisedom value = 0 }
+			set_variable = { which = ap_expansionist_development value = 0 }
 		}
+		set_global_flag = has_uap_mod
 	}
 }
 
@@ -1659,6 +1681,141 @@ country_event = {
 			every_playable_country = { limit = { NOT = { has_country_flag = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
 		} else = {
 			every_playable_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
+		}
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksMenuEvents.1001
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = {}
+	immediate = {
+		log="UAP MOD: ENABLE ALL APs for AI"
+		event_target:global_event_country = {
+			set_variable = { which = ap_space_engineers value = @ap_space_engineers }
+			set_variable = { which = ap_stellar_manipulation value = @ap_stellar_manipulation } #
+			set_variable = { which = ap_lost_heritage value = @ap_lost_heritage } #
+			set_variable = { which = ap_void_expedition value = @ap_void_expedition } # # TODO
+			set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
+			set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
+			set_variable = { which = ap_ai_cortana value = @ap_ai_cortana } #
+			set_variable = { which = ap_nano_drones value = @ap_nano_drones } # # v3.3 halved values
+			set_variable = { which = ap_nano_to_nanite value = @ap_nano_to_nanite } # # Genius Pregnancy
+			set_variable = { which = ap_genius_cloning value = @ap_genius_cloning } # # TODO may split in 2 AP?
+			set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } # TODO may split in 2 AP?
+			set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } # Recycling Expeditions
+			set_variable = { which = ap_recycling_drones value = @ap_recycling_drones }
+			set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation }
+			set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
+			set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
+			set_variable = { which = ap_advanced_security value = @ap_advanced_security }
+			set_variable = { which = ap_space_domestication value = @ap_space_domestication } #
+			set_variable = { which = ap_leviathan_master value = @ap_leviathan_master } #
+			set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } # Robotic Assemblers
+			set_variable = { which = ap_robot_command value = @ap_robot_command } #
+			set_variable = { which = ap_recomposer value = @ap_recomposer } #
+			set_variable = { which = ap_megacorp value = @ap_megacorp }
+			set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
+			set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
+			set_variable = { which = ap_galaxy_center value = @ap_galaxy_center } #
+			set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
+			set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
+			set_variable = { which = ap_space_merchant value = @ap_space_merchant } #
+			set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
+			set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
+			set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
+			set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
+			set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
+			set_variable = { which = ap_primitives_creation value = @ap_primitives_creation } #
+			set_variable = { which = ap_powerful_vassals value = @ap_powerful_vassals } #
+			set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
+			set_variable = { which = ap_machine_core value = @ap_machine_core }
+			set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
+			set_variable = { which = ap_leadership_transfer value = @ap_leadership_transfer } #
+			set_variable = { which = ap_civilian_activities value = @ap_civilian_activities } # # Pinnacle Society
+			set_variable = { which = ap_pyramidal_society value = @ap_pyramidal_society } #
+			set_variable = { which = ap_orbital_surgical_strike value = @ap_orbital_surgical_strike } #
+			set_variable = { which = ap_wheel_fortune value = @ap_wheel_fortune } #
+			set_variable = { which = ap_underworld value = @ap_underworld } #
+			set_variable = { which = ap_slow_learner value = @ap_slow_learner }
+			set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
+			set_variable = { which = ap_antimatter value = @ap_antimatter } #
+			set_variable = { which = ap_deep_scanner value = @ap_deep_scanner } #
+			set_variable = { which = ap_artifact_hunter value = @ap_artifact_hunter } #
+			set_variable = { which = ap_self_aware_colony value = @ap_self_aware_colony } #
+			set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
+			set_variable = { which = ap_legendary_forge value = @ap_legendary_forge } #
+			set_variable = { which = ap_library_wisedom value = @ap_library_wisedom } #
+			set_variable = { which = ap_expansionist_development value = @ap_expansionist_development } #
+		}
+		set_global_flag = has_uap_mod
+	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksMenuEvents.1002
+	hide_window = yes
+	is_triggered_only = yes
+	# trigger = {  }
+	immediate = {
+		log="UAP MOD: DISABLE ALL APs for AI"
+		event_target:global_event_country = {
+			set_variable = { which = ap_space_engineers value = 0 }
+			set_variable = { which = ap_stellar_manipulation value = 0 } #
+			set_variable = { which = ap_lost_heritage value = 0 } #
+			set_variable = { which = ap_void_expedition value = 0 } # # TODO
+			set_variable = { which = ap_expandable_brain_1 value = 0 }
+			set_variable = { which = ap_expandable_brain_2 value = 0 }
+			set_variable = { which = ap_ai_cortana value = 0 } #
+			set_variable = { which = ap_nano_drones value = 0 } # # v3.3 halved values
+			set_variable = { which = ap_nano_to_nanite value = 0 } # # Genius Pregnancy
+			set_variable = { which = ap_genius_cloning value = 0 } # # TODO may split in 2 AP?
+			set_variable = { which = ap_adv_colonisation value = 0 } # TODO may split in 2 AP?
+			set_variable = { which = ap_expansion_infinity value = 0 } # Recycling Expeditions
+			set_variable = { which = ap_recycling_drones value = 0 }
+			set_variable = { which = ap_emergency_calculation value = 0 }
+			set_variable = { which = ap_economic_prospertity value = 0 }
+			set_variable = { which = ap_chosen_ruler value = 0 }
+			set_variable = { which = ap_advanced_security value = 0 }
+			set_variable = { which = ap_space_domestication value = 0 } #
+			set_variable = { which = ap_leviathan_master value = 0 } #
+			set_variable = { which = ap_friendly_nature value = 0 } # Robotic Assemblers
+			set_variable = { which = ap_robot_command value = 0 } #
+			set_variable = { which = ap_recomposer value = 0 } #
+			set_variable = { which = ap_megacorp value = 0 }
+			set_variable = { which = ap_fallen_disciple value = 0 }
+			set_variable = { which = ap_stability_celebration value = 0 }
+			set_variable = { which = ap_galaxy_center value = 0 } #
+			set_variable = { which = ap_advanced_government_1 value = 0 }
+			set_variable = { which = ap_advanced_government_2 value = 0 }
+			set_variable = { which = ap_space_merchant value = 0 } #
+			set_variable = { which = ap_super_hive_mind value = 0 }
+			set_variable = { which = ap_mega_hive_mind value = 0 }
+			set_variable = { which = ap_aggressive_hivemind value = 0 }
+			set_variable = { which = ap_connected_hivemind value = 0 }
+			set_variable = { which = ap_hivemind_reserve value = 0 }
+			set_variable = { which = ap_primitives_creation value = 0 } #
+			set_variable = { which = ap_powerful_vassals value = 0 } #
+			set_variable = { which = ap_mechanical_prophet value = 0 }
+			set_variable = { which = ap_machine_core value = 0 }
+			set_variable = { which = ap_defense_sentinels value = 0 }
+			set_variable = { which = ap_leadership_transfer value = 0 } #
+			set_variable = { which = ap_civilian_activities value = 0 } # # Pinnacle Society
+			set_variable = { which = ap_pyramidal_society value = 0 } #
+			set_variable = { which = ap_orbital_surgical_strike value = 0 } #
+			set_variable = { which = ap_wheel_fortune value = 0 } #
+			set_variable = { which = ap_underworld value = 0 } #
+			set_variable = { which = ap_slow_learner value = 0 }
+			set_variable = { which = ap_utopian_realisation value = 0 }
+			set_variable = { which = ap_antimatter value = 0 } #
+			set_variable = { which = ap_deep_scanner value = 0 } #
+			set_variable = { which = ap_artifact_hunter value = 0 } #
+			set_variable = { which = ap_self_aware_colony value = 0 } #
+			set_variable = { which = ap_flourishing_technocracy value = 0 }
+			set_variable = { which = ap_legendary_forge value = 0 } #
+			set_variable = { which = ap_library_wisedom value = 0 } #
+			set_variable = { which = ap_expansionist_development value = 0 } #
 		}
 	}
 }
