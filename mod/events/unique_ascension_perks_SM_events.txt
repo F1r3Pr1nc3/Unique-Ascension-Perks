@@ -944,6 +944,7 @@ country_event = {
 		trigger = {
 			is_variable_set = private_galactic_market_robotic_armies
 			exists = event_target:private_robot_miner
+			NOT = { has_authority = auth_machine_intelligence }
 		}
 		allow = {
 			custom_tooltip = {
@@ -951,6 +952,10 @@ country_event = {
 				check_variable = { which = private_galactic_market_robotic_armies value > 1 }
 			}
 			resource_stockpile_compare = { resource = energy value > 200 }
+			custom_tooltip = {
+				fail_text = ROBOTS_ARE_OUTLAWED
+				NOT = { has_policy_flag = robots_outlawed }
+			}
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"

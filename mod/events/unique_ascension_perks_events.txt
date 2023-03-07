@@ -1583,7 +1583,7 @@ planet_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = from
-		from = { NOR = { has_country_flag = ap_recycling_drones_project_upgrade_added  has_country_flag = ap_recycling_drones_project_upgrade } }
+		from = { NOR = { has_country_flag = ap_recycling_drones_project_upgrade_added has_country_flag = ap_recycling_drones_project_upgrade } }
 	}
 	immediate = {
 		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
@@ -3311,7 +3311,7 @@ planet_event = {
 		name = EXCELLENT
 		owner = {
 			if = { limit = { has_country_resource = { type = unity amount > root.unity_needed_on_planet } }
-				add_resource = { influence = 1  unity = -5 mult = root.num_ethic_pop_on_planet }
+				add_resource = { influence = 1 unity = -5 mult = root.num_ethic_pop_on_planet }
 
 			} else = {
 				while = {
@@ -5550,6 +5550,64 @@ planet_event = {
 			if = { limit = { has_deposit = d_district_bank } while = { limit = { has_deposit = d_district_bank } remove_deposit = d_district_bank } }
 			if = { limit = { has_deposit = d_district_journalism } while = { limit = { has_deposit = d_district_journalism } remove_deposit = d_district_journalism } }
 		}
+	}
+}
+
+# Remove deposits on_terraforming_complete
+# From = owner = country
+planet_event = {
+	id = UniqueAscensionPerksEvents.303
+	hide_window = yes
+	is_triggered_only = yes
+	# pre_triggers = { has_owner = yes }
+	trigger = {
+		has_deposit = yes
+		exists = from
+		from = {
+			OR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
+		}
+		colonizable_planet = no
+		OR = {
+			AND = {
+				from = { is_common_empire = no }
+				OR = {
+					has_deposit = d_district_governor
+					has_deposit = d_district_university
+					has_deposit = d_district_defense
+					has_deposit = d_district_industry
+				}
+			}
+			AND = {
+				from = { is_hive_empire = no }
+				OR = {
+					has_deposit = d_district_queen
+					has_deposit = d_district_nursery
+					has_deposit = d_district_entrepot
+					has_deposit = d_district_forest
+				}
+			}
+			AND = {
+				from = { is_machine_empire = no }
+				OR = {
+					has_deposit = d_district_foundry
+					has_deposit = d_district_security
+					has_deposit = d_district_upgrade
+					has_deposit = d_district_recycling
+				}
+			}
+			AND = {
+				from = { is_megacorp = no }
+				OR = {
+					has_deposit = d_district_finance
+					has_deposit = d_district_casino
+					has_deposit = d_district_bank
+					has_deposit = d_district_journalism
+				}
+			}
+		}
+	}
+	immediate = {
+		planet_event = { id = UniqueAscensionPerksEvents.302 scopes = { from = from } }
 	}
 }
 
@@ -7892,7 +7950,7 @@ planet_event = {
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
 		hidden_effect = {
 			set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
-			reset_self_aware_planet = { POPS = "[This.num_pops_self_aware_planet]" } # TODO  Malformed token
+			reset_self_aware_planet = { POPS = "[Root.num_pops_self_aware_planet]" } # TODO  Malformed token
 			planet_event = { id = UniqueAscensionPerksEvents.461 }
 		}
 	}
@@ -8401,6 +8459,7 @@ country_event = {
 # from = survey_system
 # v3.3: doubled costs due imbalance
 # v3.4: exclude anomalies
+# v3.6: add timer
 ship_event = {
 	id = UniqueAscensionPerksEvents.531
 	title = "UniqueAscensionPerksEvents.531.Name"
@@ -8413,7 +8472,7 @@ ship_event = {
 		exists = owner
 		owner = {
 			has_ascension_perk = ap_expansionist_development
-			NOR = { has_country_flag = no_expansionist_development has_country_flag = no_expansionist_development_yet }
+			NOT = { has_country_flag = no_expansionist_development }
 		}
 		exists = from
 		from = {
@@ -8428,19 +8487,19 @@ ship_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Influence"
-		allow = { owner = { resource_stockpile_compare = { resource = influence value > 100 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = influence value > 100 } } }
 		owner = { add_resource = { influence = -100 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Energy"
-		allow = { owner = { resource_stockpile_compare = { resource = energy value > 3000 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = energy value > 3000 } } }
 		owner = { add_resource = { energy = -3000 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Minerals"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 2500 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = minerals value > 2500 } } }
 		owner = { add_resource = { minerals = -2500 } }
 		deploy_outpost = yes
 	}
@@ -8460,13 +8519,13 @@ ship_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Unity"
-		allow = { owner = { resource_stockpile_compare = { resource = unity value > 1750 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = unity value > 1750 } } }
 		owner = { add_resource = { unity = -1750 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Food"
-		allow = { owner = { resource_stockpile_compare = { resource = food value > 3200 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = food value > 3200 } } }
 		owner = { add_resource = { food = -3200 } }
 		deploy_outpost = yes
 	}
