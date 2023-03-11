@@ -27,9 +27,7 @@ has_total_war_cb = {
 				has_valid_civic = civic_machine_assimilator
 				AND = {
 					has_valid_civic = civic_machine_terminator
-					from = {
-						is_synthetic_empire = no
-					}
+					from = { is_synthetic_empire = no }
 				}
 				AND = {
 					has_valid_civic = civic_fanatic_purifiers
@@ -68,6 +66,8 @@ is_subject_of_khan = {
 	exists = event_target:raider_khanate
 	# overlord = { is_same_empire = prevprev }
 	overlord = { is_same_empire = event_target:raider_khanate }
+	merg_is_default_empire = yes
+	# has_modifier = "satrapy_of_horde"
 	# OR = { # Only to be sure
 	# 	any_agreement = { agreement_preset = preset_machinesmith_satrapy }
 	# 	any_agreement = { agreement_preset = preset_satrapy }
@@ -77,12 +77,31 @@ is_subject_of_khan = {
 	# }
 }
 
+# DEPRECATED since 3.4
 # As is_pirate is bugged (still 3.3)
-is_pirate_country = {
-	OR = {
-		is_pirate = yes # is_country_type = pirate
-		is_country_type = pirate_waves_country
-		is_country_type = dormant_marauders
-		is_country_type = ruined_marauders
-	}
-}
+# is_pirate_country = {
+# 	OR = {
+# 		is_pirate = yes # is_country_type = pirate
+# 		is_country_type = pirate_waves_country # Mod Realistic Pirates
+# 		is_country_type = dormant_marauders
+# 		is_country_type = ruined_marauders
+# 	}
+# }
+
+# this: system
+# root: great khan's horde (country)
+# Changed vanilla only for strange bug player lost systems to diadochi
+# is_potential_diadochi_system = {
+# 	# has_owner = yes
+# 	exists = space_owner
+# 	space_owner = { is_same_empire = root }
+# 	# exists = starbase
+# 	# exists = starbase.owner
+# 	# starbase.owner = { is_same_empire = root }
+# 	NOR = {
+# 		has_star_flag = first_diadochi_system
+# 		has_star_flag = second_diadochi_system
+# 		has_star_flag = third_diadochi_system
+# 		has_star_flag = fourth_diadochi_system
+# 	}
+# }

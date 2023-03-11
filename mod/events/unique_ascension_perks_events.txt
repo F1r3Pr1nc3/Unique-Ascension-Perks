@@ -589,7 +589,6 @@ country_event = {
 				# 30 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 330 max_orientation_angle = 360 hyperlane = no initializer = lh_basic_system } }
 			#}
 		}
-		# random_system = { limit = { has_star_flag = lh_basic_system_created } remove_star_flag = lh_basic_system_created save_event_target_as = lh_basic_system }
 		if = { limit = { exists = capital_scope capital_scope = { solar_system = { has_natural_wormhole = yes } } }
 			capital_scope.solar_system = {
 				closest_system = {
@@ -686,9 +685,39 @@ country_event = {
 				add_resource = { energy = -5000 sr_dark_matter = -100 mult = amount_spawn_lh_systems }
 			}
 			hidden_effect = {
-				while = { count = amount_spawn_lh_systems spawn_lh_system = yes }
+				set_country_flag = system_localization_enabled
+				# set_timed_country_flag = { flag = system_localization_cooldown months = 1 }
+				# save_event_target_as = source_country
+				if = {
+					limit = { NOT = { exists = event_target:lh_spawned_system } }
+					random_system_within_border = {
+						limit = { has_star_flag = lh_basic_system }
+						save_event_target_as = lh_spawned_system
+					}
+				}
+				set_spawn_system_batch = begin
+				event_target:lh_spawned_system = {
+					while = {
+						count = amount_spawn_lh_systems
+						if = { # Add to previous one
+							limit = { any_system = { distance = { source = event_target:lh_spawned_system use_bypasses = no min_jumps = 1 max_jumps = 99 } has_star_flag = lh_spawned_system } }
+							random_system = {
+								limit = { distance = { source = event_target:lh_spawned_system use_bypasses = no min_jumps = 1 max_jumps = 99 } has_star_flag = lh_spawned_system }
+								random = { chance = 33 remove_star_flag = lh_spawned_system }
+								spawn_lh_system = yes
+							}
+						}
+						else = {
+							random_system_within_border = {
+								limit = { has_star_flag = lh_special_system }
+								spawn_lh_system = yes
+							}
+						}
+					}
+				}
 				# set_timed_country_flag = { flag = system_localization_cooldown days = @\[ 30 * amount_spawn_lh_systems] }
 				# country_event = { id = UniqueAscensionPerksEvents.22 days = @\[ 30 * amount_spawn_lh_systems] }
+				set_spawn_system_batch = end
 				clear_variable = amount_spawn_lh_systems
 			}
 		}
@@ -1759,7 +1788,7 @@ country_event = {
 				exists = owner
 				owner = {
 					OR = {
-						is_pirate_country = yes
+						is_pirate = yes
 						is_country_type = dormant_marauders
 						is_country_type = awakened_marauders
 					}
@@ -1774,7 +1803,7 @@ country_event = {
 			limit = {
 				NOT = { has_star_flag = recent_security_strike_force }
 				trade_protected_value >= 1
-				any_fleet_in_system = { exists = owner owner = { OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
+				any_fleet_in_system = { exists = owner owner = { OR = { is_pirate = yes is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
 			}
 			save_event_target_as = spawn_location_system
 			set_timed_star_flag = { flag = recent_security_strike_force years = 1 }
@@ -5478,7 +5507,7 @@ planet_event = {
 	hide_window = yes
 	# mean_time_to_happen = { days = 42 } # days = 30 planet MTTH is worst
 	is_triggered_only = yes
-	pre_triggers = { has_owner = yes }
+	# pre_triggers = { has_owner = yes }
 	trigger = {
 		has_deposit = yes
 		exists = from
@@ -5567,44 +5596,6 @@ planet_event = {
 			OR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 		}
 		colonizable_planet = no
-		OR = {
-			AND = {
-				from = { is_common_empire = no }
-				OR = {
-					has_deposit = d_district_governor
-					has_deposit = d_district_university
-					has_deposit = d_district_defense
-					has_deposit = d_district_industry
-				}
-			}
-			AND = {
-				from = { is_hive_empire = no }
-				OR = {
-					has_deposit = d_district_queen
-					has_deposit = d_district_nursery
-					has_deposit = d_district_entrepot
-					has_deposit = d_district_forest
-				}
-			}
-			AND = {
-				from = { is_machine_empire = no }
-				OR = {
-					has_deposit = d_district_foundry
-					has_deposit = d_district_security
-					has_deposit = d_district_upgrade
-					has_deposit = d_district_recycling
-				}
-			}
-			AND = {
-				from = { is_megacorp = no }
-				OR = {
-					has_deposit = d_district_finance
-					has_deposit = d_district_casino
-					has_deposit = d_district_bank
-					has_deposit = d_district_journalism
-				}
-			}
-		}
 	}
 	immediate = {
 		planet_event = { id = UniqueAscensionPerksEvents.302 scopes = { from = from } }
@@ -7593,7 +7584,7 @@ country_event = {
 	immediate = {
 		# spawn_white_hole_system = yes
 		random_system_within_border = {
-			save_event_target_as = origin_system
+			save_event_target_as = lh_spawned_system
 			set_spawn_system_batch = begin
 			random_list = {
 				100	= { spawn_system = { min_distance >= 4 max_distance <= 9  initializer = "white_hole_system_1" hyperlane = no } }

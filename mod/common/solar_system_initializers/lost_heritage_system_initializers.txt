@@ -2,7 +2,7 @@
 
 lh_basic_system = {
 	class = sc_neutron_star
-	flags = { lh_basic_system lh_special_system lh_basic_system_created lh_basic_system_linked }
+	flags = { lh_basic_system lh_special_system }
 	asteroid_belt = { type = rocky_asteroid_belt radius = 130 }
 	asteroid_belt = { type = rocky_asteroid_belt radius = 180 }
 	asteroid_belt = { type = rocky_asteroid_belt radius = 230 }
@@ -16,9 +16,9 @@ lh_basic_system = {
 	change_orbit = 50
 	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_5 } }
 	init_effect = {
+		save_event_target_as = lh_basic_system
 		create_cloud_country = yes
-		random_system_planet = {
-			limit = { is_star = yes }
+		star = {
 			event_target:cloud_country = {
 				create_fleet = {
 					name = "NAME_Void_Cloud"
@@ -53,6 +53,7 @@ lh_asteroid_system = {
 	change_orbit = 50
 	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_5 } }
 	init_effect = {
+		save_event_target_as = lh_asteroid_system
 		create_drone_country = yes
 		while = {
 			count = 5
@@ -91,9 +92,9 @@ lh_black_hole_system = {
 	planet = { count = 2 class = star orbit_distance = 0 orbit_angle = 90 size = { min = 30 max = 45 } init_effect = { set_deposit = d_physics_3 } }
 	change_orbit = 220
 	init_effect = {
+		save_event_target_as = lh_black_hole_system
 		create_cloud_country = yes
-		random_system_planet = {
-			limit = { is_star = yes }
+		star = {
 			event_target:cloud_country = {
 				create_fleet = {
 					name = "NAME_Void_Cloud"
@@ -119,8 +120,8 @@ lh_neutron_system = {
 	planet = { count = 3 class = star orbit_distance = 0 orbit_angle = 120 size = { min = 30 max = 45 } init_effect = { set_deposit = d_engineering_5 } }
 	change_orbit = 125
 	init_effect = {
-		random_system_planet = {
-			limit = { is_star = yes }
+		save_event_target_as = lh_neutron_system
+		star = {
 			create_pirate_country = yes
 			create_fleet = {
 				effect = {
@@ -163,8 +164,8 @@ lh_multi_neutron_system = {
 	change_orbit = 10
 	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 170 size = 10 has_ring = no }
 	init_effect = {
-		random_system_planet = {
-			limit = { is_star = yes }
+		save_event_target_as = lh_multi_neutron_system
+		star = {
 			create_pirate_country = yes
 			create_fleet = {
 				effect = {
@@ -207,8 +208,8 @@ lh_multi_pulsar_system = {
 	change_orbit = 10
 	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 170 size = 10 has_ring = no }
 	init_effect = {
-		random_system_planet = {
-			limit = { is_star = yes }
+		save_event_target_as = lh_multi_pulsar_system
+		star = {
 			create_pirate_country = yes
 			create_fleet = {
 				effect = {
@@ -338,5 +339,8 @@ lh_multi_primitives_system = {
 			orbit_angle = { min = 90 max = 270 }
 			orbit_distance = 5
 		}
+	}
+	init_effect = {
+		save_event_target_as = lh_multi_primitives_system
 	}
 }
