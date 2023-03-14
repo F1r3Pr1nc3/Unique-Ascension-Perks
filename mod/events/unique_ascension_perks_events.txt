@@ -688,15 +688,11 @@ country_event = {
 				set_country_flag = system_localization_enabled
 				# set_timed_country_flag = { flag = system_localization_cooldown months = 1 }
 				# save_event_target_as = source_country
-				if = {
-					limit = { NOT = { exists = event_target:lh_spawned_system } }
-					random_system_within_border = {
-						limit = { has_star_flag = lh_basic_system }
-						save_event_target_as = lh_spawned_system
-					}
-				}
 				set_spawn_system_batch = begin
-				event_target:lh_spawned_system = {
+				# if = { limit = { NOT = { exists = event_target:lh_spawned_system } } # too late
+				random_system = {
+					limit = { has_star_flag = lh_basic_system }
+					save_event_target_as = lh_spawned_system
 					while = {
 						count = amount_spawn_lh_systems
 						if = { # Add to previous one
@@ -707,8 +703,15 @@ country_event = {
 								spawn_lh_system = yes
 							}
 						}
-						else = {
+						else_if = {
+							limit = { any_system_within_border = { has_star_flag = lh_special_system } }
 							random_system_within_border = {
+								limit = { has_star_flag = lh_special_system }
+								spawn_lh_system = yes
+							}
+						}
+						else = {
+							random_system = {
 								limit = { has_star_flag = lh_special_system }
 								spawn_lh_system = yes
 							}
