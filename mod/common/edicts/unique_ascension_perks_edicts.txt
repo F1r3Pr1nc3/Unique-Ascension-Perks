@@ -78,14 +78,19 @@ enable_system_localization = {
 	resources = { category = edicts cost = { } }
 	potential = {
 		is_ai = no
-		NOT = { has_country_flag = system_localization_cooldown }
 	}
 	allow = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.23 } }
 		custom_tooltip = {
 			fail_text = "edict_enable_system_localization_req"
 			any_system_within_border = { has_star_flag = lh_basic_system }
 		}
-		NOT = { has_active_event = { UniqueAscensionPerksEvents.23 } }
+		custom_tooltip = {
+			fail_text = "UniqueAscensionPerksEvents.22.Desc"
+			hidden_trigger = {
+				NOT = { has_country_flag = system_localization_cooldown }
+			}
+		}
 	}
 	prerequisites = { "tech_new_systems_localization" }
 	effect = {

@@ -15,12 +15,9 @@ country_event = {
 	id = UniqueAscensionPerksEvents.8786 # Similar UniqueAscensionPerksEvents.1023
 	is_triggered_only = yes
 	hide_window = yes
-	trigger = {
-		is_subject = no
-	}
+	trigger = { is_subject = no }
 	immediate = {
-		if = {
-			limit = { exists = fromfrom fromfrom = { is_scope_type = war } }
+		if = { limit = { exists = fromfrom fromfrom = { is_scope_type = war } }
 			fromfrom = {
 				every_war_participant = {
 					limit = {
@@ -219,8 +216,7 @@ country_event = {
 					}
 				}
 				destroy_country = yes
-			}
-			else = {
+			} else = {
 				if = {
 					limit = {
 						exists = from
@@ -565,6 +561,36 @@ country_event = {
 	location = event_target:lh_empire_capital_system # capital_scope
 	is_triggered_only = yes
 	immediate = {
+		if = { limit = { exists = capital_scope }
+			if = { limit = { capital_scope.solar_system = { has_natural_wormhole = yes } }
+				capital_scope.solar_system = {
+					closest_system = {
+						limit = { exists = space_owner space_owner = { is_same_empire = root } has_natural_wormhole = no }
+						save_event_target_as = lh_empire_capital_system
+					}
+				}
+			} else = {
+				capital_scope.solar_system = { save_event_target_as = lh_empire_capital_system }
+			}
+		} else_if = {
+			limit = { any_system_within_border = { exists = starbase has_natural_wormhole = no any_system_colony = { } } }
+			random_system_within_border = {
+				limit = { exists = starbase has_natural_wormhole = no any_system_colony = { } }
+				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
+				save_event_target_as = lh_empire_capital_system
+			}
+		} else = {
+			random_owned_planet = {
+				limit = { solar_system = { exists = starbase } }
+				weights = {
+					base = 1
+					modifier = { add = 3 solar_system = { is_capital_system = yes } }
+					modifier = { add = 3 solar_system = { has_natural_wormhole = no } }
+				}
+				solar_system = { save_event_target_as = lh_empire_capital_system }
+			}
+		}
+
 		set_spawn_system_batch = begin
 		random_rim_system = {
 			# limit = { <triggers> }
@@ -589,28 +615,8 @@ country_event = {
 				# 30 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 330 max_orientation_angle = 360 hyperlane = no initializer = lh_basic_system } }
 			#}
 		}
-		if = { limit = { exists = capital_scope capital_scope = { solar_system = { has_natural_wormhole = yes } } }
-			capital_scope.solar_system = {
-				closest_system = {
-					limit = { exists = space_owner space_owner = { is_same_empire = root } has_natural_wormhole = no }
-					save_event_target_as = lh_empire_capital_system
-				}
-			}
-		} else_if = { limit = { exists = capital_scope }
-			capital_scope.solar_system = { save_event_target_as = lh_empire_capital_system }
-		} else = {
-			random_system_within_border = {
-				limit = { exists = starbase has_natural_wormhole = no any_system_colony = { } }
-				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
-				save_event_target_as = lh_empire_capital_system
-			}
-		}
 		event_target:lh_empire_capital_system = {
 			event_target:lh_basic_system = {
-				# every_system_planet = { set_surveyed = { surveyed = yes surveyor = root } }
-				# create_starbase = { size = starbase_outpost owner = root }
-				# ROOT = { give_tech_option_or_progress_effect = { TECH = tech_new_systems_localization } }
-				# ROOT = { while = { count = 10 spawn_lh_system = yes } }
 				prev = { spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 360 } }
 				spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 270 }
 				link_wormholes = prev
@@ -618,9 +624,17 @@ country_event = {
 		}
 		set_spawn_system_batch = end
 	}
+	# after = {
+	# 	hidden_effect = {
+	# 		event_target:lh_basic_system = {
+	# 			set_surveyed = { surveyed = yes surveyor = root }
+	# 			create_starbase = { size = starbase_outpost owner = root }
+	# 		}
+	# 	}
+	# }
 	option = {
 		name = EXCELLENT
-		add_research_option = tech_new_systems_localization
+		give_tech_option_or_progress_effect = { TECH = tech_new_systems_localization } # add_research_option = tech_new_systems_localization
 		hidden_effect = {
 			country_event = { id = distar.13060 scopes = { from = event_target:lh_empire_capital_system } }
 		}
@@ -635,7 +649,7 @@ system_event = {
 	show_sound = event_laboratory_sound
 	location = root
 	is_triggered_only = yes
-	# immediate = { save_event_target_as = located_system }
+	# immediate = { save_event_target_as = lh_spawned_system } not good in a loop
 	option = { name = EXCELLENT }
 }
 
@@ -668,15 +682,28 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.23.Desc"
 	picture = GFX_evt_system_localization
 	show_sound = event_laboratory_sound
-	# location = event_target:located_system
+	location = event_target:lh_spawned_system
 	is_triggered_only = yes
-	# trigger = {
-	# 	custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } }
-	# }
-	# immediate = {
-	# 	event_target:located_system = { save_event_target_as = located_system }
-	# }
-	# TODO
+	immediate = {
+		if = { limit = { NOT = { exists = event_target:lh_spawned_system } }
+			if = { limit = { any_system_within_border = { has_star_flag = lh_basic_system } }
+				random_system_within_border = {
+					limit = { has_star_flag = lh_basic_system }
+					save_event_target_as = lh_spawned_system
+				}
+			} else = {
+				random_system = {
+					limit = { has_star_flag = lh_basic_system }
+					weights = { # Multiplayer?
+						base = 1
+						modifier = { add = 2 is_surveyed = yes }
+						modifier = { add = 3 has_owner = no }
+					}
+					save_event_target_as = lh_spawned_system
+				}
+			}
+		}
+	}
 	after = {
 		if = { limit = { is_variable_set = amount_spawn_lh_systems check_variable = { which = amount_spawn_lh_systems value > 0 } }
 			if = { limit = { check_variable = { which = amount_spawn_lh_systems value = 1 } has_global_flag = ap_lost_heritage }
@@ -687,12 +714,8 @@ country_event = {
 			hidden_effect = {
 				set_country_flag = system_localization_enabled
 				# set_timed_country_flag = { flag = system_localization_cooldown months = 1 }
-				# save_event_target_as = source_country
 				set_spawn_system_batch = begin
-				# if = { limit = { NOT = { exists = event_target:lh_spawned_system } } # too late
-				random_system = {
-					limit = { has_star_flag = lh_basic_system }
-					save_event_target_as = lh_spawned_system
+				event_target:lh_spawned_system = {
 					while = {
 						count = amount_spawn_lh_systems
 						if = { # Add to previous one
@@ -702,15 +725,12 @@ country_event = {
 								random = { chance = 33 remove_star_flag = lh_spawned_system }
 								spawn_lh_system = yes
 							}
-						}
-						else_if = {
-							limit = { any_system_within_border = { has_star_flag = lh_special_system } }
+						} else_if = { limit = { any_system_within_border = { has_star_flag = lh_special_system } }
 							random_system_within_border = {
 								limit = { has_star_flag = lh_special_system }
 								spawn_lh_system = yes
 							}
-						}
-						else = {
+						} else = {
 							random_system = {
 								limit = { has_star_flag = lh_special_system }
 								spawn_lh_system = yes
@@ -3595,7 +3615,7 @@ planet_event = {
 	after = {
 		hidden_effect = {
 			if = { limit = { has_planet_flag = new_primitive_world }
-				planet_event = { id = UniqueAscensionPerksEvents.3141 } # setup_primitive_planet = yes
+				planet_event = { id = UniqueAscensionPerksEvents.3141 } # setup_pre_ftl_planet = yes
 			} else = { # refund
 				from = {
 					# if = { limit = { NOR = { has_technology = tech_climate_restoration has_planet_flag = primitive_creation_done } }
@@ -3919,7 +3939,7 @@ planet_event = {
 			}
 		}
 
-		# create_early_primitive_empire = yes
+		# create_early_pre_ftl_empire = yes
 		create_country = {
 			name = random
 			type = primitive
@@ -3950,13 +3970,10 @@ planet_event = {
 			effect = {
 				set_graphical_culture = preindustrial_01
 				random_list = {
-					20 = {
-						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_stone_age } } }
-						set_primitive_age_effect = { primitive_age = stone_age }
-					}
+					20 = { modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_stone_age } } } set_pre_ftl_age_effect = { PRE_FTL_AGE = stone_age } }
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } } }
-						set_primitive_age_effect = { primitive_age = bronze_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = bronze_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3965,7 +3982,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_iron_age } } }
-						set_primitive_age_effect = { primitive_age = iron_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = iron_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3974,7 +3991,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_medieval_age } } }
-						set_primitive_age_effect = { primitive_age = late_medieval_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = late_medieval_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3983,7 +4000,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_renaissance_age } } }
-						set_primitive_age_effect = { primitive_age = renaissance_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = renaissance_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -3992,7 +4009,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_steam_age } } }
-						set_primitive_age_effect = { primitive_age = steam_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = steam_age }
 						change_country_flag = {
 							icon = { category = "special" file = "primitive.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -4001,7 +4018,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_industrial_age } } }
-						set_primitive_age_effect = { primitive_age = industrial_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = industrial_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -4010,7 +4027,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_machine_age } } }
-						set_primitive_age_effect = { primitive_age = machine_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = machine_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -4019,7 +4036,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_atomic_age } } }
-						set_primitive_age_effect = { primitive_age = atomic_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = atomic_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -4028,7 +4045,7 @@ planet_event = {
 					}
 					20 = {
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_early_space_age } } }
-						set_primitive_age_effect = { primitive_age = industrial_age }
+						set_pre_ftl_age_effect = { PRE_FTL_AGE = industrial_age }
 						change_country_flag = {
 							icon = { category = "spherical" file = "flag_spherical_22.dds" }
 							background = { category = "backgrounds" file = "new_dawn.dds" }
@@ -4043,7 +4060,7 @@ planet_event = {
 	after = {
 		hidden_effect = {
 			if = { limit = { is_colony = no }
-				setup_primitive_planet = yes
+				setup_pre_ftl_planet = yes
 			}
 			if = {
 				limit = {
@@ -4075,9 +4092,7 @@ system_event = {
 			starbase = { destroy_fleet = fleet }
 		}
 	}
-	option = {
-		name = UniqueAscensionPerksEvents.3161.b
-	}
+	option = { name = UniqueAscensionPerksEvents.3161.b }
 }
 
 country_event = {
@@ -7058,10 +7073,10 @@ country_event = {
 	show_sound = event_finding_loot
 	picture = GFX_evt_analyzing_artifacts
 	is_triggered_only = yes
-	option = { name = UniqueAscensionPerksEvents.352.100 allow = { resource_stockpile_compare = { resource = treasures value > 100 } } add_resource = { treasures = -100 minor_artifacts = 5 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.356 days = 300 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.200 allow = { resource_stockpile_compare = { resource = treasures value > 200 } } add_resource = { treasures = -200 minor_artifacts = 10 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.400 allow = { resource_stockpile_compare = { resource = treasures value > 400 } } add_resource = { treasures = -400 minor_artifacts = 20 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.800 allow = { resource_stockpile_compare = { resource = treasures value > 800 } } add_resource = { treasures = -800 minor_artifacts = 40 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.100 allow = { resource_stockpile_compare = { resource = treasures value > 100 } } add_resource = { treasures = -100 minor_artifacts = 50 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.356 days = 300 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.200 allow = { resource_stockpile_compare = { resource = treasures value > 200 } } add_resource = { treasures = -200 minor_artifacts = 100 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.400 allow = { resource_stockpile_compare = { resource = treasures value > 400 } } add_resource = { treasures = -400 minor_artifacts = 200 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
+	option = { name = UniqueAscensionPerksEvents.352.800 allow = { resource_stockpile_compare = { resource = treasures value > 800 } } add_resource = { treasures = -800 minor_artifacts = 400 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
 	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
 }
 
