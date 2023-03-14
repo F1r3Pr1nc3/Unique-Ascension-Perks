@@ -696,7 +696,7 @@ country_event = {
 					limit = { has_star_flag = lh_basic_system }
 					weights = { # Multiplayer?
 						base = 1
-						modifier = { add = 2 is_surveyed = yes }
+						modifier = { add = 2 is_surveyed = { who = root status = yes } }
 						modifier = { add = 3 has_owner = no }
 					}
 					save_event_target_as = lh_spawned_system
@@ -3321,7 +3321,7 @@ country_event = {
 					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_pacifist			} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_pacifist } }		pop_change_ethic = ethic_pacifist }
 					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_egalitarian		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_egalitarian } }		pop_change_ethic = ethic_egalitarian }
 					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_authoritarian	} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_authoritarian } }	pop_change_ethic = ethic_authoritarian }
-						# (Mod) Ethics and Civics Classic
+					# (Mod) Ethics and Civics Classic
 					500 = { modifier = { factor = 0.01 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_green			} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_green } }		pop_change_ethic = ethic_green }
 					500 = { modifier = { factor = 0.01 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_industrial	} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_industrial } }	pop_change_ethic = ethic_industrial }
 					500 = { modifier = { factor = 0.01 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_socialism		} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_socialism } }	pop_change_ethic = ethic_socialism }
@@ -3589,7 +3589,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.140
 	title = "ap_primitives_creation"
 	desc = "ap_primitives_creation_desc"
-	show_sound = event_primitive_civilization
+	show_sound = event_pre_ftl_civilization
 	picture = GFX_evt_medieval_alien_civilization
 	location = capital_scope
 	is_triggered_only = yes
@@ -3602,7 +3602,7 @@ planet_event = {
 	id = UniqueAscensionPerksEvents.141
 	title = "UniqueAscensionPerksEvents.141.Name"
 	desc = "UniqueAscensionPerksEvents.141.Desc"
-	show_sound = event_primitive_civilization
+	show_sound = event_pre_ftl_civilization
 	picture = GFX_evt_medieval_alien_civilization # picture = GFX_evt_big_landing_ship
 	location = root
 	is_triggered_only = yes
@@ -4142,7 +4142,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.3143
 	title = "UniqueAscensionPerksEvents.3143.Name"
 	desc = "UniqueAscensionPerksEvents.3143.Desc"
-	show_sound = event_primitive_civilization
+	show_sound = event_pre_ftl_civilization
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
@@ -4154,7 +4154,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.3144
 	title = "UniqueAscensionPerksEvents.3144.Name"
 	desc = "UniqueAscensionPerksEvents.3144.Desc"
-	show_sound = event_primitive_civilization
+	show_sound = event_pre_ftl_civilization
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
@@ -4166,7 +4166,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.3145
 	title = "UniqueAscensionPerksEvents.3145.Name"
 	desc = "UniqueAscensionPerksEvents.3145.Desc"
-	show_sound = event_primitive_civilization
+	show_sound = event_pre_ftl_civilization
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
@@ -4212,7 +4212,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.3149
 	title = "UniqueAscensionPerksEvents.3149.Name"
 	desc = "UniqueAscensionPerksEvents.3149.Desc"
-	show_sound = event_primitive_civilization
+	show_sound = event_pre_ftl_civilization
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:primitive_creation_planet
 	is_triggered_only = yes
@@ -5013,11 +5013,10 @@ leader_event = {
 							from = {
 								last_created_leader = {
 									set_age = 1
-									# set_name = "CLONED_LEADER_NAME"
 									set_name = {
 										key = "CLONED_LEADER_NAME"
-										variable_string = "This.GetName"
-										variable_string = "From.cloned_leader_number"
+										variable_string = "[This.GetName]"
+										variable_string = "[From.cloned_leader_number]"
 									}
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
@@ -6926,16 +6925,16 @@ event = {
 		# 	}
 		# }
 		# remove in 3.7
-		if = {
-			limit = {
-				any_playable_country = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
-			}
-			every_playable_country = {
-				limit = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
-				set_country_flag = space_domestication_tiyanki
-				remove_country_flag = space_domestication_tyanki
-			}
-		}
+		# if = {
+		# 	limit = {
+		# 		any_playable_country = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
+		# 	}
+		# 	every_playable_country = {
+		# 		limit = { has_ascension_perk = ap_space_domestication has_country_flag = space_domestication_tyanki }
+		# 		set_country_flag = space_domestication_tiyanki
+		# 		remove_country_flag = space_domestication_tyanki
+		# 	}
+		# }
 
 		# Sync special subject relations
 		every_playable_country = {
