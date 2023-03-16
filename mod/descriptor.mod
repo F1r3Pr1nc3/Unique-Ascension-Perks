@@ -1,4 +1,4 @@
-version="2.2.8b"
+version="2.2.9b"
 tags={
 	"Buildings"
 	"Gameplay"

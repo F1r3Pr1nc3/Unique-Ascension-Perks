@@ -5066,229 +5066,229 @@ leader_event = {
 #									 #
 ######################################
 
-country_event = {
-	id = UniqueAscensionPerksEvents.270
-	title = "ap_sector_z749"
-	desc = "ap_sector_z749_desc"
-	show_sound = event_mystic_reveal
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = sector_z749_room }
-	location = event_target:sector_z749_system_capital_system
-	is_triggered_only = yes
-	immediate = {
-		if = { limit = { NOT = { exists = capital_scope } }
-			random_system_within_border = {
-				limit = { has_natural_wormhole = no }
-				save_event_target_as = sector_z749_system_capital_system
-			}
-		} else_if = { limit = { capital_scope = { solar_system = { has_natural_wormhole = yes } } }
-			capital_scope = {
-				solar_system = {
-					closest_system = {
-						limit = { has_natural_wormhole = no exists = space_owner space_owner = { is_same_empire = root } }
-						save_event_target_as = sector_z749_system_capital_system
-					}
-				}
-			}
-		} else = { capital_scope = { solar_system = { save_event_target_as = sector_z749_system_capital_system } } }
-		event_target:sector_z749_system_capital_system = {
-			set_spawn_system_batch = begin
-			spawn_system = { min_distance > 20 max_distance <= 50 min_orientation_angle = 0 max_orientation_angle = 359 initializer = "sector_z749_system" hyperlane = no }
-			if = { limit = { NOT = { exists = event_target:sector_z749_system } }
-				if = { limit = { exists = last_created_system last_created_system = { has_star_flag = sector_z749_system } }
-					last_created_system = { save_event_target_as = sector_z749_system }
-				} else = {
-					random_system = {
-						limit = { has_star_flag = sector_z749_system }
-						save_event_target_as = sector_z749_system
-					}
-				}
-			}
-			event_target:sector_z749_system = {
-				# isolate_system = yes
-				prev = { spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 170 } }
-				spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 350 }
-				link_wormholes = prev
-			}
-			set_spawn_system_batch = end
-		}
-	}
-	option = {
-		name = EXCELLENT
-		hidden_effect = {
-			country_event = { id = distar.13060 scopes = { from = event_target:sector_z749_system_capital_system } }
-		}
-	}
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.270
+# 	title = "ap_sector_z749"
+# 	desc = "ap_sector_z749_desc"
+# 	show_sound = event_mystic_reveal
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = sector_z749_room }
+# 	location = event_target:sector_z749_system_capital_system
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		if = { limit = { NOT = { exists = capital_scope } }
+# 			random_system_within_border = {
+# 				limit = { has_natural_wormhole = no }
+# 				save_event_target_as = sector_z749_system_capital_system
+# 			}
+# 		} else_if = { limit = { capital_scope = { solar_system = { has_natural_wormhole = yes } } }
+# 			capital_scope = {
+# 				solar_system = {
+# 					closest_system = {
+# 						limit = { has_natural_wormhole = no exists = space_owner space_owner = { is_same_empire = root } }
+# 						save_event_target_as = sector_z749_system_capital_system
+# 					}
+# 				}
+# 			}
+# 		} else = { capital_scope = { solar_system = { save_event_target_as = sector_z749_system_capital_system } } }
+# 		event_target:sector_z749_system_capital_system = {
+# 			set_spawn_system_batch = begin
+# 			spawn_system = { min_distance > 20 max_distance <= 50 min_orientation_angle = 0 max_orientation_angle = 359 initializer = "sector_z749_system" hyperlane = no }
+# 			if = { limit = { NOT = { exists = event_target:sector_z749_system } }
+# 				if = { limit = { exists = last_created_system last_created_system = { has_star_flag = sector_z749_system } }
+# 					last_created_system = { save_event_target_as = sector_z749_system }
+# 				} else = {
+# 					random_system = {
+# 						limit = { has_star_flag = sector_z749_system }
+# 						save_event_target_as = sector_z749_system
+# 					}
+# 				}
+# 			}
+# 			event_target:sector_z749_system = {
+# 				# isolate_system = yes
+# 				prev = { spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 170 } }
+# 				spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 350 }
+# 				link_wormholes = prev
+# 			}
+# 			set_spawn_system_batch = end
+# 		}
+# 	}
+# 	option = {
+# 		name = EXCELLENT
+# 		hidden_effect = {
+# 			country_event = { id = distar.13060 scopes = { from = event_target:sector_z749_system_capital_system } }
+# 		}
+# 	}
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.271
-	title = "Sector_Z749"
-	desc = "UniqueAscensionPerksEvents.271.Desc"
-	show_sound = event_mystic_reveal
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = sector_z749_room }
-	is_triggered_only = yes
-	option = {
-		name = UniqueAscensionPerksEvents.271.Gate
-		allow = {
-			custom_tooltip = {
-				fail_text = UniqueAscensionPerksEvents.271.Req01
-				NAND = {
-					is_variable_set = invasion_gate_type
-					check_variable = { which = invasion_gate_type value > 0 }
-				}
-			}
-		}
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.272 } }
-	}
-	option = { name = EXIT ai_chance = { factor = 0.1 } }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.271
+# 	title = "Sector_Z749"
+# 	desc = "UniqueAscensionPerksEvents.271.Desc"
+# 	show_sound = event_mystic_reveal
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = sector_z749_room }
+# 	is_triggered_only = yes
+# 	option = {
+# 		name = UniqueAscensionPerksEvents.271.Gate
+# 		allow = {
+# 			custom_tooltip = {
+# 				fail_text = UniqueAscensionPerksEvents.271.Req01
+# 				NAND = {
+# 					is_variable_set = invasion_gate_type
+# 					check_variable = { which = invasion_gate_type value > 0 }
+# 				}
+# 			}
+# 		}
+# 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.272 } }
+# 	}
+# 	option = { name = EXIT ai_chance = { factor = 0.1 } }
+# }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.272
-	title = "UniqueAscensionPerksEvents.272.Name"
-	desc = "UniqueAscensionPerksEvents.272.Desc"
-	show_sound = event_mystic_reveal
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = sector_z749_room }
-	is_triggered_only = yes
-	immediate = {
-		set_variable = { which = invasion_gate_type value = 0 }
-	}
-	after = {
-		if = { limit = { check_variable = { which = invasion_gate_type value > 0 } }
-			country_event = { id = UniqueAscensionPerksEvents.273 }
-		}
-	}
-	option = { name = UniqueAscensionPerksEvents.272.Alpha	hidden_effect = { set_variable = { which = invasion_gate_type value = 1 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Beta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 1 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 2 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Gamma	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 2 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 3 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Delta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 3 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 4 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Epsilon trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 4 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 5 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Zeta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 5 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 6 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Kappa	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 6 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 7 } } }
-	option = { name = UniqueAscensionPerksEvents.272.Omega	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 7 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 8 } } }
-	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } ai_chance = { factor = 0.1 } }
-}
-# TODO
-country_event = {
-	id = UniqueAscensionPerksEvents.273
-	title = "UniqueAscensionPerksEvents.272.Name"
-	desc = {
-		trigger = {
-			success_text = { text = "UniqueAscensionPerksEvents.273.Alpha" check_variable = { which = invasion_gate_type value = 1 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Beta" check_variable = { which = invasion_gate_type value = 2 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Gamma" check_variable = { which = invasion_gate_type value = 3 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Delta" check_variable = { which = invasion_gate_type value = 4 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Epsilon" check_variable = { which = invasion_gate_type value = 5 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Zeta" check_variable = { which = invasion_gate_type value = 6 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Kappa" check_variable = { which = invasion_gate_type value = 7 } }
-			success_text = { text = "UniqueAscensionPerksEvents.273.Omega" check_variable = { which = invasion_gate_type value = 8 } }
-		}
-	}
-	show_sound = event_mystic_reveal
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { room = sector_z749_room }
-	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.273.a"
-		# activate_invasion_gate = yes
-		if		= { limit = { check_variable = { which = invasion_gate_type value = 1 } } add_resource = { energy = -1000 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 2 } } add_resource = { energy = -2000 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 3 } } add_resource = { energy = -3400 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 4 } } add_resource = { energy = -5000 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 5 } } add_resource = { energy = -6600 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 6 } } add_resource = { energy = -8800 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 7 } } add_resource = { energy = -12000 } }
-		else_if = { limit = { check_variable = { which = invasion_gate_type value = 8 } } add_resource = { energy = -18000 } }
-		country_event = { id = UniqueAscensionPerksEvents.274 }
-	}
-	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } ai_chance = { factor = 0.1 } }
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.272
+# 	title = "UniqueAscensionPerksEvents.272.Name"
+# 	desc = "UniqueAscensionPerksEvents.272.Desc"
+# 	show_sound = event_mystic_reveal
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = sector_z749_room }
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		set_variable = { which = invasion_gate_type value = 0 }
+# 	}
+# 	after = {
+# 		if = { limit = { check_variable = { which = invasion_gate_type value > 0 } }
+# 			country_event = { id = UniqueAscensionPerksEvents.273 }
+# 		}
+# 	}
+# 	option = { name = UniqueAscensionPerksEvents.272.Alpha	hidden_effect = { set_variable = { which = invasion_gate_type value = 1 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Beta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 1 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 2 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Gamma	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 2 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 3 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Delta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 3 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 4 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Epsilon trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 4 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 5 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Zeta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 5 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 6 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Kappa	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 6 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 7 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Omega	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 7 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 8 } } }
+# 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } ai_chance = { factor = 0.1 } }
+# }
+# # TODO
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.273
+# 	title = "UniqueAscensionPerksEvents.272.Name"
+# 	desc = {
+# 		trigger = {
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Alpha" check_variable = { which = invasion_gate_type value = 1 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Beta" check_variable = { which = invasion_gate_type value = 2 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Gamma" check_variable = { which = invasion_gate_type value = 3 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Delta" check_variable = { which = invasion_gate_type value = 4 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Epsilon" check_variable = { which = invasion_gate_type value = 5 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Zeta" check_variable = { which = invasion_gate_type value = 6 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Kappa" check_variable = { which = invasion_gate_type value = 7 } }
+# 			success_text = { text = "UniqueAscensionPerksEvents.273.Omega" check_variable = { which = invasion_gate_type value = 8 } }
+# 		}
+# 	}
+# 	show_sound = event_mystic_reveal
+# 	diplomatic = yes
+# 	force_open = yes
+# 	picture_event_data = { room = sector_z749_room }
+# 	is_triggered_only = yes
+# 	option = { name = "UniqueAscensionPerksEvents.273.a"
+# 		# activate_invasion_gate = yes
+# 		if		= { limit = { check_variable = { which = invasion_gate_type value = 1 } } add_resource = { energy = -1000 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 2 } } add_resource = { energy = -2000 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 3 } } add_resource = { energy = -3400 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 4 } } add_resource = { energy = -5000 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 5 } } add_resource = { energy = -6600 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 6 } } add_resource = { energy = -8800 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 7 } } add_resource = { energy = -12000 } }
+# 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 8 } } add_resource = { energy = -18000 } }
+# 		country_event = { id = UniqueAscensionPerksEvents.274 }
+# 	}
+# 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } ai_chance = { factor = 0.1 } }
+# }
 
-# TODO a lot, eg different fleets.
-country_event = {
-	id = UniqueAscensionPerksEvents.274
-	hide_window = yes
-	is_triggered_only = yes
-	immediate =	{
-		# create_invasion_gave_country = yes
-		# save_event_target_as = main_country
+# # TODO a lot, eg different fleets.
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.274
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate =	{
+# 		# create_invasion_gave_country = yes
+# 		# save_event_target_as = main_country
 
-		if = { limit = { any_country = { has_country_flag = sector_z749_country } }
-			random_country = {
-				limit = { has_country_flag = sector_z749_country }
-				save_event_target_as = sector_z749_country
-			}
-		} else = {
-			event_target:sector_z749_system = {
-				random_system_planet = {
-					limit = { is_star = no }
-					weights = { base = 1 modifier = { add = 3 merg_is_habitat = yes } }
-					create_country = {
-						name = "Sector Z-749"
-						type = faction
-						ignore_initial_colony_error = yes
-						day_zero_contact = no
-						flag = {
-							icon = { category = "domination" file = "domination_20.dds" }
-							background = { category = "backgrounds" file = "circle.dds" }
-							colors = { "red" "black" "null" "null" }
-						}
-						effect = {
-							# set_name = "Sector_Z749"
-							save_event_target_as = sector_z749_country
-							set_country_flag = sector_z749_country
-							set_faction_hostility = { set_hostile = yes set_neutral = no set_friendly = no }
-							every_country = { establish_communications_no_message = prev }
-						}
-					}
-				}
-			}
-		}
-		# invasion_gate_create_fleet = yes
-		# random_system = {
-		# 	limit = { has_star_flag = sector_z749_system }
-		# 	star = { save_event_target_as = spawn_location }
-		# }
-		event_target:sector_z749_system.star = { save_event_target_as = spawn_location }
-		event_target:sector_z749_country = {
-			set_variable = { which = invasion_gate_wave_type value = prev.invasion_gate_type }
-			set_variable = { which = invasion_gate_wave_count value = invasion_gate_wave_type }
-			multiply_variable = { which = invasion_gate_wave_count value = 1.75 }
-			round_variable = invasion_gate_wave_count
-			while = {
-				count = 9
-				create_fleet = {
-					name = "Invasion Gate Fleet"
-					settings = { spawn_debris = no }
-					effect = {
-						set_owner = prev
-						while = {
-							count = prev.invasion_gate_wave_count
-							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 1 } } } while = { count = 10 create_ship = { design = "NAME_Outrider" graphical_culture = "pirate_01" } } } # Pirate Corvette
-							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 2 } } } while = { count = 6 create_ship = { design = "NAME_Lancer" graphical_culture = "pirate_01" } } } # Pirate Destroyer
-							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 3 } } } while = { count = 3 create_ship = { design = "NAME_Void_Champion" graphical_culture = "pirate_01" } } } # Pirate Cruiser
-							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 4 } } } while = { count = 1 create_ship = { design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" } } } # Marauder Galleon
-						}
-						set_location = { target = event_target:spawn_location distance = 1000 angle = random }
-						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
-						set_aggro_range = 5000
-						set_formation_scale = 1.0
-						save_event_target_as = invasion_gate_fleet
-						set_fleet_flag = invasion_gate_fleet
-					}
-				}
-			}
-			# set_variable = { which = invasion_gate_wave_type value = 0 }
-		}
-	}
-}
+# 		if = { limit = { any_country = { has_country_flag = sector_z749_country } }
+# 			random_country = {
+# 				limit = { has_country_flag = sector_z749_country }
+# 				save_event_target_as = sector_z749_country
+# 			}
+# 		} else = {
+# 			event_target:sector_z749_system = {
+# 				random_system_planet = {
+# 					limit = { is_star = no }
+# 					weights = { base = 1 modifier = { add = 3 merg_is_habitat = yes } }
+# 					create_country = {
+# 						name = "Sector Z-749"
+# 						type = faction
+# 						ignore_initial_colony_error = yes
+# 						day_zero_contact = no
+# 						flag = {
+# 							icon = { category = "domination" file = "domination_20.dds" }
+# 							background = { category = "backgrounds" file = "circle.dds" }
+# 							colors = { "red" "black" "null" "null" }
+# 						}
+# 						effect = {
+# 							# set_name = "Sector_Z749"
+# 							save_event_target_as = sector_z749_country
+# 							set_country_flag = sector_z749_country
+# 							set_faction_hostility = { set_hostile = yes set_neutral = no set_friendly = no }
+# 							every_country = { establish_communications_no_message = prev }
+# 						}
+# 					}
+# 				}
+# 			}
+# 		}
+# 		# invasion_gate_create_fleet = yes
+# 		# random_system = {
+# 		# 	limit = { has_star_flag = sector_z749_system }
+# 		# 	star = { save_event_target_as = spawn_location }
+# 		# }
+# 		event_target:sector_z749_system.star = { save_event_target_as = spawn_location }
+# 		event_target:sector_z749_country = {
+# 			set_variable = { which = invasion_gate_wave_type value = prev.invasion_gate_type }
+# 			set_variable = { which = invasion_gate_wave_count value = invasion_gate_wave_type }
+# 			multiply_variable = { which = invasion_gate_wave_count value = 1.75 }
+# 			round_variable = invasion_gate_wave_count
+# 			while = {
+# 				count = 9
+# 				create_fleet = {
+# 					name = "Invasion Gate Fleet"
+# 					settings = { spawn_debris = no }
+# 					effect = {
+# 						set_owner = prev
+# 						while = {
+# 							count = prev.invasion_gate_wave_count
+# 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 1 } } } while = { count = 10 create_ship = { design = "NAME_Outrider" graphical_culture = "pirate_01" } } } # Pirate Corvette
+# 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 2 } } } while = { count = 6 create_ship = { design = "NAME_Lancer" graphical_culture = "pirate_01" } } } # Pirate Destroyer
+# 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 3 } } } while = { count = 3 create_ship = { design = "NAME_Void_Champion" graphical_culture = "pirate_01" } } } # Pirate Cruiser
+# 							if = { limit = { PREV = { check_variable = { which = invasion_gate_wave_type value = 4 } } } while = { count = 1 create_ship = { design = "NAME_Ancestral_Glory" graphical_culture = "pirate_01" } } } # Marauder Galleon
+# 						}
+# 						set_location = { target = event_target:spawn_location distance = 1000 angle = random }
+# 						set_fleet_stance = aggressive
+# 						set_aggro_range_measure_from = self
+# 						set_aggro_range = 5000
+# 						set_formation_scale = 1.0
+# 						save_event_target_as = invasion_gate_fleet
+# 						set_fleet_flag = invasion_gate_fleet
+# 					}
+# 				}
+# 			}
+# 			# set_variable = { which = invasion_gate_wave_type value = 0 }
+# 		}
+# 	}
+# }
 
 # on_country_destroyed
 # TODO different rewards + DESC
@@ -7473,7 +7473,7 @@ planet_event = {
 	trigger = {
 		host_has_dlc = "Megacorp"
 		has_modifier = "utopian_gaia_world"
-		gpm_is_planet_class_city = yes # is_planet_class = pc_city
+		gpm_is_planet_class_city = yes # merg_is_arcology = yes
 		exists = owner
 		owner = { has_ascension_perk = ap_utopian_realisation }
 	}

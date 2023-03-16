@@ -206,17 +206,21 @@ merg_is_gas_giant = {
 	}
 }
 
-gpm_is_planet_class_city = {
-	optimize_memory
-	OR = {
-		is_city_planet = yes
-		is_planet_class = pc_relic
-	}
-}
-
 merg_is_machine_world = {
 	OR = {
 		is_pd_machine = yes # Planetary Diversity
 		is_pd_robot_arcology = yes # Planetary Diversity
+	}
+}
+
+merg_is_arcology = {
+	is_pd_arcology = yes
+}
+
+gpm_is_planet_class_city = {
+	optimize_memory
+	OR = {
+		merg_is_arcology = yes
+		is_planet_class = pc_relic
 	}
 }
