@@ -159,12 +159,15 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.93.Army" allow = { has_technology = tech_private_armies }
 		hidden_effect = {
 			# private_galactic_market_available_armies_set (v3.7 new syntax)
-			set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 0 max = 30 rounded = yes }
+			set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 1 max = 30 rounded = yes }
 			set_variable_to_random_value = { which = private_galactic_market_mercenary_armies min = 0 max = 15 rounded = yes }
 			set_variable_to_random_value = { which = private_galactic_market_robotic_armies min = 0 max = 12 rounded = yes }
 			set_variable_to_random_value = { which = private_galactic_market_gene_armies min = 0 max = 5 rounded = yes }
-			if = { limit = { check_variable = { which = private_galactic_market_slave_armies value < 18 } }
-				set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 0 max = 30 rounded = yes }
+			# Create more average
+			if = { limit = { check_variable = { which = private_galactic_market_slave_armies value < 16 } }
+				set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 0 max = 28 rounded = yes }
+			} else_if = { limit = { check_variable = { which = private_galactic_market_slave_armies value > 24 } }
+				set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 8 max = 31 rounded = yes }
 			}
 			country_event = { id = UniqueAscensionPerksEvents.3096 }
 		}

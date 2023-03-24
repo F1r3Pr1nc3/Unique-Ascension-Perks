@@ -5,7 +5,7 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } }
+	immediate = { random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } }
 }
 # on_bi_yearly_pulse
 event = {
@@ -21,7 +21,7 @@ event = {
 			}
 			remove_global_flag = custom_anomalies_activated
 		}
-		while = { count = 3 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } }
+		while = { count = 3 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } }
 		event_target:global_event_country = {
 			country_event = { id = AnomaliesRespawnEvent.2000 days = 5 random = 5 }
 		}
@@ -48,7 +48,7 @@ event = {
 			}
 			remove_global_flag = anomalies_respawner_active
 		} else = {
-			while = { count = 5 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } }
+			while = { count = 5 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } }
 		}
 	}
 }
@@ -59,7 +59,7 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 10 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = { while = { count = 10 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
 event = {
@@ -68,7 +68,7 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 50 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = { while = { count = 50 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
 event = {
@@ -77,7 +77,7 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 100 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = { while = { count = 100 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
 event = {
@@ -86,7 +86,7 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 250 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = { while = { count = 250 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
 event = {
@@ -95,7 +95,7 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 500 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = { while = { count = 500 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
 event = {
@@ -104,7 +104,7 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 1000 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	immediate = { while = { count = 1000 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
 # on_five_year_pulse
@@ -115,7 +115,14 @@ country_event = {
 	trigger = { has_global_flag = anomalies_respawner_active }
 	immediate = {
 		every_playable_country = {
-			limit = { any_planet_within_border = { has_planet_flag = planet_has_new_anomaly has_anomaly = yes } }
+			limit = {
+				OR = {
+					has_ascension_perk = ap_deep_scanner
+					has_ascension_perk = ap_artifact_hunter
+					has_ascension_perk = ap_expansionist_development
+				}
+				any_planet_within_border = { has_planet_flag = planet_has_new_anomaly has_anomaly = yes }
+			}
 			random_planet_within_border = {
 				limit = { has_planet_flag = planet_has_new_anomaly has_anomaly = yes }
 				# save_event_target_as = anomaly_location
