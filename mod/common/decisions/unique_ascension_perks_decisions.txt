@@ -542,6 +542,14 @@ decision_galaxy_center_menu = {
 	sound = event_administrative_work
 	icon = decision_galaxy_center
 	potential = { has_planet_flag = galaxy_center_planet }
+	allow = {
+		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
+			NOR = {
+				has_planet_flag = decision_galaxy_center_cooldown
+				has_active_event = { UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 }
+			}
+		}
+	}
 	effect = {
 		custom_tooltip = "decision_galaxy_center_menu_tooltip"
 		hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } }
@@ -615,10 +623,7 @@ decision_hivemind_reserve = {
 				check_variable = { which = hivemind_reserve_happened value < 5 }
 			}
 		} else = {
-			custom_tooltip = {
-				text = requires_max_5_times_pass_simple
-				always = yes
-			}
+			custom_tooltip = { text = requires_max_5_times_pass_simple always = yes }
 		}
 	}
 	effect = {
@@ -675,10 +680,7 @@ decision_hivemind_reserve_unhabited = {
 				check_variable = { which = hivemind_reserve_happened value < 5 }
 			}
 		} else = {
-			custom_tooltip = {
-				text = requires_max_5_times_pass_simple
-				always = yes
-			}
+			custom_tooltip = { text = requires_max_5_times_pass_simple always = yes }
 		}
 	}
 	effect = {
@@ -781,7 +783,7 @@ decision_primitive_creation_unhabitable = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
 		if		= { limit = { is_planet_class = pc_molten }			change_pc = pc_desert }
 		else_if = { limit = { is_planet_class = pc_toxic }			change_pc = pc_continental }
-		else_if = { limit = { is_planet_class = pc_frozen  }		change_pc = pc_alpine }
+		else_if = { limit = { is_planet_class = pc_frozen }		change_pc = pc_alpine }
 		else_if = { limit = { is_planet_class = pc_barren }			change_pc = pc_desert }
 		else_if = { limit = { is_planet_class = pc_barren_cold }	change_pc = pc_tundra }
 		reset_planet = yes

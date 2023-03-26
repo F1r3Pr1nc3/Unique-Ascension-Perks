@@ -641,15 +641,28 @@ country_event = {
 	}
 }
 
-system_event = {
+country_event = {
 	id = UniqueAscensionPerksEvents.21
 	title = "UniqueAscensionPerksEvents.21.Name"
 	desc = "UniqueAscensionPerksEvents.21.Desc"
 	picture = GFX_evt_system_localization
 	show_sound = event_laboratory_sound
-	location = root
+	location = from
 	is_triggered_only = yes
-	# immediate = { save_event_target_as = lh_spawned_system } not good in a loop
+	auto_select = yes
+	force_open = no
+	after = {
+		hidden_effect = {
+			if = {
+				limit = { from = { NOT = { is_same_value = event_target:lh_spawned_system } } }
+				random = { chance = 33 add_hyperlane = { from = from to = event_target:lh_spawned_system } }
+			}
+			else_if = {
+				limit = { from = { NOT = { is_same_value = event_target:lh_basic_system } } }
+				random = { chance = 33 add_hyperlane = { from = from to = event_target:lh_basic_system } }
+			}
+		}
+	}
 	option = { name = EXCELLENT }
 }
 
@@ -689,6 +702,7 @@ country_event = {
 			if = { limit = { any_system_within_border = { has_star_flag = lh_basic_system } }
 				random_system_within_border = {
 					limit = { has_star_flag = lh_basic_system }
+					save_event_target_as = lh_basic_system
 					save_event_target_as = lh_spawned_system
 				}
 			} else = {
@@ -699,25 +713,27 @@ country_event = {
 						modifier = { add = 2 is_surveyed = { who = root status = yes } }
 						modifier = { add = 3 has_owner = no }
 					}
+					save_event_target_as = lh_basic_system
 					save_event_target_as = lh_spawned_system
 				}
 			}
 		}
 	}
 	after = {
-		if = { limit = { is_variable_set = amount_spawn_lh_systems check_variable = { which = amount_spawn_lh_systems value > 0 } }
-			if = { limit = { check_variable = { which = amount_spawn_lh_systems value = 1 } has_global_flag = ap_lost_heritage }
-				add_resource = { energy = -500 }
-			} else = {
-				add_resource = { energy = -5000 sr_dark_matter = -100 mult = amount_spawn_lh_systems }
-			}
-			hidden_effect = {
-				set_country_flag = system_localization_enabled
+		hidden_effect = {
+			if = { limit = { is_variable_set = amount_spawn_lh_systems check_variable = { which = amount_spawn_lh_systems value > 0 } }
+				if = { limit = { check_variable = { which = amount_spawn_lh_systems value = 1 } has_global_flag = ap_lost_heritage }
+					add_resource = { energy = -500 }
+				} else = {
+					add_resource = { energy = -5000 sr_dark_matter = -100 mult = amount_spawn_lh_systems }
+				}
+				# set_country_flag = system_localization_enabled
 				# set_timed_country_flag = { flag = system_localization_cooldown months = 1 }
 				set_spawn_system_batch = begin
+				# event_target:lh_basic_system = {
 				event_target:lh_spawned_system = {
 					while = {
-						count = amount_spawn_lh_systems
+						count = root.amount_spawn_lh_systems
 						if = { # Add to previous one
 							limit = { any_system = { distance = { source = event_target:lh_spawned_system use_bypasses = no min_jumps = 1 max_jumps = 99 } has_star_flag = lh_spawned_system } }
 							random_system = {
@@ -725,10 +741,15 @@ country_event = {
 								random = { chance = 33 remove_star_flag = lh_spawned_system }
 								spawn_lh_system = yes
 							}
-						} else_if = { limit = { any_system_within_border = { has_star_flag = lh_special_system } }
-							random_system_within_border = {
-								limit = { has_star_flag = lh_special_system }
-								spawn_lh_system = yes
+						} else_if = { limit = { root = { any_system_within_border = { has_star_flag = lh_special_system } } }
+							root = {
+								random_system_within_border = {
+									limit = { has_star_flag = lh_special_system }
+									# save_event_target_as = lh_spawned_system
+									event_target:lh_spawned_system = {
+										prev = { spawn_lh_system = yes }
+									}
+								}
 							}
 						} else = {
 							random_system = {
@@ -738,6 +759,7 @@ country_event = {
 						}
 					}
 				}
+				# }
 				# set_timed_country_flag = { flag = system_localization_cooldown days = @\[ 30 * amount_spawn_lh_systems] }
 				# country_event = { id = UniqueAscensionPerksEvents.22 days = @\[ 30 * amount_spawn_lh_systems] }
 				set_spawn_system_batch = end
@@ -2923,6 +2945,10 @@ planet_event = {
 	picture_event_data = { room = galaxy_center_room }
 	is_triggered_only = yes
 	location = root
+	trigger = {
+		has_planet_flag = galaxy_center_planet
+		NOT = { has_planet_flag = decision_galaxy_center_cooldown }
+	}
 	immediate = {
 		if = { limit = { NOT = { is_variable_set = galaxy_center_features } }
 			set_variable = { which = galaxy_center_features value = 0 }
@@ -2931,7 +2957,8 @@ planet_event = {
 	# after = {}
 	option = {
 		allow = { hidden_trigger = { check_variable = { which = galaxy_center_features value < 100 } } }
-		name = "DEPOSITS_TITLE" hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.85 } }
+		name = "DEPOSITS_TITLE"
+		hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.85 } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.84.Casino"
@@ -2944,7 +2971,9 @@ planet_event = {
 		hidden_effect = {
 			set_planet_flag = galaxy_center_casino
 			change_variable = { which = galaxy_center_casino value = 28000 }
-			planet_event = { id = UniqueAscensionPerksEvents.84 }
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown months = 2 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 60 expires = 60 }
+			# planet_event = { id = UniqueAscensionPerksEvents.84 }
 		}
 	}
 	option = {
@@ -2958,7 +2987,9 @@ planet_event = {
 		hidden_effect = {
 			set_planet_flag = galaxy_center_administration
 			change_variable = { which = galaxy_center_administration value = 35 }
-			planet_event = { id = UniqueAscensionPerksEvents.84 }
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown months = 2 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 60 expires = 60 }
+			# planet_event = { id = UniqueAscensionPerksEvents.84 }
 		}
 	}
 	option = {
@@ -2972,7 +3003,9 @@ planet_event = {
 		hidden_effect = {
 			set_planet_flag = galaxy_center_museum
 			change_variable = { which = galaxy_center_museum value = 7500 }
-			planet_event = { id = UniqueAscensionPerksEvents.84 }
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown months = 2 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 60 expires = 60 }
+			# planet_event = { id = UniqueAscensionPerksEvents.84 }
 		}
 	}
 	option = {
@@ -2982,7 +3015,9 @@ planet_event = {
 		owner = { add_resource = { minerals = -15000 } }
 		hidden_effect = {
 			set_planet_flag = galaxy_center_super_shipyard
-			planet_event = { id = UniqueAscensionPerksEvents.84 }
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown months = 3 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 90 expires = 90 }
+			# planet_event = { id = UniqueAscensionPerksEvents.84 }
 		}
 	}
 	option = {
@@ -3018,6 +3053,10 @@ planet_event = {
 	picture_event_data = { room = galaxy_center_room }
 	is_triggered_only = yes
 	location = root
+	trigger = {
+		has_planet_flag = galaxy_center_planet
+		NOT = { has_planet_flag = decision_galaxy_center_cooldown }
+	}
 	option = {
 		name = "d_energy_generator"
 		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
@@ -3115,6 +3154,10 @@ planet_event = {
 	is_triggered_only = yes
 	location = root
 	pre_triggers = { has_owner = yes }
+	trigger = {
+		has_planet_flag = galaxy_center_planet
+		NOT = { has_planet_flag = decision_galaxy_center_cooldown }
+	}
 	option = {
 		name = "CORVETTE"
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 150 } } }
@@ -3131,7 +3174,10 @@ planet_event = {
 				set_fleet_flag = recovery_fleet
 			}
 		}
-		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown days = 8 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 8 expires = 8 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
 	}
@@ -3151,7 +3197,10 @@ planet_event = {
 				set_fleet_flag = recovery_fleet
 			}
 		}
-		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown days = 14 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 14 expires = 14 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
 	}
@@ -3171,7 +3220,10 @@ planet_event = {
 				set_fleet_flag = recovery_fleet
 			}
 		}
-		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown days = 20 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 20 expires = 20 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
 	}
@@ -3191,7 +3243,10 @@ planet_event = {
 				set_fleet_flag = recovery_fleet
 			}
 		}
-		# hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
+		hidden_effect = {
+			set_timed_planet_flag = { flag = decision_galaxy_center_cooldown days = 30 }
+			set_saved_date = { key = galaxy_center_planet_cooldown days_from_present = 30 expires = 30 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
 	}
