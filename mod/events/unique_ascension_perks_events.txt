@@ -590,7 +590,7 @@ country_event = {
 				solar_system = { save_event_target_as = lh_empire_capital_system }
 			}
 		}
-
+		set_variable = { which = amount_spawn_lh_systems_total value = 0 }
 		set_spawn_system_batch = begin
 		random_rim_system = {
 			# limit = { <triggers> }
@@ -641,6 +641,7 @@ country_event = {
 	}
 }
 
+# From = system
 country_event = {
 	id = UniqueAscensionPerksEvents.21
 	title = "UniqueAscensionPerksEvents.21.Name"
@@ -649,17 +650,58 @@ country_event = {
 	show_sound = event_laboratory_sound
 	location = from
 	is_triggered_only = yes
-	auto_select = yes
+	auto_select = no
 	force_open = no
+	trigger = {
+		exists = from
+	}
+	immediate = {
+		from = {
+			if = {
+				limit = {
+					OR = { NOT = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system }
+				}
+				closest_system = {
+					min_steps = 1
+					max_steps = 33
+					use_bypasses = no
+					limit = {
+						has_star_flag = lh_spawned_system
+						NOT = { has_hyperlane_to = prev }
+					}
+					save_event_target_as = lh_spawned_system
+				}
+			} else_if = {
+				limit = {
+					OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system }
+				}
+				closest_system = {
+					min_steps = 1
+					max_steps = 33
+					use_bypasses = no
+					limit = {
+						has_star_flag = lh_basic_system
+						NOT = { has_hyperlane_to = prev }
+					}
+					save_event_target_as = lh_basic_system
+				}
+			}
+		}
+	}
 	after = {
 		hidden_effect = {
-			if = {
-				limit = { from = { NOT = { is_same_value = event_target:lh_spawned_system } } }
-				random = { chance = 33 add_hyperlane = { from = from to = event_target:lh_spawned_system } }
-			}
-			else_if = {
-				limit = { from = { NOT = { is_same_value = event_target:lh_basic_system } } }
-				random = { chance = 33 add_hyperlane = { from = from to = event_target:lh_basic_system } }
+			from = {
+				random_list = {
+					2 = {
+						modifier = { factor = 0 OR = { NOR = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system } }
+						add_hyperlane = { from = this to = event_target:lh_spawned_system }
+					}
+					4 = {
+						modifier = { factor = 0 OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system } }
+						add_hyperlane = { from = this to = event_target:lh_basic_system }
+					}
+					4 = {}
+				}
 			}
 		}
 	}
@@ -674,6 +716,9 @@ country_event = {
 	show_sound = event_default
 	location = capital_scope
 	is_triggered_only = yes
+	trigger = {
+		check_variable = { which = amount_spawn_lh_systems_total value < 30 }
+	}
 	option = {
 		name = "UniqueAscensionPerks.lets_again"
 		allow = {
@@ -682,8 +727,6 @@ country_event = {
 			custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } }
 		}
 		custom_tooltip = "edict_enable_system_localization_tooltip"
-		# add_resource = { energy = -5000 sr_dark_matter = -100 }
-		# spawn_lh_system = yes
 		country_event = { id = UniqueAscensionPerksEvents.23 }
 	}
 	option = { name = EXCELLENT }
@@ -697,6 +740,9 @@ country_event = {
 	show_sound = event_laboratory_sound
 	location = event_target:lh_spawned_system
 	is_triggered_only = yes
+	trigger = {
+		check_variable = { which = amount_spawn_lh_systems_total value < 30 }
+	}
 	immediate = {
 		if = { limit = { NOT = { exists = event_target:lh_spawned_system } }
 			if = { limit = { any_system_within_border = { has_star_flag = lh_basic_system } }
@@ -763,21 +809,22 @@ country_event = {
 				# set_timed_country_flag = { flag = system_localization_cooldown days = @\[ 30 * amount_spawn_lh_systems] }
 				# country_event = { id = UniqueAscensionPerksEvents.22 days = @\[ 30 * amount_spawn_lh_systems] }
 				set_spawn_system_batch = end
+				change_variable = { which = amount_spawn_lh_systems_total value = amount_spawn_lh_systems }
 				clear_variable = amount_spawn_lh_systems
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.23.1"		allow = { resource_stockpile_compare = { resource = energy value > 5000 } resource_stockpile_compare = { resource = sr_dark_matter value > 100 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.2"		allow = { resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = sr_dark_matter value > 200 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 2 } country_event = { id = UniqueAscensionPerksEvents.22 days = 60 } set_variable = { which = amount_spawn_lh_systems value = 2 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.3"		allow = { resource_stockpile_compare = { resource = energy value > 15000 } resource_stockpile_compare = { resource = sr_dark_matter value > 300 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 3 } country_event = { id = UniqueAscensionPerksEvents.22 days = 90 } set_variable = { which = amount_spawn_lh_systems value = 3 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.4"		allow = { resource_stockpile_compare = { resource = energy value > 20000 } resource_stockpile_compare = { resource = sr_dark_matter value > 400 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 4 } country_event = { id = UniqueAscensionPerksEvents.22 days = 120 } set_variable = { which = amount_spawn_lh_systems value = 4 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.5"		allow = { resource_stockpile_compare = { resource = energy value > 25000 } resource_stockpile_compare = { resource = sr_dark_matter value > 500 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 5 } country_event = { id = UniqueAscensionPerksEvents.22 days = 150 } set_variable = { which = amount_spawn_lh_systems value = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.6"		allow = { resource_stockpile_compare = { resource = energy value > 30000 } resource_stockpile_compare = { resource = sr_dark_matter value > 600 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 6 } country_event = { id = UniqueAscensionPerksEvents.22 days = 180 } set_variable = { which = amount_spawn_lh_systems value = 6 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.7"		allow = { resource_stockpile_compare = { resource = energy value > 35000 } resource_stockpile_compare = { resource = sr_dark_matter value > 700 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 7 } country_event = { id = UniqueAscensionPerksEvents.22 days = 210 } set_variable = { which = amount_spawn_lh_systems value = 7 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.8"		allow = { resource_stockpile_compare = { resource = energy value > 40000 } resource_stockpile_compare = { resource = sr_dark_matter value > 800 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 8 } country_event = { id = UniqueAscensionPerksEvents.22 days = 240 } set_variable = { which = amount_spawn_lh_systems value = 8 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.9"		allow = { resource_stockpile_compare = { resource = energy value > 45000 } resource_stockpile_compare = { resource = sr_dark_matter value > 900 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 9 } country_event = { id = UniqueAscensionPerksEvents.22 days = 270 } set_variable = { which = amount_spawn_lh_systems value = 9 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.10"	allow = { resource_stockpile_compare = { resource = energy value > 50000 } resource_stockpile_compare = { resource = sr_dark_matter value > 1000 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.22 days = 300 } set_variable = { which = amount_spawn_lh_systems value = 10 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.cheat"	allow = { resource_stockpile_compare = { resource = energy value > 500 } } trigger = { has_global_flag = ap_lost_heritage } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.1"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 30 } } } allow = { resource_stockpile_compare = { resource = energy value > 5000 } resource_stockpile_compare = { resource = sr_dark_matter value > 100 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.2"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 29 } } } allow = { resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = sr_dark_matter value > 200 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 2 } country_event = { id = UniqueAscensionPerksEvents.22 days = 60 } set_variable = { which = amount_spawn_lh_systems value = 2 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.3"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 28 } } } allow = { resource_stockpile_compare = { resource = energy value > 15000 } resource_stockpile_compare = { resource = sr_dark_matter value > 300 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 3 } country_event = { id = UniqueAscensionPerksEvents.22 days = 90 } set_variable = { which = amount_spawn_lh_systems value = 3 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.4"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 27 } } } allow = { resource_stockpile_compare = { resource = energy value > 20000 } resource_stockpile_compare = { resource = sr_dark_matter value > 400 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 4 } country_event = { id = UniqueAscensionPerksEvents.22 days = 120 } set_variable = { which = amount_spawn_lh_systems value = 4 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.5"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 26 } } } allow = { resource_stockpile_compare = { resource = energy value > 25000 } resource_stockpile_compare = { resource = sr_dark_matter value > 500 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 5 } country_event = { id = UniqueAscensionPerksEvents.22 days = 150 } set_variable = { which = amount_spawn_lh_systems value = 5 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.6"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 25 } } } allow = { resource_stockpile_compare = { resource = energy value > 30000 } resource_stockpile_compare = { resource = sr_dark_matter value > 600 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 6 } country_event = { id = UniqueAscensionPerksEvents.22 days = 180 } set_variable = { which = amount_spawn_lh_systems value = 6 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.7"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 24 } } } allow = { resource_stockpile_compare = { resource = energy value > 35000 } resource_stockpile_compare = { resource = sr_dark_matter value > 700 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 7 } country_event = { id = UniqueAscensionPerksEvents.22 days = 210 } set_variable = { which = amount_spawn_lh_systems value = 7 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.8"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 23 } } } allow = { resource_stockpile_compare = { resource = energy value > 40000 } resource_stockpile_compare = { resource = sr_dark_matter value > 800 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 8 } country_event = { id = UniqueAscensionPerksEvents.22 days = 240 } set_variable = { which = amount_spawn_lh_systems value = 8 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.9"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 22 } } } allow = { resource_stockpile_compare = { resource = energy value > 45000 } resource_stockpile_compare = { resource = sr_dark_matter value > 900 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 9 } country_event = { id = UniqueAscensionPerksEvents.22 days = 270 } set_variable = { which = amount_spawn_lh_systems value = 9 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.10"	trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 21 } } } allow = { resource_stockpile_compare = { resource = energy value > 50000 } resource_stockpile_compare = { resource = sr_dark_matter value > 1000 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.22 days = 300 } set_variable = { which = amount_spawn_lh_systems value = 10 } } }
+	option = { name = "UniqueAscensionPerksEvents.23.cheat"	trigger = { hidden_trigger = { has_global_flag = ap_lost_heritage } } allow = { resource_stockpile_compare = { resource = energy value > 500 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
 	option = { name = ABORT ai_chance = { factor = 0.1 } }
 }
 
@@ -1292,30 +1339,32 @@ planet_event = {
 	}
 }
 
+# on_yearly_pulse_country
 country_event = {
 	id = UniqueAscensionPerksEvents.8000
 	hide_window = yes
-	mean_time_to_happen = { months = 9 }
+	# mean_time_to_happen = { months = 9 }
+	is_triggered_only = yes
 	trigger = {
 		has_ascension_perk = ap_expansion_infinity
 		any_owned_planet = {
-			# OR = {
-			# 	is_capital = yes
-			colony_age > 2
-			count_owned_pop = { count > 10 limit = { has_job = yes } }
 			NOT = { has_planet_flag = ap_expansion_infinity_collection }
+			colony_age > 2
+			num_pops > 10
+			count_owned_pop = { count > 10 limit = { has_job = yes } }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
-				colony_age > 2
-				count_owned_pop = { count > 10 limit = { has_job = yes } }
 				NOT = { has_planet_flag = ap_expansion_infinity_collection }
+				colony_age > 2
+				num_pops > 10
+				count_owned_pop = { count > 10 limit = { has_job = yes } }
 			}
 			# save_event_target_as = ap_expansion_infinity_planet
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
-			ei_resources_collection = yes
+			surgical_strike_resources = yes
 			if = { limit = { root = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } } }
 				planet_event = { id = UniqueAscensionPerksEvents.46 }
 			}
