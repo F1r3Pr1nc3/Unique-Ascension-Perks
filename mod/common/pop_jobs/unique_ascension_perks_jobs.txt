@@ -1222,9 +1222,103 @@ living_metal_extractor = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs_productive
+		category = planet_metallurgists
 		produces = { sr_living_metal = 2 }
-		upkeep = { alloys = 6 }
+		upkeep = { alloys = 4 minerals = 2 }
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_subterranean
+				}
+			}
+			unity = 0.5
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_earthquake_upkeep
+				}
+			}
+			minerals = 2
+		}
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_earthquake_production
+				}
+			}
+			sr_living_metal = -1
+		}
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_engineering
+				}
+			}
+			engineering_research = 1
+		}
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_society
+				}
+			}
+			society_research = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_environmentalists
+				}
+			}
+			alloys = -2
+		}
+		produces = {
+			trigger = {
+				planet = {
+					OR = {
+						has_planet_flag = manufactorium_despoilers
+						has_planet_flag = manufactorium_remnants
+						has_planet_flag = manufactorium_took_opportunity
+					}
+				}
+			}
+			sr_living_metal = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_took_opportunity
+				}
+			}
+			minerals = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_took_opportunity_bad
+				}
+			}
+			minerals = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_catalytic
+				}
+			}
+			alloys = -1
+			minerals = -2
+			food = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_remnants
+				}
+			}
+			minerals = 1
+		}
 	}
 	weight = {
 		weight = @colonist_job_weight
@@ -1248,9 +1342,103 @@ living_metal_extractor_drone = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs_productive
+		category = planet_metallurgists
 		produces = { sr_living_metal = 2 }
-		upkeep = { alloys = 6 }
+		upkeep = { alloys = 4 minerals = 2 }
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_subterranean
+				}
+			}
+			unity = 0.5
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_earthquake_upkeep
+				}
+			}
+			minerals = 2
+		}
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_earthquake_production
+				}
+			}
+			sr_living_metal = -1
+		}
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_engineering
+				}
+			}
+			engineering_research = 1
+		}
+		produces = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_society
+				}
+			}
+			society_research = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_environmentalists
+				}
+			}
+			alloys = -2
+		}
+		produces = {
+			trigger = {
+				planet = {
+					OR = {
+						has_planet_flag = manufactorium_despoilers
+						has_planet_flag = manufactorium_remnants
+						has_planet_flag = manufactorium_took_opportunity
+					}
+				}
+			}
+			sr_living_metal = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_took_opportunity
+				}
+			}
+			minerals = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_took_opportunity_bad
+				}
+			}
+			minerals = 1
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_catalytic
+				}
+			}
+			alloys = -1
+			minerals = -2
+			food = 2
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_remnants
+				}
+			}
+			minerals = 1
+		}
 	}
 	weight = { weight = @synapse_drone_job_weight }
 }
@@ -1316,16 +1504,38 @@ secret_alchimist = {
 	possible_precalc = can_fill_specialist_job
 	possible = { complex_specialist_job_check_trigger = yes }
 	resources = {
-		category = planet_jobs_productive
+		category = planet_refiners # planet_jobs_productive
 		upkeep = {
-			minerals = 10
-			food = 10
-			energy = 10
+			minerals = 8
+			food = 8
+			energy = 8
 		}
 		produces = {
-			volatile_motes = 4
-			exotic_gases = 4
-			rare_crystals = 4
+			volatile_motes = 3
+			exotic_gases = 3
+			rare_crystals = 3
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_catalytic
+				}
+			}
+			minerals = -4
+			food = 4
+		}
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = {
+					OR = {
+						is_lithoid_empire = yes
+						is_machine_empire = yes
+					}
+				}
+			}
+			food = -3
+			minerals = 3
 		}
 	}
 	weight = {
@@ -1351,16 +1561,55 @@ secret_alchimist_drone = {
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs_productive
+		category = planet_refiners # planet_jobs_productive
 		upkeep = {
-			minerals = 10
-			food = 10
-			energy = 10
+			minerals = 6
+			food = 4
+			energy = 6
 		}
 		produces = {
-			volatile_motes = 4
-			exotic_gases = 4
-			rare_crystals = 4
+			volatile_motes = 3
+			exotic_gases = 3
+			rare_crystals = 3
+		}
+		upkeep = {
+			trigger = {
+				planet = {
+					has_planet_flag = manufactorium_catalytic
+				}
+			}
+			minerals = -4
+			food = 4
+		}
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = {
+					is_machine_empire = yes
+				}
+			}
+			energy = 3
+		}
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = {
+					is_machine_empire = no
+					is_hive_empire = yes
+					is_lithoid_empire = no
+				}
+			}
+			food = 3
+		}
+		upkeep = {
+			trigger = {
+				exists = owner
+				owner = {
+					is_hive_empire = yes
+					is_lithoid_empire = yes
+				}
+			}
+			minerals = 3
 		}
 	}
 	weight = { weight = @synapse_drone_job_weight }
