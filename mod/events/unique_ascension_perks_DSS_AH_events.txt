@@ -165,11 +165,20 @@ planet_event = {
 		event_target:deep_scanned_planet = {
 			anomaly_spawner = yes # deep_space_scanner_spawn_anomaly = yes
 			root.owner = { add_resource = { energy = -100 } }
+			if = {
+				limit = {
+					root.owner = {
+						NOR = {
+							has_country_flag = notify_deep_scanner_no_warning
+							has_country_flag = no_anomaly_found
+						}
+					}
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.442 days = 1 }
+			}
 		}
 
-		if = { limit = { NOT = { owner = { has_country_flag = notify_deep_scanner_no_warning } } }
-			planet_event = { id = UniqueAscensionPerksEvents.442 }
-		}
+
 	}
 }
 

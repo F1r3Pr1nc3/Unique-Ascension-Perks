@@ -505,16 +505,13 @@ ap_emergency_calculation = {
 	}
 }
 
+# TODO check compt.: trade_policy gets overwritten by some larger mods
 ap_economic_prospertity = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_economic_prospertity_req_1" tradition_prosperity_finish = yes }
-		custom_tooltip = {
-			fail_text = "ap_economic_prospertity_req_2"
-			OR = {
-				has_technology = tech_galactic_markets
-				is_megacorp = yes
-			}
-		}
+		custom_tooltip = { fail_text = "ap_economic_prospertity_req_2" OR = { has_technology = tech_galactic_markets is_megacorp = yes } }
+		custom_tooltip = { fail_text = "ap_economic_prospertity_req_3" NOT = { has_global_flag = emex_version_rejuvenation } } # 'Empires Expanded'
+		custom_tooltip = { fail_text = "ap_economic_prospertity_req_4" NAND = { has_global_flag = bug_branch_active has_bug_branch = yes } } # Ethics and Civics - Bug Branch
 	}
 	modifier = {
 		country_trade_fee = -0.1
@@ -924,7 +921,11 @@ ap_galaxy_center = {
 		host_has_dlc = "Utopia"
 		custom_tooltip = {
 			fail_text = "ap_galaxy_center_req_7"
-			any_owned_planet = { is_possible_galaxy_center = yes }
+			any_owned_planet = {
+				gpm_is_planet_class_city = yes # is_possible_galaxy_center
+				controller = { is_same_empire = prev.owner }
+				num_pops > 20
+			}
 		}
 	}
 	modifier = { country_resource_max_add = 40000 }	# 100000

@@ -15,10 +15,7 @@ utopia_site = {
 	potential = { has_ascension_perk = ap_advanced_government_2 }
 	possible = {
 		exists = starbase
-		custom_tooltip = {
-			fail_text = "requires_inside_border"
-			is_inside_border = from
-		}
+		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
 		custom_tooltip = {
 			fail_text = "requires_surveyed_system"
 			NOT = {
@@ -36,14 +33,12 @@ utopia_site = {
 		# }
 		custom_tooltip = {
 			fail_text = "requires_no_existing_megastructure"
-			NOT = {
-				any_system_megastructure = {
-					is_megastructure_type = utopia_site
-					is_megastructure_type = utopia_1
-					is_megastructure_type = utopia_2
-					is_megastructure_type = utopia_3
-					is_megastructure_type = utopia_4
-				}
+			NOR = {
+				has_megastructure = utopia_site
+				has_megastructure = utopia_1
+				has_megastructure = utopia_2
+				has_megastructure = utopia_3
+				has_megastructure = utopia_4
 			}
 		}
 		custom_tooltip = {
@@ -95,10 +90,7 @@ utopia_site = {
 				}
 				colonizable_planet = no
 			}
-			custom_tooltip = {
-				fail_text = "requires_no_anomaly"
-				has_anomaly = no
-			}
+			custom_tooltip = { fail_text = "requires_no_anomaly" has_anomaly = no }
  			# Balance for think tanks
 			custom_tooltip = {
 				fail_text = "requires_not_minor_planetary_body"
@@ -107,14 +99,8 @@ utopia_site = {
 					is_moon = yes
 				}
 			}
-			custom_tooltip = {
-				fail_text = "requires_not_star"
-				is_star = no
-			}
-			custom_tooltip = {
-				fail_text = "requires_not_ring_world"
-				has_ringworld_output_boost = no
-			}
+			custom_tooltip = { fail_text = "requires_not_star" is_star = no }
+			custom_tooltip = { fail_text = "requires_not_ring_world" has_ringworld_output_boost = no }
 			# if = { limit = { from = { is_ai = yes } }
 			# 	OR = {
 			# 		has_deposit_for = shipclass_mining_station
@@ -150,10 +136,10 @@ utopia_site = {
 		set_star_flag = utopia_built
 		from = {
 			country_event = { id = UniqueAscensionPerksEvents.90 }
-			from = {
-				set_megastructure_flag = utopia_built
-				planet = { set_planet_flag = has_megastructure }
-			}
+		}
+		fromfrom = {
+			set_megastructure_flag = utopia_built
+			planet = { set_planet_flag = has_megastructure }
 		}
 	}
 }
