@@ -15,7 +15,7 @@
 spawn_lh_system = {
 	# reroll_random = yes
 	random_list = {
-		# NORMAL SYSTEM
+		## NORMAL SYSTEMS
 		5 = { modifier = { factor = 0 prev = { has_star_flag = basic_init_01 } } prev = { set_timed_star_flag = { flag = basic_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "basic_init_01" hyperlane = no } }
 		5 = { modifier = { factor = 0 prev = { has_star_flag = basic_init_02 } } prev = { set_timed_star_flag = { flag = basic_init_02 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "basic_init_02" hyperlane = no } }
 		5 = { modifier = { factor = 0 prev = { has_star_flag = basic_init_03 } } prev = { set_timed_star_flag = { flag = basic_init_03 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "basic_init_03" hyperlane = no } }
@@ -28,10 +28,29 @@ spawn_lh_system = {
 		5 = { modifier = { factor = 0 prev = { has_star_flag = trinary_init_01 } } prev = { set_timed_star_flag = { flag = trinary_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "trinary_init_01" hyperlane = no } }
 		5 = { modifier = { factor = 0 prev = { has_star_flag = trinary_init_02 } } prev = { set_timed_star_flag = { flag = trinary_init_02 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "trinary_init_02" hyperlane = no } }
 		5 = { modifier = { factor = 0 prev = { has_star_flag = special_init_01 } } prev = { set_timed_star_flag = { flag = special_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "special_init_01" hyperlane = no } }
-		5 = { modifier = { factor = 0 prev = { has_star_flag = special_init_02 } } prev = { set_timed_star_flag = { flag = special_init_02 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "special_init_02" hyperlane = no } }
 		5 = { modifier = { factor = 0 prev = { has_star_flag = special_init_08 } } prev = { set_timed_star_flag = { flag = special_init_08 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "special_init_08" hyperlane = no } }
 		5 = { modifier = { factor = 0 prev = { has_star_flag = special_init_09 } } prev = { set_timed_star_flag = { flag = special_init_09 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "special_init_09" hyperlane = no } }
-		# (Mod) Unique Ascension Perk - Systems
+		## Pre-FTL
+		5 = { modifier = { factor = 0 prev = { has_star_flag = pre_ftl_init_01 } } prev = { set_timed_star_flag = { flag = pre_ftl_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "pre_ftl_init_01" hyperlane = no } } # Former special_init_02
+		5 = { modifier = { factor = 0 prev = { has_star_flag = pre_ftl_hive_init_01 } } prev = { set_timed_star_flag = { flag = pre_ftl_hive_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "pre_ftl_hive_init_01" hyperlane = no } } # Former special_init_03
+		5 = { modifier = { factor = 0 OR = { prev = { has_star_flag = deneb_system } any_system = { has_star_flag = deneb_system } } } prev = { set_timed_star_flag = { flag = deneb_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "pre_ftl_deneb_system" hyperlane = no } }
+		5 = { modifier = { factor = 0 OR = { prev = { has_star_flag = shattered_ring_system } any_system = { has_star_flag = shattered_ring_system } } } prev = { set_timed_star_flag = { flag = shattered_ring_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "pre_ftl_shattered_ring" hyperlane = no } }
+		## Sol System
+		5 = {
+			modifier = { factor = 0 OR = { exists = event_target:sol_system_earth prev = { has_star_flag = sol } } }
+			prev = { set_timed_star_flag = { flag = sol days = 3 } }
+			random_list = {
+				9 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "pre_ftl_init_sol" hyperlane = no } } # Former special_init_03 (Pre-FTL Humans)
+				2 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "special_init_04" hyperlane = no } } # Nuclear Wasteland
+				2 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "sol_system_initializer" hyperlane = no } } # custom_empire
+				1 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "com_sol_system" hyperlane = no } } # (Commonwealth of Man SP) misc_system_init
+				1 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "lost_colony_sol_system" hyperlane = no } } # (Human Lost Colony SP) misc_system_init
+				1 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "toxic_knights_sol_start" hyperlane = no } } # Knights of the Toxic God Origin
+				1 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "sol_system_fear_of_the_dark_system" hyperlane = no } } # Fear of the Dark Sol System	Origin
+				1 = { spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "sol_system_void_dweller_system" hyperlane = no } } # Void-Dweller Origins Edition Origin
+			}
+		}
+		## (Mod) Unique Ascension Perk - Systems
 		4 = { modifier = { factor = 0.1 exists = event_target:lh_asteroid_system } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "lh_asteroid_system" hyperlane = no } }
 		4 = { modifier = { factor = 0.1 exists = event_target:lh_black_hole_system } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "lh_black_hole_system" hyperlane = no } }
 		4 = { modifier = { factor = 0.1 exists = event_target:lh_neutron_system } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "lh_neutron_system" hyperlane = no } }
@@ -52,7 +71,14 @@ spawn_lh_system = {
 				1 = { modifier = { factor = 0.5 exists = event_target:white_hole_system_5 } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "white_hole_system_5" hyperlane = no } }
 			}
 		}
-		# HOSTILE SYSTEM
+		## ORIGIN SYSTEMS (first_contact)
+		5 = { modifier = { factor = 0 OR = { exists = event_target:MSI_country prev = { has_star_flag = MSI_home_system } } } prev = { set_timed_star_flag = { flag = MSI_home_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "msi_home_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = fotd_system } any_playable_country = { has_origin = "origin_fear_of_the_dark" } any_system = { has_star_flag = fotd_system } } } prev = { set_timed_star_flag = { flag = fotd_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "fear_of_the_dark_system" hyperlane = no } }
+		# 1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = fotd_system } any_playable_country = { has_origin = "origin_fear_of_the_dark" } any_system = { has_star_flag = fotd_system } } } prev = { set_timed_star_flag = { flag = fotd_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hunter_of_the_dark_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = broken_shackles_parent_system } any_country = { has_country_flag = broken_shackles_parent_country } } } prev = { set_timed_star_flag = { flag = broken_shackles_parent_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "broken_shackles_parent_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = solarpunk_system_01 } any_system = { has_star_flag = solarpunk_system_01 } } } prev = { set_timed_star_flag = { flag = solarpunk_system_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "solarpunk_system_01" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = solarpunk_system_02 } any_system = { has_star_flag = solarpunk_system_02 } } } prev = { set_timed_star_flag = { flag = solarpunk_system_02 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "solarpunk_system_02" hyperlane = no } }
+		## HOSTILE SYSTEMS
 		1 = { modifier = { factor = 0 prev = { has_star_flag = hostile_init_01 } } prev = { set_timed_star_flag = { flag = hostile_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hostile_init_01" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = hostile_init_02 } } prev = { set_timed_star_flag = { flag = hostile_init_02 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hostile_init_02" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = hostile_init_03 } } prev = { set_timed_star_flag = { flag = hostile_init_03 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hostile_init_03" hyperlane = no } }
@@ -75,7 +101,7 @@ spawn_lh_system = {
 		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = hostile_init_mining_drones } 		any_system = { has_star_flag = drone_system_4 }		} } prev = { set_timed_star_flag = { flag = hostile_init_mining_drones days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hostile_init_mining_drones" hyperlane = no } }
 		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = hostile_init_amoeba } 			any_system = { has_star_flag = amoeba_4_system }		} } prev = { set_timed_star_flag = { flag = hostile_init_amoeba days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hostile_init_amoeba" hyperlane = no } }
 		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = hostile_init_void_cloud } 		any_system = { has_star_flag = void3_system }			} } prev = { set_timed_star_flag = { flag = hostile_init_void_cloud days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hostile_init_void_cloud" hyperlane = no } }
-		# GUARDIAN SYSTEM
+		## GUARDIAN SYSTEMS
 		1 = { modifier = { factor = 0 OR = { has_leviathans = no prev = { has_star_flag = guardians_artist_init_01 } exists = event_target:artisan_enclave_system } } prev = { set_timed_star_flag = { flag = guardians_artist_init_01 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "guardians_artist_init_01" hyperlane = no } }
 		1 = { modifier = { factor = 0 OR = { has_leviathans = no prev = { has_star_flag = guardians_artist_init_02 } exists = event_target:artisan_enclave_system } } prev = { set_timed_star_flag = { flag = guardians_artist_init_02 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "guardians_artist_init_02" hyperlane = no } }
 		1 = { modifier = { factor = 0 OR = { has_leviathans = no prev = { has_star_flag = guardians_artist_init_03 } exists = event_target:artisan_enclave_system } } prev = { set_timed_star_flag = { flag = guardians_artist_init_03 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "guardians_artist_init_03" hyperlane = no } }
@@ -96,7 +122,7 @@ spawn_lh_system = {
 		3 = { modifier = { factor = 0 OR = { has_distar = no NOT = { root = { has_technology = tech_dangerous_systems } } prev = { has_star_flag = guardians_init_hatchling } exists = event_target:hatchling_egg } } prev = { set_timed_star_flag = { flag = guardians_init_hatchling days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "guardians_init_hatchling" hyperlane = no } }
 		3 = { modifier = { factor = 0 OR = { has_distar = no NOT = { root = { has_technology = tech_dangerous_systems } } prev = { has_star_flag = scavenger_system } exists = event_target:scavenger_bot_country } } prev = { set_timed_star_flag = { flag = scavenger_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "scavenger_system" hyperlane = no } }
 		3 = { modifier = { factor = 0 OR = { has_distar = no NOT = { root = { has_technology = tech_dangerous_systems } } prev = { has_star_flag = elderly_tiyanki_system } exists = event_target:elderly_tiyanki_country } } prev = { set_timed_star_flag = { flag = elderly_tiyanki_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "elderly_tiyanki_system" hyperlane = no } }
-		# SPECIAL SYSTEM
+		## SPECIAL SYSTEMS
 		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = hyacinth_system } any_system = { has_star_flag = hyacinth_system } } } prev = { set_timed_star_flag = { flag = hyacinth_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hyacinth_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = parvus_system } any_system = { has_star_flag = parvus_system } } } prev = { set_timed_star_flag = { flag = parvus_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "parvus_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = polaris_civilization } any_country = { is_country_type = faction has_country_flag = polaris_country } } } prev = { set_timed_star_flag = { flag = polaris_civilization days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "polaris_civilization" hyperlane = no } }
@@ -113,19 +139,21 @@ spawn_lh_system = {
 		1 = { modifier = { factor = 0 prev = { has_star_flag = star_lifting_system } } prev = { set_timed_star_flag = { flag = star_lifting_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "star_lifting_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = big_rip_system } } prev = { set_timed_star_flag = { flag = big_rip_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "big_rip_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = time_loop_world_system } } prev = { set_timed_star_flag = { flag = time_loop_world_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "time_loop_world_system" hyperlane = no } }
-		1 = { modifier = { factor = 0 prev = { has_star_flag = toxic_planet_toxic_moon } } prev = { set_timed_star_flag = { flag = toxic_planet_toxic_moon days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "toxic_planet_toxic_moon" hyperlane = no } }
-		1 = { modifier = { factor = 0 prev = { has_star_flag = shattered_world_system } } prev = { set_timed_star_flag = { flag = shattered_world_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "shattered_world_system" hyperlane = no } }
-		1 = { modifier = { factor = 0 prev = { has_star_flag = asteroid_system } } prev = { set_timed_star_flag = { flag = asteroid_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "asteroid_system" hyperlane = no } }
-		1 = { modifier = { factor = 0 prev = { has_star_flag = ice_system } } prev = { set_timed_star_flag = { flag = ice_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "ice_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = toxic_moon_system } any_system = { has_star_flag = toxic_moon_system } } } prev = { set_timed_star_flag = { flag = toxic_moon_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "toxic_planet_toxic_moon" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = shattered_world_system } any_system = { has_star_flag = shattered_world_system } } } prev = { set_timed_star_flag = { flag = shattered_world_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "shattered_world_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = asteroid_system } any_system = { has_star_flag = asteroid_system } } } prev = { set_timed_star_flag = { flag = asteroid_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "asteroid_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = ice_system } any_system = { has_star_flag = ice_system } } } prev = { set_timed_star_flag = { flag = ice_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "ice_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = high_energy_system } } prev = { set_timed_star_flag = { flag = high_energy_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "high_energy_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = superflare_system } } prev = { set_timed_star_flag = { flag = superflare_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "superflare_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = collapse_system } } prev = { set_timed_star_flag = { flag = collapse_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "collapse_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = old_foes_system } } prev = { set_timed_star_flag = { flag = old_foes_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "old_foes_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = primitive_robot_system } } prev = { set_timed_star_flag = { flag = primitive_robot_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "primitive_robot_system" hyperlane = no } }
 		1 = { modifier = { factor = 0 prev = { has_star_flag = living_planet_system } } prev = { set_timed_star_flag = { flag = living_planet_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "living_planet_system" hyperlane = no } }
-		1 = { modifier = { factor = 0 OR = { has_distar = no prev = { has_star_flag = distar_crystal_system } } } prev = { set_timed_star_flag = { flag = distar_crystal_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "distar_crystal_system" hyperlane = no } }
-		1 = { modifier = { factor = 0 OR = { has_distar = no prev = { has_star_flag = distar_pod_system } } } prev = { set_timed_star_flag = { flag = distar_pod_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "distar_pod_system" hyperlane = no } }
-		1 = { modifier = { factor = 0 OR = { has_distar = no prev = { has_star_flag = distar_phaseshift_system } } } prev = { set_timed_star_flag = { flag = distar_phaseshift_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "distar_phaseshift_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = distar_crystal_system } any_system = { has_star_flag = distar_crystal_system } } } prev = { set_timed_star_flag = { flag = distar_crystal_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "distar_crystal_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = distar_pod_system } any_system = { has_star_flag = distar_pod_system } } } prev = { set_timed_star_flag = { flag = distar_pod_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "distar_pod_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = distar_phaseshift_system } any_system = { has_star_flag = distar_phaseshift_system } } } prev = { set_timed_star_flag = { flag = distar_phaseshift_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "distar_phaseshift_system" hyperlane = no } }
+		1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = holibrae_system } any_system = { has_star_flag = holibrae_system } } } prev = { set_timed_star_flag = { flag = holibrae_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "Holibrae_initializer" hyperlane = no } }
+		1 = { modifier = { factor = 0 prev = { has_star_flag = debris_belt_initializer } } prev = { set_star_flag = debris_belt_initializer } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "debris_belt_initializer" hyperlane = no } }
 		### (Mod) Guilli Planet Modifier - Systems
 		1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } prev = { has_star_flag = gpm_guardians_init_ego } } } prev = { set_timed_star_flag = { flag = gpm_guardians_init_ego days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "gpm_guardians_init_ego" hyperlane = no } }
 		### (Mod) Real Space - compatibility
@@ -170,20 +198,23 @@ spawn_lh_system = {
 		2 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = has_hypothetical_stars_mod } prev = { has_star_flag = hypo_binary_init_07 } } } prev = { set_timed_star_flag = { flag = hypo_binary_init_07 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hypo_binary_init_07" hyperlane = no } }
 		2 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = has_hypothetical_stars_mod } prev = { has_star_flag = hypo_binary_init_08 } } } prev = { set_timed_star_flag = { flag = hypo_binary_init_08 days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 20 initializer = "hypo_binary_init_08" hyperlane = no } }
 	}
-	last_created_system = {
-		# country_event = { id = UniqueAscensionPerksEvents.22 days = 30 }
-		# set_star_flag = system_marked_not_for_lh
-		set_timed_star_flag = { flag = lh_spawned_system days = 5 }
-		if = {
-			limit = { prev = { NOR = { is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system } } }
-			add_hyperlane = { from = this to = event_target:lh_spawned_system }
-		} else_if = {
-			limit = { from = { NOR = { is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system } } }
-			random = { chance = 50 add_hyperlane = { from = from to = event_target:lh_basic_system } }
+	if = {
+		limit = { exists = last_created_system last_created_system = { NOT = { any_neighbor_system = { has_hyperlane_to = prev  } } } }
+		last_created_system = {
+			# country_event = { id = UniqueAscensionPerksEvents.22 days = 30 }
+			# set_star_flag = system_marked_not_for_lh
+			set_timed_star_flag = { flag = lh_spawned_system days = 5 }
+			if = {
+				limit = { prev = { NOR = { is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system } } }
+				add_hyperlane = { from = this to = event_target:lh_spawned_system }
+			} else_if = {
+				limit = { from = { NOR = { is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system } } }
+				random = { chance = 50 add_hyperlane = { from = from to = event_target:lh_basic_system } }
+			}
+			root = {
+				country_event = { id = UniqueAscensionPerksEvents.21 scopes = { from = prev } }
+			}
+			save_event_target_as = lh_spawned_system
 		}
-		root = {
-			country_event = { id = UniqueAscensionPerksEvents.21 scopes = { from = prev } }
-		}
-		save_event_target_as = lh_spawned_system
 	}
 }

@@ -76,7 +76,8 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = {
 		has_modifier = pm_deep_scanner
-		owner = { NOT = { has_country_flag = notify_deep_scanner_no_warning } }
+		exists = from.owner
+		from.owner = { NOR = { has_country_flag = notify_deep_scanner_no_warning has_country_flag = no_anomaly_found } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.442.a"
