@@ -63,6 +63,7 @@ planet_event = {
 }
 
 ## Decision Notify only
+# Root = event_target:deep_scanned_planet
 planet_event = {
 	id = UniqueAscensionPerksEvents.442
 	title = "UniqueAscensionPerksEvents.442.Name"
@@ -72,17 +73,20 @@ planet_event = {
 	force_open = yes
 	picture_event_data = { room = deep_scanner_room }
 	is_triggered_only = yes
-	location = event_target:deep_scanned_planet
+	location = root
 	pre_triggers = { has_owner = yes }
 	trigger = {
-		has_modifier = pm_deep_scanner
+		has_planet_flag = planet_has_new_anomaly
+		exists = from
+		# from = { has_modifier = pm_deep_scanner }
 		exists = from.owner
 		from.owner = { NOR = { has_country_flag = notify_deep_scanner_no_warning has_country_flag = no_anomaly_found } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.442.a"
-		owner = { set_country_flag = notify_deep_scanner_no_warning }
-		# hidden_effect = { }
+		hidden_effect = {
+			owner = { set_country_flag = notify_deep_scanner_no_warning }
+		}
 	}
 	option = {
 		name = EXCELLENT
@@ -168,6 +172,7 @@ planet_event = {
 			root.owner = { add_resource = { energy = -100 } }
 			if = {
 				limit = {
+					has_planet_flag = planet_has_new_anomaly
 					root.owner = {
 						NOR = {
 							has_country_flag = notify_deep_scanner_no_warning
@@ -178,8 +183,6 @@ planet_event = {
 				planet_event = { id = UniqueAscensionPerksEvents.442 days = 1 }
 			}
 		}
-
-
 	}
 }
 

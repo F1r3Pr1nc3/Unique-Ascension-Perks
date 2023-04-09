@@ -147,9 +147,13 @@ district_university = {
 		category = planet_districts
 		cost = { minerals = 500 }
 		upkeep = { energy = 2 }
-		produces = { society_research = 4 }
+		# produces = { society_research = 4 }
 	}
-	planet_modifier = { planet_housing_add = 5 job_director_add = 1 job_teacher_add = 4 }
+	planet_modifier = {
+		planet_housing_add = 5
+		job_director_add = 2 # 1
+		# job_teacher_add = 4 (pops just ignore them even if in colony can be 100 of them)
+	}
 	ai_weight = { weight = 2 }
 	ai_resource_production = {
 		consumer_goods = 3
@@ -254,9 +258,15 @@ district_defense = {
 		job_military_expert_add = 1 # 2
 		job_border_controller_add = 1 # 3
 		job_soldier_add = 1 # 3
-		army_defense_morale_mult = 0.1
-		army_defense_damage_mult = 0.1
+		army_defense_morale_mult = 0.12
+		army_defense_damage_mult = 0.12
 		army_defense_health_mult = 0.1
+	}
+	triggered_planet_modifier = {
+		potential = {
+			merg_is_arcology = no
+		}
+		modifier = { job_military_expert_add = 1 }
 	}
 	ai_weight = { weight = 2 }
 	ai_resource_production = {
@@ -1884,7 +1894,7 @@ district_rich = {
 	resources = {
 		category = planet_districts
 		cost = { minerals = 2400 }
-		upkeep = { energy = 4 }
+		upkeep = { energy = 8 } # 4
 		produces = { }
 	}
 	planet_modifier = { planet_housing_add = 10 }
@@ -1979,7 +1989,7 @@ district_underground = {
 		produces = { }
 	}
 	planet_modifier = {
-		planet_housing_add = 20 # 50
+		planet_housing_add = 18 # 50
 	}
 	triggered_planet_modifier = {
 		potential = {
@@ -2002,13 +2012,13 @@ district_underground = {
 		}
 		modifier = { job_player_add = 4 }
 	}
-	triggered_planet_modifier = {
-		potential = {
-			exists = owner
-			owner = { is_common_empire = yes }
-		}
-		modifier = { job_teacher_add = 4 }
-	}
+	# triggered_planet_modifier = { < v3.7
+	# 	potential = {
+	# 		exists = owner
+	# 		owner = { is_common_empire = yes }
+	# 	}
+	# 	modifier = { job_teacher_add = 4 }
+	# }
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2077,7 +2087,7 @@ district_purification = {
 	resources = {
 		category = planet_districts
 		cost = { minerals = 2400 }
-		upkeep = { energy = 2 }
+		upkeep = { energy = 6 } # 2
 		produces = { }
 	}
 	planet_modifier = {
@@ -2099,7 +2109,7 @@ district_purification = {
 	}
 	ai_weight = { weight = 2 }
 	ai_resource_production = {
-		energy = 4
+		energy = 6
 		trigger = { always = yes }
 	}
 }
@@ -2131,12 +2141,25 @@ district_navy_center = {
 		category = planet_districts
 		cost = { minerals = 2400 }
 		upkeep = {
-			energy = 2
-			food = 2
-			alloys = 2
+			energy = 4 # 2
+			# food = 4 # 2
+			alloys = 4 # 2
+		}
+		upkeep = {
+			trigger = {
+				owner = { is_lithoid_empire = no }
+			}
+			food = 4
+		}
+		upkeep = {
+			trigger = {
+				owner = { is_lithoid_empire = yes }
+			}
+			minerals = 4
 		}
 		produces = { }
 	}
+
 	planet_modifier = {
 		planet_housing_add = 6 # 10
 	}
@@ -2146,7 +2169,7 @@ district_navy_center = {
 			owner = { is_regular_empire = yes }
 		}
 		modifier = {
-			job_navy_pilot_add = 6 # 17
+			job_navy_pilot_add = 5 # 17
 			job_military_expert_add = 1 # 2
 		}
 	}
@@ -2156,7 +2179,7 @@ district_navy_center = {
 			owner = { is_gestalt = yes }
 		}
 		modifier = {
-			job_navy_pilot_drone_add = 8 # 17
+			job_navy_pilot_drone_add = 6 # 17
 			job_protector_add = 2
 		}
 	}

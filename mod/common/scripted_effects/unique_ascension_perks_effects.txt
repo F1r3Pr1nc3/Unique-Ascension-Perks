@@ -58,6 +58,7 @@ deploy_outpost = {
 			set_timed_country_flag = { flag = no_expansionist_development_yet months = 1 }
 			if = {
 				limit = {
+					mid_game_years_passed > 0
 					prev.from = {
 						NOR = {
 							has_megastructure = hyper_relay
@@ -131,6 +132,7 @@ sync_subjects_virtual_relation = {
 		limit = {
 			# merg_is_default_empire = yes
 			OR = {
+				is_hostile = prev
 				is_hostile_to = prev
 				has_attitude_behavior = { target = prev behavior = attack }
 			}
@@ -147,6 +149,9 @@ sync_subjects_virtual_relation = {
 	prev = {
 		if = { limit = { NOT = { is_friendly_to = prev } }
 			set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
+		}
+		if = { limit = { exists = prev.overlord NOT = { is_friendly_to = prev.overlord } }
+			set_faction_hostility = { target = prev.overlord set_hostile = no set_neutral = no set_friendly = yes }
 		}
 		if = { limit = { any_owned_starbase = {} }
 			every_owned_starbase = { set_owner = prevprev }

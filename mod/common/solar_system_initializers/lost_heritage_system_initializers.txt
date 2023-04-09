@@ -344,3 +344,97 @@ lh_multi_primitives_system = {
 		save_event_target_as = lh_multi_primitives_system
 	}
 }
+
+# Void Cloud Home System 2.3
+hostile_init_09 = {
+	class = sc_black_hole
+
+	usage = misc_system_init
+	usage_odds = {
+		base = 2
+		modifier = {
+			factor = 0
+			NOT = { is_in_cluster = resource_cluster_2 }
+		}
+		modifier = {
+            factor = 0
+            has_star_flag = empire_cluster
+        }
+        modifier = {
+			factor = 0
+			is_bottleneck_system = yes
+		}
+	}
+
+	flags = { hostile_system void2_system }
+	max_instances = 1
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
+	change_orbit = 60
+
+	planet = {
+		count = { min = 0 max = 1 }
+		class = "pc_broken"
+		size = { min = 10 max = 15 }
+
+		init_effect = { prevent_anomaly = yes }
+	}
+
+	change_orbit = 20
+
+	planet = {
+		count = { min = 0 max = 1 }
+		class = "pc_barren_cold"
+		size = { min = 10 max = 20 }
+	}
+
+	init_effect = {
+		create_cloud_country = yes
+		random_system_planet = {
+			limit = { is_star = yes }
+			save_event_target_as = voidhome_star
+			set_deposit = d_physics_10
+			event_target:cloud_country = {
+				save_event_target_as = voidhome_owner
+				create_fleet = {
+					name = "NAME_Abyssal_Host"
+					effect = {
+						set_owner = event_target:cloud_country
+						while = {
+							count = 4
+							create_ship = {
+								name = ""
+								design = "NAME_Cloud_Entity"
+							}
+						}
+						set_location = event_target:voidhome_star
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = return_point
+						set_aggro_range = 150
+					}
+				}
+				create_fleet = {
+					name = "NAME_Chasmal_Horde"
+					effect = {
+						set_owner = event_target:cloud_country
+						while = {
+							count = 4
+							create_ship = {
+								name = ""
+								design = "NAME_Cloud_Entity"
+							}
+						}
+						set_location = event_target:voidhome_star
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = return_point
+						set_aggro_range = 150
+					}
+				}
+			}
+		}
+	}
+}
