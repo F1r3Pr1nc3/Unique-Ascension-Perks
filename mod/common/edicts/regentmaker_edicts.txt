@@ -63,22 +63,20 @@ regentmaker_control = {
 	}
 	potential = {
 		is_ai = no
-		has_ascension_perk = ap_powerful_vassals
 		OR = {
 			AND = {
 				is_overlord = yes
-				any_subject = { merg_is_default_empire = yes }
+				has_ascension_perk = ap_powerful_vassals
+				any_subject = { is_ai = yes merg_is_default_empire = yes }
 			}
 			AND = {
-				is_subject = yes
 				is_perfect_vassal = yes
-				has_country_flag = regentmaker_control_sel
+				has_global_flag = regentmaker_control_sel@this
 				overlord = {
 					is_ai = yes
 					OR = {
-						# has_country_flag = decentralizer
-						# has_ascension_perk = ap_decentralization
 						has_ascension_perk = ap_powerful_vassals
+						has_country_flag = ap_powerful_vassals
 						has_valid_civic = civic_feudal_realm
 					}
 				}
@@ -91,12 +89,27 @@ regentmaker_control = {
 			has_active_event = { regentmaker.0 }
 			has_country_flag = regentmaker_control_engaged
 		}
-		OR = {
-			# has_country_flag = decentralizer
-			# has_ascension_perk = ap_decentralization
-			has_ascension_perk = ap_powerful_vassals
-			has_valid_civic = civic_feudal_realm
-			has_global_flag = regentmaker_control_sel@this
+		if = {
+			limit = {
+				OR = {
+					has_ascension_perk = ap_powerful_vassals
+					has_country_flag = ap_powerful_vassals
+					has_valid_civic = civic_feudal_realm
+					# AND = {
+					# 	has_country_flag = regentmaker_control_sel
+					# 	has_global_flag = regentmaker_control_sel@this
+					# }
+				}
+			}
+			always = yes
+		}
+		else_if = {
+			limit = { is_perfect_vassal = yes }
+			custom_tooltip = {
+				fail_text = "regentmaker.100.a.tooltip"
+				has_country_flag = regentmaker_control_sel
+				has_global_flag = regentmaker_control_sel@this
+			}
 		}
 	}
 	# modifier = { }
