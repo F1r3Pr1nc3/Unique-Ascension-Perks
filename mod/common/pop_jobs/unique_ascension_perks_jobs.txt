@@ -269,7 +269,7 @@ teacher = {
 	}
 	possible_precalc = can_fill_specialist_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -299,7 +299,7 @@ hive_queen = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -329,7 +329,7 @@ royal_guard = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -354,7 +354,7 @@ stabilizer = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -382,7 +382,7 @@ nurse = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -408,7 +408,7 @@ botanist = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -436,7 +436,7 @@ protector = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -448,9 +448,7 @@ protector = {
 		planet_stability_add = 3 # 1
 		planet_crime_add = -15 # -30
 	}
-	pop_modifier = {
-		pop_defense_armies_add = 3
-	}
+	pop_modifier = { pop_defense_armies_add = 3 }
 	weight = { weight = @synapse_drone_job_weight }
 }
 
@@ -466,7 +464,7 @@ improver = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -492,7 +490,7 @@ constructor = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -526,7 +524,7 @@ recycler = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -713,7 +711,7 @@ player = {
 	}
 	possible_precalc = can_fill_worker_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -742,7 +740,7 @@ journalist = {
 	}
 	possible_precalc = can_fill_worker_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -794,7 +792,7 @@ builder_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -850,7 +848,7 @@ controller_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -919,7 +917,7 @@ spy_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -955,7 +953,7 @@ navy_pilot = {
 	}
 	possible_precalc = can_fill_worker_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -990,7 +988,7 @@ navy_pilot_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1010,22 +1008,26 @@ navy_pilot_drone = {
 }
 
 smuggler = {
-	category = worker
+	category = criminal
 	condition_string = WORKER_JOB_TRIGGER
+	is_capped_by_modifier = yes
+	can_set_priority = no
 	building_icon = building_smuggling_rings
 	clothes_texture_index = 2
+	contributes_to_diplo_weight = no
 	possible_pre_triggers = {
 		has_owner = yes
 		is_being_purged = no
 		is_being_assimilated = no
+		is_sapient = yes
 	}
 	possible_precalc = can_fill_worker_job
 	possible = {
-		exists = owner
-		owner = { is_fallen_empire = no }
+		hidden_trigger = { exists = owner }
+		owner = { is_gestalt = no is_fallen_empire = no }
 	}
 	resources = {
-		category = planet_jobs_productive
+		category = planet_jobs_productive # planet_smugglers?
 		upkeep = {
 			minerals = 15
 			energy = 5
@@ -1034,6 +1036,7 @@ smuggler = {
 			volatile_motes = 1
 			exotic_gases = 1
 			rare_crystals = 1
+			consumer_goods = 2
 		}
 		upkeep = {
 			trigger = { is_lithoid = no }
@@ -1044,7 +1047,15 @@ smuggler = {
 			minerals = 3
 		}
 	}
-	planet_modifier = { planet_crime_add = 4 trade_value_add = 4 }
+	planet_modifier = {
+		planet_crime_add = 4
+		planet_immigration_pull_add = 10
+		trade_value_add = -4 # v.3.7: = 4 (should be rather negative?)
+	}
+	triggered_planet_modifier = {
+		potential = { has_trait = trait_thrifty }
+		modifier = { trade_value_add = -1 }
+	}
 	country_modifier = { local_trade_protection_add = 1 }
 	weight = {
 		weight = @worker_job_weight
@@ -1052,45 +1063,45 @@ smuggler = {
 	}
 }
 
-smuggler_drone = {
-	category = complex_drone # simple_drone
-	condition_string = DRONE_JOB_TRIGGER
-	building_icon = building_smuggling_rings
-	possible_pre_triggers = {
-		has_owner = yes
-		is_enslaved = no
-		is_being_purged = no
-		is_being_assimilated = no
-	}
-	possible_precalc = can_fill_drone_job
-	possible = {
-		exists = owner
-		owner = { is_fallen_empire = no }
-	}
-	resources = {
-		category = planet_jobs_productive
-		upkeep = {
-			minerals = 12
-			energy = 3
-		}
-		produces = {
-			# energy = 6
-			volatile_motes = 1
-			exotic_gases = 1
-			rare_crystals = 1
-		}
-		upkeep = {
-			trigger = { is_lithoid = no }
-			food = 4
-		}
-		upkeep = {
-			trigger = { is_lithoid = yes }
-			minerals = 4
-		}
-	}
-	planet_modifier = { planet_crime_no_happiness_add = 4 }
-	weight = { weight = 2 }
-}
+# smuggler_drone = {
+# 	category = complex_drone # simple_drone
+# 	condition_string = DRONE_JOB_TRIGGER
+# 	building_icon = building_smuggling_rings
+# 	possible_pre_triggers = {
+# 		has_owner = yes
+# 		is_enslaved = no
+# 		is_being_purged = no
+# 		is_being_assimilated = no
+# 	}
+# 	possible_precalc = can_fill_drone_job
+# 	possible = {
+# 		hidden_trigger = { exists = owner }
+# 		owner = { is_fallen_empire = no }
+# 	}
+# 	resources = {
+# 		category = planet_jobs_productive
+# 		upkeep = {
+# 			minerals = 12
+# 			energy = 3
+# 		}
+# 		produces = {
+# 			# energy = 6
+# 			volatile_motes = 1
+# 			exotic_gases = 1
+# 			rare_crystals = 1
+# 		}
+# 		upkeep = {
+# 			trigger = { is_lithoid = no }
+# 			food = 4
+# 		}
+# 		upkeep = {
+# 			trigger = { is_lithoid = yes }
+# 			minerals = 4
+# 		}
+# 	}
+# 	planet_modifier = { planet_crime_no_happiness_add = 4 }
+# 	weight = { weight = 2 }
+# }
 
 purifier = {
 	category = worker
@@ -1104,7 +1115,7 @@ purifier = {
 	}
 	possible_precalc = can_fill_worker_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1137,7 +1148,7 @@ purifier_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1193,7 +1204,7 @@ treasures_collector_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1230,49 +1241,37 @@ living_metal_extractor = {
 		upkeep = { alloys = 4 minerals = 2 }
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_subterranean
-				}
+				planet = { has_planet_flag = manufactorium_subterranean }
 			}
 			unity = 0.5
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_earthquake_upkeep
-				}
+				planet = { has_planet_flag = manufactorium_earthquake_upkeep }
 			}
 			minerals = 2
 		}
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_earthquake_production
-				}
+				planet = { has_planet_flag = manufactorium_earthquake_production }
 			}
 			sr_living_metal = -1
 		}
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_engineering
-				}
+				planet = { has_planet_flag = manufactorium_engineering }
 			}
 			engineering_research = 1
 		}
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_society
-				}
+				planet = { has_planet_flag = manufactorium_society }
 			}
 			society_research = 1
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_environmentalists
-				}
+				planet = { has_planet_flag = manufactorium_environmentalists }
 			}
 			alloys = -2
 		}
@@ -1290,25 +1289,19 @@ living_metal_extractor = {
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_took_opportunity
-				}
+				planet = { has_planet_flag = manufactorium_took_opportunity }
 			}
 			minerals = 2
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_took_opportunity_bad
-				}
+				planet = { has_planet_flag = manufactorium_took_opportunity_bad }
 			}
 			minerals = 1
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_catalytic
-				}
+				planet = { has_planet_flag = manufactorium_catalytic }
 			}
 			alloys = -1
 			minerals = -2
@@ -1316,9 +1309,7 @@ living_metal_extractor = {
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_remnants
-				}
+				planet = { has_planet_flag = manufactorium_remnants }
 			}
 			minerals = 1
 		}
@@ -1341,7 +1332,7 @@ living_metal_extractor_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1350,49 +1341,37 @@ living_metal_extractor_drone = {
 		upkeep = { alloys = 4 minerals = 2 }
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_subterranean
-				}
+				planet = { has_planet_flag = manufactorium_subterranean }
 			}
 			unity = 0.5
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_earthquake_upkeep
-				}
+				planet = { has_planet_flag = manufactorium_earthquake_upkeep }
 			}
 			minerals = 2
 		}
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_earthquake_production
-				}
+				planet = { has_planet_flag = manufactorium_earthquake_production }
 			}
 			sr_living_metal = -1
 		}
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_engineering
-				}
+				planet = { has_planet_flag = manufactorium_engineering }
 			}
 			engineering_research = 1
 		}
 		produces = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_society
-				}
+				planet = { has_planet_flag = manufactorium_society }
 			}
 			society_research = 1
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_environmentalists
-				}
+				planet = { has_planet_flag = manufactorium_environmentalists }
 			}
 			alloys = -2
 		}
@@ -1410,25 +1389,19 @@ living_metal_extractor_drone = {
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_took_opportunity
-				}
+				planet = { has_planet_flag = manufactorium_took_opportunity }
 			}
 			minerals = 2
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_took_opportunity_bad
-				}
+				planet = { has_planet_flag = manufactorium_took_opportunity_bad }
 			}
 			minerals = 1
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_catalytic
-				}
+				planet = { has_planet_flag = manufactorium_catalytic }
 			}
 			alloys = -1
 			minerals = -2
@@ -1436,9 +1409,7 @@ living_metal_extractor_drone = {
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_remnants
-				}
+				planet = { has_planet_flag = manufactorium_remnants }
 			}
 			minerals = 1
 		}
@@ -1482,7 +1453,7 @@ weapon_forger_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1520,9 +1491,7 @@ secret_alchimist = {
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_catalytic
-				}
+				planet = { has_planet_flag = manufactorium_catalytic }
 			}
 			minerals = -4
 			food = 4
@@ -1560,7 +1529,7 @@ secret_alchimist_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1577,9 +1546,7 @@ secret_alchimist_drone = {
 		}
 		upkeep = {
 			trigger = {
-				planet = {
-					has_planet_flag = manufactorium_catalytic
-				}
+				planet = { has_planet_flag = manufactorium_catalytic }
 			}
 			minerals = -4
 			food = 4
@@ -1587,9 +1554,7 @@ secret_alchimist_drone = {
 		upkeep = {
 			trigger = {
 				exists = owner
-				owner = {
-					is_machine_empire = yes
-				}
+				owner = { is_machine_empire = yes }
 			}
 			energy = 3
 		}
@@ -1725,7 +1690,7 @@ u_physicist_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1750,7 +1715,7 @@ u_biologist_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {
@@ -1775,7 +1740,7 @@ u_engineer_drone = {
 	}
 	possible_precalc = can_fill_drone_job
 	possible = {
-		exists = owner
+		hidden_trigger = { exists = owner }
 		owner = { is_fallen_empire = no }
 	}
 	resources = {

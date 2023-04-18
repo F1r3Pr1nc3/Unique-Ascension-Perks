@@ -8,16 +8,21 @@ nanite_gateway = {
 	place_entity_on_planet_plane = no
 	build_outside_gravity_well = yes
 	show_galactic_map_icon = no
+	show_in_outliner = no
 	construction_blocks_and_blocked_by = none
 	build_time = 720
 	resources = { category = megastructures cost = { nanites = 1200 energy = 1000 minerals = 1000 } }
 	# upgrade_from = { lgate_disabled }
-	prerequisites = { "tech_lgate_construction" "tech_nanite_gate" }
+	prerequisites = { "tech_nanite_gate" } # "tech_lgate_construction"
 	potential = {
-		has_global_flag = l_cluster_opened
-		# OR = { has_ascension_perk = ap_emergency_calculation
-		# OR = { has_technology = tech_lgate_construction
-		has_technology = tech_nanite_gate
+		OR = {
+			has_global_flag = l_cluster_opened
+			has_ascension_perk = ap_emergency_calculation
+		}
+		OR = {
+			has_technology = tech_nanite_gate
+			has_technology = tech_lgate_construction # ADT
+		}
 	}
 	possible = {
 		exists = starbase
@@ -27,7 +32,24 @@ nanite_gateway = {
 		custom_tooltip = { fail_text = "requires_technology_gateway_construction" from = { has_technology = tech_nanite_gate } }
 	}
 	bypass_type = lgate # nanite_gateway
-	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.8003 } } }
+	on_build_complete = {
+		from = {
+			if = {
+				limit = {
+					has_global_flag = l_cluster_opened
+					OR = {
+						has_ascension_perk = ap_nano_to_nanite
+						has_technology = tech_nanite_gate
+						has_technology = tech_lgate_construction # ADT
+					}
+					NOT = { has_ascension_perk = ap_emergency_calculation }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.8003 }
+			} else = { # if = { limit = { has_ascension_perk = ap_emergency_calculation }
+				country_event = { id = UniqueAscensionPerksEvents.8054 }
+			}
+		}
+	}
 }
 
 nanite_factory_site = {
@@ -39,7 +61,8 @@ nanite_factory_site = {
 	entity_offset = { x = @entity_x y = @entity_y }
 	build_time = 1800
 	resources = { category = megastructures cost = { alloys = 5000 nanites = 500 influence = 150 } upkeep = { energy = 5 } }
-	potential = { has_technology = tech_nanite_factory }
+	prerequisites = { "tech_nanite_factory" }
+	# potential = { has_technology = tech_nanite_factory }
 	possible = {
 		exists = starbase
 		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
@@ -75,6 +98,7 @@ nanite_factory = {
 	upgrade_from = { nanite_factory_site }
 	build_time = 3600
 	resources = { category = megastructures cost = { alloys = 10000 nanites = 5000 } upkeep = { energy = 25 minerals = 75 } produces = { nanites = 350 alloys = 50 } }
-	potential = { has_technology = tech_nanite_factory }
+	prerequisites = { "tech_nanite_factory" }
+	# potential = { has_technology = tech_nanite_factory }
 	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.8005 } } }
 }
