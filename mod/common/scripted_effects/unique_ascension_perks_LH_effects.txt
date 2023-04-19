@@ -289,7 +289,12 @@ spawn_lh_system = {
 				add_hyperlane = { from = this to = event_target:lh_spawned_system }
 			} else_if = {
 				limit = { from = { NOR = { is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system } } }
-				random = { chance = 50 add_hyperlane = { from = from to = event_target:lh_basic_system } }
+				random = { chance = 66 add_hyperlane = { from = from to = event_target:lh_basic_system } }
+			} else = {
+				random_neighbor_system_euclidean = {
+					limit = { NOT = { has_hyperlane_to = prev } }
+					random = { chance = 66 add_hyperlane = { from = this to = prev } }
+				}
 			}
 			root = {
 				country_event = { id = UniqueAscensionPerksEvents.21 scopes = { from = prev } }

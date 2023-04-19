@@ -3,7 +3,6 @@ decision_stellar_manipulation = {
 	sound = event_alien_nature
 	resources = {
 		category = decisions
-		# cost = { minerals = 4000 food = 2000 exotic_gases = 50 }
 		cost = {
 			trigger = { exists = owner owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } }
 			minerals = 4000 food = 2000 exotic_gases = 50
@@ -33,11 +32,11 @@ decision_stellar_manipulation = {
 	ai_weight = { weight = 1 }
 }
 
-######################################
-#									 #
-########### Friendly Nature ###########
-#									 #
-######################################
+#####################################
+#									#
+########## Friendly Nature ##########
+#									#
+#####################################
 decision_nature_pacification = {
 	owned_planets_only = yes
 	sound = event_alien_nature
@@ -544,10 +543,11 @@ decision_galaxy_center_menu = {
 	icon = decision_galaxy_center
 	potential = { has_planet_flag = galaxy_center_planet }
 	allow = {
+		hidden_trigger = { exists = from }
 		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
 			NOR = {
 				has_planet_flag = decision_galaxy_center_cooldown
-				has_active_event = { UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 }
+				from = { has_active_event = { UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 } }
 			}
 		}
 	}
@@ -784,7 +784,7 @@ decision_primitive_creation_unhabitable = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
 		if		= { limit = { is_planet_class = pc_molten }			change_pc = pc_desert }
 		else_if = { limit = { is_planet_class = pc_toxic }			change_pc = pc_continental }
-		else_if = { limit = { is_planet_class = pc_frozen }		change_pc = pc_alpine }
+		else_if = { limit = { is_planet_class = pc_frozen }			change_pc = pc_alpine }
 		else_if = { limit = { is_planet_class = pc_barren }			change_pc = pc_desert }
 		else_if = { limit = { is_planet_class = pc_barren_cold }	change_pc = pc_tundra }
 		reset_planet = yes
