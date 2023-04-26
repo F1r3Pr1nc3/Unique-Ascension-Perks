@@ -543,9 +543,8 @@ country_event = {
 	custom_gui_option = "enclave_trader_option"
 	picture_event_data = { portrait = root room = space_merchant_room }
 	immediate = {
-		set_variable = { which = private_slave_costs value = 2 }
 		if = { limit = { has_policy_flag = slavery_allowed }
-			divide_variable = { which = private_slave_costs value = 2 }
+			set_variable = { which = private_slave_costs value = 1 }
 		} else_if = {
 			limit = {
 				OR = {
@@ -553,7 +552,9 @@ country_event = {
 					is_xenophobe = yes
 				}
 			}
-			divide_variable = { which = private_slave_costs value = 1.5 }
+			set_variable = { which = private_slave_costs value = 1.333 }
+		} else = {
+			set_variable = { which = private_slave_costs value = 2 }
 		}
 	}
 	after = {

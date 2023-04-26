@@ -694,6 +694,7 @@ event = {
 				10 = { modifier = { factor = 0 has_modifier = main_core_society }		country_event = { id = UniqueAscensionPerksEvents.219 days = 90 random = 60 } }
 				10 = { modifier = { factor = 0 has_modifier = main_core_engineering }	country_event = { id = UniqueAscensionPerksEvents.220 days = 90 random = 60 } }
 				20 = { modifier = { factor = 0 has_ascension_perk = ap_ai_cortana }		country_event = { id = UniqueAscensionPerksEvents.221 days = 90 random = 60 } }
+				1 = {}
 			}
 		}
 	}
@@ -813,8 +814,8 @@ country_event = {
 					modifier = { add = -10 has_technology = tech_mine_zro }
 					modifier = { add = -10 has_technology = tech_prescient_data_modeling }
 					random_list = {
+						10 = { modifier = { factor = 0 OR = { NOT = { has_country_flag = encountered_first_lgate } has_country_flag = completed_lcluster_chain has_global_flag = l_cluster_opened has_technology = tech_lgate_activation } } give_technology = { tech = tech_repeatable_lcluster_clue } }
 						10 = { modifier = { factor = 0 has_technology = tech_gargantuan_evolution } give_technology = { tech = tech_gargantuan_evolution } }
-						10 = { modifier = { factor = 0 NOT = { has_country_flag = encountered_first_lgate } has_country_flag = completed_lcluster_chain } give_technology = { tech = tech_repeatable_lcluster_clue } }
 						10 = { modifier = { factor = 0 has_technology = tech_experimental_subspace_navigation } give_technology = { tech = tech_experimental_subspace_navigation } }
 						10 = { modifier = { factor = 0 has_technology = tech_corvette_hull_2 } give_technology = { tech = tech_corvette_hull_2 } }
 						10 = { modifier = { factor = 0 has_technology = tech_destroyer_hull_2 NOT = { has_technology = tech_destroyers } } give_technology = { tech = tech_destroyer_hull_2 } }
@@ -836,6 +837,7 @@ country_event = {
 						10 = { modifier = { factor = 0 has_technology = tech_prescient_data_modeling } give_technology = { tech = tech_prescient_data_modeling } }
 					}
 				}
+				# Similar cortana_research_random_repeatable_technology
 				42 = {
 					modifier = { add = -2 NOT = { can_research_technology = tech_repeatable_improved_tile_energy_output } }
 					modifier = { add = -2 NOT = { can_research_technology = tech_repeatable_improved_shield_output } }
@@ -939,6 +941,5 @@ country_event = {
 			# 	1 = { add_random_research_option = { add_progress = 0.1 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = engineering_research value = 3 min = 30 max = 1200 } add_monthly_resource_mult = { resource = society_research value = 3 min = 30 max = 1200 } add_monthly_resource_mult = { resource = physics_research value = 3 min = 30 max = 1200 } } } }
 			# }
 		}
-		ai_chance = { factor = 1 }
 	}
 }
