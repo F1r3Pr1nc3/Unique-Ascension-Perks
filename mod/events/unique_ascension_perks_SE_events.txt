@@ -51,7 +51,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 6000 } } }
 		owner = { add_resource = { alloys = -3000 } }
 		hidden_effect = { set_ship_flag = ship_has_space_engineer_project }
-		enable_special_project = { name = SPACE_ENGINEERS_PROJECT location = root owner = root.owner }
+		enable_special_project = { name = SPACE_ENGINEERS_PROJECT location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = { name = ABORT }
 }
@@ -149,6 +149,14 @@ ship_event = {
 			has_edict = enable_planetary_project
 		}
 		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
+		exists = solar_system
+	}
+	immediate = {
+		owner = { save_event_target_as = project_owner }
+		if = { limit = { exists = orbit }
+			orbit = { save_event_target_as = project_location }
+		}
+		else = { solar_system = { save_event_target_as = project_location } }
 	}
 	after = {
 		hidden_effect = {
@@ -172,7 +180,7 @@ ship_event = {
 		}
 		owner = { add_resource = { energy = -2000 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_1 }
-		enable_special_project = { name = PLANETARY_PROJECT_1 location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_1 location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = "PLANETARY_PROJECT_2"
@@ -187,7 +195,7 @@ ship_event = {
 		}
 		owner = { add_resource = { energy = -5000 minerals = -5000 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_2 }
-		enable_special_project = { name = PLANETARY_PROJECT_2 location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_2 location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = "PLANETARY_PROJECT_3"
@@ -203,7 +211,7 @@ ship_event = {
 		}
 		owner = { add_resource = { energy = -15000 minerals = -7500 alloys = -2500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_3 }
-		enable_special_project = { name = PLANETARY_PROJECT_3 location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_3 location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = "PLANETARY_PROJECT_0"
@@ -218,7 +226,7 @@ ship_event = {
 		}
 		owner = { add_resource = { energy = -5000 alloys = -3000 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_0 }
-		enable_special_project = { name = PLANETARY_PROJECT_0 location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_0 location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = "PLANETARY_PROJECT_0a"
@@ -232,7 +240,7 @@ ship_event = {
 		}
 		owner = { add_resource = { alloys = -3000 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_0a }
-		enable_special_project = { name = PLANETARY_PROJECT_0a location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_0a location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.a1
@@ -241,7 +249,7 @@ ship_event = {
 		allow = { owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = minerals value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } }
 		owner = { add_resource = { minerals = -10000 alloys = -1500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100a }
-		enable_special_project = { name = PLANETARY_PROJECT_100a location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100a location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.b1
@@ -250,7 +258,7 @@ ship_event = {
 		allow = { owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = food value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } }
 		owner = { add_resource = { energy = -10000 alloys = -1500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100b }
-		enable_special_project = { name = PLANETARY_PROJECT_100b location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100b location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.c1
@@ -259,7 +267,7 @@ ship_event = {
 		allow = { owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = food value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } }
 		owner = { add_resource = { food = -10000 alloys = -1500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100c }
-		enable_special_project = { name = PLANETARY_PROJECT_100c location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100c location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.d1
@@ -268,7 +276,7 @@ ship_event = {
 		allow = { owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = food value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } }
 		owner = { add_resource = { food = -10000 alloys = -1500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100d }
-		enable_special_project = { name = PLANETARY_PROJECT_100d location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100d location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.e1
@@ -277,7 +285,7 @@ ship_event = {
 		allow = { owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } }
 		owner = { add_resource = { energy = -10000 alloys = -1500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100e }
-		enable_special_project = { name = PLANETARY_PROJECT_100e location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100e location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.f1
@@ -286,7 +294,7 @@ ship_event = {
 		allow = { owner = { has_technology = tech_master_of_planet resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = alloys value > 1500 } } }
 		owner = { add_resource = { energy = -10000 alloys = -1500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100f }
-		enable_special_project = { name = PLANETARY_PROJECT_100f location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100f location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.11
@@ -295,7 +303,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = energy value > 200 } } }
 		owner = { add_resource = { energy = -200 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_1 }
-		enable_special_project = { name = "PLANETARY_PROJECT_1" location = root owner = root.owner }
+		enable_special_project = { name = "PLANETARY_PROJECT_1" location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.12
@@ -304,7 +312,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = energy value > 1000 } } }
 		owner = { add_resource = { energy = -1000 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_2 }
-		enable_special_project = { name = "PLANETARY_PROJECT_2" location = root owner = root.owner }
+		enable_special_project = { name = "PLANETARY_PROJECT_2" location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.13
@@ -313,7 +321,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = energy value > 2500 } } }
 		owner = { add_resource = { energy = -2500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_3 }
-		enable_special_project = { name = "PLANETARY_PROJECT_3" location = root owner = root.owner }
+		enable_special_project = { name = "PLANETARY_PROJECT_3" location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.10
@@ -322,7 +330,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 500 } } }
 		owner = { add_resource = { alloys = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_0 }
-		enable_special_project = { name = PLANETARY_PROJECT_0 location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_0 location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.10a
@@ -331,7 +339,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 500 } } }
 		owner = { add_resource = { alloys = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_0a }
-		enable_special_project = { name = PLANETARY_PROJECT_0a location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_0a location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.a
@@ -340,7 +348,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 500 } } }
 		owner = { add_resource = { minerals = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100a }
-		enable_special_project = { name = PLANETARY_PROJECT_100a location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100a location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.b
@@ -349,7 +357,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = energy value > 500 } } }
 		owner = { add_resource = { energy = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100b }
-		enable_special_project = { name = PLANETARY_PROJECT_100b location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100b location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.c
@@ -358,7 +366,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = food value > 500 } } }
 		owner = { add_resource = { food = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100c }
-		enable_special_project = { name = PLANETARY_PROJECT_100c location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100c location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.d
@@ -367,7 +375,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 500 } } }
 		owner = { add_resource = { minerals = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100d }
-		enable_special_project = { name = PLANETARY_PROJECT_100d location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100d location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.e
@@ -376,7 +384,7 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 500 } } }
 		owner = { add_resource = { minerals = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100e }
-		enable_special_project = { name = PLANETARY_PROJECT_100e location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100e location = event_target:project_location owner = event_target:project_owner }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.f
@@ -385,9 +393,13 @@ ship_event = {
 		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 500 } } }
 		owner = { add_resource = { minerals = -500 } }
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_100f }
-		enable_special_project = { name = PLANETARY_PROJECT_100f location = root owner = root.owner }
+		enable_special_project = { name = PLANETARY_PROJECT_100f location = event_target:project_location owner = event_target:project_owner }
 	}
-	option = { name = UniqueAscensionPerksEvents.11.Program.Z hidden_effect = { set_timed_ship_flag = { flag = planetary_program_cancel days = 7 } } }
+	option = {
+		name = UniqueAscensionPerksEvents.11.Program.Z
+		hidden_effect = { set_timed_ship_flag = { flag = planetary_program_cancel days = 7 } }
+		default_hide_option = yes
+	}
 }
 
 ship_event = {
@@ -623,7 +635,6 @@ planet_event = {
 			5	= { add_deposit = d_rare_crystals_3 }
 			5	= { add_deposit = d_exotic_gases_3 }
 		}
-		# set_name = "ASTEROID_RANDOM_NAME"
 		set_name = {
 			key = "ASTEROID_RANDOM_NAME"
 			variable_string = "[current_planet_name.GetName]"
@@ -668,7 +679,6 @@ planet_event = {
 		# random_galaxy_planet = { limit = { has_planet_flag = new_habitat_unnamed }
 		remove_planet_flag = new_habitat_unnamed
 		add_modifier = { modifier = pm_stellar_manipulation_habitat } # +20% resource output and -10% pop job upkeep, +4 max districts and +4 building slots.
-		# set_name = "HABITAT_RANDOM_NAME"
 		set_name = {
 			key = "HABITAT_RANDOM_NAME"
 			variable_string = "[Root.random_habitat_name]"

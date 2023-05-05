@@ -700,10 +700,10 @@ decision_hivemind_reserve_unhabited = {
 
 decision_primitive_creation = {
 	sound = event_pre_ftl_civilization
-	enactment_time = 300
+	enactment_time = 360
 	resources = {
 		category = decisions
-		cost = { influence = 10 food = 1000 minerals = 2500 energy = 2000 }
+		cost = { influence = 10 food = 800 minerals = 2000 energy = 1600 }
 	}
 	potential = {
 		exists = from
@@ -711,18 +711,16 @@ decision_primitive_creation = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_primitives_creation }
 		OR = {
-			has_owner = no
+			is_colony = no
 			AND = {
 				is_owned_by = from
 				is_capital = no
-				num_pops < 31
+				is_controlled_by = from
 			}
 		}
 		OR = {
-			can_have_habitable_deposits = yes # is_planet_class = pc_nuked
-			merg_is_arcology = yes # habitable_planet = yes
-			has_ringworld_output_boost = yes # merg_is_hab_ringworld = yes
-			merg_is_habitat = yes # uses_habitat_capitals = yes
+			colonizable_planet = yes # can_have_habitable_deposits = yes # merg_is_arcology = yes # habitable_planet = yes
+			merg_is_hab_ringworld = yes # has_ringworld_output_boost = yes #  merg_is_habitat = yes # uses_habitat_capitals = yes
 		}
 	}
 	allow = {
@@ -731,7 +729,9 @@ decision_primitive_creation = {
 			is_occupied_flag = yes
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
-			from = { has_active_event = { UniqueAscensionPerksEvents.141 } num_owned_planets < 2 }
+			from = { num_owned_planets < 3 }
+			from = { has_active_event = { UniqueAscensionPerksEvents.141 } }
+			num_pops > 31
 		}
 	}
 	effect = {
