@@ -402,13 +402,20 @@ planet_event = {
 					}
 				}
 			}
-			if = {
-				limit = {
-					exists = sector
-					sector = { exists = leader }
-					is_sector_capital = yes
-				}
-				sector.leader = {
+			# if = { removed in v.3.8
+			# 	limit = {
+			# 		exists = sector
+			# 		sector = { exists = leader }
+			# 		is_sector_capital = yes
+			# 	}
+			# 	sector.leader = {
+			# 		save_event_target_as = vassal_leader
+			# 		unassign_leader = this
+			# 		log="Save leader \\[vassal_leader.GetName]"
+			# 	}
+			# }
+			if = { limit = { exists = leader }
+				leader = {
 					save_event_target_as = vassal_leader
 					unassign_leader = this
 					log="Save leader \\[vassal_leader.GetName]"
@@ -578,7 +585,7 @@ planet_event = {
 			if = {
 				limit = {
 					exists = event_target:vassal_leader
-					event_target:vassal_leader = { NOT = { leader_class = ruler } }
+					event_target:vassal_leader = { NOT = { is_ruler = yes } }
 				}
 				log = "New leader [vassal_leader.GetName]"
 				event_target:vassal_leader = { set_owner = prev }

@@ -75,14 +75,14 @@ country_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = {
-		random_owned_leader = { limit = { NOT = { leader_class = ruler } } save_event_target_as = leader_1
-			root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 } } save_event_target_as = leader_2
-				root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3
-					root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4
-						root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5
-							root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6
-								root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7
-									root = { random_owned_leader = { limit = { NOR = { leader_class = ruler is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 } }
+		random_owned_leader = { limit = { NOT = { is_ruler = yes } } save_event_target_as = leader_1
+			root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 } } save_event_target_as = leader_2
+				root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3
+					root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4
+						root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5
+							root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6
+								root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7
+									root = { random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 } }
 								} }
 							} }
 						} }
@@ -127,7 +127,7 @@ leader_event = {
 								admiral		= { from = { clone_leader = { target = prev class = admiral } } }
 								governor	= { from = { clone_leader = { target = prev class = governor } } }
 								general		= { from = { clone_leader = { target = prev class = general } } }
-								# ruler		= { from = { clone_leader = { target = prev class = ruler } } }
+								# ruler		= { from = { clone_leader = { target = prev class = random_ruler } } }
 							}
 							from = {
 								last_created_leader = {
