@@ -26,6 +26,7 @@ ship_event = {
 	is_triggered_only = yes
 	trigger = {
 		is_ship_size = constructor
+		exists = solar_system
 		exists = owner
 		owner = {
 			OR = {
@@ -45,6 +46,11 @@ ship_event = {
 			}
 			save_event_target_as = ship_special_project
 		}
+		owner = { save_event_target_as = project_owner }
+		if = { limit = { exists = orbit }
+			orbit = { save_event_target_as = project_location }
+		}
+		else = { save_event_target_as = project_location }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.2.a"
@@ -85,6 +91,7 @@ ship_event = {
 			}
 		}
 	}
+	after = { set_disabled = no fleet = { set_event_locked = no } }
 }
 
 country_event = {
@@ -108,7 +115,18 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:ship_special_project
 	immediate = {
-		event_target:ship_special_project = { remove_ship_flag = ship_has_space_engineer_project }
+		if = {
+			limit = {
+				NOT = { exists = event_target:ship_special_project }
+				exists = fromfrom
+				fromfrom = { is_scope_type = ship }
+			}
+			fromfrom = { save_event_target_as = ship_special_project }
+		}
+		event_target:ship_special_project = {
+			remove_ship_flag = ship_has_space_engineer_project
+			set_disabled = no fleet = { set_event_locked = no }
+		}
 	}
 	option = { name = OK }
 }
@@ -156,7 +174,7 @@ ship_event = {
 		if = { limit = { exists = orbit }
 			orbit = { save_event_target_as = project_location }
 		}
-		else = { solar_system = { save_event_target_as = project_location } }
+		else = { save_event_target_as = project_location }
 	}
 	after = {
 		hidden_effect = {
@@ -507,6 +525,7 @@ ship_event = {
 		remove_ship_flag = ship_has_planetary_program
 		owner = { country_event = { id = UniqueAscensionPerksEvents.18 days = 7 random = 5 } }
 	}
+	after = { set_disabled = no fleet = { set_event_locked = no } }
 }
 
 country_event = {
@@ -562,28 +581,39 @@ country_event = {
 	is_triggered_only = yes
 	location = event_target:ship_special_project
 	immediate = {
-		# unfinished_plantery_program
-		event_target:ship_special_project = {
+		if = {
+			limit = { NOT = { exists = event_target:ship_special_project } }
 			if = {
-				limit = { has_ship_flag = ship_has_planetary_program_2 }
-				solar_system = { spawn_planet = { class = pc_shattered location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
-				remove_ship_flag = ship_has_planetary_program_2
-			} else_if = {
-				limit = { has_ship_flag = ship_has_planetary_program_3 }
-				solar_system = { spawn_planet = { class = pc_nuked location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
-				remove_ship_flag = ship_has_planetary_program_3
+				limit = { exists = fromfrom fromfrom = { is_scope_type = ship } }
+				fromfrom = { save_event_target_as = ship_special_project }
 			}
-			# clear_planteary_program_ship_flags
-			remove_ship_flag = ship_has_planetary_program
-			remove_ship_flag = ship_has_planetary_program_1
-			remove_ship_flag = ship_has_planetary_program_0
-			remove_ship_flag = ship_has_planetary_program_0a
-			remove_ship_flag = ship_has_planetary_program_100a
-			remove_ship_flag = ship_has_planetary_program_100b
-			remove_ship_flag = ship_has_planetary_program_100c
-			remove_ship_flag = ship_has_planetary_program_100d
-			remove_ship_flag = ship_has_planetary_program_100e
-			remove_ship_flag = ship_has_planetary_program_100f
+		}
+		if = {
+			limit = { exists = event_target:ship_special_project }
+			# unfinished_plantery_program
+			event_target:ship_special_project = {
+				if = {
+					limit = { has_ship_flag = ship_has_planetary_program_2 }
+					solar_system = { spawn_planet = { class = pc_shattered location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
+					remove_ship_flag = ship_has_planetary_program_2
+				} else_if = {
+					limit = { has_ship_flag = ship_has_planetary_program_3 }
+					solar_system = { spawn_planet = { class = pc_nuked location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
+					remove_ship_flag = ship_has_planetary_program_3
+				}
+				# clear_planteary_program_ship_flags
+				remove_ship_flag = ship_has_planetary_program
+				remove_ship_flag = ship_has_planetary_program_1
+				remove_ship_flag = ship_has_planetary_program_0
+				remove_ship_flag = ship_has_planetary_program_0a
+				remove_ship_flag = ship_has_planetary_program_100a
+				remove_ship_flag = ship_has_planetary_program_100b
+				remove_ship_flag = ship_has_planetary_program_100c
+				remove_ship_flag = ship_has_planetary_program_100d
+				remove_ship_flag = ship_has_planetary_program_100e
+				remove_ship_flag = ship_has_planetary_program_100f
+				set_disabled = no fleet = { set_event_locked = no }
+			}
 		}
 	}
 	after = {

@@ -700,10 +700,10 @@ decision_hivemind_reserve_unhabited = {
 
 decision_primitive_creation = {
 	sound = event_pre_ftl_civilization
-	enactment_time = 360
+	enactment_time = 330
 	resources = {
 		category = decisions
-		cost = { influence = 10 food = 800 minerals = 2000 energy = 1600 }
+		cost = { influence = 10 food = 800 minerals = 1800 energy = 1800 }
 	}
 	potential = {
 		exists = from
@@ -716,11 +716,13 @@ decision_primitive_creation = {
 				is_owned_by = from
 				is_capital = no
 				is_controlled_by = from
+				# num_pops < 32
 			}
 		}
 		OR = {
 			colonizable_planet = yes # can_have_habitable_deposits = yes # merg_is_arcology = yes # habitable_planet = yes
 			merg_is_hab_ringworld = yes # has_ringworld_output_boost = yes #  merg_is_habitat = yes # uses_habitat_capitals = yes
+			# uninhabitable_regular_planet = yes ## decision_primitive_creation_unhabitable
 		}
 	}
 	allow = {
@@ -730,13 +732,22 @@ decision_primitive_creation = {
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
 			from = { num_owned_planets < 3 }
-			from = { has_active_event = { UniqueAscensionPerksEvents.141 } }
-			num_pops > 31
+			from = { has_active_event = { UniqueAscensionPerksEvents.3140 } }
+			# num_pops > 31
 		}
+		# OR = { ## decision_primitive_creation_unhabitable
+		# 	uninhabitable_regular_planet = no
+		# 	AND = {
+		# 		has_country_resource = { type = influence amount > 20 }
+		# 		has_country_resource = { type = food amount > 1600 }
+		# 		has_country_resource = { type = minerals amount > 3600 }
+		# 		has_country_resource = { type = energy amount > 5000 }
+		# 	}
+		# }
 	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		planet_event = { id = UniqueAscensionPerksEvents.141 } # create_primitive_retro_country
+		planet_event = { id = UniqueAscensionPerksEvents.3140 } # create_primitive_retro_country
 	}
 	ai_weight = { weight = 1 }
 }
@@ -747,7 +758,7 @@ decision_primitive_creation_unhabitable = {
 	enactment_time = 300
 	resources = {
 		category = decisions
-		cost = { influence = 20 food = 2000 minerals = 4000 energy = 5000 }
+		cost = { influence = 20 food = 1600 minerals = 3600 energy = 5000 }
 	}
 	prerequisites = { tech_climate_restoration }
 	potential = {
@@ -760,16 +771,11 @@ decision_primitive_creation_unhabitable = {
 			AND = {
 				is_owned_by = from
 				is_capital = no
-				num_pops < 31
+				is_controlled_by = from
+				# num_pops < 32
 			}
 		}
-		OR = {
-			is_planet_class = pc_molten
-			is_planet_class = pc_toxic
-			is_planet_class = pc_frozen
-			is_planet_class = pc_barren
-			is_planet_class = pc_barren_cold
-		}
+		uninhabitable_regular_planet = yes
 	}
 	allow = {
 		NOR = {
@@ -777,20 +783,21 @@ decision_primitive_creation_unhabitable = {
 			is_occupied_flag = yes
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
-			from = { has_active_event = { UniqueAscensionPerksEvents.141 } num_owned_planets < 2 }
+			from = { num_owned_planets < 3 }
+			from = { has_active_event = { UniqueAscensionPerksEvents.3140 } }
+			# num_pops > 31
 		}
 	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		if		= { limit = { is_planet_class = pc_molten }			change_pc = pc_desert }
-		else_if = { limit = { is_planet_class = pc_toxic }			change_pc = pc_continental }
-		else_if = { limit = { is_planet_class = pc_frozen }			change_pc = pc_alpine }
-		else_if = { limit = { is_planet_class = pc_barren }			change_pc = pc_desert }
-		else_if = { limit = { is_planet_class = pc_barren_cold }	change_pc = pc_tundra }
+		if		= { limit = { merg_is_molten = yes }		change_pc = pc_arid } # pc_desert
+		else_if = { limit = { merg_is_toxic = yes }			change_pc = pc_continental }
+		else_if = { limit = { merg_is_frozen = yes }		change_pc = pc_arctic } # pc_alpine
+		else_if = { limit = { merg_is_barren = yes }		change_pc = pc_desert }
+		else_if = { limit = { merg_is_barren_cold = yes }	change_pc = pc_alpine } # pc_tundra
+		else = { change_pc = pc_ocean }
 		reset_planet = yes
-		set_planet_flag = primitive_creation_done
-		# create_primitive_retro_country = yes
-		planet_event = { id = UniqueAscensionPerksEvents.141 }
+		planet_event = { id = UniqueAscensionPerksEvents.3140 } # create_primitive_retro_country = yes
 	}
 	ai_weight = { weight = 1 }
 }
