@@ -343,7 +343,7 @@ royal_guard = {
 }
 
 stabilizer = {
-	category = complex_drone
+	category = simple_drone
 	condition_string = DRONE_JOB_TRIGGER
 	building_icon = building_palace
 	possible_pre_triggers = {
@@ -364,8 +364,8 @@ stabilizer = {
 	}
 	country_modifier = {
 		# country_admin_cap_add = 5
-		country_edict_fund_add = 5 # v3.3 added
-		country_resource_max_add = 1000
+		country_edict_fund_add = 20 # v3.3 added
+		country_resource_max_add = 3000
 	}
 	weight = { weight = @synapse_drone_job_weight }
 }
@@ -445,8 +445,9 @@ protector = {
 		upkeep = { minerals = 5 } # 3
 	}
 	planet_modifier = {
-		planet_stability_add = 3 # 1
-		planet_crime_add = -15 # -30
+		planet_stability_add = 3
+		planet_crime_mult = -0.05 # v.3.8
+		planet_crime_add = -25 # -30
 	}
 	pop_modifier = { pop_defense_armies_add = 3 }
 	weight = { weight = @synapse_drone_job_weight }
@@ -960,7 +961,7 @@ navy_pilot = {
 		category = planet_jobs
 		produces = { unity = 1 }
 		upkeep = {
-			food = 3 # 1
+			minerals = 3 # 1
 			consumer_goods = 1
 			alloys = 5
 		}
@@ -995,7 +996,7 @@ navy_pilot_drone = {
 		category = planet_jobs
 		# produces = { unity = 1 }
 		upkeep = {
-			minerals = 2 # 1
+			minerals = 3 # 1
 			alloys = 3
 		}
 	}
@@ -1039,8 +1040,12 @@ smuggler = {
 			consumer_goods = 2
 		}
 		upkeep = {
-			trigger = { is_lithoid = no }
+			trigger = { is_lithoid = no has_energy_upkeep = no }
 			food = 3
+		}
+		upkeep = {
+			trigger = { is_lithoid = no has_energy_upkeep = yes }
+			energy = 3
 		}
 		upkeep = {
 			trigger = { is_lithoid = yes }
@@ -1063,45 +1068,46 @@ smuggler = {
 	}
 }
 
-# smuggler_drone = {
-# 	category = complex_drone # simple_drone
-# 	condition_string = DRONE_JOB_TRIGGER
-# 	building_icon = building_smuggling_rings
-# 	possible_pre_triggers = {
-# 		has_owner = yes
-# 		is_enslaved = no
-# 		is_being_purged = no
-# 		is_being_assimilated = no
-# 	}
-# 	possible_precalc = can_fill_drone_job
-# 	possible = {
-# 		hidden_trigger = { exists = owner }
-# 		owner = { is_fallen_empire = no }
-# 	}
-# 	resources = {
-# 		category = planet_jobs_productive
-# 		upkeep = {
-# 			minerals = 12
-# 			energy = 3
-# 		}
-# 		produces = {
-# 			# energy = 6
-# 			volatile_motes = 1
-# 			exotic_gases = 1
-# 			rare_crystals = 1
-# 		}
-# 		upkeep = {
-# 			trigger = { is_lithoid = no }
-# 			food = 4
-# 		}
-# 		upkeep = {
-# 			trigger = { is_lithoid = yes }
-# 			minerals = 4
-# 		}
-# 	}
-# 	planet_modifier = { planet_crime_no_happiness_add = 4 }
-# 	weight = { weight = 2 }
-# }
+smuggler_drone = {
+	category = simple_drone
+	condition_string = DRONE_JOB_TRIGGER
+	building_icon = building_smuggling_rings
+	possible_pre_triggers = {
+		has_owner = yes
+		is_enslaved = no
+		is_being_purged = no
+		is_being_assimilated = no
+	}
+	possible_precalc = can_fill_drone_job
+	possible = {
+		hidden_trigger = { exists = owner }
+		owner = { is_fallen_empire = no }
+	}
+	resources = {
+		category = planet_jobs_productive
+		upkeep = {
+			minerals = 15  # 12
+		}
+		produces = {
+			volatile_motes = 1
+			exotic_gases = 1
+			rare_crystals = 1
+		}
+		upkeep = {
+			trigger = { is_lithoid = no }
+			energy = 4
+		}
+		upkeep = {
+			trigger = { is_lithoid = yes }
+			minerals = 4
+		}
+	}
+	planet_modifier = {
+		planet_crime_add = 4
+		planet_crime_no_happiness_add = 4
+	}
+	weight = { weight = 2 }
+}
 
 purifier = {
 	category = worker

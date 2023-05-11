@@ -551,6 +551,7 @@ building_treasures_entrepot = {
 	# ai_weight = { weight = 2 }
 }
 
+# Breeding Facility
 # v3.3: reduced cap from 5, increased upkeep
 building_breeding_facility = {
 	base_buildtime = 720
@@ -563,15 +564,20 @@ building_breeding_facility = {
 	# triggered_planet_modifier = { potential = { exists = owner owner = { is_hive_empire = yes } } modifier = { job_spawning_drone_add = 1 } }
 	# Added in v3.4.5
 	planet_modifier = {
-		planet_pop_assembly_organic_mult = 0.1 # 0.2
+		planet_pop_assembly_organic_mult = 0.2
 		pop_growth_speed = 0.05
 		# BIOLOGICAL_pop_growth_speed = 0.05
 		# LITHOID_pop_growth_speed = 0.05
 	}
 	resources = {
 		category = planet_buildings
-		cost = { minerals = 1200 food = 800 }
-		upkeep = { energy = 20 food = 4 } # energy = 4 food = 8
+		cost = { minerals = 1200 }
+		cost = { trigger = { owner = { is_hive_empire = yes } } energy = 100 }
+		cost = { trigger = { owner = { is_lithoid = yes } } minerals = 800 }
+		cost = { trigger = { owner = { is_lithoid = no } } food = 800 }
+		upkeep = { energy = 22 } # energy = 4 food = 8
+		upkeep = { trigger = { owner = { is_lithoid = yes } } minerals = 4 }
+		upkeep = { trigger = { owner = { is_lithoid = no } } food = 4 }
 		# produces = { society_research = 2 }
 	}
 	# ai_weight = { weight = 2 }
