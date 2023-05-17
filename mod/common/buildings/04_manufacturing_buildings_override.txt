@@ -82,7 +82,7 @@
 # 		potential = {
 # 			exists = owner
 # 			owner = {
-# 				is_regular_empire = yes
+# 				is_gestalt = no
 # 				is_catalytic_empire = no
 # 			}
 # 		}
@@ -95,7 +95,7 @@
 # 		potential = {
 # 			exists = owner
 # 			owner = {
-# 				is_regular_empire = yes
+# 				is_gestalt = no
 # 				is_catalytic_empire = yes
 # 			}
 # 		}
@@ -126,7 +126,7 @@
 # 		trigger = {
 # 			exists = owner
 # 			owner = {
-# 				is_regular_empire = yes
+# 				is_gestalt = no
 # 				is_catalytic_empire = no
 # 			}
 # 		}
@@ -137,7 +137,7 @@
 # 		trigger = {
 # 			exists = owner
 # 			owner = {
-# 				is_regular_empire = yes
+# 				is_gestalt = no
 # 				is_catalytic_empire = yes
 # 			}
 # 		}
@@ -243,7 +243,7 @@ building_foundry_2 = {
 		potential = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = no
 			}
 		}
@@ -256,7 +256,7 @@ building_foundry_2 = {
 		potential = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = yes
 			}
 		}
@@ -326,7 +326,7 @@ building_foundry_2 = {
 		trigger = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = no
 			}
 		}
@@ -337,7 +337,7 @@ building_foundry_2 = {
 		trigger = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = yes
 			}
 		}
@@ -486,7 +486,7 @@ building_foundry_3 = {
 		potential = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = no
 			}
 		}
@@ -499,7 +499,7 @@ building_foundry_3 = {
 		potential = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = yes
 			}
 		}
@@ -569,7 +569,7 @@ building_foundry_3 = {
 		trigger = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = no
 			}
 		}
@@ -580,7 +580,7 @@ building_foundry_3 = {
 		trigger = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_catalytic_empire = yes
 			}
 		}
@@ -642,7 +642,12 @@ building_factory_1 = {
 			owner = {
 				is_ai = no
 			}
-			has_any_industry_district = yes
+			and = {
+				has_any_industry_district = yes
+				owner = {
+					should_ai_focus_on_trade = no
+				}
+			}
 		}
 	}
 
@@ -651,23 +656,20 @@ building_factory_1 = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 			has_modifier = crucible_colony
-
-			AND = {
-				exists = owner
-				OR = {
-					owner = {
-						NOR = {
-							country_uses_consumer_goods = yes
-							has_origin = origin_fear_of_the_dark
-						}
-					}
-					NOR = {
-						owner = { is_ai = no }
-						has_district = district_rw_industrial
-						has_district = district_hab_industrial
-						has_district = district_industrial
-					}
+			NOT = { exists = owner }
+			owner = {
+				NOR = {
+					country_uses_consumer_goods = yes
+					has_origin = origin_fear_of_the_dark
 				}
+			}
+			AND = {
+				owner = { is_ai = yes }
+				has_any_industry_district = no
+			}
+			owner = {
+				should_ai_focus_on_trade = yes
+				has_monthly_income = { resource = consumer_goods value > 30 }
 			}
 		}
 	}
@@ -676,7 +678,7 @@ building_factory_1 = {
 		potential = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_crafter_empire = no
 			}
 		}
@@ -689,7 +691,7 @@ building_factory_1 = {
 		potential = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_crafter_empire = yes
 			}
 		}
@@ -707,6 +709,7 @@ building_factory_1 = {
 			job_artisan_drone_add = @b1_jobs
 		}
 	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -745,7 +748,7 @@ building_factory_1 = {
 		trigger = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_crafter_empire = no
 			}
 		}
@@ -756,7 +759,7 @@ building_factory_1 = {
 		trigger = {
 			exists = owner
 			owner = {
-				is_regular_empire = yes
+				is_gestalt = no
 				is_crafter_empire = yes
 			}
 		}
@@ -772,6 +775,323 @@ building_factory_1 = {
 	}
 }
 
+building_factory_2 = {
+	base_buildtime = @b2_time
+	can_build = no
+	category = manufacturing
+
+	allow = {
+		has_upgraded_capital = yes
+	}
+
+	potential = {
+		exists = owner
+		owner = {
+			country_uses_consumer_goods = yes
+		}
+		NOT = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = crucible_colony
+		}
+	}
+
+	destroy_trigger = {
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = crucible_colony
+			NOT = { exists = owner }
+			owner = { country_uses_consumer_goods = no }
+			AND = {
+				owner = {
+					is_ai = yes
+				}
+				has_any_industry_district = no
+			}
+		}
+	}
+
+	planet_modifier = {
+		planet_artisans_consumer_goods_produces_add = 1
+		planet_artisans_minerals_upkeep_add = 1
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = no
+			}
+		}
+		modifier = {
+			job_artisan_add = @b1_jobs
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = yes
+			}
+		}
+		modifier = {
+			job_artificer_add = @b1_jobs
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		modifier = {
+			job_artisan_drone_add = @b1_jobs
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_ascension_perk = ap_pyramidal_society
+					has_country_flag = ap_pyramidal_society
+				}
+				is_common_empire = yes
+			}
+		}
+		modifier = {
+			job_industrialist_add = @b2_jobs
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			minerals = @b2_minerals
+			rare_crystals = @b3_rare_cost
+		}
+		upkeep = {
+			energy = @b2_upkeep
+			rare_crystals = @b3_rare_upkeep
+		}
+	}
+
+	prerequisites = {
+		tech_luxuries_1
+	}
+
+	upgrades = {
+		building_factory_3
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = no
+			}
+		}
+		text = job_artisan_effect_desc
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = yes
+			}
+		}
+		text = job_artificer_effect_desc
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		text = job_artisan_drone_effect_desc
+	}
+}
+
+building_factory_3 = {
+	base_buildtime = @b3_time
+	can_build = no
+
+	category = manufacturing
+
+	allow = {
+		has_major_upgraded_capital = yes
+	}
+
+	potential = {
+		exists = owner
+		owner = {
+			country_uses_consumer_goods = yes
+		}
+		NOT = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = crucible_colony
+		}
+	}
+
+	destroy_trigger = {
+		OR = {
+			has_modifier = resort_colony
+			has_modifier = slave_colony
+			has_modifier = crucible_colony
+			NOT = { exists = owner }
+			owner = { country_uses_consumer_goods = no }
+			AND = {
+				owner = {
+					is_ai = yes
+				}
+				has_any_industry_district = no
+			}
+		}
+	}
+
+	planet_modifier = {
+		planet_artisans_consumer_goods_produces_add = 2
+		planet_artisans_minerals_upkeep_add = 2
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			has_ringworld_output_boost = yes
+		}
+		modifier = {
+			planet_artisans_consumer_goods_produces_add = 1
+			planet_artisans_minerals_upkeep_add = 2
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = no
+			}
+		}
+		modifier = {
+			job_artisan_add = @b1_jobs
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = yes
+			}
+		}
+		modifier = {
+			job_artificer_add = @b1_jobs
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		modifier = {
+			job_artisan_drone_add = @b1_jobs
+		}
+	}
+
+	triggered_planet_modifier = {
+		potential = {
+			exists = owner
+			owner = {
+				OR = {
+					has_ascension_perk = ap_pyramidal_society
+					has_country_flag = ap_pyramidal_society
+				}
+				is_common_empire = yes
+			}
+		}
+		modifier = {
+			job_industrialist_add = @b3_jobs
+		}
+	}
+
+	resources = {
+		category = planet_buildings
+		cost = {
+			trigger = {
+				has_ringworld_output_boost = no
+			}
+			minerals = @b3_minerals
+			rare_crystals = @b4_rare_cost
+		}
+		cost = {
+			trigger = {
+				has_ringworld_output_boost = yes
+			}
+			minerals = 1500
+			rare_crystals = 600
+		}
+		upkeep = {
+			trigger = {
+				has_ringworld_output_boost = no
+			}
+			energy = @b3_upkeep
+			rare_crystals = @b4_rare_upkeep
+		}
+		upkeep = {
+			trigger = {
+				has_ringworld_output_boost = yes
+			}
+			energy = 15
+			rare_crystals = 8
+		}
+	}
+
+	prerequisites = {
+		tech_luxuries_2
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = no
+			}
+		}
+		text = job_artisan_effect_desc
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = {
+				is_gestalt = no
+				is_crafter_empire = yes
+			}
+		}
+		text = job_artificer_effect_desc
+	}
+
+	triggered_desc = {
+		trigger = {
+			exists = owner
+			owner = { is_machine_empire = yes }
+		}
+		text = job_artisan_drone_effect_desc
+	}
+}
+
 building_ministry_production = {
 	base_buildtime = @b2_time
 	base_cap_amount = 1
@@ -781,7 +1101,7 @@ building_ministry_production = {
 
 	potential = {
 		exists = owner
-		owner = { is_regular_empire = yes }
+		owner = { is_gestalt = no }
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
@@ -818,6 +1138,7 @@ building_ministry_production = {
 		planet_metallurgists_produces_mult = 0.15
 		planet_artisans_produces_mult = 0.15
 	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -855,7 +1176,7 @@ building_ministry_production = {
 	}
 
 	show_tech_unlock_if = {
-		is_regular_empire = yes
+		is_gestalt = no
 	}
 
 	ai_resource_production = {
