@@ -4,6 +4,7 @@ namespace = UniqueAscensionPerksEvents
 ####### Private Galactic Market #######
 #									 #
 ######################################
+# TODO: Omit save slaves as global_targets. Create Enclave!?
 
 country_event = {
 	id = UniqueAscensionPerksEvents.91
@@ -47,7 +48,7 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.93.Buy"
-		ai_chance = { factor = 0.1 }
+		ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = {
 			# private_galactic_market_available_resources_set
 			set_update_modifiers_batch = begin
@@ -318,7 +319,7 @@ country_event = {
 		hidden_effect = { change_variable = { which = private_galactic_market_crystals value = -100 } }
 		add_resource = { rare_crystals = 100 energy = -1000 }
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -414,7 +415,7 @@ country_event = {
 		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
 		add_resource = { rare_crystals = -150 energy = 1000 }
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -513,7 +514,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
 	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
 	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.96 } } }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -529,7 +530,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.97.Industrial" hidden_effect = { event_target:private_slave_miner = { save_event_target_as = selected_slave } country_event = { id = UniqueAscensionPerksEvents.98 } } custom_tooltip = "UniqueAscensionPerksEvents.97.Industrial.tooltip" }
 	option = { name = "UniqueAscensionPerksEvents.97.Ingenious" hidden_effect = { event_target:private_slave_technician = { save_event_target_as = selected_slave } country_event = { id = UniqueAscensionPerksEvents.98 } } custom_tooltip = "UniqueAscensionPerksEvents.97.Ingenious.tooltip" }
 	option = { name = "UniqueAscensionPerksEvents.97.Farmer" hidden_effect = { event_target:private_slave_farmer = { save_event_target_as = selected_slave } country_event = { id = UniqueAscensionPerksEvents.98 } } custom_tooltip = "UniqueAscensionPerksEvents.97.Farmer.tooltip" }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -574,7 +575,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.98.20" allow = { resource_stockpile_compare = { resource = energy value > 20000 mult = private_slave_costs } } add_resource = { energy = -20000 } hidden_effect = { set_variable = { which = create_private_slave value = 20 } set_timed_country_flag = { flag = private_slaves_cooldown years = 4 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
 	option = { name = "UniqueAscensionPerksEvents.98.40" allow = { resource_stockpile_compare = { resource = energy value > 40000 mult = private_slave_costs } } add_resource = { energy = -40000 } hidden_effect = { set_variable = { which = create_private_slave value = 40 } set_timed_country_flag = { flag = private_slaves_cooldown years = 8 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
 	option = { name = GOODBYE
-		ai_chance = { factor = 0.1 }
+		ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = { clear_variable = create_private_slave }
 	}
 }
@@ -590,7 +591,7 @@ country_event = {
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
 	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE }
 }
 
 country_event = {
@@ -608,7 +609,7 @@ country_event = {
 		if = {
 			limit = { NOT = { exists = event_target:private_robot_miner } }
 			create_species = {
-				name = "Private - Industrial Robot"
+				name = "UniqueAscensionPerksEvents.3091.Industrial"
 				class = ROBOT
 				portrait = random
 				traits = {
@@ -624,7 +625,7 @@ country_event = {
 		if = {
 			limit = { NOT = { exists = event_target:private_robot_technician } }
 			create_species = {
-				name = "Private - Ingenious Robot"
+				name = "UniqueAscensionPerksEvents.3091.Ingenious"
 				class = ROBOT
 				portrait = random
 				traits = {
@@ -640,7 +641,7 @@ country_event = {
 		if = {
 			limit = { NOT = { exists = event_target:private_robot_farmer } }
 			create_species = {
-				name = "Private - Farmer Robot"
+				name = "UniqueAscensionPerksEvents.3091.Farmer"
 				class = ROBOT
 				portrait = random
 				traits = {
@@ -650,6 +651,38 @@ country_event = {
 				effect = {
 					set_species_flag = private_robot_farmer_species_flag
 					save_global_event_target_as = private_robot_farmer
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { exists = event_target:private_robot_researcher } }
+			create_species = {
+				name = "UniqueAscensionPerksEvents.3091.Researcher"
+				class = ROBOT
+				portrait = random
+				traits = {
+					trait = trait_mechanical
+					trait = trait_robot_logic_engines
+				}
+				effect = {
+					set_species_flag = private_robot_researcher_species_flag
+					save_global_event_target_as = private_robot_researcher
+				}
+			}
+		}
+		if = {
+			limit = { NOT = { exists = event_target:private_robot_trader } }
+			create_species = {
+				name = "UniqueAscensionPerksEvents.3091.Trader"
+				class = ROBOT
+				portrait = random
+				traits = {
+					trait = trait_mechanical
+					trait = trait_robot_trading_algorithms
+				}
+				effect = {
+					set_species_flag = private_robot_trader_species_flag
+					save_global_event_target_as = private_robot_trader
 				}
 			}
 		}
@@ -677,7 +710,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
 	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
 	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3090 } } }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -713,7 +746,23 @@ country_event = {
 		}
 		custom_tooltip = "UniqueAscensionPerksEvents.3091.Farmer.tooltip"
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = {
+		name = "UniqueAscensionPerksEvents.3091.Researcher"
+		hidden_effect = {
+			event_target:private_robot_researcher = { save_event_target_as = selected_robot }
+			country_event = { id = UniqueAscensionPerksEvents.3092 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.3091.Researcher.tooltip"
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.3091.Trader"
+		hidden_effect = {
+			event_target:private_robot_trader = { save_event_target_as = selected_robot }
+			country_event = { id = UniqueAscensionPerksEvents.3092 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.3091.Trader.tooltip"
+	}
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -741,7 +790,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.3092.20" allow = { resource_stockpile_compare = { resource = energy value > 20000 } } add_resource = { energy = -20000 } hidden_effect = { set_variable = { which = create_private_robot value = 20 } set_timed_country_flag = { flag = private_robot_cooldown years = 4 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
 	option = { name = "UniqueAscensionPerksEvents.3092.40" allow = { resource_stockpile_compare = { resource = energy value > 40000 } } add_resource = { energy = -40000 } hidden_effect = { set_variable = { which = create_private_robot value = 40 } set_timed_country_flag = { flag = private_robot_cooldown years = 8 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
 	option = { name = GOODBYE
-		ai_chance = { factor = 0.1 }
+		ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = { clear_variable = create_private_robot }
 	}
 }
@@ -757,7 +806,7 @@ country_event = {
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
 	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -929,7 +978,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -1001,5 +1050,5 @@ country_event = {
 		add_resource = { energy = -11000 }
 		create_fleet = { name = "Private Market Fleet" effect = { set_owner = root create_ship = { name = random design = "Standard Basic Titan" } set_location = { target = event_target:spawn_location distance = 50 angle = random } } }
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }

@@ -1019,6 +1019,10 @@ ap_advanced_government_2 = {
 ap_space_merchant = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_space_merchant_req_1" tradition_prosperity_finish = yes }
+		OR = {
+			is_gestalt = no
+			is_unfriendly = no
+		}
 	}
 	modifier = { country_base_energy_produces_add = 30 } # 40
 	on_enabled = {
@@ -1036,7 +1040,10 @@ ap_space_merchant = {
 			}
 		}		# because ai_weight doesn't work
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_space_merchant }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_space_merchant
+		modifier = { factor = 0.25 OR = { is_gestalt = yes is_unfriendly = yes } }
+	}
 }
 
 ap_super_hive_mind = {

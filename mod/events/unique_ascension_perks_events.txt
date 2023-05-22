@@ -865,7 +865,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.23.9"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 22 } } } allow = { resource_stockpile_compare = { resource = energy value > 45000 } resource_stockpile_compare = { resource = sr_dark_matter value > 900 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 9 } country_event = { id = UniqueAscensionPerksEvents.22 days = 270 } set_variable = { which = amount_spawn_lh_systems value = 9 } } }
 	option = { name = "UniqueAscensionPerksEvents.23.10"	trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 21 } } } allow = { resource_stockpile_compare = { resource = energy value > 50000 } resource_stockpile_compare = { resource = sr_dark_matter value > 1000 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.22 days = 300 } set_variable = { which = amount_spawn_lh_systems value = 10 } } }
 	option = { name = "UniqueAscensionPerksEvents.23.cheat"	trigger = { hidden_trigger = { has_global_flag = ap_lost_heritage } } allow = { resource_stockpile_compare = { resource = energy value > 500 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
-	option = { name = ABORT ai_chance = { factor = 0.1 } }
+	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 ######################################
@@ -1841,7 +1841,7 @@ country_event = {
 		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_6 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.3055.Select" ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } } }
-	option = { name = CANCEL ai_chance = { factor = 0.1 } }
+	option = { name = CANCEL ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 ######################################
@@ -2548,7 +2548,7 @@ country_event = {
 		hidden_effect = { event_target:fallen_empire_6 = { save_event_target_as = FallenEmpireTaskOrigin } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.69.Select" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.69 } } }
-	option = { name = "UniqueAscensionPerksEvents.69.b" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.69.b" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -2665,7 +2665,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = fallen_empires_tasks.2.b ai_chance = { factor = 0.1 }
+	option = { name = fallen_empires_tasks.2.b ai_chance = { factor = 0.1 } default_hide_option = yes
 		# fe_refuse_gift_action = yes
 		hidden_effect = {
 			event_target:FallenEmpireTaskOrigin = { add_opinion_modifier = { who = root modifier = opinion_spurned_fallen_empire_gift } }
@@ -2755,7 +2755,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.72.Abort"
 		hidden_effect = { add_resource = { influence = 950 } }
-		ai_chance = { factor = 0.1 }
+		ai_chance = { factor = 0.1 } default_hide_option = yes
 	}
 }
 
@@ -3127,7 +3127,7 @@ planet_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.84.ShipyardMenu.tooltip"
 		hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.3086 } }
 	}
-	option = { name = EXIT ai_chance = { factor = 0.1 } }
+	option = { name = EXIT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 ## Planetary Features
@@ -3241,7 +3241,7 @@ planet_event = {
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.85.Desc"
 	}
-	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } ai_chance = { factor = 0.1 } }
+	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 planet_event = {
@@ -3351,7 +3351,7 @@ planet_event = {
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3086.Desc"
 	}
-	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } ai_chance = { factor = 0.1 } }
+	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 # on_bi_yearly_pulse
 event = {
@@ -3469,19 +3469,25 @@ country_event = {
 				limit = { pop_has_right_ethics = no }
 				clear_ethos = yes
 				random_list = {
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_materialist		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_materialist } }		pop_change_ethic = ethic_materialist }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_spiritualist		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_spiritualist } }	pop_change_ethic = ethic_spiritualist }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_xenophile		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_xenophile } }		pop_change_ethic = ethic_xenophile }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_xenophobe		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_xenophobe } }		pop_change_ethic = ethic_xenophobe }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_militarist		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_militarist } }		pop_change_ethic = ethic_militarist }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_pacifist			} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_pacifist } }		pop_change_ethic = ethic_pacifist }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_egalitarian		} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_egalitarian } }		pop_change_ethic = ethic_egalitarian }
-					500 = { modifier = { factor = 0.01 NOT = { owner = { has_ethic = ethic_authoritarian	} } } modifier = { factor = 100 owner = { has_ethic = ethic_fanatic_authoritarian } }	pop_change_ethic = ethic_authoritarian }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_materialist	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_materialist } }		pop_change_ethic = ethic_materialist }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_spiritualist	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_spiritualist } }		pop_change_ethic = ethic_spiritualist }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_xenophile		} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_xenophile } }		pop_change_ethic = ethic_xenophile }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_xenophobe		} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_xenophobe } }		pop_change_ethic = ethic_xenophobe }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_militarist	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_militarist } }		pop_change_ethic = ethic_militarist }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_pacifist		} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_pacifist } }			pop_change_ethic = ethic_pacifist }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_egalitarian	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_egalitarian } }		pop_change_ethic = ethic_egalitarian }
+					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_authoritarian	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_authoritarian } }	pop_change_ethic = ethic_authoritarian }
 					# (Mod) Ethics and Civics Classic
-					500 = { modifier = { factor = 0 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_green			} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_green } }		pop_change_ethic = ethic_green }
-					500 = { modifier = { factor = 0 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_industrial	} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_industrial } }	pop_change_ethic = ethic_industrial }
-					500 = { modifier = { factor = 0 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_socialism		} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_socialism } }	pop_change_ethic = ethic_socialism }
-					500 = { modifier = { factor = 0 NOR = { has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_capitalism	} } } modifier = { factor = 100 has_global_flag = cultural_overhaul_active owner = { has_ethic = ethic_fanatic_capitalism } }	pop_change_ethic = ethic_capitalism }
+					2000 = {
+						modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } }
+						modifier = { factor = 25 has_global_flag = cultural_overhaul_active root = { OR = { has_ethic = ethic_fanatic_green has_ethic = ethic_fanatic_industrial has_ethic = ethic_fanatic_socialism has_ethic = ethic_fanatic_capitalism } } }
+						random_list = {
+							500 = { modifier = { factor = 0 NOT = { root = { has_ethic = ethic_green		} } } modifier = { factor = 10 root = { has_ethic = ethic_fanatic_green } }			pop_change_ethic = ethic_green }
+							500 = { modifier = { factor = 0 NOT = { root = { has_ethic = ethic_industrial	} } } modifier = { factor = 10 root = { has_ethic = ethic_fanatic_industrial } }	pop_change_ethic = ethic_industrial }
+							500 = { modifier = { factor = 0 NOT = { root = { has_ethic = ethic_socialism	} } } modifier = { factor = 10 root = { has_ethic = ethic_fanatic_socialism } }		pop_change_ethic = ethic_socialism }
+							500 = { modifier = { factor = 0 NOT = { root = { has_ethic = ethic_capitalism	} } } modifier = { factor = 10 root = { has_ethic = ethic_fanatic_capitalism } }	pop_change_ethic = ethic_capitalism }
+						}
+					}
 				}
 			}
 		}
@@ -3823,7 +3829,7 @@ country_event = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } }
 		ai_chance = { factor = 0 }
 	}
-	option = { name = ABORT ai_chance = { factor = 0.1 } }
+	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -3869,7 +3875,7 @@ country_event = {
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.5.tooltip"
 	}
-	option = { name = BACK ai_chance = { factor = 0.1 }
+	option = { name = BACK ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = {
 			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
 				country_event = { id = UniqueAscensionPerksEvents.8143 }
@@ -4433,7 +4439,7 @@ leader_event = {
 	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { resource_stockpile_compare = { resource = energy value > 4800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { resource_stockpile_compare = { resource = energy value > 5600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
 	option = {
-		name = ABORT ai_chance = { factor = 0.1 }
+		name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = {
 			if = { limit = { exists = fromfrom } from = { add_resource = { energy = 100 } } }
 		}
@@ -4540,7 +4546,7 @@ leader_event = {
 # 		}
 # 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.272 } }
 # 	}
-# 	option = { name = EXIT ai_chance = { factor = 0.1 } }
+# 	option = { name = EXIT ai_chance = { factor = 0.1 } default_hide_option = yes }
 # }
 
 # country_event = {
@@ -4568,7 +4574,7 @@ leader_event = {
 # 	option = { name = UniqueAscensionPerksEvents.272.Zeta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 5 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 6 } } }
 # 	option = { name = UniqueAscensionPerksEvents.272.Kappa	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 6 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 7 } } }
 # 	option = { name = UniqueAscensionPerksEvents.272.Omega	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 7 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 8 } } }
-# 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } ai_chance = { factor = 0.1 } }
+# 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 # }
 # # TODO
 # country_event = {
@@ -4603,7 +4609,7 @@ leader_event = {
 # 		else_if = { limit = { check_variable = { which = invasion_gate_type value = 8 } } add_resource = { energy = -18000 } }
 # 		country_event = { id = UniqueAscensionPerksEvents.274 }
 # 	}
-# 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } ai_chance = { factor = 0.1 } }
+# 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.272 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 # }
 
 # # TODO a lot, eg different fleets.
@@ -5211,7 +5217,7 @@ country_event = {
 		allow = { has_technology = tech_ragnarok_strike event_target:surgical_strike_fleet = { fleet_size > 200 any_owned_ship = { is_ship_size = titan } } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.314 } }
 	}
-	option = { name = ABORT ai_chance = { factor = 0.1 } }
+	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -5396,7 +5402,7 @@ country_event = {
 		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_crime_preventive_counterstrike years = 3 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -5456,7 +5462,7 @@ country_event = {
 		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_stability_local_meeting years = 3 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -5516,7 +5522,7 @@ country_event = {
 		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_temporal_housing years = 3 } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -5589,7 +5595,7 @@ country_event = {
 		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -5653,7 +5659,7 @@ country_event = {
 		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -5983,7 +5989,7 @@ country_event = {
 		else_if = { limit = { is_gestalt = yes }	add_modifier = { modifier = treasures_distribution_gesalt years = 20 } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } }
 	}
-	option = { name = EXIT ai_chance = { factor = 0.1 } }
+	option = { name = EXIT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6023,7 +6029,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } } }
 	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } } }
 	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.343 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6039,7 +6045,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.344.500	allow = { resource_stockpile_compare = { resource = treasures value > 500 } } add_resource = { treasures = -500 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_500 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
 	option = { name = UniqueAscensionPerksEvents.344.1000	allow = { resource_stockpile_compare = { resource = treasures value > 1000 } } add_resource = { treasures = -1000 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_1000 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
 	option = { name = UniqueAscensionPerksEvents.344.2000	allow = { resource_stockpile_compare = { resource = treasures value > 2000 } } add_resource = { treasures = -2000 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_2000 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = ABORT ai_chance = { factor = 0.1 } }
+	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6066,7 +6072,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.344.500	allow = { resource_stockpile_compare = { resource = treasures value > 500 } }	add_resource = { treasures = -500 }	add_modifier = { modifier = treasures_trade_500_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
 	option = { name = UniqueAscensionPerksEvents.344.1000	allow = { resource_stockpile_compare = { resource = treasures value > 1000 } }	add_resource = { treasures = -1000 }	add_modifier = { modifier = treasures_trade_1000_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
 	option = { name = UniqueAscensionPerksEvents.344.2000	allow = { resource_stockpile_compare = { resource = treasures value > 2000 } }	add_resource = { treasures = -2000 }	add_modifier = { modifier = treasures_trade_2000_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = ABORT ai_chance = { factor = 0.1 } }
+	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6088,7 +6094,7 @@ country_event = {
 	picture = GFX_evt_pirates_attacking_cargo
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerksEvents.348.a" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.349 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6482,7 +6488,7 @@ country_event = {
 	option = { name = UniqueAscensionPerksEvents.352.200 allow = { resource_stockpile_compare = { resource = treasures value > 200 } } add_resource = { treasures = -200 minor_artifacts = 100 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
 	option = { name = UniqueAscensionPerksEvents.352.400 allow = { resource_stockpile_compare = { resource = treasures value > 400 } } add_resource = { treasures = -400 minor_artifacts = 200 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
 	option = { name = UniqueAscensionPerksEvents.352.800 allow = { resource_stockpile_compare = { resource = treasures value > 800 } } add_resource = { treasures = -800 minor_artifacts = 400 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6504,7 +6510,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK ai_chance = { factor = 0.1 } }
+	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6516,7 +6522,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK ai_chance = { factor = 0.1 } }
+	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6528,7 +6534,7 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK ai_chance = { factor = 0.1 } }
+	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -6599,7 +6605,7 @@ country_event = {
 		hidden_effect = { event_target:country_6 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
 	}
 	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.357 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } }
+	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -7185,7 +7191,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = EXIT ai_chance = { factor = 0.1 } }
+	option = { name = EXIT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -7214,7 +7220,7 @@ country_event = {
 		allow = { NOT = { has_active_event = { UniqueAscensionPerksEvents.434 } } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } }
 	}
-	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 country_event = {
@@ -7237,7 +7243,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 # LEGACY (on_system_survey_ship)
@@ -7285,7 +7291,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.436.b" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 # From = country
@@ -7351,32 +7357,84 @@ planet_event = {
 	picture = GFX_evt_self_aware_colony
 	location = root
 	is_triggered_only = yes
+	trigger = {
+		exists = owner
+		has_modifier = self_aware_colony
+	}
 	immediate = {
 		# save_event_target_as = self_aware_planet
+		set_planet_flag = self_aware_planet
 	}
-	option = { name = "UniqueAscensionPerksEvents.461.Construct.Random"	allow = { exists = owner owner = { resource_stockpile_compare = { resource = minerals value > 1000 } } } hidden_effect = { set_planet_flag = self_aware_manual_order planet_event = { id = UniqueAscensionPerksEvents.461 } } self_aware_colony_deposit_selection = yes custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.Random.tooltip" }
-	option = { name = "UniqueAscensionPerksEvents.461.Construct.NoRandom" hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.NoRandom.tooltip" }
-	option = { name = "UniqueAscensionPerksEvents.461.Energy"		allow = { NOT = { has_modifier = self_aware_energy } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_energy } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Minerals"		allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_minerals } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Food"			allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_food } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { is_gestalt = no has_technology = tech_luxuries_2 } } } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_consumers } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Alloys"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_alloys_2 } } } NOT = { has_modifier = self_aware_alloys } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_alloys } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Research"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_basic_science_lab_3 } } } NOT = { has_modifier = self_aware_research } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = research_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_research } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Trade"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_interstellar_economics is_gestalt = no } } } NOT = { has_modifier = self_aware_trade } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_trade } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Soldiers"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_centralized_command } } } NOT = { has_modifier = self_aware_army } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_army } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.Strategic"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { exists = owner owner = { has_technology = tech_exotic_gases has_technology = tech_volatile_motes has_technology = tech_rare_crystals } } } NOT = { has_modifier = self_aware_strategic } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_strategic } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
-	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"		allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_no_focus } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } }
+	after = {
+		hidden_effect = {
+			if = { limit = { has_planet_flag = self_aware_planet }
+				if = { limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
+					remove_planet_flag = self_aware_planet
+				} else = {
+					planet_event = { id = UniqueAscensionPerksEvents.461 }
+				}
+			}
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.461.Construct.Random"
+		custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.Random.tooltip"
+		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } } }
+		hidden_effect = { set_planet_flag = self_aware_manual_order }
+		planet_event = { id = UniqueAscensionPerksEvents.465 days = -1 } # self_aware_colony_deposit_selection = yes
+	}
+	option = { name = "UniqueAscensionPerksEvents.461.Construct.NoRandom" allow = { owner = { resource_stockpile_compare = { resource = minerals value >= 200 } NOT = { has_active_event = { UniqueAscensionPerksEvents.466 } } } } custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.NoRandom.tooltip" hidden_effect = { remove_planet_flag = self_aware_planet planet_event = { id = UniqueAscensionPerksEvents.466 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Energy"		allow = { NOT = { has_modifier = self_aware_energy } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_energy clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Minerals"		allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_minerals clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Food"			allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_food clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { owner = { is_gestalt = no has_technology = tech_luxuries_2 } } } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_consumers clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Alloys"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { owner = { has_technology = tech_alloys_2 } } } NOT = { has_modifier = self_aware_alloys } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_alloys clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Research"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { owner = { has_technology = tech_basic_science_lab_3 } } } NOT = { has_modifier = self_aware_research } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = research_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_research clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Trade"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { owner = { has_technology = tech_interstellar_economics is_gestalt = no } } } NOT = { has_modifier = self_aware_trade } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_trade clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Soldiers"		allow = { OR = { has_global_flag = ap_self_aware_colony AND = { owner = { has_technology = tech_centralized_command } } } NOT = { has_modifier = self_aware_army } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_army clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Strategic"	allow = { OR = { has_global_flag = ap_self_aware_colony AND = { owner = { has_technology = tech_exotic_gases has_technology = tech_volatile_motes has_technology = tech_rare_crystals } } } NOT = { has_modifier = self_aware_strategic } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_strategic clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"		allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = yes } }
 	option = {
 		name = "UniqueAscensionPerksEvents.461.Reset"
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
 		hidden_effect = {
-			set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
-			reset_self_aware_planet = { POPS = "[Root.num_pops_self_aware_planet]" } # TODO  Malformed token
-			planet_event = { id = UniqueAscensionPerksEvents.461 }
+			# set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
+			# reset_self_aware_planet = { POPS = "@[Root.num_pops_self_aware_planet]" } # TODO  Malformed token
+			remove_self_aware_planet = yes
+			add_modifier = { modifier = self_aware_colony clear_on_owner_change = yes }
+			add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = yes }
+			set_planet_flag = self_aware_planet
+			switch = { trigger = num_pops
+				5	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 5 } }
+				10	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 10 } }
+				15	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 15 } }
+				20	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 20 } }
+				25	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 25 } }
+				30	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 30 } }
+				35	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 35 } }
+				40	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 40 } }
+				45	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 45 } }
+				50	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 50 } }
+				55	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 55 } }
+				60	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 60 } }
+				65	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 65 } }
+				70	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 70 } }
+				75	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 75 } }
+				80	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 80 } }
+				85	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 85 } }
+				90	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 90 } }
+				95	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 95 } }
+				100	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 100 } }
+				105	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 105 } }
+				110	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 110 } }
+				115	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 115 } }
+				120	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 120 } }
+			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.461.Off"	allow = { has_modifier = self_aware_colony } remove_self_aware_planet = yes remove_modifier = self_aware_colony custom_tooltip = "decision_self_aware_colony_to_normal_tooltip" }
-	option = { name = EXIT ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.461.Off" allow = { has_modifier = self_aware_colony } hidden_effect = { remove_self_aware_planet = yes } custom_tooltip = "decision_self_aware_colony_to_normal_tooltip" }
+	option = { name = EXIT hidden_effect = { remove_planet_flag = self_aware_planet } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	abort_effect = { remove_planet_flag = self_aware_planet }
 }
 # on_monthly_pulse_country
 country_event = {
@@ -7386,30 +7444,39 @@ country_event = {
 	# mean_time_to_happen = { months = 1 }
 	# pre_triggers = { has_owner = yes }
 	trigger = {
-		OR = {
-			has_global_flag = ap_self_aware_colony
-			has_ascension_perk = ap_self_aware_colony
-		} # colony_age > 12
-		resource_stockpile_compare = { resource = minerals value > 1000 }
-		any_owned_planet = { has_modifier = self_aware_colony }
+		merg_is_default_empire = yes
+		# OR = { has_global_flag = ap_self_aware_colony
+		has_ascension_perk = ap_self_aware_colony
+		# }
+		has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
+		any_owned_planet = {
+			is_colony = yes
+			colony_age > 12
+			has_modifier = self_aware_colony
+		}
 	}
 	immediate = {
-		every_owned_planet = {
-			limit = { has_modifier = self_aware_colony }
-			self_aware_colony_deposit_selection = yes
+		random_owned_planet = {
+			limit = {
+				is_colony = yes
+				colony_age > 12
+				has_modifier = self_aware_colony
+			}
+			# self_aware_colony_deposit_selection = yes
+			planet_event = { id = UniqueAscensionPerksEvents.465 days = 7 }
 		}
 	}
 }
 
-planet_event = {
-	id = UniqueAscensionPerksEvents.463
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { days = 6 }
-	pre_triggers = { has_owner = yes }
-	trigger = { exists = owner OR = { has_global_flag = ap_self_aware_colony owner = { has_ascension_perk = ap_self_aware_colony } } has_modifier = self_aware_colony }
-	immediate = { create_pop = { species = owner_main_species } }
-}
+# planet_event = {
+# 	id = UniqueAscensionPerksEvents.463
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	# mean_time_to_happen = { days = 6 }
+# 	pre_triggers = { has_owner = yes }
+# 	trigger = { exists = owner OR = { has_global_flag = ap_self_aware_colony owner = { has_ascension_perk = ap_self_aware_colony } } has_modifier = self_aware_colony }
+# 	immediate = { create_pop = { species = owner_main_species } }
+# }
 
 # on_yearly_pulse_country
 country_event = {
@@ -7427,14 +7494,16 @@ country_event = {
 		any_owned_planet = { has_modifier = self_aware_colony }
 	}
 	immediate = {
-		every_owned_planet = {
+		random_owned_planet = {
 			limit = { has_modifier = self_aware_colony }
 			remove_self_aware_planet = yes
-			remove_modifier = self_aware_colony
 		}
 	}
 }
 
+# Warning: performance-intensive event!
+# From UniqueAscensionPerksEvents.461
+# TODO: more opt?
 planet_event = {
 	id = UniqueAscensionPerksEvents.465
 	hide_window = yes
@@ -7443,12 +7512,321 @@ planet_event = {
 	trigger = {
 		exists = owner
 		OR = { has_global_flag = ap_self_aware_colony owner = { has_ascension_perk = ap_self_aware_colony } }
-		owner = { resource_stockpile_compare = { resource = minerals value > 1000 } }
+		owner = {
+			has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
+		}
 		has_modifier = self_aware_colony
 	}
-	immediate = { self_aware_colony_deposit_selection = yes }
+	immediate = {
+		# self_aware_colony_deposit_selection = { hidden_effect = {
+		owner = { add_resource = { minerals = -200 } }
+		random_list = {
+			995 = {
+				modifier = {
+					factor = 0
+					is_variable_set = d_aware_administration_building
+					switch = { trigger = num_pops
+						40	< { check_variable = { which = d_aware_administration_building value > 0 } }
+						80	< { check_variable = { which = d_aware_administration_building value > 1 } }
+						120	< { check_variable = { which = d_aware_administration_building value > 2 } }
+						160	< { check_variable = { which = d_aware_administration_building value > 3 } }
+						200	< { check_variable = { which = d_aware_administration_building value > 4 } }
+						240	< { check_variable = { which = d_aware_administration_building value > 5 } }
+						280	< { check_variable = { which = d_aware_administration_building value > 6 } }
+						320	< { check_variable = { which = d_aware_administration_building value > 7 } }
+						360	< { check_variable = { which = d_aware_administration_building value > 8 } }
+						400	< { check_variable = { which = d_aware_administration_building value > 9 } }
+						400	>={ check_variable = { which = d_aware_administration_building value > 10 } }
+						default = { always = no }
+					}
+					# OR = {
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 0 } num_pops < 40 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 1 } num_pops < 80 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 2 } num_pops < 120 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 3 } num_pops < 160 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 4 } num_pops < 200 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 5 } num_pops < 240 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 6 } num_pops < 280 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 7 } num_pops < 320 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 8 } num_pops < 360 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 9 } num_pops < 400 }
+					# 	AND = { check_variable = { which = d_aware_administration_building value > 10 } num_pops >= 400 }
+					# }
+				}
+				change_variable = { which = d_aware_administration_building value = 1 }
+				add_deposit = d_aware_administration_building
+			}
+			5 = {
+				modifier = { factor = 0 OR = { free_housing > 1 has_modifier = self_aware_energy has_modifier = self_aware_minerals has_modifier = self_aware_food } }
+				modifier = { factor = 5 free_housing <= -1 }
+				modifier = { factor = 10 free_housing <= -5 }
+				# modifier = { factor = 10 free_housing <= -10 }
+				add_deposit = d_aware_housing_building
+			}
+			5 = {
+				modifier = { factor = 0 free_amenities > 2 }
+				modifier = { factor = 5 free_amenities <= 0 }
+				modifier = { factor = 10 free_amenities <= -10 }
+				add_deposit = d_aware_amenities_building
+			}
+			5 = {
+				modifier = { factor = 0 planet_crime < 10 }
+				modifier = { factor = 5 planet_crime >= 20 }
+				modifier = { factor = 10 planet_crime >= 40 }
+				add_deposit = d_aware_crime_building
+			}
+			5 = {
+				modifier = { factor = 0 OR = { has_planet_flag = self_aware_manual_order any_owned_pop = { is_unemployed = yes } } }
+				modifier = { factor = 100 planet_crime < 10 free_amenities > 2 free_housing > 1 }
+				owner = { add_resource = { minerals = 200 } }
+			}
+			204 = { # 35
+				modifier = { factor = 0 NOR = { has_planet_flag = self_aware_manual_order any_owned_pop = { is_unemployed = yes } } }
+				modifier = { add = -45 NOT = { owner = { has_deficit = energy } } }
+				modifier = { add = -45 NOT = { owner = { has_deficit = minerals } } }
+				modifier = { add = -45 NOT = { owner = { has_deficit = food } } }
+				modifier = { add = -18 NOT = { owner = { has_deficit = consumer_goods } } }
+				modifier = { add = -18 NOT = { owner = { has_deficit = alloys } } }
+				modifier = { add = -9 NOT = { has_modifier = self_aware_no_focus } }
+				modifier = { factor = 0.5 merg_is_habitat = yes }
+				random_list = {
+					5 = {
+						modifier = { factor = 0 NOR = { has_modifier = self_aware_energy has_modifier = self_aware_no_focus } }
+						modifier = { factor = 10 owner = { has_deficit = energy } }
+						add_deposit = d_aware_energy_building
+					}
+					5 = {
+						modifier = {
+							factor = 0
+							OR = {
+								AND = { merg_is_habitat = yes NOT = { has_planet_flag = mining_habitat } }
+								NOR = { has_modifier = self_aware_minerals has_modifier = self_aware_no_focus }
+							}
+						}
+						modifier = { factor = 10 owner = { has_deficit = minerals } }
+						add_deposit = d_aware_mining_building
+					}
+					5 = {
+						modifier = {
+							factor = 0
+							OR = {
+								merg_is_habitat = yes
+								NOR = { has_modifier = self_aware_food has_modifier = self_aware_no_focus }
+							}
+						}
+						modifier = { factor = 10 owner = { has_deficit = food } }
+						modifier = { factor = 0.5 owner = { is_machine_empire = yes } }
+						add_deposit = d_aware_farming_building
+					}
+					2 = {
+						modifier = {
+							factor = 0
+							OR = {
+								merg_is_habitat = yes
+								owner = { is_gestalt = yes }
+								NOR = { has_modifier = self_aware_consumers has_modifier = self_aware_no_focus }
+							}
+						}
+						modifier = { factor = 10 owner = { has_deficit = consumer_goods } }
+						# modifier = { factor = 0 owner = { NOT = { has_technology = tech_luxuries_2 } } }
+						add_deposit = d_aware_consumer_building
+					}
+					2 = {
+						modifier = {
+							factor = 0
+							OR = {
+								merg_is_habitat = yes
+								NOR = { has_modifier = self_aware_alloys has_modifier = self_aware_no_focus }
+							}
+						}
+						modifier = { factor = 10 owner = { has_deficit = alloys } }
+						# modifier = { factor = 0 owner = { NOT = { has_technology = tech_alloys_2 } } }
+						add_deposit = d_aware_foundry_building
+					}
+					2 = {
+						modifier = {
+							factor = 0
+							OR = {
+								AND = { merg_is_habitat = yes NOT = { has_planet_flag = research_habitat } }
+								NOR = { has_modifier = self_aware_research has_modifier = self_aware_no_focus }
+							}
+						}
+						# modifier = { factor = 0 owner = { NOT = { has_technology = tech_basic_science_lab_3 } } }
+						add_deposit = d_aware_research_building
+					}
+					3 = {
+						modifier = {
+							factor = 0
+							NOR = { has_modifier = self_aware_trade has_modifier = self_aware_no_focus }
+						}
+						# modifier = { factor = 0 owner = { NOT = { has_technology = tech_interstellar_economics } } }
+						add_deposit = d_aware_trade_building
+					}
+					2 = {
+						modifier = {
+							factor = 0
+							OR = {
+								merg_is_habitat = yes
+								NOR = { has_modifier = self_aware_army has_modifier = self_aware_no_focus }
+							}
+						}
+						# modifier = { factor = 0 owner = { NOT = { has_technology = tech_centralized_command } } }
+						add_deposit = d_aware_army_building
+					}
+					2 = {
+						modifier = {
+							factor = 0
+							OR = {
+								merg_is_habitat = yes
+								NOR = { has_modifier = self_aware_strategic has_modifier = self_aware_no_focus }
+								owner = { NOR = { has_technology = tech_volatile_motes has_technology = tech_exotic_gases has_technology = tech_rare_crystals } }
+							}
+						}
+						add_deposit = d_aware_refinery_building
+					}
+					6 = {
+						modifier = { factor = 0 NOT = { has_modifier = self_aware_no_focus } }
+						modifier = {
+							add = -2
+							is_variable_set = d_aware_culture_building
+							switch = { trigger = num_pops
+								30	<= { check_variable = { which = d_aware_culture_building value >= 1 } }
+								60	<= { check_variable = { which = d_aware_culture_building value >= 2 } }
+								90	<= { check_variable = { which = d_aware_culture_building value >= 3 } }
+								120	<= { check_variable = { which = d_aware_culture_building value >= 4 } }
+								150	<= { check_variable = { which = d_aware_culture_building value >= 5 } }
+								default = { always = no }
+							}
+						}
+						modifier = {
+							add = -2
+							OR = {
+								owner = { is_hive_empire = yes }
+								owner = { is_regular_empire = yes OR = { has_policy_flag = robots_outlawed NOT = { has_technology = tech_robotic_workers } } }
+								AND = {
+									is_variable_set = d_aware_assembly_building
+									switch = { trigger = num_pops
+										30	<= { check_variable = { which = d_aware_assembly_building value >= 1 } }
+										60	<= { check_variable = { which = d_aware_assembly_building value >= 2 } }
+										90	<= { check_variable = { which = d_aware_assembly_building value >= 3 } }
+										120	<= { check_variable = { which = d_aware_assembly_building value >= 4 } }
+										150	<= { check_variable = { which = d_aware_assembly_building value >= 5 } }
+										default = { always = no }
+									}
+								}
+							}
+						}
+						modifier = {
+							add = -2
+							OR = {
+								owner = { is_machine_empire = yes }
+								AND = {
+									is_variable_set = d_aware_growth_building
+									switch = { trigger = num_pops
+										30	<= { check_variable = { which = d_aware_growth_building value >= 1 } }
+										60	<= { check_variable = { which = d_aware_growth_building value >= 2 } }
+										90	<= { check_variable = { which = d_aware_growth_building value >= 3 } }
+										120	<= { check_variable = { which = d_aware_growth_building value >= 4 } }
+										150	<= { check_variable = { which = d_aware_growth_building value >= 5 } }
+										default = { always = no }
+									}
+								}
+							}
+						}
+						random_list = {
+							2 = {
+								modifier = {
+									factor = 0
+									is_variable_set = d_aware_culture_building
+									switch = { trigger = num_pops
+										30	<= { check_variable = { which = d_aware_culture_building value >= 1 } }
+										60	<= { check_variable = { which = d_aware_culture_building value >= 2 } }
+										90	<= { check_variable = { which = d_aware_culture_building value >= 3 } }
+										120	<= { check_variable = { which = d_aware_culture_building value >= 4 } }
+										150	<= { check_variable = { which = d_aware_culture_building value >= 5 } }
+										default = { always = no }
+									}
+									# OR = {
+									# 	AND = { check_variable = { which = d_aware_culture_building value >= 1 } num_pops <= 30 }
+									# 	AND = { check_variable = { which = d_aware_culture_building value >= 2 } num_pops <= 60 }
+									# 	AND = { check_variable = { which = d_aware_culture_building value >= 3 } num_pops <= 90 }
+									# 	AND = { check_variable = { which = d_aware_culture_building value >= 4 } num_pops <= 120 }
+									# 	AND = { check_variable = { which = d_aware_culture_building value >= 5 } num_pops <= 150 }
+									# }
+								}
+								# modifier = { factor = 0 check_variable = { which = d_aware_culture_building value >= 5 } num_pops >= 150 }
+								change_variable = { which = d_aware_culture_building value = 1 }
+								add_deposit = d_aware_culture_building
+							}
+							2 = {
+								modifier = {
+									factor = 0
+									OR = {
+										owner = { is_hive_empire = yes }
+										owner = { is_regular_empire = yes OR = { has_policy_flag = robots_outlawed NOT = { has_technology = tech_robotic_workers } } }
+										AND = {
+											is_variable_set = d_aware_assembly_building
+											switch = { trigger = num_pops
+												30	<= { check_variable = { which = d_aware_assembly_building value >= 1 } }
+												60	<= { check_variable = { which = d_aware_assembly_building value >= 2 } }
+												90	<= { check_variable = { which = d_aware_assembly_building value >= 3 } }
+												120	<= { check_variable = { which = d_aware_assembly_building value >= 4 } }
+												150	<= { check_variable = { which = d_aware_assembly_building value >= 5 } }
+												default = { always = no }
+											}
+											# OR = {
+											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 1 } num_pops <= 30 }
+											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 2 } num_pops <= 60 }
+											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 3 } num_pops <= 90 }
+											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 4 } num_pops <= 120 }
+											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 5 } num_pops <= 150 }
+											# }
+										}
+									}
+								}
+								# modifier = { factor = 0 check_variable = { which = d_aware_assembly_building value >= 5 } num_pops >= 150 }
+								change_variable = { which = d_aware_assembly_building value = 1 }
+								add_deposit = d_aware_assembly_building
+							}
+							2 = {
+								modifier = {
+									factor = 0
+									OR = {
+										owner = { is_machine_empire = yes }
+										AND = {
+											is_variable_set = d_aware_growth_building
+											switch = { trigger = num_pops
+												30	<= { check_variable = { which = d_aware_growth_building value >= 1 } }
+												60	<= { check_variable = { which = d_aware_growth_building value >= 2 } }
+												90	<= { check_variable = { which = d_aware_growth_building value >= 3 } }
+												120	<= { check_variable = { which = d_aware_growth_building value >= 4 } }
+												150	<= { check_variable = { which = d_aware_growth_building value >= 5 } }
+												default = { always = no }
+											}
+											# OR = {
+											# 	AND = { check_variable = { which = d_aware_growth_building value >= 1 } num_pops <= 30 }
+											# 	AND = { check_variable = { which = d_aware_growth_building value >= 2 } num_pops <= 60 }
+											# 	AND = { check_variable = { which = d_aware_growth_building value >= 3 } num_pops <= 90 }
+											# 	AND = { check_variable = { which = d_aware_growth_building value >= 4 } num_pops <= 120 }
+											# 	AND = { check_variable = { which = d_aware_growth_building value >= 5 } num_pops <= 150 }
+											# }
+										}
+									}
+								}
+								# modifier = { factor = 0 check_variable = { which = d_aware_growth_building value >= 5 } num_pops >= 150 }
+								change_variable = { which = d_aware_growth_building value = 1 }
+								add_deposit = d_aware_growth_building
+							}
+						}
+					}
+				}
+			}
+		}
+		if = { limit = { has_planet_flag = self_aware_manual_order } remove_planet_flag = self_aware_manual_order }
+	}
 }
 
+# From UniqueAscensionPerksEvents.461
 planet_event = {
 	id = UniqueAscensionPerksEvents.466
 	title = "UniqueAscensionPerksEvents.466.Name"
@@ -7458,22 +7836,41 @@ planet_event = {
 	location = root # event_target:self_aware_planet
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
-	option = { name = "UniqueAscensionPerksEvents.466.Housing"		allow = { has_200_minerals = yes } add_deposit = d_aware_housing_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Energy"		allow = { has_200_minerals = yes } add_deposit = d_aware_energy_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Minerals"		allow = { has_200_minerals = yes } add_deposit = d_aware_mining_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Food"			allow = { has_200_minerals = yes } add_deposit = d_aware_farming_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Amenities"	allow = { has_200_minerals = yes } add_deposit = d_aware_amenities_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Security"		allow = { has_200_minerals = yes } add_deposit = d_aware_crime_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Consumers"	allow = { has_200_minerals = yes has_modifier = self_aware_consumers } add_deposit = d_aware_consumer_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Alloys"		allow = { has_200_minerals = yes has_modifier = self_aware_alloys } add_deposit = d_aware_foundry_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Research"		allow = { has_200_minerals = yes has_modifier = self_aware_research } add_deposit = d_aware_research_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Trade"		allow = { has_200_minerals = yes has_modifier = self_aware_trade } add_deposit = d_aware_trade_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Soldiers"		allow = { has_200_minerals = yes } add_deposit = d_aware_army_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Culture"		allow = { has_200_minerals = yes NOT = { has_deposit = d_aware_culture_building } } add_deposit = d_aware_culture_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Assembly"		allow = { has_200_minerals = yes NOT = { has_deposit = d_aware_assembly_building } } add_deposit = d_aware_assembly_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Growth"		allow = { has_200_minerals = yes NOT = { has_deposit = d_aware_growth_building } } add_deposit = d_aware_growth_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = "UniqueAscensionPerksEvents.466.Strategic"	allow = { has_200_minerals = yes has_modifier = self_aware_strategic } add_deposit = d_aware_refinery_building owner = { add_resource = { minerals = -200 } } hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.466 } } }
-	option = { name = BACK hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.461 } } ai_chance = { factor = 0.1 } }
+	trigger = { exists = owner owner = { resource_stockpile_compare = { resource = minerals value >= 200 } } }
+	immediate = {
+		set_planet_flag = self_aware_planet
+	}
+	after = {
+		hidden_effect = {
+			if = { limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
+				remove_planet_flag = self_aware_planet
+			}
+			if = { limit = { NOT = { owner = { has_active_event = { UniqueAscensionPerksEvents.461 } } } }
+				if = { limit = { has_planet_flag = self_aware_planet }
+					planet_event = { id = UniqueAscensionPerksEvents.466 }
+				} else = {
+					planet_event = { id = UniqueAscensionPerksEvents.461 }
+				}
+			}
+		}
+	}
+	option = { name = "UniqueAscensionPerksEvents.466.Housing"		allow = { } add_deposit = d_aware_housing_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Energy"		allow = { } add_deposit = d_aware_energy_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Minerals"		allow = { } add_deposit = d_aware_mining_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Food"			allow = { } add_deposit = d_aware_farming_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Amenities"	allow = { } add_deposit = d_aware_amenities_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Security"		allow = { } add_deposit = d_aware_crime_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Consumers"	allow = { has_modifier = self_aware_consumers } add_deposit = d_aware_consumer_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Alloys"		allow = { has_modifier = self_aware_alloys } add_deposit = d_aware_foundry_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Research"		allow = { has_modifier = self_aware_research } add_deposit = d_aware_research_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Trade"		allow = { has_modifier = self_aware_trade } add_deposit = d_aware_trade_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Soldiers"		allow = { } add_deposit = d_aware_army_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Culture"		allow = { NOT = { has_deposit = d_aware_culture_building } } add_deposit = d_aware_culture_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Assembly"		allow = { NOT = { has_deposit = d_aware_assembly_building } } add_deposit = d_aware_assembly_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Growth"		allow = { NOT = { has_deposit = d_aware_growth_building } } add_deposit = d_aware_growth_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = "UniqueAscensionPerksEvents.466.Strategic"	allow = { has_modifier = self_aware_strategic } add_deposit = d_aware_refinery_building owner = { add_resource = { minerals = -200 } } }
+	option = { name = BACK hidden_effect = { remove_planet_flag = self_aware_planet } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	abort_effect = { remove_planet_flag = self_aware_planet }
 }
 
 ######################################
@@ -7543,7 +7940,7 @@ country_event = {
 		name = "field_manipulation"
 		add_modifier = { modifier = flourishing_technocracy_field_manipulation years = 5 }
 		trigger = { NOT = { has_modifier = flourishing_technocracy_field_manipulation } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } ai_chance = { factor = 0.1 } }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 	option = {
 		name = "particles"
 		add_modifier = { modifier = flourishing_technocracy_particles years = 5 }
@@ -7554,7 +7951,7 @@ country_event = {
 		add_modifier = { modifier = flourishing_technocracy_computing years = 5 }
 		trigger = { NOT = { has_modifier = flourishing_technocracy_computing } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
-	option = { name = AMOUNT_NONE default_hide_option = yes ai_chance = { factor = 0.1 } }
+	option = { name = AMOUNT_NONE default_hide_option = yes ai_chance = { factor = 0.1 } default_hide_option = yes }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
 }
 
@@ -7574,7 +7971,7 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "new_worlds"		add_modifier = { modifier = flourishing_technocracy_new_worlds		years = 5 } ai_chance = { factor = 0.1 } }
+	option = { name = "new_worlds"		add_modifier = { modifier = flourishing_technocracy_new_worlds		years = 5 } ai_chance = { factor = 0.1 } default_hide_option = yes }
 	option = { name = "statecraft"		add_modifier = { modifier = flourishing_technocracy_statecraft		years = 5 } }
 	option = { name = "biology"			add_modifier = { modifier = flourishing_technocracy_biology			years = 5 } }
 	option = { name = "military_theory"	add_modifier = { modifier = flourishing_technocracy_military_theory	years = 5 } }
@@ -7593,7 +7990,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.474 } } }
 	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
-	option = { name = "materials"	add_modifier = { modifier = flourishing_technocracy_materials	years = 5 } ai_chance = { factor = 0.1 } }
+	option = { name = "materials"	add_modifier = { modifier = flourishing_technocracy_materials	years = 5 } ai_chance = { factor = 0.1 } default_hide_option = yes }
 	option = { name = "industry"	add_modifier = { modifier = flourishing_technocracy_industry	years = 5 } }
 	option = { name = "voidcraft"	add_modifier = { modifier = flourishing_technocracy_voidcraft	years = 5 } }
 	option = { name = "propulsion"	add_modifier = { modifier = flourishing_technocracy_propulsion	years = 5 } }
@@ -7682,7 +8079,7 @@ country_event = {
 		}
 		custom_tooltip = "UniqueAscensionPerksEvents.491.a.tooltip"
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } }
+	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 # From .491
 country_event = {
@@ -7693,7 +8090,7 @@ country_event = {
 	picture = GFX_evt_library_wisedom
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = OK ai_chance = { factor = 0.1 } }
+	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 	option = { name = "UniqueAscensionPerks.lets_again" country_event = { id = UniqueAscensionPerksEvents.491 } }
 }
 # From .491
@@ -7968,7 +8365,7 @@ ship_event = {
 			owner = { set_country_flag = no_expansionist_development }
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.531.Nope" ai_chance = { factor = 0.1 } }
+	option = { name = "UniqueAscensionPerksEvents.531.Nope" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 ######################################
