@@ -94,8 +94,7 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		# underworld_smuggler_resources_loot_selection =
-		if = {
-			limit = { has_country_flag = underworld_smuggler_food }
+		if = { limit = { has_country_flag = underworld_smuggler_food }
 			remove_country_flag = underworld_smuggler_food
 			random_list = {
 				10 = { set_country_flag = underworld_smuggler_food_1 }
@@ -105,8 +104,7 @@ country_event = {
 				10 = { set_country_flag = underworld_smuggler_food_5 }
 			}
 		}
-		if = {
-			limit = { has_country_flag = underworld_smuggler_minerals }
+		if = { limit = { has_country_flag = underworld_smuggler_minerals }
 			remove_country_flag = underworld_smuggler_minerals
 			random_list = {
 				10 = { set_country_flag = underworld_smuggler_minerals_1 }
@@ -116,8 +114,7 @@ country_event = {
 				10 = { set_country_flag = underworld_smuggler_minerals_5 }
 			}
 		}
-		if = {
-			limit = { has_country_flag = underworld_smuggler_alloys }
+		if = { limit = { has_country_flag = underworld_smuggler_alloys }
 			remove_country_flag = underworld_smuggler_alloys
 			random_list = {
 				10 = { set_country_flag = underworld_smuggler_alloys_1 }
@@ -127,8 +124,7 @@ country_event = {
 				10 = { set_country_flag = underworld_smuggler_alloys_5 }
 			}
 		}
-		if = {
-			limit = { has_country_flag = underworld_smuggler_consumers }
+		if = { limit = { has_country_flag = underworld_smuggler_consumers }
 			remove_country_flag = underworld_smuggler_consumers
 			random_list = {
 				10 = { set_country_flag = underworld_smuggler_consumers_1 }
@@ -549,11 +545,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.375.a"
 		allow = {
-			custom_tooltip = {
-				fail_text = UniqueAscensionPerksEvents.384.Req01
-				has_country_flag = raid_target_of@event_target:marauder_country
-				has_country_flag = under_marauder_attack
-			}
+			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.384.Req01 has_country_flag = raid_target_of@event_target:marauder_country has_country_flag = under_marauder_attack }
 			resource_stockpile_compare = { resource = treasures value > 200 }
 		}
 		add_resource = { treasures = -200 }
@@ -694,24 +686,21 @@ country_event = {
 		# set_timed_country_flag = { flag = recently_raided_or_threatened years = 5 }
 		set_country_flag = raid_target_of@event_target:raiding_marauder
 		set_country_flag = under_marauder_attack
-		if = {
-			limit = { event_target:raiding_marauder = { has_country_flag = marauder_1 } }
+		if = { limit = { event_target:raiding_marauder = { has_country_flag = marauder_1 } }
 			random_system = {
 				limit = { has_star_flag = marauder_capital_1 }
 				save_event_target_as = marauder_system
 				random_system_planet = { limit = { has_planet_flag = raid_source } save_event_target_as = raid_source }
 			}
 		}
-		if = {
-			limit = { event_target:raiding_marauder = { has_country_flag = marauder_2 } }
+		if = { limit = { event_target:raiding_marauder = { has_country_flag = marauder_2 } }
 			random_system = {
 				limit = { has_star_flag = marauder_capital_2 }
 				save_event_target_as = marauder_system
 				random_system_planet = { limit = { has_planet_flag = raid_source } save_event_target_as = raid_source }
 			}
 		}
-		if = {
-			limit = { event_target:raiding_marauder = { has_country_flag = marauder_3 } }
+		if = { limit = { event_target:raiding_marauder = { has_country_flag = marauder_3 } }
 			random_system = {
 				limit = { has_star_flag = marauder_capital_3 }
 				save_event_target_as = marauder_system
@@ -729,8 +718,7 @@ country_event = {
 			effect = {
 				save_event_target_as = marauder_raiding_country
 				event_target:raiding_marauder = {
-					switch = {
-						trigger = has_country_flag
+					switch = { trigger = has_country_flag
 						marauder_1 = { prev = { set_country_flag = marauder_1 } }
 						marauder_2 = { prev = { set_country_flag = marauder_2 } }
 						marauder_3 = { prev = { set_country_flag = marauder_3 } }
@@ -801,9 +789,7 @@ country_event = {
 						}
 					}
 					fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
-				} else = {
-					log="FAIL: Marauder raiding fleet can't access raid target."
-				}
+				} else = { log="FAIL: Marauder raiding fleet can't access raid target." }
 			}
 			set_faction_hostility = { target = event_target:marauder_target set_hostile = yes set_neutral = no set_friendly = no }
 		}
@@ -981,9 +967,7 @@ country_event = {
 	trigger = {
 		NOT = { has_country_flag = FallenEmpireContact }
 	}
-	immediate = {
-		set_country_flag = FallenEmpireContact
-	}
+	immediate = { set_country_flag = FallenEmpireContact }
 	after = {
 		if = { limit = { has_country_flag = FallenEmpireContact }
 			# underworld_fallen_empire_notice_transaction = yes

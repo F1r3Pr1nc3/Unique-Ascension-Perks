@@ -916,7 +916,12 @@ tech_deep_scanner = {
 	tier = 3
 	category = { field_manipulation }
 	prerequisites = {}
-	potential = { has_ascension_perk = ap_deep_scanner }
+	potential = {
+		OR = {
+			has_ascension_perk = ap_deep_scanner
+			has_valid_civic = civic_exploration # Compat. E&CC
+		}
+	}
 	weight = @tier3weight1
 	weight_modifier = { factor = 1.5 modifier = { factor = 1.25 has_trait_in_council = { TRAIT = leader_trait_expertise_field_manipulation } } }
 	ai_weight = { factor = 2 modifier = { factor = 1.25 has_trait_in_council = { TRAIT = leader_trait_expertise_field_manipulation } } }

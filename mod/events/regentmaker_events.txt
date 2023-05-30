@@ -533,8 +533,7 @@ planet_event = {
 				# action_open_borders
 				set_closed_borders = { who = prev status = no forced = 5 }
 				add_intel = { who = prev amount = 200 }
-				switch = {
-					trigger = has_valid_civic
+				switch = { trigger = has_valid_civic
 					civic_fanatic_purifiers		= { prev = { force_add_civic = civic_fanatic_purifiers } }
 					civic_hive_devouring_swarm	= { prev = { force_add_civic = civic_hive_devouring_swarm } }
 					civic_machine_terminator	= { prev = { force_add_civic = civic_machine_terminator } }
@@ -644,7 +643,7 @@ country_event = {
 		export_trigger_value_to_variable = {
 			trigger = count_subject
 			parameters = {
-				limit = { merg_is_default_empire = yes is_perfect_vassal = yes }
+				limit = { is_perfect_vassal = yes }
 			}
 			variable = num_perfect_vassals
 		}
@@ -691,10 +690,7 @@ country_event = {
 		add_resource = { influence = -1 mult = num_perfect_vassals }
 		hidden_effect = {
 			every_subject = {
-				limit = {
-					merg_is_default_empire = yes
-					is_perfect_vassal = yes
-				}
+				limit = { is_perfect_vassal = yes }
 				root = {
 					# add_resource = { influence = -25 }
 					copy_techs_from = { target = prev }
@@ -883,7 +879,6 @@ country_event = {
 				solar_system = {
 					exists = space_owner
 					space_owner = {
-						is_subject = yes
 						is_perfect_vassal = yes
 						overlord = { is_same_empire = root }
 					}
@@ -1118,9 +1113,7 @@ country_event = {
 	#	name = "ethic_gestalt_consciousness"
 	#	every_subject = { shift_ethic = ethic_gestalt_consciousness }
 	# }
-	option = {
-		name = BACK
-	}
+	option = { name = BACK }
 	after = {
 		hidden_effect = {
 			country_event = { id = regentmaker.7 }
@@ -1267,9 +1260,7 @@ country_event = {
 	#		change_government = { authority = auth_machine_intelligence civics = random remove_invalid_civics = yes cooldown = no }
 	#	}
 	# }
-	option = {
-		name = BACK
-	}
+	option = { name = BACK }
 	after = {
 		hidden_effect = {
 			country_event = { id = regentmaker.8 }
@@ -2049,17 +2040,11 @@ country_event = {
 			has_resource = { type = alloys amount > 2000 }
 			has_resource = { type = energy amount > 2000 }
 		}
-		add_resource = {
-			alloys = -2000
-			energy = -2000
-		}
+		add_resource = { alloys = -2000 energy = -2000 }
 		hidden_effect = {
 			set_timed_global_flag = { flag = regentmaker_control_sel@event_target:subject_selected days = 360 }
 			event_target:subject_selected = {
-				add_resource = {
-					alloys = 2000
-					energy = 2000
-				}
+				add_resource = { alloys = 2000 energy = 2000 }
 				set_player = root
 				set_country_flag = regentmaker_control_sel
 			}
@@ -2948,9 +2933,7 @@ country_event = {
 	option = {
 		name = "auth_corporate"
 		trigger = {
-			event_target:subject_selected = {
-				is_megacorp = no
-			}
+			event_target:subject_selected = { is_megacorp = no }
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
@@ -3040,8 +3023,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { merg_is_default_empire = yes }
 	immediate = {
-		switch = {
-			trigger = has_country_flag
+		switch = { trigger = has_country_flag
 			auth_democratic		= { country_remove_ethic = ethic_fanatic_authoritarian	country_remove_ethic = ethic_authoritarian }
 			auth_oligarchic		= { country_remove_ethic = ethic_fanatic_authoritarian	country_remove_ethic = ethic_fanatic_egalitarian }
 			auth_dictatorial	= { country_remove_ethic = ethic_fanatic_egalitarian	country_remove_ethic = ethic_egalitarian }
@@ -3093,9 +3075,9 @@ country_event = {
 				4 = { shift_ethic = ethic_fanatic_egalitarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 				3 = { shift_ethic = ethic_fanatic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
 				# (Mod) Ethics and Civics Classic
-				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green } } 		country_add_ethic = ethic_fanatic_green		 }
+				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green } } 		country_add_ethic = ethic_fanatic_green	 }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_industrial } }	country_add_ethic = ethic_fanatic_industrial }
-				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_socialism } }		country_add_ethic = ethic_fanatic_socialism	 }
+				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_socialism } }		country_add_ethic = ethic_fanatic_socialism }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_capitalism } }	country_add_ethic = ethic_fanatic_capitalism }
 			}
 			random_list = {

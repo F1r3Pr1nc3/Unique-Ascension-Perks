@@ -1,4 +1,5 @@
 namespace = UniqueAscensionPerksEvents
+namespace = leng_project_event
 
 ######################################
 #									 #
@@ -76,6 +77,7 @@ planet_event = {
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_stone_age days = 5 }
 		}
+		ai_chance = { factor = 0.1 } default_hide_option = yes
 	}
 	option = {
 		name = "bronze_age"
@@ -84,6 +86,7 @@ planet_event = {
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_bronze_age days = 5 }
 		}
+		ai_chance = { factor = 0.2 }
 	}
 	option = {
 		name = "iron_age"
@@ -92,6 +95,7 @@ planet_event = {
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_iron_age days = 5 }
 		}
+		ai_chance = { factor = 0.4 }
 	}
 	## EARLY_PRIMITIVE
 	option = {
@@ -101,6 +105,7 @@ planet_event = {
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_medieval_age days = 5 }
 		}
+		ai_chance = { factor = 0.6 }
 	}
 	option = {
 		name = "renaissance_age"
@@ -109,6 +114,7 @@ planet_event = {
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age days = 5 }
 		}
+		ai_chance = { factor = 0.8 }
 	}
 	option = {
 		name = "steam_age"
@@ -117,6 +123,7 @@ planet_event = {
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_steam_age days = 5 }
 		}
+		ai_chance = { factor = 1 }
 	}
 	option = {
 		name = "random_early_age"
@@ -130,7 +137,7 @@ planet_event = {
 				9 = { modifier = { factor = 0.1 has_owner = no }	set_timed_planet_flag = { flag = new_primitive_world_steam_age			days = 5 } }
 			}
 		}
-		ai_chance = { factor = 0.1 } default_hide_option = yes
+		ai_chance = { factor = 1.5 }
 	}
 	## LATE_PRIMITIVE
 	option = {
@@ -208,7 +215,7 @@ planet_event = {
 
 # LIST UP SPECIES
 planet_event = {
-	id = UniqueAscensionPerksEvents.3140 # (leng_project_event.3)
+id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
 	location = event_target:new_primitive_world
 	title = "UniqueAscensionPerksEvents.3140.name"
 	desc = "UniqueAscensionPerksEvents.3140.desc"
@@ -233,7 +240,7 @@ planet_event = {
 			save_event_target_as = owning_empire
 			if = { limit = { exists = owner_species }
 				save_event_target_as = owner_species
-				save_event_target_as = primitive_world_species # fallback
+				# save_event_target_as = primitive_world_species # Fallback?
 			}
 			# Cleanup (only to be sure)
 			every_owned_species = { remove_species_flag = CmtFlagSpeciesAlreadyListed@prev }
@@ -427,38 +434,61 @@ planet_event = {
 	after = {
 		hidden_effect = {
 			# Cleanup (before resettle)
-			every_owned_species = { remove_species_flag = CmtFlagSpeciesAlreadyListed@prev }
+			every_owned_species = { remove_species_flag = CmtFlagSpeciesAlreadyListed@event_target:owning_empire }
 			event_target:owning_empire = {
 				if = {
 					limit = {
 						has_country_flag = SdjFlagSpeciesMenuOpened
 						exists = event_target:SdjTargetPopA
 					}
+					## Create new Species
 					event_target:SdjTargetPopA = {
 						species = {
-							save_event_target_as = primitive_world_species
-							root = {
-								switch = { # from create_pre_ftl_species
-									trigger = has_planet_flag
-									pre_ftl_ocean_paradise	= { modify_species = { species = prev add_trait = trait_aquatic } }
-									pre_ftl_subterranean	= { modify_species = { species = prev add_trait = trait_cave_dweller } }
-									pre_ftl_void_dwellers	= { modify_species = { species = prev add_trait = trait_void_dweller_1 } }
-								}
-								if = {
-									limit = {
-										has_global_flag = life_engineering_installed
-										NOR = { has_global_flag = has_uap_mod prevprev = { has_ascension_perk = ap_primitives_creation } }
-									}
-									modify_species = {
-										species = prev
-										base = prev
-										add_trait = trait_leng_engineered
-										ideal_planet_class = root
-									}
-								}
-								while = { count = 4 create_pop = { species = prev } }
-								planet_event = { id = UniqueAscensionPerksEvents.141 }
+							create_species = {
+								name = this
+								plural = this
+								class = this
+								portrait = this
+								homeworld = root
+								traits = random
+								is_mod = yes
+								can_be_modified = yes
+								gender = this
+								# clear_parent_species_link = yes
+								effect = { save_event_target_as = primitive_world_species }
 							}
+							# FIXME Somehow changes the orignal species
+							# modify_species = {
+							# 	# species = this
+							# 	# base = this
+							# 	# portrait = this
+							# 	# add_trait = trait_leng_engineered later
+							# 	# remove_trait = <key> # can specify multiple
+							# 	# add_traits_at_start_of_list = yes
+							# 	ideal_planet_class = root
+							# 	change_scoped_species = no
+							# 	effect = { save_event_target_as = primitive_world_species }
+							# }
+						}
+					}
+					event_target:primitive_world_species = {
+						if = { limit = { is_species_class = LITHOID } change_species_characteristics = { add_trait = trait_lithoid } }
+						else_if = { limit = { is_species_class = NECROID } change_species_characteristics = { add_trait = trait_necrophage } }
+						if = {
+							limit = {
+								has_global_flag = life_engineering_installed
+								NOR = { has_global_flag = has_uap_mod prevprev = { has_ascension_perk = ap_primitives_creation } }
+							}
+							change_species_characteristics = { add_trait = trait_leng_engineered add_traits_at_start_of_list = yes }
+						}
+						change_species_characteristics = { add_trait = trait_uplifted } # Hack only for Enhanced Gene Modding. Against docu: Somehow multiple add_trait do not work.
+						root = { # from create_pre_ftl_species
+							switch = { trigger = has_planet_flag
+								pre_ftl_ocean_paradise	= { prev = { change_species_characteristics = { add_trait = trait_aquatic } } }
+								pre_ftl_subterranean	= { prev = { change_species_characteristics = { add_trait = trait_cave_dweller } } }
+								pre_ftl_void_dwellers	= { prev = { change_species_characteristics = { add_trait = trait_void_dweller_1 } } }
+							}
+							planet_event = { id = leng_project_event.4 } # Choose Sapient or Pre-Sapient
 						}
 					}
 				}
@@ -601,13 +631,24 @@ planet_event = {
 			}
 		}
 	}
-	# option = {		## Default owner species
+	option = {		## Default owner species
 	# 	name = leng_project_event.3z.name
 	# 	custom_tooltip = leng_project_event.3z.tooltip
-	# 	trigger = { check_variable = { which = SdjVarPageOfMenu value < 1.5 } }
-	# 	hidden_effect = {
-	# 	}
-	# }
+		name = FOUNDER_SPECIES # TRIGGER_OWNER_SPECIES
+		trigger = {
+			OR = {
+				exists = event_target:owner_species
+				exists = event_target:SdjTargetPop05
+			}
+			check_variable = { which = SdjVarSpeciesListedNum value < 4.5 }
+		}
+		hidden_effect = {
+			if = { limit = { exists = event_target:owner_species }
+				event_target:owner_species = { save_event_target_as = SdjTargetPopA }
+			}
+			else = { event_target:SdjTargetPop05 = { save_event_target_as = SdjTargetPopA } }
+		}
+	}
 	option = {
 		name = leng_project_event.3a.name
 		# custom_tooltip = leng_project_event.3a.tooltip
@@ -743,7 +784,7 @@ planet_event = {
 		trigger = { check_variable = { which = SdjVarSpeciesListedNum value > 12.5 } }
 		hidden_effect = {
 			change_variable = { which = SdjVarPageOfMenu value = 1 }
-			planet_event = { id = UniqueAscensionPerksEvents.3140 }
+			planet_event = { id = leng_project_event.3 }
 		}
 	}
 	option = {
@@ -752,7 +793,7 @@ planet_event = {
 		trigger = { check_variable = { which = SdjVarPageOfMenu value > 1.5 } }
 		hidden_effect = {
 			change_variable = { which = SdjVarPageOfMenu value = -1 }
-			planet_event = { id = UniqueAscensionPerksEvents.3140 }
+			planet_event = { id = leng_project_event.3 }
 		}
 	}
 	option = {
@@ -761,10 +802,87 @@ planet_event = {
 		event_target:owning_empire = { add_resource = { energy = 1400 } }
 		hidden_effect = {
 			event_target:owning_empire = { remove_country_flag = SdjFlagSpeciesMenuOpened }
-			every_owned_species = { remove_species_flag = CmtFlagSpeciesAlreadyListed@root }
+			every_owned_species = { remove_species_flag = CmtFlagSpeciesAlreadyListed@event_target:owning_empire }
 			clear_variable = SdjVarSpeciesListedNum
 			clear_variable = SdjVarSpeciesTotalNum
 			clear_variable = SdjVarMaxPageOfMenu
+		}
+	}
+}
+
+# Choose Sapient or Pre-Sapient
+planet_event = {
+	id = leng_project_event.4
+	location = event_target:new_primitive_world
+	title = "UniqueAscensionPerksEvents.3140.name"
+	desc = "decision_leng_life_regress_civ_desc"
+	picture = GFX_evt_animal_wildlife
+	is_triggered_only = yes
+	immediate = {
+		save_event_target_as = new_primitive_world
+		set_planet_flag = new_primitive_world
+		if = { limit = { NOT = { exists = event_target:owning_empire } exists = fromfrom }
+			fromfrom = { save_event_target_as = owning_empire }
+		}
+	}
+	after = {
+		hidden_effect = {
+			while = { count = 4 create_pop = { species = event_target:primitive_world_species } }
+			remove_planet_flag = upl_ongoing_planet
+			fire_on_action = { on_action = on_uplift_completion scopes = { from = event_target:primitive_world_species } } # Compat. hack for Enhanced Gene Modding
+			# event_target:owning_empire = { fire_on_action = { on_action = on_modification_complete scopes = { from = prevprev } } }
+		}
+	}
+	option = {
+		name = "decision_leng_life_regress_civ_effect_short"
+		custom_tooltip = "decision_leng_life_engineering_project_effect"
+		default_hide_option = yes
+		hidden_effect = {
+			remove_planet_flag = leng_create_presapient
+			planet_event = { id = UniqueAscensionPerksEvents.141 days = 1 } # CREATE_PRIMITIVE_COUNTRY
+		}
+	}
+	## Regress as Pre-Sapient
+	option = {
+		name = "decision_leng_life_engineering_project_presapient"
+		custom_tooltip = "decision_leng_life_engineering_project_presapient_desc"
+		trigger = {
+			exists = event_target:primitive_world_species
+			event_target:primitive_world_species = {
+				is_sapient = yes
+				is_robotic = no
+			}
+		}
+		hidden_effect = {
+			modify_species = {
+				species = event_target:primitive_world_species
+				base = none
+				portrait = event_target:primitive_world_species
+				ideal_planet_class = root
+				# add_trait = trait_uplifted
+				effect = {
+					save_event_target_as = species_target
+					create_random_devolved_species = yes
+				}
+			}
+			event_target:devolved_species_target = {
+				# every_species_pop = {
+				# 	limit = {
+				# 		# is_robot_pop = no
+				# 		# is_same_species = prev
+				# 		is_sapient = yes
+				# 		exists = planet
+				# 		planet = { is_planet = root }
+				# 	}
+				# 	create_random_devolved_species = yes
+				# 	change_species = event_target:devolved_species_target
+				# }
+				set_species_identity = event_target:primitive_world_species
+				save_event_target_as = primitive_world_species
+			}
+			set_timed_planet_flag = { flag = new_primitive_world_stone_age days = 5 }
+			set_timed_planet_flag = { flag = leng_create_presapient days = 5 }
+			planet_event = { id = UniqueAscensionPerksEvents.3141 days = 1 }
 		}
 	}
 }
@@ -784,6 +902,7 @@ planet_event = {
 			}
 		}
 		set_planet_flag = primitive_creation_done
+
 		### Resettle pops:
 		export_trigger_value_to_variable = { variable = num_pops trigger = num_pops }
 		if = { limit = { has_owner = yes check_variable = { which = num_pops value > 0 } }
@@ -959,6 +1078,16 @@ planet_event = {
 			set_update_modifiers_batch = end
 		}
 
+		every_planet_army = { # Compare vanilla planet_destruction.900
+			limit = {
+				NOR = {
+					army_type = primitive_army
+					army_type = primitive_additional_army
+				}
+			}
+			remove_army = yes
+		}
+
 		# create_early_pre_ftl_empire = yes
 		create_country = {
 			name = random
@@ -990,7 +1119,7 @@ planet_event = {
 			released_by_country = event_target:owning_empire
 			released_from_country = event_target:owning_empire
 			effect = {
-				set_graphical_culture = preindustrial_01
+				set_graphical_culture = preindustrial_01 # set_species_graphical_culture = yes
 				prev = {
 					set_owner = prev
 					set_capital = yes
@@ -1057,7 +1186,8 @@ planet_event = {
 	after = {
 		if = { limit = { is_colony = no }
 			setup_pre_ftl_planet = yes
-		} else_if = { limit = { check_variable = { which = pops_to_resettle value > 0 } }
+		}
+		else_if = { limit = { check_variable = { which = pops_to_resettle value > 0 } }
 			while = { count = pops_to_resettle
 				random_owned_pop = {
 					# limit = {
@@ -1085,6 +1215,7 @@ planet_event = {
 		}
 		set_pre_ftl_origin = yes
 		pre_ftl_clean_up_effect = yes
+		event_target:primitive_world_species = { change_species_characteristics = { remove_trait = trait_uplifted } }
 		last_created_country = {
 			if = { limit = { has_origin = "origin_default" }
 				set_origin = "origin_enlightened" # Should only be visible if they become spacefaring
@@ -1112,7 +1243,8 @@ planet_event = {
 		event_target:owning_empire = { set_visited = prev.solar_system }
 		clear_variable = num_pops
 		clear_variable = pops_to_resettle
-		planet_event = { id = UniqueAscensionPerksEvents.3163 days = 25 }
+		planet_event = { id = leng_project_event.103 days = 25 }
+		check_planet_employment = yes
 	}
 }
 
@@ -1384,42 +1516,13 @@ system_event = {
 			starbase = { destroy_fleet = fleet }
 		}
 	}
-	option = { name = UniqueAscensionPerksEvents.3161.b }
-}
-
-# PRE-FTL Technological Progression
-country_event = {
-	id = UniqueAscensionPerksEvents.3162 # preftl.0
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		is_country_type = primitive
-		exists = capital_scope
-		exists = capital_scope.observation_outpost_owner
+	option = { # "Absolutely Not!"
+		name = UniqueAscensionPerksEvents.3161.b # anomaly.5007.b
 	}
-	immediate = {
-		switch = {
-			trigger = has_pre_ftl_age
-			stone_age			= { country_event = { id = preftl.199 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_2 } }
-			bronze_age			= { country_event = { id = preftl.299 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_3 } }
-			iron_age			= { country_event = { id = preftl.399 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_4 } }
-			late_medieval_age	= { country_event = { id = preftl.499 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_5 } }
-			renaissance_age		= { country_event = { id = preftl.599 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_6 } }
-			steam_age			= { country_event = { id = preftl.699 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_7 } }
-			industrial_age		= { country_event = { id = preftl.799 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_8 } }
-			machine_age			= { country_event = { id = preftl.899 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_9 } }
-			atomic_age			= { country_event = { id = preftl.999 } }
-			early_space_age		= { country_event = { id = preftl.1099 } }
-		}
-	}
-	# after = {
-	# 	start_situation = { type = pre_ftl_tech_progress_situation }
-	# 	destroy_situation = from
-	# }
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3163
+	id = leng_project_event.103
 	title = leng_project_event.103.name
 	desc = leng_project_event.103.desc
 	picture = GFX_evt_alien_cavemen
@@ -1428,4 +1531,38 @@ planet_event = {
 	is_triggered_only = yes
 	# immediate = { set_planet_flag = primitive_creation_done }
 	option = { name = EXCELLENT }
+}
+
+# ########################################################
+# Observation Station Missions for Primitive Advance
+# ########################################################
+
+# PRE-FTL Technological Progression
+country_event = {
+	id = leng_project_event.62 # UniqueAscensionPerksEvents.3162 # preftl.0 #
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_country_type = primitive
+		exists = capital_scope
+		exists = capital_scope.observation_outpost_owner
+	}
+	immediate = {
+		switch = { trigger = has_pre_ftl_age
+			stone_age			= { country_event = { id = preftl.199 } capital_scope.observation_outpost = { add_mission_progress =  0 set_mission = len_society_advance_1 } }
+			bronze_age			= { country_event = { id = preftl.299 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_2 } }
+			iron_age			= { country_event = { id = preftl.399 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_3 } }
+			late_medieval_age	= { country_event = { id = preftl.499 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_4 } }
+			renaissance_age		= { country_event = { id = preftl.599 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_5 } }
+			steam_age			= { country_event = { id = preftl.699 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_6 } }
+			industrial_age		= { country_event = { id = preftl.799 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_7 } }
+			machine_age			= { country_event = { id = preftl.899 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_8 } }
+			atomic_age			= { country_event = { id = preftl.999 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_9 } }
+			early_space_age		= { country_event = { id = preftl.1099 } }
+		}
+	}
+	# after = {
+	# 	start_situation = { type = pre_ftl_tech_progress_situation }
+	# 	destroy_situation = from
+	# }
 }

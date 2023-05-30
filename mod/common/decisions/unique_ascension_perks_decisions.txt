@@ -45,7 +45,8 @@ decision_nature_pacification = {
 	potential = {
 		NOT = { has_planet_flag = planet_nature_pacified }
 		can_find_rare_deposits = yes
-		owner = { has_ascension_perk = ap_friendly_nature } is_under_colonization = no
+		exists = from
+		from = { has_ascension_perk = ap_friendly_nature } is_under_colonization = no
 	}
 	effect = {
 		custom_tooltip = "decision_nature_pacification_tooltip"
@@ -215,8 +216,8 @@ decision_genious_pregnancy = {
 		cost = { trigger = { owner = { is_lithoid = no } } food = 1000 }
 	}
 	potential = {
-		exists = owner
-		owner = { has_ascension_perk = ap_genius_cloning }
+		exists = from
+		from = { has_ascension_perk = ap_genius_cloning }
 		is_under_colonization = no
 	}
 	allow = {
@@ -253,8 +254,8 @@ decision_genious_pregnancy2 = {
 		cost = { food = 1000 }
 	}
 	potential = {
-		exists = owner
-		owner = {
+		exists = from
+		from = {
 			is_regular_empire = yes
 			is_lithoid_empire = no
 			has_ascension_perk = ap_genius_cloning
@@ -290,8 +291,8 @@ decision_robot_command = {
 		cost = { trigger = { owner = { has_technology = tech_synthetic_workers } } energy = 150 minerals = 300 alloys = 35 }
 	}
 	potential = {
-		exists = owner
-		owner = { has_ascension_perk = ap_robot_command }
+		exists = from
+		from = { has_ascension_perk = ap_robot_command }
 		is_under_colonization = no
 	}
 	allow = {
@@ -305,7 +306,7 @@ decision_robot_command = {
 			planet_event = { id = UniqueAscensionPerksEvents.62 }
 			while = {
 				count = 9
-				owner = { random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } } }
+				from = { random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } } }
 			}
 		}
 	}
@@ -322,8 +323,8 @@ decision_robot_command2 = {
 		cost = { minerals = 500 alloys = 250 }
 	}
 	potential = {
-		exists = owner
-		owner = { has_ascension_perk = ap_robot_command }
+		exists = from
+		from = { has_ascension_perk = ap_robot_command }
 		NOR = {
 			has_modifier = broken_assembly_line
 			# has_modifier = martial_law
@@ -370,16 +371,13 @@ decision_recomposer_life_to_ai = {
 	on_unqueued = { clear_variable = num_non_robot_pop }
 	potential = {
 		exists = from
-		exists = owner
-		is_owned_by = from
 		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
 		is_under_colonization = no
-
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_1" count_owned_pop = { limit = { is_robot_pop = no } count > 1 } }
 		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = yes } count > 1 } } }
-		owner = {
+		from = {
 			has_country_resource = { type = energy amount > 500 }
 			has_country_resource = { type = minerals amount > 500 }
 		}
@@ -451,15 +449,13 @@ decision_recomposer_ai_to_life = {
 	on_unqueued = { clear_variable = num_robot_pop }
 	potential = {
 		exists = from
-		exists = owner
-		is_owned_by = from
 		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
 		is_under_colonization = no
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_1" count_owned_pop = { limit = { is_robot_pop = yes } count > 1 } }
 		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = no } count > 1 } } }
-		owner = {
+		from = {
 			has_country_resource = { type = energy amount > 500 }
 			has_country_resource = { type = food amount > 500 }
 		}
@@ -518,8 +514,8 @@ decision_galaxy_center = {
 	}
 	potential = {
 		gpm_is_planet_class_city = yes # is_possible_galaxy_center
-		exists = owner
-		owner = {
+		exists = from
+		from = {
 			has_ascension_perk = ap_galaxy_center
 			NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } }
 		}
@@ -578,7 +574,7 @@ decision_ethic_shift = {
 		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 180 } } unity = 100 }
 		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 200 } } unity = 100 }
 	}
-	potential = { is_under_colonization = no  owner = { has_ascension_perk = ap_advanced_government_1 } }
+	potential = { is_under_colonization = no  exists = from from = { has_ascension_perk = ap_advanced_government_1 } }
 	allow = {
 		custom_tooltip = { fail_text = "decision_ethic_shift_req_1" count_owned_pop = { limit = { pop_has_right_ethics = yes } count > 9 } }
 		custom_tooltip = { fail_text = "decision_ethic_shift_req_2" NOT = { has_planet_flag = decision_ethic_shift_cooldown } }
@@ -601,20 +597,10 @@ decision_hivemind_reserve = {
 	resources = {
 		category = decisions
 		cost = { influence = 25 }
-		cost = {
-			trigger = {
-				owner = { is_lithoid_empire = no }
-			}
-			food = 700
-		}
-		cost = {
-			trigger = {
-				owner = { is_lithoid_empire = yes }
-			}
-			minerals = 700
-		}
+		cost = { trigger = { owner = { is_lithoid_empire = no } } food = 700 }
+		cost = { trigger = { owner = { is_lithoid_empire = yes } } minerals = 700 }
 	}
-	potential = { owner = { has_ascension_perk = ap_hivemind_reserve } is_under_colonization = no }
+	potential = { exists = from from = { has_ascension_perk = ap_hivemind_reserve } is_under_colonization = no }
 	allow = {
 		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
 		if = { limit = { is_variable_set = hivemind_reserve_happened }
@@ -650,19 +636,9 @@ decision_hivemind_reserve_unhabited = {
 	icon = decision_hivemind_reserve
 	resources = {
 		category = decisions
-				cost = { influence = 25 }
-		cost = {
-			trigger = {
-				owner = { is_lithoid_empire = no }
-			}
-			food = 900
-		}
-		cost = {
-			trigger = {
-				owner = { is_lithoid_empire = yes }
-			}
-			minerals = 900
-		}
+		cost = { influence = 25 }
+		cost = { trigger = { owner = { is_lithoid_empire = no } } food = 900 }
+		cost = { trigger = { owner = { is_lithoid_empire = yes } } minerals = 900 }
 	}
 	potential = {
 		exists = from
@@ -732,7 +708,7 @@ decision_primitive_creation = {
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
 			from = { num_owned_planets < 3 }
-			from = { has_active_event = { UniqueAscensionPerksEvents.3140 } }
+			from = { has_active_event = { leng_project_event.3 } }
 			# num_pops > 31
 		}
 		# OR = { ## decision_primitive_creation_unhabitable
@@ -747,7 +723,7 @@ decision_primitive_creation = {
 	}
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		planet_event = { id = UniqueAscensionPerksEvents.3140 } # create_primitive_retro_country
+		planet_event = { id = leng_project_event.3 } # create_primitive_retro_country
 	}
 	ai_weight = { weight = 1 }
 }
@@ -784,7 +760,7 @@ decision_primitive_creation_unhabitable = {
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
 			from = { num_owned_planets < 3 }
-			from = { has_active_event = { UniqueAscensionPerksEvents.3140 } }
+			from = { has_active_event = { leng_project_event.3 } }
 			# num_pops > 31
 		}
 	}
@@ -797,7 +773,7 @@ decision_primitive_creation_unhabitable = {
 		else_if = { limit = { merg_is_barren_cold = yes }	change_pc = pc_alpine } # pc_tundra
 		else = { change_pc = pc_ocean }
 		reset_planet = yes
-		planet_event = { id = UniqueAscensionPerksEvents.3140 } # create_primitive_retro_country = yes
+		planet_event = { id = leng_project_event.3 } # create_primitive_retro_country = yes
 	}
 	ai_weight = { weight = 1 }
 }
@@ -1041,7 +1017,16 @@ decision_deep_scanner = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	resources = { category = decisions cost = { energy = 200 } }
-	potential = { owner = { has_ascension_perk = ap_deep_scanner } has_active_building = building_deep_space_scanner }
+	potential = {
+		exists = from
+		from = {
+			OR = {
+				has_ascension_perk = ap_deep_scanner
+				has_valid_civic = civic_exploration # Compat. E&CC
+			}
+		}
+		# has_active_building = building_deep_space_scanner
+	}
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_deep_scanner_req_1"
@@ -1055,42 +1040,42 @@ decision_deep_scanner = {
 			# num_buildings = { type = building_deep_space_scanner disabled = no value > 0 }
 			has_active_building = building_deep_space_scanner
 			OR = {
-				owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } any_system_planet = { can_be_deep_scanned = yes } } }
+				from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } any_system_planet = { can_be_deep_scanned = yes } } }
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 2 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 3 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 2 max_jumps = 6 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 2 max_jumps = 6 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 4 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 4 max_jumps = 8 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 4 max_jumps = 8 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 5 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 6 max_jumps = 10 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 6 max_jumps = 10 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 6 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 8 max_jumps = 12 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 8 max_jumps = 12 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 7 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 10 max_jumps = 14 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 10 max_jumps = 14 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 8 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 12 max_jumps = 16 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 12 max_jumps = 16 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 9 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 14 max_jumps = 18 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 14 max_jumps = 18 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 				AND = {
 					num_buildings = { type = building_deep_space_scanner disabled = no value >= 10 }
-					owner = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 16 max_jumps = 20 } any_system_planet = { can_be_deep_scanned = yes } } }
+					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 16 max_jumps = 20 } any_system_planet = { can_be_deep_scanned = yes } } }
 				}
 			}
 		}
@@ -1113,7 +1098,16 @@ decision_end_deep_scanner = {
 	sound = event_laboratory_sound
 	icon = decision_deep_scanner
 	resources = { category = decisions }
-	potential = { owner = { has_ascension_perk = ap_deep_scanner } has_active_building = building_deep_space_scanner has_modifier = pm_deep_scanner }
+	potential = {
+		exists = from
+		from = {
+			OR = {
+				has_ascension_perk = ap_deep_scanner
+				has_valid_civic = civic_exploration # Compat. E&CC
+			}
+		}
+		has_active_building = building_deep_space_scanner has_modifier = pm_deep_scanner
+	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_deep_scanner_req_1" has_modifier = pm_deep_scanner NOT = { has_planet_flag = decision_deep_scanner_cooldown } }
 	}
@@ -1128,7 +1122,7 @@ decision_civilian_cargo_focus = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	resources = { category = decisions cost = {} }
-	potential = { is_capital = no owner = { has_country_flag = ap_civilian_activities_project NOT = { any_owned_planet = { has_planet_flag = civilian_cargo_focus } } } }
+	potential = { is_capital = no exists = from from = { has_country_flag = ap_civilian_activities_project NOT = { any_owned_planet = { has_planet_flag = civilian_cargo_focus } } } }
 	effect = { custom_tooltip = "decision_civilian_cargo_focus_tooltip" hidden_effect = { set_planet_flag = civilian_cargo_focus } }
 	ai_weight = { weight = 1 }
 }
@@ -1138,7 +1132,7 @@ decision_civilian_cargo_focus_off = {
 	sound = event_laboratory_sound
 	icon = decision_civilian_cargo_focus
 	resources = { category = decisions cost = {} }
-	potential = { is_capital = no owner = { has_country_flag = ap_civilian_activities_project } has_planet_flag = civilian_cargo_focus }
+	potential = { is_capital = no exists = from from = { has_country_flag = ap_civilian_activities_project } has_planet_flag = civilian_cargo_focus }
 	effect = { custom_tooltip = "decision_civilian_cargo_focus_off_tooltip" hidden_effect = { remove_planet_flag = civilian_cargo_focus } }
 	ai_weight = { weight = 1 }
 }
@@ -1147,7 +1141,7 @@ decision_self_aware_colony = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	resources = { category = decisions cost = {} }
-	potential = { OR = { has_global_flag = ap_self_aware_colony owner = { has_ascension_perk = ap_self_aware_colony } } NOT = { has_modifier = self_aware_colony } }
+	potential = { OR = { has_global_flag = ap_self_aware_colony exists = from from = { has_ascension_perk = ap_self_aware_colony } } NOT = { has_modifier = self_aware_colony } }
 	effect = {
 		custom_tooltip = "decision_self_aware_colony_tooltip"
 		hidden_effect = {
