@@ -5,18 +5,53 @@ utility_component_template = {
 	icon_frame = 1
 	ftl = yes
 	power = 0
-	resources = {
-		category = ship_components
-		cost = { alloys = 0 }
-		upkeep = {
-			energy = 0
-			alloys = 0
-		}
+	# resources = {
+	# 	category = ship_components
+	# 	cost = { alloys = 0 }
+	# 	upkeep = {
+	# 		energy = 0
+	# 		alloys = 0
+	# 	}
+	# }
+	size_restriction = { civilian_factory civilian_industrial_ship }
+	# prerequisites = { "tech_hyper_drive_2" }
+	component_set = "ftl_components"
+	ai_weight = { weight = 0 }
+	upgrades_to = "HYPER_DRIVE_2_CIVILIAN"
+}
+
+utility_component_template = {
+	key = "HYPER_DRIVE_2_CIVILIAN"
+	size = small
+	icon = "GFX_ship_part_hyper_drive_2"
+	icon_frame = 1
+	ftl = yes
+	ship_modifier = {
+		ship_disengage_opportunities_add = 1
+		ship_windup_mult = -0.25
 	}
-	size_restriction = { civilian_factory }
+	ai_weight = { weight = 2 }
+	size_restriction = { constructor construction_ship_swarm construction_ship_ed construction_ship_ai colonizer sponsored_colonizer lithoid_colonizer colony_ship_swarm colony_ship_ai science alien_racing_ship ghost_ship enigmatic_cache civilian_factory civilian_industrial_ship }
 	prerequisites = { "tech_hyper_drive_2" }
 	component_set = "ftl_components"
-	ai_weight = { weight = 1 }
+	upgrades_to = "HYPER_DRIVE_3_CIVILIAN"
+}
+
+utility_component_template = {
+	key = "HYPER_DRIVE_3_CIVILIAN"
+	size = small
+	icon = "GFX_ship_part_hyper_drive_3"
+	icon_frame = 1
+	ftl = yes
+	ship_modifier = {
+		ship_disengage_opportunities_add = 1
+		ship_windup_mult = -0.5
+	}
+	ai_weight = { weight = 3 }
+	size_restriction = { constructor construction_ship_swarm construction_ship_ed construction_ship_ai colonizer sponsored_colonizer lithoid_colonizer colony_ship_swarm colony_ship_ai science alien_racing_ship ghost_ship enigmatic_cache civilian_factory civilian_industrial_ship }
+	prerequisites = { "tech_hyper_drive_3" }
+	component_set = "ftl_components"
+	upgrades_to = "JUMP_DRIVE_1"
 }
 
 utility_component_template = {
@@ -176,26 +211,27 @@ utility_component_template = {
 	ai_weight = { weight = 2 }
 }
 
-utility_component_template = {
-	key = "CIVILIAN_INDUSTRIAL_SLOT_EMPTY"
-	size = medium
-	icon = "GFX_ship_part_empty_ftl_drive"
-	icon_frame = 1
-	ftl = yes
-	power = 0
-	resources = {
-		category = ship_components
-		cost = { alloys = 0 }
-		upkeep = {
-			energy = 0
-			alloys = 0
-		}
-	}
-	size_restriction = { civilian_industrial_ship }
-	prerequisites = { "tech_hyper_drive_2" }
-	component_set = "ftl_components"
-	ai_weight = { weight = 1 }
-}
+# utility_component_template = {
+# 	key = "CIVILIAN_INDUSTRIAL_SLOT_EMPTY"
+# 	size = medium
+# 	icon = "GFX_ship_part_empty_ftl_drive"
+# 	icon_frame = 1
+# 	ftl = yes
+# 	power = 0
+# 	resources = {
+# 		category = ship_components
+# 		cost = { alloys = 0 }
+# 		upkeep = {
+# 			energy = 0
+# 			alloys = 0
+# 		}
+# 	}
+# 	size_restriction = { civilian_factory civilian_industrial_ship }
+# 	prerequisites = { "tech_hyper_drive_2" }
+# 	component_set = "ftl_components"
+# 	ai_weight = { weight = 1 }
+# 	upgrades_to = "HYPER_DRIVE_2_CIVILIAN"
+# }
 
 utility_component_template = {
 	key = "CIVILIAN_INDUSTRIAL_SLOT_ENERGY_FACTORY"

@@ -20,6 +20,7 @@ leader_trait_stubborn = {
 	selectable_weight = @shared_negative_trait_weight
 }
 
+###################
 leader_trait_resilient = {
 	inline_script = {
 		script = trait/icon
@@ -31,15 +32,21 @@ leader_trait_resilient = {
 	}
 	triggered_self_modifier = {
 		potential = {
-			is_gestalt = yes
+			exists = owner
+			owner = {
+				is_synthetic_empire = yes
+			}
 			is_hive_species = no
 		}
-		leaders_upkeep_mult = -0.075
+		leaders_upkeep_mult = -0.1
 	}
 	triggered_self_modifier = {
 		potential = {
+			exists = owner
 			OR = {
-				is_gestalt = no
+				owner = {
+				is_synthetic_empire = no
+			}
 				is_hive_species = yes
 			}
 		}
@@ -123,6 +130,25 @@ leader_trait_arrested_development = {
 	}
 	self_modifier = {
 		species_leader_exp_gain = -0.25
+	}
+	leader_class = { admiral scientist general governor }
+	initial = no
+}
+
+leader_trait_arrested_development_2 = {
+	negative = yes
+	replace_traits = { "leader_trait_arrested_development" }
+	inline_script = {
+		script = trait/icon_negative
+		ICON = "GFX_leader_trait_arrested_development"
+		COUNCIL = no
+		TIER = 2
+	}
+	leader_potential_add = {
+		NOT = { from = { has_technology = tech_expandable_brain_1 } }
+	}
+	self_modifier = {
+		species_leader_exp_gain = -0.75
 	}
 	leader_class = { admiral scientist general governor }
 	initial = no
