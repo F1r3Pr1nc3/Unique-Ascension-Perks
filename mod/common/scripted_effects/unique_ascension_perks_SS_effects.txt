@@ -57,11 +57,21 @@ surgical_strike_abducted_pop_colony_transfer = {
 			2 = { modifier = { factor = 100 has_ethic = ethic_authoritarian } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_authoritarian } }
 			2 = { modifier = { factor = 100 is_gestalt = yes } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_gestalt_consciousness } }
 			# (Mod) Ethics and Civics Classic
-			2 = { modifier = { factor = 100 has_global_flag = cultural_overhaul_active is_gestalt = yes } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_focused } }
-			2 = { modifier = { factor = 100 has_global_flag = cultural_overhaul_active has_ethic = ethic_green } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_green } }
-			2 = { modifier = { factor = 100 has_global_flag = cultural_overhaul_active has_ethic = ethic_industrial } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_industrial } }
-			2 = { modifier = { factor = 100 has_global_flag = cultural_overhaul_active has_ethic = ethic_socialism } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_socialism } }
-			2 = { modifier = { factor = 100 has_global_flag = cultural_overhaul_active has_ethic = ethic_capitalism } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_capitalism } }
+			1002 = {
+				modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } }
+				modifier = { add = -200 is_gestalt = no }
+				modifier = { add = -200 NOT = { has_ethic = ethic_green } }
+				modifier = { add = -200 NOT = { has_ethic = ethic_industrial } }
+				modifier = { add = -200 NOT = { has_ethic = ethic_socialism } }
+				modifier = { add = -200 NOT = { has_ethic = ethic_capitalism } }
+				random_list = {
+					2 = { modifier = { factor = 100 is_gestalt = yes } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_focused } }
+					2 = { modifier = { factor = 100 has_ethic = ethic_green } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_green } }
+					2 = { modifier = { factor = 100 has_ethic = ethic_industrial } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_industrial } }
+					2 = { modifier = { factor = 100 has_ethic = ethic_socialism } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_socialism } }
+					2 = { modifier = { factor = 100 has_ethic = ethic_capitalism } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_capitalism } }
+				}
+			}
 		}
 		kill_pop = yes
 	}
@@ -116,8 +126,8 @@ surgical_strike_districts = {
 		50 = { modifier = { factor = 0 NOT = { has_district = district_security_uncapped } } remove_district = district_security_uncapped }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_upgrade } } remove_district = district_upgrade }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_upgrade_uncapped } } remove_district = district_upgrade_uncapped }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_recycling } } remove_district = district_recycling }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_recycling_uncapped } } remove_district = district_recycling_uncapped }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_recycling } } remove_district = district_recycling }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_recycling_uncapped } } remove_district = district_recycling_uncapped }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_finance } } remove_district = district_finance }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_finance_uncapped } } remove_district = district_finance_uncapped }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_casino } } remove_district = district_casino }
