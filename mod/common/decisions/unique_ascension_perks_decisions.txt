@@ -1141,31 +1141,40 @@ decision_self_aware_colony = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	resources = { category = decisions cost = {} }
-	potential = { exists = from OR = { has_global_flag = ap_self_aware_colony from = { has_ascension_perk = ap_self_aware_colony } } NOT = { has_modifier = self_aware_colony } }
+	potential = {
+		exists = from
+		# OR = { has_global_flag = ap_self_aware_colony
+		from = { has_ascension_perk = ap_self_aware_colony }
+		NOT = { has_modifier = self_aware_colony }
+	}
 	effect = {
 		custom_tooltip = "decision_self_aware_colony_tooltip"
 		hidden_effect = {
-			remove_all_buildings = yes
-			remove_all_districts = yes
-			add_modifier = { modifier = self_aware_colony clear_on_owner_change = yes }
-			add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = yes }
+			if = { limit = { has_modifier = self_aware_colony }
+				planet_event = { id = UniqueAscensionPerksEvents.461 }
+			} else = {
+				remove_all_buildings = yes
+				remove_all_districts = yes
+				add_modifier = { modifier = self_aware_colony clear_on_owner_change = no }
+				add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = no }
+			}
 		}
 	}
-	ai_weight = { weight = 1 }
+	ai_weight = { weight = 0.5 }
 }
 
-decision_self_aware_colony_menu = {
-	owned_planets_only = yes
-	sound = event_laboratory_sound
-	icon = decision_self_aware_colony
-	resources = { category = decisions cost = {} }
-	potential = { has_modifier = self_aware_colony }
-	effect = { hidden_effect = {
-		# save_event_target_as = self_aware_planet
-		planet_event = { id = UniqueAscensionPerksEvents.461 } }
-	}
-	ai_weight = { weight = 1 }
-}
+# decision_self_aware_colony_menu = {
+# 	owned_planets_only = yes
+# 	sound = event_laboratory_sound
+# 	icon = decision_self_aware_colony
+# 	resources = { category = decisions cost = {} }
+# 	potential = { has_modifier = self_aware_colony }
+# 	effect = { hidden_effect = {
+# 		# save_event_target_as = self_aware_planet
+# 		planet_event = { id = UniqueAscensionPerksEvents.461 } }
+# 	}
+# 	ai_weight = { weight = 1 }
+# }
 
 decision_legendary_forge = {
 	sound = event_mystic_reveal
