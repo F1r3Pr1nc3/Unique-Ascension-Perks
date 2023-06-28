@@ -1,4 +1,4 @@
-version="2.5.6b"
+version="2.5.7b"
 tags={
 	"Buildings"
 	"Gameplay"
@@ -10,7 +10,7 @@ tags={
 	"Diplomacy"
 	"Technologies"
 }
-name="Unique Ascension Perks 3.8 BETA"
+name="Unique Ascension Perks 3.8 DEV branch"
 picture="thumbnail.png"
 supported_version="3.8.*"
 remote_file_id="2811428998"

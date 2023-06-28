@@ -13,7 +13,7 @@ namespace = UniqueAscensionPerksMenuEvents
 @ap_genius_cloning = 3 # TODO may split in 2 AP?
 @ap_adv_colonisation = 7 # TODO may split in 2 AP?
 @ap_expansion_infinity = 7 # Recycling Expeditions
-@ap_recycling_drones = 7
+@ap_recycling_drones = 5
 @ap_emergency_calculation = 7
 @ap_economic_prospertity = 7
 @ap_chosen_ruler = 7
@@ -23,7 +23,7 @@ namespace = UniqueAscensionPerksMenuEvents
 @ap_friendly_nature = 7 # Robotic Assemblers
 @ap_robot_command = 3
 @ap_recomposer = 3
-@ap_megacorp = 18
+@ap_megacorp = 15
 @ap_fallen_disciple = 9
 @ap_stability_celebration = 2
 @ap_galaxy_center = 3
@@ -38,8 +38,8 @@ namespace = UniqueAscensionPerksMenuEvents
 @ap_primitives_creation = 3
 @ap_powerful_vassals = 3
 @ap_mechanical_prophet = 9
-@ap_machine_core = 18
-@ap_defense_sentinels = 9
+@ap_machine_core = 15
+@ap_defense_sentinels = 7
 @ap_leadership_transfer = 3
 @ap_civilian_activities = 2
 @ap_pyramidal_society = 3	# Pinnacle Society
@@ -125,12 +125,12 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
 			every_country = {
 				every_owned_leader = {
-					if = { limit = { has_skill < 5 } set_skill = 5 }
+					if = { limit = { has_skill < 5 } set_skill = 4 add_skill = 1 }
 					if = { limit = { NOT = { has_leader_flag = first_cheated_trait } } set_leader_flag = first_cheated_trait BR_add_random_leader_trait = yes }
 					if = { limit = { NOT = { has_leader_flag = first_second_trait } } set_leader_flag = first_second_trait BR_add_random_leader_trait = yes }
 				}
 				every_pool_leader = {
-					if = { limit = { has_skill < 5 } set_skill = 5 }
+					if = { limit = { has_skill < 5 } set_skill = 4 add_skill = 1 }
 					if = { limit = { NOT = { has_leader_flag = first_cheated_trait } } set_leader_flag = first_cheated_trait BR_add_random_leader_trait = yes }
 					if = { limit = { NOT = { has_leader_flag = first_second_trait } } set_leader_flag = first_second_trait BR_add_random_leader_trait = yes }
 				}
@@ -1598,7 +1598,7 @@ country_event = {
 }
 
 # AI weight values - needs match UniqueAscensionPerksMenuEvents
-event = {
+country_event = {
 	id = UniqueAscensionPerksMenuEvents.100
 	hide_window = yes
 	is_triggered_only = yes

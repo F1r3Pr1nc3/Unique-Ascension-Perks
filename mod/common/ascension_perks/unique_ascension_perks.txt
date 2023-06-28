@@ -810,7 +810,7 @@ ap_megacorp = {
 			fail_text = "ap_megacorp_req_3"
 			OR = {
 				has_ascension_perk = ap_universal_transactions
-				has_civic = civic_criminal_heritage
+				is_criminal_syndicate = yes # has_civic = civic_criminal_heritage
 			}
 		}
 		host_has_dlc = "Megacorp"
@@ -821,7 +821,7 @@ ap_megacorp = {
 		# planet_branch_offices_produces_mult = 0.20
 		empire_size_branch_office_mult = -0.25
 		planet_branch_offices_cost_mult = -0.15
-		planet_max_branch_office_buildings_add = 2		# TODO 5 for > 3.4
+		planet_max_branch_office_buildings_add = 4		# TODO 5 for > 3.4: compare aggressive_marketing_target
 	}
 	on_enabled = {
 		custom_tooltip = "ap_megacorp_tooltip"
@@ -1479,7 +1479,7 @@ ap_underworld = {
 			fail_text = "ap_underworld_req_3"
 			OR = {
 				resource_stockpile_compare = { resource = treasures value >= 4000 }
-				has_valid_civic = civic_criminal_heritage
+				is_criminal_syndicate = yes # has_valid_civic = civic_criminal_heritage
 			}
 		}
 	}
@@ -1488,7 +1488,7 @@ ap_underworld = {
 		custom_tooltip = "ap_underworld_tooltip"
 		if = {
 			limit = {
-				NOT = { has_valid_civic = civic_criminal_heritage }
+				is_criminal_syndicate = no # NOT = { has_valid_civic = civic_criminal_heritage }
 			}
 			add_resource = { treasures = -4000 }
 		}

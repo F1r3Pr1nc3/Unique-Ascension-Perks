@@ -1,0 +1,192 @@
+guiTypes = {
+		# Template for a type of Holding in the list (such as Corporate, Subject Holding...)
+	containerWindowType = {
+		name = "holding_type_entry"
+		size = { width = 540 height = 90 }
+		position = { x = 0 y = 0 }
+		margin = { bottom = 20 }
+
+		instantTextBoxType = {
+			name = "holding_type_title"
+			font = "cg_16b"
+			text = ""
+			position = { x = 4 y = 3 }
+			maxWidth = 200
+			maxHeight = 20
+			fixedSize = yes
+			format = left
+		}
+
+		containerWindowType = {
+			name = "holdings_per_country_container"
+			size = { width = 540 height = 70 }
+			position = { x = 0 y = 20 }
+
+			gridBoxType = {
+				name = "holdings_per_country_box"
+				position = { x = 0 y = 0 }
+				format = "UPPER_LEFT"
+				slotsize = { width = 550 height = 70 }
+				add_horizontal = no
+				max_slots_horizontal = 1
+			}
+		}
+
+		containerWindowType = {
+			name = "empty_text_container"
+			size = { width = 200 height = 20 }
+			position = { x = 140 y = 18 }
+
+			instantTextBoxType = {
+				name = "empty_text"
+				font = "cg_16b"
+				text = "Some text" # Changed in code
+				position = { x = 0 y = 0 }
+				maxWidth = 270
+				maxHeight = 20
+				fixedSize = yes
+				format = center
+			}
+		}
+	}
+
+	# Template for a collection of buildings for a certain country
+	containerWindowType = {
+		name = "holding_per_country_entry"
+		size = { width = 540 height = 165 }
+		position = { x = 9 y = 7 }
+
+		background = {
+			name = "background"
+			spriteType = "GFX_dark_area_cut"
+		}
+
+		containerWindowType = {
+			name = "contents"
+			size = { width = 540 height = 135 }
+			position = { x = 0 y = 13 }
+
+			buttonType = {
+				name = "country_flag"
+				quadTextureSprite = "GFX_empire_flag_48"
+				position = { x = 5 y = 10  }
+			}
+
+			containerWindowType = {
+				name = "buildings_container"
+				size = { width = 245 height = 65 }
+				position = { x = 55 y = 5 }
+
+				gridBoxType = {
+					name = "buildings_box"
+					position = { x = 0 y = 0 }
+					size = { width = 245 height = 65 }
+					format = "UPPER_LEFT"
+					slotsize = { width = 60 height = 60 }
+					add_horizontal = no
+					max_slots_horizontal = 4
+					max_slots_vertical = 2
+				}
+			}
+
+			containerWindowType = {
+				name = "holdings_value_container"
+				size = { width = 270 height = 48 }
+				position = { x = 455 y = -14 }
+
+				iconType = {
+					name = "holdings_value_icon"
+					spriteType = "GFX_resource_energy_large"
+					position = { x = 0 y = 0 }
+				}
+
+				instantTextBoxType = {
+					name = "holdings_value_amount"
+					font = "malgun_goth_24"
+					position = { x = 20 y = 2 }
+					text = "5"
+					maxWidth = 50
+					maxHeight = 20
+					fixedSize = yes
+					format = right
+					orientation = upper_left
+				}
+			}
+
+			# Branch office output
+			containerWindowType = {
+				name = "holdings_resources"
+				size = { width = 160 height = 84 }
+				position = { x = 301 y = -8 }
+
+				instantTextBoxType = {
+					name = "holdings_production_output_title"
+					font = "cg_16b"
+					text = "PRODUCTION"
+					position = { x = 0 y = 0 }
+					maxWidth = 78
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					orientation = upper_left
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType={
+					name = "holdings_production_output_amount"
+					font = "cg_16b"
+					position = { x = 0  y = 25 }
+					text = "10"
+					maxWidth = 72
+					maxHeight = 50
+					fixedSize = yes
+					format = center
+				}
+
+				instantTextBoxType = {
+					name = "holdings_consumption_output_title"
+					font = "cg_16b"
+					text = "DEFICIT"
+					position = { x = 80 y = 0 }
+					maxWidth = 78
+					maxHeight = 20
+					fixedSize = yes
+					format = center
+					orientation = upper_left
+					alwaysTransparent = yes
+				}
+
+				instantTextBoxType={
+					name = "holdings_consumption_output_amount"
+					font = "cg_16b"
+					position = { x = 82 y = 25 }
+					text = "10"
+					maxWidth = 72
+					maxHeight = 50
+					fixedSize = yes
+					format = center
+				}
+			}
+
+			buttonType = {
+				name = "close_branch_office_button"
+				quadTextureSprite = "GFX_button_close_branch_office"
+				position = { x = -50 y = 44 }
+				orientation = upper_right
+			}
+		}
+
+		buttonType = {
+			name = "establish_branch_office"
+			position = { x = 150 y = 10 }
+			quadTextureSprite = "GFX_standard_button_200_34_button"
+			buttonFont = "cg_16b"
+			text = "ESTABLISH_BRANCH_OFFICE"
+			font = "cg_16b"
+			orientation = UPPER_LEFT
+			oversound = mouse_over
+			navLeft = "change"
+			shortcut = "B"
+		}
+	}
+}

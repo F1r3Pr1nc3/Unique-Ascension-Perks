@@ -1037,8 +1037,8 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	immediate = {
-		every_owned_leader = { if = { limit = { has_skill < 5 } set_skill = 5 } BR_add_random_leader_trait = yes }
-		every_pool_leader = { if = { limit = { has_skill < 5 } set_skill = 5 } BR_add_random_leader_trait = yes }
+		every_owned_leader = { if = { limit = { has_skill < 5 } set_skill = 4 add_skill = 1 } BR_add_random_leader_trait = yes }
+		every_pool_leader = { if = { limit = { has_skill < 5 } set_skill = 4 add_skill = 1 } BR_add_random_leader_trait = yes }
 	}
 	after = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 } }
@@ -1136,7 +1136,7 @@ country_event = {
 		if = { limit = { OR = { has_modifier = expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 2 } } from = { set_skill = 2 } }
 		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 3 } } from = { set_skill = 3 BR_add_random_leader_trait = yes } }
 		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 4 } }
-		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 5 BR_add_random_leader_trait = yes } }
+		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 4 add_skill = 1 BR_add_random_leader_trait = yes } }
 	}
 }
 
@@ -1666,14 +1666,17 @@ country_event = {
 		# perform_recovery_fleet = yes
 		random_system_within_border = {
 			limit = { has_star_flag = recycle_fleet_spawn_system }
-			star = { save_event_target_as = recovery_fleet_position }
+			system_star = { save_event_target_as = recovery_fleet_position }
 		}
 		if = { limit = { NOT = { exists = event_target:recovery_fleet_position } }
 			random_system_within_border = {
 				limit = { exists = starbase }
 				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
-				star = { save_event_target_as = recovery_fleet_position }
+				system_star = { save_event_target_as = recovery_fleet_position }
 			}
+		}
+		if = { limit = { exists = capital_star NOT = { exists = event_target:recovery_fleet_position } }
+			capital_star = { save_event_target_as = recovery_fleet_position }
 		}
 		create_fleet = {
 			name = "Recovered Fleet"
@@ -7443,7 +7446,7 @@ country_event = {
 	# mean_time_to_happen = { months = 1 }
 	# pre_triggers = { has_owner = yes }
 	trigger = {
-		is_country_type = default
+		merg_is_default_empire = yes
 		# OR = { has_global_flag = ap_self_aware_colony
 		has_ascension_perk = ap_self_aware_colony
 		# }
@@ -7485,7 +7488,7 @@ country_event = {
 	# mean_time_to_happen = { months = 6 }
 	# pre_triggers = { has_owner = yes }
 	trigger = {
-		is_country_type = default
+		merg_is_default_empire = yes
 		NOT = {
 			# has_global_flag = ap_self_aware_colony
 			has_ascension_perk = ap_self_aware_colony
@@ -7524,36 +7527,35 @@ planet_event = {
 			990 = {
 				modifier = {
 					factor = 0
-						is_variable_set = d_aware_administration_building
-						check_variable = { which = d_aware_administration_building value > 0 }
-						switch = { trigger = num_pops
-							40	> { always = yes }
-							80	> { check_variable = { which = d_aware_administration_building value > 1 } }
-							120	> { check_variable = { which = d_aware_administration_building value > 2 } }
-							160	> { check_variable = { which = d_aware_administration_building value > 3 } }
-							200	> { check_variable = { which = d_aware_administration_building value > 4 } }
-							240	> { check_variable = { which = d_aware_administration_building value > 5 } }
-							280	> { check_variable = { which = d_aware_administration_building value > 6 } }
-							320	> { check_variable = { which = d_aware_administration_building value > 7 } }
-							360	> { check_variable = { which = d_aware_administration_building value > 8 } }
-							400	> { check_variable = { which = d_aware_administration_building value > 9 } }
-							400 <={ check_variable = { which = d_aware_administration_building value > 10 } }
-							default = { always = no }
-						}
-						# OR = {
-						# AND = { check_variable = { which = d_aware_administration_building value > 0 } num_pops < 40 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 1 } num_pops < 80 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 2 } num_pops < 120 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 3 } num_pops < 160 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 4 } num_pops < 200 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 5 } num_pops < 240 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 6 } num_pops < 280 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 7 } num_pops < 320 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 8 } num_pops < 360 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 9 } num_pops < 400 }
-						# AND = { check_variable = { which = d_aware_administration_building value > 10 } num_pops >= 400 }
-						# }
+					is_variable_set = d_aware_administration_building
+					check_variable = { which = d_aware_administration_building value > 0 }
+					switch = { trigger = num_pops
+						40	> { always = yes }
+						80	> { check_variable = { which = d_aware_administration_building value > 1 } }
+						120	> { check_variable = { which = d_aware_administration_building value > 2 } }
+						160	> { check_variable = { which = d_aware_administration_building value > 3 } }
+						200	> { check_variable = { which = d_aware_administration_building value > 4 } }
+						240	> { check_variable = { which = d_aware_administration_building value > 5 } }
+						280	> { check_variable = { which = d_aware_administration_building value > 6 } }
+						320	> { check_variable = { which = d_aware_administration_building value > 7 } }
+						360	> { check_variable = { which = d_aware_administration_building value > 8 } }
+						400	> { check_variable = { which = d_aware_administration_building value > 9 } }
+						400	<={ check_variable = { which = d_aware_administration_building value > 10 } }
+						default = { always = no }
 					}
+					# OR = {
+					# AND = { check_variable = { which = d_aware_administration_building value > 0 } num_pops < 40 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 1 } num_pops < 80 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 2 } num_pops < 120 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 3 } num_pops < 160 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 4 } num_pops < 200 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 5 } num_pops < 240 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 6 } num_pops < 280 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 7 } num_pops < 320 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 8 } num_pops < 360 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 9 } num_pops < 400 }
+					# AND = { check_variable = { which = d_aware_administration_building value > 10 } num_pops >= 400 }
+					# }
 				}
 				change_variable = { which = d_aware_administration_building value = 1 }
 				add_deposit = d_aware_administration_building
