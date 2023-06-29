@@ -733,10 +733,12 @@ country_event = {
 		hidden_effect = {
 			from = {
 				random_list = {
-					40 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system } } add_hyperlane = { from = this to = event_target:lh_basic_system } }
-					20 = { modifier = { factor = 0 OR = { NOR = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system } } add_hyperlane = { from = this to = event_target:lh_spawned_system } }
-					30 = { random_neighbor_system_euclidean = { limit = { NOT = { has_hyperlane_to = prev } } add_hyperlane = { from = this to = prev } } }
+					40 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system distance = { source = event_target:lh_basic_system type = euclidean max_distance >= 40 } } } add_hyperlane = { from = this to = event_target:lh_basic_system } }
+					20 = { modifier = { factor = 0 OR = { NOR = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system distance = { source = event_target:lh_spawned_system type = euclidean max_distance >= 40 } } } add_hyperlane = { from = this to = event_target:lh_spawned_system } }
+					30 = { modifier = { factor = 0 NOT = { any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prev } distance = { source = prev type = euclidean max_distance <= 35 } } } } random_neighbor_system_euclidean = { limit = { NOR = { has_hyperlane_to = prev any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prevprev } distance = { source = prevprev type = euclidean max_distance <= 25 } } } } add_hyperlane = { from = this to = prev } } }
 					10 = { modifier = { factor = 0 NOT = { any_neighbor_system = { has_hyperlane_to = prev } } } }
+					9 = { modifier = { factor = 0 NOT = { any_neighbor_system_euclidean = { has_hyperlane_to = prev } } } }
+					1 = {}
 				}
 			}
 		}

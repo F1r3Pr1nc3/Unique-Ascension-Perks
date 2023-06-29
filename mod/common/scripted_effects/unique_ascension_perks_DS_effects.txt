@@ -54,9 +54,10 @@ create_defense_sentinels_country = {
 					set_country_flag = defense_sentinels
 					set_relation_flag = { who = root flag = defense_sentinels }
 					set_faction_hostility = { target = root set_hostile = no set_neutral = no set_friendly = yes }
-					if = { limit = { root = { OR = { is_ai = no is_overlord = yes } } }
-						set_subject_of = { who = root preset = preset_machine_follower }
-					}
+					# Disabled in 3.8.4 due unsolvable side effects aka federation (infinite joing/re-joining)
+					# if = { limit = { root = { OR = { is_ai = no is_overlord = yes } } }
+					# 	set_subject_of = { who = root preset = preset_machine_follower }
+					# }
 					set_graphical_culture = ai_02
 					add_trust = { amount = 95 who = root }
 					# Opinion hack

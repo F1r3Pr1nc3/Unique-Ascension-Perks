@@ -423,81 +423,90 @@ country_event = {
 			has_country_flag = space_domestication_military_protocol
 			has_country_flag = space_domestication_security_protocol
 		}
-		any_relation = { has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
-		count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
+		any_relation = {
+			has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+			count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
+		}
 	}
 	immediate = {
-		save_event_target_as = main_country
-		if = { limit = { has_country_flag = killed_guardian NOT = { has_country_flag = has_killed_leviathan } }
-			set_country_flag = has_killed_leviathan
-		}
-		country_event = { id = UniqueAscensionPerksEvents.1030 days = 2 }
-		# space_domestication_constant_breed_event = yes
-		# save_event_target_as = main_country
-		random_relation = {
-			limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
-			save_event_target_as = domesticated_spaceborn_alien
-		}
-		event_target:domesticated_spaceborn_alien = {
-			if = {
-				limit = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } } }
-				random_owned_fleet = {
-					limit = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
-					save_event_target_as = domesticated_mother_fleet
-					if = { limit = { root = { has_country_flag = space_domestication_amoeba } }
-						set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 2 }
-					} else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 3 } }
+		if = { # Only bi monthly
+			limit = { NOT = { has_country_flag = bi_space_domestication_protocol } }
+			set_country_flag = bi_space_domestication_protocol
+		} else = {
+			remove_country_flag = bi_space_domestication_protocol
+			save_event_target_as = main_country
+			if = { limit = { has_country_flag = killed_guardian NOT = { has_country_flag = has_killed_leviathan } }
+				set_country_flag = has_killed_leviathan
+			}
+
+			country_event = { id = UniqueAscensionPerksEvents.1030 days = 2 }
+			# SPACE_DOMESTICATION_CONSTANT_BREED_EVENT
+			random_relation = {
+				limit = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
 				}
-				create_fleet = {
-					name = ""
-					effect = {
-						set_owner = event_target:domesticated_spaceborn_alien
-						# space_domestication_spawn_default_fleet = yes
-						if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } } }
-						} else_if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba" } } }
-							while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba Mother" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
-						} else_if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } }
-							while = { count = 5 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } } }
-							while = { count = 5 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } } }
-							while = { count = 5 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } } }
-						} else_if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } }
-							while = { count = 5 create_ship = { name = "" design = NAME_Dom_Cloud } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud } } }
-						} else_if = {
-							limit = { event_target:main_country = { has_country_flag = space_domestication_drone } }
-							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } } }
-							while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } }
-							while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } } }
-						}
-						set_location = { target = event_target:domesticated_mother_fleet distance = 5 angle = random }
-						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
-						set_aggro_range = 5000
-						set_formation_scale = 4.0
-						save_event_target_as = domesticated_fleet
-						set_fleet_flag = domesticated_fleet
-						set_fleet_flag = domesticated_military_fleet
-						if = { limit = { event_target:domesticated_spaceborn_alien = { has_country_flag = space_domestication_military_protocol } }
-							set_name = "Domesticated Military Aliens"
-						} else_if = { limit = { event_target:domesticated_spaceborn_alien = { has_country_flag = space_domestication_security_protocol } }
-							set_name = "Domesticated Security Aliens"
+				save_event_target_as = domesticated_spaceborn_alien
+				if = {
+					limit = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } } }
+					random_owned_fleet = {
+						limit = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
+						save_event_target_as = domesticated_mother_fleet
+						if = { limit = { root = { has_country_flag = space_domestication_amoeba } }
+							set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 2 }
+						} else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 3 } }
+					}
+					create_fleet = {
+						name = ""
+						effect = {
+							set_owner = event_target:domesticated_spaceborn_alien
+							# space_domestication_spawn_default_fleet = yes
+							if = {
+								limit = { event_target:main_country = { has_country_flag = space_domestication_tiyanki } }
+								while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Calf" } } }
+								while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Bull" } } }
+								while = { count = 5 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Tiyanki Cow" } } }
+							} else_if = {
+								limit = { event_target:main_country = { has_country_flag = space_domestication_amoeba } }
+								while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba" } } }
+								while = { count = 5 create_ship = { name = "" design = "Demosticated Amoeba Mother" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Demosticated Amoeba Mother" } } }
+							} else_if = {
+								limit = { event_target:main_country = { has_country_flag = space_domestication_crystal } }
+								while = { count = 5 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Small Crystal Entity" } } }
+								while = { count = 5 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Medium Crystal Entity" } } }
+								while = { count = 5 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Domesticated Large Crystal Entity" } } }
+							} else_if = {
+								limit = { event_target:main_country = { has_country_flag = space_domestication_cloud } }
+								while = { count = 5 create_ship = { name = "" design = "NAME_Dom_Cloud" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "NAME_Dom_Cloud" } } }
+							} else_if = {
+								limit = { event_target:main_country = { has_country_flag = space_domestication_drone } }
+								while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Combat Drone" } } }
+								while = { count = 5 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } }
+								while = { count = 5 random = { chance = 50 create_ship = { name = "" design = "Reprogrammed Ancient Destroyer Drone" } } }
+							}
+							set_location = { target = event_target:domesticated_mother_fleet distance = 5 angle = random }
+							set_fleet_stance = aggressive
+							set_aggro_range_measure_from = self
+							set_aggro_range = 5000
+							set_formation_scale = 4.0
+							save_event_target_as = domesticated_fleet
+							set_fleet_flag = domesticated_fleet
+							set_fleet_flag = domesticated_military_fleet
+							if = { limit = { event_target:domesticated_spaceborn_alien = { has_country_flag = space_domestication_military_protocol } }
+								set_name = "Domesticated Military Aliens"
+							} else_if = { limit = { event_target:domesticated_spaceborn_alien = { has_country_flag = space_domestication_security_protocol } }
+								set_name = "Domesticated Security Aliens"
+							}
 						}
 					}
 				}
@@ -593,38 +602,60 @@ country_event = {
 }
 
 # on_fleet_destroyed_perp
+# This = owner of fleet 1 (combatant)
+# From = owner of fleet 2 (destroyed)
 # fromfrom = fleet combatant
 country_event = {
 	id = UniqueAscensionPerksEvents.1025
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_country_flag = domesticated_spaceborn_alien_cloud }
+	trigger = {
+		is_country_type = domesticated_spaceborn_alien
+		has_country_flag = domesticated_spaceborn_alien_cloud
+		exists = fromfrom
+	}
 	immediate = {
-		# space_domestication_cloud_multiplication = yes
-		save_event_target_as = main_country
 		random = {
-			chance = 40
+			chance = 35
+			# save_event_target_as = main_country
 			# from = { save_event_target_as = notify_country }
 			fromfrom = {
-				save_event_target_as = spawn_location
-				create_fleet = {
-					name = "NAME_Effluvial_Offspring"
-					effect = {
-						set_owner = event_target:main_country
-						while = { count = 3 create_ship = { name = "" design = NAME_Dom_Cloud } }
-						while = { count = 2 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud } } }
-						set_location = { target = event_target:spawn_location distance = 5 angle = random }
-						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
-						set_aggro_range = 5000
-						set_formation_scale = 4.0
-						save_event_target_as = domesticated_fleet
-						set_fleet_flag = domesticated_fleet
-						if = { limit = { event_target:spawn_location = { has_fleet_flag = domesticated_military_fleet } } set_fleet_flag = domesticated_military_fleet set_name = "Military Effluvial Offspring" }
-						else_if = { limit = { event_target:spawn_location = { has_fleet_flag = domesticated_security_fleet } } set_fleet_flag = domesticated_security_fleet set_name = "Security Effluvial Offspring" }
-					}
+				fleet_event = { id = UniqueAscensionPerksEvents.1026 days = 14 random = 7 }
+			}
+		}
+	}
+}
+
+# From = owner
+fleet_event = {
+	id = UniqueAscensionPerksEvents.1026
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# space_domestication_cloud_multiplication = yes
+		if = {
+			limit = { exists = solar_system }
+			save_event_target_as = spawn_location
+			create_fleet = {
+				name = "NAME_Effluvial_Offspring"
+				effect = {
+					set_owner = root.owner
+					while = { count = 3 create_ship = { name = "" design = "NAME_Dom_Cloud" } }
+					while = { count = 2 random = { chance = 50 create_ship = { name = "" design = "NAME_Dom_Cloud" } } }
+					set_location = { target = event_target:spawn_location distance = 5 angle = random }
+					set_fleet_stance = aggressive
+					set_aggro_range_measure_from = self
+					set_aggro_range = 5000
+					set_formation_scale = 4.0
+					save_event_target_as = domesticated_fleet
+					set_fleet_flag = domesticated_fleet
+					if = { limit = { event_target:spawn_location = { has_fleet_flag = domesticated_military_fleet } } set_fleet_flag = domesticated_military_fleet set_name = "Military Effluvial Offspring" }
+					else_if = { limit = { event_target:spawn_location = { has_fleet_flag = domesticated_security_fleet } } set_fleet_flag = domesticated_security_fleet set_name = "Security Effluvial Offspring" }
 				}
 			}
+		}
+		else = {
+			fleet_event = { id = UniqueAscensionPerksEvents.1026 days = 7 random = 5 }
 		}
 	}
 }

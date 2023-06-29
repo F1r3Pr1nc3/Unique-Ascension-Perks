@@ -45,9 +45,10 @@ create_security_forces_country = {
 					save_event_target_as = security_forces_country
 					set_country_flag = security_strike_force
 					set_relation_flag = { who = root flag = security_strike_force }
-					if = { limit = { root = { OR = { is_ai = no is_overlord = yes } } }
-						set_subject_of = { who = root preset = preset_machine_follower }
-					}
+					# Disabled in 3.8.4 due unsolvable side effects aka federation (infinite joing/re-joining)
+					# if = { limit = { root = { OR = { is_ai = no is_overlord = yes } } }
+					# 	set_subject_of = { who = root preset = preset_machine_follower }
+					# }
 					add_trust = { amount = 95 who = root }
 					# Opinion hack
 					add_opinion_modifier = { who = root modifier = opinion_common_ground }

@@ -481,7 +481,7 @@ id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
 							}
 							change_species_characteristics = { add_trait = trait_leng_engineered add_traits_at_start_of_list = yes }
 						}
-						change_species_characteristics = { add_trait = trait_uplifted } # Hack only for Enhanced Gene Modding. Against docu: Somehow multiple add_trait do not work.
+						change_species_characteristics = { add_trait = trait_uplifted } # Against docu: Somehow multiple add_trait do not work. Hack only for Enhanced Gene Modding.
 						root = { # from create_pre_ftl_species
 							switch = { trigger = has_planet_flag
 								pre_ftl_ocean_paradise	= { prev = { change_species_characteristics = { add_trait = trait_aquatic } } }
@@ -921,7 +921,8 @@ planet_event = {
 			if = { limit = { is_variable_set = primitive_pops }
 				set_variable = { which = pops_to_resettle value = num_pops }
 				subtract_variable = { which = pops_to_resettle value = primitive_pops }
-				multiply_variable = { which = pops_to_resettle value = 1.25 } # 25% increased chance to get primitive_pops
+				multiply_variable = { which = pops_to_resettle value = 1.20 } # 20% increased chance to get primitive_pops
+
 				export_trigger_value_to_variable = {
 					trigger = count_owned_pop
 					parameters = {
@@ -942,7 +943,7 @@ planet_event = {
 					variable = primitive_pops
 				}
 				subtract_variable = { which = pops_to_resettle value = primitive_pops }
-				round_variable = pops_to_resettle
+				floor_variable = pops_to_resettle
 				clear_variable = primitive_pops
 			}
 		}
@@ -1114,16 +1115,12 @@ planet_event = {
 			}
 			ship_prefix = ""
 			origin = "origin_enlightened" # Should only be visible if they become spacefaring
-			day_zero_contact = no
-			exclude_day_zero_contact = event_target:owning_empire
-			released_by_country = event_target:owning_empire
-			released_from_country = event_target:owning_empire
+			# day_zero_contact = no
+			# exclude_day_zero_contact = event_target:owning_empire
+			# released_by_country = event_target:owning_empire
+			# released_from_country = event_target:owning_empire
 			effect = {
 				set_graphical_culture = preindustrial_01 # set_species_graphical_culture = yes
-				prev = {
-					set_owner = prev
-					set_capital = yes
-				}
 				# Compare add_pre_ftl_buildings = yes
 				random_list = {
 					30 = {
@@ -1188,7 +1185,9 @@ planet_event = {
 			setup_pre_ftl_planet = yes
 		}
 		else_if = { limit = { check_variable = { which = pops_to_resettle value > 0 } }
+			log="pops_to_resettle [This.pops_to_resettle]"
 			while = { count = pops_to_resettle
+				limit = { num_pops > 1 }
 				random_owned_pop = {
 					# limit = {
 					# 	NOR = {
@@ -1209,7 +1208,7 @@ planet_event = {
 						save_event_target_as = refugee_pop
 						refugee_pop_effect = yes
 					}
-					else = { random = { chance = 50 kill_pop = yes } }
+					else = { random = { chance = 33 kill_pop = yes } }
 				}
 			}
 		}
@@ -1221,13 +1220,9 @@ planet_event = {
 				set_origin = "origin_enlightened" # Should only be visible if they become spacefaring
 			}
 			prev = {
-				# set_owner = prev
-				# set_capital = yes
-				start_colony = {
-					owner = prev
-					species = event_target:primitive_world_species
-					ethos = owner
-				}
+				set_owner = prev
+				set_capital = yes
+				# start_colony = { owner = prev species = event_target:primitive_world_species ethos = owner }
 			}
 		}
 		if = {
@@ -1505,7 +1500,7 @@ system_event = {
 	id = UniqueAscensionPerksEvents.3161
 	title = UniqueAscensionPerksEvents.3161.name
 	desc = UniqueAscensionPerksEvents.3161.desc
-	picture = GFX_evt_medieval_alien_civilization
+	picture = GFX_evt_space_station
 	location = starbase
 	is_triggered_only = yes
 	trigger = { exists = starbase }
@@ -1519,6 +1514,17 @@ system_event = {
 	option = { # "Absolutely Not!"
 		name = UniqueAscensionPerksEvents.3161.b # anomaly.5007.b
 	}
+	# option = { #  TODO "Deploy a Observation Outpost"
+	# 	name = fircon.5020.a
+	# 	trigger = {
+	# 		from = { has_observation_outpost = no }
+	# 	}
+	# 	hidden_effect = {
+	# 		from = {
+	# 			create observation_outpost
+	# 		}
+	# 	}
+	# }
 }
 
 planet_event = {
@@ -1538,8 +1544,9 @@ planet_event = {
 # ########################################################
 
 # PRE-FTL Technological Progression
+# Same as in Mod Societal Advancement
 country_event = {
-	id = leng_project_event.62 # UniqueAscensionPerksEvents.3162 # preftl.0 #
+	id = leng_project_event.62 # UniqueAscensionPerksEvents.3162 preftl.0 #
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
