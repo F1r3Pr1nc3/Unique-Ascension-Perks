@@ -1003,8 +1003,8 @@ country_event = {
 		add_modifier = { modifier = expandable_brain_2 }
 		add_research_option = tech_expandable_brain_2
 		hidden_effect = {
-			every_owned_leader = { limit = { has_skill < 4 } set_skill = 4 }
-			every_pool_leader = { limit = { has_skill < 4 } set_skill = 4 }
+			every_owned_leader = { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 }
+			every_pool_leader = { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 }
 		}
 	}
 }
@@ -1039,8 +1039,8 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	immediate = {
-		every_owned_leader = { if = { limit = { has_skill < 5 } set_skill = 4 add_skill = 1 } BR_add_random_leader_trait = yes }
-		every_pool_leader = { if = { limit = { has_skill < 5 } set_skill = 4 add_skill = 1 } BR_add_random_leader_trait = yes }
+		every_owned_leader = { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } BR_add_random_leader_trait = yes }
+		every_pool_leader = { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } BR_add_random_leader_trait = yes }
 	}
 	after = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 } }
@@ -1137,8 +1137,8 @@ country_event = {
 		# TODO needs test?
 		if = { limit = { OR = { has_modifier = expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 2 } } from = { set_skill = 2 } }
 		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 3 } } from = { set_skill = 3 BR_add_random_leader_trait = yes } }
-		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 4 } }
-		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 4 add_skill = 1 BR_add_random_leader_trait = yes } }
+		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 3 add_skill = 1 } }
+		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 3 add_skill = 2 BR_add_random_leader_trait = yes } }
 	}
 }
 
@@ -5295,9 +5295,12 @@ country_event = {
 	picture = GFX_evt_khan_throne_room
 	location = capital_scope
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+	option = {
+		name = EXCELLENT
+		ruler = { add_skill_without_trait_selection = 1 }
+	}
 }
-
+# on_monthly_pulse_country
 country_event = {
 	id = UniqueAscensionPerksEvents.321
 	hide_window = yes
@@ -5312,13 +5315,14 @@ country_event = {
 		if = { limit = { ruler = { has_skill < 10 } }
 			ruler = {
 				random_list = {
-					10 = { add_experience = 40 }
-					8 = { add_experience = 100 }
-					8 = { add_experience = 150 }
-					6 = { add_experience = 200 }
-					6 = { add_experience = 300 }
-					2 = { add_experience = 400 }
-					2 = { add_experience = 800 }
+					98 = { add_experience = 40 }
+					80 = { add_experience = 100 }
+					80 = { add_experience = 150 }
+					60 = { add_experience = 200 }
+					60 = { add_experience = 300 }
+					20 = { add_experience = 400 }
+					20 = { add_experience = 800 }
+					2 = { add_skill_without_trait_selection = 1 }
 				}
 			}
 		}
