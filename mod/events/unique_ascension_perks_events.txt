@@ -1045,8 +1045,8 @@ country_event = {
 	after = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 } }
 	}
-	option = { name = "UniqueAscensionPerksEvents.37.Offense"	add_modifier = { modifier = expandable_brain_3_offense } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
-	option = { name = "UniqueAscensionPerksEvents.37.Expansion"	add_modifier = { modifier = expandable_brain_3_expansion } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
+	option = { name = "UniqueAscensionPerksEvents.37.Offense"		add_modifier = { modifier = expandable_brain_3_offense } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
+	option = { name = "UniqueAscensionPerksEvents.37.Expansion"		add_modifier = { modifier = expandable_brain_3_expansion } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
 	option = { name = "UniqueAscensionPerksEvents.37.Construction"	add_modifier = { modifier = expandable_brain_3_construction } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
 	option = { name = "UniqueAscensionPerksEvents.37.Production"	add_modifier = { modifier = expandable_brain_3_production } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
 }
@@ -5314,6 +5314,7 @@ country_event = {
 	immediate = {
 		if = { limit = { ruler = { has_skill < 10 } }
 			ruler = {
+				reroll_random = yes
 				random_list = {
 					98 = { add_experience = 40 }
 					80 = { add_experience = 100 }
@@ -5929,6 +5930,7 @@ country_event = {
 		name = EXCELLENT
 		add_resource = { treasures = 25 }
 		event_target:spawn_location = {
+			reroll_random = yes
 			random_list = {
 				10 = { add_deposit = d_treasures_1 }
 				7 = { add_deposit = d_treasures_2 }
@@ -6820,6 +6822,7 @@ planet_event = {
 				# homeworld = root
 				# sapient = no
 				effect = {
+					reroll_random = yes
 					random_list = {
 						24 = { modifier = { factor = 2 ideal_planet_class = root } }
 						24 = { modifier = { factor = 24 is_same_species_class = root.growing_species } set_species_homeworld = root }
@@ -7027,6 +7030,7 @@ country_event = {
 		random_system_within_border = {
 			save_event_target_as = lh_spawned_system
 			set_spawn_system_batch = begin
+			reroll_random = yes
 			random_list = {
 				100	= { spawn_system = { min_distance >= 4 max_distance <= 9  initializer = "white_hole_system_1" hyperlane = no } }
 				100	= { spawn_system = { min_distance >= 5 max_distance <= 12 initializer = "white_hole_system_2" hyperlane = no } }
@@ -7320,6 +7324,7 @@ system_event = {
 				NOT = { has_planet_flag = white_hole_physics_deposit }
 			}
 			set_planet_flag = white_hole_physics_deposit
+			reroll_random = yes
 			random_list = {
 				10 = { add_deposit = d_physics_6 }
 				10 = { add_deposit = d_physics_7 }
