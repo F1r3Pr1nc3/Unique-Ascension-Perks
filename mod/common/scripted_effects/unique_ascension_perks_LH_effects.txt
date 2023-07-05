@@ -290,7 +290,7 @@ spawn_lh_system = {
 						NOR = {
 							is_same_value = event_target:lh_spawned_system
 							has_hyperlane_to = event_target:lh_spawned_system
-							distance = { source = prev type = euclidean max_distance >= 30 }
+							distance = { source = prev type = euclidean max_distance <= 30 }
 						}
 						any_neighbor_system_euclidean = {
 							NOT = { has_hyperlane_to = prev }
@@ -305,7 +305,7 @@ spawn_lh_system = {
 						NOR = {
 							is_same_value = event_target:lh_basic_system
 							has_hyperlane_to = event_target:lh_basic_system
-							distance = { source = prev type = euclidean max_distance >= 35 }
+							distance = { source = prev type = euclidean max_distance <= 35 }
 						}
 					}
 				}
@@ -314,7 +314,7 @@ spawn_lh_system = {
 				limit = {
 					any_neighbor_system_euclidean = {
 						NOT = { has_hyperlane_to = prev }
-						distance = { source = prev type = euclidean min_distance >= 3 max_distance <= 30 }
+						distance = { source = prev type = euclidean min_distance = 3 max_distance = 30 }
 					}
 				}
 				random_neighbor_system_euclidean = {
@@ -323,8 +323,8 @@ spawn_lh_system = {
 						distance = {
 							source = prev
 							type = euclidean
-							min_distance >= 3
-							max_distance <= 30
+							min_distance = 3
+							max_distance = 30
 						}
 					}
 					random = { chance = 66 add_hyperlane = { from = this to = prev } }
@@ -333,7 +333,7 @@ spawn_lh_system = {
 				random_neighbor_system_euclidean = {
 					limit = {
 						NOT = { has_hyperlane_to = prev }
-						distance = { source = prev type = euclidean min_distance >= 4 max_distance <= 40 }
+						distance = { source = prev type = euclidean min_distance = 4 max_distance = 40 }
 					}
 					random = { chance = 66 add_hyperlane = { from = this to = prev } }
 				}
