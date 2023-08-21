@@ -215,7 +215,7 @@ planet_event = {
 
 # LIST UP SPECIES
 planet_event = {
-id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
+	id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
 	location = event_target:new_primitive_world
 	title = "UniqueAscensionPerksEvents.3140.name"
 	desc = "UniqueAscensionPerksEvents.3140.desc"
@@ -224,8 +224,16 @@ id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
 	immediate = {
 		save_event_target_as = new_primitive_world
 		set_planet_flag = new_primitive_world
-		if = { limit = { NOT = { exists = event_target:owning_empire } exists = fromfrom }
-			fromfrom = { save_event_target_as = owning_empire }
+		if = { limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
+				fromfrom = { save_event_target_as = owning_empire }
+			}
+			else_if = { limit = { exists = from from = { is_scope_type = country } }
+				from = { save_event_target_as = owning_empire }
+			}
+			else_if = { limit = { exists = space_owner space_owner = { is_scope_type = country } }
+				space_owner = { save_event_target_as = owning_empire }
+			}
 		}
 		if = { limit = { NOT = { is_variable_set = SdjVarPageOfMenu } }
 			set_variable = { which = SdjVarPageOfMenu value = 1 }
@@ -784,7 +792,7 @@ id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
 		trigger = { check_variable = { which = SdjVarSpeciesListedNum value > 12.5 } }
 		hidden_effect = {
 			change_variable = { which = SdjVarPageOfMenu value = 1 }
-			planet_event = { id = leng_project_event.3 }
+			planet_event = { id = leng_project_event.3 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -793,7 +801,7 @@ id = leng_project_event.3 # (UniqueAscensionPerksEvents.3140)
 		trigger = { check_variable = { which = SdjVarPageOfMenu value > 1.5 } }
 		hidden_effect = {
 			change_variable = { which = SdjVarPageOfMenu value = -1 }
-			planet_event = { id = leng_project_event.3 }
+			planet_event = { id = leng_project_event.3 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -821,8 +829,16 @@ planet_event = {
 	immediate = {
 		save_event_target_as = new_primitive_world
 		set_planet_flag = new_primitive_world
-		if = { limit = { NOT = { exists = event_target:owning_empire } exists = fromfrom }
-			fromfrom = { save_event_target_as = owning_empire }
+		if = { limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
+				fromfrom = { save_event_target_as = owning_empire }
+			}
+			else_if = { limit = { exists = from from = { is_scope_type = country } }
+				from = { save_event_target_as = owning_empire }
+			}
+			else_if = { limit = { exists = space_owner space_owner = { is_scope_type = country } }
+				space_owner = { save_event_target_as = owning_empire }
+			}
 		}
 	}
 	after = {
@@ -1566,6 +1582,7 @@ country_event = {
 			machine_age			= { country_event = { id = preftl.899 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_8 } }
 			atomic_age			= { country_event = { id = preftl.999 } capital_scope.observation_outpost = { add_mission_progress = -1 set_mission = len_society_advance_9 } }
 			early_space_age		= { country_event = { id = preftl.1099 } }
+			# default = { } # TODO?
 		}
 	}
 	# after = {

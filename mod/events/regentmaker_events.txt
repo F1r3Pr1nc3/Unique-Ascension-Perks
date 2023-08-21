@@ -136,25 +136,33 @@ planet_event = {
 	# pre_triggers = { has_owner = yes }
 	# trigger = { }
 	immediate = {
-		if = { limit = { NOT = { exists = event_target:owning_empire } }
+		if = {
+			limit = { NOT = { exists = event_target:owning_empire } }
 			if = { limit = { exists = from from = { is_scope_type = country } }
 				from = { save_event_target_as = owning_empire }
-			} else_if = { limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
+			}
+			else_if = {
+				limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
 				fromfrom = { save_event_target_as = owning_empire }
-			} else = {
-				if = { limit = { exists = space_owner }
+			}
+			else = {
+				if = {
+					limit = { exists = space_owner }
 					space_owner = { save_event_target_as = owning_empire }
-				} else = {
+				}
+				else = {
 					planet_owner = { save_event_target_as = owning_empire }
 				}
 			}
 		}
 		event_target:owning_empire = {
-			if = { limit = { NOT = { has_country_flag = first_alien_life } }
+			if = {
+				limit = { NOT = { has_country_flag = first_alien_life } }
 				set_country_flag = first_alien_life
 				set_timed_country_flag = { flag = not_alien_life days = 10 }
 			}
-			if = { limit = { NOT = { has_country_flag = has_encountered_other_empire } }
+			if = {
+				limit = { NOT = { has_country_flag = has_encountered_other_empire } }
 				set_country_flag = has_encountered_other_empire
 				set_timed_country_flag = { flag = not_encountered_other_empire days = 10 }
 			}
@@ -210,11 +218,23 @@ planet_event = {
 	is_triggered_only = yes
 	location = root
 	immediate = {
-		if = { limit = { NOT = { exists = event_target:owning_empire } }
-			if = { limit = { exists = space_owner }
-				space_owner = { save_event_target_as = owning_empire }
-			} else = {
-				planet_owner = { save_event_target_as = owning_empire }
+		if = {
+			limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = from from = { is_scope_type = country } }
+				from = { save_event_target_as = owning_empire }
+			}
+			else_if = {
+				limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
+				fromfrom = { save_event_target_as = owning_empire }
+			}
+			else = {
+				if = {
+					limit = { exists = space_owner }
+					space_owner = { save_event_target_as = owning_empire }
+				}
+				else = {
+					planet_owner = { save_event_target_as = owning_empire }
+				}
 			}
 		}
 	}
@@ -228,12 +248,16 @@ planet_event = {
 	option = {
 		name = "regentmaker.2.b"
 		hidden_effect = {
-			if = { limit = { exists = event_target:vassal_species }
+			if = {
+				limit = { exists = event_target:vassal_species }
 				event_target:vassal_species = { save_global_event_target_as = vassal_species }
 				clear_global_event_target = vassal_species
+				planet_event = { id = regentmaker.3 scopes = { fromfrom = from } }
+			}
+			else = {
+				planet_event = { id = regentmaker.3 }
 			}
 		}
-		planet_event = { id = regentmaker.3 }
 	}
 	option = {
 		# "Leave it be."
@@ -260,17 +284,24 @@ planet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
-		if = { limit = { NOT = { exists = event_target:owning_empire } }
-			if = { limit = { exists = space_owner }
+		if = {
+			limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = fromfrom fromfrom = { is_scope_valid = yes is_scope_type = country } }
+				fromfrom = { save_event_target_as = owning_empire }
+			}
+			else_if = {
+				limit = { exists = space_owner }
 				space_owner = { save_event_target_as = owning_empire }
-			} else = {
+			}
+			else = {
 				planet_owner = { save_event_target_as = owning_empire }
 			}
 		}
 		## Save target species
 		if = { limit = {  NOT = { exists = event_target:vassal_species } }
 			## Save target species get_vassal_species
-			if = { limit = { is_colonizable = yes }
+			if = {
+				limit = { is_colonizable = yes }
 				event_target:owning_empire = {
 					random_owned_pop_species = {
 						limit = {
@@ -307,10 +338,13 @@ planet_event = {
 				}
 				create_colony = { owner = event_target:owning_empire species = event_target:vassal_species }
 				create_pop = { species = event_target:vassal_species }
-			} else_if = { limit = { is_colony = yes }
+			}
+			else_if = {
+				limit = { is_colony = yes }
 				if = { limit = { num_species = 1 }
 					random_owned_species = { save_event_target_as = vassal_species }
-				} else = {
+				}
+				else = {
 					random_owned_pop = {
 						limit = {
 							is_sapient = yes
@@ -388,21 +422,31 @@ planet_event = {
 						event_target:vassal_species = { is_scope_valid = yes is_scope_type = species }
 					}
 				}
-				if = { limit = { num_unique_species > 1 }
+				if = {
+					limit = { num_unique_species > 1 }
 					random_owned_species = {
 						limit = {
 							NOT = { is_exact_same_species = event_target:owning_empire.owner_species }
 						}
 						save_event_target_as = vassal_species
 					}
-				} else = {
+				}
+				else = {
 					random_owned_species = {
 						limit = { is_scope_valid = yes }
 						save_event_target_as = vassal_species
 					}
 				}
 			}
-			# if = { removed in v.3.8
+			if = {
+				limit = { exists = leader }
+				leader = {
+					save_event_target_as = vassal_leader
+					unassign_leader = this
+					log="Save planet leader \\[vassal_leader.GetName]"
+				}
+			}
+			# else_if = { # removed in v.3.8
 			# 	limit = {
 			# 		exists = sector
 			# 		sector = { exists = leader }
@@ -411,16 +455,9 @@ planet_event = {
 			# 	sector.leader = {
 			# 		save_event_target_as = vassal_leader
 			# 		unassign_leader = this
-			# 		log="Save leader \\[vassal_leader.GetName]"
+			# 		log="Save sector leader \\[vassal_leader.GetName]"
 			# 	}
 			# }
-			if = { limit = { exists = leader }
-				leader = {
-					save_event_target_as = vassal_leader
-					unassign_leader = this
-					log="Save leader \\[vassal_leader.GetName]"
-				}
-			}
 			if = {
 				limit = {
 					NAND = {
@@ -434,11 +471,11 @@ planet_event = {
 		}
 		set_update_modifiers_batch = begin
 		create_country = {
-			name = random
+			# name = random
 			# name = "[This.GetStarName]" TODO
 			name_list = event_target:owning_empire
-			type = default
-			ship_prefix = ""
+			# type = default
+			# ship_prefix = ""
 			government_restrictions = {
 				authority = {
 					NOR = { value = auth_machine_intelligence value = auth_hive_mind }
@@ -451,7 +488,7 @@ planet_event = {
 			ethos = random
 			species = event_target:vassal_species
 			# flag = random			# Separate color definition not possible!?
-			origin = origin_separatists
+			# origin = origin_separatists
 			# auto_delete = yes
 			day_zero_contact = no
 			exclude_day_zero_contact = event_target:owning_empire
@@ -459,10 +496,12 @@ planet_event = {
 			released_from_country = event_target:owning_empire
 			effect = {
 				event_target:owning_empire = {
-					if = { limit = { OR = { has_country_flag = not_encountered_other_empire NOT = { has_country_flag = has_encountered_other_empire } } }
+					if = {
+						limit = { OR = { has_country_flag = not_encountered_other_empire NOT = { has_country_flag = has_encountered_other_empire } } }
 						prev = { set_country_flag = has_encountered_other_empire }
 					}
-					if = { limit = { OR = { has_country_flag = not_alien_life NOT = { has_country_flag = first_alien_life } } }
+					if = {
+						limit = { OR = { has_country_flag = not_alien_life NOT = { has_country_flag = first_alien_life } } }
 						prev = { set_country_flag = first_alien_life }
 					}
 					set_timed_relation_flag = { who = prev flag = AbandonedRefugees days = 5 }
@@ -472,26 +511,39 @@ planet_event = {
 				set_country_flag = perfect_vassal_country
 				set_timed_relation_flag = { who = event_target:owning_empire flag = AbandonedRefugees days = 5 }
 				establish_communications_no_message = event_target:owning_empire
-				root = {
-					set_controller = prev
-					set_owner = prev
-					if = { limit = { has_building = no }
-						while = {
-							count = 12
-							limit = { num_pops < 30 }
-							create_pop = { species = event_target:vassal_species }
-						}
-					}
-					set_capital = yes
-				}
-				set_custom_capital_location = root
 				save_event_target_as = new_empire
-				if = { limit = { has_overlord_dlc = yes }
-					set_origin = origin_imperial_vassal
-				}
+
 			}
 		}
 		last_created_country = {
+			root = {
+				set_owner = prev
+				set_controller = prev
+				if = {
+					limit = { has_building = no }
+					while = {
+						count = 12
+						limit = { num_pops < 30 }
+						create_pop = { species = event_target:vassal_species }
+					}
+				}
+				if = {
+					limit = { NOT = { exists = prev.capital_scope } }
+					set_capital = yes
+				}
+			}
+			if = {
+				limit = { NOT = { exists = capital_scope } }
+				set_custom_capital_location = root
+			}
+			if = {
+				limit = { has_overlord_dlc = yes }
+				set_origin = origin_imperial_vassal
+			}
+			else = { set_origin = origin_separatists }
+
+			set_graphical_culture = event_target:owning_empire
+
 			add_resource = { minerals = 500 energy = 1000 unity = 2000 influence = 100 }
 			if = { limit = { is_gestalt = no } add_resource = { consumer_goods = 2000 } }
 			else = { add_resource = { alloys = 1000 minerals = 1000 } }
@@ -501,16 +553,16 @@ planet_event = {
 			# 	set_subject_of = { who = event_target:owning_empire preset = preset_bulwark allow_instant_negotiation = yes }
 			# 	add_intel = { who = event_target:owning_empire amount = 100 }
 			# } else = {
-			set_subject_of = {
-				who = event_target:owning_empire
-				# preset = preset_vassal TODO?
-				# allow_instant_negotiation = yes
-			}
 			set_faction_hostility = {
 				set_hostile = no
 				set_neutral = no
 				set_friendly = yes
 				target = event_target:owning_empire
+			}
+			set_subject_of = {
+				who = event_target:owning_empire
+				# preset = preset_vassal TODO?
+				# allow_instant_negotiation = yes
 			}
 			# action_open_borders
 			set_closed_borders = { who = event_target:owning_empire status = no forced = 5 }
@@ -544,7 +596,8 @@ planet_event = {
 				}
 			}
 			# establish_contact = { who = event_target:owning_empire location = event_target:owning_empire.capital_scope }
-			if = { limit = { is_same_species = event_target:owning_empire }
+			if = {
+				limit = { is_same_species = event_target:owning_empire }
 				random = {
 					chance = 50
 					copy_ethos_and_authority = event_target:owning_empire
@@ -559,7 +612,7 @@ planet_event = {
 					}
 				}
 			}
-			# else_if = { # name = random
+			# else_if = {
 			# 	limit = { NOT = { is_same_species = event_target:owning_empire } }
 			# 	random_list = {
 			# 		1 = { set_name = "[This.GetStarName] $country$" }
@@ -568,7 +621,10 @@ planet_event = {
 			# 		8 = { modifier = { factor = 0 is_homeworld = yes } }
 			# 	}
 			# }
-			if = { limit = { root = { has_planet_flag = planet_marked_for_handover } }
+			set_name = random
+
+			if = {
+				limit = { root = { has_planet_flag = planet_marked_for_handover } }
 				log = "Release selected planet [Root.GetName]!"
 				root = {
 					if = { limit = { planet_size < 25 } set_planet_size = 25 }	# Cheating!?
@@ -602,6 +658,7 @@ planet_event = {
 			# every_owned_planet = {
 			every_planet_within_border = {
 				limit = {
+					NOT = { is_planet = root }
 					has_planet_flag = planet_marked_for_handover
 					exists = space_owner
 					has_ground_combat = no
@@ -616,14 +673,17 @@ planet_event = {
 				planet_event = { id = regentmaker.9 }
 			}
 
-			if = { limit = { has_country_flag = not_encountered_other_empire }
+			if = {
+				limit = { has_country_flag = not_encountered_other_empire }
 				remove_country_flag = has_encountered_other_empire
 			}
-			if = { limit = { has_country_flag = not_alien_life }
+			if = {
+				limit = { has_country_flag = not_alien_life }
 				remove_country_flag = first_alien_life
 			}
 			country_event = { id = specialist.1000 days = 3 } # adjust subject type
 		}
+
 		set_update_modifiers_batch = end
 	}
 }
@@ -775,12 +835,27 @@ planet_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	immediate = {
-		if = { limit = { has_owner = no }
-			start_colony = { owner = last_created_country species = event_target:vassal_species }
-		} else_if = { limit = { is_owned_by = event_target:owning_empire }
-			set_owner = last_created_country
-		} else_if = { limit = { is_controlled_by = event_target:owning_empire }
-			set_controller = last_created_country
+
+		if = {
+			limit = { NOT = { exists = event_target:new_empire } }
+			last_created_country = { save_event_target_as = new_empire }
+		}
+
+		if = {
+			limit = { has_owner = no }
+			set_owner = event_target:new_empire
+			if = { limit = { num_pops = 0 } # start_colony
+				create_colony = { owner = event_target:new_empire species = event_target:vassal_species }
+			}
+		}
+		else_if = {
+			limit = { is_controlled_by = event_target:owning_empire }
+			set_controller = event_target:new_empire
+			set_owner = event_target:new_empire
+		}
+		else_if = {
+			limit = { is_owned_by = event_target:owning_empire }
+			set_owner = event_target:new_empire
 		}
 		remove_planet_flag = planet_marked_for_handover
 		remove_modifier = "perfect_vassal_colony"
@@ -810,17 +885,20 @@ planet_event = {
 								is_owned_by = event_target:owning_empire
 								NOT = { is_same_value = prevprev }
 							}
-							if = { limit = { has_planet_flag = planet_marked_for_handover }
+							if = {
+								limit = { has_planet_flag = planet_marked_for_handover }
 								remove_planet_flag = planet_marked_for_handover
 								remove_modifier = "perfect_vassal_colony"
 								add_modifier = { modifier = pm_perfect_vassal_colony }
 								set_controller = root.owner
 								set_owner = root.owner
-							} else = {
+							}
+							else = {
 								starbase = { set_owner = event_target:owning_empire }
 							}
 						}
-					} else_if = {
+					}
+					else_if = {
 						limit = {
 							NOT = {
 								any_system_colony = {
@@ -841,7 +919,8 @@ planet_event = {
 						is_owned_by = event_target:owning_empire
 						NOT = { is_same_value = prevprev }
 					}
-					if = { limit = { has_planet_flag = planet_marked_for_handover }
+					if = {
+						limit = { has_planet_flag = planet_marked_for_handover }
 						remove_planet_flag = planet_marked_for_handover
 						remove_modifier = "perfect_vassal_colony"
 						add_modifier = { modifier = pm_perfect_vassal_colony }
@@ -885,7 +964,8 @@ country_event = {
 				}
 			}
 			set_owner = solar_system.space_owner
-			if = { limit = { exists = leader }
+			if = {
+				limit = { exists = leader }
 				leader = { set_owner = prev.solar_system.space_owner }
 			}
 		}
@@ -1335,24 +1415,28 @@ country_event = {
 					# log="RM concat test [subject_1.GetName]"
 				} # else = { break = yes }
 			}
-		} else_if = { # comp. Civil Wars mod
+		}
+		else_if = { # comp. Civil Wars mod
 			limit = { has_global_flag = civil_wars_active }
 			every_subject = { # count < 11
 				limit = {
 					merg_is_default_empire = yes
 					NOT = { any_agreement = { agreement_preset = preset_devstate } }
 				}
-				if = { limit = { check_variable = { which = rm_total_subjects value < 11 } }
+				if = {
+					limit = { check_variable = { which = rm_total_subjects value < 11 } }
 					set_country_flag = subject_sel_count
 					overlord = {
 						change_variable = { which = rm_total_subjects value = 1 }
 					}
 				}
 			}
-		} else = {
+		}
+		else = {
 			every_subject = { # count < 11
 				limit = { merg_is_default_empire = yes }
-				if = { limit = { check_variable = { which = rm_total_subjects value < 11 } }
+				if = {
+					limit = { check_variable = { which = rm_total_subjects value < 11 } }
 					set_country_flag = subject_sel_count
 					overlord = {
 						change_variable = { which = rm_total_subjects value = 1 }
@@ -1465,19 +1549,28 @@ country_event = {
 		}
 	}
 	after = {
-		if = { limit = { has_country_flag = "regentmaker.502" }
+		if = {
+			limit = { has_country_flag = "regentmaker.502" }
 			remove_country_flag = "regentmaker.502"
 			country_event = { id = regentmaker.502 } # Ethic
-		} else_if = { limit = { has_country_flag = "regentmaker.503" }
+		}
+		else_if = {
+			limit = { has_country_flag = "regentmaker.503" }
 			remove_country_flag = "regentmaker.503"
 			country_event = { id = regentmaker.503 } # Gov
-		} else_if = { limit = { has_country_flag = "regentmaker.504" }
+		}
+		else_if = {
+			limit = { has_country_flag = "regentmaker.504" }
 			remove_country_flag = "regentmaker.504"
 			country_event = { id = regentmaker.504 } # Name
-		} else_if = { limit = { has_country_flag = "regentmaker.510" }
+		}
+		else_if = {
+			limit = { has_country_flag = "regentmaker.510" }
 			remove_country_flag = "regentmaker.510"
 			country_event = { id = regentmaker.510 } # Control
-		} else_if = { limit = { has_country_flag = "regentmaker.511" }
+		}
+		else_if = {
+			limit = { has_country_flag = "regentmaker.511" }
 			remove_country_flag = "regentmaker.511"
 			country_event = { id = regentmaker.511 } # Fleet
 		}
@@ -1857,14 +1950,16 @@ country_event = {
 	}
 	is_triggered_only = yes
 	immediate = {
-		if = { limit = { exists = event_target:subject_selected }
+		if = {
+			limit = { exists = event_target:subject_selected }
 			event_target:subject_selected = { save_global_event_target_as = subject_selected }
 			clear_global_event_target = subject_selected
 		}
 	}
 
 	after = {
-		if = { limit = { exists = event_target:subject_selected }
+		if = {
+			limit = { exists = event_target:subject_selected }
 			dmm_keyboard_rename = { TARGET = event_target:subject_selected }
 		}
 	}
@@ -2122,7 +2217,8 @@ country_event = {
 				}
 			}
 			set_owner = event_target:subject_selected
-			if = { limit = { exists = leader }
+			if = {
+				limit = { exists = leader }
 				leader = { set_owner = event_target:subject_selected }
 			}
 		}
@@ -2752,7 +2848,8 @@ country_event = {
 	}
 	after = {
 		hidden_effect = { # BACK
-			if = { limit = { is_variable_set = rm_total_subjects }
+			if = {
+				limit = { is_variable_set = rm_total_subjects }
 				country_event = { id = regentmaker.502 }
 			}
 		}
@@ -2937,7 +3034,8 @@ country_event = {
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
-			if = { limit = { has_global_flag = cultural_overhaul_active }
+			if = {
+				limit = { has_global_flag = cultural_overhaul_active }
 				shift_ethic = ethic_fanatic_capitalism
 			}
 			set_timed_country_flag = { flag = auth_corporate days = 2 }
@@ -2964,7 +3062,8 @@ country_event = {
 		event_target:subject_selected = {
 			# clear_ethos = yes
 			country_add_ethic = ethic_fanatic_authoritarian
-			if = { limit = { has_global_flag = cultural_overhaul_active }
+			if = {
+				limit = { has_global_flag = cultural_overhaul_active }
 				shift_ethic = ethic_fanatic_capitalism
 			}
 			set_timed_country_flag = { flag = auth_corporate days = 2 }
@@ -3030,10 +3129,12 @@ country_event = {
 			auth_imperial		= { country_remove_ethic = ethic_fanatic_egalitarian	country_remove_ethic = ethic_egalitarian }
 			auth_corporate		= { country_remove_ethic = ethic_fanatic_authoritarian	country_remove_ethic = ethic_fanatic_egalitarian }
 		}
-		if = { limit = { is_gestalt = yes }
+		if = {
+			limit = { is_gestalt = yes }
 			country_remove_ethic = ethic_gestalt_consciousness
 		}
-		if = { limit = { num_ethics = 1 }
+		if = {
+			limit = { num_ethics = 1 }
 			random_list = {
 				1 = { country_add_ethic = ethic_fanatic_materialist		modifier = { factor = 0 has_ethic = ethic_fanatic_materialist } }
 				1 = { country_add_ethic = ethic_fanatic_spiritualist	modifier = { factor = 0 has_ethic = ethic_fanatic_spiritualist } }
@@ -3064,7 +3165,9 @@ country_event = {
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_socialism		has_ethic = ethic_fanatic_capitalism	has_ethic = ethic_fanatic_socialism } }	 country_add_ethic = ethic_socialism	}
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_capitalism	has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_capitalism } } country_add_ethic = ethic_capitalism	}
 			}
-		} else_if = { limit = { num_ethics > 0 }
+		}
+		else_if = {
+			limit = { num_ethics > 0 }
 			random_list = {
 				1 = { shift_ethic = ethic_fanatic_materialist	modifier = { factor = 0 has_ethic = ethic_fanatic_materialist } }
 				1 = { shift_ethic = ethic_fanatic_spiritualist	modifier = { factor = 0 has_ethic = ethic_fanatic_spiritualist } }
@@ -3075,7 +3178,7 @@ country_event = {
 				4 = { shift_ethic = ethic_fanatic_egalitarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 				3 = { shift_ethic = ethic_fanatic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
 				# (Mod) Ethics and Civics Classic
-				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green } } 		country_add_ethic = ethic_fanatic_green	 }
+				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green } } 		country_add_ethic = ethic_fanatic_green }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_industrial } }	country_add_ethic = ethic_fanatic_industrial }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_socialism } }		country_add_ethic = ethic_fanatic_socialism }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_capitalism } }	country_add_ethic = ethic_fanatic_capitalism }
@@ -3095,7 +3198,8 @@ country_event = {
 				1 = { shift_ethic = ethic_socialism		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_socialism		has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_socialism } } }
 				1 = { shift_ethic = ethic_capitalism	modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_authoritarian	has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_authoritarian } } }
 			}
-		} else = {
+		}
+		else = {
 			random_list = {
 				70 = { # Fanatic and non-fanatic
 					random_list = {
@@ -3182,7 +3286,7 @@ country_event = {
 }
 
 # create_starting_fleets (on release subject, on .215 decentralisation, on .7 change subjct type on wg)
-# Root = last_created_country/subject country
+# Root = last_created_country/subject country (similar in syndaw.1022)
 # From = planet = capital_scope
 country_event = {
 	id = regentmaker.209
@@ -3198,12 +3302,27 @@ country_event = {
 		}
 	}
 	immediate = {
+		if = {
+			limit = {
+				NOT = { exists = capital_scope }
+				exists = from
+				from = { is_scope_type = planet }
+			}
+			from = {
+				set_owner = root
+				set_controller = root
+				set_capital = yes
+			}
+		}
+
 		capital_scope = {
-			if = { limit = { NOT = { has_modifier =  "pm_perfect_vassal_colony" } }
+			if = {
+				limit = { NOT = { has_modifier =  "pm_perfect_vassal_colony" } }
 				add_modifier = { modifier = "pm_perfect_vassal_colony" }
 			}
 		}
-		if = { limit = { NOT = { has_modifier =  perfect_vassal_boost } }
+		if = {
+			limit = { NOT = { has_modifier =  perfect_vassal_boost } }
 			add_modifier = { modifier = perfect_vassal_boost }
 		}
 
@@ -3233,6 +3352,8 @@ country_event = {
 		every_planet_within_border = {
 			limit = {
 				has_planet_flag = planet_marked_for_handover
+				OR = { is_colony = yes is_under_colonization = yes }
+				NOT = { is_planet = root.capital_scope }
 				OR = {
 					has_owner = no
 					is_owned_by = event_target:owning_empire
@@ -3258,15 +3379,18 @@ country_event = {
 					}
 					# log="create_starting_fleets [From.Owner.GetName]"
 					set_owner = prevprevprev
-					if = { limit = { is_ship_class = shipclass_science_ship exists = leader }
+					if = {
+						limit = { is_ship_class = shipclass_science_ship exists = leader }
 						leader = { set_owner = prevprevprevprev }
 						assign_leader = leader
-					} else_if = { limit = { is_ship_class = shipclass_transport }
+					}
+					else_if = { limit = { is_ship_class = shipclass_transport }
 						# TODO: replace scope workaround for ship.army bug !?
 						# Give armies (general)
 						event_target:owning_empire = {
 							every_owned_army = {
 								limit = {
+									is_defensive_army = no
 									exists = fleet
 									NOT = { is_owned_by = prev }
 									# fleet = { is_same_value = prevprevprev }
@@ -3275,10 +3399,12 @@ country_event = {
 							}
 						}
 						# Set leader
-						if = { limit = { exists = leader }
+						if = {
+							limit = { exists = leader }
 							prevprevprev = {
 								random_owned_army = {
 									limit = {
+										is_defensive_army = no
 										exists = fleet
 										# NOT = { exists = leader }
 									}
@@ -3303,9 +3429,12 @@ country_event = {
 							is_controlled_by = event_target:owning_empire
 						}
 					}
-					if = { limit = { is_owned_by = event_target:owning_empire }
+					if = {
+						limit = { is_owned_by = event_target:owning_empire }
 						set_owner = prevprevprev
-					} else_if = { limit = { is_controlled_by = event_target:owning_empire }
+					}
+					else_if = {
+						limit = { is_controlled_by = event_target:owning_empire }
 						set_controller = prevprevprev
 					}
 				}
@@ -3334,13 +3463,15 @@ country_event = {
 						is_owned_by = event_target:owning_empire
 					}
 					set_owner = prevprev
-					if = { limit = { exists = leader }
+					if = {
+						limit = { exists = leader }
 						leader = { set_owner = prevprevprev }
 						assign_leader = leader
 					}
 				}
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				event_target:owning_empire = { used_naval_capacity_percent > 0.6 }
 				used_naval_capacity_percent < 0.5
@@ -3362,7 +3493,8 @@ country_event = {
 						is_owned_by = event_target:owning_empire
 					}
 					set_owner = prevprev
-					if = { limit = { exists = leader }
+					if = {
+						limit = { exists = leader }
 						leader = { set_owner = prevprevprev }
 						assign_leader = leader
 					}
@@ -3390,7 +3522,8 @@ country_event = {
 						is_owned_by = event_target:owning_empire
 					}
 					set_owner = prevprev
-					if = { limit = { exists = leader }
+					if = {
+						limit = { exists = leader }
 						leader = { set_owner = prevprevprev }
 						assign_leader = leader
 					}
@@ -3415,7 +3548,8 @@ country_event = {
 							modifier = { add = 1 NOT = { exists = leader } }
 						}
 						set_owner = prevprev
-						if = { limit = { exists = leader }
+						if = {
+							limit = { exists = leader }
 							leader = { set_owner = prevprevprev }
 							assign_leader = leader
 						}
@@ -3430,7 +3564,8 @@ country_event = {
 					merg_is_default_empire = yes
 					NOT = { is_same_empire = root }
 				}
-				if = { limit = { is_perfect_vassal = yes }
+				if = {
+					limit = { is_perfect_vassal = yes }
 					add_opinion_modifier = { who = root modifier = triggered_opinion_diplo_stance_supremacy }
 					add_opinion_modifier = { who = root modifier = opinion_discarded }
 				}
@@ -3446,9 +3581,11 @@ country_event = {
 			planet_event = { id = game_start.22 days = 180	random = 60 } # Set up additional buildings (mines, farms, power plants)
 			planet_event = { id = game_start.23 days = 360	random = 90 } # Add additional pops
 			solar_system = {
-				if = { limit = { exists = starbase }
+				if = {
+					limit = { exists = starbase }
 					starbase = {
-						if = { limit = { has_starbase_size < starbase_starport }
+						if = {
+							limit = { has_starbase_size < starbase_starport }
 							set_starbase_size = starbase_starport
 							set_starbase_module = { slot = 1 module = shipyard }
 							set_starbase_module = { slot = 2 module = trading_hub }
@@ -3470,7 +3607,8 @@ country_event = {
 						module = missile_battery
 						building = defense_grid
 					}
-				} else_if = {
+				}
+				else_if = {
 					limit = {
 						NOT = { event_target:owning_empire = { has_technology = tech_starbase_5 } }
 						NAND = {
@@ -3489,14 +3627,30 @@ country_event = {
 			}
 		}
 
-		# Establish Communications
-		if = { limit = { NOT = { has_communications = event_target:owning_empire } }
+		## Establish Communications
+		if = {
+			limit = { NOT = { has_communications = event_target:owning_empire } }
 			establish_communications_no_message = event_target:owning_empire
 		}
 		every_country = {
 			limit = {
-				has_communications = event_target:owning_empire
 				NOT = { has_communications = root }
+				OR = {
+					has_communications = event_target:owning_empire
+					intel_level = {
+						level > low
+						system = event_target:owning_empire.capital_scope.solar_system
+					}
+					any_system = {
+						has_star_flag = machup_system_flip
+						prev = {
+							intel_level = {
+								level > low
+								system = prev
+							}
+						}
+					}
+				}
 			}
 			if = {
 				limit = {
@@ -3507,8 +3661,8 @@ country_event = {
 					establish_contact = { who = prev }
 					establish_communications_no_message = prev
 				}
+				establish_contact = { who = root location = root.capital_scope }
 			}
-			# establish_contact = { who = prev location = prev.capital_scope }
 			establish_communications_no_message = root
 		}
 		every_first_contact = { finish_first_contact = yes }

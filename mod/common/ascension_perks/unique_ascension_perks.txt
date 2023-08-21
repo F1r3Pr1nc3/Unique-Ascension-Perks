@@ -928,12 +928,15 @@ ap_galaxy_center = {
 		custom_tooltip = { fail_text = "requires_mega_engineering" has_technology = tech_mega_engineering }
 		host_has_dlc = "Megacorp"
 		host_has_dlc = "Utopia"
+		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } } }
 		custom_tooltip = {
 			fail_text = "ap_galaxy_center_req_7"
 			any_owned_planet = {
+				is_colony = yes
 				gpm_is_planet_class_city = yes # is_possible_galaxy_center
-				controller = { is_same_empire = prev.owner }
 				num_pops > 20
+				controller = { is_same_empire = prev.owner }
+				distance_to_core_percent < 26
 			}
 		}
 	}
@@ -1049,7 +1052,7 @@ ap_space_merchant = {
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_space_merchant
-		modifier = { factor = 0.25 OR = { is_gestalt = yes is_unfriendly = yes } }
+		modifier = { factor = 0 OR = { is_gestalt = yes is_unfriendly = yes } }
 	}
 }
 
@@ -1711,11 +1714,13 @@ ap_self_aware_colony = {
 
 ap_flourishing_technocracy = {
 	possible = {
+		# custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_2" has_technology = tech_basic_science_lab_3 }
+		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_3" has_technology = tech_physics_3 }
+		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_4" has_technology = tech_society_3 }
+		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_5" has_technology = tech_engineering_3 }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_1" OR = { tradition_discovery_finish = yes has_civic = civic_technocracy } }
-		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_2" OR = { has_technology = tech_basic_science_lab_3 has_civic = civic_technocracy } }
-		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_3" OR = { has_technology = tech_physics_3 has_civic = civic_technocracy } }
-		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_4" OR = { has_technology = tech_society_3 has_civic = civic_technocracy } }
-		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_5" OR = { has_technology = tech_engineering_3 has_civic = civic_technocracy } }
+		custom_tooltip = { num_researched_techs_of_tier = { tier = 3 value > 20 } }
 	}
 	modifier = {
 		country_physics_research_produces_mult = 0.05

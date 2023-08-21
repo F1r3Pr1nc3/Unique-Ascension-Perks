@@ -21,7 +21,8 @@ decision_stellar_manipulation = {
 		custom_tooltip = "decision_stellar_manipulation_tooltip"
 		hidden_effect = {
 			reroll_planet = yes
-			if = { limit = { has_global_flag = has_guillis_planet_modifiers_mod }
+			if = {
+				limit = { has_global_flag = has_guillis_planet_modifiers_mod }
 				gpm_purge_all_planetary_modifiers = yes
 				gpm_roll_normal_habitable_modifiers = yes
 			}
@@ -233,7 +234,8 @@ decision_genious_pregnancy = {
 				count = 9
 				random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
 			}
-			if = { limit = { owner = { is_hive_empire = yes } }
+			if = {
+				limit = { owner = { is_hive_empire = yes } }
 				while = {
 					count = 3
 					random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
@@ -411,12 +413,15 @@ decision_recomposer_life_to_ai = {
 						from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = minerals amount > 25 } }
 					}
 					kill_pop = yes
-				} else = { break = yes }
+				}
+				else = { break = yes }
 			}
 			from = {
-				if = { limit = { prev = { is_variable_set = num_non_robot_pop } }
+				if = {
+					limit = { prev = { is_variable_set = num_non_robot_pop } }
 					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
-				} else = {
+				}
+				else = {
 					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.value:num_non_robot_pop }
 				}
 			}
@@ -489,13 +494,16 @@ decision_recomposer_ai_to_life = {
 						from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = food amount > 25 } }
 					}
 					kill_pop = yes
-				} else = { break = yes }
+				}
+				else = { break = yes }
 			}
 
 			from = {
-				if = { limit = { prev = { is_variable_set = num_robot_pop } }
+				if = {
+					limit = { prev = { is_variable_set = num_robot_pop } }
 					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
-				} else = {
+				}
+				else = {
 					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.value:num_robot_pop }
 				}
 			}
@@ -514,19 +522,27 @@ decision_galaxy_center = {
 	}
 	potential = {
 		gpm_is_planet_class_city = yes # is_possible_galaxy_center
-		exists = from
-		from = {
-			has_ascension_perk = ap_galaxy_center
-			NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } }
-		}
+		hidden_trigger = { exists = from NOT = { has_planet_flag = galaxy_center_planet } }
+		from = { has_ascension_perk = ap_galaxy_center }
+		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" from = { NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } } } }
+		distance_to_core_percent < 26
+	}
+	allow = {
+		hidden_trigger = { exists = from }
 		num_pops > 20
+		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
+			NOR = {
+				has_planet_flag = decision_galaxy_center_cooldown
+				from = { has_active_event = { UniqueAscensionPerksEvents.83 UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 } }
+			}
+		}
 	}
 	effect = {
 		custom_tooltip = "decision_galaxy_center_tooltip"
 		hidden_effect = {
 			planet_event = { id = UniqueAscensionPerksEvents.83 }
 			set_planet_flag = galaxy_center_planet
-			set_planet_size = 150
+			set_planet_size = 120 # TODO: FIXME to size can lead into other planets
 			add_modifier = { modifier = center_of_galaxy }
 		}
 	}
@@ -537,7 +553,12 @@ decision_galaxy_center_menu = {
 	owned_planets_only = yes
 	sound = event_administrative_work
 	icon = decision_galaxy_center
-	potential = { has_planet_flag = galaxy_center_planet }
+	potential = {
+		hidden_trigger = {
+			has_planet_flag = galaxy_center_planet
+			exists = from from = { has_ascension_perk = ap_galaxy_center }
+		}
+	}
 	allow = {
 		hidden_trigger = { exists = from }
 		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
@@ -603,13 +624,15 @@ decision_hivemind_reserve = {
 	potential = { exists = from from = { has_ascension_perk = ap_hivemind_reserve } is_under_colonization = no }
 	allow = {
 		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
-		if = { limit = { is_variable_set = hivemind_reserve_happened }
+		if = {
+			limit = { is_variable_set = hivemind_reserve_happened }
 			custom_tooltip = {
 				fail_text = requires_max_5_times_fail_simple
 				success_text = requires_max_5_times_hivemind_reserve
 				check_variable = { which = hivemind_reserve_happened value < 5 }
 			}
-		} else = {
+		}
+		else = {
 			custom_tooltip = { text = requires_max_5_times_pass_simple always = yes }
 		}
 	}
@@ -650,13 +673,15 @@ decision_hivemind_reserve_unhabited = {
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
-		if = { limit = { is_variable_set = hivemind_reserve_happened }
+		if = {
+			limit = { is_variable_set = hivemind_reserve_happened }
 			custom_tooltip = {
 				fail_text = requires_max_5_times_fail_simple
 				success_text = requires_max_5_times_hivemind_reserve
 				check_variable = { which = hivemind_reserve_happened value < 5 }
 			}
-		} else = {
+		}
+		else = {
 			custom_tooltip = { text = requires_max_5_times_pass_simple always = yes }
 		}
 	}
@@ -1144,19 +1169,28 @@ decision_self_aware_colony = {
 	potential = {
 		exists = from
 		# OR = { has_global_flag = ap_self_aware_colony
+		# NOT = { has_modifier = self_aware_colony }
 		from = { has_ascension_perk = ap_self_aware_colony }
-		NOT = { has_modifier = self_aware_colony }
+	}
+	allow = {
+		hidden_trigger = { exists = from }
+		NOR = {
+			has_planet_flag = self_aware_planet
+			from = { has_active_event = { UniqueAscensionPerksEvents.461 UniqueAscensionPerksEvents.465 UniqueAscensionPerksEvents.466 } }
+		}
 	}
 	effect = {
 		custom_tooltip = "decision_self_aware_colony_tooltip"
 		hidden_effect = {
-			if = { limit = { has_modifier = self_aware_colony }
-				planet_event = { id = UniqueAscensionPerksEvents.461 }
-			} else = {
+			if = {
+				limit = { has_modifier = self_aware_colony }
+				planet_event = { id = UniqueAscensionPerksEvents.461 } # Menu
+			}
+			else = { # Init
 				remove_all_buildings = yes
 				remove_all_districts = yes
-				add_modifier = { modifier = self_aware_colony clear_on_owner_change = no }
-				add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = no }
+				add_modifier = { modifier = self_aware_colony }
+				add_modifier = { modifier = self_aware_no_focus }
 			}
 		}
 	}

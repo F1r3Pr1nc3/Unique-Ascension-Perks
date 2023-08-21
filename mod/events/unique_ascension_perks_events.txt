@@ -12,7 +12,7 @@ country_event = {
 
 # Sync_subjects_virtual_relations (on_war_beginning, on_war_ended)
 country_event = {
-	id = UniqueAscensionPerksEvents.8786 # Similar UniqueAscensionPerksEvents.1023
+	id = UniqueAscensionPerksEvents.8786 # Similar UniqueAscensionPerksEvents.1022
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = { is_subject = no }
@@ -559,315 +559,6 @@ planet_event = {
 		# if = { limit = { is_variable_set = d_underground_vault	NOT = { has_deposit = d_underground_vault } } while = { count = d_underground_vault			add_deposit = d_underground_vault } clear_variable = d_underground_vault }
 		# if = { limit = { is_variable_set = d_underground_vault_2	NOT = { has_deposit = d_underground_vault_2 } } while = { count = d_underground_vault_2		add_deposit = d_underground_vault_2 } clear_variable = d_underground_vault_2 }
 	}
-}
-
-######################################
-#									 #
-###########  Lost Heritage  ##########
-#									 #
-######################################
-
-country_event = {
-	id = UniqueAscensionPerksEvents.20
-	title = "ap_lost_heritage"
-	desc = "UniqueAscensionPerksEvents.20.Desc"
-	show_sound = event_psionic
-	picture = GFX_evt_lost_heritage
-	location = event_target:lh_empire_capital_system # capital_scope
-	is_triggered_only = yes
-	immediate = {
-		if = { limit = { exists = capital_scope }
-			if = { limit = { capital_scope.solar_system = { has_natural_wormhole = yes } }
-				capital_scope.solar_system = {
-					closest_system = {
-						limit = { exists = space_owner space_owner = { is_same_empire = root } has_natural_wormhole = no }
-						save_event_target_as = lh_empire_capital_system
-					}
-				}
-			}
-			else = {
-				capital_scope.solar_system = { save_event_target_as = lh_empire_capital_system }
-			}
-		}
-		else_if = { limit = { any_system_within_border = { exists = starbase has_natural_wormhole = no any_system_colony = { } } }
-			random_system_within_border = {
-				limit = { exists = starbase has_natural_wormhole = no any_system_colony = { } }
-				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
-				save_event_target_as = lh_empire_capital_system
-			}
-		}
-		else = {
-			random_owned_planet = {
-				limit = { solar_system = { exists = starbase } }
-				weights = {
-					base = 1
-					modifier = { add = 3 solar_system = { is_capital_system = yes } }
-					modifier = { add = 3 solar_system = { has_natural_wormhole = no } }
-				}
-				solar_system = { save_event_target_as = lh_empire_capital_system }
-			}
-		}
-		set_variable = { which = amount_spawn_lh_systems_total value = 0 }
-		set_spawn_system_batch = begin
-		random_rim_system = {
-			# limit = { <triggers> }
-			# weights = { base = 1 modifier = { add = 1 <triggers> } }
-			spawn_system = {
-				min_distance >= 26
-				max_distance <= 44
-				min_orientation_angle = -140
-				max_orientation_angle = 140
-				hyperlane = no
-				initializer = "lh_basic_system"
-				direction = rimwards
-				effect = { save_event_target_as = lh_basic_system }
-			}
-			# random_list = {
-				# Angles from 140° to 220° are corrupted and will end up with messed cluster and systems spawning very far away.
-				# 60 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 140 max_orientation_angle = 220 hyperlane = no initializer = "lh_basic_system" } }
-				# 30 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 0 max_orientation_angle = 30 hyperlane = no initializer = lh_basic_system } }
-				# 20 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 60 max_orientation_angle = 80 hyperlane = no initializer = lh_basic_system } }
-				# 5 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 110 max_orientation_angle = 115 hyperlane = no initializer = lh_basic_system } }
-				# 74 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 230 max_orientation_angle = 304 hyperlane = no initializer = lh_basic_system } }
-				# 30 = { spawn_system = { min_distance > 630 max_distance <= 640 min_orientation_angle = 330 max_orientation_angle = 360 hyperlane = no initializer = lh_basic_system } }
-			#}
-		}
-		event_target:lh_empire_capital_system = {
-			event_target:lh_basic_system = {
-				prev = { spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 360 } }
-				spawn_natural_wormhole = { bypass_type = wormhole random_pos = yes orbit_angle = 270 }
-				link_wormholes = prev
-			}
-		}
-		set_spawn_system_batch = end
-	}
-	# after = {
-	# 	hidden_effect = {
-	# 		event_target:lh_basic_system = {
-	# 			set_surveyed = { surveyed = yes surveyor = root }
-	# 			create_starbase = { size = starbase_outpost owner = root }
-	# 		}
-	# 	}
-	# }
-	option = {
-		name = EXCELLENT
-		give_tech_option_or_progress_effect = { TECH = tech_new_systems_localization } # add_research_option = tech_new_systems_localization
-		hidden_effect = {
-			country_event = { id = distar.13060 scopes = { from = event_target:lh_empire_capital_system } }
-		}
-	}
-}
-
-# From = system
-country_event = {
-	id = UniqueAscensionPerksEvents.21
-	title = "UniqueAscensionPerksEvents.21.Name"
-	desc = "UniqueAscensionPerksEvents.21.Desc"
-	picture = GFX_evt_system_localization
-	show_sound = event_laboratory_sound
-	location = from
-	is_triggered_only = yes
-	auto_select = no
-	force_open = no
-	trigger = { exists = from }
-	immediate = {
-		from = {
-			if = {
-				limit = {
-					OR = { NOT = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system }
-				}
-				closest_system = {
-					min_steps = 1
-					max_steps = 33
-					use_bypasses = no
-					limit = {
-						has_star_flag = lh_spawned_system
-						NOT = { has_hyperlane_to = prev }
-					}
-					save_event_target_as = lh_spawned_system
-				}
-			}
-			else_if = {
-				limit = {
-					OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system }
-				}
-				closest_system = {
-					min_steps = 1
-					max_steps = 33
-					use_bypasses = no
-					limit = {
-						has_star_flag = lh_basic_system
-						NOT = { has_hyperlane_to = prev }
-					}
-					save_event_target_as = lh_basic_system
-				}
-			}
-			# Fallback euclidean
-			if = {
-				limit = {
-					OR = { NOT = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system }
-				}
-				random_neighbor_system_euclidean = {
-					limit = {
-						has_star_flag = lh_spawned_system
-						NOT = { has_hyperlane_to = prev }
-					}
-					save_event_target_as = lh_spawned_system
-				}
-			}
-			else_if = {
-				limit = {
-					OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system }
-				}
-				random_neighbor_system_euclidean = {
-					limit = {
-						has_star_flag = lh_basic_system
-						NOT = { has_hyperlane_to = prev }
-					}
-					save_event_target_as = lh_basic_system
-				}
-			}
-		}
-	}
-	after = {
-		hidden_effect = {
-			from = {
-				random_list = {
-					40 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system distance = { source = event_target:lh_basic_system type = euclidean max_distance <= 40 } } } add_hyperlane = { from = this to = event_target:lh_basic_system } }
-					20 = { modifier = { factor = 0 OR = { NOR = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system distance = { source = event_target:lh_spawned_system type = euclidean max_distance <= 40 } } } add_hyperlane = { from = this to = event_target:lh_spawned_system } }
-					30 = { modifier = { factor = 0 NOT = { any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prev } distance = { source = prev type = euclidean max_distance <= 35 } } } } random_neighbor_system_euclidean = { limit = { NOR = { has_hyperlane_to = prev any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prevprev } distance = { source = prevprev type = euclidean max_distance <= 25 } } } } add_hyperlane = { from = this to = prev } } }
-					10 = { modifier = { factor = 0 NOT = { any_neighbor_system = { has_hyperlane_to = prev } } } }
-					9 = { modifier = { factor = 0 NOT = { any_neighbor_system_euclidean = { has_hyperlane_to = prev } } } }
-					1 = {}
-				}
-			}
-		}
-	}
-	option = { name = EXCELLENT }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.22
-	title = "UniqueAscensionPerksEvents.22.Name"
-	desc = "UniqueAscensionPerksEvents.22.Desc"
-	picture = GFX_evt_system_localization
-	show_sound = event_default
-	location = capital_scope
-	is_triggered_only = yes
-	trigger = {
-		check_variable = { which = amount_spawn_lh_systems_total value < 30 }
-	}
-	option = {
-		name = "UniqueAscensionPerks.lets_again"
-		allow = {
-			resource_stockpile_compare = { resource = energy value > 5000 }
-			resource_stockpile_compare = { resource = sr_dark_matter value > 100 }
-			custom_tooltip = { fail_text = "edict_enable_system_localization_req" any_system_within_border = { has_star_flag = lh_basic_system } }
-		}
-		custom_tooltip = "edict_enable_system_localization_tooltip"
-		country_event = { id = UniqueAscensionPerksEvents.23 }
-	}
-	option = { name = EXCELLENT }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.23
-	title = "UniqueAscensionPerksEvents.23.Name"
-	desc = "UniqueAscensionPerksEvents.23.Desc"
-	picture = GFX_evt_system_localization
-	show_sound = event_laboratory_sound
-	location = event_target:lh_spawned_system
-	is_triggered_only = yes
-	trigger = {
-		check_variable = { which = amount_spawn_lh_systems_total value < 30 }
-	}
-	immediate = {
-		if = { limit = { NOT = { exists = event_target:lh_spawned_system } }
-			if = { limit = { any_system_within_border = { has_star_flag = lh_basic_system } }
-				random_system_within_border = {
-					limit = { has_star_flag = lh_basic_system }
-					save_event_target_as = lh_basic_system
-					save_event_target_as = lh_spawned_system
-				}
-			}
-			else = {
-				random_system = {
-					limit = { has_star_flag = lh_basic_system }
-					weights = { # Multiplayer?
-						base = 1
-						modifier = { add = 2 is_surveyed = { who = root status = yes } }
-						modifier = { add = 3 has_owner = no }
-					}
-					save_event_target_as = lh_basic_system
-					save_event_target_as = lh_spawned_system
-				}
-			}
-		}
-	}
-	after = {
-		hidden_effect = {
-			if = { limit = { is_variable_set = amount_spawn_lh_systems check_variable = { which = amount_spawn_lh_systems value > 0 } }
-				if = { limit = { check_variable = { which = amount_spawn_lh_systems value = 1 } has_global_flag = ap_lost_heritage }
-					add_resource = { energy = -500 }
-				}
-				else = {
-					add_resource = { energy = -5000 sr_dark_matter = -100 mult = amount_spawn_lh_systems }
-				}
-				# set_country_flag = system_localization_enabled
-				# set_timed_country_flag = { flag = system_localization_cooldown months = 1 }
-				set_spawn_system_batch = begin
-				event_target:lh_basic_system = {
-				# event_target:lh_spawned_system = {
-					while = {
-						count = root.amount_spawn_lh_systems
-						if = { # Add to previous one
-							limit = { any_system = { distance = { source = event_target:lh_spawned_system use_bypasses = no min_jumps = 1 max_jumps = 99 } has_star_flag = lh_spawned_system } }
-							random_system = {
-								limit = { distance = { source = event_target:lh_spawned_system use_bypasses = no min_jumps = 1 max_jumps = 99 } has_star_flag = lh_spawned_system }
-								random = { chance = 33 remove_star_flag = lh_spawned_system }
-								spawn_lh_system = yes
-							}
-						}
-						else_if = { limit = { root = { any_system_within_border = { has_star_flag = lh_special_system } } }
-							root = {
-								random_system_within_border = {
-									limit = { has_star_flag = lh_special_system }
-									save_event_target_as = lh_spawned_system
-									event_target:lh_basic_system = {
-										event_target:lh_spawned_system = { spawn_lh_system = yes }
-									}
-								}
-							}
-						}
-						else = {
-							random_system = {
-								limit = { has_star_flag = lh_special_system }
-								spawn_lh_system = yes
-							}
-						}
-					}
-				}
-				# }
-				# set_timed_country_flag = { flag = system_localization_cooldown days = @\[ 30 * amount_spawn_lh_systems] }
-				# country_event = { id = UniqueAscensionPerksEvents.22 days = @\[ 30 * amount_spawn_lh_systems] }
-				set_spawn_system_batch = end
-				change_variable = { which = amount_spawn_lh_systems_total value = amount_spawn_lh_systems }
-				clear_variable = amount_spawn_lh_systems
-			}
-		}
-	}
-	option = { name = "UniqueAscensionPerksEvents.23.1"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 30 } } } allow = { resource_stockpile_compare = { resource = energy value > 5000 } resource_stockpile_compare = { resource = sr_dark_matter value > 100 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.2"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 29 } } } allow = { resource_stockpile_compare = { resource = energy value > 10000 } resource_stockpile_compare = { resource = sr_dark_matter value > 200 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 2 } country_event = { id = UniqueAscensionPerksEvents.22 days = 60 } set_variable = { which = amount_spawn_lh_systems value = 2 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.3"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 28 } } } allow = { resource_stockpile_compare = { resource = energy value > 15000 } resource_stockpile_compare = { resource = sr_dark_matter value > 300 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 3 } country_event = { id = UniqueAscensionPerksEvents.22 days = 90 } set_variable = { which = amount_spawn_lh_systems value = 3 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.4"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 27 } } } allow = { resource_stockpile_compare = { resource = energy value > 20000 } resource_stockpile_compare = { resource = sr_dark_matter value > 400 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 4 } country_event = { id = UniqueAscensionPerksEvents.22 days = 120 } set_variable = { which = amount_spawn_lh_systems value = 4 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.5"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 26 } } } allow = { resource_stockpile_compare = { resource = energy value > 25000 } resource_stockpile_compare = { resource = sr_dark_matter value > 500 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 5 } country_event = { id = UniqueAscensionPerksEvents.22 days = 150 } set_variable = { which = amount_spawn_lh_systems value = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.6"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 25 } } } allow = { resource_stockpile_compare = { resource = energy value > 30000 } resource_stockpile_compare = { resource = sr_dark_matter value > 600 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 6 } country_event = { id = UniqueAscensionPerksEvents.22 days = 180 } set_variable = { which = amount_spawn_lh_systems value = 6 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.7"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 24 } } } allow = { resource_stockpile_compare = { resource = energy value > 35000 } resource_stockpile_compare = { resource = sr_dark_matter value > 700 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 7 } country_event = { id = UniqueAscensionPerksEvents.22 days = 210 } set_variable = { which = amount_spawn_lh_systems value = 7 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.8"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 23 } } } allow = { resource_stockpile_compare = { resource = energy value > 40000 } resource_stockpile_compare = { resource = sr_dark_matter value > 800 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 8 } country_event = { id = UniqueAscensionPerksEvents.22 days = 240 } set_variable = { which = amount_spawn_lh_systems value = 8 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.9"		trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 22 } } } allow = { resource_stockpile_compare = { resource = energy value > 45000 } resource_stockpile_compare = { resource = sr_dark_matter value > 900 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 9 } country_event = { id = UniqueAscensionPerksEvents.22 days = 270 } set_variable = { which = amount_spawn_lh_systems value = 9 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.10"	trigger = { hidden_trigger = { check_variable = { which = amount_spawn_lh_systems_total value < 21 } } } allow = { resource_stockpile_compare = { resource = energy value > 50000 } resource_stockpile_compare = { resource = sr_dark_matter value > 1000 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.22 days = 300 } set_variable = { which = amount_spawn_lh_systems value = 10 } } }
-	option = { name = "UniqueAscensionPerksEvents.23.cheat"	trigger = { hidden_trigger = { has_global_flag = ap_lost_heritage } } allow = { resource_stockpile_compare = { resource = energy value > 500 } } hidden_effect = { set_timed_country_flag = { flag = system_localization_cooldown months = 1 } country_event = { id = UniqueAscensionPerksEvents.22 days = 30 } set_variable = { which = amount_spawn_lh_systems value = 1 } } }
-	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 ######################################
@@ -3765,7 +3456,7 @@ country_event = {
 	is_triggered_only = yes
 	option = { name = EXCELLENT }
 }
-
+# Via edict
 country_event = {
 	id = UniqueAscensionPerksEvents.8143
 	title = "UniqueAscensionPerksEvents.8143.Name"
@@ -3791,12 +3482,16 @@ country_event = {
 			} }
 		}
 		if = { limit = { exists = event_target:VassalNavyInvestmentTarget }
-			event_target:VassalNavyInvestmentTarget = { save_global_event_target_as = VassalNavyInvestmentTarget }
-			clear_global_event_target = VassalNavyInvestmentTarget
+			no_scope = { save_event_target_as = VassalNavyInvestmentTarget }
 		}
 	}
 	after = {
-		if = { limit = { exists = event_target:VassalNavyInvestmentTarget NOT = { has_active_event = { UniqueAscensionPerksEvents.8144 } } }
+		if = {
+			limit = {
+				exists = event_target:VassalNavyInvestmentTarget
+				event_target:VassalNavyInvestmentTarget = { is_scope_valid = yes is_scope_type = country }
+				NOT = { has_active_event = { UniqueAscensionPerksEvents.8144 } }
+			}
 			country_event = { id = UniqueAscensionPerksEvents.8144 }
 		}
 	}
@@ -3832,10 +3527,14 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerks.select_country"
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } }
+		trigger = { exists = event_target:country_6 }
+		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 scopes = { from = from } } }
 		ai_chance = { factor = 0 }
 	}
-	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes
+		hidden_effect = { no_scope = { save_event_target_as = VassalNavyInvestmentTarget } }
+	}
 }
 
 country_event = {
@@ -3845,6 +3544,9 @@ country_event = {
 	show_sound = event_construction
 	picture = GFX_evt_hangar_bay
 	is_triggered_only = yes
+	trigger = {
+		exists = event_target:VassalNavyInvestmentTarget
+	}
 	immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.1
@@ -3884,12 +3586,12 @@ country_event = {
 	option = { name = BACK ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = {
 			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
-				country_event = { id = UniqueAscensionPerksEvents.8143 }
+				country_event = { id = UniqueAscensionPerksEvents.8143 scopes = { from = from } }
 			}
 		}
 	}
 }
-
+# Create Navy
 country_event = {
 	id = UniqueAscensionPerksEvents.8145
 	title = "UniqueAscensionPerksEvents.8145.Name"
@@ -3951,7 +3653,7 @@ country_event = {
 	}
 	option = { name = EXCELLENT }
 }
-
+# Notify
 country_event = {
 	id = UniqueAscensionPerksEvents.8146
 	title = "UniqueAscensionPerksEvents.8146.Name"
@@ -5363,7 +5065,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.322.Desc"
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = event_target:ruler planet_background = root graphical_culture = root city_level = root room = root }
+	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
 	location = event_target:target_planet
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -5385,7 +5087,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				planet_crime > 10
@@ -5423,7 +5124,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.323.Desc"
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = event_target:ruler planet_background = root graphical_culture = root city_level = root room = root }
+	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
 	location = event_target:target_planet
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -5445,7 +5146,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				planet_stability <= 45
@@ -5483,7 +5183,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.324.Desc"
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = event_target:ruler planet_background = root graphical_culture = root city_level = root room = root }
+	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
 	location = event_target:target_planet
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -5505,7 +5205,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				free_housing <= -3
@@ -5548,7 +5247,7 @@ country_event = {
 	}
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = event_target:ruler planet_background = root graphical_culture = root city_level = root room = root }
+	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
 	location = event_target:target_planet
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -5571,7 +5270,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				free_amenities <= -3
@@ -5616,7 +5314,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.326.Desc"
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = event_target:ruler planet_background = root graphical_culture = root city_level = root room = root }
+	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
 	location = event_target:target_planet
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -5639,7 +5337,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
@@ -5695,7 +5392,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				planet_crime > 10
@@ -5734,7 +5430,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				planet_stability <= 45
@@ -5773,7 +5468,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				free_housing <= -3
@@ -5813,7 +5507,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				free_amenities <= -3
@@ -5857,7 +5550,6 @@ country_event = {
 		}
 	}
 	immediate = {
-		ruler = { save_event_target_as = ruler }
 		random_owned_planet = {
 			limit = {
 				count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
@@ -7175,7 +6867,8 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.434.Cloud"
 		allow = {
 			resource_stockpile_compare = { resource = anti_matter value > 500 } has_technology = tech_space_cloud_weapon_1 custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req02 NOT = { has_country_flag = space_clouds_generation_cooldown } }
-			count_owned_fleet = { count < 11 limit = { is_civilian = no has_fleet_flag = space_clouds_generation_fleet } }
+			count_owned_fleet = { count < 11 limit = { has_fleet_flag = space_clouds_generation_fleet } }
+			count_owned_ship = { count < 101 limit = { is_ship_size = space_cloud } }
 		}
 		add_resource = { anti_matter = -500 }
 		custom_tooltip = "UniqueAscensionPerksEvents.434.Cloud.tooltip"
@@ -7188,6 +6881,7 @@ country_event = {
 			else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
 			create_fleet = {
 				name = "Space Clouds"
+				settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 				effect = {
 					set_owner = root
 					while = { count = 7 create_ship = { name = "" design = NAME_Dom_Cloud effect = {	add_modifier = { modifier = domesticated_aliens } } } }
@@ -7406,7 +7100,7 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.461.Trade"		allow = { owner = { has_technology = tech_interstellar_economics is_gestalt = no } NOT = { has_modifier = self_aware_trade } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_trade clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Soldiers"		allow = { owner = { has_technology = tech_centralized_command } NOT = { has_modifier = self_aware_army } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_army clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Strategic"	allow = { owner = { has_technology = tech_exotic_gases has_technology = tech_volatile_motes has_technology = tech_rare_crystals } NOT = { has_modifier = self_aware_strategic } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_strategic clear_on_owner_change = yes } }
-	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"		allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = no } }
+	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"		allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_no_focus } }
 	option = {
 		name = "UniqueAscensionPerksEvents.461.Reset"
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
@@ -7414,8 +7108,8 @@ planet_event = {
 			# set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
 			# reset_self_aware_planet = { POPS = "@[Root.num_pops_self_aware_planet]" } # TODO  Malformed token
 			remove_self_aware_planet = yes
-			add_modifier = { modifier = self_aware_colony clear_on_owner_change = no }
-			add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = no }
+			add_modifier = { modifier = self_aware_colony }
+			add_modifier = { modifier = self_aware_no_focus }
 			set_planet_flag = self_aware_planet
 			switch = { trigger = num_pops
 				5	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 5 } }
