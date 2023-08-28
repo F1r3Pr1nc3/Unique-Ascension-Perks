@@ -1,23 +1,3 @@
-# site_type_name = {				# Key of the site, used for name lookup etc.
-# 	picture = <sprite key>		# GFX_* sprite key for the sites image.
-# 	desc = <triggered event desc>	# Description generator for the site, with scope this=archaeological site.
-# 	max_instances = <int>			# Max instances of this type a galaxy can have, only checked when using 'create_archaeological_site = random'
-# 	weight = <scriptable value>		# Weight used for random weight, only used when using 'create_archaeological_site = random'. scriptable value type is defined either by '<int>' or '<mean time to happen>'.
-# 	stages = <int>					# Should match number of defined stages below.
-# 	potential = <trigger>			# Trigger checking if a scope with this=fleet ,from=archaeological site is potential to excavate (this will add/remove this option without giving the player a reason).
-# 	allow = <trigger>				# Trigger checking if a scope with this=fleet ,from=archaeological site is allowed to excavate (this will toggle enable/disabled mode on buttons etc).
-# 	visible = <trigger>				# Trigger that checks if a scope with this=country can see the from=archaeological site
-# 	stage = {						# Stage definition, order dependent.
-# 		difficulty = <intervall int> 	# Min max intervall type. intervall is defined either by '<int>' or '{ min = <int> max=<int> }' where the later will randomize a value between min and max.
-# 		icon = <string>				# Rune icon gfx type.
-# 		event = <string>			# Event to fire when finished the state.
-# 	}
-# 	stage = {...}					# Second stage, the total number of 'stage' entries should match value of 'stages'
-# 	on_roll_failed = <effect>			# Effect to fire when a roll fails, with scope this=fleet ,from=archaeological site.
-# 	on_create = <effect>			# Effect to fire upon site creation, with scope this=archaeological site.
-# 	on_visible = <effect>			# Effect to fire upon site visible, with scope this=country, from=archaeological site.
-# }
-
 # FAIRE 3 DISCOVERY SITES QUI DONNENT 3 RELICS OP MAIS RARE A TROUVER.
 
 AH_ancient_temple = {
@@ -25,9 +5,10 @@ AH_ancient_temple = {
 	picture = GFX_evt_relic_world_building
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes can_planet_mineral_extraction = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = planet_mineral_extraction years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_A1 event = UniqueAscensionPerksSitesEvents.0 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_A2 event = UniqueAscensionPerksSitesEvents.1 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
@@ -38,48 +19,51 @@ AH_city_ruins = {
 	picture = GFX_evt_city_ruins
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes habitable_planet = yes NOT = { has_planet_flag = alien_city_study } } } # can_alien_city_study = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = alien_city_study years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_C1 event = UniqueAscensionPerksSitesEvents.10 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_C2 event = UniqueAscensionPerksSitesEvents.11 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 }
 
-AH_old_databank = {
-	desc = "AH_old_databank_intro"
-	picture = GFX_evt_ancient_databank
-	# max_instances = 9999
-	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
-	allow = { exists = leader leader = { leader_class = scientist } }
-	visible = { default_site_visible_trigger = yes }
-	stage = { difficulty = 1 icon = GFX_archaeology_runes_B1 event = UniqueAscensionPerksSitesEvents.20 }
-	stage = { difficulty = 2 icon = GFX_archaeology_runes_B2 event = UniqueAscensionPerksSitesEvents.21 }
-	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
-}
+# AH_old_databank = {
+# 	desc = "AH_old_databank_intro"
+# 	picture = GFX_evt_ancient_databank
+# 	# max_instances = 9999
+# 	stages = 2
+# 	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+# 	allow = { exists = leader leader = { leader_class = scientist } }
+# 	visible = { default_site_visible_trigger = yes }
+# 	stage = { difficulty = 1 icon = GFX_archaeology_runes_B1 event = UniqueAscensionPerksSitesEvents.20 }
+# 	stage = { difficulty = 2 icon = GFX_archaeology_runes_B2 event = UniqueAscensionPerksSitesEvents.21 }
+# 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
+# }
 
 AH_extinct_wildlife = {
 	desc = "AH_extinct_wildlife_intro"
 	picture = GFX_evt_archaeological_dig
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes habitable_planet = yes NOT = { has_planet_flag = wildlife_track } } } # can_wildlife_track = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = wildlife_track years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_D1 event = UniqueAscensionPerksSitesEvents.30 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_D2 event = UniqueAscensionPerksSitesEvents.31 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 }
 
-AH_abandonned_laboratory = {
-	desc = "AH_abandonned_laboratory_intro"
+AH_abandoned_laboratory = {
+	desc = "AH_abandoned_laboratory_intro"
 	picture = GFX_evt_outpost
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes habitable_planet = yes NOT = { has_planet_flag = rogue_laboratory } } } # can_rogue_laboratory = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = rogue_laboratory years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_E1 event = UniqueAscensionPerksSitesEvents.40 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_E2 event = UniqueAscensionPerksSitesEvents.41 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
@@ -90,48 +74,50 @@ AH_underground_entrance = {
 	picture = GFX_evt_in_the_dark
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes can_monster_from_deepth = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = monster_from_deepth years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_E1 event = UniqueAscensionPerksSitesEvents.50 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_E2 event = UniqueAscensionPerksSitesEvents.51 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 }
 
-AH_orbiting_station = {
-	desc = "AH_orbiting_station_intro"
-	picture = GFX_evt_gas_giant_station
-	# max_instances = 9999
-	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
-	allow = { exists = leader leader = { leader_class = scientist } }
-	visible = { default_site_visible_trigger = yes }
-	stage = { difficulty = 1 icon = GFX_archaeology_runes_F1 event = UniqueAscensionPerksSitesEvents.60 }
-	stage = { difficulty = 2 icon = GFX_archaeology_runes_F2 event = UniqueAscensionPerksSitesEvents.61 }
-	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
-}
+# AH_orbiting_station = {
+# 	desc = "AH_orbiting_station_intro"
+# 	picture = GFX_evt_gas_giant_station
+# 	# max_instances = 9999
+# 	stages = 2
+# 	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+# 	allow = { exists = leader leader = { leader_class = scientist } }
+# 	visible = { default_site_visible_trigger = yes }
+# 	stage = { difficulty = 1 icon = GFX_archaeology_runes_F1 event = UniqueAscensionPerksSitesEvents.60 }
+# 	stage = { difficulty = 2 icon = GFX_archaeology_runes_F2 event = UniqueAscensionPerksSitesEvents.61 }
+# 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
+# }
 
-AH_crashed_station = {
-	desc = "AH_crashed_station_intro"
-	picture = GFX_evt_crashed_station
-	# max_instances = 9999
-	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
-	allow = { exists = leader leader = { leader_class = scientist } }
-	visible = { default_site_visible_trigger = yes }
-	stage = { difficulty = 1 icon = GFX_archaeology_runes_A1 event = UniqueAscensionPerksSitesEvents.70 }
-	stage = { difficulty = 2 icon = GFX_archaeology_runes_A2 event = UniqueAscensionPerksSitesEvents.71 }
-	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
-}
+# AH_crashed_station = {
+# 	desc = "AH_crashed_station_intro"
+# 	picture = GFX_evt_crashed_station
+# 	# max_instances = 9999
+# 	stages = 2
+# 	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+# 	allow = { exists = leader leader = { leader_class = scientist } }
+# 	visible = { default_site_visible_trigger = yes }
+# 	stage = { difficulty = 1 icon = GFX_archaeology_runes_A1 event = UniqueAscensionPerksSitesEvents.70 }
+# 	stage = { difficulty = 2 icon = GFX_archaeology_runes_A2 event = UniqueAscensionPerksSitesEvents.71 }
+# 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
+# }
 
 AH_deep_in_the_center = {
 	desc = "AH_deep_in_the_center_intro"
 	picture = GFX_evt_relic_world_street
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes habitable_planet = yes NOT = { has_planet_flag = magnetic_activity_study } } } # can_magnetic_activity_study = yes
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = magnetic_activity_study years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_B1 event = UniqueAscensionPerksSitesEvents.80 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_B2 event = UniqueAscensionPerksSitesEvents.81 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
@@ -142,26 +128,27 @@ AH_space_ruins = {
 	picture = GFX_evt_ruined_system
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes habitable_planet = yes NOT = { has_planet_flag = alien_ruins_study } } } # can_alien_ruins_study = yes
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = alien_ruins_study years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_C1 event = UniqueAscensionPerksSitesEvents.90 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_C2 event = UniqueAscensionPerksSitesEvents.91 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 }
 
-AH_automatic_factory = {
-	desc = "AH_automatic_factory_intro"
-	picture = GFX_evt_robot_assembly_plant
-	# max_instances = 9999
-	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
-	allow = { exists = leader leader = { leader_class = scientist } }
-	visible = { default_site_visible_trigger = yes }
-	stage = { difficulty = 1 icon = GFX_archaeology_runes_D1 event = UniqueAscensionPerksSitesEvents.100 }
-	stage = { difficulty = 2 icon = GFX_archaeology_runes_D2 event = UniqueAscensionPerksSitesEvents.101 }
-	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
-}
+# AH_automatic_factory = {
+# 	desc = "AH_automatic_factory_intro"
+# 	picture = GFX_evt_robot_assembly_plant
+# 	# max_instances = 9999
+# 	stages = 2
+# 	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+# 	allow = { exists = leader leader = { leader_class = scientist } }
+# 	visible = { default_site_visible_trigger = yes }
+# 	stage = { difficulty = 1 icon = GFX_archaeology_runes_D1 event = UniqueAscensionPerksSitesEvents.100 }
+# 	stage = { difficulty = 2 icon = GFX_archaeology_runes_D2 event = UniqueAscensionPerksSitesEvents.101 }
+# 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
+# }
 
 AH_damaged_shipyard = {
 	desc = "AH_damaged_shipyard_intro"
@@ -176,14 +163,15 @@ AH_damaged_shipyard = {
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 }
 
-AH_unsual_region = {
-	desc = "AH_unsual_region_intro"
+AH_unusual_region = {
+	desc = "AH_unusual_region_intro"
 	picture = GFX_evt_alien_planet
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes can_unusual_world = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = can_unusual_world years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_F1 event = UniqueAscensionPerksSitesEvents.120 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_F2 event = UniqueAscensionPerksSitesEvents.121 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
@@ -194,9 +182,10 @@ AH_primitive_civilization = {
 	picture = GFX_evt_medieval_alien_civilization
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes can_aggressive_primitives = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = aggressive_primitives years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_A1 event = UniqueAscensionPerksSitesEvents.130 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_A2 event = UniqueAscensionPerksSitesEvents.131 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
@@ -207,9 +196,10 @@ AH_new_discovery = {
 	picture = GFX_evt_barren_dig_site
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes habitable_planet = yes NOT = { has_planet_flag = precursor_city_discovery } } } # can_precursor_city_discovery = yes
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = precursor_city_discovery years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_B1 event = UniqueAscensionPerksSitesEvents.140 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_B2 event = UniqueAscensionPerksSitesEvents.141 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
@@ -220,44 +210,45 @@ AH_false_planet_surface = {
 	picture = GFX_evt_junkheap
 	# max_instances = 9999
 	stages = 2
-	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes } }
+	weight = { base = 0 modifier = { add = 1000 can_spawn_AH_dig_site = yes can_machine_world_detected = yes } }
 	allow = { exists = leader leader = { leader_class = scientist } }
 	visible = { default_site_visible_trigger = yes }
+	on_create = { planet = { set_timed_planet_flag = { flag = machine_world_detected years = 6 } } }
 	stage = { difficulty = 1 icon = GFX_archaeology_runes_C1 event = UniqueAscensionPerksSitesEvents.150 }
 	stage = { difficulty = 2 icon = GFX_archaeology_runes_C2 event = UniqueAscensionPerksSitesEvents.151 }
 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 }
 
-# AH_intro = { TODO?
-# 	desc = "AH_intro"
-# 	picture = GFX_evt_junkheap
+# # AH_intro = { TODO?
+# # 	desc = "AH_intro"
+# # 	picture = GFX_evt_junkheap
+# # 	max_instances = 1
+# # 	stages = 2
+# # 	weight = { base = 0 modifier = { add = 500 can_spawn_AH_dig_site = yes } }
+# # 	allow = { exists = leader leader = { leader_class = scientist } }
+# # 	visible = { default_site_visible_trigger = yes }
+# # 	stage = { difficulty = 3 icon = GFX_archaeology_runes_A1 event = UniqueAscensionPerksSitesEvents.160 }
+# # 	stage = { difficulty = 3 icon = GFX_archaeology_runes_A2 event = UniqueAscensionPerksSitesEvents.161 }
+# # 	stage = { difficulty = 4 icon = GFX_archaeology_runes_A3 event = UniqueAscensionPerksSitesEvents.162 }
+# # 	stage = { difficulty = 4 icon = GFX_archaeology_runes_A4 event = UniqueAscensionPerksSitesEvents.163 }
+# # 	stage = { difficulty = 5 icon = GFX_archaeology_runes_A5 event = UniqueAscensionPerksSitesEvents.164 }
+# # 	stage = { difficulty = 6 icon = GFX_archaeology_runes_A6 event = UniqueAscensionPerksSitesEvents.165 }
+# # 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
+# # }
+
+# AH_almighty_fortress = {
+# 	desc = "AH_almighty_fortress_intro"
+# 	picture = GFX_evt_expansion_infinity
 # 	max_instances = 1
-# 	stages = 2
+# 	stages = 6
 # 	weight = { base = 0 modifier = { add = 500 can_spawn_AH_dig_site = yes } }
 # 	allow = { exists = leader leader = { leader_class = scientist } }
 # 	visible = { default_site_visible_trigger = yes }
-# 	stage = { difficulty = 3 icon = GFX_archaeology_runes_A1 event = UniqueAscensionPerksSitesEvents.160 }
-# 	stage = { difficulty = 3 icon = GFX_archaeology_runes_A2 event = UniqueAscensionPerksSitesEvents.161 }
-# 	stage = { difficulty = 4 icon = GFX_archaeology_runes_A3 event = UniqueAscensionPerksSitesEvents.162 }
-# 	stage = { difficulty = 4 icon = GFX_archaeology_runes_A4 event = UniqueAscensionPerksSitesEvents.163 }
-# 	stage = { difficulty = 5 icon = GFX_archaeology_runes_A5 event = UniqueAscensionPerksSitesEvents.164 }
-# 	stage = { difficulty = 6 icon = GFX_archaeology_runes_A6 event = UniqueAscensionPerksSitesEvents.165 }
+# 	stage = { difficulty = 3 icon = GFX_archaeology_runes_B1 event = UniqueAscensionPerksSitesEvents.170 }
+# 	stage = { difficulty = 3 icon = GFX_archaeology_runes_B2 event = UniqueAscensionPerksSitesEvents.171 }
+# 	stage = { difficulty = 4 icon = GFX_archaeology_runes_B3 event = UniqueAscensionPerksSitesEvents.172 }
+# 	stage = { difficulty = 4 icon = GFX_archaeology_runes_B4 event = UniqueAscensionPerksSitesEvents.173 }
+# 	stage = { difficulty = 5 icon = GFX_archaeology_runes_B5 event = UniqueAscensionPerksSitesEvents.174 }
+# 	stage = { difficulty = 6 icon = GFX_archaeology_runes_B6 event = UniqueAscensionPerksSitesEvents.175 }
 # 	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
 # }
-
-AH_almighty_fortress = {
-	desc = "AH_almighty_fortress_intro"
-	picture = GFX_evt_expansion_infinity
-	max_instances = 1
-	stages = 6
-	weight = { base = 0 modifier = { add = 500 can_spawn_AH_dig_site = yes } }
-	allow = { exists = leader leader = { leader_class = scientist } }
-	visible = { default_site_visible_trigger = yes }
-	stage = { difficulty = 3 icon = GFX_archaeology_runes_B1 event = UniqueAscensionPerksSitesEvents.170 }
-	stage = { difficulty = 3 icon = GFX_archaeology_runes_B2 event = UniqueAscensionPerksSitesEvents.171 }
-	stage = { difficulty = 4 icon = GFX_archaeology_runes_B3 event = UniqueAscensionPerksSitesEvents.172 }
-	stage = { difficulty = 4 icon = GFX_archaeology_runes_B4 event = UniqueAscensionPerksSitesEvents.173 }
-	stage = { difficulty = 5 icon = GFX_archaeology_runes_B5 event = UniqueAscensionPerksSitesEvents.174 }
-	stage = { difficulty = 6 icon = GFX_archaeology_runes_B6 event = UniqueAscensionPerksSitesEvents.175 }
-	on_roll_failed = { from = { standard_archaeological_site_on_roll_failed = { RANDOM_EVENTS = site_moon_bump_random_events } } }
-}

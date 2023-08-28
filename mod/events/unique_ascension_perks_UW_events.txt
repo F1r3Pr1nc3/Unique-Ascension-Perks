@@ -192,17 +192,17 @@ country_event = {
 	picture_event_data = { portrait = root room = underworld_room }
 	is_triggered_only = yes
 	immediate = {
-		random_country = { limit = { can_crime_attack = yes NOT = { is_same_empire = root } }
+		random_playable_country = { limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root } }
 			save_event_target_as = country_1
-			random_country = { limit = { can_crime_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } }
+			random_playable_country = { limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root is_same_empire = event_target:country_1 } }
 				save_event_target_as = country_2
-				random_country = { limit = { can_crime_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
+				random_playable_country = { limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
 					save_event_target_as = country_3
-					random_country = { limit = { can_crime_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
+					random_playable_country = { limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
 						save_event_target_as = country_4
-						random_country = { limit = { can_crime_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
+						random_playable_country = { limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
 							save_event_target_as = country_5
-							random_country = { limit = { can_crime_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
+							random_playable_country = { limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
 						}
 					}
 				}
@@ -362,13 +362,20 @@ country_event = {
 	force_open = yes
 	picture_event_data = { portrait = root room = underworld_room }
 	is_triggered_only = yes
+	trigger = {
+		any_playable_country = { can_pirate_attack = yes NOT = { is_same_empire = root } }
+	}
 	immediate = {
-		random_country = { limit = { can_pirate_attack = yes NOT = { is_same_value = root } } save_event_target_as = country_1 }
-		random_country = { limit = { can_pirate_attack = yes NOR = { is_same_value = root is_same_value = event_target:country_1 } } save_event_target_as = country_2 }
-		random_country = { limit = { can_pirate_attack = yes NOR = { is_same_value = root is_same_value = event_target:country_1 is_same_value = event_target:country_2 } } save_event_target_as = country_3 }
-		random_country = { limit = { can_pirate_attack = yes NOR = { is_same_value = root is_same_value = event_target:country_1 is_same_value = event_target:country_2 is_same_value = event_target:country_3 } } save_event_target_as = country_4 }
-		random_country = { limit = { can_pirate_attack = yes NOR = { is_same_value = root is_same_value = event_target:country_1 is_same_value = event_target:country_2 is_same_value = event_target:country_3 is_same_value = event_target:country_4 } } save_event_target_as = country_5 }
-		random_country = { limit = { can_pirate_attack = yes NOR = { is_same_value = root is_same_value = event_target:country_1 is_same_value = event_target:country_2 is_same_value = event_target:country_3 is_same_value = event_target:country_4 is_same_value = event_target:country_5 } } save_event_target_as = country_6 }
+		random_playable_country = { limit = { can_pirate_attack = yes NOT = { is_same_empire = root } } save_event_target_as = country_1 }
+		random_playable_country = { limit = { can_pirate_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } } save_event_target_as = country_2
+			random_playable_country = { limit = { can_pirate_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } } save_event_target_as = country_3
+				random_playable_country = { limit = { can_pirate_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } } save_event_target_as = country_4
+					random_playable_country = { limit = { can_pirate_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } } save_event_target_as = country_5
+						random_playable_country = { limit = { can_pirate_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
+					}
+				}
+			}
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
@@ -586,17 +593,17 @@ country_event = {
 	picture_event_data = { portrait = from room = underworld_room }
 	is_triggered_only = yes
 	immediate = {
-		random_country = { limit = { can_marauder_attack = yes NOT = { is_same_empire = root } }
+		random_playable_country = { limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root } }
 			save_event_target_as = countr_1
-			random_country = { limit = { can_marauder_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:countr_1 } }
+			random_playable_country = { limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root is_same_empire = event_target:countr_1 } }
 				save_event_target_as = countr_2
-				random_country = { limit = { can_marauder_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 } }
+				random_playable_country = { limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 } }
 					save_event_target_as = countr_3
-					random_country = { limit = { can_marauder_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 is_same_empire = event_target:countr_3 } }
+					random_playable_country = { limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 is_same_empire = event_target:countr_3 } }
 						save_event_target_as = countr_4
-						random_country = { limit = { can_marauder_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 is_same_empire = event_target:countr_3 is_same_empire = event_target:countr_4 } }
+						random_playable_country = { limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 is_same_empire = event_target:countr_3 is_same_empire = event_target:countr_4 } }
 							save_event_target_as = countr_5
-							random_country = { limit = { can_marauder_attack = yes NOR = { is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 is_same_empire = event_target:countr_3 is_same_empire = event_target:countr_4 is_same_empire = event_target:countr_5 } } save_event_target_as = countr_6 }
+							random_playable_country = { limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root is_same_empire = event_target:countr_1 is_same_empire = event_target:countr_2 is_same_empire = event_target:countr_3 is_same_empire = event_target:countr_4 is_same_empire = event_target:countr_5 } } save_event_target_as = countr_6 }
 						}
 					}
 				}

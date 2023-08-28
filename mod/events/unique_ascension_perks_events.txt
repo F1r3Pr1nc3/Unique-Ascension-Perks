@@ -694,8 +694,8 @@ country_event = {
 		add_modifier = { modifier = expandable_brain_2 }
 		add_research_option = tech_expandable_brain_2
 		hidden_effect = {
-			every_owned_leader = { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 }
-			every_pool_leader = { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 }
+			every_owned_leader	= { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } }
+			every_pool_leader	= { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } }
 		}
 	}
 }
@@ -730,8 +730,8 @@ country_event = {
 	location = capital_scope
 	is_triggered_only = yes
 	immediate = {
-		every_owned_leader = { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } BR_add_random_leader_trait = yes }
-		every_pool_leader = { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } BR_add_random_leader_trait = yes }
+		every_owned_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } } BR_add_random_leader_trait = yes }
+		every_pool_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } } BR_add_random_leader_trait = yes }
 	}
 	after = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 } }
@@ -828,8 +828,8 @@ country_event = {
 		# TODO needs test?
 		if = { limit = { OR = { has_modifier = expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 2 } } from = { set_skill = 2 } }
 		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 3 } } from = { set_skill = 3 BR_add_random_leader_trait = yes } }
-		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 3 add_skill = 1 } }
-		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 3 add_skill = 2 BR_add_random_leader_trait = yes } }
+		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 3 add_skill = 1 } country_event = { id = paragon_2.2095 scopes = { from = from } } }
+		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 3 add_skill = 2 BR_add_random_leader_trait = yes } country_event = { id = paragon_2.2095 scopes = { from = from } } }
 	}
 }
 
@@ -1148,11 +1148,11 @@ country_event = {
 					chance = 35
 					switch = {
 						trigger = is_ship_size
-						corvette		= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } } }
-						destroyer		= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } } }
-						cruiser			= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } } }
-						battleship		= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } } }
-						titan			= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
+						corvette	= { ROOT = { has_existing_ship_design = corvette	change_variable = { which = ship_corvette_recovered value = 1 } } }
+						destroyer	= { ROOT = { has_existing_ship_design = destroyer	change_variable = { which = ship_destroyer_recovered value = 1 } } }
+						cruiser		= { ROOT = { has_existing_ship_design = cruiser		change_variable = { which = ship_cruiser_recovered value = 1 } } }
+						battleship	= { ROOT = { has_existing_ship_design = battleship	change_variable = { which = ship_battleship_recovered value = 1 } } }
+						titan		= { ROOT = { has_existing_ship_design = titan		change_variable = { which = ship_titan_recovered value = 1 } } }
 					}
 				}
 			}
@@ -1371,6 +1371,7 @@ country_event = {
 		if = { limit = { exists = capital_star NOT = { exists = event_target:recovery_fleet_position } }
 			capital_star = { save_event_target_as = recovery_fleet_position }
 		}
+		# FIXME: invalid design for create_ship v.3.9
 		create_fleet = {
 			name = "Recovered Fleet"
 			settings = { spawn_debris = no }
@@ -1421,7 +1422,7 @@ country_event = {
 					}
 				}
 				set_location = { target = event_target:recovery_fleet_position distance = 8 angle = random }
-				set_fleet_stance = aggressive
+				# set_fleet_stance = aggressive error.log: not supported by this fleet?
 				set_aggro_range_measure_from = self
 				set_aggro_range = 1000
 				set_fleet_flag = recovery_fleet

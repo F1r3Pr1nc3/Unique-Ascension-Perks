@@ -518,18 +518,19 @@ decision_galaxy_center = {
 	enactment_time = 3600
 	resources = {
 		category = decisions
-		cost = { influence = 350 energy = 15000 alloys = 15000 }
+		cost = { influence = 350 energy = 9600 alloys = 9600 }
 	}
 	potential = {
 		gpm_is_planet_class_city = yes # is_possible_galaxy_center
 		hidden_trigger = { exists = from NOT = { has_planet_flag = galaxy_center_planet } }
 		from = { has_ascension_perk = ap_galaxy_center }
+		distance_to_core_percent < 34
 		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" from = { NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } } } }
-		distance_to_core_percent < 26
 	}
 	allow = {
 		hidden_trigger = { exists = from }
 		num_pops > 20
+		controller = { is_same_empire = from }
 		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
 			NOR = {
 				has_planet_flag = decision_galaxy_center_cooldown
@@ -542,7 +543,7 @@ decision_galaxy_center = {
 		hidden_effect = {
 			planet_event = { id = UniqueAscensionPerksEvents.83 }
 			set_planet_flag = galaxy_center_planet
-			set_planet_size = 120 # TODO: FIXME to size can lead into other planets
+			set_planet_size = 80 # 150 FIXME: the new size can lead into other galactic objects!?
 			add_modifier = { modifier = center_of_galaxy }
 		}
 	}
@@ -1015,7 +1016,7 @@ decision_nanite_extraction_gas = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
-		is_planet_class = pc_gas_giant
+		merg_is_gas_giant = yes
 	}
 	allow = {
 		custom_tooltip = {

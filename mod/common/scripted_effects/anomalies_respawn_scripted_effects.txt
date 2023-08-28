@@ -34,7 +34,7 @@ anomaly_spawner = {
 				100	= { set_planet_flag = planet_has_new_anomaly add_anomaly = { category = disco_speed_demon_cat } }
 			}
 		}
-		1700 = { modifier = { factor = 0 NOT = { is_planet_class = pc_gas_giant } }
+		1700 = { modifier = { factor = 0 merg_is_gas_giant = no }
 			random_list = {
 				100	= { set_planet_flag = planet_has_new_anomaly add_anomaly = { category = object_gasgiant_category } }
 				100	= { set_planet_flag = planet_has_new_anomaly add_anomaly = { category = moon_gasgiant_category } }
@@ -78,7 +78,7 @@ anomaly_spawner = {
 		100	= { modifier = { factor = 0 NOR = { is_planet_class = pc_molten  has_global_flag = custom_anomalies_activated } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = lava_citadel_category } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = GAIA_MOVE_CAT } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_gaia } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = GAEA_CHECKERED_CAT } }
-		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_arctic } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = FROZ_BASE2_CAT } }
+		100	= { modifier = { factor = 0 merg_is_arctic = no } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = FROZ_BASE2_CAT } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = GEN_DESERT_CAT } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DES_BURIED_CAT } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DES_PLANET_CAT } }
@@ -89,7 +89,7 @@ anomaly_spawner = {
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = ARID_PLANET_CAT } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_continental } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = CON_BIOLOGY_CAT } }
 		20	= { modifier = { factor = 0 NOT = { is_planet_class = pc_ocean } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UPLIFT_OCEAN_CAT } }
-		20	= { modifier = { factor = 0 NOT = { is_planet_class = pc_arctic } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UPLIFT_ARCTIC_CAT } }
+		20	= { modifier = { factor = 0 merg_is_arctic = no } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UPLIFT_ARCTIC_CAT } }
 		20	= { modifier = { factor = 0 NOT = { is_planet_class = pc_desert } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UPLIFT_DESERT_CAT } }
 		20	= { modifier = { factor = 0 NOT = { is_planet_class = pc_tropical } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UPLIFT_TROPICAL_CAT } }
 		20	= { modifier = { factor = 0 NOT = { is_planet_class = pc_arid } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UPLIFT_ARID_CAT } }
@@ -136,7 +136,7 @@ anomaly_spawner = {
 				100	= { set_planet_flag = planet_has_new_anomaly add_anomaly = { category = alien_life_cat } }
 				100	= { modifier = { factor = 0 NOT = { planet_size > 15 } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DISTAR_EXO_CAT } }
 				100	= { modifier = { factor = 0 NOT = { has_planet_modifier = pm_dangerous_wildlife } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DISTAR_BRAINSLUG_CAT } }
-				100	= { modifier = { factor = 0 NOR = { is_planet_class = pc_desert is_planet_class = pc_arctic } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DISTAR_FLYTRAP_CAT } }
+				100	= { modifier = { factor = 0 NOR = { is_planet_class = pc_desert merg_is_arctic = yes } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DISTAR_FLYTRAP_CAT } }
 			}
 		}
 		1300 = { modifier = { factor = 0 uninhabitable_regular_planet = no }
@@ -160,10 +160,10 @@ anomaly_spawner = {
 		100	= { modifier = { factor = 0 NOR = { is_asteroid = yes is_planet_class = pc_barren is_planet_class = pc_barren_cold } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = living_metal_category } }
 		100	= { modifier = { factor = 0 NOR = { is_planet_class = pc_toxic is_planet_class = pc_barren_cold is_planet_class = pc_barren is_planet_class = pc_frozen is_planet_class = pc_nuked } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UHB_BUOY_CAT } }
 		100	= { modifier = { factor = 0 is_star = yes NOT = { has_global_flag = custom_anomalies_activated } } set_planet_flag = planet_has_new_anomaly random_list = { 50 = { add_anomaly = { category = huge_galaxy_category } } 50 = { add_anomaly = { category = mini_natural_wormhole_category } } } }
-		100	= { modifier = { factor = 0 NOR = { is_star = yes is_asteroid = yes has_ringworld_output_boost = yes habitable_planet = yes is_planet_class = pc_gas_giant } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UHB_ANCIENT_RUINS_1_CAT } }
-		100	= { modifier = { factor = 0 NOR = { is_star = yes is_asteroid = yes has_ringworld_output_boost = yes habitable_planet = yes is_planet_class = pc_gas_giant } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = ATM_ANOMALY_CAT } }
-		100	= { modifier = { factor = 0 NOR = { is_star = yes is_asteroid = yes has_ringworld_output_boost = yes is_planet_class = pc_gas_giant } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = GEN_PLAYGROUND_CAT } }
-		100	= { modifier = { factor = 0 NOR = { is_star = yes is_planet_class = pc_gas_giant has_moon = no num_moons > 1 } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = PROJ_MOON_CAT } }
+		100	= { modifier = { factor = 0 NOR = { is_star = yes is_asteroid = yes has_ringworld_output_boost = yes habitable_planet = yes merg_is_gas_giant = yes } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = UHB_ANCIENT_RUINS_1_CAT } }
+		100	= { modifier = { factor = 0 NOR = { is_star = yes is_asteroid = yes has_ringworld_output_boost = yes habitable_planet = yes merg_is_gas_giant = yes } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = ATM_ANOMALY_CAT } }
+		100	= { modifier = { factor = 0 NOR = { is_star = yes is_asteroid = yes has_ringworld_output_boost = yes merg_is_gas_giant = yes } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = GEN_PLAYGROUND_CAT } }
+		100	= { modifier = { factor = 0 NOR = { is_star = yes merg_is_gas_giant = yes has_moon = no num_moons > 1 } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = PROJ_MOON_CAT } }
 		# Distant Stars - DLC
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_frozen } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DISTAR_ICE_CAT } }
 		100	= { modifier = { factor = 0 NOT = { is_planet_class = pc_molten } } set_planet_flag = planet_has_new_anomaly add_anomaly = { category = DISTAR_MOLTEN_CAT } }
