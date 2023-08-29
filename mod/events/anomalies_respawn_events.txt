@@ -1,11 +1,12 @@
 namespace = AnomaliesRespawnEvent
-
+# on_yearly_pulse
 event = {
 	id = AnomaliesRespawnEvent.1
 	hide_window = yes
 	is_triggered_only = yes
+	# is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } }
+	immediate = { random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 25 anomaly_spawner = yes } } }
 }
 # on_bi_yearly_pulse
 event = {
@@ -21,7 +22,11 @@ event = {
 			}
 			remove_global_flag = custom_anomalies_activated
 		}
-		while = { count = 3 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } }
+		while = { count = 3
+			reroll_random = yes
+			# random_system = { limit = { NOT = { has_star_flag = system_has_new_anomaly } } random_system_planet = { limit = { anomaly_possible = yes } random = { chance = 50 anomaly_spawner = yes } }
+			random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 50 anomaly_spawner = yes } } }
+		}
 		event_target:global_event_country = {
 			country_event = { id = AnomaliesRespawnEvent.2000 days = 5 random = 5 }
 		}
@@ -48,7 +53,11 @@ event = {
 			}
 			remove_global_flag = anomalies_respawner_active
 		} else = {
-			while = { count = 5 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } }
+			while = { count = 5
+				reroll_random = yes
+				# random_system = { limit = { NOT = { has_star_flag = system_has_new_anomaly } } random_system_planet = { limit = { anomaly_possible = yes } random = { chance = 75 anomaly_spawner = yes } } }
+				random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 50 anomaly_spawner = yes } } }
+			}
 		}
 	}
 }
@@ -107,7 +116,7 @@ event = {
 	immediate = { while = { count = 1000 random_galaxy_planet = { limit = { anomaly_possible = yes } random = { chance = 90 anomaly_spawner = yes } } } }
 }
 
-# on_five_year_pulse
+# on_five_year_pulse (Notify + cleanup)
 country_event = {
 	id = AnomaliesRespawnEvent.2000
 	hide_window = yes

@@ -52,6 +52,7 @@ planet_event = {
 		# 	}
 		# }
 		# play_sound = event_laboratory_sound
+		# set_timed_planet_flag = { flag = decision_deep_scanner_cooldown years = 1 }
 	}
 	after = { # Auto rescan
 		if = {
@@ -71,7 +72,8 @@ planet_event = {
 }
 
 ## Decision Notify only
-# Root = event_target:deep_scanned_planet
+# Root = deep_scanned_planet
+# From = deep_scanner_planet
 planet_event = {
 	id = UniqueAscensionPerksEvents.442
 	title = "UniqueAscensionPerksEvents.442.Name"
@@ -93,16 +95,23 @@ planet_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.442.a"
 		hidden_effect = {
-			owner = { set_country_flag = notify_deep_scanner_no_warning }
+			from = {
+				owner = { set_country_flag = notify_deep_scanner_no_warning }
+				planet_event = { id = UniqueAscensionPerksEvents.443 days = 360 }
+			}
 		}
 	}
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "UniqueAscensionPerksEvents.442.Tooltip"
+		hidden_effect = {
+			from = { planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } } # Notify + rescan
+		}
 	}
 }
 
 # From decision_deep_scanner
+# This = deep_scanner_planet
 planet_event = {
 	id = UniqueAscensionPerksEvents.443
 	hide_window = yes
@@ -189,6 +198,9 @@ planet_event = {
 					}
 				}
 				planet_event = { id = UniqueAscensionPerksEvents.442 days = 1 }
+			} else = {
+				# "OK but do not notify me"
+				root = { planet_event = { id = UniqueAscensionPerksEvents.443 days = 360 } }
 			}
 		}
 	}
