@@ -52,7 +52,6 @@ planet_event = {
 		# 	}
 		# }
 		# play_sound = event_laboratory_sound
-		# set_timed_planet_flag = { flag = decision_deep_scanner_cooldown years = 1 }
 	}
 	after = { # Auto rescan
 		if = {
@@ -118,13 +117,14 @@ planet_event = {
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
 	immediate = {
+		set_timed_planet_flag = { flag = decision_deep_scanner_cooldown years = 1 }
 		# find_planet_for_new_anomaly = yes
 		if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value < 2 } }
 			if = {
 				limit = { num_buildings = { type = building_deep_space_scanner value = 1 } }
 				owner = { random_planet_within_border = {
-					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } can_be_deep_scanned = yes }
+					limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } anomaly_possible = yes }
 					save_event_target_as = deep_scanned_planet
 				} }
 			}
@@ -132,58 +132,60 @@ planet_event = {
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 2 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 3 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 6 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 4 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 8 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 5 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 10 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 6 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 12 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 7 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 14 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 8 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 16 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 9 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 18 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		} else_if = {
 			limit = { num_buildings = { type = building_deep_space_scanner value = 10 } }
 			owner = { random_planet_within_border = {
-				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } can_be_deep_scanned = yes }
+				limit = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 20 } anomaly_possible = yes }
 				save_event_target_as = deep_scanned_planet
 			} }
 		}
+	}
+	after = {
 		event_target:deep_scanned_planet = {
 			anomaly_spawner = yes # deep_space_scanner_spawn_anomaly = yes
 			root.owner = { add_resource = { energy = -100 } }
@@ -197,10 +199,10 @@ planet_event = {
 						}
 					}
 				}
-				planet_event = { id = UniqueAscensionPerksEvents.442 days = 1 }
+				planet_event = { id = UniqueAscensionPerksEvents.442 days = 5 }
 			} else = {
 				# "OK but do not notify me"
-				root = { planet_event = { id = UniqueAscensionPerksEvents.443 days = 360 } }
+				root = { planet_event = { id = UniqueAscensionPerksEvents.443 days = 365 } }
 			}
 		}
 	}

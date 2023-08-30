@@ -130,110 +130,113 @@ system_event = {
 	}
 	after = {
 		if = {
-			limit = { NOT = { any_neighbor_system = { } } }
-			random_neighbor_system_euclidean = {
-				limit = {
-					NOT = { has_hyperlane_to = prev }
-					OR = {
-						has_star_flag = lh_spawned_system
-						has_star_flag = lh_basic_system
-						has_star_flag = lh_special_system
+			limit = { is_variable_set = basic_distance }
+			if = {
+				limit = { NOT = { any_neighbor_system = { } } is_variable_set = basic_distance }
+				random_neighbor_system_euclidean = {
+					limit = {
+						NOT = { has_hyperlane_to = prev }
+						OR = {
+							has_star_flag = lh_spawned_system
+							has_star_flag = lh_basic_system
+							has_star_flag = lh_special_system
+						}
 					}
+					weights = {
+						base = 1
+						# modifier = { add = 5 has_star_flag = lh_spawned_system }
+						modifier = {
+							add = 9
+							exists = event_target:lh_basic_system
+							check_variable_arithmetic = {
+								which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
+								value < root.basic_distance
+							}
+						}
+					}
+					add_hyperlane = { from = this to = prev }
 				}
-				weights = {
-					base = 1
-					# modifier = { add = 5 has_star_flag = lh_spawned_system }
-					modifier = {
-						add = 9
-						exists = event_target:lh_basic_system
+			}
+			else_if = {
+				limit = {
+					exists = event_target:lh_basic_system
+					event_target:lh_basic_system = { has_hyperlane_to = prev }
+					any_neighbor_system_euclidean = {
+						NOT = { has_hyperlane_to = prev }
+						OR = {
+							has_star_flag = lh_spawned_system
+							has_star_flag = lh_basic_system
+							has_star_flag = lh_special_system
+						}
 						check_variable_arithmetic = {
 							which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
 							value < root.basic_distance
 						}
+						check_variable_arithmetic = {
+							which = value:system_distance|SOURCE|root|max_distance|root.basic_distance|
+							value < root.basic_distance
+						}
 					}
 				}
-				add_hyperlane = { from = this to = prev }
+				random_neighbor_system_euclidean = {
+					limit = {
+						NOT = { has_hyperlane_to = prev }
+						OR = {
+							has_star_flag = lh_spawned_system
+							has_star_flag = lh_basic_system
+							has_star_flag = lh_special_system
+						}
+						check_variable_arithmetic = {
+							which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
+							value < root.basic_distance
+						}
+						check_variable_arithmetic = {
+							which = value:system_distance|SOURCE|root|max_distance|root.basic_distance|
+							value < root.basic_distance
+						}
+					}
+					# weights = {
+					# 	base = 1
+					# 	modifier = { add = 25 has_star_flag = lh_spawned_system }
+					# }
+					remove_hyperlane = { from = event_target:lh_basic_system to = prev }
+					add_hyperlane = { from = this to = prev }
+				}
 			}
+			else = {
+				random = { chance = 35 }
+				random_neighbor_system_euclidean = {
+					limit = {
+						OR = {
+							has_star_flag = lh_spawned_system
+							has_star_flag = lh_basic_system
+							has_star_flag = lh_special_system
+						}
+						distance = {
+							source = prev
+							type = euclidean
+							min_distance >= 1
+							max_distance <= 25
+						}
+						check_variable_arithmetic = {
+							which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
+							value < root.basic_distance
+						}
+						check_variable_arithmetic = {
+							which = value:system_distance|SOURCE|root|max_distance|root.basic_distance|
+							value < root.basic_distance
+						}
+					}
+					# weights = {
+					# 	base = 1
+					# 	modifier = { add = 25 has_star_flag = lh_spawned_system }
+					# }
+					remove_hyperlane = { from = event_target:lh_basic_system to = prev }
+					add_hyperlane = { from = this to = prev }
+				}
+			}
+			clear_variable = basic_distance
 		}
-		else_if = {
-			limit = {
-				exists = event_target:lh_basic_system
-				event_target:lh_basic_system = { has_hyperlane_to = prev }
-				any_neighbor_system_euclidean = {
-					NOT = { has_hyperlane_to = prev }
-					OR = {
-						has_star_flag = lh_spawned_system
-						has_star_flag = lh_basic_system
-						has_star_flag = lh_special_system
-					}
-					check_variable_arithmetic = {
-						which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
-						value < root.basic_distance
-					}
-					check_variable_arithmetic = {
-						which = value:system_distance|SOURCE|root|max_distance|root.basic_distance|
-						value < root.basic_distance
-					}
-				}
-			}
-			random_neighbor_system_euclidean = {
-				limit = {
-					NOT = { has_hyperlane_to = prev }
-					OR = {
-						has_star_flag = lh_spawned_system
-						has_star_flag = lh_basic_system
-						has_star_flag = lh_special_system
-					}
-					check_variable_arithmetic = {
-						which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
-						value < root.basic_distance
-					}
-					check_variable_arithmetic = {
-						which = value:system_distance|SOURCE|root|max_distance|root.basic_distance|
-						value < root.basic_distance
-					}
-				}
-				# weights = {
-				# 	base = 1
-				# 	modifier = { add = 25 has_star_flag = lh_spawned_system }
-				# }
-				remove_hyperlane = { from = event_target:lh_basic_system to = prev }
-				add_hyperlane = { from = this to = prev }
-			}
-		}
-		else = {
-			random = { chance = 35 }
-			random_neighbor_system_euclidean = {
-				limit = {
-					OR = {
-						has_star_flag = lh_spawned_system
-						has_star_flag = lh_basic_system
-						has_star_flag = lh_special_system
-					}
-					distance = {
-						source = prev
-						type = euclidean
-						min_distance >= 1
-						max_distance <= 25
-					}
-					check_variable_arithmetic = {
-						which = value:system_distance|SOURCE|event_target:lh_basic_system|max_distance|root.basic_distance|
-						value < root.basic_distance
-					}
-					check_variable_arithmetic = {
-						which = value:system_distance|SOURCE|root|max_distance|root.basic_distance|
-						value < root.basic_distance
-					}
-				}
-				# weights = {
-				# 	base = 1
-				# 	modifier = { add = 25 has_star_flag = lh_spawned_system }
-				# }
-				remove_hyperlane = { from = event_target:lh_basic_system to = prev }
-				add_hyperlane = { from = this to = prev }
-			}
-		}
-		clear_variable = basic_distance
 	}
 	option = {
 		name = EXCELLENT
@@ -677,7 +680,7 @@ country_event = {
 													has_star_flag = lh_basic_system
 													has_star_flag = lh_special_system
 												}
-												distance = { source = prev type = euclidean min_distance = 3 max_distance = 35 }
+												distance = { source = prev type = euclidean min_distance >= 3 max_distance <= 35 }
 											}
 										}
 										random_neighbor_system_euclidean = {
@@ -688,7 +691,7 @@ country_event = {
 													has_star_flag = lh_basic_system
 													has_star_flag = lh_special_system
 												}
-												distance = { source = prev type = euclidean min_distance = 3 max_distance = 35 }
+												distance = { source = prev type = euclidean min_distance >= 3 max_distance <= 35 }
 											}
 											random = { chance = 66 add_hyperlane = { from = this to = prev } }
 										}
@@ -702,7 +705,7 @@ country_event = {
 													has_star_flag = lh_basic_system
 													has_star_flag = lh_special_system
 												}
-												distance = { source = prev type = euclidean min_distance = 4 max_distance = 50 }
+												distance = { source = prev type = euclidean min_distance >= 4 max_distance <= 50 }
 											}
 											random = { chance = 66 add_hyperlane = { from = this to = prev } }
 										}
