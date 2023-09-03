@@ -446,18 +446,18 @@ planet_event = {
 					log="Save planet leader \\[vassal_leader.GetName]"
 				}
 			}
-			# else_if = { # removed in v.3.8
-			# 	limit = {
-			# 		exists = sector
-			# 		sector = { exists = leader }
-			# 		is_sector_capital = yes
-			# 	}
-			# 	sector.leader = {
-			# 		save_event_target_as = vassal_leader
-			# 		unassign_leader = this
-			# 		log="Save sector leader \\[vassal_leader.GetName]"
-			# 	}
-			# }
+			else_if = { # Changed in v.3.8
+				limit = {
+					is_sector_capital = no
+					exists = sector
+					sector = { exists = sector_capital.leader }
+				}
+				sector.sector_capital.leader = {
+					save_event_target_as = vassal_leader
+					unassign_leader = this
+					log="Save sector leader \\[vassal_leader.GetName]"
+				}
+			}
 			if = {
 				limit = {
 					NAND = {

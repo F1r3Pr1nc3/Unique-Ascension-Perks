@@ -624,8 +624,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.32.Desc"
 	show_sound = event_engineered_evolution
 	picture = GFX_evt_expandable_brain_1
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "ALLOW_LEADER_MIN_LVL_2"
@@ -643,8 +644,9 @@ country_event = {
 	desc = "ap_expandable_brain_1_desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_2
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "ALLOW_LEADER_MIN_LVL_3"
@@ -686,8 +688,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.35.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_4
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "ALLOW_LEADER_MIN_LVL_4"
@@ -714,8 +717,8 @@ country_event = {
 		NOT = { has_country_flag = tech_expandable_brain_2_project }
 	}
 	immediate = {
-		set_country_flag = tech_expandable_brain_2_project
 		get_capital_planet = yes
+		set_country_flag = tech_expandable_brain_2_project
 	}
 	option = { name = EXCELLENT }
 }
@@ -727,9 +730,10 @@ country_event = {
 	desc = "ap_expandable_brain_2_desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_6
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	immediate = {
+		get_capital_planet = yes
 		every_owned_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } } BR_add_random_leader_trait = yes }
 		every_pool_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } } BR_add_random_leader_trait = yes }
 	}
@@ -762,9 +766,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.3039.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_6
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	immediate = {
+		get_capital_planet = yes
 		# set_country_flag = ap_expandable_brain_2_project_completed
 		if = { limit = { NOT = { has_country_flag = ap_expandable_brain_2_project_2 } }
 			country_event = { id = UniqueAscensionPerksEvents.3040 days = 60 random = 300 }
@@ -802,9 +807,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.3041.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_expandable_brain_6
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { set_country_flag = ap_expandable_brain_3_project_completed }
+	immediate = {
+		get_capital_planet = yes set_country_flag = ap_expandable_brain_3_project_completed }
 	option = { name = "UniqueAscensionPerksEvents.37.Offense"		allow = { NOT = { has_modifier = expandable_brain_3_offense } }	add_modifier = { modifier = expandable_brain_3_offense } }
 	option = { name = "UniqueAscensionPerksEvents.37.Expansion"		allow = { NOT = { has_modifier = expandable_brain_3_expansion } }	add_modifier = { modifier = expandable_brain_3_expansion } }
 	option = { name = "UniqueAscensionPerksEvents.37.Construction"	allow = { NOT = { has_modifier = expandable_brain_3_construction } }	add_modifier = { modifier = expandable_brain_3_construction } }
@@ -845,8 +851,9 @@ country_event = {
 	desc = "ap_nano_drones_desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_nano_workers
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		give_tech_option_or_progress_effect = { TECH = tech_auto_drone }
@@ -976,9 +983,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.8002.Desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_nano_to_nanite
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { set_country_flag = ap_nano_to_nanite_project }
+	immediate = {
+		get_capital_planet = yes set_country_flag = ap_nano_to_nanite_project }
 	option = {
 		name = EXCELLENT
 		add_resource = { nanites = 1000 }
@@ -1034,8 +1042,9 @@ country_event = {
 	desc = "ap_adv_colonisation_desc"
 	show_sound = event_ship_thrusters
 	picture = GFX_evt_adv_colonisation
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -1061,8 +1070,9 @@ country_event = {
 	desc = "ap_expansion_infinity_desc"
 	show_sound = event_cityscape
 	picture = GFX_evt_expansion_infinity
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_resource = { unity = 5000 } }
 }
 
@@ -1559,8 +1569,9 @@ country_event = {
 	desc = "ap_emergency_calculation_desc"
 	show_sound = event_ship_thrusters
 	picture = GFX_evt_emergency_calculation
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		add_research_option = tech_jump_drive_1
@@ -1595,8 +1606,9 @@ country_event = {
 	desc = "ap_economic_prospertity_desc"
 	show_sound = event_galactic_market
 	picture = GFX_evt_financial_instruments
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -1612,8 +1624,9 @@ country_event = {
 	desc = "ap_advanced_security_desc"
 	show_sound = event_public_unrest
 	picture = GFX_evt_security_forces
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_resource = { unity = 1000 } }
 }
 # (on_monthly_pulse_country)
@@ -1944,8 +1957,9 @@ country_event = {
 	desc = "ap_friendly_nature_desc"
 	show_sound = event_alien_nature
 	picture = GFX_evt_friendly_nature
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -2099,8 +2113,9 @@ country_event = {
 	desc = "ap_megacorp_desc"
 	show_sound = event_galactic_market
 	picture = GFX_evt_megacorp
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 # on_yearly_pulse
@@ -2385,9 +2400,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.71.Desc"
 	show_sound = event_cityscape
 	picture = GFX_evt_fallen_disciple
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { set_country_flag = fallen_disciple_project }
+	immediate = {
+		get_capital_planet = yes set_country_flag = fallen_disciple_project }
 	option = { name = EXCELLENT custom_tooltip = "ap_fallen_disciple_tooltip_3" }
 }
 
@@ -2556,8 +2572,9 @@ country_event = {
 	desc = "ap_stability_celebration_desc"
 	show_sound = event_celebration
 	picture = GFX_evt_stability_celebration
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_resource = { unity = 2000 influence = 100 } }
 }
 
@@ -2705,8 +2722,9 @@ country_event = {
 	desc = "ap_galaxy_center_desc"
 	show_sound = event_cityscape
 	picture = GFX_evt_galaxy_center
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -3150,8 +3168,9 @@ country_event = {
 	desc = "ap_advanced_government_1_desc"
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_galactic_senate
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 # on_monthly_pulse_country
@@ -3286,8 +3305,9 @@ country_event = {
 	desc = "ap_advanced_government_2_desc"
 	show_sound = event_psionic
 	picture = GFX_evt_unity_symbol
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.89 } } }
 }
 
@@ -3364,9 +3384,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.130.Desc"
 	show_sound = event_ship_bridge
 	picture = GFX_evt_eternal_vigilance
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { set_country_flag = ap_eternal_vigilance_project }
+	immediate = {
+		get_capital_planet = yes set_country_flag = ap_eternal_vigilance_project }
 	option = { name = EXCELLENT }
 }
 
@@ -3459,8 +3480,9 @@ country_event = {
 	desc = "ap_powerful_vassals_desc"
 	show_sound = event_mystic_reveal_light
 	picture = GFX_evt_powerful_vassals
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 # Via edict
@@ -3667,9 +3689,12 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.8146.Desc"
 	show_sound = event_construction
 	picture = GFX_evt_hangar_bay
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	# immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
+	immediate = {
+		get_capital_planet = yes
+		# event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget }
+	}
 	# option = { name = "Let's select another subject." hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } } }
 	option = { name = OK }
 }
@@ -3686,9 +3711,10 @@ country_event = {
 	desc = "ap_defense_sentinels_desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_defense_sentinels
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { create_defense_sentinels_country = yes }
+	immediate = {
+		get_capital_planet = yes create_defense_sentinels_country = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -3963,9 +3989,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.236.Desc"
 	show_sound = event_ai_started
 	picture = GFX_evt_retriever_sentinel
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate =	{
+	immediate = {
+		get_capital_planet = yes
 		set_country_flag = ap_defense_sentinels_retriever_project
 		remove_country_flag = ap_defense_sentinels_retriever_project_check # TODO TEST BUG REPORT
 		create_defense_sentinels_country = yes
@@ -4456,8 +4483,9 @@ country_event = {
 	desc = "ap_pyramidal_society_desc"
 	show_sound = event_administrative_work
 	picture = GFX_evt_pyramidal_society
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT country_event = { id = UniqueAscensionPerksEvents.301 days = 3 } }
 }
 
@@ -4751,8 +4779,9 @@ country_event = {
 	desc = "ap_orbital_surgical_strike_desc"
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_surgical_strike
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -5002,8 +5031,9 @@ country_event = {
 	desc = "ap_chosen_ruler_desc"
 	show_sound = event_radio_chatter
 	picture = GFX_evt_khan_throne_room
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		ruler = { add_skill_without_trait_selection = 1 }
@@ -5587,8 +5617,9 @@ country_event = {
 	desc = "ap_wheel_fortune_desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT
 		give_tech_option_or_progress_effect = { TECH = tech_treasures }
 		add_resource = { treasures = 50 }
@@ -5649,8 +5680,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.342.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = "UniqueAscensionPerksEvents.343.Name"
 		allow = {
@@ -5776,8 +5808,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.346.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = UniqueAscensionPerksEvents.344.100	allow = { resource_stockpile_compare = { resource = treasures value > 100 } }	add_resource = { treasures = -100 }	add_modifier = { modifier = treasures_trade_100_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
 	option = { name = UniqueAscensionPerksEvents.344.250	allow = { resource_stockpile_compare = { resource = treasures value > 250 } }	add_resource = { treasures = -250 }	add_modifier = { modifier = treasures_trade_250_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
 	option = { name = UniqueAscensionPerksEvents.344.500	allow = { resource_stockpile_compare = { resource = treasures value > 500 } }	add_resource = { treasures = -500 }	add_modifier = { modifier = treasures_trade_500_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
@@ -5792,8 +5825,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.347.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -6215,8 +6249,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.356.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
 	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
@@ -6227,8 +6262,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.356.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
 	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
@@ -6239,8 +6275,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.356.Desc"
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
 	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
@@ -7606,11 +7643,12 @@ country_event = {
 	title = "ap_flourishing_technocracy"
 	desc = "ap_flourishing_technocracy_desc"
 	show_sound = event_laboratory_sound
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = flourishing_technocracy_room }
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	after = {
 		hidden_effect = {
 			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 } } }
@@ -7620,7 +7658,7 @@ country_event = {
 	}
 	option = {
 		name = EXCELLENT
-		if	= { limit = { is_regular_empire = yes }		add_modifier = { modifier = flourishing_technocracy } }
+		if		= { limit = { is_regular_empire = yes }		add_modifier = { modifier = flourishing_technocracy } }
 		else_if = { limit = { is_hive_empire = yes }	add_modifier = { modifier = flourishing_technocracy_hivemind } }
 		else_if = { limit = { is_machine_empire = yes }	add_modifier = { modifier = flourishing_technocracy_machine } }
 	}
@@ -7632,12 +7670,13 @@ country_event = {
 	title = "UniqueAscensionPerksEvents.471.Name"
 	desc = "UniqueAscensionPerksEvents.471.Desc"
 	show_sound = event_laboratory_sound
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = flourishing_technocracy_room }
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
+	immediate = { get_capital_planet = yes }
 	after = {
 		hidden_effect = {
 			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.472 } } }
@@ -7655,9 +7694,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.472.Desc"
 	show_sound = event_laboratory_sound
 	picture = GFX_evt_physics_research
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = "field_manipulation"
 		add_modifier = { modifier = flourishing_technocracy_field_manipulation years = 5 }
@@ -7683,9 +7723,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.473.Desc"
 	show_sound = event_laboratory_sound
 	picture = GFX_evt_society_research
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } } }
+	immediate = { get_capital_planet = yes }
 	after = {
 		hidden_effect = {
 			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.474 } } }
@@ -7708,9 +7749,10 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.474.Desc"
 	show_sound = event_laboratory_sound
 	picture = GFX_evt_engineering_research
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.474 } } }
+	immediate = { get_capital_planet = yes }
 	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 days = 1800 } } }
 	option = { name = "materials"	add_modifier = { modifier = flourishing_technocracy_materials	years = 5 } ai_chance = { factor = 0.1 } default_hide_option = yes }
 	option = { name = "industry"	add_modifier = { modifier = flourishing_technocracy_industry	years = 5 } }
@@ -7730,11 +7772,12 @@ country_event = {
 	title = "ap_legendary_forge"
 	desc = "ap_legendary_forge_desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = legendary_forge_room }
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_research_option = tech_living_metal_armor }
 }
 
@@ -7760,12 +7803,13 @@ country_event = {
 	title = "ap_library_wisedom"
 	desc = "ap_library_wisedom_desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		custom_tooltip = "ap_library_wisedom_tooltip"
@@ -7781,12 +7825,13 @@ country_event = {
 	title = "edict_library_wisedom_menu"
 	desc = "UniqueAscensionPerksEvents.491.Desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { portrait = root room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = "UniqueAscensionPerksEvents.491.a"
 		allow = {
@@ -7810,8 +7855,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.492.Desc"
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_library_wisedom
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
 	option = { name = "UniqueAscensionPerks.lets_again" country_event = { id = UniqueAscensionPerksEvents.491 } }
 }
@@ -7821,12 +7867,13 @@ country_event = {
 	title = "edict_library_wisedom_menu"
 	desc = "UniqueAscensionPerksEvents.493.Desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerksEvents.493.Political"	hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.494 } } }
 	option = { name = "UniqueAscensionPerksEvents.493.Economy"		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.495 } } }
 	option = { name = "UniqueAscensionPerksEvents.493.Military"		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.496 } } }
@@ -7846,12 +7893,13 @@ country_event = {
 	title = "edict_library_wisedom_menu"
 	desc = "UniqueAscensionPerksEvents.494.Desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { portrait = root room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerksEvents.494.Ethics"		allow = { NOT = { has_country_flag = ap_library_wisedom_propaganda_campaign } } trigger = { is_gestalt = no } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_propaganda_campaign } custom_tooltip = "edict_lw_propaganda_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.494.Factions"		allow = { NOT = { has_country_flag = ap_library_wisedom_faction_campaign } } trigger = { is_gestalt = no } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_faction_campaign } custom_tooltip = "edict_lw_faction_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.494.Diplomate"	allow = { NOT = { has_country_flag = ap_library_wisedom_diplomacy_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_diplomacy_campaign } custom_tooltip = "edict_lw_diplomacy_campaign_unlock" }
@@ -7872,12 +7920,13 @@ country_event = {
 	title = "edict_library_wisedom_menu"
 	desc = "UniqueAscensionPerksEvents.495.Desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { portrait = root room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerksEvents.495.Output"	allow = { NOT = { has_country_flag = ap_library_wisedom_prosperity_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_prosperity_campaign } custom_tooltip = "edict_lw_prosperity_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.495.Maintain"	allow = { NOT = { has_country_flag = ap_library_wisedom_upkeep_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_upkeep_campaign } custom_tooltip = "edict_lw_upkeep_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.495.Orbit"	allow = { NOT = { has_country_flag = ap_library_wisedom_collection_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_collection_campaign } custom_tooltip = "edict_lw_collection_campaign_unlock" }
@@ -7892,12 +7941,13 @@ country_event = {
 	title = "edict_library_wisedom_menu"
 	desc = "UniqueAscensionPerksEvents.496.Desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { portrait = root room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerksEvents.496.War"			allow = { NOT = { has_country_flag = ap_library_wisedom_war_preparation } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_war_preparation } custom_tooltip = "edict_lw_war_preparation_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Evade"		allow = { NOT = { has_country_flag = ap_library_wisedom_evade_danger } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_evade_danger } custom_tooltip = "edict_lw_evade_danger_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Ground"		allow = { NOT = { has_country_flag = ap_library_wisedom_ground_field_experience } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_ground_field_experience } custom_tooltip = "edict_lw_ground_field_experience_unlock" }
@@ -7915,12 +7965,13 @@ country_event = {
 	title = "edict_library_wisedom_menu"
 	desc = "UniqueAscensionPerksEvents.497.Desc"
 	show_sound = event_mystic_reveal
-	location = capital_scope
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { portrait = root room = library_wisedom_room }
 	custom_gui = "enclave_trader_window"
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerksEvents.497.Research"		allow = { NOT = { has_country_flag = ap_library_wisedom_extended_opportunities } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_extended_opportunities } custom_tooltip = "edict_lw_extended_opportunities_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.Physics"		allow = { NOT = { has_country_flag = ap_library_wisedom_physics_documentation } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_physics_documentation } custom_tooltip = "edict_lw_physics_documentation_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.Society"		allow = { NOT = { has_country_flag = ap_library_wisedom_society_documentation } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_society_documentation } custom_tooltip = "edict_lw_society_documentation_unlock" }
@@ -7972,8 +8023,9 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.520.Desc"
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_library_wisedom
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = OK }
 }
 
@@ -7990,8 +8042,9 @@ country_event = {
 	desc = "ap_expansionist_development_desc"
 	show_sound = event_scanner
 	picture = GFX_evt_space_station
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_resource = { influence = 200 } }
 }
 
@@ -8114,9 +8167,9 @@ ship_event = {
 # 	desc = "UniqueAscensionPerksEvents.541.Desc"
 # 	show_sound = event_scanner
 # 	picture = GFX_evt_glitchy_matrix
-# 	location = capital_scope
-# 	is_triggered_only = yes
-# 	immediate = { set_country_flag = ap_dark_galaxy_web_project }
+#	location = event_target:capital_planet
+#	is_triggered_only = yes
+#	immediate = { get_capital_planet = yes set_country_flag = ap_dark_galaxy_web_project }
 # 	option = { name = EXCELLENT add_resource = { energy = 5000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.542 } } }
 # }
 
@@ -8125,10 +8178,11 @@ ship_event = {
 # 	title = "edict_dark_galaxy_web_menu"
 # 	desc = "UniqueAscensionPerksEvents.542.Desc"
 # 	show_sound = event_scanner
-# 	location = capital_scope
 # 	diplomatic = yes
 # 	force_open = yes
 # 	picture_event_data = { portrait = root room = dark_galaxy_web_room }
-# 	is_triggered_only = yes
+#	location = event_target:capital_planet
+#	is_triggered_only = yes
+#	immediate = { get_capital_planet = yes }
 # 	option = { name = LEAVE }
 # }

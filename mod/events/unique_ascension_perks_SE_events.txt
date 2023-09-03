@@ -11,8 +11,9 @@ country_event = {
 	desc = "ap_space_engineers_desc"
 	show_sound = event_construction
 	picture = GFX_evt_space_engineers
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 22 min = 5000 max = 15000 } }
 }
 # on_ship_order
@@ -143,8 +144,9 @@ country_event = {
 	desc = "ap_stellar_manipulation_desc"
 	show_sound = event_psionic
 	picture = GFX_evt_planetary_program_2
-	location = capital_scope
+	location = event_target:capital_planet
 	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_research_option = tech_stellar_manipulation_1 }
 }
 # on_ship_order
@@ -486,7 +488,7 @@ ship_event = {
 			# 	remove_ship_flag = ship_has_planetary_program_4
 			# }
 			ship_has_planetary_program_0 = {
-				solar_system = { spawn_planet = { class = pc_habitat location = prev has_ring = no init_effect = { set_name = habitat_0 set_planet_entity = { entity = "habitat_phase_01_entity" graphical_culture = owner } set_planet_size = 4 set_planet_flag = megastructure set_planet_flag = habitat set_planet_flag = new_habitat set_planet_flag = new_habitat_unnamed planet_event = { id = UniqueAscensionPerksEvents.19 days = 7 random = 5 } } } }
+				solar_system = { spawn_planet = { class = pc_habitat location = prev has_ring = no init_effect = { set_name = major_orbital set_planet_entity = { entity = "habitat_phase_01_entity" graphical_culture = owner } set_planet_size = 4 set_planet_flag = megastructure set_planet_flag = habitat set_planet_flag = new_habitat set_planet_flag = new_habitat_unnamed planet_event = { id = UniqueAscensionPerksEvents.19 days = 7 random = 5 } } } }
 				owner = { country_event = { id = UniqueAscensionPerksEvents.4020 } }
 				remove_ship_flag = ship_has_planetary_program_0
 			}

@@ -1,42 +1,74 @@
 # Returns fallback capital_planet
 # This = country
 get_capital_planet = {
-	if = { limit = { exists = capital_scope }
-		capital_scope = { save_event_target_as = capital_planet }
-	} else_if = { limit = { any_owned_planet = { is_colony = yes } }
-		random_owned_planet = {
-			limit = {
-				is_colony = yes
-				is_colonizable = no
-				exists = space_owner
-				solar_system = { exists = starbase }
-			}
-			weights = {
-				base = 1
-				modifier = { add = 3 solar_system = { is_capital_system = yes } }
-				modifier = { add = 3 num_pops > 30 }
-			}
-			save_event_target_as = capital_planet
+	if = {
+		limit = { NOT = { exists = event_target:capital_planet } }
+		if = {
+			limit = { exists = capital_scope }
+			capital_scope = { save_event_target_as = capital_planet }
 		}
-		if = { limit = { NOT  = { exists = event_target:capital_planet } }
-			random_planet_within_border = {
+		else_if = {
+			limit = { num_owned_planets > 0 any_owned_planet = { is_colony = yes } }
+			if = {
 				limit = {
-					has_owner = yes
-					is_colony = yes
-					OR = {
-						AND = { exists = owner is_owned_by = prev }
-						AND = { exists = controller controller = { is_same_value = prev } }
-					}
+					num_sectors > 0
+					any_owned_sector = { exists = sector_capital }
 				}
-				weights = {
-					base = 1
-					modifier = { add = 1 exists = owner is_owned_by = prev }
-					modifier = { add = 1 num_pops > 5 }
+				ordered_owned_sector = {
+					limit = { exists = sector_capital }
+					position = 0
+					order_by = trigger:num_pops
+					sector_capital = { save_event_target_as = capital_planet }
 				}
-				save_event_target_as = capital_planet
 			}
+			else = {
+				ordered_owned_planet = {
+					limit = {
+						is_colony = yes
+						is_colonizable = no
+						exists = space_owner
+						solar_system = { exists = starbase }
+					}
+					position = 0
+					order_by = trigger:num_pops
+					# weights = {
+					# 	base = 1
+					#	modifier = { add = 3 solar_system = { is_capital_system = yes } }
+					# 	modifier = { add = 3 num_pops > 30 }
+					# }
+					save_event_target_as = capital_planet
+				}
+			}
+			if = {
+				limit = { NOT = { exists = event_target:capital_planet } }
+				ordered_planet_within_border = {
+					limit = {
+						has_owner = yes
+						is_colony = yes
+						OR = {
+							AND = {
+								exists = owner
+								is_owned_by = prev
+							}
+							AND = {
+								exists = controller
+								controller = { is_same_value = prev }
+							}
+						}
+					}
+					position = 0
+					order_by = trigger:num_pops
+					# weights = {
+					# 	base = 1
+					# 	modifier = { add = 1 exists = owner is_owned_by = prev }
+					# 	modifier = { add = 1 num_pops > 5 }
+					# }
+					save_event_target_as = capital_planet
+				}
+			}
+			else = { log = "Failed: no own planet found for \\[This.GetName]?!" }
 		}
-	} else = { log="Failed: no own planet found for \\[This.GetName]?!" }
+	}
 }
 
 #####################################
@@ -44,7 +76,6 @@ get_capital_planet = {
 ##### Expansionist Development ######
 #									#
 #####################################
-
 deploy_outpost = {
 	custom_tooltip = "UniqueAscensionPerksED.tooltip"
 	hidden_effect = {
@@ -76,12 +107,9 @@ deploy_outpost = {
 					has_country_resource = { type = influence amount > 25 }
 				}
 				prev.from = {
-					add_resource = {
-						alloys = -500
-						rare_crystals = -100
-						influence = -25
-					}
-					if = { limit = { has_megastructure = hyper_relay_ruined }
+					add_resource = { alloys = -500 rare_crystals = -100 influence = -25 }
+					if = {
+						limit = { has_megastructure = hyper_relay_ruined }
 						random_system_megastructure = {
 							limit = { is_megastructure_type = hyper_relay_ruined }
 							prev = {
@@ -92,7 +120,8 @@ deploy_outpost = {
 							}
 							remove_megastructure = this
 						}
-					} else = {
+					}
+					else = {
 						spawn_megastructure = {
 							type = "hyper_relay"
 							random_pos = yes
@@ -123,10 +152,19 @@ sync_subjects_virtual_relation = {
 				is_hostile_to = prev
 				is_same_empire = prev
 				is_same_empire = prevprev
-				has_attitude_behavior = { target = prev behavior = attack }
+				has_attitude_behavior = {
+					target = prev
+					behavior = attack
+				}
 			}
 		}
-		prevprev = { set_faction_hostility = { target = prev set_hostile = no set_neutral = yes } }
+		prevprev = {
+			set_faction_hostility = {
+				target = prev
+				set_hostile = no
+				set_neutral = yes
+			}
+		}
 	}
 	every_relation = {
 		limit = {
@@ -134,7 +172,10 @@ sync_subjects_virtual_relation = {
 			OR = {
 				is_hostile = prev
 				is_hostile_to = prev
-				has_attitude_behavior = { target = prev behavior = attack }
+				has_attitude_behavior = {
+					target = prev
+					behavior = attack
+				}
 			}
 			NOR = {
 				prevprev = { is_country_type = civilian_activities }
@@ -144,16 +185,43 @@ sync_subjects_virtual_relation = {
 				prevprev = { is_hostile_to = prev }
 			}
 		}
-		prevprev = { set_faction_hostility = { target = prev set_hostile = yes set_neutral = no set_friendly = no } }
+		prevprev = {
+			set_faction_hostility = {
+				target = prev
+				set_hostile = yes
+				set_neutral = no
+				set_friendly = no
+			}
+		}
 	}
 	prev = {
-		if = { limit = { NOT = { is_friendly_to = prev } }
-			set_faction_hostility = { target = prev set_hostile = no set_neutral = no set_friendly = yes }
+		if = {
+			limit = {
+				NOT = { is_friendly_to = prev }
+			}
+			set_faction_hostility = {
+				target = prev
+				set_hostile = no
+				set_neutral = no
+				set_friendly = yes
+			}
 		}
-		if = { limit = { exists = prev.overlord NOT = { is_friendly_to = prev.overlord } }
-			set_faction_hostility = { target = prev.overlord set_hostile = no set_neutral = no set_friendly = yes }
+		if = {
+			limit = {
+				exists = prev.overlord
+				NOT = { is_friendly_to = prev.overlord }
+			}
+			set_faction_hostility = {
+				target = prev.overlord
+				set_hostile = no
+				set_neutral = no
+				set_friendly = yes
+			}
 		}
-		if = { limit = { any_owned_starbase = {} }
+		if = {
+			limit = {
+				any_owned_starbase = { }
+			}
 			every_owned_starbase = { set_owner = prevprev }
 		}
 	}
