@@ -1832,8 +1832,10 @@ country_event = {
 				name = ap_advanced_security
 				effect = {
 					set_owner = root # event_target:main_country
-					while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
-					while = { count = 10 random = { chance = 50 create_ship = { name = random random_existing_design = corvette } } }
+					while = { count = 10
+						create_ship = { name = random random_existing_design = corvette }
+						random = { chance = 50 create_ship = { name = random random_existing_design = corvette } }
+					}
 					set_location = { target = event_target:spawn_location distance = 325 angle = random }
 					set_fleet_stance = passive
 					set_fleet_flag = security_escort_fleet

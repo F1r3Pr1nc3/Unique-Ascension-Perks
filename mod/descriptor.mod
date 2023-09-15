@@ -1,4 +1,4 @@
-version="2.6.6b"
+version="2.6.7b"
 tags={
 	"Buildings"
 	"Gameplay"
@@ -12,5 +12,5 @@ tags={
 }
 name="Unique Ascension Perks 3.9 DEV branch"
 picture="thumbnail.png"
-supported_version="3.9.0"
+supported_version="3.9.*"
 remote_file_id="2811428998"

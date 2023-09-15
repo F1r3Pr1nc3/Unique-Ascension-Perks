@@ -784,19 +784,20 @@ country_event = {
 						can_access_system = event_target:raid_planet.solar_system
 					}
 					auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
-				} else_if = { # compat. fallback
-					limit = {
-						OR = {
-							has_global_flag = gf_great_khan_active
-							has_global_flag = pirate_waves_active
-							AND = {
-								years_passed > 10
-								any_playable_country = { is_ai = no is_variable_set = pirate_waves_chance }
-							}
-						}
-					}
+				}
+				else = { # compat. fallback
+					# limit = {
+					# 	OR = {
+					# 		has_global_flag = gf_great_khan_active
+					# 		has_global_flag = pirate_waves_active
+					# 		AND = {
+					# 			years_passed > 10
+					# 			any_playable_country = { is_ai = no is_variable_set = pirate_waves_chance }
+					# 		}
+					# 	}
+					# }
 					fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
-				} else = { log="FAIL: Marauder raiding fleet can't access raid target." }
+				} # else = { log="FAIL: Marauder raiding fleet can't access raid target." }
 			}
 			set_faction_hostility = { target = event_target:marauder_target set_hostile = yes set_neutral = no set_friendly = no }
 		}
