@@ -12,10 +12,7 @@ enable_planetary_project = {
 	resources = { category = edicts cost = { } }
 	potential = {
 		is_ai = no
-		OR = {
-			has_ascension_perk = ap_stellar_manipulation
-			has_global_flag = ap_stellar_manipulation
-		}
+		OR = { has_ascension_perk = ap_stellar_manipulation has_global_flag = ap_stellar_manipulation }
 	}
 	ai_weight = { weight = 0 }
 }
@@ -120,9 +117,11 @@ active_cortana_ai = {
 	}
 	potential = { is_ai = no has_ascension_perk = ap_ai_cortana }
 	effect = {
-		if = { limit = { has_technology = tech_cortana_optimized }
+		if = {
+			limit = { has_technology = tech_cortana_optimized }
 			add_resource = { energy = -4000 }
-		} else = {
+		}
+		else = {
 			add_resource = { energy = -5000 }
 		}
 		country_event = { id = CortanaEvent.1 }
@@ -143,9 +142,12 @@ space_domestication_menu = {
 	}
 	potential = { is_ai = no has_ascension_perk = ap_space_domestication }
 	effect = {
-		if = { limit = { NOT = { has_country_flag = space_domestication_selected } }
+		if = {
+			limit = { NOT = { has_country_flag = space_domestication_selected } }
 			country_event = { id = UniqueAscensionPerksEvents.1000 }
-		} else_if = { limit = { has_country_flag = space_domestication_project_completed }
+		}
+		else_if = {
+			limit = { has_country_flag = space_domestication_project_completed }
 			country_event = { id = UniqueAscensionPerksEvents.1002 }
 		}
 	}
@@ -241,16 +243,11 @@ recycling_expedition_spawn_system = {
 	length = -1
 	resources = { category = edicts cost = { } }
 	allow = {
-		NOT = {
-			has_active_event = { UniqueAscensionPerksEvents.3055 }
-		}
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.3055 } }
 	}
 	potential = {
 		is_ai = no
-		OR = {
-			has_country_flag = ap_recycling_drones_project
-			has_country_flag = aggressive_hivemind_project
-		}
+		OR = { has_country_flag = ap_recycling_drones_project has_country_flag = aggressive_hivemind_project }
 	}
 	effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } }
 	ai_weight = { weight = 0 }
@@ -337,19 +334,11 @@ void_expedition_menu = {
 		is_ai = no
 		has_ascension_perk = ap_void_expedition
 		has_country_flag = ap_void_expedition_project
-		NAND = {
-			has_country_flag = build_expedition_ship_cooldown
-			has_country_flag = move_to_next_sector_cooldown
-		}
+		NAND = { has_country_flag = build_expedition_ship_cooldown has_country_flag = move_to_next_sector_cooldown }
 	}
 	effect = {
 		if = {
-			limit = {
-				NAND = {
-					has_country_flag = build_expedition_ship_cooldown
-					has_country_flag = move_to_next_sector_cooldown
-				}
-			}
+			limit = { NAND = { has_country_flag = build_expedition_ship_cooldown has_country_flag = move_to_next_sector_cooldown } }
 			country_event = { id = UniqueAscensionPerksEvents.145 }
 		}
 	}
@@ -412,9 +401,7 @@ leader_uploading = {
 	# resources = { category = edicts cost = { energy = 100 } }
 	allow = {
 		resource_stockpile_compare = { resource = energy value > 800 }
-		NOT = {
-			has_active_event = { UniqueAscensionPerksEvents.251 }
-		}
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.251 } }
 	}
 	potential = { is_ai = no has_ascension_perk = ap_leadership_transfer }
 	effect = {
@@ -452,16 +439,11 @@ subject_navy_investment = {
 	resources = { category = edicts cost = { } }
 	allow = {
 		is_overlord = yes
-		NOT = {
-			has_active_event = { UniqueAscensionPerksEvents.8143 }
-		}
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } }
 	}
 	potential = {
 		is_ai = no
-		OR = {
-			has_ascension_perk = ap_mechanical_prophet
-			has_ascension_perk = ap_powerful_vassals
-		}
+		OR = { has_ascension_perk = ap_mechanical_prophet has_ascension_perk = ap_powerful_vassals }
 	}
 	effect = { country_event = { id = UniqueAscensionPerksEvents.8143 } }
 	ai_weight = { weight = 0 }
@@ -528,10 +510,7 @@ anti_matter_menu = {
 	allow = {
 		OR = {
 			resource_stockpile_compare = { resource = anti_matter value > 400 }
-			NAND = {
-				has_country_flag = white_hole_detection_cooldown
-				has_country_flag = space_clouds_generation_cooldown
-			}
+			NAND = { has_country_flag = white_hole_detection_cooldown has_country_flag = space_clouds_generation_cooldown }
 			AND = {
 				check_variable = { which = white_hole_systems value < 9 }
 				event_target:global_event_country = { check_variable = { which = white_hole_systems value < 36 } }

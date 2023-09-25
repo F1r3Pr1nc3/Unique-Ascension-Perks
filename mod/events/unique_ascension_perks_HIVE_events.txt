@@ -53,14 +53,15 @@ ship_event = {
 		}
 	}
 	immediate = {
-		random = {
-			chance = 50
-			switch = {
-				trigger = is_ship_size
-				corvette	= { random = { chance = 40 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = corvette prefix = yes } } } }
-				destroyer	= { random = { chance = 30 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = destroyer prefix = yes } } } }
-				cruiser		= { random = { chance = 20 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = cruiser prefix = yes } } } }
-				battleship	= { random = { chance = 10 fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = battleship prefix = yes } } } }
+		# design supports also ship target scopes
+		random = { chance = 50
+			switch = { trigger = is_ship_size
+				corvette	= { random = { chance = 40	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = corvette prefix = yes } } } }
+				frigate		= { random = { chance = 35	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = frigate prefix = yes } } } }
+				destroyer	= { random = { chance = 30	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = destroyer prefix = yes } } } }
+				cruiser		= { random = { chance = 20	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = cruiser prefix = yes } } } }
+				battleship	= { random = { chance = 10	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = battleship prefix = yes } } } }
+				titan		= { random = { chance = 1	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = titan prefix = yes } } } }
 			}
 		}
 	}
@@ -117,12 +118,12 @@ leader_event = {
 	after = {
 		hidden_effect = {
 			from = {
-				if = { limit = { is_variable_set = cloned_leader_number }
+				if = {
+					limit = { is_variable_set = cloned_leader_number }
 					add_resource = { influence = -75 energy = -75 mult = cloned_leader_number }
 					root = {
 						while = { count = prev.cloned_leader_number
-							switch = {
-								trigger = leader_class
+							switch = { trigger = leader_class
 								scientist	= { from = { clone_leader = { target = prev class = scientist } } }
 								admiral		= { from = { clone_leader = { target = prev class = admiral } } }
 								governor	= { from = { clone_leader = { target = prev class = governor } } }
@@ -148,7 +149,7 @@ leader_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = influence value > 75  } resource_stockpile_compare = { resource = energy value > 75  } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = influence value > 75 } resource_stockpile_compare = { resource = energy value > 75 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { resource_stockpile_compare = { resource = influence value > 150 } resource_stockpile_compare = { resource = energy value > 150 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { resource_stockpile_compare = { resource = influence value > 225 } resource_stockpile_compare = { resource = energy value > 225 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { resource_stockpile_compare = { resource = influence value > 300 } resource_stockpile_compare = { resource = energy value > 300 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
@@ -532,7 +533,8 @@ country_event = {
 			realm_clear_flags = yes
 			random_owned_planet = { save_event_target_as = spawn_location }
 			create_uncontrolled_swarm_country = yes
-			if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } last_created_country = { has_country_flag = uncontrolled_swarm } }
+			if = {
+				limit = { NOT = { exists = event_target:uncontrolled_swarm } last_created_country = { has_country_flag = uncontrolled_swarm } }
 				last_created_country = { save_event_target_as = uncontrolled_swarm }
 			}
 			event_target:uncontrolled_swarm = {
@@ -559,7 +561,8 @@ country_event = {
 			realm_clear_flags = yes
 			random_owned_planet = { save_event_target_as = spawn_location }
 			create_uncontrolled_swarm_country = yes
-			if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } last_created_country = { has_country_flag = uncontrolled_swarm } }
+			if = {
+				limit = { NOT = { exists = event_target:uncontrolled_swarm } last_created_country = { has_country_flag = uncontrolled_swarm } }
 				last_created_country = { save_event_target_as = uncontrolled_swarm }
 			}
 			event_target:uncontrolled_swarm = {
@@ -587,7 +590,8 @@ country_event = {
 			realm_clear_flags = yes
 			random_owned_planet = { save_event_target_as = spawn_location }
 			create_uncontrolled_swarm_country = yes
-			if = { limit = { NOT = { exists = event_target:uncontrolled_swarm } last_created_country = { has_country_flag = uncontrolled_swarm } }
+			if = {
+				limit = { NOT = { exists = event_target:uncontrolled_swarm } last_created_country = { has_country_flag = uncontrolled_swarm } }
 				last_created_country = { save_event_target_as = uncontrolled_swarm }
 			}
 			event_target:uncontrolled_swarm = {
@@ -618,48 +622,16 @@ country_event = {
 				80 = {
 					set_country_flag = realm_technology_success
 					random_list = {
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_psi_jump_drive_1 has_country_flag = realm_technology_psi_jump_drive_given } }
-							set_country_flag = realm_technology_psi_jump_drive
-							set_country_flag = realm_technology_psi_jump_drive_given
-						}
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_dark_matter_deflector has_country_flag = realm_tech_dark_matter_deflector_given } }
-							set_country_flag = realm_tech_dark_matter_deflector
-							set_country_flag = realm_tech_dark_matter_deflector_given
-						}
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_dark_matter_power_core has_country_flag = realm_tech_dark_matter_power_core_given } }
-							set_country_flag = realm_tech_dark_matter_power_core
-							set_country_flag = realm_tech_dark_matter_power_core_given
-						}
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_dark_matter_propulsion has_country_flag = realm_tech_dark_matter_propulsion_given } }
-							set_country_flag = realm_tech_dark_matter_propulsion
-							set_country_flag = realm_tech_dark_matter_propulsion_given
-						}
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_psi_jump_drive_1 has_country_flag = realm_technology_psi_jump_drive_given } } set_country_flag = realm_technology_psi_jump_drive set_country_flag = realm_technology_psi_jump_drive_given }
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_dark_matter_deflector has_country_flag = realm_tech_dark_matter_deflector_given } } set_country_flag = realm_tech_dark_matter_deflector set_country_flag = realm_tech_dark_matter_deflector_given }
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_dark_matter_power_core has_country_flag = realm_tech_dark_matter_power_core_given } } set_country_flag = realm_tech_dark_matter_power_core set_country_flag = realm_tech_dark_matter_power_core_given }
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_dark_matter_propulsion has_country_flag = realm_tech_dark_matter_propulsion_given } } set_country_flag = realm_tech_dark_matter_propulsion set_country_flag = realm_tech_dark_matter_propulsion_given }
 
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_mineral_extraction has_country_flag = realm_tech_mineral_extraction_given } }
-							set_country_flag = realm_tech_mineral_extraction
-							set_country_flag = realm_tech_mineral_extraction_given
-						}
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_food_farming has_country_flag = realm_tech_food_farming_given } }
-							set_country_flag = realm_tech_food_farming
-							set_country_flag = realm_tech_food_farming_given
-						}
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_energy_producing has_country_flag = realm_tech_energy_producing_given } }
-							set_country_flag = realm_tech_energy_producing
-							set_country_flag = realm_tech_energy_producing_given
-						}
-						10 = {
-							modifier = { factor = 0 OR = { has_technology = tech_habitability_mutation has_country_flag = realm_tech_habitability_mutation_given } }
-							set_country_flag = realm_tech_habitability_mutation
-							set_country_flag = realm_tech_habitability_mutation_given
-						}
-						10 = { set_country_flag = realm_tech_points	}
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_mineral_extraction has_country_flag = realm_tech_mineral_extraction_given } } set_country_flag = realm_tech_mineral_extraction set_country_flag = realm_tech_mineral_extraction_given }
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_food_farming has_country_flag = realm_tech_food_farming_given } } set_country_flag = realm_tech_food_farming set_country_flag = realm_tech_food_farming_given }
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_energy_producing has_country_flag = realm_tech_energy_producing_given } } set_country_flag = realm_tech_energy_producing set_country_flag = realm_tech_energy_producing_given }
+						10 = { modifier = { factor = 0 OR = { has_technology = tech_habitability_mutation has_country_flag = realm_tech_habitability_mutation_given } } set_country_flag = realm_tech_habitability_mutation set_country_flag = realm_tech_habitability_mutation_given }
+						10 = { set_country_flag = realm_tech_points }
 					}
 				}
 				20 = { set_country_flag = realm_technology_failed }
@@ -730,6 +702,7 @@ country_event = {
 	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND location = event_target:capital_planet owner = root } }
 }
 
+# Project
 country_event = {
 	id = UniqueAscensionPerksEvents.121
 	title = "UniqueAscensionPerksEvents.121.Name"
@@ -765,22 +738,23 @@ country_event = {
 		exists = fromfrom
 	}
 	immediate = {
-		random = {
-			chance = 25
+		random = { chance = 25
 			fromfrom = {
 				# perform_aggressive_hivemind_ship_check = yes
-				if = { limit = { is_ship_class = shipclass_military_station }
-					switch = {
-						trigger = is_ship_size
+				if = {
+					limit = { is_ship_class = shipclass_military_station }
+					switch = { trigger = is_ship_size
 						military_station_small		= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
 						military_station_medium		= { random = { chance = 50 root = { change_variable = { which = ship_destroyer_infested value = 1 } } } }
 						military_station_large		= { random = { chance = 40 root = { change_variable = { which = ship_cruiser_infested value = 1 } } } }
 						ion_cannon					= { random = { chance = 30 root = { change_variable = { which = ship_battleship_infested value = 1 } } } }
 					}
-				} else_if = { limit = { is_ship_class = shipclass_military }
-					switch = {
-						trigger = is_ship_size
+				}
+				else_if = {
+					limit = { is_ship_class = shipclass_military }
+					switch = { trigger = is_ship_size
 						corvette					= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
+						frigate						= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
 						offspring_corvette			= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
 						crisis_corvette				= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
 						pirate_corvette				= { random = { chance = 60 root = { change_variable = { which = ship_corvette_infested value = 1 } } } }
@@ -815,10 +789,7 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		any_playable_country = {
-			has_ascension_perk = ap_aggressive_hivemind
-			has_country_flag = aggressive_hivemind_project
-		}
+		any_playable_country = { has_ascension_perk = ap_aggressive_hivemind has_country_flag = aggressive_hivemind_project }
 	}
 	immediate = {
 		random_playable_country = {
@@ -853,7 +824,8 @@ country_event = {
 			limit = { has_star_flag = recycle_fleet_spawn_system }
 			star = { save_event_target_as = recovery_fleet_position }
 		}
-		if = { limit = { NOT = { exists = event_target:recovery_fleet_position } }
+		if = {
+			limit = { NOT = { exists = event_target:recovery_fleet_position } }
 			random_system_within_border = {
 				limit = { exists = starbase any_system_colony = { } }
 				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
@@ -866,7 +838,8 @@ country_event = {
 			settings = { spawn_debris = no }
 			effect = {
 				set_owner = prev
-				if = { limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } }
+				if = {
+					limit = { ROOT = { has_country_flag = aggressive_hivemind_project_upgrade } }
 					while = {
 						count = root.ship_corvette_infested
 						create_ship = { name = random random_existing_design = corvette }
@@ -887,7 +860,8 @@ country_event = {
 						count = root.ship_titan_infested
 						create_ship = { name = random random_existing_design = titan }
 					}
-				} else = {
+				}
+				else = {
 					while = {
 						count = root.ship_corvette_infested
 						create_ship = { name = random design = "Standard Basic Corvette" }
@@ -937,10 +911,7 @@ country_event = {
 	picture = GFX_evt_aggressive_hivemind
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes
-		set_country_flag = aggressive_hivemind_project_upgrade_added
-	}
+	immediate = { get_capital_planet = yes set_country_flag = aggressive_hivemind_project_upgrade_added }
 	option = { name = EXCELLENT enable_special_project = { name = AGGRESSIVE_HIVEMIND_UPGRADE location = event_target:capital_planet owner = root } }
 }
 
@@ -1043,10 +1014,11 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = { exists = owner is_colonizable = no }
 	immediate = {
-		# if = { limit = { has_planet_flag = decision_hivemind_reserve_cooldown  }
+		# if = { limit = { has_planet_flag = decision_hivemind_reserve_cooldown }
 		# 	remove_planet_flag = decision_hivemind_reserve_cooldown
 		# }
-		if = { limit = { NOT = { is_variable_set = hivemind_reserve_happened } }
+		if = {
+			limit = { NOT = { is_variable_set = hivemind_reserve_happened } }
 			set_variable = { which = hivemind_reserve_happened value = 0 }
 		}
 	}
@@ -1066,9 +1038,11 @@ planet_event = {
 				AND = { solar_system = { exists = space_owner space_owner = { is_same_empire = root } } }
 			}
 		}
-		if = { limit = { is_lithoid_empire = yes }
+		if = {
+			limit = { is_lithoid_empire = yes }
 			owner = { add_resource = { minerals = -900 } }
-		} else = { owner = { add_resource = { food = -900 } } }
+		}
+		else = { owner = { add_resource = { food = -900 } } }
 
 		custom_tooltip = "UniqueAscensionPerksEvents.3128.a.tooltip"
 		add_deposit = d_hivemind_reserve
@@ -1096,10 +1070,7 @@ planet_event = {
 	option = { name = EXCELLENT }
 	option = {
 		name = "UniqueAscensionPerks.no_message"
-		owner = {
-			set_country_flag = ap_hivemind_reserve_new_pop_no_warning
-			custom_tooltip = "UniqueAscensionPerks.no_message.tooltip"
-		}
+		owner = { set_country_flag = ap_hivemind_reserve_new_pop_no_warning custom_tooltip = "UniqueAscensionPerks.no_message.tooltip" }
 	}
 }
 
@@ -1135,7 +1106,8 @@ planet_event = {
 	immediate = {
 		# random_owned_planet = { limit = { has_deposit = d_hivemind_reserve }
 		create_pop = { species = owner_main_species }
-		if = { limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
+		if = {
+			limit = { owner = { NOR = { is_ai = yes has_country_flag = ap_hivemind_reserve_new_pop_no_warning } } }
 			planet_event = { id = UniqueAscensionPerksEvents.3129 } # notify
 		}
 	}

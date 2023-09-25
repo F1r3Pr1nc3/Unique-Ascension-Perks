@@ -17,7 +17,8 @@ country_event = {
 	hide_window = yes
 	trigger = { is_subject = no }
 	immediate = {
-		if = { limit = { exists = fromfrom fromfrom = { is_scope_type = war } }
+		if = {
+			limit = { exists = fromfrom fromfrom = { is_scope_type = war } }
 			fromfrom = {
 				every_war_participant = {
 					limit = {
@@ -131,10 +132,7 @@ country_event = {
 	}
 	immediate = {
 		if = {
-			limit = {
-				is_country_type = domesticated_spaceborn_alien
-				has_country_flag = domesticated_spaceborn_alien
-			}
+			limit = { is_country_type = domesticated_spaceborn_alien has_country_flag = domesticated_spaceborn_alien }
 			if = {
 				limit = {
 					NOT = {
@@ -170,10 +168,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = {
-				is_country_type = security_forces
-				has_country_flag = security_strike_force
-			}
+			limit = { is_country_type = security_forces has_country_flag = security_strike_force }
 			if = {
 				limit = {
 					NOT = {
@@ -248,10 +243,7 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = {
-				is_country_type = civilian_activities
-				has_country_flag = civilian_activities_country
-			}
+			limit = { is_country_type = civilian_activities has_country_flag = civilian_activities_country }
 			if = {
 				limit = {
 					NOT = {
@@ -304,7 +296,8 @@ country_event = {
 		}
 	}
 	immediate = {
-		if = { limit = { any_federation = { any_member = { is_unique_perk_special_subject = yes } } }
+		if = {
+			limit = { any_federation = { any_member = { is_unique_perk_special_subject = yes } } }
 			every_federation = { limit = { any_member = { is_unique_perk_special_subject = yes } }
 				every_member = { limit = { is_unique_perk_special_subject = yes }
 					leave_alliance = { override_requirements = yes }
@@ -312,14 +305,16 @@ country_event = {
 				}
 			}
 		}
-		if = { limit = { is_galactic_community_formed = yes }
+		if = {
+			limit = { is_galactic_community_formed = yes }
 			if = { limit = { any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
 				every_country = { limit = { is_galactic_community_member = yes is_unique_perk_special_subject = yes }
 					remove_from_galactic_community = yes
 					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
 				}
 			}
-			if = { limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
+			if = {
+				limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
 				every_country = { limit = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes }
 					remove_from_galactic_council = yes
 					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
@@ -418,7 +413,8 @@ planet_event = {
 		}
 	}
 	immediate = {
-		if = { limit = { from = { is_hive_empire = yes } }
+		if = {
+			limit = { from = { is_hive_empire = yes } }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_hivemind_reserve		} } variable = d_hivemind_reserve }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_queen		} } variable = d_district_queen }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_nursery		} } variable = d_district_nursery }
@@ -429,7 +425,8 @@ planet_event = {
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_collapsed_burrows				} } variable = d_collapsed_burrows }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_spawning_complex_blocker		} } variable = d_spawning_complex_blocker }
 		}
-		else_if = { limit = { from = { is_machine_empire = yes } }
+		else_if = {
+			limit = { from = { is_machine_empire = yes } }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_foundry		} } variable = d_district_foundry }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_security		} } variable = d_district_security }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_upgrade		} } variable = d_district_upgrade }
@@ -526,7 +523,8 @@ planet_event = {
 	}
 	immediate = {
 		# set_planet_flag = mod_deposits_restored
-		if = { limit = { merg_is_hive_world = yes }
+		if = {
+			limit = { merg_is_hive_world = yes }
 			if = { limit = { is_variable_set = d_hivemind_reserve	NOT = { has_deposit = d_hivemind_reserve } } while = { count = d_hivemind_reserve	add_deposit = d_hivemind_reserve } clear_variable = d_hivemind_reserve }
 			if = { limit = { is_variable_set = d_district_queen		NOT = { has_deposit = d_district_queen } } while = { count = d_district_queen		add_deposit = d_district_queen } clear_variable = d_district_queen }
 			if = { limit = { is_variable_set = d_district_nursery	NOT = { has_deposit = d_district_nursery } } while = { count = d_district_nursery	add_deposit = d_district_nursery } clear_variable = d_district_nursery }
@@ -537,7 +535,8 @@ planet_event = {
 			if = { limit = { is_variable_set = d_collapsed_burrows	NOT = { has_deposit = d_collapsed_burrows } } while = { count = d_collapsed_burrows			add_deposit = d_collapsed_burrows } clear_variable = d_collapsed_burrows }
 			if = { limit = { is_variable_set = d_spawning_complex_blocker NOT = { has_deposit = d_spawning_complex_blocker } } while = { count = d_spawning_complex_blocker add_deposit = d_spawning_complex_blocker } clear_variable = d_spawning_complex_blocker }
 		}
-		else_if = { limit = { merg_is_machine_world = yes }
+		else_if = {
+			limit = { merg_is_machine_world = yes }
 			if = { limit = { is_variable_set = d_district_foundry	NOT = { has_deposit = d_district_foundry } } while = { count = d_district_foundry	add_deposit = d_district_foundry } clear_variable = d_district_foundry }
 			if = { limit = { is_variable_set = d_district_security	NOT = { has_deposit = d_district_security } } while = { count = d_district_security	add_deposit = d_district_security } clear_variable = d_district_security }
 			if = { limit = { is_variable_set = d_district_upgrade	NOT = { has_deposit = d_district_upgrade } } while = { count = d_district_upgrade	add_deposit = d_district_upgrade } clear_variable = d_district_upgrade }
@@ -573,10 +572,7 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		has_ascension_perk = ap_transcendent_learning
-		NOR = {
-			has_ascension_perk = ap_expandable_brain_1
-			has_country_flag = ap_transcendent_learning_project
-		}
+		NOR = { has_ascension_perk = ap_expandable_brain_1 has_country_flag = ap_transcendent_learning_project }
 	}
 	immediate = {
 		# These were former on_yearly_pulse
@@ -609,10 +605,7 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
-			has_ascension_perk = ap_expandable_brain_1
-			has_country_flag = ap_transcendent_learning_project
-		}
+		NOR = { has_ascension_perk = ap_expandable_brain_1 has_country_flag = ap_transcendent_learning_project }
 	}
 	immediate = { get_capital_planet = yes set_country_flag = ap_transcendent_learning_project }
 	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_1 location = event_target:capital_planet owner = root } }
@@ -672,10 +665,7 @@ country_event = {
 		has_technology = tech_expandable_brain_1
 		NOT = { has_country_flag = tech_expandable_brain_1_project }
 	}
-	immediate = {
-		set_country_flag = tech_expandable_brain_1_project
-		get_capital_planet = yes
-	}
+	immediate = { set_country_flag = tech_expandable_brain_1_project get_capital_planet = yes }
 	after = {
 		enable_special_project = { name = EXPANDABLE_BRAIN_2 location = event_target:capital_planet owner = root }
 	}
@@ -716,10 +706,7 @@ country_event = {
 		has_technology = tech_expandable_brain_2
 		NOT = { has_country_flag = tech_expandable_brain_2_project }
 	}
-	immediate = {
-		get_capital_planet = yes
-		set_country_flag = tech_expandable_brain_2_project
-	}
+	immediate = { get_capital_planet = yes set_country_flag = tech_expandable_brain_2_project }
 	option = { name = EXCELLENT }
 }
 
@@ -771,7 +758,8 @@ country_event = {
 	immediate = {
 		get_capital_planet = yes
 		# set_country_flag = ap_expandable_brain_2_project_completed
-		if = { limit = { NOT = { has_country_flag = ap_expandable_brain_2_project_2 } }
+		if = {
+			limit = { NOT = { has_country_flag = ap_expandable_brain_2_project_2 } }
 			country_event = { id = UniqueAscensionPerksEvents.3040 days = 60 random = 300 }
 		}
 	}
@@ -809,8 +797,7 @@ country_event = {
 	picture = GFX_evt_expandable_brain_6
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes set_country_flag = ap_expandable_brain_3_project_completed }
+	immediate = { get_capital_planet = yes set_country_flag = ap_expandable_brain_3_project_completed }
 	option = { name = "UniqueAscensionPerksEvents.37.Offense"		allow = { NOT = { has_modifier = expandable_brain_3_offense } }	add_modifier = { modifier = expandable_brain_3_offense } }
 	option = { name = "UniqueAscensionPerksEvents.37.Expansion"		allow = { NOT = { has_modifier = expandable_brain_3_expansion } }	add_modifier = { modifier = expandable_brain_3_expansion } }
 	option = { name = "UniqueAscensionPerksEvents.37.Construction"	allow = { NOT = { has_modifier = expandable_brain_3_construction } }	add_modifier = { modifier = expandable_brain_3_construction } }
@@ -870,20 +857,19 @@ country_event = {
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
 		has_ascension_perk = ap_nano_drones
-		OR = {
-			has_country_flag = nano_auto_upgrade
-			has_country_flag = nano_resource_replacement
-		}
+		OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
 		resource_stockpile_compare = { resource = automatic_drone value > 200 }
 	}
 	immediate = {
-		if = { limit = { has_country_flag = ap_nano_drones_pulse }
+		if = {
+			limit = { has_country_flag = ap_nano_drones_pulse }
 			if = { limit = { has_ascension_perk = ap_nano_to_nanite }
 				random = { chance = 50 remove_country_flag = ap_nano_drones_pulse }
 			}
 			else = { remove_country_flag = ap_nano_drones_pulse }
 
-			if = { limit = { has_country_flag = nano_auto_upgrade resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+			if = {
+				limit = { has_country_flag = nano_auto_upgrade resource_stockpile_compare = { resource = automatic_drone value > 200 } }
 				random_owned_planet = {
 					limit = { is_colony = yes is_colonizable = no }
 					while = { count = 3
@@ -936,7 +922,8 @@ country_event = {
 				}
 			}
 			# Perfect Resource Replacement: if empire (or sector?) is running low of any strategic resources.
-			if = { limit = { has_country_flag = nano_resource_replacement resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+			if = {
+				limit = { has_country_flag = nano_resource_replacement resource_stockpile_compare = { resource = automatic_drone value > 200 } }
 				random_list = {
 					1 = {}
 					99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_volatile_motes	has_country_resource = { type = volatile_motes	amount = 12 } } } add_resource = { volatile_motes	= 10	automatic_drone = -100 } }
@@ -985,8 +972,7 @@ country_event = {
 	picture = GFX_evt_nano_to_nanite
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes set_country_flag = ap_nano_to_nanite_project }
+	immediate = { get_capital_planet = yes set_country_flag = ap_nano_to_nanite_project }
 	option = {
 		name = EXCELLENT
 		add_resource = { nanites = 1000 }
@@ -1117,7 +1103,8 @@ country_event = {
 			# save_event_target_as = ap_expansion_infinity_planet
 			set_timed_planet_flag = { flag = ap_expansion_infinity_collection years = 6 }
 			surgical_strike_resources = yes
-			if = { limit = { root = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } } }
+			if = {
+				limit = { root = { NOR = { is_ai = yes has_country_flag = ap_expansion_infinity_collection_no_warning } } }
 				planet_event = { id = UniqueAscensionPerksEvents.46 }
 			}
 		}
@@ -1152,17 +1139,30 @@ country_event = {
 	immediate = {
 		fromfrom = {
 			if = {
-				limit = { root = { has_country_flag = ap_recycling_drones_project } }
+				limit = {
+					exists = solar_system
+					root = {
+						has_country_flag = ap_recycling_drones_project
+						any_available_debris = {
+							exists = solar_system
+							solar_system = { is_same_value = prevprevprev.solar_system }
+							num_ships_in_debris = {
+								ship_size = prevprev value > 0
+							}
+						}
+					}
+				}
 				# perform_recover_ship_check = yes
-				random = {
-					chance = 35
-					switch = {
-						trigger = is_ship_size
+				reroll_random = yes
+				random = { chance = 33.4
+					switch = { trigger = is_ship_size
 						corvette	= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } } }
+						frigate		= { ROOT = { change_variable = { which = ship_frigate_recovered value = 1 } } }
 						destroyer	= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } } }
 						cruiser		= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } } }
 						battleship	= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } } }
 						titan		= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
+						juggernaut	= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
 					}
 				}
 			}
@@ -1173,8 +1173,7 @@ country_event = {
 			# has_existing_ship_design = battleship
 			# has_existing_ship_design = titan
 			# perform_recycling_expedition = yes
-			switch = {
-				trigger = is_ship_size
+			switch = { trigger = is_ship_size
 				# Default Empire
 				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
@@ -1182,6 +1181,7 @@ country_event = {
 				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
 				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
 				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
@@ -1236,7 +1236,7 @@ country_event = {
 		}
 	}
 }
-
+# Initial Project
 country_event = {
 	id = UniqueAscensionPerksEvents.49
 	title = "RECYCLE_RECOVER_SHIPS"
@@ -1249,6 +1249,7 @@ country_event = {
 		get_capital_planet = yes
 		set_country_flag = ap_recycling_drones_project
 		set_variable = { which = ship_corvette_recovered value = 0 }
+		set_variable = { which = ship_frigate_recovered value = 0 }
 		set_variable = { which = ship_destroyer_recovered value = 0 }
 		set_variable = { which = ship_cruiser_recovered value = 0 }
 		set_variable = { which = ship_battleship_recovered value = 0 }
@@ -1275,10 +1276,8 @@ country_event = {
 	trigger = { has_ascension_perk = ap_recycling_drones } # has_country_flag = ap_recycling_drones_project
 	immediate = {
 		fromfromfrom = {
-			random = {
-				chance = 35
-				switch = {
-					trigger = is_ship_size
+			random = { chance = 33.4
+				switch = { trigger = is_ship_size
 					# Default Empire
 					science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 					constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
@@ -1286,6 +1285,7 @@ country_event = {
 					sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 					transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 					corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+					frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
 					destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
 					cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
 					battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
@@ -1352,6 +1352,7 @@ event = {
 				has_country_flag = ap_recycling_drones_project
 				OR = {
 					check_variable = { which = ship_corvette_recovered value > 0 }
+					check_variable = { which = ship_frigate_recovered value > 0 }
 					check_variable = { which = ship_destroyer_recovered value > 0 }
 					check_variable = { which = ship_cruiser_recovered value > 0 }
 					check_variable = { which = ship_battleship_recovered value > 0 }
@@ -1375,17 +1376,26 @@ country_event = {
 		# perform_recovery_fleet = yes
 		random_system_within_border = {
 			limit = { has_star_flag = recycle_fleet_spawn_system }
-			system_star = { save_event_target_as = recovery_fleet_position }
+			if = {
+				limit = { exists = starbase }
+				starbase = { save_event_target_as = recovery_fleet_position }
+			}
+			else = { system_star = { save_event_target_as = recovery_fleet_position } }
 		}
-		if = { limit = { NOT = { exists = event_target:recovery_fleet_position } }
+		# 2nd fallback
+		if = {
+			limit = { NOT = { exists = event_target:recovery_fleet_position } }
 			random_system_within_border = {
 				limit = { exists = starbase }
 				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
-				system_star = { save_event_target_as = recovery_fleet_position }
+				starbase = { save_event_target_as = recovery_fleet_position }
 			}
 		}
-		if = { limit = { exists = capital_star NOT = { exists = event_target:recovery_fleet_position } }
-			capital_star = { save_event_target_as = recovery_fleet_position }
+		# Last fallback
+		if = {
+			limit = { NOT = { exists = event_target:recovery_fleet_position } }
+			get_capital_planet = yes
+			event_target:capital_planet.system_star = { save_event_target_as = recovery_fleet_position }
 		}
 		# FIXME: invalid design for create_ship v.3.9
 		create_fleet = {
@@ -1393,10 +1403,15 @@ country_event = {
 			settings = { spawn_debris = no }
 			effect = {
 				set_owner = prev
-				if = { limit = { ROOT = { has_country_flag = ap_recycling_drones_project_upgrade } }
+				if = {
+					limit = { ROOT = { has_country_flag = ap_recycling_drones_project_upgrade } }
 					while = {
 						count = root.ship_corvette_recovered
 						create_ship = { name = random random_existing_design = corvette }
+					}
+					while = {
+						count = root.ship_frigate_recovered
+						create_ship = { name = random random_existing_design = frigate }
 					}
 					while = {
 						count = root.ship_destroyer_recovered
@@ -1419,6 +1434,10 @@ country_event = {
 					while = {
 						count = root.ship_corvette_recovered
 						create_ship = { name = random design = "Standard Basic Corvette" }
+					}
+					while = {
+						count = root.ship_frigate_recovered
+						create_ship = { name = random design = "Standard Basic Frigate" }
 					}
 					while = {
 						count = root.ship_destroyer_recovered
@@ -1449,6 +1468,7 @@ country_event = {
 		name = EXCELLENT
 		hidden_effect = {
 			set_variable = { which = ship_corvette_recovered value = 0 }
+			set_variable = { which = ship_frigate_recovered value = 0 }
 			set_variable = { which = ship_destroyer_recovered value = 0 }
 			set_variable = { which = ship_cruiser_recovered value = 0 }
 			set_variable = { which = ship_battleship_recovered value = 0 }
@@ -1490,14 +1510,11 @@ planet_event = {
 	}
 	is_triggered_only = yes
 	immediate = {
-		owner = {
-			set_country_flag = ap_recycling_drones_project_upgrade
-			remove_country_flag = ap_recycling_drones_project_upgrade_added
-		}
+		owner = { set_country_flag = ap_recycling_drones_project_upgrade remove_country_flag = ap_recycling_drones_project_upgrade_added }
 	}
 	option = { name = EXCELLENT }
 }
-
+# Edict
 country_event = {
 	id = UniqueAscensionPerksEvents.3055
 	title = "UniqueAscensionPerksEvents.3055.Name"
@@ -1526,32 +1543,32 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.3055.System.1
 		trigger = { exists = event_target:recycle_system_1 }
-		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_1 = { set_star_flag = recycle_fleet_spawn_system } }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_1 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.3055.System.2
 		trigger = { exists = event_target:recycle_system_2 }
-		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_2 = { set_star_flag = recycle_fleet_spawn_system } }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_2 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.3055.System.3
 		trigger = { exists = event_target:recycle_system_3 }
-		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_3 = { set_star_flag = recycle_fleet_spawn_system } }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_3 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.3055.System.4
 		trigger = { exists = event_target:recycle_system_4 }
-		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_4 = { set_star_flag = recycle_fleet_spawn_system } }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_4 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.3055.System.5
 		trigger = { exists = event_target:recycle_system_5 }
-		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_5 = { set_star_flag = recycle_fleet_spawn_system } }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_5 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.3055.System.6
 		trigger = { exists = event_target:recycle_system_6 }
-		hidden_effect = { every_system_within_border = { remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_6 = { set_star_flag = recycle_fleet_spawn_system } }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_6 = { set_star_flag = recycle_fleet_spawn_system } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.3055.Select" ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } } }
 	option = { name = CANCEL ai_chance = { factor = 0.1 } default_hide_option = yes }
@@ -1575,7 +1592,8 @@ country_event = {
 	option = {
 		name = EXCELLENT
 		add_research_option = tech_jump_drive_1
-		if = { limit = { has_distar = yes }
+		if = {
+			limit = { has_distar = yes }
 			add_research_option = tech_nanite_gate
 			generate_lcluster_clue = yes
 		}
@@ -1821,7 +1839,8 @@ country_event = {
 		# }
 	}
 	after = {
-		if = { limit = { exists = event_target:ship_escorted event_target:ship_escorted = { is_scope_type = ship } }
+		if = {
+			limit = { exists = event_target:ship_escorted event_target:ship_escorted = { is_scope_type = ship } }
 			create_security_forces_country = yes
 			event_target:ship_escorted = {
 				solar_system = { star = { save_event_target_as = spawn_location } }
@@ -1842,7 +1861,8 @@ country_event = {
 					save_event_target_as = security_fleet
 				}
 			}
-			if = { limit = { NOT = { exists = event_target:security_forces_country } last_created_country = { has_country_flag = security_strike_force } }
+			if = {
+				limit = { NOT = { exists = event_target:security_forces_country } last_created_country = { has_country_flag = security_strike_force } }
 				last_created_country = { save_event_target_as = security_forces_country }
 			}
 			event_target:security_fleet = {
@@ -2142,7 +2162,8 @@ event = {
 		random_playable_country = {
 			limit = { is_gestalt = no has_ascension_perk = ap_megacorp }
 			weights = { base = 1 modifier = { add = 1 has_modifier = aggressive_marketing_target } }
-			if = { limit = { has_modifier = aggressive_marketing_target }
+			if = {
+				limit = { has_modifier = aggressive_marketing_target }
 				remove_modifier = aggressive_marketing_target
 			}
 			random_relation = {
@@ -2215,7 +2236,8 @@ country_event = {
 				}
 			}
 		}
-		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+		if = {
+			limit = { exists = event_target:FallenEmpireTaskOrigin }
 			event_target:FallenEmpireTaskOrigin = { save_global_event_target_as = FallenEmpireTaskOrigin }
 			clear_global_event_target = FallenEmpireTaskOrigin
 		}
@@ -2404,8 +2426,7 @@ country_event = {
 	picture = GFX_evt_fallen_disciple
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes set_country_flag = fallen_disciple_project }
+	immediate = { get_capital_planet = yes set_country_flag = fallen_disciple_project }
 	option = { name = EXCELLENT custom_tooltip = "ap_fallen_disciple_tooltip_3" }
 }
 
@@ -2433,13 +2454,15 @@ country_event = {
 				}
 			}
 		}
-		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+		if = {
+			limit = { exists = event_target:FallenEmpireTaskOrigin }
 			event_target:FallenEmpireTaskOrigin = { save_global_event_target_as = FallenEmpireTaskOrigin }
 			clear_global_event_target = FallenEmpireTaskOrigin
 		}
 	}
 	after = {
-		if = { limit = { exists = event_target:FallenEmpireTaskOrigin }
+		if = {
+			limit = { exists = event_target:FallenEmpireTaskOrigin }
 			country_event = { id = UniqueAscensionPerksEvents.73 }
 		}
 	}
@@ -2497,7 +2520,8 @@ country_event = {
 		event_target:FallenEmpireTaskOrigin = {
 			add_opinion_modifier = { modifier = opinion_influenced_awaken_fallen_empire who = prevprev }
 			# is_fallen_machine_empire = is_fallen_empire_machine
-			if = { limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
+			if = {
+				limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
 				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 }
 			}
 			else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
@@ -2517,7 +2541,8 @@ country_event = {
 		every_playable_country = { limit = { is_ai = no } country_event = { id = fallen_empires_awakening.2 } }
 		observer_event = { id = observer.73 }
 		# War in Heaven
-		if = { limit = { has_leviathans = yes }
+		if = {
+			limit = { has_leviathans = yes }
 			random_list = {
 				40 = { # War in Heaven with Fallen Empire of opposing ethos.
 					random_country = {
@@ -2608,10 +2633,7 @@ country_event = {
 		has_ascension_perk = ap_stability_celebration
 		NOT = { has_country_flag = stability_celebration_message }
 		any_owned_planet = {
-			NOR = {
-				has_modifier = stability_celebration
-				has_modifier = stability_celebration_gestalt
-			}
+			NOR = { has_modifier = stability_celebration has_modifier = stability_celebration_gestalt }
 			planet_stability > 55
 			planet_crime < 20
 			free_housing > 0
@@ -2621,10 +2643,7 @@ country_event = {
 			OR = {
 				AND = {
 					root = {
-						OR = {
-							has_policy_flag = ai_full_rights
-							is_synthetic_empire = yes
-						}
+						OR = { has_policy_flag = ai_full_rights is_synthetic_empire = yes }
 					}
 					count_owned_pop = {
 						count > 20
@@ -2653,10 +2672,7 @@ country_event = {
 	immediate = {
 		random_owned_planet = {
 			limit = {
-				NOR = {
-					has_modifier = stability_celebration
-					has_modifier = stability_celebration_gestalt
-				}
+				NOR = { has_modifier = stability_celebration has_modifier = stability_celebration_gestalt }
 				planet_stability > 55
 				planet_crime < 20
 				free_housing > 0
@@ -2666,10 +2682,7 @@ country_event = {
 				OR = {
 					AND = {
 						root = {
-							OR = {
-								has_policy_flag = ai_full_rights
-								is_synthetic_empire = yes
-							}
+							OR = { has_policy_flag = ai_full_rights is_synthetic_empire = yes }
 						}
 						count_owned_pop = {
 							count > 20
@@ -2694,13 +2707,15 @@ country_event = {
 					}
 				}
 			}
-			if = { limit = { root = { is_gestalt = yes } }
+			if = {
+				limit = { root = { is_gestalt = yes } }
 				add_modifier = { modifier = stability_celebration_gestalt years = 10 }
 			}
 			else = {
 				add_modifier = { modifier = stability_celebration years = 10 }
 			}
-			if = { limit = { root = { NOR = { is_ai = yes has_country_flag = ap_stability_celebration_no_warning } } }
+			if = {
+				limit = { root = { NOR = { is_ai = yes has_country_flag = ap_stability_celebration_no_warning } } }
 				planet_event = { id = UniqueAscensionPerksEvents.81 }
 			}
 		}
@@ -2775,7 +2790,8 @@ planet_event = {
 		NOT = { has_planet_flag = decision_galaxy_center_cooldown }
 	}
 	immediate = {
-		if = { limit = { NOT = { is_variable_set = galaxy_center_features } }
+		if = {
+			limit = { NOT = { is_variable_set = galaxy_center_features } }
 			set_variable = { which = galaxy_center_features value = 0 }
 		}
 	}
@@ -3111,7 +3127,8 @@ event = {
 						has_planet_flag = galaxy_center_museum
 					}
 				}
-				if = { limit = { has_planet_flag = galaxy_center_casino }
+				if = {
+					limit = { has_planet_flag = galaxy_center_casino }
 					set_variable = { which = galaxy_center_casino value = 0 }
 					while = {
 						count = 750
@@ -3125,7 +3142,8 @@ event = {
 					}
 					owner = { add_resource = { energy = 100 mult = galaxy_center_casino } }
 				}
-				if = { limit = { has_planet_flag = galaxy_center_administration }
+				if = {
+					limit = { has_planet_flag = galaxy_center_administration }
 					set_variable = { which = galaxy_center_administration value = 0 }
 					while = {
 						count = 75
@@ -3139,7 +3157,8 @@ event = {
 					}
 					owner = { add_resource = { influence = 1 mult = galaxy_center_administration } }
 				}
-				if = { limit = { has_planet_flag = galaxy_center_museum }
+				if = {
+					limit = { has_planet_flag = galaxy_center_museum }
 					set_variable = { which = galaxy_center_museum value = 0 }
 					while = {
 						count = 250
@@ -3241,15 +3260,13 @@ planet_event = {
 		multiply_variable = { which = unity_needed_on_planet value = 5 }
 	}
 	after = {
-		hidden_effect = {
-			clear_variable = num_ethic_pop_on_planet
-			clear_variable = unity_needed_on_planet
-		}
+		hidden_effect = { clear_variable = num_ethic_pop_on_planet clear_variable = unity_needed_on_planet }
 	}
 	option = {
 		name = EXCELLENT
 		owner = {
-			if = { limit = { has_country_resource = { type = unity amount > root.unity_needed_on_planet } }
+			if = {
+				limit = { has_country_resource = { type = unity amount > root.unity_needed_on_planet } }
 				add_resource = { influence = 1 unity = -5 mult = root.num_ethic_pop_on_planet }
 
 			}
@@ -3388,8 +3405,7 @@ country_event = {
 	picture = GFX_evt_eternal_vigilance
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes set_country_flag = ap_eternal_vigilance_project }
+	immediate = { get_capital_planet = yes set_country_flag = ap_eternal_vigilance_project }
 	option = { name = EXCELLENT }
 }
 
@@ -3421,8 +3437,7 @@ country_event = {
 			}
 			while = {
 				count = 3
-				random = {
-					chance = 50
+				random = { chance = 50
 					create_fleet = {
 						name = "Eternal Vigilance Fleet"
 						settings = { spawn_debris = no uses_naval_capacity = no }
@@ -3512,7 +3527,8 @@ country_event = {
 				} }
 			} }
 		}
-		if = { limit = { exists = event_target:VassalNavyInvestmentTarget }
+		if = {
+			limit = { exists = event_target:VassalNavyInvestmentTarget }
 			no_scope = { save_event_target_as = VassalNavyInvestmentTarget }
 		}
 	}
@@ -3575,9 +3591,7 @@ country_event = {
 	show_sound = event_construction
 	picture = GFX_evt_hangar_bay
 	is_triggered_only = yes
-	trigger = {
-		exists = event_target:VassalNavyInvestmentTarget
-	}
+	trigger = { exists = event_target:VassalNavyInvestmentTarget }
 	immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.1
@@ -3616,7 +3630,8 @@ country_event = {
 	}
 	option = { name = BACK ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = {
-			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
+			if = {
+				limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.8143 } } }
 				country_event = { id = UniqueAscensionPerksEvents.8143 scopes = { from = from } }
 			}
 		}
@@ -3636,8 +3651,7 @@ country_event = {
 			save_event_target_as = VassalNavyInvestmentTarget
 			add_modifier = { modifier = vassal_navy_capacity_boost }
 			get_capital_planet = yes
-			switch = {
-				trigger = has_country_flag
+			switch = { trigger = has_country_flag
 				subject_navy_investment_1 = { set_variable = { which = subject_navy_amount value = 24	} remove_country_flag = subject_navy_investment_1 }
 				subject_navy_investment_2 = { set_variable = { which = subject_navy_amount value = 48	} remove_country_flag = subject_navy_investment_2 }
 				subject_navy_investment_3 = { set_variable = { which = subject_navy_amount value = 96	} remove_country_flag = subject_navy_investment_3 }
@@ -3715,8 +3729,7 @@ country_event = {
 	picture = GFX_evt_defense_sentinels
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes create_defense_sentinels_country = yes }
+	immediate = { get_capital_planet = yes create_defense_sentinels_country = yes }
 	option = { name = EXCELLENT }
 }
 
@@ -3751,15 +3764,9 @@ country_event = {
 								root = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
 							}
 						}
+						AND = { has_fleet_flag = defense_sentinels_fleet_defending is_fleet_idle = yes }
 						AND = {
-							has_fleet_flag = defense_sentinels_fleet_defending
-							is_fleet_idle = yes
-						}
-						AND = {
-							NOR = {
-								has_fleet_flag = defense_sentinels_fleet_patroling
-								has_fleet_flag = defense_sentinels_fleet_defending
-							}
+							NOR = { has_fleet_flag = defense_sentinels_fleet_patroling has_fleet_flag = defense_sentinels_fleet_defending }
 							is_fleet_idle = yes
 						}
 					}
@@ -3778,7 +3785,8 @@ fleet_event = {
 		# defense_sentinels_idle_fleet_action = yes
 		owner = {
 			# save_event_target_as = domesticated_spaceborn_alien
-			if = { limit = { NOT = { exists = event_target:main_country } }
+			if = {
+				limit = { NOT = { exists = event_target:main_country } }
 				if = { limit = { exists = from from = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } } }
 					from = { save_event_target_as = main_country }
 				}
@@ -3792,7 +3800,8 @@ fleet_event = {
 		}
 		if = { # Defense & Patrol
 			limit = { has_fleet_flag = defense_sentinels_fleet NOT = { has_fleet_flag = defense_sentinels_fleet_defending_order } }
-			if = { limit = { event_target:main_country = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
+			if = {
+				limit = { event_target:main_country = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
 				event_target:main_country = {
 					random_system_within_border = {
 						limit = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
@@ -3850,7 +3859,8 @@ country_event = {
 	immediate =	{
 		# create_defense_sentinels_fleet = yes
 		create_defense_sentinels_country = yes
-		if = { limit = { NOT = { exists = event_target:spawn_location } }
+		if = {
+			limit = { NOT = { exists = event_target:spawn_location } }
 			random_planet_within_border = {
 				limit = { has_planet_flag = defense_sentinels_home }
 				weights = { base = 1 modifier = { add = 5 is_sector_capital = no } }
@@ -3891,15 +3901,15 @@ country_event = {
 		}
 	}
 	immediate =	{
-		if = { limit = { has_country_flag = ap_defense_sentinels_retriever_project }
+		if = {
+			limit = { has_country_flag = ap_defense_sentinels_retriever_project }
 			create_defense_sentinels_country = yes
 			create_retriever_sentinels_fleet = yes
 		}
-		if = { limit = { NOT = { exists = event_target:defense_sentinels } }
+		if = {
+			limit = { NOT = { exists = event_target:defense_sentinels } }
 			if = {
-				limit = {
-					any_relation = { has_relation_flag = { who = root flag = defense_sentinels } }
-				}
+				limit = { any_relation = { has_relation_flag = { who = root flag = defense_sentinels } } }
 				random_relation = {
 					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
 					save_event_target_as = defense_sentinels
@@ -3916,9 +3926,7 @@ country_event = {
 				}
 			}
 			else_if = {
-				limit = {
-					any_country = { has_relation_flag = { who = root flag = defense_sentinels } }
-				}
+				limit = { any_country = { has_relation_flag = { who = root flag = defense_sentinels } } }
 				random_country = {
 					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
 					save_event_target_as = defense_sentinels
@@ -3976,10 +3984,7 @@ country_event = {
 	trigger = {
 		has_ascension_perk = ap_defense_sentinels
 		has_technology = tech_defense_sentinels_2
-		NOR = {
-			has_country_flag = ap_defense_sentinels_retriever_project_check
-			has_country_flag = ap_defense_sentinels_retriever_project
-		}
+		NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
 	}
 	immediate = { set_country_flag = ap_defense_sentinels_retriever_project_check get_capital_planet = yes }
 	option = { name = EXCELLENT enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root } }
@@ -4065,8 +4070,7 @@ country_event = {
 				}
 				while = {
 					count = 2
-					random = {
-						chance = 40
+					random = { chance = 40
 						create_fleet = {
 							name = NAME_defense_sentinels
 							settings = { spawn_debris = no }
@@ -4145,12 +4149,12 @@ leader_event = {
 	after = {
 		hidden_effect = {
 			from = {
-				if = { limit = { is_variable_set = cloned_leader_number }
+				if = {
+					limit = { is_variable_set = cloned_leader_number }
 					add_resource = { energy = -800 mult = cloned_leader_number }
 					root = {
 						while = { count = prev.cloned_leader_number
-							switch = {
-								trigger = leader_class
+							switch = { trigger = leader_class
 								scientist = { from = { clone_leader = { target = prev class = scientist } } }
 								admiral = { from = { clone_leader = { target = prev class = admiral } } }
 								governor = { from = { clone_leader = { target = prev class = governor } } }
@@ -4508,7 +4512,8 @@ country_event = {
 	}
 	immediate = {
 		# pinnacle_society_deposit_spawn = yes
-		if = { limit = { is_common_empire = yes }
+		if = {
+			limit = { is_common_empire = yes }
 			if = { limit = { any_owned_planet = { NOR = { has_deposit = d_district_governor has_deposit = d_district_university has_deposit = d_district_defense has_deposit = d_district_industry } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_governor } } while = { count = 4 random = { chance = 50 add_deposit = d_district_governor } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_university } } while = { count = 10 random = { chance = 70 add_deposit = d_district_university } } }
@@ -4547,7 +4552,8 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { is_hive_empire = yes }
+		else_if = {
+			limit = { is_hive_empire = yes }
 			if = { limit = { any_owned_planet = { NOR = { has_deposit = d_district_queen has_deposit = d_district_nursery has_deposit = d_district_forest has_deposit = d_district_entrepot } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_queen } } while = { count = 4 random = { chance = 50 add_deposit = d_district_queen } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_nursery } } while = { count = 10 random = { chance = 70 add_deposit = d_district_nursery } } }
@@ -4586,7 +4592,8 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { is_machine_empire = yes }
+		else_if = {
+			limit = { is_machine_empire = yes }
 			if = { limit = { any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade has_deposit = d_district_recycling } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_security } } while = { count = 6 random = { chance = 60 add_deposit = d_district_security } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_foundry } } while = { count = 10 random = { chance = 70 add_deposit = d_district_foundry } } }
@@ -4625,7 +4632,8 @@ country_event = {
 				}
 			}
 		}
-		else_if = { limit = { is_megacorp = yes }
+		else_if = {
+			limit = { is_megacorp = yes }
 			if = { limit = { any_owned_planet = { NOR = { has_deposit = d_district_finance has_deposit = d_district_casino has_deposit = d_district_bank has_deposit = d_district_journalism } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_finance } } while = { count = 10 random = { chance = 70 add_deposit = d_district_finance } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_casino } } while = { count = 10 random = { chance = 70 add_deposit = d_district_casino } } }
@@ -4722,25 +4730,29 @@ planet_event = {
 	}
 	immediate = {
 		# pinnacle_society_deposit_removal = yes
-		if = { limit = { from = { is_common_empire = no } }
+		if = {
+			limit = { from = { is_common_empire = no } }
 			if = { limit = { has_deposit = d_district_governor} while = { limit = { has_deposit = d_district_governor } remove_deposit = d_district_governor } }
 			if = { limit = { has_deposit = d_district_university} while = { limit = { has_deposit = d_district_university } remove_deposit = d_district_university } }
 			if = { limit = { has_deposit = d_district_defense} while = { limit = { has_deposit = d_district_defense } remove_deposit = d_district_defense } }
 			if = { limit = { has_deposit = d_district_industry} while = { limit = { has_deposit = d_district_industry } remove_deposit = d_district_industry } }
 		}
-		if = { limit = { from = { is_hive_empire = no } }
+		if = {
+			limit = { from = { is_hive_empire = no } }
 			if = { limit = { has_deposit = d_district_queen } while = { limit = { has_deposit = d_district_queen } remove_deposit = d_district_queen } }
 			if = { limit = { has_deposit = d_district_nursery } while = { limit = { has_deposit = d_district_nursery } remove_deposit = d_district_nursery } }
 			if = { limit = { has_deposit = d_district_forest } while = { limit = { has_deposit = d_district_forest } remove_deposit = d_district_forest } }
 			if = { limit = { has_deposit = d_district_entrepot } while = { limit = { has_deposit = d_district_entrepot } remove_deposit = d_district_entrepot } }
 		}
-		if = { limit = { from = { is_machine_empire = no } }
+		if = {
+			limit = { from = { is_machine_empire = no } }
 			if = { limit = { has_deposit = d_district_security } while = { limit = { has_deposit = d_district_security } remove_deposit = d_district_security } }
 			if = { limit = { has_deposit = d_district_foundry } while = { limit = { has_deposit = d_district_foundry } remove_deposit = d_district_foundry } }
 			if = { limit = { has_deposit = d_district_upgrade } while = { limit = { has_deposit = d_district_upgrade } remove_deposit = d_district_upgrade } }
 			if = { limit = { has_deposit = d_district_recycling } while = { limit = { has_deposit = d_district_recycling } remove_deposit = d_district_recycling } }
 		}
-		if = { limit = { from = { is_megacorp = no } }
+		if = {
+			limit = { from = { is_megacorp = no } }
 			if = { limit = { has_deposit = d_district_finance } while = { limit = { has_deposit = d_district_finance } remove_deposit = d_district_finance } }
 			if = { limit = { has_deposit = d_district_casino } while = { limit = { has_deposit = d_district_casino } remove_deposit = d_district_casino } }
 			if = { limit = { has_deposit = d_district_bank } while = { limit = { has_deposit = d_district_bank } remove_deposit = d_district_bank } }
@@ -4804,8 +4816,7 @@ planet_event = {
 		}
  	}
 	immediate = {
-		random = {
-			chance = 5
+		random = { chance = 5
 			save_event_target_as = surgical_strike_planet
 			set_timed_planet_flag = { flag = had_surgical_strike months = 4 }
 			from = {
@@ -4865,13 +4876,17 @@ country_event = {
 				# surgical_strike_destroy_districts = yes
 				surgical_strike_districts = yes
 				while = { count = 3 random = { chance = 50 surgical_strike_districts = yes } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } random = { chance = 50 surgical_strike_districts = yes }
+				if = {
+					limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } random = { chance = 50 surgical_strike_districts = yes }
 					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } random = { chance = 50 surgical_strike_districts = yes }
-						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_districts = yes }
+						if = {
+							limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_districts = yes }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } random = { chance = 50 surgical_strike_districts = yes }
-								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } random = { chance = 50 surgical_strike_districts = yes }
+								if = {
+									limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } random = { chance = 50 surgical_strike_districts = yes }
 									if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_districts = yes }
-										if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } random = { chance = 50 surgical_strike_districts = yes }
+										if = {
+											limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } random = { chance = 50 surgical_strike_districts = yes }
 											if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } random = { chance = 50 surgical_strike_districts = yes } }
 										}
 									}
@@ -4892,9 +4907,11 @@ country_event = {
 				# surgical_strike_destroy_buildings = yes
 				surgical_strike_buildings = yes
 				while = { count = 1 random = { chance = 50 surgical_strike_buildings = yes } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 60 } } random = { chance = 50 surgical_strike_buildings = yes }
+				if = {
+					limit = { event_target:surgical_strike_fleet = { fleet_size > 60 } } random = { chance = 50 surgical_strike_buildings = yes }
 					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } random = { chance = 50 surgical_strike_buildings = yes }
-						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 180 } } random = { chance = 50 surgical_strike_buildings = yes }
+						if = {
+							limit = { event_target:surgical_strike_fleet = { fleet_size > 180 } } random = { chance = 50 surgical_strike_buildings = yes }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } random = { chance = 50 surgical_strike_buildings = yes }
 								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 300 } } random = { chance = 50 surgical_strike_buildings = yes } }
 							}
@@ -4913,13 +4930,17 @@ country_event = {
 				# surgical_strike_abduct_pop = yes
 				random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes
 				while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 2 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
+				if = {
+					limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 2 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
-						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
+						if = {
+							limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
-								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
+								if = {
+									limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 									if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
-										if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
+										if = {
+											limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } }
 											if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } while = { count = 5 random = { chance = 50 random_owned_pop = { save_event_target_as = abducted_pop } surgical_strike_abducted_pop_colony_transfer = yes } } }
 										}
 									}
@@ -4939,13 +4960,17 @@ country_event = {
 				# surgical_strike_kill_pop = yes
 				random_owned_pop = { surgical_strike_killed_pop = yes }
 				while = { count = 9 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-				if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+				if = {
+					limit = { event_target:surgical_strike_fleet = { fleet_size > 40 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 					if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 80 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-						if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+						if = {
+							limit = { event_target:surgical_strike_fleet = { fleet_size > 120 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 							if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 160 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-								if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+								if = {
+									limit = { event_target:surgical_strike_fleet = { fleet_size > 200 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 									if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 240 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
-										if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
+										if = {
+											limit = { event_target:surgical_strike_fleet = { fleet_size > 280 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } }
 											if = { limit = { event_target:surgical_strike_fleet = { fleet_size > 320 } } while = { count = 5 random = { chance = 50 random_owned_pop = { surgical_strike_killed_pop = yes } } } }
 										}
 									}
@@ -5053,7 +5078,8 @@ country_event = {
 		exists = ruler
 	}
 	immediate = {
-		if = { limit = { ruler = { has_skill < 10 } }
+		if = {
+			limit = { ruler = { has_skill < 10 } }
 			ruler = {
 				reroll_random = yes
 				random_list = {
@@ -5073,7 +5099,8 @@ country_event = {
 				ruler = { has_skill > 9 }
 				NOT = { has_country_flag = ap_chosen_ruler_inactivity }
 			}
-			if = { limit = { NOT = { has_country_flag = ap_chosen_ruler_no_warning } }
+			if = {
+				limit = { NOT = { has_country_flag = ap_chosen_ruler_no_warning } }
 				country_event = { id = UniqueAscensionPerksEvents.322 days = 1 }
 				country_event = { id = UniqueAscensionPerksEvents.323 days = 2 }
 				country_event = { id = UniqueAscensionPerksEvents.324 days = 3 }
@@ -5113,26 +5140,17 @@ country_event = {
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
-		NOR = {
-			has_country_flag = ap_chosen_ruler_no_warning
-			has_country_flag = ap_chosen_ruler_inactivity
-		}
+		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			planet_crime > 10
-			NOR = {
-				has_modifier = chosen_ruler_crime_preventive_counterstrike
-				has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				planet_crime > 10
-				NOR = {
-					has_modifier = chosen_ruler_crime_preventive_counterstrike
-					has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_crime_preventive_counterstrike_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5172,26 +5190,17 @@ country_event = {
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
-		NOR = {
-			has_country_flag = ap_chosen_ruler_no_warning
-			has_country_flag = ap_chosen_ruler_inactivity
-		}
+		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			planet_stability <= 45
-			NOR = {
-				has_modifier = chosen_ruler_stability_local_meeting
-				has_planet_flag = chosen_ruler_stability_local_meeting_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				planet_stability <= 45
-				NOR = {
-					has_modifier = chosen_ruler_stability_local_meeting
-					has_planet_flag = chosen_ruler_stability_local_meeting_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_stability_local_meeting_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5231,26 +5240,17 @@ country_event = {
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
-		NOR = {
-			has_country_flag = ap_chosen_ruler_no_warning
-			has_country_flag = ap_chosen_ruler_inactivity
-		}
+		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			free_housing <= -3
-			NOR = {
-				has_modifier = chosen_ruler_temporal_housing
-				has_planet_flag = chosen_ruler_temporal_housing_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				free_housing <= -3
-				NOR = {
-					has_modifier = chosen_ruler_temporal_housing
-					has_planet_flag = chosen_ruler_temporal_housing_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_temporal_housing_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5295,10 +5295,7 @@ country_event = {
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
-		NOR = {
-			has_country_flag = ap_chosen_ruler_no_warning
-			has_country_flag = ap_chosen_ruler_inactivity
-		}
+		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			free_amenities <= -3
 			NOR = {
@@ -5326,7 +5323,8 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.322.a"
 		allow = { resource_stockpile_compare = { resource = energy value > 200 } }
 		add_resource = { energy = -200 influence = 1 }
-		if = { limit = { is_gestalt = no }
+		if = {
+			limit = { is_gestalt = no }
 			event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
 		}
 		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
@@ -5337,7 +5335,8 @@ country_event = {
 		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
 		set_country_flag = ap_chosen_ruler_no_warning
 		add_resource = { energy = -200 influence = 1 }
-		if = { limit = { is_gestalt = no }
+		if = {
+			limit = { is_gestalt = no }
 			event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
 		}
 		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
@@ -5362,10 +5361,7 @@ country_event = {
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
-		NOR = {
-			has_country_flag = ap_chosen_ruler_no_warning
-			has_country_flag = ap_chosen_ruler_inactivity
-		}
+		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
 			NOR = {
@@ -5424,20 +5420,14 @@ country_event = {
 		resource_stockpile_compare = { resource = energy value > 5000 }
 		any_owned_planet = {
 			planet_crime > 10
-			NOR = {
-				has_modifier = chosen_ruler_crime_preventive_counterstrike
-				has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				planet_crime > 10
-				NOR = {
-					has_modifier = chosen_ruler_crime_preventive_counterstrike
-					has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_crime_preventive_counterstrike_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5462,20 +5452,14 @@ country_event = {
 		resource_stockpile_compare = { resource = unity value > 5000 }
 		any_owned_planet = {
 			planet_stability <= 45
-			NOR = {
-				has_modifier = chosen_ruler_stability_local_meeting
-				has_planet_flag = chosen_ruler_stability_local_meeting_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				planet_stability <= 45
-				NOR = {
-					has_modifier = chosen_ruler_stability_local_meeting
-					has_planet_flag = chosen_ruler_stability_local_meeting_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_stability_local_meeting_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5500,20 +5484,14 @@ country_event = {
 		resource_stockpile_compare = { resource = minerals value > 5000 }
 		any_owned_planet = {
 			free_housing <= -3
-			NOR = {
-				has_modifier = chosen_ruler_temporal_housing
-				has_planet_flag = chosen_ruler_temporal_housing_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				free_housing <= -3
-				NOR = {
-					has_modifier = chosen_ruler_temporal_housing
-					has_planet_flag = chosen_ruler_temporal_housing_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_temporal_housing_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5559,7 +5537,8 @@ country_event = {
 			save_event_target_as = target_planet
 		}
 		add_resource = { energy = -200 influence = 1 }
-		if = { limit = { is_gestalt = no }
+		if = {
+			limit = { is_gestalt = no }
 			event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
 		}
 		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
@@ -5651,9 +5630,7 @@ country_event = {
 	}
 	immediate = {
 		random_planet_within_border = {
-			limit = {
-				NOR = { merg_is_gas_giant = yes has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes colonizable_planet = yes }
-			}
+			limit = { NOR = { merg_is_gas_giant = yes has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes colonizable_planet = yes } }
 			save_event_target_as = spawn_location
 		}
 		# set_timed_country_flag = { flag = treasures_found_cooldown years = 6 }
@@ -5763,7 +5740,8 @@ country_event = {
 		}
 	}
 	after = {
-		if = { limit = { exists = event_target:PlanetTarget }
+		if = {
+			limit = { exists = event_target:PlanetTarget }
 			country_event = { id = UniqueAscensionPerksEvents.344 }
 		}
 	}
@@ -5858,7 +5836,8 @@ country_event = {
 			save_event_target_as = special_project_target_system
 			random_system_planet = { save_event_target_as = special_project_target }
 			# create_treasures_pirate_country = yes
-			if = { limit = { any_country = { is_pirate = yes has_country_flag = treasures_pirate_country } }
+			if = {
+				limit = { any_country = { is_pirate = yes has_country_flag = treasures_pirate_country } }
 				random_country = {
 					limit = { is_pirate = yes has_country_flag = treasures_pirate_country }
 					save_event_target_as = treasures_pirate_country
@@ -5922,7 +5901,8 @@ ship_event = {
 	is_triggered_only = yes
 	immediate =	{
 		# treasures_project_finish_select_ship = yes
-		if = { limit = { NOT = { exists = event_target:target_ship_project_ship } }
+		if = {
+			limit = { NOT = { exists = event_target:target_ship_project_ship } }
 			if = { limit = { exists = solar_system }
 				solar_system = {
 					random_ship_in_system = {
@@ -5932,7 +5912,8 @@ ship_event = {
 				}
 			}
 			# Strong Fallback
-			if = { limit = { NOT = { exists = event_target:target_ship_project_ship } }
+			if = {
+				limit = { NOT = { exists = event_target:target_ship_project_ship } }
 				random_country = {
 					limit = {
 						is_pirate = yes
@@ -5944,10 +5925,7 @@ ship_event = {
 						}
 					}
 					random_owned_ship = {
-						limit = {
-							has_ship_flag = target_ship_project
-							is_disabled = yes
-						}
+						limit = { has_ship_flag = target_ship_project is_disabled = yes }
 						save_event_target_as = target_ship_project_ship
 					}
 				}
@@ -5958,7 +5936,8 @@ ship_event = {
 		name = EXCELLENT
 		owner = { add_monthly_resource_mult = { resource = treasures value = 4 min = 250 max = 1000 } }
 		hidden_effect = {
-			if = { limit = { exists = event_target:target_ship_project_ship }
+			if = {
+				limit = { exists = event_target:target_ship_project_ship }
 				destroy_fleet = event_target:target_ship_project_ship.fleet
 				owner = { remove_country_flag = treasures_pirate_country }
 			}
@@ -5974,10 +5953,7 @@ ship_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_country_type = pirate
-			has_country_flag = treasures_pirate_country
-		}
+		owner = { is_country_type = pirate has_country_flag = treasures_pirate_country }
 		has_ship_flag = target_ship_project
 		exists = fleet
 	}
@@ -6373,13 +6349,17 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.358.a"
 		# treasures_opinion_set = yes
 		event_target:CountryTargetForPresent = {
-			if = { limit = { OR = { is_hostile_to = root is_rival = root } }
+			if = {
+				limit = { OR = { is_hostile_to = root is_rival = root } }
 				add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = root } }
-			else_if = { limit = { OR = { is_domineering_to = root is_unfriendly_to = root is_dismissive_to = root } }
+			else_if = {
+				limit = { OR = { is_domineering_to = root is_unfriendly_to = root is_dismissive_to = root } }
 				add_opinion_modifier = { modifier = opinion_treasures_present_unfriendly who = root } }
-			else_if = { limit = { OR = { is_neutral_to = root } }
+			else_if = {
+				limit = { OR = { is_neutral_to = root } }
 				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
-			else_if = { limit = { OR = { is_patronizing_to = root is_friendly_to = root is_cordial_to = root } }
+			else_if = {
+				limit = { OR = { is_patronizing_to = root is_friendly_to = root is_cordial_to = root } }
 				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
 			else = {
 				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root }
@@ -6439,7 +6419,8 @@ country_event = {
 	}
 	immediate = {
 		# Do self call for performance reason.
-		if = { limit = { NOT = { has_modifier = slow_learner_bonus_5 } }
+		if = {
+			limit = { NOT = { has_modifier = slow_learner_bonus_5 } }
 			if = {
 				limit = {
 					NOR = {
@@ -6779,7 +6760,8 @@ country_event = {
 			}
 			last_created_system = {
 				# save_event_target_as = white_hole_system
-				if = { limit = { NOT = { root = { has_country_flag = notify_white_hole_detection_no_warning } } }
+				if = {
+					limit = { NOT = { root = { has_country_flag = notify_white_hole_detection_no_warning } } }
 					system_event = { id = UniqueAscensionPerksEvents.433 days = 3 }
 				}
 				add_hyperlane = { from = this to = prev }
@@ -6797,8 +6779,9 @@ country_event = {
 			}
 			country_event = { id = UniqueAscensionPerksEvents.432 days = 800 random = 400 }
 		}
-		else_if = { limit = { check_variable = { which = white_hole_systems value = 4 } }
-			random = { chance = 34 country_event = { id = UniqueAscensionPerksEvents.432 days = 1080 random = 360 } }
+		else_if = {
+			limit = { check_variable = { which = white_hole_systems value = 4 } }
+			random = { chance = 33.4 country_event = { id = UniqueAscensionPerksEvents.432 days = 1080 random = 360 } }
 		}
 	}
 }
@@ -6989,7 +6972,8 @@ country_event = {
 		name = "edict_anti_matter_menu"
 		allow = { NOT = { has_active_event = { UniqueAscensionPerksEvents.434 } } }
 		hidden_effect = {
-			if = { limit = { NOT = { has_country_flag = notify_white_hole_detection_no_warning } }
+			if = {
+				limit = { NOT = { has_country_flag = notify_white_hole_detection_no_warning } }
 				country_event = { id = UniqueAscensionPerksEvents.434 }
 			}
 		}
@@ -7037,7 +7021,8 @@ country_event = {
 		name = "edict_anti_matter_menu"
 		allow = { NOT = { has_active_event = { UniqueAscensionPerksEvents.434 } } }
 		hidden_effect = {
-			if = { limit = { count_owned_fleet = { count < 11 limit = { is_civilian = no has_fleet_flag = space_clouds_generation_fleet } } }
+			if = {
+				limit = { count_owned_fleet = { count < 11 limit = { is_civilian = no has_fleet_flag = space_clouds_generation_fleet } } }
 				country_event = { id = UniqueAscensionPerksEvents.434 }
 			}
 		}
@@ -7120,10 +7105,12 @@ planet_event = {
 	}
 	after = {
 		hidden_effect = {
-			if = { limit = { has_planet_flag = self_aware_planet }
+			if = {
+				limit = { has_planet_flag = self_aware_planet }
 				if = { limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
 					remove_planet_flag = self_aware_planet
-				} else = {
+				}
+				else = {
 					planet_event = { id = UniqueAscensionPerksEvents.461 }
 				}
 			}
@@ -7318,23 +7305,9 @@ planet_event = {
 				# modifier = { factor = 10 free_housing <= -10 }
 				add_deposit = d_aware_housing_building
 			}
-			5 = {
-				modifier = { factor = 0 free_amenities > 2 }
-				modifier = { factor = 5 free_amenities <= 0 }
-				modifier = { factor = 10 free_amenities <= -10 }
-				add_deposit = d_aware_amenities_building
-			}
-			5 = {
-				modifier = { factor = 0 planet_crime < 10 }
-				modifier = { factor = 5 planet_crime >= 20 }
-				modifier = { factor = 10 planet_crime >= 40 }
-				add_deposit = d_aware_crime_building
-			}
-			5 = {
-				modifier = { factor = 0 OR = { has_planet_flag = self_aware_manual_order any_owned_pop = { is_unemployed = yes } } }
-				modifier = { factor = 100 planet_crime < 10 free_amenities > 2 free_housing > 1 }
-				owner = { add_resource = { minerals = 200 } }
-			}
+			5 = { modifier = { factor = 0 free_amenities > 2 } modifier = { factor = 5 free_amenities <= 0 } modifier = { factor = 10 free_amenities <= -10 } add_deposit = d_aware_amenities_building }
+			5 = { modifier = { factor = 0 planet_crime < 10 } modifier = { factor = 5 planet_crime >= 20 } modifier = { factor = 10 planet_crime >= 40 } add_deposit = d_aware_crime_building }
+			5 = { modifier = { factor = 0 OR = { has_planet_flag = self_aware_manual_order any_owned_pop = { is_unemployed = yes } } } modifier = { factor = 100 planet_crime < 10 free_amenities > 2 free_housing > 1 } owner = { add_resource = { minerals = 200 } } }
 			205 = { # 35
 				modifier = { factor = 0 NOR = { has_planet_flag = self_aware_manual_order any_owned_pop = { is_unemployed = yes } } }
 				modifier = { add = -45 NOT = { owner = { has_deficit = energy } } }
@@ -7345,11 +7318,7 @@ planet_event = {
 				modifier = { add = -9 NOT = { has_modifier = self_aware_no_focus } }
 				modifier = { factor = 0.5 merg_is_habitat = yes }
 				random_list = {
-					5 = {
-						modifier = { factor = 0 NOR = { has_modifier = self_aware_energy has_modifier = self_aware_no_focus } }
-						modifier = { factor = 10 owner = { has_deficit = energy } }
-						add_deposit = d_aware_energy_building
-					}
+					5 = { modifier = { factor = 0 NOR = { has_modifier = self_aware_energy has_modifier = self_aware_no_focus } } modifier = { factor = 10 owner = { has_deficit = energy } } add_deposit = d_aware_energy_building }
 					5 = {
 						modifier = {
 							factor = 0
@@ -7598,18 +7567,19 @@ planet_event = {
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
 	trigger = { exists = owner owner = { resource_stockpile_compare = { resource = minerals value >= 200 } } }
-	immediate = {
-		set_planet_flag = self_aware_planet
-	}
+	immediate = { set_planet_flag = self_aware_planet }
 	after = {
 		hidden_effect = {
-			if = { limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
+			if = {
+				limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
 				remove_planet_flag = self_aware_planet
 			}
-			if = { limit = { NOT = { owner = { has_active_event = { UniqueAscensionPerksEvents.461 } } } }
+			if = {
+				limit = { NOT = { owner = { has_active_event = { UniqueAscensionPerksEvents.461 } } } }
 				if = { limit = { has_planet_flag = self_aware_planet }
 					planet_event = { id = UniqueAscensionPerksEvents.466 }
-				} else = {
+				}
+				else = {
 					planet_event = { id = UniqueAscensionPerksEvents.461 }
 				}
 			}
@@ -7653,14 +7623,15 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	after = {
 		hidden_effect = {
-			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 } } }
+			if = {
+				limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.471 } } }
 				country_event = { id = UniqueAscensionPerksEvents.471 }
 			}
 		}
 	}
 	option = {
 		name = EXCELLENT
-		if		= { limit = { is_regular_empire = yes }		add_modifier = { modifier = flourishing_technocracy } }
+		if		= { limit = { is_regular_empire = yes }	add_modifier = { modifier = flourishing_technocracy } }
 		else_if = { limit = { is_hive_empire = yes }	add_modifier = { modifier = flourishing_technocracy_hivemind } }
 		else_if = { limit = { is_machine_empire = yes }	add_modifier = { modifier = flourishing_technocracy_machine } }
 	}
@@ -7681,7 +7652,8 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	after = {
 		hidden_effect = {
-			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.472 } } }
+			if = {
+				limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.472 } } }
 				country_event = { id = UniqueAscensionPerksEvents.472 }
 			}
 		}
@@ -7715,7 +7687,7 @@ country_event = {
 		add_modifier = { modifier = flourishing_technocracy_computing years = 5 }
 		trigger = { NOT = { has_modifier = flourishing_technocracy_computing } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.473 } } }
-	option = { name = AMOUNT_NONE default_hide_option = yes ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = { name = AMOUNT_NONE ai_chance = { factor = 0.1 } default_hide_option = yes }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
 }
 
@@ -7731,7 +7703,8 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	after = {
 		hidden_effect = {
-			if = { limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.474 } } }
+			if = {
+				limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.474 } } }
 				country_event = { id = UniqueAscensionPerksEvents.474 }
 			}
 		}
@@ -7741,7 +7714,7 @@ country_event = {
 	option = { name = "biology"			add_modifier = { modifier = flourishing_technocracy_biology			years = 5 } }
 	option = { name = "military_theory"	add_modifier = { modifier = flourishing_technocracy_military_theory	years = 5 } }
 	option = { name = "psionics"		add_modifier = { modifier = flourishing_technocracy_psionics		years = 5 } allow = { has_technology = tech_psionic_theory } }
-	option = { name = "good_trading"	trigger = { has_global_flag = cultural_overhaul_active }	add_modifier = { modifier = flourishing_technocracy_good_trading	years = 5 } }
+	option = { name = "good_trading"	add_modifier = { modifier = flourishing_technocracy_good_trading	years = 5 } trigger = { has_global_flag = cultural_overhaul_active } }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.474 UniqueAscensionPerksEvents.471 } }
 }
 
@@ -8071,10 +8044,7 @@ ship_event = {
 		}
 		exists = from
 		from = {
-			NOR = {
-				exists = starbase
-				exists = space_owner
-			}
+			NOR = { exists = starbase exists = space_owner }
 		}
 	}
 	immediate = {

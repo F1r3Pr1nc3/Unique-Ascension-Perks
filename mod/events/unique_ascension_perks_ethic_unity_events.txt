@@ -18,11 +18,10 @@ country_event = { # Militarist - Unity by destroying ships.
 	}
 	immediate = {
 		fromfromfrom = {
-			switch = {
-				trigger = is_ship_size
-
+			switch = { trigger = is_ship_size
 				# Regular Ships
 				corvette							= { ROOT = { add_resource = { unity = 1 } break = yes } }
+				frigate								= { ROOT = { add_resource = { unity = 1 } break = yes } }
 				destroyer							= { ROOT = { add_resource = { unity = 2 } break = yes } }
 				cruiser								= { ROOT = { add_resource = { unity = 4 } break = yes } }
 				battleship							= { ROOT = { add_resource = { unity = 8 } break = yes } }
@@ -185,10 +184,7 @@ country_event = { # Materialist - Unity by unlocking new techs.
 	id = EthicUnityEvents.3
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_materialist = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_materialist = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = { add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 } }
 }
 
@@ -212,7 +208,8 @@ country_event = { # Spiritualist - Unity by number of happy pop.
 		}
 		multiply_variable = { which = pops_var value = 0.1 }
 		round_variable = pops_var
-		if = { limit = { check_variable = { which = pops_var value > 90 } }
+		if = {
+			limit = { check_variable = { which = pops_var value > 90 } }
 			set_variable = { which = pops_var value = 90 }
 		}
 		# log="pops_var happy Spiritualist \\[Root.pops_var]"
@@ -228,10 +225,7 @@ country_event = { # Libetarian - Unity by electing a ruler.
 	id = EthicUnityEvents.5
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_egalitarian = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_egalitarian = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = { add_monthly_resource_mult = { resource = unity value = 10 min = 10 max = 2500 } }
 }
 
@@ -240,10 +234,7 @@ country_event = { # Authoritarian & Xenophobe - Unity by number of slaves.
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			is_authoritarian = yes
-			is_xenophobe = yes
-		}
+		OR = { is_authoritarian = yes is_xenophobe = yes }
 		has_ascension_perk = ap_advanced_government_2
 		any_owned_pop = { is_enslaved = yes }
 	}
@@ -258,7 +249,8 @@ country_event = { # Authoritarian & Xenophobe - Unity by number of slaves.
 		}
 		multiply_variable = { which = pops_var value = 0.1 }
 		round_variable = pops_var
-		if = { limit = { check_variable = { which = pops_var value > 100 } }
+		if = {
+			limit = { check_variable = { which = pops_var value > 100 } }
 			set_variable = { which = pops_var value = 100 }
 		}
 		# log="pops_var slaves Authoritarian & Xenophobe \\[Root.pops_var]"
@@ -279,8 +271,7 @@ country_event = { # Xenophile - Unity by number of xeno pops.
 		has_ascension_perk = ap_advanced_government_2
 	}
 	immediate = {
-		switch = {
-			trigger = num_species
+		switch = { trigger = num_species
 			2 = { add_monthly_resource_mult = { resource = unity value = 6 min = 15 max = 6000 } }
 			3 = { add_monthly_resource_mult = { resource = unity value = 12 min = 30 max = 12000 } }
 			4 = { add_monthly_resource_mult = { resource = unity value = 18 min = 45 max = 18000 } }
@@ -299,10 +290,7 @@ country_event = { # Xenophobe & Militarist - Unity by number of rivalries.
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			is_xenophobe = yes
-			is_militarist = yes
-		}
+		OR = { is_xenophobe = yes is_militarist = yes }
 		has_ascension_perk = ap_advanced_government_2
 		any_neighbor_country = { root = { is_rival = prev } }
 	}
@@ -323,10 +311,7 @@ planet_event = { # Gestalt - Unity by colony ages.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_gestalt = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_gestalt = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -340,15 +325,13 @@ country_event = { # Gestalt Consciousness - Unity by number of pop.
 	id = EthicUnityEvents.10
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_gestalt = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_gestalt = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = {
 		set_variable = { which = pops_var value = trigger:num_pops }
 		multiply_variable = { which = pops_var value = 0.1 }
 		round_variable = pops_var
-		if = { limit = { check_variable = { which = pops_var value > 200 } }
+		if = {
+			limit = { check_variable = { which = pops_var value > 200 } }
 			set_variable = { which = pops_var value = 200 }
 		}
 		while = { count = pops_var
@@ -364,10 +347,7 @@ planet_event = { # Gestalt Consciousness - Unity by getting grow pop.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_gestalt = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_gestalt = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -382,10 +362,7 @@ ship_event = { # Materialist - Unity by building research stations.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_materialist = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_materialist = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -400,10 +377,7 @@ ship_event = { # Xenophobe - Unity by building outpost stations.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_xenophobe = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_xenophobe = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -419,10 +393,7 @@ planet_event = { # Materialist & Gestalt Consciousness - Unity by building pop.
 	trigger = {
 		exists = owner
 		owner = {
-			OR = {
-				is_materialist = yes
-				is_gestalt = yes
-			}
+			OR = { is_materialist = yes is_gestalt = yes }
 			has_ascension_perk = ap_advanced_government_2
 		}
 	}
@@ -437,10 +408,7 @@ country_event = { # Militarist - Unity on winning ground battle.
 	id = EthicUnityEvents.19
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_militarist = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_militarist = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = {
 		add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 }
 	}
@@ -450,10 +418,7 @@ country_event = { # Pacifist - Unity on defending ground battle.
 	id = EthicUnityEvents.20
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_pacifist = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_pacifist = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = {
 		add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 }
 	}
@@ -465,10 +430,7 @@ ship_event = { # Materialist - Unity by surveying planet.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_materialist = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_materialist = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -483,10 +445,7 @@ planet_event = { # Gestalt - Unity by having new colony.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_gestalt = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_gestalt = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -500,10 +459,7 @@ country_event = { # Militarist & Pacifist - Unity on winning space battle.
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			is_militarist = yes
-			is_pacifist = yes
-		}
+		OR = { is_militarist = yes is_pacifist = yes }
 		has_ascension_perk = ap_advanced_government_2
 	}
 	immediate = {
@@ -517,10 +473,7 @@ ship_event = { # Xenophile - Unity by building observation post.
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_xenophile = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_xenophile = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -533,10 +486,7 @@ country_event = { # Militarist - Unity on entering war.
 	id = EthicUnityEvents.25
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_militarist = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_militarist = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = {
 		add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 }
 	}
@@ -560,10 +510,7 @@ planet_event = { # Xenophobe - Purge Pops
 	is_triggered_only = yes
 	trigger = {
 		exists = owner
-		owner = {
-			is_xenophobe = yes
-			has_ascension_perk = ap_advanced_government_2
-		}
+		owner = { is_xenophobe = yes has_ascension_perk = ap_advanced_government_2 }
 	}
 	immediate = {
 		owner = {
@@ -576,10 +523,7 @@ country_event = { # Xenophile - Unity by having new contact.
 	id = EthicUnityEvents.28
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_xenophile = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_xenophile = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = {
 		add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 }
 	}
@@ -592,10 +536,7 @@ ship_event = { # Militarist & Materialist - Unity by building ships.
 	trigger = {
 		exists = owner
 		owner = {
-			OR = {
-				is_militarist = yes
-				is_materialist = yes
-			}
+			OR = { is_militarist = yes is_materialist = yes }
 			has_ascension_perk = ap_advanced_government_2
 		}
 	}
@@ -618,10 +559,7 @@ ship_event = { # Militarist & Materialist - Unity by upgrading ships.
 	trigger = {
 		exists = owner
 		owner = {
-			OR = {
-				is_militarist = yes
-				is_materialist = yes
-			}
+			OR = { is_militarist = yes is_materialist = yes }
 			has_ascension_perk = ap_advanced_government_2
 		}
 	}
@@ -659,10 +597,7 @@ country_event = { # Xenophile - Unity by specie modification.
 	id = EthicUnityEvents.34
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_xenophile = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_xenophile = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = {
 		add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 }
 	}
@@ -676,10 +611,7 @@ planet_event = { # Militarist & Authoritarian - Unity by building armies.
 	trigger = {
 		exists = owner
 		owner = {
-			OR = {
-				is_militarist = yes
-				is_authoritarian = yes
-			}
+			OR = { is_militarist = yes is_authoritarian = yes }
 			has_ascension_perk = ap_advanced_government_2
 		}
 	}
@@ -694,10 +626,7 @@ country_event = { # Militarist - Unity by winning war.
 	id = EthicUnityEvents.36
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_militarist = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_militarist = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = { add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 } }
 }
 
@@ -708,10 +637,7 @@ planet_event = { # Militarist & Xenophobe - Unity by conquering planet.
 	trigger = {
 		exists = owner
 		owner = {
-			OR = {
-				is_militarist = yes
-				is_xenophobe = yes
-			}
+			OR = { is_militarist = yes is_xenophobe = yes }
 			has_ascension_perk = ap_advanced_government_2
 		}
 	}
@@ -727,10 +653,7 @@ country_event = { # Pacifist & Xenophile - Unity by joining alliance.
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		OR = {
-			is_xenophile = yes
-			is_pacifist = yes
-		}
+		OR = { is_xenophile = yes is_pacifist = yes }
 		has_ascension_perk = ap_advanced_government_2
 	}
 	immediate = { add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 } }
@@ -755,10 +678,7 @@ country_event = { # Libetarian - Unity by starting election.
 	id = EthicUnityEvents.41
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_egalitarian = yes
-		has_ascension_perk = ap_advanced_government_2
-	}
+	trigger = { is_egalitarian = yes has_ascension_perk = ap_advanced_government_2 }
 	immediate = { add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 } }
 }
 
@@ -770,9 +690,12 @@ event = {
 	immediate = {
 		every_playable_country = {
 			limit = { has_ascension_perk = ap_advanced_government_2 }
-			if = { limit = { is_pacifist = yes }
+			if = {
+				limit = { is_pacifist = yes }
 				country_event = { id = EthicUnityEvents.2 } # Pacifist
-			} else_if = { limit = { is_spiritualist = yes }
+			}
+			else_if = {
+				limit = { is_spiritualist = yes }
 				country_event = { id = EthicUnityEvents.4 } # Spiritualist
 				if = { limit = { any_owned_planet = { is_colony = yes free_amenities > 20 } }
 					# Spritualist gets unity for free amenities planet. (former EthicUnityEvents.50)
@@ -781,7 +704,9 @@ event = {
 						prev = { add_monthly_resource_mult = { resource = unity value = 3 min = 3 max = 1000 } }
 					}
 				}
-			} else_if = { limit = { is_authoritarian = yes }
+			}
+			else_if = {
+				limit = { is_authoritarian = yes }
 				country_event = { id = EthicUnityEvents.6 } # Authoritarian slaves
 				if = { limit = { any_owned_planet = { is_colony = yes planet_stability > 60 } }
 					# Authoritarian gets unity from planet with high stability. (former EthicUnityEvents.51)
@@ -790,15 +715,23 @@ event = {
 						prev = { add_monthly_resource_mult = { resource = unity value = 6 min = 6 max = 2000 } }
 					}
 				}
-			} else_if = { limit = { is_xenophobe = yes }
+			}
+			else_if = {
+				limit = { is_xenophobe = yes }
 				country_event = { id = EthicUnityEvents.6 } # Xenophobe slaves
 				country_event = { id = EthicUnityEvents.8 } # rivalries
-			} else_if = { limit = { is_xenophile = yes }
+			}
+			else_if = {
+				limit = { is_xenophile = yes }
 				country_event = { id = EthicUnityEvents.7 } # Xenophile
-			} else_if = { limit = { is_militarist = yes }
+			}
+			else_if = {
+				limit = { is_militarist = yes }
 				country_event = { id = EthicUnityEvents.8 } # rivalries
 				country_event = { id = EthicUnityEvents.26 } # Militarist
-			} else_if = { limit = { is_gestalt = yes }
+			}
+			else_if = {
+				limit = { is_gestalt = yes }
 				country_event = { id = EthicUnityEvents.10 } # Gestalt
 			}
 		}
