@@ -228,7 +228,7 @@ decision_genious_pregnancy = {
 	effect = {
 		custom_tooltip = "decision_genious_pregnancy_tooltip"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown years = 3 } # if change, do also tooltip
+			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown years = 3 } # If change, do also tooltip
 			planet_event = { id = UniqueAscensionPerksEvents.3050 }
 			while = {
 				count = 9
@@ -304,7 +304,7 @@ decision_robot_command = {
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # if change, do also tooltip
+			set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # If change, do also tooltip
 			planet_event = { id = UniqueAscensionPerksEvents.62 }
 			while = {
 				count = 9
@@ -529,7 +529,7 @@ decision_galaxy_center = {
 	}
 	allow = {
 		hidden_trigger = { exists = from }
-		num_pops > 20
+		num_sapient_pops > 20
 		controller = { is_same_empire = from }
 		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
 			NOR = {
@@ -650,8 +650,8 @@ decision_hivemind_reserve = {
 	}
 	ai_weight = {
 		weight = 1
-		modifier = { factor = 2 num_pops > 24 }
-		modifier = { factor = 3 num_pops > 48 }
+		modifier = { factor = 2 num_sapient_pops > 24 }
+		modifier = { factor = 3 num_sapient_pops > 48 }
 	}
 }
 
@@ -718,12 +718,12 @@ decision_primitive_creation = {
 				is_owned_by = from
 				is_capital = no
 				is_controlled_by = from
-				# num_pops < 32
+				# num_sapient_pops < 32
 			}
 		}
 		OR = {
 			colonizable_planet = yes # can_have_habitable_deposits = yes # merg_is_arcology = yes # habitable_planet = yes
-			has_ringworld_output_boost = yes # has_ringworld_output_boost = yes #  merg_is_habitat = yes # uses_habitat_capitals = yes
+			has_ringworld_output_boost = yes #  merg_is_habitat = yes # uses_habitat_capitals = yes
 			# uninhabitable_regular_planet = yes ## decision_primitive_creation_unhabitable
 		}
 	}
@@ -735,7 +735,7 @@ decision_primitive_creation = {
 			has_planet_flag = new_primitive_world
 			from = { num_owned_planets < 3 }
 			from = { has_active_event = { leng_project_event.3 } }
-			# num_pops > 31
+			# num_sapient_pops > 31
 		}
 		# OR = { ## decision_primitive_creation_unhabitable
 		# 	uninhabitable_regular_planet = no
@@ -774,7 +774,7 @@ decision_primitive_creation_unhabitable = {
 				is_owned_by = from
 				is_capital = no
 				is_controlled_by = from
-				# num_pops < 32
+				# num_sapient_pops < 32
 			}
 		}
 		uninhabitable_regular_planet = yes
@@ -787,7 +787,7 @@ decision_primitive_creation_unhabitable = {
 			has_planet_flag = new_primitive_world
 			from = { num_owned_planets < 3 }
 			from = { has_active_event = { leng_project_event.3 } }
-			# num_pops > 31
+			# num_sapient_pops > 31
 		}
 	}
 	effect = {

@@ -46,14 +46,14 @@ ship_event = {
 		exists = fleet
 		exists = owner
 		owner = {
-			is_ai = yes # added v3.4
+			is_ai = yes # Added v3.4
 			merg_is_default_empire = yes
 			has_ascension_perk = ap_super_hive_mind
 			# event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } }
 		}
 	}
 	immediate = {
-		# design supports also ship target scopes
+		# Design supports also ship target scopes
 		random = { chance = 50
 			switch = { trigger = is_ship_size
 				corvette	= { random = { chance = 40	fleet = { create_ship = { name = "Cloned Ship" design = root random_existing_design = corvette prefix = yes } } } }
@@ -124,11 +124,9 @@ leader_event = {
 					root = {
 						while = { count = prev.cloned_leader_number
 							switch = { trigger = leader_class
-								scientist	= { from = { clone_leader = { target = prev class = scientist } } }
-								admiral		= { from = { clone_leader = { target = prev class = admiral } } }
-								governor	= { from = { clone_leader = { target = prev class = governor } } }
-								general		= { from = { clone_leader = { target = prev class = general } } }
-								# ruler		= { from = { clone_leader = { target = prev class = random_ruler } } }
+								scientist = { from = { clone_leader = { target = prev class = scientist } } }
+								official = { from = { clone_leader = { target = prev class = official } } }
+								commander = { from = { clone_leader = { target = prev class = commander } } }
 							}
 							from = {
 								last_created_leader = {
@@ -730,7 +728,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		is_ai = yes # added v3.4
+		is_ai = yes # Added v3.4
 		merg_is_default_empire = yes
 		has_ascension_perk = ap_aggressive_hivemind
 		has_country_flag = aggressive_hivemind_project

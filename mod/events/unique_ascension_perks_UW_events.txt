@@ -31,7 +31,7 @@ country_event = {
 		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.371.Req01 NOR = { has_country_flag = underworld_smuggler_food has_country_flag = underworld_smuggler_minerals has_country_flag = underworld_smuggler_alloys has_country_flag = underworld_smuggler_consumers } } }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.372 } }
 	}
-	option = { name = UniqueAscensionPerksEvents.371.Crime hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.375 } } }
+	option = { name = "UniqueAscensionPerksEvents.377.Name" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.375 } } }
 	option = { name = UniqueAscensionPerksEvents.371.Pirate hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.379 } } }
 	option = {
 		name = "UniqueAscensionPerksEvents.383.Name"
@@ -741,7 +741,7 @@ country_event = {
 				set_faction_hostility = { target = event_target:marauder_raiding_country set_hostile = no set_neutral = no set_friendly = yes }
 			}
 			create_leader = {
-				class = admiral
+				class = commander
 				species = event_target:marauder_species
 				name = random
 				skill = 3
@@ -769,12 +769,12 @@ country_event = {
 					limit = {
 						exists = space_owner
 						is_owned_by = root
-						any_system_colony = { is_owned_by = root num_pops > 0 }
+						any_system_colony = { is_owned_by = root num_sapient_pops > 0 }
 						prev = { can_access_system = prev }
 					}
 					save_event_target_as = raid_system
 					random_system_colony = {
-						limit = { is_owned_by = root num_pops > 0 }
+						limit = { is_owned_by = root num_sapient_pops > 0 }
 						save_event_target_as = raid_planet
 					}
 				}

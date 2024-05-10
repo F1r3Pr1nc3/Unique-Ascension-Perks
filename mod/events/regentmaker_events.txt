@@ -128,7 +128,7 @@ country_event = {
 # Decision release subject
 planet_event = {
 	id = regentmaker.1
-	title = "regentmaker.1"
+	title = "ap_powerful_vassals"
 	desc = "regentmaker.1.desc"
 	picture = GFX_evt_throne_room
 	is_triggered_only = yes
@@ -212,7 +212,7 @@ planet_event = {
 # owner = event_target:owning_empire
 planet_event = {
 	id = regentmaker.2
-	title = "regentmaker.1"
+	title = "ap_powerful_vassals"
 	desc = "regentmaker.2.desc"
 	picture = GFX_evt_throne_room
 	is_triggered_only = yes
@@ -523,7 +523,7 @@ planet_event = {
 					limit = { has_building = no }
 					while = {
 						count = 12
-						limit = { num_pops < 30 }
+						limit = { num_sapient_pops < 30 }
 						create_pop = { species = event_target:vassal_species }
 					}
 				}
@@ -567,7 +567,7 @@ planet_event = {
 			# action_open_borders
 			set_closed_borders = { who = event_target:owning_empire status = no forced = 5 }
 			# TODO test
-			# change_dominant_species = { species = event_target:vassal_species change_all = yes } # buggy 3.0.3
+			# change_dominant_species = { species = event_target:vassal_species change_all = yes } # Buggy 3.0.3
 			event_target:owning_empire = {
 				set_country_flag = has_communications@prev
 				set_faction_hostility = {
@@ -681,7 +681,7 @@ planet_event = {
 				limit = { has_country_flag = not_alien_life }
 				remove_country_flag = first_alien_life
 			}
-			country_event = { id = specialist.1000 days = 3 } # adjust subject type
+			country_event = { id = specialist.1000 days = 3 } # Adjust subject type
 		}
 
 		set_update_modifiers_batch = end
@@ -844,7 +844,7 @@ planet_event = {
 		if = {
 			limit = { has_owner = no }
 			set_owner = event_target:new_empire
-			if = { limit = { num_pops = 0 } # start_colony
+			if = { limit = { num_sapient_pops = 0 } # start_colony
 				create_colony = { owner = event_target:new_empire species = event_target:vassal_species }
 			}
 		}
@@ -2108,7 +2108,7 @@ country_event = {
 # "Regentmaker Control Selection" (from .510)
 country_event = {
 	id = regentmaker.100
-	title = "regentmaker.100"
+	title = "decision_true_emperor"
 	desc = "regentmaker.100.desc"
 	picture = GFX_evt_diplomatic_visit # GFX_evt_announcement
 	is_triggered_only = yes
@@ -2157,7 +2157,7 @@ country_event = {
 # As .100 "Regentmaker Control Selection" back to overlord
 country_event = {
 	id = regentmaker.101
-	title = "regentmaker.100"
+	title = "decision_true_emperor"
 	desc = "regentmaker.101.desc"
 	picture = GFX_evt_announcement
 	is_triggered_only = yes
@@ -2233,7 +2233,7 @@ country_event = {
 # List Subjects - Control Selection
 country_event = {
 	id = regentmaker.510
-	title = regentmaker.510
+	title = "decision_true_emperor"
 	desc = {
 		trigger = {
 			check_variable = { which = rm_total_subjects value > 0 }
@@ -3337,8 +3337,8 @@ country_event = {
 		add_500_unity_per_year_passed = yes
 		create_starting_leaders = yes
 		while = { count = 2 create_leader = { class = scientist	species = event_target:vassal_species name = random skill = 3 } }
-		while = { count = 1 create_leader = { class = admiral	species = event_target:vassal_species name = random skill = 3 } }
-		while = { count = 1 create_leader = { class = governor	species = event_target:vassal_species name = random skill = 3 } }
+		while = { count = 1 create_leader = { class = commander	species = event_target:vassal_species name = random skill = 3 } }
+		while = { count = 1 create_leader = { class = official	species = event_target:vassal_species name = random skill = 3 } }
 
 		copy_techs_from = {
 			target =  event_target:owning_empire

@@ -291,8 +291,8 @@ country_event = {
 		is_country_type = global_event
 		OR = {
 			any_federation = { any_member = { is_unique_perk_special_subject = yes } }
-			AND = { is_galactic_community_formed = yes any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
-			AND = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
+			AND = { is_galactic_community_formed = yes any_playable_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
+			AND = { is_galactic_council_established = yes any_playable_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
 		}
 	}
 	immediate = {
@@ -307,15 +307,15 @@ country_event = {
 		}
 		if = {
 			limit = { is_galactic_community_formed = yes }
-			if = { limit = { any_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
-				every_country = { limit = { is_galactic_community_member = yes is_unique_perk_special_subject = yes }
+			if = { limit = { any_playable_country = { is_galactic_community_member = yes is_unique_perk_special_subject = yes } }
+				every_playable_country = { limit = { is_galactic_community_member = yes is_unique_perk_special_subject = yes }
 					remove_from_galactic_community = yes
 					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
 				}
 			}
 			if = {
-				limit = { is_galactic_council_established = yes any_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
-				every_country = { limit = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes }
+				limit = { is_galactic_council_established = yes any_playable_country = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes } }
+				every_playable_country = { limit = { is_part_of_galactic_council = yes is_unique_perk_special_subject = yes }
 					remove_from_galactic_council = yes
 					country_event = { id = UniqueAscensionPerksEvents.8787 days = 3 }
 				}
@@ -335,7 +335,7 @@ planet_event = {
 	trigger = {
 		exists = from
 		has_deposit = yes
-		from = { OR = { is_gestalt = yes is_hive_empire = yes is_machine_empire = yes } }
+		from = { OR = { is_gestalt = yes } }
 		OR = {
 			# Vanilla
 			AND = {
@@ -460,7 +460,7 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = from
-		from = { OR = { is_gestalt = yes is_hive_empire = yes is_machine_empire = yes } }
+		from = { OR = { is_gestalt = yes } }
 		OR = {
 			# Vanilla
 			is_variable_set = d_valley_of_zanaam
@@ -687,8 +687,8 @@ country_event = {
 		add_modifier = { modifier = expandable_brain_2 }
 		add_research_option = tech_expandable_brain_2
 		hidden_effect = {
-			every_owned_leader	= { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } }
-			every_pool_leader	= { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } }
+			every_owned_leader	= { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+			every_pool_leader	= { limit = { has_skill < 4 } set_skill = 3 add_skill = 1 } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
 		}
 	}
 }
@@ -721,8 +721,8 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		get_capital_planet = yes
-		every_owned_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } } BR_add_random_leader_trait = yes }
-		every_pool_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } } } BR_add_random_leader_trait = yes }
+		every_owned_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } BR_add_random_leader_trait = yes } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+		every_pool_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } BR_add_random_leader_trait = yes } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
 	}
 	after = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 } }
@@ -821,8 +821,8 @@ country_event = {
 		# TODO needs test?
 		if = { limit = { OR = { has_modifier = expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 2 } } from = { set_skill = 2 } }
 		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_1 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 3 } } from = { set_skill = 3 BR_add_random_leader_trait = yes } }
-		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 3 add_skill = 1 } country_event = { id = paragon_2.2095 scopes = { from = from } } }
-		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 3 add_skill = 2 BR_add_random_leader_trait = yes } country_event = { id = paragon_2.2095 scopes = { from = from } } }
+		if = { limit = { OR = { has_modifier = expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 4 } } from = { set_skill = 3 add_skill = 1 } } # country_event = { id = paragon_2.2095 scopes = { from = from } }
+		if = { limit = { OR = { has_ascension_perk = ap_expandable_brain_2 has_global_flag = ap_expandable_brain_2 } from = { has_skill < 5 } } from = { set_skill = 3 add_skill = 2 BR_add_random_leader_trait = yes } } # country_event = { id = paragon_2.2095 scopes = { from = from } }
 	}
 }
 
@@ -889,17 +889,17 @@ country_event = {
 							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_3 has_upgraded_capital = yes owner = { has_technology = tech_mining_2 } } } remove_building = building_auto_mining_complex_3 add_building = building_auto_mining_complex_4 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_mining_complex_4 has_major_upgraded_capital = yes owner = { has_technology = tech_mining_3 } } } remove_building = building_auto_mining_complex_4 add_building = building_auto_mining_complex_5 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NOT = { has_building = building_auto_physics_campus_1 } } remove_building = building_auto_physics_campus_1 add_building = building_auto_physics_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_2 owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_2 add_building = building_auto_physics_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_physics_2 } } } remove_building = building_auto_physics_campus_3 add_building = building_auto_physics_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_physics_3 } } } remove_building = building_auto_physics_campus_4 add_building = building_auto_physics_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_2 owner = { has_technology = tech_cryostasis_2 } } } remove_building = building_auto_physics_campus_2 add_building = building_auto_physics_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_cryostasis_2 } } } remove_building = building_auto_physics_campus_3 add_building = building_auto_physics_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_physics_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_combat_computers_3 } } } remove_building = building_auto_physics_campus_4 add_building = building_auto_physics_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NOT = { has_building = building_auto_sociological_campus_1 } } remove_building = building_auto_sociological_campus_1 add_building = building_auto_sociological_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_2 owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_2 add_building = building_auto_sociological_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_society_2 } } } remove_building = building_auto_sociological_campus_3 add_building = building_auto_sociological_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_society_3 } } } remove_building = building_auto_sociological_campus_4 add_building = building_auto_sociological_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_2 owner = { has_technology = tech_colonization_3 } } } remove_building = building_auto_sociological_campus_2 add_building = building_auto_sociological_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_colonization_3 } } } remove_building = building_auto_sociological_campus_3 add_building = building_auto_sociological_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_sociological_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_colonization_4 } } } remove_building = building_auto_sociological_campus_4 add_building = building_auto_sociological_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NOT = { has_building = building_auto_engineering_campus_1 } } remove_building = building_auto_engineering_campus_1 add_building = building_auto_engineering_campus_2 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_2 owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_2 add_building = building_auto_engineering_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_engineering_2 } } } remove_building = building_auto_engineering_campus_3 add_building = building_auto_engineering_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_engineering_3 } } } remove_building = building_auto_engineering_campus_4 add_building = building_auto_engineering_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_2 owner = { has_technology = tech_space_mining_4 } } } remove_building = building_auto_engineering_campus_2 add_building = building_auto_engineering_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_space_mining_4 } } } remove_building = building_auto_engineering_campus_3 add_building = building_auto_engineering_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_advanced_metallurgy_2 } } } remove_building = building_auto_engineering_campus_4 add_building = building_auto_engineering_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_1 has_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_1 add_building = building_nanite_facility_2 owner = { add_resource = { automatic_drone = -400 } } }
 							999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_2 add_building = building_nanite_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
 							999 = {
@@ -910,9 +910,9 @@ country_event = {
 									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_power_plant_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_power_plant_1 owner = { add_resource = { automatic_drone = -200 } } }
 									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_mining_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
 									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_eco_simulation } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_farming_complex_1 owner = { add_resource = { automatic_drone = -200 } } }
-									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_physics_1 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_society_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_engineering_2 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_administrative_ai } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_colonization_3 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
+									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_space_mining_4 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
 									20 = { modifier = { factor = 0 owner = { NOR = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value > 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
 								}
 							}
@@ -1666,7 +1666,7 @@ country_event = {
 				exists = owner
 				owner = {
 					OR = {
-						is_pirate = yes
+						is_pirate_country = yes
 						is_country_type = dormant_marauders
 						is_country_type = awakened_marauders
 					}
@@ -1681,7 +1681,7 @@ country_event = {
 			limit = {
 				NOT = { has_star_flag = recent_security_strike_force }
 				trade_protected_value >= 1
-				any_fleet_in_system = { exists = owner owner = { OR = { is_pirate = yes is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
+				any_fleet_in_system = { exists = owner owner = { OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
 			}
 			save_event_target_as = spawn_location_system
 			set_timed_star_flag = { flag = recent_security_strike_force years = 1 }
@@ -2519,9 +2519,9 @@ country_event = {
 	immediate = {
 		event_target:FallenEmpireTaskOrigin = {
 			add_opinion_modifier = { modifier = opinion_influenced_awaken_fallen_empire who = prevprev }
-			# is_fallen_machine_empire = is_fallen_empire_machine
 			if = {
-				limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
+				# limit = { merg_is_fallen_empire = yes is_machine_empire = yes }
+				limit = { is_fallen_empire_machine = yes }
 				country_event = { id = fallen_machine_empire.1 days = 360 random = 180 }
 			}
 			else = { country_event = { id = UniqueAscensionPerksEvents.74 days = 360 random = 180 } }
@@ -2568,7 +2568,7 @@ country_event = {
 				20 = { # War in Heaven with Fallen Empire of different ethos.
 					random_country = {
 						limit = {
-							NOT = { is_same_value = root }
+							NOT = { is_same_empire = root }
 							merg_is_fallen_empire = yes
 							is_gestalt = no
 						}
@@ -3942,10 +3942,10 @@ country_event = {
 						# AND = { num_fleets < 10 ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
 						# AND = { num_fleets < 20 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
 						# AND = { num_fleets < 30 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 }	ROOT = { NOR = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 }	ROOT = { has_technology = tech_defense_sentinels_1 NOR = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 }	ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 }	ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
+						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 }	root = { NOR = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
+						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 }	root = { has_technology = tech_defense_sentinels_1 NOR = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
+						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
+						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
 						# event_target:the_ally_faction = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 50 } }
 					}
 				}
@@ -4156,9 +4156,8 @@ leader_event = {
 						while = { count = prev.cloned_leader_number
 							switch = { trigger = leader_class
 								scientist = { from = { clone_leader = { target = prev class = scientist } } }
-								admiral = { from = { clone_leader = { target = prev class = admiral } } }
-								governor = { from = { clone_leader = { target = prev class = governor } } }
-								general = { from = { clone_leader = { target = prev class = general } } }
+								official = { from = { clone_leader = { target = prev class = official } } }
+								commander = { from = { clone_leader = { target = prev class = commander } } }
 							}
 							from = {
 								last_created_leader = {
@@ -5837,9 +5836,9 @@ country_event = {
 			random_system_planet = { save_event_target_as = special_project_target }
 			# create_treasures_pirate_country = yes
 			if = {
-				limit = { any_country = { is_pirate = yes has_country_flag = treasures_pirate_country } }
+				limit = { any_country = { is_pirate_country = yes has_country_flag = treasures_pirate_country } }
 				random_country = {
-					limit = { is_pirate = yes has_country_flag = treasures_pirate_country }
+					limit = { is_pirate_country = yes has_country_flag = treasures_pirate_country }
 					save_event_target_as = treasures_pirate_country
 				}
 			}
@@ -5916,7 +5915,7 @@ ship_event = {
 				limit = { NOT = { exists = event_target:target_ship_project_ship } }
 				random_country = {
 					limit = {
-						is_pirate = yes
+						is_pirate_country = yes
 						has_country_flag = treasures_pirate_country
 						any_owned_ship = {
 							has_ship_flag = target_ship_project
@@ -5993,7 +5992,7 @@ fleet_event = {
 # 			any_owned_ship = { has_ship_flag = treasures_ship_finished_project }
 # 		}
 # 		any_country = {
-# 			is_pirate = yes
+# 			is_pirate_country = yes
 # 			has_country_flag = treasures_pirate_country
 # 			any_owned_ship = {
 # 				has_ship_flag = target_ship_project
@@ -6005,7 +6004,7 @@ fleet_event = {
 # 		if = { limit = { NOT = { exists = event_target:target_ship_project_ship } }
 # 			random_country = {
 # 				limit = {
-# 					is_pirate = yes
+# 					is_pirate_country = yes
 # 					has_country_flag = treasures_pirate_country
 # 					any_owned_ship = {
 # 						has_ship_flag = target_ship_project
@@ -6071,7 +6070,7 @@ event = {
 			}
 			country_event = { id = UniqueAscensionPerksEvents.8786 days = 1 }
 		}
-		# remove in 3.5
+		# Removed in v.3.5
 		# FIX SUBJECT TRUST (only works if they suposed to be subjects)
 		# if = {
 		# 	limit = {
@@ -6464,7 +6463,7 @@ country_event = {
 			}
 		}
 	}
-	# halved values
+	# Halved values
 	option = { name = "UniqueAscensionPerksEvents.401.Alpha"	trigger = { NOT = { has_modifier = slow_learner_bonus_1 } }	add_modifier = { modifier = slow_learner_bonus_1 } add_resource = { unity = 2000 } }
 	option = { name = "UniqueAscensionPerksEvents.401.Beta" 	trigger = { NOT = { has_modifier = slow_learner_bonus_2 } }	add_modifier = { modifier = slow_learner_bonus_2 } add_resource = { unity = 2000 } }
 	option = { name = "UniqueAscensionPerksEvents.401.Gamma"	trigger = { NOT = { has_modifier = slow_learner_bonus_3 } }	add_modifier = { modifier = slow_learner_bonus_3 } add_resource = { unity = 2000 } }
@@ -6617,7 +6616,7 @@ planet_event = {
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
 	trigger = {
-		host_has_dlc = "Megacorp"
+		has_megacorp = yes
 		has_modifier = "utopian_gaia_world"
 		gpm_is_planet_class_city = yes # merg_is_arcology = yes
 		exists = owner
@@ -6700,7 +6699,7 @@ country_event = {
 			spawn_system = { min_distance >= 4 max_distance <= 9 initializer = "white_hole_system_1" }
 		}
 		set_spawn_system_batch = end
-		last_created_system = { # gives also techs
+		last_created_system = { # Gives also techs
 			system_event = { id = UniqueAscensionPerksEvents.439 days = 120 random = 60 }
 		}
 		# v3.4 values doubled

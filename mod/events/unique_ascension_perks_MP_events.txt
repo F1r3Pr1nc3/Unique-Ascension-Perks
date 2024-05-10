@@ -151,7 +151,7 @@ planet_event = {
 		set_planet_flag = machup_capital@root.owner
 		from = { save_event_target_as = MachineEmpireUprisingOrigin }
 		owner = {
-			set_country_flag = had_uprising # removed in vanilla 3.4.3
+			set_country_flag = had_uprising # Removed in vanilla 3.4.3
 			save_event_target_as = current_uprising_originator
 			# Event lock all fleets to prevent exploits.
 			every_controlled_fleet = { set_event_locked = yes }
@@ -171,13 +171,18 @@ planet_event = {
 				center = root.solar_system
 				owned_planets_percentage = var_country_robot_pops_percent
 				planet_limit = {
+					is_under_colonization = no
 					OR = {
 						controller = { is_same_empire = root.owner }
 						solar_system = { exists = starbase starbase = { is_owned_by = root.owner } }
 					}
 					# Never flip any planets in the capital system.
-					solar_system = { NOT = { is_same_value = root.owner.capital_scope.solar_system } }
-					is_under_colonization = no
+					solar_system = {
+						NAND = {
+							is_capital_system = yes
+							is_same_value = root.owner.capital_scope.solar_system
+						}
+					}
 				}
 				effect = { set_star_flag = machup_system_flip }
 			}
@@ -340,8 +345,8 @@ country_event = {
 			minerals = 20000
 			influence = 800
 			alloys = 10000
-			food = 10000 # just in case
-			consumer_goods = 5000 # just in case
+			food = 10000 # Just in case
+			consumer_goods = 5000 # Just in case
 			rare_crystals = 1000
 			volatile_motes = 1000
 			exotic_gases = 1000

@@ -1013,7 +1013,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1055.Sacrifice"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req03 num_pops > 25 any_owned_planet = { num_pops > 19 } }
+			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req03 num_sapient_pops > 25 any_owned_planet = { num_sapient_pops > 19 } }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no }
 		}
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1058 } }
@@ -1242,17 +1242,17 @@ country_event = {
 	picture_event_data = { room = leviathan_master_room }
 	is_triggered_only = yes
 	immediate = {
-		random_owned_planet = { limit = { num_pops > 19 }
+		random_owned_planet = { limit = { num_sapient_pops > 19 }
 			save_event_target_as = planet_target_1
-			root = { random_owned_planet = { limit = { num_pops > 19 NOT = { is_same_value = event_target:planet_target_1 } }
+			root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOT = { is_same_value = event_target:planet_target_1 } }
 				save_event_target_as = planet_target_2
-				root = { random_owned_planet = { limit = { num_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 } }
+				root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 } }
 					save_event_target_as = planet_target_3
-					root = { random_owned_planet = { limit = { num_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 is_same_value = event_target:planet_target_3 } }
+					root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 is_same_value = event_target:planet_target_3 } }
 						save_event_target_as = planet_target_4
-						root = { random_owned_planet = { limit = { num_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 is_same_value = event_target:planet_target_3 is_same_value = event_target:planet_target_4 } }
+						root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 is_same_value = event_target:planet_target_3 is_same_value = event_target:planet_target_4 } }
 							save_event_target_as = planet_target_5
-							root = { random_owned_planet = { limit = { num_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 is_same_value = event_target:planet_target_3 is_same_value = event_target:planet_target_4 is_same_value = event_target:planet_target_5 } } save_event_target_as = planet_target_6 } }
+							root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_same_value = event_target:planet_target_1 is_same_value = event_target:planet_target_2 is_same_value = event_target:planet_target_3 is_same_value = event_target:planet_target_4 is_same_value = event_target:planet_target_5 } } save_event_target_as = planet_target_6 } }
 						} }
 					} }
 				} }
@@ -1338,11 +1338,11 @@ country_event = {
 	immediate = {
 		random_relation = { limit = { ROOT = { is_rival = prev } }
 			save_event_target_as = rival_target_1
-			ROOT = { random_relation = { limit = { ROOT = { is_rival = prev } NOT = { is_same_empire = event_target:rival_target_1 } }
+			root = { random_relation = { limit = { ROOT = { is_rival = prev } NOT = { is_same_empire = event_target:rival_target_1 } }
 				save_event_target_as = rival_target_2
-				ROOT = { random_relation = { limit = { ROOT = { is_rival = prev } NOR = { is_same_empire = event_target:rival_target_1 is_same_empire = event_target:rival_target_2 } }
+				root = { random_relation = { limit = { ROOT = { is_rival = prev } NOR = { is_same_empire = event_target:rival_target_1 is_same_empire = event_target:rival_target_2 } }
 					save_event_target_as = rival_target_3
-					ROOT = { random_relation = { limit = { ROOT = { is_rival = prev } NOR = { is_same_empire = event_target:rival_target_1 is_same_empire = event_target:rival_target_2 is_same_empire = event_target:rival_target_3 } } save_event_target_as = rival_target_4 } }
+					root = { random_relation = { limit = { ROOT = { is_rival = prev } NOR = { is_same_empire = event_target:rival_target_1 is_same_empire = event_target:rival_target_2 is_same_empire = event_target:rival_target_3 } } save_event_target_as = rival_target_4 } }
 				} }
 			} }
 		}
@@ -1368,7 +1368,7 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.1
 		trigger = { exists = event_target:rival_target_1 }
-		allow = { num_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = { num_sapient_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
 		add_resource = { exotic_gases = -3000 }
 		while = { count = 10 random_owned_pop = { kill_pop = yes } }
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
@@ -1378,7 +1378,7 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.2
 		trigger = { exists = event_target:rival_target_2 }
-		allow = { num_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = { num_sapient_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
 		add_resource = { exotic_gases = -3000 }
 		while = { count = 10 random_owned_pop = { kill_pop = yes } }
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
@@ -1387,7 +1387,7 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.3
 		trigger = { exists = event_target:rival_target_3 }
-		allow = { num_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = { num_sapient_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
 		add_resource = { exotic_gases = -3000 }
 		while = { count = 10 random_owned_pop = { kill_pop = yes } }
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
@@ -1396,7 +1396,7 @@ country_event = {
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.4
 		trigger = { exists = event_target:rival_target_4 }
-		allow = { num_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = { num_sapient_pops > 10 resource_stockpile_compare = { resource = exotic_gases value > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
 		add_resource = { exotic_gases = -3000 }
 		while = { count = 10 random_owned_pop = { kill_pop = yes } }
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
