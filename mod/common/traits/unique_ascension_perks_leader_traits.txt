@@ -807,6 +807,9 @@ leader_trait_adventurer = {
 	}
 	# icon = "gfx/interface/icons/traits/leader_traits/leader_trait_adventurer.dds"
 	modifier = { ship_anomaly_research_speed_mult = 0.80 }
+	leader_potential_add = {
+		is_ruler = no
+	}
 	leader_class = { scientist }
 	opposites = { "leader_trait_carefree" }
 	leader_potential_add = { OR = { from = { has_technology = tech_expandable_brain_1 } has_global_flag = ap_expandable_brain_1 } }
@@ -814,6 +817,10 @@ leader_trait_adventurer = {
 	selectable_weight = {
 		weight = @class_trait_weight
 		inline_script = paragon/pilot_weight_mult
+		inline_script = {
+			script = paragon/subclass_weight_mult
+			SUBCLASS = scientist_scholar
+		}
 	}
 	ai_weight = { weight = 50 }
 	# background_icon = "GFX_leader_subclass_scientist_explorer_background"
@@ -826,11 +833,11 @@ leader_trait_natural_physicist = {
 		CLASS = scientist
 		ICON = "gfx/interface/icons/traits/trait_natural_physicists.dds"
 		RARITY = common
-		COUNCIL = no
+		COUNCIL = yes
 		TIER = none
 	}
 	# icon = "gfx/interface/icons/traits/trait_natural_physicists.dds"
-	modifier = {
+	councilor_modifier = {
 		category_field_manipulation_research_speed_mult = 0.3
 		category_particles_research_speed_mult = 0.3
 		category_computing_research_speed_mult = 0.3
@@ -870,11 +877,11 @@ leader_trait_natural_sociologist = {
 		CLASS = scientist
 		ICON = "gfx/interface/icons/traits/trait_natural_sociologists.dds"
 		RARITY = common
-		COUNCIL = no
+		COUNCIL = yes
 		TIER = none
 	}
 	# icon = "gfx/interface/icons/traits/trait_natural_sociologists.dds"
-	modifier = {
+	councilor_modifier = {
 		category_psionics_research_speed_mult = 0.3
 		category_new_worlds_research_speed_mult = 0.3
 		category_statecraft_research_speed_mult = 0.3
@@ -911,21 +918,32 @@ leader_trait_natural_sociologist = {
 }
 
 leader_trait_natural_engineer = {
+	# This is needed due to the technocracy effects
+	force_councilor_trait = yes
+	leader_trait_type = veteran
 	cost = 1
 	inline_script = {
 		script = trait/icon
 		CLASS = scientist
 		ICON = "gfx/interface/icons/traits/trait_natural_engineers.dds"
-		RARITY = common
-		COUNCIL = no
+		RARITY = free_or_veteran
+		COUNCIL = yes
 		TIER = none
 	}
 	# icon = "gfx/interface/icons/traits/trait_natural_engineers.dds"
-	modifier = {
+	councilor_modifier = {
 		category_materials_research_speed_mult = 0.3
 		category_industry_research_speed_mult = 0.3
 		category_voidcraft_research_speed_mult = 0.3
 		category_propulsion_research_speed_mult = 0.3
+	}
+	leader_potential_add = {
+		is_specialist_researcher = no
+		can_leader_get_council_trait_trigger = yes
+		OR = {
+			has_paragon_dlc = no
+			has_trait = subclass_scientist_councilor
+		}
 	}
 	leader_class = { scientist }
 	opposites = {
@@ -948,10 +966,11 @@ leader_trait_natural_engineer = {
 	}
 	leader_potential_add = { OR = { from = { has_technology = tech_expandable_brain_1 } has_global_flag = ap_expandable_brain_1 } }
 	# ai_categories = { engineering }
+	ai_weight = { weight = 50 }
 	selectable_weight = {
 		weight = @class_trait_weight
-		inline_script = paragon/governor_weight_mult
+		inline_script = paragon/subclass_free_trait_weight
+		inline_script = paragon/council_weight_mult
 	}
-	ai_weight = { weight = 50 }
 	# background_icon = "GFX_leader_subclass_scientist_scholar_background"
 }
