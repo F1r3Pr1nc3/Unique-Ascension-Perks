@@ -975,7 +975,7 @@ country_event = {
 	immediate = { get_capital_planet = yes set_country_flag = ap_nano_to_nanite_project }
 	option = {
 		name = EXCELLENT
-		add_resource = { nanites = 1000 }
+		add_resource = { nanites = 2500 }
 		add_research_option = tech_nanite_ship_section
 	}
 }
@@ -5980,7 +5980,7 @@ fleet_event = {
 	}
 }
 
-# # TEMP ACTIVE FIX (on_single_player_save_game_load) remove in 3.4
+# # TEMP ACTIVE FIX (on_single_player_save_game_load) remove in v.3.4
 # event = {
 # 	id = UniqueAscensionPerksEvents.3599
 # 	hide_window = yes
@@ -6707,7 +6707,9 @@ country_event = {
 		event_target:global_event_country = { change_variable = { which = white_hole_systems value = 1 } }
 		country_event = { id = UniqueAscensionPerksEvents.432 days = 720 random = 360 }
 	}
-	option = { name = EXCELLENT }
+	option = { name = EXCELLENT
+		add_research_option = tech_mine_anti_matter
+	}
 }
 
 ship_event = {
@@ -7058,10 +7060,19 @@ system_event = {
 		}
 		from = {
 			random_list = {
-				10 = {}
-				5 = { modifier = { factor = 0 has_technology = tech_mine_dark_matter } modifier = { factor = 0.5 has_tech_option = tech_mine_dark_matter } add_research_option = tech_mine_dark_matter }
-				5 = { modifier = { factor = 0 has_technology = tech_mine_anti_matter } modifier = { factor = 0.5 has_tech_option = tech_mine_anti_matter } add_research_option = tech_mine_anti_matter }
-				5 = { modifier = { factor = 0 has_technology = tech_space_cloud_weapon_1 } modifier = { factor = 0.5 has_tech_option = tech_space_cloud_weapon_1 } add_research_option = tech_space_cloud_weapon_1 }
+				40 = {}
+				20 = {
+					modifier = { factor = 0 OR = { has_technology = tech_mine_anti_matter has_tech_option = tech_mine_anti_matter } }
+					add_research_option = tech_mine_anti_matter
+				}
+				10 = {
+					modifier = { factor = 0 OR = { has_technology = tech_mine_dark_matter has_tech_option = tech_mine_dark_matter } }
+					add_research_option = tech_mine_dark_matter
+				}
+				10 = {
+					modifier = { factor = 0 OR = { has_technology = tech_space_cloud_weapon_1 has_tech_option = tech_space_cloud_weapon_1 } }
+					add_research_option = tech_space_cloud_weapon_1
+				}
 			}
 		}
 	}

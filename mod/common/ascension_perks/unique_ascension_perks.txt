@@ -173,9 +173,9 @@ ap_expandable_brain_1 = {
 ap_expandable_brain_2 = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_expandable_brain_2_req_1" has_ascension_perk = ap_expandable_brain_1 }
-		custom_tooltip = { fail_text = "ap_expandable_brain_2_req_2" has_technology = tech_expandable_brain_1 }
+		custom_tooltip = { fail_text = "ap_expandable_brain_2_req_2" has_country_flag = tech_expandable_brain_1_project }
 		custom_tooltip = { fail_text = "ap_expandable_brain_2_req_3" has_modifier = expandable_brain_2 }
-		custom_tooltip = { fail_text = "ap_expandable_brain_2_req_4" has_technology = tech_expandable_brain_2 }
+		custom_tooltip = { fail_text = "ap_expandable_brain_2_req_4" has_country_flag = tech_expandable_brain_2_project }
 	}
 	modifier = { }
 	on_enabled = {
@@ -261,7 +261,7 @@ ap_nano_to_nanite = {
 		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_1" has_ascension_perk = ap_nano_drones }
 		custom_tooltip = {
 			fail_text = "ap_nano_to_nanite_req_2"
-			resource_stockpile_compare = { resource = automatic_drone value > 37500 }
+			resource_stockpile_compare = { resource = automatic_drone value > 30000 } # 37500
 		}
 		has_distar = yes
 	}
@@ -276,7 +276,7 @@ ap_nano_to_nanite = {
 		custom_tooltip = "ap_nano_to_nanite_tooltip_2"
 		custom_tooltip = "ap_nano_to_nanite_tooltip_3"
 		custom_tooltip = "ap_nano_to_nanite_tooltip_4"
-		add_resource = { automatic_drone = -37500 }
+		add_resource = { automatic_drone = -30000 } # 37500
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.8001 }
 		}
@@ -464,6 +464,7 @@ ap_recycling_drones = {
 	}
 }
 
+# Emergency Calculation
 # v3.3 reduced values
 ap_emergency_calculation = {
 	possible = {
@@ -482,9 +483,10 @@ ap_emergency_calculation = {
 	modifier = {
 		ship_disengage_chance_mult = 0.25			# 2.0
 		ship_disengage_opportunities_add = 1
-		ship_emergency_ftl_min_days_mult = -0.25	# -0.5
+		ship_emergency_ftl_min_days_mult = -0.05	# -0.25 very strong, ships barely can be destroyed
 		ship_ftl_jumpdrive_range_mult = 0.15		# 0.25
 		country_war_exhaustion_mult = -0.1			# -0.2
+		catapult_spread_mult = 0.25					# added with v.3.12
 	}
 	on_enabled = {
 		hidden_effect = {
@@ -552,7 +554,7 @@ ap_chosen_ruler = {
 		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
 	}
 	modifier = {
-		# ruler_skill_levels = 4 removed in 3.8
+		# ruler_skill_levels = 4 removed in v.3.8
 		# New alternative since 3.8
 		country_leader_cap_add = 1
 		councilor_exp_gain = 0.2
@@ -1032,7 +1034,7 @@ ap_space_merchant = {
 		modifier = { factor = 0 OR = { is_gestalt = yes is_unfriendly = yes } }
 	}
 }
-
+# Super Hive-Mind
 ap_super_hive_mind = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_super_hive_mind_req_1" has_technology = tech_colonial_centralization }
@@ -1040,9 +1042,9 @@ ap_super_hive_mind = {
 		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
 	}
 	modifier = {
-		pop_amenities_usage_mult = -0.15		# -0.25
-		planet_crime_mult = -0.15		# -0.3
-		planet_pop_assembly_organic_add = 2		# Added v3.3
+		pop_amenities_usage_mult = -0.1		# -0.25
+		planet_crime_mult = -0.1		# -0.3
+		planet_pop_assembly_organic_add = 1.5		# Added v3.3
 	}
 	on_enabled = {
 		custom_tooltip = "ap_super_hive_mind_tooltip_1"
@@ -1169,7 +1171,7 @@ ap_hivemind_reserve = {
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_hivemind_reserve }
 }
-
+# Primitive Creation
 ap_primitives_creation = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_primitives_creation_req_1" has_technology = tech_colonization_4 }
@@ -1188,7 +1190,7 @@ ap_primitives_creation = {
 	potential = {
 		NOR = {
 			has_ascension_perk = ap_primitives_creation
-			is_gestalt = yes
+			# is_gestalt = yes removed in v.3.12
 			is_unfriendly = yes
 		}
 		NAND = { has_global_flag = life_engineering_installed has_life_engineering_installed = yes }
