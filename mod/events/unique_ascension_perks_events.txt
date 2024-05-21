@@ -407,7 +407,7 @@ planet_event = {
 					has_deposit = d_district_foundry
 					has_deposit = d_district_security
 					has_deposit = d_district_upgrade
-					has_deposit = d_district_recycling
+					# has_deposit = d_district_recycling
 				}
 			}
 		}
@@ -430,7 +430,7 @@ planet_event = {
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_foundry		} } variable = d_district_foundry }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_security		} } variable = d_district_security }
 			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_upgrade		} } variable = d_district_upgrade }
-			export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_recycling	} } variable = d_district_recycling }
+			# export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_district_recycling	} } variable = d_district_recycling }
 		}
 		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_organic_landfill				} } variable = d_organic_landfill }
 		export_trigger_value_to_variable = { trigger = count_deposit parameters = { limit = { is_deposit_type = d_central_spire					} } variable = d_central_spire }
@@ -514,7 +514,7 @@ planet_event = {
 					is_variable_set = d_district_foundry
 					is_variable_set = d_district_security
 					is_variable_set = d_district_upgrade
-					is_variable_set = d_district_recycling
+					# is_variable_set = d_district_recycling
 				}
 			}
 			# is_planet_class = pc_arcology # TODO WHICH MOD?
@@ -540,7 +540,7 @@ planet_event = {
 			if = { limit = { is_variable_set = d_district_foundry	NOT = { has_deposit = d_district_foundry } } while = { count = d_district_foundry	add_deposit = d_district_foundry } clear_variable = d_district_foundry }
 			if = { limit = { is_variable_set = d_district_security	NOT = { has_deposit = d_district_security } } while = { count = d_district_security	add_deposit = d_district_security } clear_variable = d_district_security }
 			if = { limit = { is_variable_set = d_district_upgrade	NOT = { has_deposit = d_district_upgrade } } while = { count = d_district_upgrade	add_deposit = d_district_upgrade } clear_variable = d_district_upgrade }
-			if = { limit = { is_variable_set = d_district_recycling	NOT = { has_deposit = d_district_recycling } } while = { count = d_district_recycling	add_deposit = d_district_recycling } clear_variable = d_district_recycling }
+			# if = { limit = { is_variable_set = d_district_recycling	NOT = { has_deposit = d_district_recycling } } while = { count = d_district_recycling	add_deposit = d_district_recycling } clear_variable = d_district_recycling }
 		}
 		if = { limit = { is_variable_set = d_organic_landfill		NOT = { has_deposit = d_organic_landfill } } while = { count = d_organic_landfill	add_deposit = d_organic_landfill } clear_variable = d_organic_landfill }
 		if = { limit = { is_variable_set = d_central_spire			NOT = { has_deposit = d_central_spire } } while = { count = d_central_spire				add_deposit = d_central_spire } clear_variable = d_central_spire }
@@ -1135,20 +1135,23 @@ country_event = {
 	id = UniqueAscensionPerksEvents.48
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_ascension_perk = ap_recycling_drones }
+	trigger = {
+		has_ascension_perk = ap_recycling_drones
+		exists = fromfrom
+		exists = fromfrom.solar_system
+		has_country_flag = ap_recycling_drones_project
+	}
 	immediate = {
+		# TODO use salvage_ships_from_debris
 		fromfrom = {
 			if = {
 				limit = {
-					exists = solar_system
+					# exists = solar_system
 					root = {
-						has_country_flag = ap_recycling_drones_project
 						any_available_debris = {
 							exists = solar_system
 							solar_system = { is_same_value = prevprevprev.solar_system }
-							num_ships_in_debris = {
-								ship_size = prevprev value > 0
-							}
+							# num_ships_in_debris = { ship_size = root.fromfrom value > 0 } scope not working?
 						}
 					}
 				}
@@ -4505,7 +4508,7 @@ country_event = {
 		OR = {
 			AND = { is_common_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_governor has_deposit = d_district_university has_deposit = d_district_defense has_deposit = d_district_industry } } }
 			AND = { is_hive_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_queen has_deposit = d_district_nursery has_deposit = d_district_forest has_deposit = d_district_entrepot } } }
-			AND = { is_machine_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade has_deposit = d_district_recycling } } }
+			AND = { is_machine_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade  } } } # has_deposit = d_district_recycling
 			AND = { is_megacorp = yes any_owned_planet = { NOR = { has_deposit = d_district_finance has_deposit = d_district_casino has_deposit = d_district_bank has_deposit = d_district_journalism } } }
 		}
 	}
@@ -4527,7 +4530,7 @@ country_event = {
 						has_deposit = d_district_foundry
 						has_deposit = d_district_security
 						has_deposit = d_district_upgrade
-						has_deposit = d_district_recycling
+						# has_deposit = d_district_recycling
 						has_deposit = d_district_finance
 						has_deposit = d_district_casino
 						has_deposit = d_district_bank
@@ -4541,7 +4544,7 @@ country_event = {
 						has_deposit = d_district_foundry
 						has_deposit = d_district_security
 						has_deposit = d_district_upgrade
-						has_deposit = d_district_recycling
+						# has_deposit = d_district_recycling
 						has_deposit = d_district_finance
 						has_deposit = d_district_casino
 						has_deposit = d_district_bank
@@ -4567,7 +4570,7 @@ country_event = {
 						has_deposit = d_district_foundry
 						has_deposit = d_district_security
 						has_deposit = d_district_upgrade
-						has_deposit = d_district_recycling
+						# has_deposit = d_district_recycling
 						has_deposit = d_district_finance
 						has_deposit = d_district_casino
 						has_deposit = d_district_bank
@@ -4581,7 +4584,7 @@ country_event = {
 						has_deposit = d_district_foundry
 						has_deposit = d_district_security
 						has_deposit = d_district_upgrade
-						has_deposit = d_district_recycling
+						# has_deposit = d_district_recycling
 						has_deposit = d_district_finance
 						has_deposit = d_district_casino
 						has_deposit = d_district_bank
@@ -4593,11 +4596,11 @@ country_event = {
 		}
 		else_if = {
 			limit = { is_machine_empire = yes }
-			if = { limit = { any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade has_deposit = d_district_recycling } } }
+			if = { limit = { any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade } } } # has_deposit = d_district_recycling
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_security } } while = { count = 6 random = { chance = 60 add_deposit = d_district_security } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_foundry } } while = { count = 10 random = { chance = 70 add_deposit = d_district_foundry } } }
 				every_owned_planet = { limit = { NOT = { has_deposit = d_district_upgrade } } while = { count = 6 random = { chance = 60 add_deposit = d_district_upgrade } } }
-				every_owned_planet = { limit = { NOT = { has_deposit = d_district_recycling } } while = { count = 10 random = { chance = 70 add_deposit = d_district_recycling } } }
+				# every_owned_planet = { limit = { NOT = { has_deposit = d_district_recycling } } while = { count = 10 random = { chance = 70 add_deposit = d_district_recycling } } }
 			}
 			if = { limit = { any_owned_planet = { has_deposit = yes OR = {
 						has_deposit = d_district_governor
@@ -4651,7 +4654,7 @@ country_event = {
 						has_deposit = d_district_foundry
 						has_deposit = d_district_security
 						has_deposit = d_district_upgrade
-						has_deposit = d_district_recycling
+						# has_deposit = d_district_recycling
 				} } }
 				every_owned_planet = { limit = { has_deposit = yes OR = {
 						has_deposit = d_district_governor
@@ -4665,7 +4668,7 @@ country_event = {
 						has_deposit = d_district_foundry
 						has_deposit = d_district_security
 						has_deposit = d_district_upgrade
-						has_deposit = d_district_recycling
+						# has_deposit = d_district_recycling
 					} }
 					planet_event = { id = UniqueAscensionPerksEvents.302 days = 5 }
 				}
@@ -4713,7 +4716,7 @@ planet_event = {
 					has_deposit = d_district_foundry
 					has_deposit = d_district_security
 					has_deposit = d_district_upgrade
-					has_deposit = d_district_recycling
+					# has_deposit = d_district_recycling
 				}
 			}
 			AND = {
@@ -4748,7 +4751,7 @@ planet_event = {
 			if = { limit = { has_deposit = d_district_security } while = { limit = { has_deposit = d_district_security } remove_deposit = d_district_security } }
 			if = { limit = { has_deposit = d_district_foundry } while = { limit = { has_deposit = d_district_foundry } remove_deposit = d_district_foundry } }
 			if = { limit = { has_deposit = d_district_upgrade } while = { limit = { has_deposit = d_district_upgrade } remove_deposit = d_district_upgrade } }
-			if = { limit = { has_deposit = d_district_recycling } while = { limit = { has_deposit = d_district_recycling } remove_deposit = d_district_recycling } }
+			# if = { limit = { has_deposit = d_district_recycling } while = { limit = { has_deposit = d_district_recycling } remove_deposit = d_district_recycling } }
 		}
 		if = {
 			limit = { from = { is_megacorp = no } }
@@ -6058,7 +6061,7 @@ event = {
 		# 		}
 		# 	}
 		# }
-		# Sync special subject relations
+		# Sync special subject relations (virtual)
 		every_playable_country = {
 			limit = {
 				OR = {

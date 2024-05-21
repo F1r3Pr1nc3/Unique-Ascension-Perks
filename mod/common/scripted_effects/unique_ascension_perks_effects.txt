@@ -7,10 +7,7 @@ deploy_outpost = {
 	custom_tooltip = "UniqueAscensionPerksED.tooltip"
 	hidden_effect = {
 		from = {
-			create_starbase = {
-				size = starbase_outpost
-				owner = event_target:science_ship_owner
-			}
+			create_starbase = { size = starbase_outpost owner = event_target:science_ship_owner }
 		}
 		event_target:science_ship_owner = {
 			set_timed_country_flag = { flag = no_expansionist_development_yet months = 1 }
@@ -18,17 +15,10 @@ deploy_outpost = {
 				limit = {
 					mid_game_years_passed > 0
 					prev.from = {
-						NOR = {
-							has_megastructure = hyper_relay
-							has_megastructure = hyper_relay_restored
-						}
+						NOR = { has_megastructure = hyper_relay has_megastructure = hyper_relay_restored }
 					}
 					has_technology = tech_hyper_relays
-					OR = {
-						has_edict = relay_network_dummy
-						has_edict = relay_network_amenities
-						has_edict = relay_network_amenities_gestalt
-					}
+					OR = { has_edict = relay_network_dummy has_edict = relay_network_amenities has_edict = relay_network_amenities_gestalt }
 					has_country_resource = { type = alloys amount > 500 }
 					has_country_resource = { type = rare_crystals amount > 100 }
 					has_country_resource = { type = influence amount > 25 }
@@ -40,20 +30,13 @@ deploy_outpost = {
 						random_system_megastructure = {
 							limit = { is_megastructure_type = hyper_relay_ruined }
 							prev = {
-								spawn_megastructure = {
-									type = "hyper_relay"
-									coords_from = prev
-								}
+								spawn_megastructure = { type = "hyper_relay" coords_from = prev }
 							}
 							remove_megastructure = this
 						}
 					}
 					else = {
-						spawn_megastructure = {
-							type = "hyper_relay"
-							random_pos = yes
-							orbit_angle = 360
-						}
+						spawn_megastructure = { type = "hyper_relay" random_pos = yes orbit_angle = 360 }
 					}
 				}
 			}
@@ -70,41 +53,17 @@ sync_subjects_virtual_relation = {
 	every_country = {
 		limit = {
 			has_communications = prev
-			OR = {
-				is_friendly_to = prev
-				is_neutral_to = prev
-				prevprev = { is_hostile_to = prev }
-			}
-			NOR = {
-				is_hostile_to = prev
-				is_same_empire = prev
-				is_same_empire = prevprev
-				has_attitude_behavior = {
-					target = prev
-					behavior = attack
-				}
-			}
-		}
-		prevprev = {
-			set_faction_hostility = {
-				target = prev
-				set_hostile = no
-				set_neutral = yes
-			}
-		}
-	}
-	every_relation = {
-		limit = {
-			# merg_is_default_empire = yes
+			prevprev = { is_friendly_to = prev }
 			OR = {
 				is_hostile = prev
 				is_hostile_to = prev
-				has_attitude_behavior = {
-					target = prev
-					behavior = attack
-				}
+				has_attitude_behavior = { target = prev behavior = attack }
 			}
 			NOR = {
+				is_in_federation_with = prev
+				has_defensive_pact = prev
+				is_overlord_to = prev
+				AND = { is_subject = yes overlord = { is_same_empire = prevprev } }
 				prevprev = { is_country_type = civilian_activities }
 				is_friendly_to = prev
 				is_same_empire = prev
@@ -113,42 +72,60 @@ sync_subjects_virtual_relation = {
 			}
 		}
 		prevprev = {
-			set_faction_hostility = {
-				target = prev
-				set_hostile = yes
-				set_neutral = no
-				set_friendly = no
+			set_faction_hostility = { target = prev set_hostile = yes }
+		}
+	}
+	every_relation = {
+		limit = {
+			has_communications = prev
+			prevprev = {
+				OR = {
+					is_hostile = prev
+					is_hostile_to = prev
+					has_attitude_behavior = { target = prev behavior = attack }
+				}
 			}
+			OR = {
+				is_friendly_to = prev
+				is_neutral_to = prev
+				is_in_federation_with = prev
+				has_defensive_pact = prev
+				is_overlord_to = prev
+				AND = { has_global_flag = galactic_crisis_recently_fired is_galactic_community_member = yes prev = { is_galactic_community_member = yes } }
+				AND = { is_subject = yes overlord = { is_same_empire = prevprev } }
+				# AND = { is_subject = yes overlord = { is_overlord_to = prevprev } } subjects can have war between
+				is_non_hostile_to_wraith = yes
+				is_country_type = caravaneer_home
+				is_country_type = caravaneer_fleet
+				is_country_type = guardian_sphere
+				is_country_type = ratlings
+				is_country_type = ldragon_country
+			}
+			NOR = {
+				is_hostile_to = prev
+				is_same_empire = prev
+				is_same_empire = prevprev
+				has_attitude_behavior = { target = prev behavior = attack }
+			}
+		}
+		prevprev = {
+			set_faction_hostility = { target = prev set_neutral = yes }
 		}
 	}
 	prev = {
 		if = {
-			limit = {
-				NOT = { is_friendly_to = prev }
-			}
-			set_faction_hostility = {
-				target = prev
-				set_hostile = no
-				set_neutral = no
-				set_friendly = yes
-			}
+			limit = { NOT = { is_friendly_to = prev } }
+			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 		if = {
 			limit = {
 				exists = prev.overlord
 				NOT = { is_friendly_to = prev.overlord }
 			}
-			set_faction_hostility = {
-				target = prev.overlord
-				set_hostile = no
-				set_neutral = no
-				set_friendly = yes
-			}
+			set_faction_hostility = { target = prev.overlord set_friendly = yes }
 		}
 		if = {
-			limit = {
-				any_owned_starbase = { }
-			}
+			limit = { any_owned_starbase = { } }
 			every_owned_starbase = { set_owner = prevprev }
 		}
 	}

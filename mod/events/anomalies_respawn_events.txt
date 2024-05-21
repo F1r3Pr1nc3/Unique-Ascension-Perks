@@ -1,4 +1,6 @@
+namespace = anomaly
 namespace = AnomaliesRespawnEvent
+
 # on_yearly_pulse
 event = {
 	id = AnomaliesRespawnEvent.1
@@ -52,7 +54,8 @@ event = {
 				}
 			}
 			remove_global_flag = anomalies_respawner_active
-		} else = {
+		}
+		else = {
 			while = { count = 5
 				reroll_random = yes
 				# random_system = { limit = { NOT = { has_star_flag = system_has_new_anomaly } } random_system_planet = { limit = { anomaly_possible = yes } random = { chance = 75 anomaly_spawner = yes } } }
@@ -125,11 +128,7 @@ country_event = {
 	immediate = {
 		every_playable_country = {
 			limit = {
-				OR = {
-					has_ascension_perk = ap_deep_scanner
-					has_ascension_perk = ap_artifact_hunter
-					has_ascension_perk = ap_expansionist_development
-				}
+				OR = { has_ascension_perk = ap_deep_scanner has_ascension_perk = ap_artifact_hunter has_ascension_perk = ap_expansionist_development }
 				any_planet_within_border = { has_planet_flag = planet_has_new_anomaly has_anomaly = yes }
 			}
 			random_planet_within_border = {
@@ -164,6 +163,24 @@ planet_event = {
 	option = { name = UniqueAscensionPerks.no_message from = { set_country_flag = new_anomalies_no_warning } }
 }
 
+# Removed in vanilla 3.11
+#### Wildcat Miners
+ship_event = {
+	id = anomaly.700
+	title = "anomaly.700.name"
+	desc = "anomaly.700.desc"
+	picture = GFX_evt_outpost
+	show_sound = event_ship_bridge
+	location = FROM
+	is_triggered_only = yes
+	option = {
+		name = INTERESTING
+		FROM = {
+			create_mining_station = { owner = ROOT }
+		}
+	}
+}
+
 # Remove all anomalies of the entire galaxy.
 event = {
 	id = AnomaliesRespawnEvent.9999
@@ -171,5 +188,5 @@ event = {
 	is_triggered_only = yes
 	is_test_event = yes
 	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { every_galaxy_planet = { limit = { has_anomaly = yes } add_anomaly = delete_anomaly_slot } } # HACK
+	immediate = { every_galaxy_planet = { limit = { has_anomaly = yes } add_anomaly = { category = delete_anomaly_slot } } } # HACK
 }
