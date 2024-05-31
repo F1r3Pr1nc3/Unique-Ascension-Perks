@@ -122,8 +122,7 @@ decision_nature_pacification = {
 			if = { limit = { has_modifier = gpm_falling_behind } remove_modifier = gpm_falling_behind }
 			if = { limit = { has_modifier = gpm_solar_storm } remove_modifier = gpm_solar_storm }
 			# Add Green Modifiers
-			while = {
-				count = 4
+			while = { count = 4
 				random_list = {
 					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = mineral_rich } }
 					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = ultra_rich } }
@@ -229,18 +228,16 @@ decision_genious_pregnancy = {
 		custom_tooltip = "decision_genious_pregnancy_tooltip"
 		hidden_effect = {
 			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown years = 3 } # If change, do also tooltip
-			planet_event = { id = UniqueAscensionPerksEvents.3050 }
-			while = {
-				count = 9
+			while = { count = 9
 				random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
 			}
 			if = {
 				limit = { owner = { is_hive_empire = yes } }
-				while = {
-					count = 3
+				while = { count = 3
 					random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
 				}
 			}
+			planet_event = { id = UniqueAscensionPerksEvents.3050 }
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -257,15 +254,8 @@ decision_genious_pregnancy2 = {
 	}
 	potential = {
 		exists = from
-		from = {
-			is_regular_empire = yes
-			is_lithoid_empire = no
-			has_ascension_perk = ap_genius_cloning
-		}
-		NOR = {
-			has_modifier = planet_growth_discouraged
-			has_modifier = planet_population_control
-		}
+		from = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
+		NOR = { has_modifier = planet_growth_discouraged has_modifier = planet_population_control }
 		is_under_colonization = no
 	}
 	allow = {
@@ -305,11 +295,12 @@ decision_robot_command = {
 		custom_tooltip = "decision_robot_command_tooltip"
 		hidden_effect = {
 			set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # If change, do also tooltip
-			planet_event = { id = UniqueAscensionPerksEvents.62 }
-			while = {
-				count = 9
-				from = { random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } } }
+			from = {
+				while = { count = 9
+					random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } }
+				}
 			}
+			planet_event = { id = UniqueAscensionPerksEvents.62 }
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -409,9 +400,7 @@ decision_recomposer_life_to_ai = {
 					}
 				}
 				if = {
-					limit = {
-						from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = minerals amount > 25 } }
-					}
+					limit = { from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = minerals amount > 25 } } }
 					kill_pop = yes
 				}
 				else = { break = yes }
@@ -490,9 +479,7 @@ decision_recomposer_ai_to_life = {
 					}
 				}
 				if = {
-					limit = {
-						from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = food amount > 25 } }
-					}
+					limit = { from = { has_country_resource = { type = energy amount > 25 } has_country_resource = { type = food amount > 25 } } }
 					kill_pop = yes
 				}
 				else = { break = yes }
@@ -859,10 +846,7 @@ decision_nanite_extraction_molten = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
-		OR = {
-			is_planet_class = pc_molten
-			is_planet_class = pc_legendary_forge
-		}
+		OR = { is_planet_class = pc_molten is_planet_class = pc_legendary_forge }
 	}
 	allow = {
 		custom_tooltip = {
@@ -979,11 +963,7 @@ decision_nanite_purification = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_purification_req_1"
 			from = {
-				OR = {
-					has_ascension_perk = ap_world_shaper
-					has_ascension_perk = ap_hive_worlds
-					has_ascension_perk = ap_machine_worlds
-				}
+				OR = { has_ascension_perk = ap_world_shaper has_ascension_perk = ap_hive_worlds has_ascension_perk = ap_machine_worlds }
 			}
 		}
 		custom_tooltip = {
