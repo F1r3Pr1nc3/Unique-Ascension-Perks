@@ -117,19 +117,19 @@ country_event = {
 # Root = Special Subject - Sync relations.
 country_event = {
 	id = UniqueAscensionPerksEvents.8787
-	# is_triggered_only = yes
-	mean_time_to_happen = { months = 6 } # 4
+	# mean_time_to_happen = { months = 6 } # 4
 	hide_window = yes
-	trigger = {
-		is_subject = no
-		is_unique_perk_special_subject = yes
-		OR = {
-			has_country_flag = domesticated_spaceborn_alien
-			has_country_flag = security_strike_force
-			has_country_flag = defense_sentinels
-			has_country_flag = civilian_activities_country
-		}
-	}
+	is_triggered_only = yes
+	# trigger = {
+	# 	is_subject = no
+	# 	is_unique_perk_special_subject = yes
+	# 	OR = {
+	# 		has_country_flag = domesticated_spaceborn_alien
+	# 		has_country_flag = security_strike_force
+	# 		has_country_flag = defense_sentinels
+	# 		has_country_flag = civilian_activities_country
+	# 	}
+	# }
 	immediate = {
 		if = {
 			limit = { is_country_type = domesticated_spaceborn_alien has_country_flag = domesticated_spaceborn_alien }
@@ -281,12 +281,12 @@ country_event = {
 	}
 }
 
-# Remove Special Subject Empires from any Federations & Galactic Community & Galactic Council
+# Remove Special Subject countries from any Federations & Galactic Community & Galactic Council
 country_event = {
 	id = UniqueAscensionPerksEvents.8789
 	hide_window = yes
-	mean_time_to_happen = { months = 4 }
-	# is_triggered_only = yes
+	# mean_time_to_happen = { months = 4 }
+	is_triggered_only = yes
 	trigger = {
 		is_country_type = global_event
 		OR = {
@@ -340,11 +340,7 @@ planet_event = {
 			# Vanilla
 			AND = {
 				from = { is_hive_empire = yes }
-				OR = {
-					has_deposit = d_valley_of_zanaam
-					has_deposit = d_collapsed_burrows
-					has_deposit = d_spawning_complex_blocker
-				}
+				OR = { has_deposit = d_valley_of_zanaam has_deposit = d_collapsed_burrows has_deposit = d_spawning_complex_blocker }
 			}
 			has_deposit = d_organic_landfill
 			has_deposit = d_central_spire
@@ -380,11 +376,7 @@ planet_event = {
 			AND = {
 				from = {
 					# is_hive_empire = yes
-					OR = {
-						has_ascension_perk = ap_hivemind_reserve
-						has_ascension_perk = ap_pyramidal_society
-						has_country_flag = ap_pyramidal_society
-					}
+					OR = { has_ascension_perk = ap_hivemind_reserve has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 				}
 				OR = {
 					has_deposit = d_hivemind_reserve
@@ -486,11 +478,7 @@ planet_event = {
 				merg_is_hive_world = yes
 				from = {
 					# is_hive_empire = yes
-					OR = {
-						has_ascension_perk = ap_hivemind_reserve
-						has_ascension_perk = ap_pyramidal_society
-						has_country_flag = ap_pyramidal_society
-					}
+					OR = { has_ascension_perk = ap_hivemind_reserve has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society }
 				}
 				OR = {
 					is_variable_set = d_hivemind_reserve
@@ -828,7 +816,7 @@ country_event = {
 
 ######################################
 #									 #
-############  Nano Drones  ###########
+############ Nano Drones ###########
 #									 #
 ######################################
 
@@ -1083,15 +1071,15 @@ country_event = {
 	hide_window = yes
 	# mean_time_to_happen = { months = 9 }
 	is_triggered_only = yes
-	trigger = {
-		has_ascension_perk = ap_expansion_infinity
-		any_owned_planet = {
-			NOT = { has_planet_flag = ap_expansion_infinity_collection }
-			colony_age > 2
-			num_pops > 10
-			count_owned_pop = { count > 10 limit = { has_job = yes } }
-		}
-	}
+	# trigger = {
+	# 	has_ascension_perk = ap_expansion_infinity
+	# 	any_owned_planet = {
+	# 		NOT = { has_planet_flag = ap_expansion_infinity_collection }
+	# 		colony_age > 2
+	# 		num_pops > 10
+	# 		count_owned_pop = { count > 10 limit = { has_job = yes } }
+	# 	}
+	# }
 	immediate = {
 		random_owned_planet = {
 			limit = {
@@ -1345,27 +1333,27 @@ country_event = {
 	}
 }
 # on_yearly_pulse
-event = {
-	id = UniqueAscensionPerksEvents.51
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		random_playable_country = {
-			limit = {
-				has_country_flag = ap_recycling_drones_project
-				OR = {
-					check_variable = { which = ship_corvette_recovered value > 0 }
-					check_variable = { which = ship_frigate_recovered value > 0 }
-					check_variable = { which = ship_destroyer_recovered value > 0 }
-					check_variable = { which = ship_cruiser_recovered value > 0 }
-					check_variable = { which = ship_battleship_recovered value > 0 }
-					check_variable = { which = ship_titan_recovered value > 0 }
-				}
-			}
-			country_event = { id = UniqueAscensionPerksEvents.52 days = 5 }
-		}
-	}
-}
+# event = {
+# 	id = UniqueAscensionPerksEvents.51
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = {
+# 				has_country_flag = ap_recycling_drones_project
+# 				OR = {
+# 					check_variable = { which = ship_corvette_recovered value > 0 }
+# 					check_variable = { which = ship_frigate_recovered value > 0 }
+# 					check_variable = { which = ship_destroyer_recovered value > 0 }
+# 					check_variable = { which = ship_cruiser_recovered value > 0 }
+# 					check_variable = { which = ship_battleship_recovered value > 0 }
+# 					check_variable = { which = ship_titan_recovered value > 0 }
+# 				}
+# 			}
+# 			country_event = { id = UniqueAscensionPerksEvents.52 days = 5 }
+# 		}
+# 	}
+# }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.52
@@ -1408,54 +1396,42 @@ country_event = {
 				set_owner = prev
 				if = {
 					limit = { ROOT = { has_country_flag = ap_recycling_drones_project_upgrade } }
-					while = {
-						count = root.ship_corvette_recovered
+					while = { count = root.ship_corvette_recovered
 						create_ship = { name = random random_existing_design = corvette }
 					}
-					while = {
-						count = root.ship_frigate_recovered
+					while = { count = root.ship_frigate_recovered
 						create_ship = { name = random random_existing_design = frigate }
 					}
-					while = {
-						count = root.ship_destroyer_recovered
+					while = { count = root.ship_destroyer_recovered
 						create_ship = { name = random random_existing_design = destroyer }
 					}
-					while = {
-						count = root.ship_cruiser_recovered
+					while = { count = root.ship_cruiser_recovered
 						create_ship = { name = random random_existing_design = cruiser }
 					}
-					while = {
-						count = root.ship_battleship_recovered
+					while = { count = root.ship_battleship_recovered
 						create_ship = { name = random random_existing_design = battleship }
 					}
-					while = {
-						count = root.ship_titan_recovered
+					while = { count = root.ship_titan_recovered
 						create_ship = { name = random random_existing_design = titan }
 					}
 				}
 				else = {
-					while = {
-						count = root.ship_corvette_recovered
+					while = { count = root.ship_corvette_recovered
 						create_ship = { name = random design = "Standard Basic Corvette" }
 					}
-					while = {
-						count = root.ship_frigate_recovered
+					while = { count = root.ship_frigate_recovered
 						create_ship = { name = random design = "Standard Basic Frigate" }
 					}
-					while = {
-						count = root.ship_destroyer_recovered
+					while = { count = root.ship_destroyer_recovered
 						create_ship = { name = random design = "Standard Basic Destroyer" }
 					}
-					while = {
-						count = root.ship_cruiser_recovered
+					while = { count = root.ship_cruiser_recovered
 						create_ship = { name = random design = "Standard Basic Cruiser" }
 					}
-					while = {
-						count = root.ship_battleship_recovered
+					while = { count = root.ship_battleship_recovered
 						create_ship = { name = random design = "Standard Basic Battleship" }
 					}
-					while = {
-						count = root.ship_titan_recovered
+					while = { count = root.ship_titan_recovered
 						create_ship = { name = random design = "Standard Basic Titan" }
 					}
 				}
@@ -1668,11 +1644,7 @@ country_event = {
 			any_fleet_in_system = {
 				exists = owner
 				owner = {
-					OR = {
-						is_pirate_country = yes
-						is_country_type = dormant_marauders
-						is_country_type = awakened_marauders
-					}
+					OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders }
 				}
 			}
 		}
@@ -1722,39 +1694,40 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.58.Desc"
 	show_sound = event_conversation
 	picture = GFX_evt_security_place
-	location = event_target:preventive_strike_planet # root
-	mean_time_to_happen = { months = 6 }
-	# pre_triggers = { has_owner = yes }
-	trigger = {
-		has_ascension_perk = ap_advanced_security
-		any_owned_planet = {
-			is_colony = yes
-			OR = {
-				planet_crime > 75
-				has_modifier = has_criminal_branch_office
-				has_modifier = criminal_underworld
-				has_modifier = drone_deviancy
-				has_modifier = drone_corruption
-			}
-			NOR = {
-				has_planet_flag = recent_security_preventive_strike
-				has_planet_flag = recent_security_preventive_strike_energy_small
-				has_planet_flag = recent_security_preventive_strike_energy_medium
-				has_planet_flag = recent_security_preventive_strike_energy_big
-				has_planet_flag = recent_security_preventive_strike_energy_huge
-				has_planet_flag = recent_security_preventive_strike_energy_minerals
-				has_planet_flag = recent_security_preventive_strike_energy_consumers
-				has_planet_flag = recent_security_preventive_strike_energy_members
-				has_planet_flag = recent_security_preventive_strike_energy_leaders
-				has_planet_flag = recent_security_preventive_strike_energy_weapons
-				has_planet_flag = recent_security_preventive_strike_energy_ships
-			}
-		}
-	}
+	location = event_target:preventive_strike_planet
+	# mean_time_to_happen = { months = 6 }
+	is_triggered_only = yes
+	# trigger = {
+	# 	has_ascension_perk = ap_advanced_security
+	# 	any_owned_planet = {
+	# 		is_colony = yes
+	# 		OR = {
+	# 			planet_crime > 75
+	# 			has_modifier = has_criminal_branch_office
+	# 			has_modifier = criminal_underworld
+	# 			has_modifier = drone_deviancy
+	# 			has_modifier = drone_corruption
+	# 		}
+	# 		NOR = {
+	# 			has_planet_flag = recent_security_preventive_strike
+	# 			has_planet_flag = recent_security_preventive_strike_energy_small
+	# 			has_planet_flag = recent_security_preventive_strike_energy_medium
+	# 			has_planet_flag = recent_security_preventive_strike_energy_big
+	# 			has_planet_flag = recent_security_preventive_strike_energy_huge
+	# 			has_planet_flag = recent_security_preventive_strike_energy_minerals
+	# 			has_planet_flag = recent_security_preventive_strike_energy_consumers
+	# 			has_planet_flag = recent_security_preventive_strike_energy_members
+	# 			has_planet_flag = recent_security_preventive_strike_energy_leaders
+	# 			has_planet_flag = recent_security_preventive_strike_energy_weapons
+	# 			has_planet_flag = recent_security_preventive_strike_energy_ships
+	# 		}
+	# 	}
+	# }
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				is_colony = yes
+				num_sapient_pops > 12
 				OR = {
 					planet_crime > 75
 					has_modifier = has_criminal_branch_office
@@ -1972,7 +1945,7 @@ country_event = {
 
 ######################################
 #									 #
-########## Friendly Nature  ##########
+########## Friendly Nature ##########
 #									 #
 ######################################
 
@@ -2008,15 +1981,14 @@ country_event = {
 	location = event_target:friendly_nature_discovery # root
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 3 }
-	# pre_triggers = { has_owner = yes }
-	trigger = {
-		has_ascension_perk = ap_friendly_nature
-		# NOT = { has_country_flag = friendly_nature_discovery_cooldown }
-		any_owned_planet = {
-			NOT = { has_planet_flag = friendly_nature_discovery }
-			can_find_rare_deposits = yes
-		}
-	}
+	# trigger = {
+	# 	has_ascension_perk = ap_friendly_nature
+	# 	# NOT = { has_country_flag = friendly_nature_discovery_cooldown }
+	# 	any_owned_planet = {
+	# 		NOT = { has_planet_flag = friendly_nature_discovery }
+	# 		can_find_rare_deposits = yes
+	# 	}
+	# }
 	immediate = {
 		random_owned_planet = {
 			limit = {
@@ -2144,49 +2116,48 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 # on_yearly_pulse
-event = {
+# v.3.12 now country event
+country_event = {
 	id = UniqueAscensionPerksEvents.8068
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		any_playable_country = {
-			is_gestalt = no
-			has_ascension_perk = ap_megacorp
-			OR = {
-				has_modifier = aggressive_marketing_target
-				any_relation = {
-					merg_is_default_empire = yes
-					NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
-				}
-			}
-		}
-	}
+	# trigger = {
+	# 	any_playable_country = {
+	# 		is_gestalt = no
+	# 		has_ascension_perk = ap_megacorp
+	# 		OR = {
+	# 			has_modifier = aggressive_marketing_target
+	# 			any_relation = {
+	# 				merg_is_default_empire = yes
+	# 				NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
+	# 			}
+	# 		}
+	# 	}
+	# }
 	immediate = {
-		random_playable_country = {
-			limit = { is_gestalt = no has_ascension_perk = ap_megacorp }
-			weights = { base = 1 modifier = { add = 1 has_modifier = aggressive_marketing_target } }
-			if = {
-				limit = { has_modifier = aggressive_marketing_target }
-				remove_modifier = aggressive_marketing_target
-			}
-			random_relation = {
-				limit = {
-					merg_is_default_empire = yes
-					NOR = {
-						is_gestalt = yes
-						has_ascension_perk = ap_megacorp
-						has_modifier = aggressive_marketing_target
-						is_at_war_with = prev
-						is_hostile = prev
-					}
+		# random_playable_country = {
+		# 	limit = { is_gestalt = no has_ascension_perk = ap_megacorp }
+		# 	weights = { base = 1 modifier = { add = 1 has_modifier = aggressive_marketing_target } }
+		if = {
+			limit = { has_modifier = aggressive_marketing_target }
+			remove_modifier = aggressive_marketing_target
+		}
+		random_relation = {
+			limit = {
+				merg_is_default_empire = yes
+				NOR = {
+					is_gestalt = yes
+					has_ascension_perk = ap_megacorp
+					has_modifier = aggressive_marketing_target
+					is_at_war_with = prev
+					is_hostile = prev
 				}
-				weights = {
-					base = 1
-					modifier = { add = 2 is_friendly_to = prev }
-					modifier = { add = 1 is_protective_to = prev }
-				}
-				add_modifier = { modifier = aggressive_marketing_target }
 			}
+			weights = { base = 1
+				modifier = { add = 2 is_friendly_to = prev }
+				modifier = { add = 1 is_protective_to = prev }
+			}
+			add_modifier = { modifier = aggressive_marketing_target }
 		}
 	}
 }
@@ -2626,12 +2597,12 @@ planet_event = {
 	}
 }
 
-# v3.3 performance opt
+# v3.3 performance opt (on_half_yearly_pulse)
 country_event = {
 	id = UniqueAscensionPerksEvents.8082
 	hide_window = yes
-	mean_time_to_happen = { months = 6 }
-	# pre_triggers = { has_owner = yes }
+	# mean_time_to_happen = { months = 6 }
+	is_triggered_only = yes
 	trigger = {
 		has_ascension_perk = ap_stability_celebration
 		NOT = { has_country_flag = stability_celebration_message }
@@ -3114,27 +3085,18 @@ event = {
 				has_ascension_perk = ap_galaxy_center
 				any_owned_planet = {
 					has_planet_flag = galaxy_center_planet
-					OR = {
-						has_planet_flag = galaxy_center_casino
-						has_planet_flag = galaxy_center_administration
-						has_planet_flag = galaxy_center_museum
-					}
+					OR = { has_planet_flag = galaxy_center_casino has_planet_flag = galaxy_center_administration has_planet_flag = galaxy_center_museum }
 				}
 			}
 			random_owned_planet = {
 				limit = {
 					has_planet_flag = galaxy_center_planet
-					OR = {
-						has_planet_flag = galaxy_center_casino
-						has_planet_flag = galaxy_center_administration
-						has_planet_flag = galaxy_center_museum
-					}
+					OR = { has_planet_flag = galaxy_center_casino has_planet_flag = galaxy_center_administration has_planet_flag = galaxy_center_museum }
 				}
 				if = {
 					limit = { has_planet_flag = galaxy_center_casino }
 					set_variable = { which = galaxy_center_casino value = 0 }
-					while = {
-						count = 750
+					while = { count = 750
 						random_list = {
 							1 = {}
 							2 = { change_variable = { which = galaxy_center_casino value = 1 } }
@@ -3148,8 +3110,7 @@ event = {
 				if = {
 					limit = { has_planet_flag = galaxy_center_administration }
 					set_variable = { which = galaxy_center_administration value = 0 }
-					while = {
-						count = 75
+					while = { count = 75
 						random_list = {
 							1 = {}
 							2 = { change_variable = { which = galaxy_center_administration value = 1 } }
@@ -3163,8 +3124,7 @@ event = {
 				if = {
 					limit = { has_planet_flag = galaxy_center_museum }
 					set_variable = { which = galaxy_center_museum value = 0 }
-					while = {
-						count = 250
+					while = { count = 250
 						random_list = {
 							1 = {}
 							2 = { change_variable = { which = galaxy_center_museum value = 1 } }
@@ -3203,11 +3163,10 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
-	# pre_triggers = { has_owner = yes }
-	trigger = {
-		has_ascension_perk = ap_advanced_government_1
-		any_owned_pop = { exists = planet pop_has_right_ethics = no }
-	}
+	# trigger = {
+	# 	has_ascension_perk = ap_advanced_government_1
+	# 	any_owned_pop = { exists = planet pop_has_right_ethics = no }
+	# }
 	immediate = {
 		# shift_all_pops_ethics while = { limit = { any_owned_pop = { pop_has_right_ethics = no } }
 		every_owned_planet = {
@@ -3275,8 +3234,7 @@ planet_event = {
 			}
 
 			else = {
-				while = {
-					count = root.num_ethic_pop_on_planet
+				while = { count = root.num_ethic_pop_on_planet
 					limit = { has_country_resource = { type = unity amount > 4 } }
 					add_resource = { influence = 1 unity = -5 }
 				}
@@ -3376,17 +3334,17 @@ country_event = {
 #									 #
 ######################################
 
-event = {
-	id = UniqueAscensionPerksEvents.128
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		random_playable_country = {
-			limit = { has_ascension_perk = ap_eternal_vigilance NOT = { has_country_flag = ap_eternal_vigilance_project_available } }
-			country_event = { id = UniqueAscensionPerksEvents.129 }
-		}
-	}
-}
+# event = {
+# 	id = UniqueAscensionPerksEvents.128
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = { has_ascension_perk = ap_eternal_vigilance NOT = { has_country_flag = ap_eternal_vigilance_project_available } }
+# 			country_event = { id = UniqueAscensionPerksEvents.129 }
+# 		}
+# 	}
+# }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.129
@@ -3419,6 +3377,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { years = 2 }
 	trigger = {
+		has_ascension_perk = ap_eternal_vigilance
 		has_country_flag = ap_eternal_vigilance_project
 		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
 	}
@@ -3438,8 +3397,7 @@ country_event = {
 					add_modifier = { modifier = eternal_vigilance_fleet }
 				}
 			}
-			while = {
-				count = 3
+			while = { count = 3
 				random = { chance = 50
 					create_fleet = {
 						name = "Eternal Vigilance Fleet"
@@ -3461,13 +3419,16 @@ country_event = {
 country_event = {
 	id = UniqueAscensionPerksEvents.132
 	hide_window = yes
-	mean_time_to_happen = { months = 6 }
-	trigger = {
-		host_has_dlc = "Apocalypse"
-		has_country_flag = ap_eternal_vigilance_project
-		has_technology = tech_titans
-		any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
-	}
+	# mean_time_to_happen = { months = 6 }
+	is_triggered_only = yes
+	# trigger = {
+	# 	merg_is_default_empire = yes
+	# 	host_has_dlc = "Apocalypse"
+	# 	has_ascension_perk = ap_eternal_vigilance
+	# 	has_country_flag = ap_eternal_vigilance_project
+	# 	has_technology = tech_titans
+	# 	any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
+	# }
 	immediate = {
 		random_owned_planet = {
 			limit = { NOT = { has_planet_flag = vigilance_planet } }
@@ -3679,8 +3640,7 @@ country_event = {
 				set_aggro_range = 1000
 				set_fleet_flag = subject_navy_fleet
 
-				while = {
-					count = event_target:VassalNavyInvestmentTarget.subject_navy_amount
+				while = { count = event_target:VassalNavyInvestmentTarget.subject_navy_amount
 					limit = { event_target:VassalNavyInvestmentTarget = { check_variable = { which = subject_navy_amount value > 0 } } }
 					# create_navy_ships_for_subject = yes
 					random_list = {
@@ -3741,6 +3701,7 @@ country_event = {
 	hide_window = yes
 	mean_time_to_happen = { days = 20 } # 14
 	trigger = {
+		is_default_or_fallen = yes
 		has_ascension_perk = ap_defense_sentinels
 		any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
 	}
@@ -3835,7 +3796,7 @@ fleet_event = {
 	}
 }
 
-# MERGED with UniqueAscensionPerksEvents.239
+# Recover fleet power (Call merged with UniqueAscensionPerksEvents.239)
 country_event = {
 	id = UniqueAscensionPerksEvents.233
 	hide_window = yes
@@ -3873,7 +3834,7 @@ country_event = {
 		event_target:defense_sentinels = {
 			create_fleet = {
 				name = NAME_defense_sentinels
-				settings = { spawn_debris = no }
+				settings = { garrison = yes spawn_debris = no }
 				effect = {
 					set_owner = prev
 					defense_sentinels_spawn_default_fleet = yes
@@ -3890,71 +3851,82 @@ country_event = {
 	}
 }
 
-country_event = {
+# on_monthly_pulse
+event = {
 	id = UniqueAscensionPerksEvents.239
 	hide_window = yes
-	# is_triggered_only = yes
-	mean_time_to_happen = { months = 2 } # 14 days
+	is_triggered_only = yes
+	# mean_time_to_happen = { months = 2 } # 14 days
 	trigger = {
-		has_ascension_perk = ap_defense_sentinels
-		any_relation = {
-			is_country_type = security_forces # defense_sentinels
-			has_relation_flag = { who = root flag = defense_sentinels }
-			count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 }
+		any_playable_country = {
+			has_ascension_perk = ap_defense_sentinels
+			any_relation = {
+				is_country_type = security_forces # defense_sentinels
+				has_relation_flag = { who = root flag = defense_sentinels }
+				count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 }
+			}
 		}
 	}
 	immediate =	{
 		if = {
-			limit = { has_country_flag = ap_defense_sentinels_retriever_project }
-			create_defense_sentinels_country = yes
-			create_retriever_sentinels_fleet = yes
-		}
-		if = {
-			limit = { NOT = { exists = event_target:defense_sentinels } }
-			if = {
-				limit = { any_relation = { has_relation_flag = { who = root flag = defense_sentinels } } }
-				random_relation = {
-					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
-					save_event_target_as = defense_sentinels
+			limit = { NOT = { has_global_flag = defense_sentinels_2_months_flag } }
+			random_playable_country = {
+				limit = { has_ascension_perk = ap_defense_sentinels }
+				if = {
+					limit = { has_country_flag = ap_defense_sentinels_retriever_project }
+					create_defense_sentinels_country = yes
+					create_retriever_sentinels_fleet = yes
 				}
-			}
-			else_if = {
-				limit = {
-					is_overlord = yes
-					any_subject = { has_relation_flag = { who = root flag = defense_sentinels } }
-				}
-				random_subject = {
-					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
-					save_event_target_as = defense_sentinels
-				}
-			}
-			else_if = {
-				limit = { any_country = { has_relation_flag = { who = root flag = defense_sentinels } } }
-				random_country = {
-					limit = { has_relation_flag = { who = root flag = defense_sentinels } }
-					save_event_target_as = defense_sentinels
-				}
-			}
-		}
-		if = {
-			limit = {
-				exists = event_target:defense_sentinels
-				event_target:defense_sentinels = {
-					OR = {
-						# AND = { num_fleets < 5 ROOT = { NOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-						# AND = { num_fleets < 10 ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-						# AND = { num_fleets < 20 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-						# AND = { num_fleets < 30 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 }	root = { NOR = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 }	root = { has_technology = tech_defense_sentinels_1 NOR = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-						AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-						# event_target:the_ally_faction = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 50 } }
+				if = {
+					limit = { NOT = { exists = event_target:defense_sentinels } }
+					if = {
+						limit = { any_relation = { has_relation_flag = { who = root flag = defense_sentinels } } }
+						random_relation = {
+							limit = { has_relation_flag = { who = root flag = defense_sentinels } }
+							save_event_target_as = defense_sentinels
+						}
+					}
+					else_if = {
+						limit = {
+							is_overlord = yes
+							any_subject = { has_relation_flag = { who = root flag = defense_sentinels } }
+						}
+						random_subject = {
+							limit = { has_relation_flag = { who = root flag = defense_sentinels } }
+							save_event_target_as = defense_sentinels
+						}
+					}
+					else_if = {
+						limit = { any_country = { has_relation_flag = { who = root flag = defense_sentinels } } }
+						random_country = {
+							limit = { has_relation_flag = { who = root flag = defense_sentinels } }
+							save_event_target_as = defense_sentinels
+						}
 					}
 				}
+
+				if = { # Recover fleet power
+					limit = {
+						exists = event_target:defense_sentinels
+						event_target:defense_sentinels = {
+							OR = {
+								# AND = { num_fleets < 5 ROOT = { NOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
+								# AND = { num_fleets < 10 ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
+								# AND = { num_fleets < 20 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
+								# AND = { num_fleets < 30 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
+								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 }	root = { NOR = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
+								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 }	root = { has_technology = tech_defense_sentinels_1 NOR = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
+								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
+								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
+								# event_target:the_ally_faction = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 50 } }
+							}
+						}
+					}
+					country_event = { id = UniqueAscensionPerksEvents.233 days = 5 random = 5 }
+				}
 			}
-			country_event = { id = UniqueAscensionPerksEvents.233 days = 5 random = 5 }
 		}
+		else = { set_global_flag = defense_sentinels_2_months_flag }
 	}
 }
 
@@ -3984,11 +3956,11 @@ country_event = {
 	picture = GFX_evt_retriever_sentinel
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	trigger = {
-		has_ascension_perk = ap_defense_sentinels
-		has_technology = tech_defense_sentinels_2
-		NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
-	}
+	# trigger = {
+	# 	has_ascension_perk = ap_defense_sentinels
+	# 	has_technology = tech_defense_sentinels_2
+	# 	NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
+	# }
 	immediate = { set_country_flag = ap_defense_sentinels_retriever_project_check get_capital_planet = yes }
 	option = { name = EXCELLENT enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root } }
 }
@@ -4011,15 +3983,19 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
+# on_half_yearly_pulse
 country_event = {
 	id = UniqueAscensionPerksEvents.237
 	hide_window = yes
-	mean_time_to_happen = { months = 6 }
-	trigger = {
-		has_country_flag = ap_defense_sentinels_retriever_project
-		any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
-		any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
-	}
+	# mean_time_to_happen = { months = 6 }
+	is_triggered_only = yes
+	# trigger = {
+	# 	is_default_or_fallen = yes
+	# 	has_ascension_perk = ap_defense_sentinels
+	# 	has_country_flag = ap_defense_sentinels_retriever_project
+	# 	any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
+	# 	any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+	# }
 	immediate = {
 		create_defense_sentinels_country = yes
 		random_owned_planet = {
@@ -4030,7 +4006,7 @@ country_event = {
 			event_target:defense_sentinels = {
 				create_fleet = {
 					name = NAME_defense_sentinels
-					settings = { spawn_debris = no }
+					settings = { garrison = yes spawn_debris = no }
 					effect = {
 						set_owner = prev
 						create_ship = { name = "" design = "Defense Sentinel - Fortress" graphical_culture = "ai_01" }
@@ -4049,10 +4025,10 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { years = 1 }
-	trigger = {
-		has_ascension_perk = ap_defense_sentinels
-		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
-	}
+	# trigger = {
+	# 	has_ascension_perk = ap_defense_sentinels
+	# 	any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
+	# }
 	immediate = {
 		create_defense_sentinels_country = yes
 		random_system_within_border = {
@@ -4063,7 +4039,7 @@ country_event = {
 			event_target:defense_sentinels = {
 				create_fleet = {
 					name = NAME_defense_sentinels
-					settings = { spawn_debris = no }
+					settings = { garrison = yes spawn_debris = no }
 					effect = {
 						set_owner = prev
 						create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" }
@@ -4071,12 +4047,11 @@ country_event = {
 						set_fleet_flag = defense_sentinels_platforms
 					}
 				}
-				while = {
-					count = 2
+				while = { count = 2
 					random = { chance = 40
 						create_fleet = {
 							name = NAME_defense_sentinels
-							settings = { spawn_debris = no }
+							settings = { garrison = yes spawn_debris = no }
 							effect = {
 								set_owner = prev
 								create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" }
@@ -4165,11 +4140,7 @@ leader_event = {
 							from = {
 								last_created_leader = {
 									set_age = 1
-									set_name = {
-										key = "CLONED_LEADER_NAME"
-										variable_string = "[This.GetName]"
-										variable_string = "[From.cloned_leader_number]"
-									}
+									set_name = { key = "CLONED_LEADER_NAME" variable_string = "[This.GetName]" variable_string = "[From.cloned_leader_number]" }
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
 							}
@@ -4181,7 +4152,7 @@ leader_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = energy value > 800 } } }  hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = energy value > 800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { resource_stockpile_compare = { resource = energy value > 1600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { resource_stockpile_compare = { resource = energy value > 2400 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
 	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { resource_stockpile_compare = { resource = energy value > 3200 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
@@ -4508,7 +4479,7 @@ country_event = {
 		OR = {
 			AND = { is_common_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_governor has_deposit = d_district_university has_deposit = d_district_defense has_deposit = d_district_industry } } }
 			AND = { is_hive_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_queen has_deposit = d_district_nursery has_deposit = d_district_forest has_deposit = d_district_entrepot } } }
-			AND = { is_machine_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade  } } } # has_deposit = d_district_recycling
+			AND = { is_machine_empire = yes any_owned_planet = { NOR = { has_deposit = d_district_foundry has_deposit = d_district_security has_deposit = d_district_upgrade } } } # has_deposit = d_district_recycling
 			AND = { is_megacorp = yes any_owned_planet = { NOR = { has_deposit = d_district_finance has_deposit = d_district_casino has_deposit = d_district_bank has_deposit = d_district_journalism } } }
 		}
 	}
@@ -5075,7 +5046,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 	}
@@ -5138,7 +5109,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5188,7 +5159,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5238,7 +5209,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5293,29 +5264,21 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
 		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			free_amenities <= -3
-			NOR = {
-				has_modifier = chosen_ruler_amenities_distribution
-				has_modifier = chosen_ruler_maintenance_campaign
-				has_planet_flag = chosen_ruler_amenities_distribution_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				free_amenities <= -3
-				NOR = {
-					has_modifier = chosen_ruler_amenities_distribution
-					has_modifier = chosen_ruler_maintenance_campaign
-					has_planet_flag = chosen_ruler_amenities_distribution_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_amenities_distribution_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5359,29 +5322,21 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
 		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
 		any_owned_planet = {
 			count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-			NOR = {
-				has_modifier = chosen_ruler_job_orientation_normal
-				has_modifier = chosen_ruler_job_orientation_gesalt
-				has_planet_flag = chosen_ruler_job_orientation_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-				NOR = {
-					has_modifier = chosen_ruler_job_orientation_normal
-					has_modifier = chosen_ruler_job_orientation_gesalt
-					has_planet_flag = chosen_ruler_job_orientation_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_job_orientation_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5413,7 +5368,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5445,7 +5400,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5477,7 +5432,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5509,7 +5464,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5518,22 +5473,14 @@ country_event = {
 		resource_stockpile_compare = { resource = energy value > 5000 }
 		any_owned_planet = {
 			free_amenities <= -3
-			NOR = {
-				has_modifier = chosen_ruler_amenities_distribution
-				has_modifier = chosen_ruler_maintenance_campaign
-				has_planet_flag = chosen_ruler_amenities_distribution_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				free_amenities <= -3
-				NOR = {
-					has_modifier = chosen_ruler_amenities_distribution
-					has_modifier = chosen_ruler_maintenance_campaign
-					has_planet_flag = chosen_ruler_amenities_distribution_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_amenities_distribution_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5553,7 +5500,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 }
 	trigger = {
-		# is_ai = no
+		merg_is_default_empire = yes # is_ai = no = yes
 		has_ascension_perk = ap_chosen_ruler
 		exists = ruler
 		ruler = { has_skill > 9 }
@@ -5562,22 +5509,14 @@ country_event = {
 		resource_stockpile_compare = { resource = minerals value > 5000 }
 		any_owned_planet = {
 			count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-			NOR = {
-				has_modifier = chosen_ruler_job_orientation_normal
-				has_modifier = chosen_ruler_job_orientation_gesalt
-				has_planet_flag = chosen_ruler_job_orientation_suggestion
-			}
+			NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
 				count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-				NOR = {
-					has_modifier = chosen_ruler_job_orientation_normal
-					has_modifier = chosen_ruler_job_orientation_gesalt
-					has_planet_flag = chosen_ruler_job_orientation_suggestion
-				}
+				NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
 			}
 			set_timed_planet_flag = { flag = chosen_ruler_job_orientation_suggestion years = 1 }
 			save_event_target_as = target_planet
@@ -5872,11 +5811,7 @@ country_event = {
 					create_ship = {
 						name = random
 						design = "NAME_Corsair"
-						effect = {
-							set_ship_flag = target_ship_project
-							set_disable_at_health = 0.05
-							save_event_target_as = target_ship_project_ship
-						}
+						effect = { set_ship_flag = target_ship_project set_disable_at_health = 0.05 save_event_target_as = target_ship_project_ship }
 					}
 					set_location = { target = event_target:special_project_target distance = 50 angle = random }
 					set_fleet_stance = aggressive
@@ -6162,6 +6097,7 @@ event = {
 		# 		} else = { destroy_country = yes }
 		# 	}
 		# }
+		# REMOVEME in > v.3.12
 		every_playable_country = {
 			limit = {
 				is_ai = yes
@@ -6184,11 +6120,11 @@ country_event = {
 	location = event_target:spawn_location
 	is_triggered_only = yes
 	# mean_time_to_happen = { years = 1 }
-	trigger = {
-		has_ascension_perk = ap_wheel_fortune
-		NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-		any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
-	}
+	# trigger = {
+	# 	has_ascension_perk = ap_wheel_fortune
+	# 	NOT = { has_country_flag = treasures_on_colony_found_cooldown }
+	# 	any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+	# }
 	immediate = {
 		random_owned_planet = {
 			limit = { NOT = { has_deposit = d_treasures_planet } }
@@ -6637,17 +6573,17 @@ planet_event = {
 #									 #
 ######################################
 
-event = {
-	id = UniqueAscensionPerksEvents.420
-	hide_window = yes
-	is_triggered_only = yes
-	immediate = {
-		random_playable_country = {
-			limit = { has_ascension_perk = ap_executive_vigor NOT = { has_country_flag = ap_executive_vigor_project_available } }
-			country_event = { id = UniqueAscensionPerksEvents.421 }
-		}
-	}
-}
+# event = {
+# 	id = UniqueAscensionPerksEvents.420
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = { has_ascension_perk = ap_executive_vigor NOT = { has_country_flag = ap_executive_vigor_project_available } }
+# 			country_event = { id = UniqueAscensionPerksEvents.421 }
+# 		}
+# 	}
+# }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.421
@@ -6669,11 +6605,7 @@ country_event = {
 	picture = GFX_evt_galactic_senate
 	is_triggered_only = yes
 	trigger = {
-		NAND = {
-			has_modifier = executive_vigor_bonus_1
-			has_modifier = executive_vigor_bonus_2
-			has_modifier = executive_vigor_bonus_3
-		}
+		NAND = { has_modifier = executive_vigor_bonus_1 has_modifier = executive_vigor_bonus_2 has_modifier = executive_vigor_bonus_3 }
 	}
 	option = { name = "UniqueAscensionPerksEvents.422.First"	allow = { NOT = { has_modifier = executive_vigor_bonus_1 } }	add_modifier = { modifier = executive_vigor_bonus_1 } }
 	option = { name = "UniqueAscensionPerksEvents.422.Second"	allow = { NOT = { has_modifier = executive_vigor_bonus_2 } }	add_modifier = { modifier = executive_vigor_bonus_2 } }
@@ -6710,9 +6642,7 @@ country_event = {
 		event_target:global_event_country = { change_variable = { which = white_hole_systems value = 1 } }
 		country_event = { id = UniqueAscensionPerksEvents.432 days = 720 random = 360 }
 	}
-	option = { name = EXCELLENT
-		add_research_option = tech_mine_anti_matter
-	}
+	option = { name = EXCELLENT add_research_option = tech_mine_anti_matter }
 }
 
 ship_event = {
@@ -6755,7 +6685,7 @@ country_event = {
 			set_spawn_system_batch = begin
 			reroll_random = yes
 			random_list = {
-				100	= { spawn_system = { min_distance >= 4 max_distance <= 9  initializer = "white_hole_system_1" hyperlane = no } }
+				100	= { spawn_system = { min_distance >= 4 max_distance <= 9 initializer = "white_hole_system_1" hyperlane = no } }
 				100	= { spawn_system = { min_distance >= 5 max_distance <= 12 initializer = "white_hole_system_2" hyperlane = no } }
 				100	= { spawn_system = { min_distance >= 6 max_distance <= 15 initializer = "white_hole_system_3" hyperlane = no } }
 				40	= { spawn_system = { min_distance >= 7 max_distance <= 18 initializer = "white_hole_system_4" hyperlane = no } }
@@ -7064,18 +6994,9 @@ system_event = {
 		from = {
 			random_list = {
 				40 = {}
-				20 = {
-					modifier = { factor = 0 OR = { has_technology = tech_mine_anti_matter has_tech_option = tech_mine_anti_matter } }
-					add_research_option = tech_mine_anti_matter
-				}
-				10 = {
-					modifier = { factor = 0 OR = { has_technology = tech_mine_dark_matter has_tech_option = tech_mine_dark_matter } }
-					add_research_option = tech_mine_dark_matter
-				}
-				10 = {
-					modifier = { factor = 0 OR = { has_technology = tech_space_cloud_weapon_1 has_tech_option = tech_space_cloud_weapon_1 } }
-					add_research_option = tech_space_cloud_weapon_1
-				}
+				20 = { modifier = { factor = 0 OR = { has_technology = tech_mine_anti_matter has_tech_option = tech_mine_anti_matter } } add_research_option = tech_mine_anti_matter }
+				10 = { modifier = { factor = 0 OR = { has_technology = tech_mine_dark_matter has_tech_option = tech_mine_dark_matter } } add_research_option = tech_mine_dark_matter }
+				10 = { modifier = { factor = 0 OR = { has_technology = tech_space_cloud_weapon_1 has_tech_option = tech_space_cloud_weapon_1 } } add_research_option = tech_space_cloud_weapon_1 }
 			}
 		}
 	}
@@ -7140,22 +7061,22 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.461.Energy"		allow = { NOT = { has_modifier = self_aware_energy } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_energy clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Minerals"		allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_minerals clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Food"			allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_food clear_on_owner_change = yes } }
-	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { owner = { is_gestalt = no has_technology = tech_luxuries_2 }  NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_consumers clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { owner = { is_gestalt = no has_technology = tech_luxuries_2 } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_consumers clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Alloys"		allow = { owner = { has_technology = tech_alloys_2 } NOT = { has_modifier = self_aware_alloys } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_alloys clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Research"		allow = { owner = { has_technology = tech_basic_science_lab_3 } NOT = { has_modifier = self_aware_research } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = research_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_research clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Trade"		allow = { owner = { has_technology = tech_interstellar_economics is_gestalt = no } NOT = { has_modifier = self_aware_trade } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_trade clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Soldiers"		allow = { owner = { has_technology = tech_centralized_command } NOT = { has_modifier = self_aware_army } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_army clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Strategic"	allow = { owner = { has_technology = tech_exotic_gases has_technology = tech_volatile_motes has_technology = tech_rare_crystals } NOT = { has_modifier = self_aware_strategic } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_strategic clear_on_owner_change = yes } }
-	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"		allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_no_focus } }
+	option = { name = "UniqueAscensionPerksEvents.461.NoFocus"		allow = { NOT = { has_modifier = self_aware_no_focus } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = yes } }
 	option = {
 		name = "UniqueAscensionPerksEvents.461.Reset"
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
 		hidden_effect = {
 			# set_variable = { which = num_pops_self_aware_planet value = trigger:num_pops }
-			# reset_self_aware_planet = { POPS = "@[Root.num_pops_self_aware_planet]" } # TODO  Malformed token
+			# reset_self_aware_planet = { POPS = "@[Root.num_pops_self_aware_planet]" } # TODO Malformed token
 			remove_self_aware_planet = yes
-			add_modifier = { modifier = self_aware_colony }
-			add_modifier = { modifier = self_aware_no_focus }
+			add_modifier = { modifier = self_aware_colony clear_on_owner_change = yes }
+			add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = yes }
 			set_planet_flag = self_aware_planet
 			switch = { trigger = num_pops
 				5	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 5 } }
@@ -7202,19 +7123,11 @@ country_event = {
 		has_ascension_perk = ap_self_aware_colony
 		# }
 		has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
-		any_owned_planet = {
-			is_colony = yes
-			colony_age > 12
-			has_modifier = self_aware_colony
-		}
+		any_owned_planet = { is_colony = yes colony_age > 12 has_modifier = self_aware_colony }
 	}
 	immediate = {
 		random_owned_planet = {
-			limit = {
-				is_colony = yes
-				colony_age > 12
-				has_modifier = self_aware_colony
-			}
+			limit = { is_colony = yes colony_age > 12 has_modifier = self_aware_colony }
 			# self_aware_colony_deposit_selection = yes
 			planet_event = { id = UniqueAscensionPerksEvents.465 days = 7 }
 		}
@@ -7231,26 +7144,49 @@ country_event = {
 # 	immediate = { create_pop = { species = owner_main_species } }
 # }
 
-# on_yearly_pulse_country
-country_event = {
+# Removed in v.3.12 now planet event: very bad method to do this
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.464
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	# mean_time_to_happen = { months = 6 }
+# 	trigger = {
+# 		OR = {
+#			any_playable_country = { has_ascension_perk = ap_self_aware_colony }
+#			any_galaxy_planet = { has_owner = yes has_modifier = self_aware_colony }
+#		}
+# 		NOT = {
+# 			# has_global_flag = ap_self_aware_colony
+# 			has_ascension_perk = ap_self_aware_colony
+# 		}
+# 		any_owned_planet = { has_modifier = self_aware_colony }
+# 	}
+# 	immediate = {
+# 		random_owned_planet = {
+# 			limit = { has_modifier = self_aware_colony }
+# 			remove_self_aware_planet = yes
+# 		}
+# 	}
+# }
+# just for safety, maybe superflous
+planet_event = {
 	id = UniqueAscensionPerksEvents.464
 	hide_window = yes
 	is_triggered_only = yes
-	# mean_time_to_happen = { months = 6 }
-	# pre_triggers = { has_owner = yes }
 	trigger = {
-		merg_is_default_empire = yes
-		NOT = {
-			# has_global_flag = ap_self_aware_colony
-			has_ascension_perk = ap_self_aware_colony
+		OR = {
+			NOT = { exists = fromfrom }
+			fromfrom = { has_ascension_perk = ap_self_aware_colony }
 		}
-		any_owned_planet = { has_modifier = self_aware_colony }
+		NOT = { has_global_flag = ap_self_aware_colony }
+		has_modifier = self_aware_colony
+		NAND = {
+			exists = from
+			from = { has_ascension_perk = ap_self_aware_colony }
+		}
 	}
 	immediate = {
-		random_owned_planet = {
-			limit = { has_modifier = self_aware_colony }
-			remove_self_aware_planet = yes
-		}
+		remove_self_aware_planet = yes
 	}
 }
 
@@ -7276,8 +7212,7 @@ planet_event = {
 		owner = { add_resource = { minerals = -200 } }
 		random_list = {
 			990 = {
-				modifier = {
-					factor = 0
+				modifier = { factor = 0
 					is_variable_set = d_aware_administration_building
 					check_variable = { which = d_aware_administration_building value > 0 }
 					switch = { trigger = num_pops
@@ -7333,8 +7268,7 @@ planet_event = {
 				random_list = {
 					5 = { modifier = { factor = 0 NOR = { has_modifier = self_aware_energy has_modifier = self_aware_no_focus } } modifier = { factor = 10 owner = { has_deficit = energy } } add_deposit = d_aware_energy_building }
 					5 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								AND = { merg_is_habitat = yes NOT = { has_planet_flag = mining_habitat } }
 								NOR = { has_modifier = self_aware_minerals has_modifier = self_aware_no_focus }
@@ -7344,8 +7278,7 @@ planet_event = {
 						add_deposit = d_aware_mining_building
 					}
 					5 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								merg_is_habitat = yes
 								NOR = { has_modifier = self_aware_food has_modifier = self_aware_no_focus }
@@ -7356,8 +7289,7 @@ planet_event = {
 						add_deposit = d_aware_farming_building
 					}
 					2 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								merg_is_habitat = yes
 								owner = { is_gestalt = yes }
@@ -7369,8 +7301,7 @@ planet_event = {
 						add_deposit = d_aware_consumer_building
 					}
 					2 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								merg_is_habitat = yes
 								NOR = { has_modifier = self_aware_alloys has_modifier = self_aware_no_focus }
@@ -7381,8 +7312,7 @@ planet_event = {
 						add_deposit = d_aware_foundry_building
 					}
 					2 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								AND = { merg_is_habitat = yes NOT = { has_planet_flag = research_habitat } }
 								NOR = { has_modifier = self_aware_research has_modifier = self_aware_no_focus }
@@ -7392,16 +7322,12 @@ planet_event = {
 						add_deposit = d_aware_research_building
 					}
 					3 = {
-						modifier = {
-							factor = 0
-							NOR = { has_modifier = self_aware_trade has_modifier = self_aware_no_focus }
-						}
+						modifier = { factor = 0 NOR = { has_modifier = self_aware_trade has_modifier = self_aware_no_focus } }
 						# modifier = { factor = 0 owner = { NOT = { has_technology = tech_interstellar_economics } } }
 						add_deposit = d_aware_trade_building
 					}
 					2 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								merg_is_habitat = yes
 								NOR = { has_modifier = self_aware_army has_modifier = self_aware_no_focus }
@@ -7411,8 +7337,7 @@ planet_event = {
 						add_deposit = d_aware_army_building
 					}
 					2 = {
-						modifier = {
-							factor = 0
+						modifier = { factor = 0
 							OR = {
 								merg_is_habitat = yes
 								NOR = { has_modifier = self_aware_strategic has_modifier = self_aware_no_focus }
@@ -7423,8 +7348,7 @@ planet_event = {
 					}
 					6 = {
 						modifier = { factor = 0 NOT = { has_modifier = self_aware_no_focus } }
-						modifier = {
-							add = -2
+						modifier = { add = -2
 							is_variable_set = d_aware_culture_building
 							check_variable = { which = d_aware_culture_building value > 0 }
 							switch = { trigger = num_pops
@@ -7436,8 +7360,7 @@ planet_event = {
 								default = { always = no }
 							}
 						}
-						modifier = {
-							add = -2
+						modifier = { add = -2
 							OR = {
 								owner = { is_hive_empire = yes }
 								owner = { is_regular_empire = yes OR = { has_policy_flag = robots_outlawed NOT = { has_technology = tech_robotic_workers } } }
@@ -7455,8 +7378,7 @@ planet_event = {
 								}
 							}
 						}
-						modifier = {
-							add = -2
+						modifier = { add = -2
 							OR = {
 								owner = { is_machine_empire = yes }
 								AND = {
@@ -7475,8 +7397,7 @@ planet_event = {
 						}
 						random_list = {
 							2 = {
-								modifier = {
-									factor = 0
+								modifier = { factor = 0
 									is_variable_set = d_aware_culture_building
 									check_variable = { which = d_aware_culture_building value > 0 }
 									switch = { trigger = num_pops
@@ -7500,8 +7421,7 @@ planet_event = {
 								add_deposit = d_aware_culture_building
 							}
 							2 = {
-								modifier = {
-									factor = 0
+								modifier = { factor = 0
 									OR = {
 										owner = { is_hive_empire = yes }
 										owner = { is_regular_empire = yes OR = { has_policy_flag = robots_outlawed NOT = { has_technology = tech_robotic_workers } } }
@@ -7531,8 +7451,7 @@ planet_event = {
 								add_deposit = d_aware_assembly_building
 							}
 							2 = {
-								modifier = {
-									factor = 0
+								modifier = { factor = 0
 									OR = {
 										owner = { is_machine_empire = yes }
 										AND = {
@@ -8171,3 +8090,504 @@ ship_event = {
 #	immediate = { get_capital_planet = yes }
 # 	option = { name = LEAVE }
 # }
+
+# on_yearly_pulse and on_yearly_pulse_country action collector
+event = {
+	id = UniqueAscensionPerksEvents.8080
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		# ON_YEARLY_PULSE
+		# UniqueAscensionPerksEvents.51		# ap_recycling_drones
+		random_playable_country = {
+			limit = {
+				has_ascension_perk = ap_recycling_drones
+				has_country_flag = ap_recycling_drones_project
+				OR = {
+					check_variable = { which = ship_corvette_recovered value > 0 }
+					check_variable = { which = ship_frigate_recovered value > 0 }
+					check_variable = { which = ship_destroyer_recovered value > 0 }
+					check_variable = { which = ship_cruiser_recovered value > 0 }
+					check_variable = { which = ship_battleship_recovered value > 0 }
+					check_variable = { which = ship_titan_recovered value > 0 }
+				}
+			}
+			country_event = { id = UniqueAscensionPerksEvents.52 days = 5 }
+		}
+		# UniqueAscensionPerksEvents.123		# aggressive_hivemind_project
+		if = {
+			limit = { any_playable_country = { has_ascension_perk = ap_aggressive_hivemind has_country_flag = aggressive_hivemind_project } }
+			random_playable_country = {
+				limit = {
+					has_ascension_perk = ap_aggressive_hivemind
+					has_country_flag = aggressive_hivemind_project
+					OR = {
+						check_variable = { which = ship_corvette_infested value > 1 }
+						check_variable = { which = ship_destroyer_infested value > 1 }
+						check_variable = { which = ship_cruiser_infested value > 1 }
+						check_variable = { which = ship_battleship_infested value > 1 }
+						check_variable = { which = ship_titan_infested value > 1 }
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.124 }
+			}
+		}
+
+		# UniqueAscensionPerksEvents.126		# ap_connected_hivemind
+		if = {
+			limit = {
+				any_playable_country = {
+					is_hive_empire = yes
+					has_ascension_perk = ap_connected_hivemind
+					any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
+				}
+			}
+			random_playable_country = {
+				limit = {
+					is_hive_empire = yes
+					has_ascension_perk = ap_connected_hivemind
+					any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
+				}
+				every_owned_planet = {
+					limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
+					every_owned_pop = {
+						limit = { is_robot_pop = no NOT = { is_same_species = owner_species } }
+						prev = { create_pop = { species = owner_species } }
+						kill_pop = yes
+					}
+					# while = {
+					# 	limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
+					# 	create_pop = { species = prevprev }
+					# 	random_owned_pop = { limit = { is_robot_pop = no NOT = { is_same_species = owner_species } } kill_pop = yes }
+					# }
+				}
+			}
+		}
+
+		# UniqueAscensionPerksEvents.128		# ap_eternal_vigilance
+		random_playable_country = {
+			limit = { has_ascension_perk = ap_eternal_vigilance NOT = { has_country_flag = ap_eternal_vigilance_project_available } }
+			country_event = { id = UniqueAscensionPerksEvents.129 }
+		}
+
+		# UniqueAscensionPerksEvents.150		# ap_void_expedition_project
+		random_playable_country = {
+			limit = { has_ascension_perk = ap_void_expedition has_country_flag = ap_void_expedition_project }
+			country_event = { id = UniqueAscensionPerksEvents.151 days = 10 random = 10 }
+		}
+		# UniqueAscensionPerksEvents.213		# ap_machine_core
+		random_playable_country = {
+			limit = {
+				has_ascension_perk = ap_machine_core
+				has_country_flag = ap_machine_core_project
+				NOT = { has_country_flag = expedition_discovery_cooldown }
+			}
+			set_timed_country_flag = { flag = expedition_discovery_cooldown years = 3 }
+			# machine_constant_event = yes
+			random_list = {
+				10 = { modifier = { factor = 0 has_country_flag = main_core_energy }	set_timed_country_flag = { flag = main_core_energy years = 5 }		country_event = { id = UniqueAscensionPerksEvents.214 days = 90 random = 60 } }
+				10 = { modifier = { factor = 0 has_country_flag = main_core_minerals }	set_timed_country_flag = { flag = main_core_minerals years = 5 }	country_event = { id = UniqueAscensionPerksEvents.215 days = 90 random = 60 } }
+				10 = { modifier = { factor = 0 has_country_flag = main_core_influence }	set_timed_country_flag = { flag = main_core_influence years = 5 }	country_event = { id = UniqueAscensionPerksEvents.216 days = 90 random = 60 } }
+				10 = { modifier = { factor = 0 has_modifier = main_core_alloys }		country_event = { id = UniqueAscensionPerksEvents.217 days = 90 random = 60 } }
+				10 = { modifier = { factor = 0 has_modifier = main_core_physics }		country_event = { id = UniqueAscensionPerksEvents.218 days = 90 random = 60 } }
+				10 = { modifier = { factor = 0 has_modifier = main_core_society }		country_event = { id = UniqueAscensionPerksEvents.219 days = 90 random = 60 } }
+				10 = { modifier = { factor = 0 has_modifier = main_core_engineering }	country_event = { id = UniqueAscensionPerksEvents.220 days = 90 random = 60 } }
+				20 = { modifier = { factor = 0 has_ascension_perk = ap_ai_cortana }		country_event = { id = UniqueAscensionPerksEvents.221 days = 90 random = 60 } }
+				1 = {}
+			}
+		}
+		# UniqueAscensionPerksEvents.234
+		# UniqueAscensionPerksEvents.269		# ap_civilian_activities
+		if = {
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_civilian_activities
+					any_owned_planet = { is_colonizable = no }
+				}
+			}
+			random_playable_country = {
+				limit = {
+					has_ascension_perk = ap_civilian_activities
+					any_owned_planet = { is_colonizable = no }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.269 days = 16 random = 16 }
+			}
+		}
+		# UniqueAscensionPerksEvents.420		# ap_executive_vigor
+		random_playable_country = {
+			limit = { has_ascension_perk = ap_executive_vigor NOT = { has_country_flag = ap_executive_vigor_project_available } }
+			country_event = { id = UniqueAscensionPerksEvents.421 }
+		}
+		# UniqueAscensionPerksEvents.8068		# ap_megacorp
+		if = {
+			limit = {
+				any_playable_country = {
+					is_gestalt = no
+					has_ascension_perk = ap_megacorp
+					OR = {
+						has_modifier = aggressive_marketing_target
+						any_relation = {
+							merg_is_default_empire = yes
+							NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
+						}
+					}
+				}
+			}
+			random_playable_country = {
+				limit = {
+					is_gestalt = no
+					has_ascension_perk = ap_megacorp
+					OR = {
+						has_modifier = aggressive_marketing_target
+						any_relation = {
+							merg_is_default_empire = yes
+							NOR = { is_gestalt = yes has_ascension_perk = ap_megacorp has_modifier = aggressive_marketing_target }
+						}
+					}
+				}
+				weights = { base = 1 modifier = { add = 1 has_modifier = aggressive_marketing_target } }
+				country_event = { id = UniqueAscensionPerksEvents.8068 days = 16 random = 16 }
+			}
+		}
+		# on_half_yearly_pulse simulation
+		event_target:global_event_country = {
+			country_event = { id = UniqueAscensionPerksEvents.8888 days = 8 random = 16 }
+			country_event = { id = UniqueAscensionPerksEvents.8888 days = 188 random = 16 }
+		}
+
+		## ON_YEARLY_PULSE_COUNTRY
+		# UniqueAscensionPerksEvents.235		# ap_defense_sentinels
+		if = {
+			limit = { any_playable_country = { has_ascension_perk = ap_defense_sentinels } }
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_defense_sentinels
+					has_technology = tech_defense_sentinels_2
+					NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.235 }
+			}
+			# UniqueAscensionPerksEvents.238		# ap_defense_sentinels
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_defense_sentinels
+					any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.238 }
+			}
+		}
+		# UniqueAscensionPerksEvents.351		# ap_wheel_fortune
+		if = {
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_wheel_fortune
+					NOT = { has_country_flag = treasures_on_colony_found_cooldown }
+					any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_wheel_fortune
+					NOT = { has_country_flag = treasures_on_colony_found_cooldown }
+					any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.351 }
+			}
+		}
+		# UniqueAscensionPerksEvents.3061		# ap_friendly_nature
+		if = {
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_friendly_nature
+					any_owned_planet = {
+						NOT = { has_planet_flag = friendly_nature_discovery }
+						can_find_rare_deposits = yes
+					}
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_friendly_nature
+					# NOT = { has_country_flag = friendly_nature_discovery_cooldown }
+					any_owned_planet = {
+						NOT = { has_planet_flag = friendly_nature_discovery }
+						can_find_rare_deposits = yes
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.3061 }
+			}
+		}
+		# UniqueAscensionPerksEvents.3063		# ap_robot_command
+		if = {
+			limit = { any_playable_country = { has_ascension_perk = ap_robot_command } }
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_robot_command
+					# any_owned_planet = { has_building = building_unit_assembler }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.3063 }
+			}
+		}
+		# UniqueAscensionPerksEvents.4088		# ap_advanced_government_1
+		if = {
+			limit = { any_playable_country = { has_ascension_perk = ap_advanced_government_1 } }
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_advanced_government_1
+					any_owned_pop = { exists = planet pop_has_right_ethics = no }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.4088 }
+			}
+		}
+		# UniqueAscensionPerksEvents.8000		# ap_expansion_infinity
+		every_playable_country = {
+			limit = {
+				has_ascension_perk = ap_expansion_infinity
+				any_owned_planet = {
+					NOT = { has_planet_flag = ap_expansion_infinity_collection }
+					colony_age > 2
+					num_pops > 10
+					count_owned_pop = { count > 10 limit = { has_job = yes } }
+				}
+			}
+			country_event = { id = UniqueAscensionPerksEvents.8000 }
+		}
+
+		# UniqueAscensionPerksEvents.8061		# ap_advanced_security
+		# every_country = {
+		# 	limit = {
+		# 		is_country_type = security_forces
+		# 		any_owned_fleet = { has_fleet_flag = security_escort_fleet is_fleet_idle = yes }
+		# 	}
+		# 	random_owned_fleet = { limit = { has_fleet_flag = security_escort_fleet is_fleet_idle = yes } destroy_fleet = this }
+		# }
+	}
+}
+
+
+# Simulated on_half_yearly_pulse
+country_event = {
+	id = UniqueAscensionPerksEvents.8888
+	hide_window = yes
+	# mean_time_to_happen = { months = 6 }
+	is_triggered_only = yes
+	immediate = {
+		# UniqueAscensionPerksEvents.58
+		if = {
+			limit = { any_playable_country = { has_ascension_perk = ap_advanced_security } }
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_advanced_security
+					any_owned_planet = {
+						is_colony = yes
+						num_sapient_pops > 12
+						OR = {
+							planet_crime > 75
+							has_modifier = has_criminal_branch_office
+							has_modifier = criminal_underworld
+							has_modifier = drone_deviancy
+							has_modifier = drone_corruption
+						}
+						NOR = {
+							has_planet_flag = recent_security_preventive_strike
+							has_planet_flag = recent_security_preventive_strike_energy_small
+							has_planet_flag = recent_security_preventive_strike_energy_medium
+							has_planet_flag = recent_security_preventive_strike_energy_big
+							has_planet_flag = recent_security_preventive_strike_energy_huge
+							has_planet_flag = recent_security_preventive_strike_energy_minerals
+							has_planet_flag = recent_security_preventive_strike_energy_consumers
+							has_planet_flag = recent_security_preventive_strike_energy_members
+							has_planet_flag = recent_security_preventive_strike_energy_leaders
+							has_planet_flag = recent_security_preventive_strike_energy_weapons
+							has_planet_flag = recent_security_preventive_strike_energy_ships
+						}
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.58 random = 8 }
+			}
+		}
+		# UniqueAscensionPerksEvents.132		# ap_eternal_vigilance_project
+		if = {
+			limit = {
+				host_has_dlc = "Apocalypse"
+				any_playable_country = {
+					has_ascension_perk = ap_eternal_vigilance
+					has_country_flag = ap_eternal_vigilance_project
+					has_technology = tech_titans
+					any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_eternal_vigilance
+					has_country_flag = ap_eternal_vigilance_project
+					has_technology = tech_titans
+					any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.132 random = 8 }
+			}
+		}
+		# UniqueAscensionPerksEvents.237		# ap_defense_sentinels
+		if = {
+			limit = {
+				any_playable_country = {
+					# is_default_or_fallen = yes
+					has_ascension_perk = ap_defense_sentinels
+					has_country_flag = ap_defense_sentinels_retriever_project
+					any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
+					any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_defense_sentinels
+					has_country_flag = ap_defense_sentinels_retriever_project
+					any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
+					any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.237 random = 8 }
+			}
+		}
+		# UniqueAscensionPerksEvents.451		# ap_artifact_hunter
+		if = {
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_artifact_hunter
+					NOT = { has_country_flag = ap_artifact_hunter_cooldown }
+				}
+			}
+			random_playable_country = {
+				limit = {
+					merg_is_default_empire = yes
+					has_ascension_perk = ap_artifact_hunter
+					NOT = { has_country_flag = ap_artifact_hunter_cooldown }
+					any_owned_planet = {
+						has_active_building = building_deep_space_scanner
+						num_buildings = { type = building_deep_space_scanner value > 0 disabled = no }
+						OR = {
+							root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes } }
+							AND = {
+								num_buildings = { type = building_deep_space_scanner value > 1 }
+								OR = {
+									root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes } }
+									AND = {
+										num_buildings = { type = building_deep_space_scanner value > 2 }
+										OR = {
+											root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes } }
+											AND = {
+												num_buildings = { type = building_deep_space_scanner value > 3 }
+												OR = {
+													root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes } }
+													AND = {
+														num_buildings = { type = building_deep_space_scanner value > 4 }
+														OR = {
+															root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes } }
+															AND = {
+																num_buildings = { type = building_deep_space_scanner value > 5 }
+																OR = {
+																	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes } }
+																	AND = {
+																		num_buildings = { type = building_deep_space_scanner value > 6 }
+																		root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes } }
+																	}
+																}
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.451 days = 30 random = 60 }
+			}
+		}
+		# UniqueAscensionPerksEvents.8082		# ap_stability_celebration
+		if = {
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_stability_celebration
+					NOT = { has_country_flag = stability_celebration_message }
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_stability_celebration
+					NOT = { has_country_flag = stability_celebration_message }
+					any_owned_planet = {
+						NOR = { has_modifier = stability_celebration has_modifier = stability_celebration_gestalt }
+						planet_stability > 55
+						planet_crime < 20
+						free_housing > 0
+						free_jobs > 0
+						free_amenities > 0
+						num_pops > 20
+						OR = {
+							AND = {
+								root = {
+									OR = { has_policy_flag = ai_full_rights is_synthetic_empire = yes }
+								}
+								count_owned_pop = {
+									count > 20
+									limit = {
+										is_enslaved = no
+										is_being_purged = no
+										is_being_assimilated = no
+										is_unemployed = no
+										is_robot_pop = yes
+									}
+								}
+							}
+							count_owned_pop = {
+								count > 20
+								limit = {
+									is_enslaved = no
+									is_being_purged = no
+									is_being_assimilated = no
+									is_unemployed = no
+									is_robot_pop = no
+								}
+							}
+						}
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.8082 random = 8 }
+			}
+		}
+		# UniqueAscensionPerksEvents.8787		# Special Subject - Sync relations
+		if = {
+			limit = {
+				any_country = {
+					is_subject = no
+					is_unique_perk_special_subject = yes
+					OR = {
+						has_country_flag = domesticated_spaceborn_alien
+						has_country_flag = security_strike_force
+						has_country_flag = defense_sentinels
+						has_country_flag = civilian_activities_country
+					}
+				}
+			}
+			every_country = {
+				limit = {
+					is_subject = no
+					is_unique_perk_special_subject = yes
+					OR = {
+						has_country_flag = domesticated_spaceborn_alien
+						has_country_flag = security_strike_force
+						has_country_flag = defense_sentinels
+						has_country_flag = civilian_activities_country
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.8787 random = 8 }
+			}
+		}
+
+		# UniqueAscensionPerksEvents.8789		# Remove Special Subject countries
+		country_event = { id = UniqueAscensionPerksEvents.8789 }
+	}
+}

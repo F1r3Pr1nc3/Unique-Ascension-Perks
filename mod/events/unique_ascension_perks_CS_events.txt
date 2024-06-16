@@ -449,6 +449,7 @@ country_event = {
 	# mean_time_to_happen = { days = 15 }
 	trigger = {
 		# is_ai = no
+		merg_is_default_empire = yes
 		has_ascension_perk = ap_civilian_activities
 		OR = {
 			any_relation = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
@@ -495,7 +496,7 @@ country_event = {
 			}
 		}
 		if = { limit = { NOT = { has_country_flag = ap_civilian_activities_cargo } }
-			every_owned_planet  = {
+			every_owned_planet = {
 				limit = {
 					is_colonizable = no
 					OR = {
@@ -615,62 +616,59 @@ planet_event = {
 	}
 }
 
-# Remove civilian_cargo districts after time.
-# v3.3 now global event (on_yearly_pulse)
-event = {
+# Remove civilian_cargo districts after time (on_yearly_pulse)
+# v.3.3 now global event
+# v.3.12 now country event again
+country_event = {
 	id = UniqueAscensionPerksEvents.269
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
-		any_playable_country = { has_ascension_perk = ap_civilian_activities }
+		#  has_ascension_perk = ap_civilian_activities
+		any_owned_planet = {
+			is_colonizable = no
+			OR = {
+				has_deposit = d_civilian_cargo_capital_world
+				has_deposit = d_civilian_cargo_gene_world
+				has_deposit = d_civilian_cargo_mining_world
+				has_deposit = d_civilian_cargo_agri_world
+				has_deposit = d_civilian_cargo_indus_world
+				has_deposit = d_civilian_cargo_forge_world
+				has_deposit = d_civilian_cargo_tech_world
+				has_deposit = d_civilian_cargo_refinery_world
+				has_deposit = d_civilian_cargo_trade_world
+				has_deposit = d_civilian_cargo_urban_world
+				has_deposit = d_civilian_cargo_nest_world
+				has_deposit = d_civilian_cargo_nexus_world
+				has_deposit = d_civilian_cargo_rural_world
+				has_deposit = d_civilian_cargo_colony_world
+				has_deposit = d_civilian_cargo_fortress_world
+			}
+		}
 	}
 	immediate =	{
-		random_playable_country = {
+		every_owned_planet = {
 			limit = {
-				any_owned_planet = {
-					is_colonizable = no
-					OR = {
-						has_deposit = d_civilian_cargo_capital_world
-						has_deposit = d_civilian_cargo_gene_world
-						has_deposit = d_civilian_cargo_mining_world
-						has_deposit = d_civilian_cargo_agri_world
-						has_deposit = d_civilian_cargo_indus_world
-						has_deposit = d_civilian_cargo_forge_world
-						has_deposit = d_civilian_cargo_tech_world
-						has_deposit = d_civilian_cargo_refinery_world
-						has_deposit = d_civilian_cargo_trade_world
-						has_deposit = d_civilian_cargo_urban_world
-						has_deposit = d_civilian_cargo_nest_world
-						has_deposit = d_civilian_cargo_nexus_world
-						has_deposit = d_civilian_cargo_rural_world
-						has_deposit = d_civilian_cargo_colony_world
-						has_deposit = d_civilian_cargo_fortress_world
-					}
+				is_colonizable = no
+				OR = {
+					has_deposit = d_civilian_cargo_capital_world
+					has_deposit = d_civilian_cargo_gene_world
+					has_deposit = d_civilian_cargo_mining_world
+					has_deposit = d_civilian_cargo_agri_world
+					has_deposit = d_civilian_cargo_indus_world
+					has_deposit = d_civilian_cargo_forge_world
+					has_deposit = d_civilian_cargo_tech_world
+					has_deposit = d_civilian_cargo_refinery_world
+					has_deposit = d_civilian_cargo_trade_world
+					has_deposit = d_civilian_cargo_urban_world
+					has_deposit = d_civilian_cargo_nest_world
+					has_deposit = d_civilian_cargo_nexus_world
+					has_deposit = d_civilian_cargo_rural_world
+					has_deposit = d_civilian_cargo_colony_world
+					has_deposit = d_civilian_cargo_fortress_world
 				}
 			}
-			every_owned_planet  = {
-				limit = {
-					is_colonizable = no
-					OR = {
-						has_deposit = d_civilian_cargo_capital_world
-						has_deposit = d_civilian_cargo_gene_world
-						has_deposit = d_civilian_cargo_mining_world
-						has_deposit = d_civilian_cargo_agri_world
-						has_deposit = d_civilian_cargo_indus_world
-						has_deposit = d_civilian_cargo_forge_world
-						has_deposit = d_civilian_cargo_tech_world
-						has_deposit = d_civilian_cargo_refinery_world
-						has_deposit = d_civilian_cargo_trade_world
-						has_deposit = d_civilian_cargo_urban_world
-						has_deposit = d_civilian_cargo_nest_world
-						has_deposit = d_civilian_cargo_nexus_world
-						has_deposit = d_civilian_cargo_rural_world
-						has_deposit = d_civilian_cargo_colony_world
-						has_deposit = d_civilian_cargo_fortress_world
-					}
-				}
-				planet_event = { id = UniqueAscensionPerksEvents.265 days = 5 random = 5 }
-			}
+			planet_event = { id = UniqueAscensionPerksEvents.265 days = 5 random = 5 }
 		}
 	}
 }

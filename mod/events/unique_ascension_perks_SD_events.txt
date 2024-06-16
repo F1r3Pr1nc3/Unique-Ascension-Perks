@@ -11,11 +11,7 @@ country_event = {
 	show_sound = event_mystic_reveal
 	title = "UniqueAscensionPerksEvents.1000.Name"
 	desc = {
-		trigger = {
-			text = "ap_space_domestication_desc"
-			text = newline
-			text = "UniqueAscensionPerksEvents.1001.Desc"
-		}
+		trigger = { text = "ap_space_domestication_desc" text = newline text = "UniqueAscensionPerksEvents.1001.Desc" }
 	}
 	diplomatic = yes
 	force_open = yes
@@ -441,9 +437,7 @@ event = {
 		random_playable_country = {
 			limit = { has_ascension_perk = ap_space_domestication }
 			if = {
-				limit = {
-					any_relation = { has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
-				}
+				limit = { any_relation = { has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } } }
 				# Control domesticated_spaceborn_alien
 				random_relation = {
 					limit = { has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
@@ -472,10 +466,7 @@ event = {
 			}
 			else_if = {
 				limit = {
-					OR = {
-						has_country_flag = space_domestication_military_protocol
-						has_country_flag = space_domestication_security_protocol
-					}
+					OR = { has_country_flag = space_domestication_military_protocol has_country_flag = space_domestication_security_protocol }
 					any_relation = {
 						has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
 						count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
@@ -584,15 +575,19 @@ event = {
 	}
 }
 
-# on_space_battle
+# on_space_battle (on_entering_battle, on_space_battle_won, on_space_battle_lost)
 country_event = {
 	id = UniqueAscensionPerksEvents.1021
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			fromfrom = { has_fleet_flag = domesticated_fleet }
-			fromfromfrom = { has_fleet_flag = domesticated_fleet }
+			is_country_type = domesticated_spaceborn_alien
+			from = { is_country_type = domesticated_spaceborn_alien }
+		}
+		OR = {
+			fromfrom = { has_fleet_flag = domesticated_fleet has_auto_move_target = yes }
+			fromfromfrom = { has_fleet_flag = domesticated_fleet has_auto_move_target = yes }
 		}
 	}
 	immediate = {
@@ -658,14 +653,9 @@ country_event = {
 	id = UniqueAscensionPerksEvents.1025
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_country_type = domesticated_spaceborn_alien
-		has_country_flag = domesticated_spaceborn_alien_cloud
-		exists = fromfrom
-	}
+	trigger = { is_country_type = domesticated_spaceborn_alien has_country_flag = domesticated_spaceborn_alien_cloud exists = fromfrom }
 	immediate = {
-		random = {
-			chance = 35
+		random = { chance = 35
 			# save_event_target_as = main_country
 			# from = { save_event_target_as = notify_country }
 			fromfrom = {
@@ -716,6 +706,7 @@ country_event = {
 	# mean_time_to_happen = { days = 14 }
 	trigger = {
 		# is_ai = no
+		merg_is_default_empire = yes
 		has_ascension_perk = ap_space_domestication
 		any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 	}
@@ -732,10 +723,7 @@ country_event = {
 			every_owned_fleet = { # Select Mother & Military Fleets
 				limit = {
 					has_fleet_flag = domesticated_fleet
-					OR = {
-						has_fleet_flag = domesticated_mother_fleet
-						has_fleet_flag = domesticated_military_fleet
-					}
+					OR = { has_fleet_flag = domesticated_mother_fleet has_fleet_flag = domesticated_military_fleet }
 					is_fleet_idle = yes
 				}
 				remove_fleet_flag = domesticated_mother_fleet_moving
@@ -756,15 +744,9 @@ country_event = {
 								root = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
 							}
 						}
+						AND = { has_fleet_flag = domesticated_security_fleet_defending is_fleet_idle = yes }
 						AND = {
-							has_fleet_flag = domesticated_security_fleet_defending
-							is_fleet_idle = yes
-						}
-						AND = {
-							NOR = {
-								has_fleet_flag = domesticated_security_fleet_patroling
-								has_fleet_flag = domesticated_security_fleet_defending
-							}
+							NOR = { has_fleet_flag = domesticated_security_fleet_patroling has_fleet_flag = domesticated_security_fleet_defending }
 							is_fleet_idle = yes
 						}
 					}
@@ -948,11 +930,7 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	desc = {
-		trigger = {
-			text = "ap_leviathan_master_desc"
-			text = newline
-			text = "UniqueAscensionPerksEvents.1051.Desc"
-		}
+		trigger = { text = "ap_leviathan_master_desc" text = newline text = "UniqueAscensionPerksEvents.1051.Desc" }
 	}
 	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT
@@ -968,11 +946,7 @@ country_event = {
 	force_open = yes
 	picture_event_data = { room = leviathan_master_room }
 	desc = {
-		trigger = {
-			text = "UniqueAscensionPerksEvents.1052.Talk.1"
-			text = newline
-			text = "UniqueAscensionPerksEvents.1052.Talk.2"
-		}
+		trigger = { text = "UniqueAscensionPerksEvents.1052.Talk.1" text = newline text = "UniqueAscensionPerksEvents.1052.Talk.2" }
 	}
 	is_triggered_only = yes
 	trigger = {

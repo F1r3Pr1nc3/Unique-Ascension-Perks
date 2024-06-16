@@ -231,7 +231,7 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-# TODO: opt
+# TODO: opt (on_half_yearly_pulse)
 country_event = {
 	id = UniqueAscensionPerksEvents.451
 	title = "UniqueAscensionPerksEvents.451.Name"
@@ -241,65 +241,66 @@ country_event = {
 	diplomatic = yes
 	force_open = yes
 	picture_event_data = { room = artifact_hunter_room }
-	mean_time_to_happen = { months = 8 }
-	# pre_triggers = { has_owner = yes }
-	trigger = {
-		has_ascension_perk = ap_artifact_hunter
-		NOT = { has_country_flag = ap_artifact_hunter_cooldown }
-		any_owned_planet = {
-			has_active_building = building_deep_space_scanner
-			num_buildings = { type = building_deep_space_scanner value > 0 disabled = no }
-			OR = {
-				root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes } }
-				AND = {
-					num_buildings = { type = building_deep_space_scanner value > 1 }
-					OR = {
-						root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes } }
-						AND = {
-							num_buildings = { type = building_deep_space_scanner value > 2 }
-							OR = {
-								root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes } }
-								AND = {
-									num_buildings = { type = building_deep_space_scanner value > 3 }
-									OR = {
-										root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes } }
-										AND = {
-											num_buildings = { type = building_deep_space_scanner value > 4 }
-											OR = {
-												root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes } }
-												AND = {
-													num_buildings = { type = building_deep_space_scanner value > 5 }
-													OR = {
-														root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes } }
-														AND = {
-															num_buildings = { type = building_deep_space_scanner value > 6 }
-															root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes } }
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						}
-					}
-				}
-				# AND = {
-				# 	num_buildings = { type = building_deep_space_scanner value = 8 }
-				# 	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes } }
-				# }
-				# AND = {
-				# 	num_buildings = { type = building_deep_space_scanner value = 9 }
-				# 	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes } }
-				# }
-				# AND = {
-				# 	num_buildings = { type = building_deep_space_scanner value = 10 }
-				# 	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes } }
-				# }
-			}
-		}
-	}
+	# mean_time_to_happen = { months = 8 }
+	is_triggered_only = yes
+	# trigger = {
+	# 	merg_is_default_empire = yes
+	# 	has_ascension_perk = ap_artifact_hunter
+	# 	NOT = { has_country_flag = ap_artifact_hunter_cooldown }
+	# 	any_owned_planet = {
+	# 		has_active_building = building_deep_space_scanner
+	# 		num_buildings = { type = building_deep_space_scanner value > 0 disabled = no }
+	# 		OR = {
+	# 			root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 2 } can_spawn_archaeological_site = yes } }
+	# 			AND = {
+	# 				num_buildings = { type = building_deep_space_scanner value > 1 }
+	# 				OR = {
+	# 					root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 4 } can_spawn_archaeological_site = yes } }
+	# 					AND = {
+	# 						num_buildings = { type = building_deep_space_scanner value > 2 }
+	# 						OR = {
+	# 							root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 6 } can_spawn_archaeological_site = yes } }
+	# 							AND = {
+	# 								num_buildings = { type = building_deep_space_scanner value > 3 }
+	# 								OR = {
+	# 									root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 8 } can_spawn_archaeological_site = yes } }
+	# 									AND = {
+	# 										num_buildings = { type = building_deep_space_scanner value > 4 }
+	# 										OR = {
+	# 											root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 10 } can_spawn_archaeological_site = yes } }
+	# 											AND = {
+	# 												num_buildings = { type = building_deep_space_scanner value > 5 }
+	# 												OR = {
+	# 													root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 12 } can_spawn_archaeological_site = yes } }
+	# 													AND = {
+	# 														num_buildings = { type = building_deep_space_scanner value > 6 }
+	# 														root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 14 } can_spawn_archaeological_site = yes } }
+	# 													}
+	# 												}
+	# 											}
+	# 										}
+	# 									}
+	# 								}
+	# 							}
+	# 						}
+	# 					}
+	# 				}
+	# 			}
+	# 			# AND = {
+	# 			# 	num_buildings = { type = building_deep_space_scanner value = 8 }
+	# 			# 	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 16 } can_spawn_archaeological_site = yes } }
+	# 			# }
+	# 			# AND = {
+	# 			# 	num_buildings = { type = building_deep_space_scanner value = 9 }
+	# 			# 	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 18 } can_spawn_archaeological_site = yes } }
+	# 			# }
+	# 			# AND = {
+	# 			# 	num_buildings = { type = building_deep_space_scanner value = 10 }
+	# 			# 	root = { any_planet_within_border = { distance = { source = prevprev use_bypasses = no min_jumps = 1 max_jumps = 20 } can_spawn_archaeological_site = yes } }
+	# 			# }
+	# 		}
+	# 	}
+	# }
 	immediate = {
 		set_timed_country_flag = { flag = ap_artifact_hunter_cooldown years = 2 }
 		random_owned_planet = {

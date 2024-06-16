@@ -76,39 +76,25 @@ utopia_site = {
 		planet_possible = {
 			custom_tooltip = {
 				fail_text = "requires_no_existing_megastructure"
-				# has_any_megastructure = no
 				solar_system = { has_no_non_gate_megastructure = yes }
-				NOR = {
-					has_planet_flag = megastructure
-					has_planet_flag = has_megastructure
-				}
+				can_build_megastructure_on_planet = yes
 			}
 			custom_tooltip = {
 				fail_text = "requires_survey_not_habitable"
-				is_surveyed = {			# Prevent leaking habitability information
-					who = prev.from
-					status = yes
-				}
+				is_surveyed = { who = prev.from status = yes } # # Prevent leaking habitability information
 				colonizable_planet = no
 			}
 			custom_tooltip = { fail_text = "requires_no_anomaly" has_anomaly = no }
  			# Balance for think tanks
 			custom_tooltip = {
 				fail_text = "requires_not_minor_planetary_body"
-				NOR = {
-					is_asteroid = yes
-					is_moon = yes
-				}
+				is_asteroid = no
+				is_moon = no
 			}
-			custom_tooltip = { fail_text = "requires_not_star" is_star = no }
+			custom_tooltip = { fail_text = "requires_not_star" is_star = no } # Use these for all non-star megastructures
+			custom_tooltip = { fail_text = "requires_not_astral_scar" is_astral_scar = no }
 			custom_tooltip = { fail_text = "requires_not_ring_world" has_ringworld_output_boost = no }
-			# if = { limit = { from = { is_ai = yes } }
-			# 	OR = {
-			# 		has_deposit_for = shipclass_mining_station
-	 		# 		has_deposit_for = shipclass_research_station
-			# 	}
-			# }
-		} # Use these for all non-star megastructures
+		}
 	}
 
 	# root = system

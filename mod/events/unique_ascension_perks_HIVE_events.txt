@@ -782,32 +782,32 @@ country_event = {
 }
 
 # on_yearly_pulse
-event = {
-	id = UniqueAscensionPerksEvents.123
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		any_playable_country = { has_ascension_perk = ap_aggressive_hivemind has_country_flag = aggressive_hivemind_project }
-	}
-	immediate = {
-		random_playable_country = {
-			limit = {
-				has_ascension_perk = ap_aggressive_hivemind
-				has_country_flag = aggressive_hivemind_project
-				OR = {
-					check_variable = { which = ship_corvette_infested value > 1 }
-					check_variable = { which = ship_destroyer_infested value > 1 }
-					check_variable = { which = ship_cruiser_infested value > 1 }
-					check_variable = { which = ship_battleship_infested value > 1 }
-					check_variable = { which = ship_titan_infested value > 1 }
-				}
-			}
-			country_event = { id = UniqueAscensionPerksEvents.124 }
-		}
-	}
-}
+# event = {
+# 	id = UniqueAscensionPerksEvents.123
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		any_playable_country = { has_ascension_perk = ap_aggressive_hivemind has_country_flag = aggressive_hivemind_project }
+# 	}
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = {
+# 				has_ascension_perk = ap_aggressive_hivemind
+# 				has_country_flag = aggressive_hivemind_project
+# 				OR = {
+# 					check_variable = { which = ship_corvette_infested value > 1 }
+# 					check_variable = { which = ship_destroyer_infested value > 1 }
+# 					check_variable = { which = ship_cruiser_infested value > 1 }
+# 					check_variable = { which = ship_battleship_infested value > 1 }
+# 					check_variable = { which = ship_titan_infested value > 1 }
+# 				}
+# 			}
+# 			country_event = { id = UniqueAscensionPerksEvents.124 }
+# 		}
+# 	}
+# }
 
-# on_yearly_pulse
+# on_yearly_pulse_country
 country_event = {
 	id = UniqueAscensionPerksEvents.124
 	title = "UniqueAscensionPerksEvents.124.Name"
@@ -816,6 +816,9 @@ country_event = {
 	picture = GFX_evt_aggressive_hivemind
 	location = event_target:recovery_fleet_position
 	is_triggered_only = yes
+	trigger = {
+		is_default_or_fallen = yes
+	}
 	immediate = {
 		# perform_aggressive_hivemind_infested_fleet = yes
 		random_system_within_border = {
@@ -947,40 +950,40 @@ country_event = {
 }
 
 # Convert all pops on_yearly_pulse
-event = {
-	id = UniqueAscensionPerksEvents.126
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		any_playable_country = {
-			is_hive_empire = yes
-			has_ascension_perk = ap_connected_hivemind
-			any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
-		}
-	}
-	immediate = {
-		random_playable_country = {
-			limit = {
-				is_hive_empire = yes
-				has_ascension_perk = ap_connected_hivemind
-				any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
-			}
-			every_owned_planet = {
-				limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
-				every_owned_pop = {
-					limit = { is_robot_pop = no NOT = { is_same_species = owner_species } }
-					prev = { create_pop = { species = owner_species } }
-					kill_pop = yes
-				}
-				# while = {
-				# 	limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
-				# 	create_pop = { species = prevprev }
-				# 	random_owned_pop = { limit = { is_robot_pop = no NOT = { is_same_species = owner_species } } kill_pop = yes }
-				# }
-			}
-		}
-	}
-}
+# event = {
+# 	id = UniqueAscensionPerksEvents.126
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	trigger = {
+# 		any_playable_country = {
+# 			is_hive_empire = yes
+# 			has_ascension_perk = ap_connected_hivemind
+# 			any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
+# 		}
+# 	}
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = {
+# 				is_hive_empire = yes
+# 				has_ascension_perk = ap_connected_hivemind
+# 				any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } }
+# 			}
+# 			every_owned_planet = {
+# 				limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
+# 				every_owned_pop = {
+# 					limit = { is_robot_pop = no NOT = { is_same_species = owner_species } }
+# 					prev = { create_pop = { species = owner_species } }
+# 					kill_pop = yes
+# 				}
+# 				# while = {
+# 				# 	limit = { any_owned_pop = { is_robot_pop = no NOT = { is_same_species = owner_species } } }
+# 				# 	create_pop = { species = prevprev }
+# 				# 	random_owned_pop = { limit = { is_robot_pop = no NOT = { is_same_species = owner_species } } kill_pop = yes }
+# 				# }
+# 			}
+# 		}
+# 	}
+# }
 
 ######################################
 #									 #
@@ -1098,7 +1101,10 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = owner
-		owner = { is_hive_empire = yes has_ascension_perk = ap_hivemind_reserve }
+		owner = {
+			is_hive_empire = yes
+			has_ascension_perk = ap_hivemind_reserve
+		}
 		has_deposit = d_hivemind_reserve
 	}
 	immediate = {

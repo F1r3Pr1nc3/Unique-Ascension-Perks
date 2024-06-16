@@ -103,8 +103,16 @@ ap_void_expedition = {
 		custom_tooltip = { fail_text = "ap_void_expedition_req_2" tradition_discovery_finish = yes }
 		custom_tooltip = { fail_text = "ap_void_expedition_req_3" has_technology = tech_automated_exploration }
 		custom_tooltip = { fail_text = "ap_void_expedition_req_4" has_technology = tech_cryostasis_2 }
-		custom_tooltip = { fail_text = "ap_void_expedition_req_5" has_technology = tech_combat_computers_3 }
+		# custom_tooltip = { fail_text = "ap_void_expedition_req_5" has_technology = tech_combat_computers_3 }
 		custom_tooltip = { fail_text = "ap_void_expedition_req_6" has_technology = tech_space_science_5 }
+		custom_tooltip = {
+			fail_text = "ap_emergency_calculation_req_4"
+			OR = {
+				has_technology = tech_combat_computers_3
+				has_technology = tech_combat_computers_autonomous
+				has_technology = tech_precognition_interface
+			}
+		}
 		has_distar = yes
 	}
 	modifier = { science_ship_survey_speed = 0.5 }
@@ -233,6 +241,14 @@ ap_ai_cortana = {
 ap_nano_drones = {
 	possible = {
 		# custom_tooltip = { fail_text = "ap_nano_drones_req_1" has_technology = tech_auto_drone }
+		custom_tooltip = {
+			fail_text = "ap_emergency_calculation_req_4"
+			OR = {
+				has_technology = tech_combat_computers_3
+				has_technology = tech_combat_computers_autonomous
+				has_technology = tech_precognition_interface
+			}
+		}
 	}
 	modifier = { planet_max_buildings_add = 3 }
 	on_enabled = {
@@ -1160,8 +1176,8 @@ ap_hivemind_reserve = {
 		}
 	}
 	potential = {
-		NOT = { has_ascension_perk = ap_hivemind_reserve }
 		is_hive_empire = yes
+		NOT = { has_ascension_perk = ap_hivemind_reserve }
 		OR = {
 			is_ai = no
 			event_target:global_event_country = {
@@ -1612,9 +1628,17 @@ ap_deep_scanner = {
 ap_artifact_hunter = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_1" has_ascension_perk = ap_deep_scanner }
-		custom_tooltip = { fail_text = "ap_artifact_hunter_req_2" has_technology = tech_combat_computers_3 }
+		# custom_tooltip = { fail_text = "ap_artifact_hunter_req_2" has_technology = tech_combat_computers_3 }
 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_3" has_technology = tech_sensors_3 }
 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_4" has_technology = tech_combat_computers_2 }
+		custom_tooltip = {
+			fail_text = "ap_emergency_calculation_req_4"
+			OR = {
+				has_technology = tech_combat_computers_3
+				has_technology = tech_combat_computers_autonomous
+				has_technology = tech_precognition_interface
+			}
+		}
 		has_ancrel = yes
 	}
 	modifier = {
@@ -1634,6 +1658,7 @@ ap_artifact_hunter = {
 		custom_tooltip = "ap_artifact_hunter_tooltip"
 	}
 	potential = {
+		merg_is_default_empire = yes
 		NOT = { has_ascension_perk = ap_artifact_hunter }
 		OR = {
 			is_ai = no
@@ -1682,7 +1707,7 @@ ap_flourishing_technocracy = {
 	possible = {
 		# custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_2" has_technology = tech_basic_science_lab_3 }
-		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_3" has_technology = tech_combat_computers_3 }
+		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_3" OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_4" has_technology = tech_colonization_4 }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_5" has_technology = tech_advanced_metallurgy_2 }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_1" OR = { tradition_discovery_finish = yes has_civic = civic_technocracy } }
