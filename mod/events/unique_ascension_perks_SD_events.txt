@@ -591,17 +591,12 @@ country_event = {
 		}
 	}
 	immediate = {
-		fromfrom = {
-			if = {
-				limit = { has_fleet_flag = domesticated_fleet }
-				remove_auto_move_target = yes
-			}
+		if = {
+			limit = { is_country_type = domesticated_spaceborn_alien fromfrom = { has_fleet_flag = domesticated_fleet } }
+			fromfrom = { remove_auto_move_target = yes }
 		}
-		fromfromfrom = {
-			if = {
-				limit = { has_fleet_flag = domesticated_fleet }
-				remove_auto_move_target = yes
-			}
+		else = {
+			fromfromfrom = { remove_auto_move_target = yes }
 		}
 	}
 }
