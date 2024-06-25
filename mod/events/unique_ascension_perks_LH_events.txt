@@ -132,7 +132,7 @@ system_event = {
 		if = {
 			limit = { is_variable_set = basic_distance }
 			if = {
-				limit = { NOT = { any_neighbor_system = { } } is_variable_set = basic_distance }
+				limit = { count_neighbor_system = { limit = { } count = 0 } is_variable_set = basic_distance }
 				random_neighbor_system_euclidean = {
 					limit = {
 						NOT = { has_hyperlane_to = prev }
@@ -774,9 +774,9 @@ country_event = {
 									random_list = {
 										200 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:lh_basic_system } is_same_value = event_target:lh_basic_system has_hyperlane_to = event_target:lh_basic_system distance = { source = event_target:lh_basic_system type = euclidean min_distance >= 50 } } } add_hyperlane = { from = this to = event_target:lh_basic_system } }
 										400 = { modifier = { factor = 0 OR = { NOT = { exists = event_target:lh_spawned_system } is_same_value = event_target:lh_spawned_system has_hyperlane_to = event_target:lh_spawned_system distance = { source = event_target:lh_spawned_system type = euclidean min_distance >= 50 } } } add_hyperlane = { from = this to = event_target:lh_spawned_system } }
-										300 = { modifier = { factor = 0 NOT = { any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prev } distance = { source = prev type = euclidean max_distance <= 30 } } } } random_neighbor_system_euclidean = { limit = { NOR = { has_hyperlane_to = prev any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prevprev } distance = { source = prevprev type = euclidean min_distance >= 25 } } } } add_hyperlane = { from = this to = prev } } }
-										100 = { modifier = { factor = 0 NOT = { any_neighbor_system = { } } } }
-										90 = { modifier = { factor = 0 NOT = { any_neighbor_system_euclidean = { has_hyperlane_to = prev } } } }
+										300 = { modifier = { factor = 0 count_neighbor_system_euclidean = { limit = { NOT = { has_hyperlane_to = prev } distance = { source = prev type = euclidean max_distance <= 30 } count = 0 } } } random_neighbor_system_euclidean = { limit = { NOR = { has_hyperlane_to = prev any_neighbor_system_euclidean = { NOT = { has_hyperlane_to = prevprev } distance = { source = prevprev type = euclidean min_distance >= 25 } } } } add_hyperlane = { from = this to = prev } } }
+										100 = { modifier = { factor = 0 count_neighbor_system = { limit = { } count = 0 } } }
+										90 = { modifier = { factor = 0 count_neighbor_system_euclidean = { limit = { has_hyperlane_to = prev } count = 0 } } }
 										1 = {
 											random_neighbor_system_euclidean = {
 												limit = {

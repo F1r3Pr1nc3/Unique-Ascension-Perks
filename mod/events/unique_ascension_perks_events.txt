@@ -1782,7 +1782,7 @@ country_event = {
 		}
 	}
 }
-
+# Edict
 country_event = {
 	id = UniqueAscensionPerksEvents.8059
 	title = "UniqueAscensionPerksEvents.8059.Name"
@@ -1941,6 +1941,57 @@ country_event = {
 	trigger = { is_country_type = security_forces any_owned_fleet = { has_fleet_flag = security_escort_fleet is_fleet_idle = yes } }
 	immediate = {
 		random_owned_fleet = { limit = { has_fleet_flag = security_escort_fleet is_fleet_idle = yes } destroy_fleet = this }
+	}
+}
+
+# on_crossing_border: Sync virtual relation (v3.12)
+# From = Origin System
+# fromfrom = Destination System
+fleet_event = {
+	id = UniqueAscensionPerksEvents.8062
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = {
+		fromfrom = {
+			has_star_flag = recent_security_strike_force
+			exists = space_owner
+			space_owner = {
+				NOR = { is_same_empire = root.owner has_country_flag = sync_subjects_virtual_relation }
+				merg_is_default_empire = yes
+				is_hostile_to = root.owner
+				OR = {
+					has_ascension_perk = ap_advanced_security
+					has_ascension_perk = ap_defense_sentinels
+				}
+			}
+			any_fleet_in_system = {
+				exists = owner
+				owner = {
+					is_country_type = security_forces
+					NOR = { is_same_empire = root.owner is_hostile_to = root.owner }
+				}
+			}
+		}
+	}
+
+	immediate = {
+		fromfrom = {
+			space_owner = {
+				set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 15 }
+			}
+			random_fleet_in_system = {
+				limit = {
+					exists = owner
+					owner = {
+						is_country_type = security_forces
+						NOR = { is_same_empire = root.owner is_hostile_to = root.owner }
+					}
+				}
+				owner = {
+					set_faction_hostility = { target = root.owner set_hostile = yes set_neutral = no set_friendly = no }
+				}
+			}
+		}
 	}
 }
 
@@ -3704,7 +3755,7 @@ country_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { days = 20 } # 14
 	# trigger = {
-	# 	is_country_type = default
+	# 	merg_is_default_empire = yes
 	# 	has_ascension_perk = ap_defense_sentinels
 	# 	any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
 	# }
@@ -3962,7 +4013,7 @@ country_event = {
 	trigger = {
 		# has_ascension_perk = ap_defense_sentinels
 		# has_technology = tech_defense_sentinels_2
-		# NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project}
+		# NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.235 } }
 	}
 	immediate = { set_country_flag = ap_defense_sentinels_retriever_project_check get_capital_planet = yes }
@@ -3994,7 +4045,7 @@ country_event = {
 	# mean_time_to_happen = { months = 6 }
 	is_triggered_only = yes
 	# trigger = {
-	# 	is_country_type = default
+	# 	merg_is_default_empire = yes
 	# 	has_ascension_perk = ap_defense_sentinels
 	# 	has_country_flag = ap_defense_sentinels_retriever_project
 	# 	any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
@@ -6013,6 +6064,72 @@ event = {
 				}
 			}
 			country_event = { id = UniqueAscensionPerksEvents.8786 days = 1 }
+			if = {
+				limit = {
+					OR = { has_ascension_perk = ap_advanced_security has_ascension_perk = ap_defense_sentinels }
+					any_system_within_border = {
+						has_star_flag = recent_security_strike_force
+						any_fleet_in_system = {
+							exists = owner
+							owner = {
+								NOR = {
+									is_same_empire = prevprevprev
+									is_country_type = security_forces
+								}
+								is_hostile_to = prevprevprev
+							}
+						}
+						any_fleet_in_system = {
+							exists = owner
+							owner = { is_country_type = security_forces }
+						}
+					}
+				}
+				every_system_within_border = {
+					limit = {
+						has_star_flag = recent_security_strike_force
+						any_fleet_in_system = {
+							exists = owner
+							owner = {
+								NOR = {
+									is_same_empire = prevprevprev
+									is_country_type = security_forces
+								}
+								is_hostile_to = prevprevprev
+								prevprev = {
+									any_fleet_in_system = {
+										exists = owner
+										owner = {
+											is_country_type = security_forces
+											NOT = { is_hostile_to = prevprevprev }
+										}
+									}
+								}
+							}
+
+						}
+					}
+					random_fleet_in_system = {
+						limit = {
+							exists = owner
+							owner = {
+								NOT = { is_same_empire = prevprevprev }
+								is_hostile_to = prevprevprev
+								prevprev = {
+									any_fleet_in_system = {
+										exists = owner
+										owner = {
+											is_country_type = security_forces
+											NOT = { is_hostile_to = prevprevprev }
+										}
+									}
+								}
+							}
+						}
+						fleet_event = { id = UniqueAscensionPerksEvents.8062 scopes = { from = prev fromfrom = prev } days = 2 }
+					}
+				}
+			}
 		}
 		# Removed in v.3.5
 		# FIX SUBJECT TRUST (only works if they suposed to be subjects)
@@ -6471,7 +6588,7 @@ planet_event = {
 					is_sapient = yes
 					is_robotic = no
 					root.owner = {
-						NOT = { any_owned_species = { is_same_species = prevprev } }
+						count_owned_species = { limit = { is_same_species = prevprev } count = 0 }
 					}
 				}
 				root = { create_pop = { species = prev } }
@@ -7174,7 +7291,7 @@ country_event = {
 # 		}
 # 	}
 # }
-# just for safety, maybe superflous
+# Just for safety, maybe superflous
 planet_event = {
 	id = UniqueAscensionPerksEvents.464
 	hide_window = yes
@@ -8369,7 +8486,6 @@ event = {
 	}
 }
 
-
 # Simulated on_half_yearly_pulse
 country_event = {
 	id = UniqueAscensionPerksEvents.8888
@@ -8462,7 +8578,6 @@ country_event = {
 			}
 			random_playable_country = {
 				limit = {
-					merg_is_default_empire = yes
 					has_ascension_perk = ap_artifact_hunter
 					NOT = { has_country_flag = ap_artifact_hunter_cooldown }
 					any_owned_planet = {

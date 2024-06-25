@@ -900,11 +900,12 @@ planet_event = {
 					}
 					else_if = {
 						limit = {
-							NOT = {
-								any_system_colony = {
+							count_system_colony = {
+								limit = {
 									is_star = no
 									is_asteroid = no
 								}
+								count = 0
 							}
 						}
 						starbase = { set_owner = root.owner }
@@ -1421,7 +1422,7 @@ country_event = {
 			every_subject = { # count < 11
 				limit = {
 					merg_is_default_empire = yes
-					NOT = { any_agreement = { agreement_preset = preset_devstate } }
+					count_agreement = { limit = { agreement_preset = preset_devstate } count = 0 }
 				}
 				if = {
 					limit = { check_variable = { which = rm_total_subjects value < 11 } }

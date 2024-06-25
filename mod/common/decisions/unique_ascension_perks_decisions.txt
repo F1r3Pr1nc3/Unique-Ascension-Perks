@@ -512,7 +512,7 @@ decision_galaxy_center = {
 		hidden_trigger = { exists = from NOT = { has_planet_flag = galaxy_center_planet } }
 		from = { has_ascension_perk = ap_galaxy_center }
 		distance_to_core_percent < 34
-		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" from = { NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } } } }
+		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" from = { count_owned_planet = { limit = { has_planet_flag = galaxy_center_planet } count = 0 } } }
 	}
 	allow = {
 		hidden_trigger = { exists = from }
@@ -1127,7 +1127,7 @@ decision_civilian_cargo_focus = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	resources = { category = decisions cost = {} }
-	potential = { is_capital = no exists = from from = { has_country_flag = ap_civilian_activities_project NOT = { any_owned_planet = { has_planet_flag = civilian_cargo_focus } } } }
+	potential = { is_capital = no exists = from from = { has_country_flag = ap_civilian_activities_project count_owned_planet = { limit = { has_planet_flag = civilian_cargo_focus } count = 0 } } }
 	effect = { custom_tooltip = "decision_civilian_cargo_focus_tooltip" hidden_effect = { set_planet_flag = civilian_cargo_focus } }
 	ai_weight = { weight = 1 }
 }
