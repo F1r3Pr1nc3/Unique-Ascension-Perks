@@ -110,6 +110,90 @@ country_event = {
 				}
 			}
 		}
+		if = {
+			limit = {
+				OR = { has_ascension_perk = ap_advanced_security has_ascension_perk = ap_defense_sentinels }
+				any_system_within_border = {
+					exists = space_owner
+					exists = starbase
+					starbase.owner = { is_same_empire = root }
+					has_star_flag = recent_security_strike_force
+					any_fleet_in_system = {
+						exists = owner
+						owner = { is_country_type = security_forces }
+					}
+					any_fleet_in_system = {
+						is_mobile = yes
+						exists = owner
+						owner = {
+							NOR = { is_same_empire = root is_country_type = security_forces }
+							OR = {
+								is_hostile = root
+								root = { is_hostile = prev }
+							}
+							prevprev = {
+								any_fleet_in_system = {
+									exists = owner
+									owner = {
+										is_country_type = security_forces
+										NOT = { is_hostile = prevprevprev }
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			random_system_within_border = {
+				limit = {
+					has_star_flag = recent_security_strike_force
+					any_fleet_in_system = {
+						is_mobile = yes
+						exists = owner
+						owner = {
+							NOR = { is_same_empire = root is_country_type = security_forces }
+							OR = {
+								is_hostile = root
+								root = { is_hostile = prev }
+							}
+							prevprev = {
+								any_fleet_in_system = {
+									exists = owner
+									owner = {
+										is_country_type = security_forces
+										NOT = { is_hostile = prevprevprev }
+									}
+								}
+							}
+						}
+					}
+				}
+				log = "Found system with security_forces not synced \\[This.GetName]"
+				random_fleet_in_system = {
+					limit = {
+						is_mobile = yes
+						exists = owner
+						owner = {
+							NOT = { is_same_empire = root }
+							OR = {
+								is_hostile =root
+								root = { is_hostile = prev }
+							}
+							prevprev = {
+								any_fleet_in_system = {
+									exists = owner
+									owner = {
+										is_country_type = security_forces
+										NOT = { is_hostile = prevprevprev }
+									}
+								}
+							}
+						}
+					}
+					fleet_event = { id = UniqueAscensionPerksEvents.8062 scopes = { from = prev fromfrom = prev } days = 2 }
+				}
+			}
+		}
 	}
 }
 
@@ -1956,35 +2040,35 @@ fleet_event = {
 			has_star_flag = recent_security_strike_force
 			exists = space_owner
 			space_owner = {
-				NOR = { is_same_empire = root.owner has_country_flag = sync_subjects_virtual_relation }
+				NOT = { is_same_empire = root.owner }
 				merg_is_default_empire = yes
-				is_hostile_to = root.owner
-				OR = {
-					has_ascension_perk = ap_advanced_security
-					has_ascension_perk = ap_defense_sentinels
-				}
+				NOT = { has_country_flag = sync_crossing_border_virtual_relation }
+				# OR = { root.owner = { is_hostile = prev }
+				is_hostile = root.owner
+				OR = { has_ascension_perk = ap_advanced_security has_ascension_perk = ap_defense_sentinels }
 			}
 			any_fleet_in_system = {
 				exists = owner
 				owner = {
 					is_country_type = security_forces
-					NOR = { is_same_empire = root.owner is_hostile_to = root.owner }
+					# NOT = { is_same_empire = root.owner }
+					NOT = { is_hostile = root.owner }
 				}
 			}
 		}
 	}
-
 	immediate = {
+		# log ="Security Forces found not synced enemy \\[This.Owner.GetName]"
 		fromfrom = {
 			space_owner = {
-				set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 15 }
+				set_timed_country_flag = { flag = sync_crossing_border_virtual_relation days = 5 }
 			}
 			random_fleet_in_system = {
 				limit = {
 					exists = owner
 					owner = {
 						is_country_type = security_forces
-						NOR = { is_same_empire = root.owner is_hostile_to = root.owner }
+						NOR = { is_same_empire = root.owner is_hostile = root.owner }
 					}
 				}
 				owner = {
@@ -6063,73 +6147,7 @@ event = {
 					has_ascension_perk = ap_civilian_activities
 				}
 			}
-			country_event = { id = UniqueAscensionPerksEvents.8786 days = 1 }
-			if = {
-				limit = {
-					OR = { has_ascension_perk = ap_advanced_security has_ascension_perk = ap_defense_sentinels }
-					any_system_within_border = {
-						has_star_flag = recent_security_strike_force
-						any_fleet_in_system = {
-							exists = owner
-							owner = {
-								NOR = {
-									is_same_empire = prevprevprev
-									is_country_type = security_forces
-								}
-								is_hostile_to = prevprevprev
-							}
-						}
-						any_fleet_in_system = {
-							exists = owner
-							owner = { is_country_type = security_forces }
-						}
-					}
-				}
-				every_system_within_border = {
-					limit = {
-						has_star_flag = recent_security_strike_force
-						any_fleet_in_system = {
-							exists = owner
-							owner = {
-								NOR = {
-									is_same_empire = prevprevprev
-									is_country_type = security_forces
-								}
-								is_hostile_to = prevprevprev
-								prevprev = {
-									any_fleet_in_system = {
-										exists = owner
-										owner = {
-											is_country_type = security_forces
-											NOT = { is_hostile_to = prevprevprev }
-										}
-									}
-								}
-							}
-
-						}
-					}
-					random_fleet_in_system = {
-						limit = {
-							exists = owner
-							owner = {
-								NOT = { is_same_empire = prevprevprev }
-								is_hostile_to = prevprevprev
-								prevprev = {
-									any_fleet_in_system = {
-										exists = owner
-										owner = {
-											is_country_type = security_forces
-											NOT = { is_hostile_to = prevprevprev }
-										}
-									}
-								}
-							}
-						}
-						fleet_event = { id = UniqueAscensionPerksEvents.8062 scopes = { from = prev fromfrom = prev } days = 2 }
-					}
-				}
-			}
+			country_event = { id = UniqueAscensionPerksEvents.8785 days = 1 }
 		}
 		# Removed in v.3.5
 		# FIX SUBJECT TRUST (only works if they suposed to be subjects)
@@ -6412,7 +6430,7 @@ country_event = {
 		# treasures_opinion_set = yes
 		event_target:CountryTargetForPresent = {
 			if = {
-				limit = { OR = { is_hostile_to = root is_rival = root } }
+				limit = { OR = { is_hostile = root is_rival = root } }
 				add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = root } }
 			else_if = {
 				limit = { OR = { is_domineering_to = root is_unfriendly_to = root is_dismissive_to = root } }
