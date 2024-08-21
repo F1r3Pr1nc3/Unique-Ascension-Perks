@@ -41,32 +41,35 @@
 # 		fleet = { has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders }
 # 	}
 # }
-
+# This = fleet
 is_valid_target_neigthbor_for_domesticated_aliens_military = {
 	exists = owner
-	OR = {
-		is_ship_class = shipclass_transport
-		is_ship_class = shipclass_military
-		is_ship_class = shipclass_starbase
-		is_ship_class = shipclass_military_station
-	}
 	owner = { is_hostile = event_target:main_country }
+	# OR = {
+	# 	is_ship_class = shipclass_transport
+	# 	is_ship_class = shipclass_military
+	# 	is_ship_class = shipclass_starbase
+	# 	is_ship_class = shipclass_military_station
+	# }
 	NOR = {
+		is_civilian = yes
 		is_disabled = yes
-		fleet = { has_fleet_flag = domesticated_military_fleet_target_no_more_hunters }
-		fleet = { has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders }
+		has_fleet_flag = domesticated_military_fleet_target_no_more_hunters
+		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
 }
-
+# This = fleet
 is_valid_target_for_domesticated_aliens_security = {
+	is_mobile = yes
 	exists = owner
 	owner = { is_hostile = event_target:main_country }
 	NOR = {
+		is_civilian = yes
 		is_disabled = yes
-		is_ship_class = shipclass_science_ship
-		is_ship_class = shipclass_constructor
-		is_ship_class = shipclass_colonizer
-		fleet = { has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders }
+		# is_ship_class = shipclass_science_ship
+		# is_ship_class = shipclass_constructor
+		# is_ship_class = shipclass_colonizer
+		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
 }
 

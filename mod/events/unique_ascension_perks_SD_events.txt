@@ -736,7 +736,7 @@ country_event = {
 							OR = {
 								is_fleet_idle = yes
 								NOT = { has_fleet_flag = domesticated_security_fleet_patroling_order }
-								root = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
+								root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
 							}
 						}
 						AND = { has_fleet_flag = domesticated_security_fleet_defending is_fleet_idle = yes }
@@ -787,11 +787,11 @@ fleet_event = {
 			save_event_target_as = domesticated_military_fleet_hunting
 			event_target:main_country = {
 				if = {
-					limit = { any_system_within_border = { any_neighbor_system = { NOT = { has_star_flag = guardian } any_ship_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } } } }
+					limit = { any_system_within_border = { any_neighbor_system = { NOT = { has_star_flag = guardian } any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } } } }
 					random_system_within_border = {
-						limit = { any_neighbor_system = { NOT = { has_star_flag = guardian } any_ship_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } } }
+						limit = { any_neighbor_system = { NOT = { has_star_flag = guardian } any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } } }
 						random_neighbor_system = {
-							limit = { NOT = { has_star_flag = guardian } any_ship_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } }
+							limit = { NOT = { has_star_flag = guardian } any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } }
 							random_fleet_in_system = {
 								limit = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes }
 								save_event_target_as = domesticated_military_fleet_target
@@ -805,7 +805,7 @@ fleet_event = {
 						solar_system = {
 							closest_system = {
 								limit = {
-									any_ship_in_system = { # is_valid_target_for_domesticated_aliens_military
+									any_fleet_in_system = { # is_valid_target_for_domesticated_aliens_military
 										is_valid_target_neigthbor_for_domesticated_aliens_military = yes
 										owner = {
 											OR = {
@@ -849,10 +849,10 @@ fleet_event = {
 		else_if = { # Defense & Patrol
 			limit = { has_fleet_flag = domesticated_security_fleet NOT = { has_fleet_flag = domesticated_security_fleet_defending_order } }
 			if = {
-				limit = { event_target:main_country = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
+				limit = { event_target:main_country = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
 				event_target:main_country = {
 					random_system_within_border = {
-						limit = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
+						limit = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
 						random_fleet_in_system = {
 							limit = { is_valid_target_for_domesticated_aliens_security = yes }
 							save_event_target_as = domesticated_security_fleet_defend_against

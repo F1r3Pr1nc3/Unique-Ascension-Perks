@@ -47,12 +47,10 @@ ap_space_engineers = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_space_engineers }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_space_engineers value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_space_engineers value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_space_engineers
@@ -144,14 +142,14 @@ ap_void_expedition = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_void_expedition }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_void_expedition value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_void_expedition
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_void_expedition value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_void_expedition }
 }
@@ -190,12 +188,10 @@ ap_expandable_brain_1 = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_expandable_brain_1 }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_expandable_brain_1 value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_expandable_brain_1 value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_expandable_brain_1 }
 }
@@ -218,12 +214,10 @@ ap_expandable_brain_2 = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_expandable_brain_2 }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_expandable_brain_2 value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_expandable_brain_2 value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_expandable_brain_2 }
 }
@@ -249,12 +243,10 @@ ap_ai_cortana = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_ai_cortana }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_ai_cortana value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_ai_cortana value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_ai_cortana }
 }
@@ -280,14 +272,14 @@ ap_nano_drones = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_nano_drones }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_nano_drones value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_nano_drones
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_nano_drones value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_nano_drones }
 }
@@ -322,12 +314,10 @@ ap_nano_to_nanite = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_nano_to_nanite }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_nano_to_nanite value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_nano_to_nanite }
 }
@@ -349,19 +339,19 @@ ap_genius_cloning = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_genius_cloning }
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_genius_cloning
+		}
 		OR = {
 			is_machine_empire = no
 			has_civic = civic_machine_assimilator
 			has_civic = civic_machine_servitor
 		}
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_genius_cloning value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_genius_cloning value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_genius_cloning
@@ -404,12 +394,10 @@ ap_adv_colonisation = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_adv_colonisation }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_adv_colonisation value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_adv_colonisation value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_adv_colonisation
@@ -454,14 +442,14 @@ ap_expansion_infinity = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_expansion_infinity }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_expansion_infinity value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_expansion_infinity
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_expansion_infinity value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_expansion_infinity
@@ -490,14 +478,14 @@ ap_recycling_drones = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_recycling_drones }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_recycling_drones value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_recycling_drones
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_recycling_drones value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_recycling_drones
@@ -538,12 +526,10 @@ ap_emergency_calculation = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_emergency_calculation }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_emergency_calculation value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_emergency_calculation value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_emergency_calculation
@@ -577,12 +563,10 @@ ap_economic_prospertity = {
 	potential = {
 		NOT = { has_ascension_perk = ap_economic_prospertity }
 		is_gestalt = no
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_economic_prospertity value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_economic_prospertity
@@ -610,14 +594,14 @@ ap_chosen_ruler = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_chosen_ruler }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_chosen_ruler value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_chosen_ruler
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_chosen_ruler value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_chosen_ruler
@@ -644,14 +628,14 @@ ap_advanced_security = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_advanced_security }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_advanced_security value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_advanced_security
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_advanced_security value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_advanced_security
@@ -685,12 +669,10 @@ ap_space_domestication = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_space_domestication }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_space_domestication value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_space_domestication value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_space_domestication }
 }
@@ -726,12 +708,10 @@ ap_leviathan_master = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_leviathan_master }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_leviathan_master value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_leviathan_master value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_leviathan_master }
 }
@@ -753,14 +733,14 @@ ap_friendly_nature = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_friendly_nature }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_friendly_nature value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_friendly_nature
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_friendly_nature value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_friendly_nature
@@ -798,15 +778,15 @@ ap_robot_command = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_robot_command }
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_robot_command
+		}
 		is_hive_empire = no
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_robot_command value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_robot_command value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_robot_command
@@ -833,12 +813,10 @@ ap_recomposer = {
 	potential = {
 		NOT = { has_ascension_perk = ap_recomposer }
 		is_gestalt = no
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_recomposer value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_recomposer value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_recomposer }
 }
@@ -886,15 +864,15 @@ ap_megacorp = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_megacorp }
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_megacorp
+		}
 		is_megacorp = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_megacorp value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_megacorp value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_megacorp }
 }
@@ -914,12 +892,10 @@ ap_fallen_disciple = {
 	}
 	potential = {
 		NOR = { has_ascension_perk = ap_fallen_disciple is_homicidal = yes }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_fallen_disciple value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_fallen_disciple value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_fallen_disciple }
 }
@@ -942,12 +918,10 @@ ap_stability_celebration = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_stability_celebration }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_stability_celebration value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_stability_celebration value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_stability_celebration }
 }
@@ -982,12 +956,10 @@ ap_galaxy_center = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_galaxy_center }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_galaxy_center value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_galaxy_center value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_galaxy_center }
 }
@@ -1006,15 +978,15 @@ ap_advanced_government_1 = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_advanced_government_1 }
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_advanced_government_1
+		}
 		is_gestalt = no
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_advanced_government_1 value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_advanced_government_1
@@ -1046,12 +1018,10 @@ ap_advanced_government_2 = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_advanced_government_2 }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_advanced_government_2 value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_advanced_government_2 value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_advanced_government_2 }
 }
@@ -1070,12 +1040,10 @@ ap_space_merchant = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_space_merchant }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_space_merchant value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_space_merchant value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_space_merchant
@@ -1104,12 +1072,10 @@ ap_super_hive_mind = {
 	potential = {
 		is_hive_empire = yes
 		NOT = { has_ascension_perk = ap_super_hive_mind }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_super_hive_mind value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_super_hive_mind }
 }
@@ -1132,12 +1098,10 @@ ap_mega_hive_mind = {
 	potential = {
 		NOT = { has_ascension_perk = ap_mega_hive_mind }
 		is_hive_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_mega_hive_mind value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_mega_hive_mind value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_mega_hive_mind }
 }
@@ -1158,15 +1122,15 @@ ap_aggressive_hivemind = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_aggressive_hivemind }
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_aggressive_hivemind
+		}
 		is_hive_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_aggressive_hivemind value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_aggressive_hivemind }
 }
@@ -1184,15 +1148,15 @@ ap_connected_hivemind = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_connected_hivemind }
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_connected_hivemind
+		}
 		is_hive_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_connected_hivemind value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_connected_hivemind value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_connected_hivemind }
 }
@@ -1212,12 +1176,10 @@ ap_hivemind_reserve = {
 	potential = {
 		is_hive_empire = yes
 		NOT = { has_ascension_perk = ap_hivemind_reserve }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_hivemind_reserve value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_hivemind_reserve value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_hivemind_reserve }
 }
@@ -1244,12 +1206,10 @@ ap_primitives_creation = {
 			is_unfriendly = yes
 		}
 		NAND = { has_global_flag = life_engineering_installed has_life_engineering_installed = yes }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_primitives_creation value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_primitives_creation value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_primitives_creation }
 }
@@ -1308,12 +1268,10 @@ ap_mechanical_prophet = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" host_has_dlc = "Synthetic Dawn Story Pack" }
 		NOT = { has_ascension_perk = ap_mechanical_prophet }
 		is_synthetic_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_mechanical_prophet value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_mechanical_prophet value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_mechanical_prophet }
 }
@@ -1334,12 +1292,10 @@ ap_machine_core = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" host_has_dlc = "Synthetic Dawn Story Pack" }
 		NOT = { has_ascension_perk = ap_machine_core }
 		is_synthetic_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_machine_core value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_machine_core value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_machine_core }
 }
@@ -1369,12 +1325,10 @@ ap_defense_sentinels = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" host_has_dlc = "Synthetic Dawn Story Pack" }
 		NOT = { has_ascension_perk = ap_defense_sentinels }
 		is_synthetic_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_defense_sentinels value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_defense_sentinels value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_defense_sentinels }
 }
@@ -1392,12 +1346,10 @@ ap_leadership_transfer = {
 		custom_tooltip = { fail_text = "requires_synthetic_dawn" host_has_dlc = "Synthetic Dawn Story Pack" }
 		NOT = { has_ascension_perk = ap_leadership_transfer }
 		is_synthetic_empire = yes
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_leadership_transfer value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_leadership_transfer value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_leadership_transfer }
 }
@@ -1416,14 +1368,14 @@ ap_civilian_activities = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_civilian_activities }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_civilian_activities value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_civilian_activities
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_civilian_activities value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_civilian_activities }
 }
@@ -1448,12 +1400,10 @@ ap_pyramidal_society = {
 			has_country_flag = ap_pyramidal_society
 			has_global_flag = ap_pyramidal_society
 		}
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_pyramidal_society value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_pyramidal_society }
 }
@@ -1474,12 +1424,10 @@ ap_orbital_surgical_strike = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_orbital_surgical_strike }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_orbital_surgical_strike value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_orbital_surgical_strike value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_orbital_surgical_strike }
 }
@@ -1496,14 +1444,14 @@ ap_wheel_fortune = {
 		}
 	}
 	potential = {
-		merg_is_awakened_fe = no # Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_wheel_fortune }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_wheel_fortune value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NOR = {
+			merg_is_awakened_fe = yes # Simply to omit wasting MTTH check
+			has_ascension_perk = ap_wheel_fortune
+		}
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_wheel_fortune value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_wheel_fortune }
 }
@@ -1525,7 +1473,7 @@ ap_underworld = {
 		custom_tooltip = "ap_underworld_tooltip"
 		if = {
 			limit = {
-				is_criminal_syndicate = no # NOT = { has_valid_civic = civic_criminal_heritage }
+				is_criminal_syndicate = no # NOT = { has_civic = civic_criminal_heritage }
 			}
 			add_resource = { treasures = -4000 }
 		}
@@ -1535,12 +1483,10 @@ ap_underworld = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_underworld }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_underworld value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_underworld value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_underworld }
 }
@@ -1562,12 +1508,10 @@ ap_slow_learner = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_slow_learner }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_slow_learner value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_slow_learner value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_slow_learner }
 }
@@ -1594,12 +1538,10 @@ ap_utopian_realisation = {
 				OR = { has_valid_civic = civic_machine_assimilator has_valid_civic = civic_machine_servitor }
 			}
 		}
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_utopian_realisation value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_utopian_realisation value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_utopian_realisation }
 }
@@ -1619,12 +1561,10 @@ ap_antimatter = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_antimatter }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_antimatter value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_antimatter value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_antimatter }
 }
@@ -1653,12 +1593,10 @@ ap_deep_scanner = {
 			has_ascension_perk = ap_deep_scanner
 			has_civic = civic_exploration # Compat. E&CC
 		}
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_deep_scanner value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_deep_scanner value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_deep_scanner }
 }
@@ -1698,12 +1636,10 @@ ap_artifact_hunter = {
 	potential = {
 		merg_is_default_empire = yes
 		NOT = { has_ascension_perk = ap_artifact_hunter }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_artifact_hunter value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_artifact_hunter value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_artifact_hunter }
 }
@@ -1732,12 +1668,10 @@ ap_self_aware_colony = {
 			has_ascension_perk = ap_self_aware_colony
 			# has_global_flag = ap_self_aware_colony
 		}
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_self_aware_colony value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_self_aware_colony value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_self_aware_colony }
 }
@@ -1788,12 +1722,10 @@ ap_flourishing_technocracy = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_flourishing_technocracy }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_flourishing_technocracy value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_flourishing_technocracy value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = {
 		factor = event_target:global_event_country.ap_flourishing_technocracy
@@ -1817,12 +1749,10 @@ ap_legendary_forge = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_legendary_forge }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_legendary_forge value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_legendary_forge value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_legendary_forge }
 }
@@ -1843,12 +1773,10 @@ ap_library_wisedom = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_library_wisedom }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_library_wisedom value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_library_wisedom value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_library_wisedom }
 }
@@ -1875,12 +1803,10 @@ ap_expansionist_development = {
 	}
 	potential = {
 		NOT = { has_ascension_perk = ap_expansionist_development }
-		OR = {
-			is_ai = no
-			event_target:global_event_country = {
-				check_variable = { which = ap_expansionist_development value > 0 }
-			}
-		}		# Because ai_weight doesn't work
+		NAND = {
+			is_ai = yes
+			event_target:global_event_country = { check_variable = { which = ap_expansionist_development value = 0 } } # Because ai_weight doesn't work
+		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_expansionist_development }
 }

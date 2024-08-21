@@ -3,7 +3,7 @@ utopia_site = {
 	construction_entity = "construction_platform_entity"
 	portrait = "GFX_megastructure_construction_background"
 	show_galactic_map_icon = no
-	show_in_outliner = no
+	# show_in_outliner = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
 	build_time = 900
@@ -19,13 +19,14 @@ utopia_site = {
 		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
 		custom_tooltip = {
 			fail_text = "requires_surveyed_system"
-			NOT = {
-				any_system_planet = {
+			count_system_planet = {
+				limit = {
 					is_surveyed = {
 						who = prev.from
 						status = no
 					}
 				}
+				count = 0
 			}
 		}
 		# custom_tooltip = {
@@ -108,7 +109,7 @@ utopia_site = {
 		modifier = {
 			factor = 0.1
 			any_neighbor_system = {
-				exists = owner
+				has_owner = yes
 				NOT = { is_owned_by = from }
 			}
 		}

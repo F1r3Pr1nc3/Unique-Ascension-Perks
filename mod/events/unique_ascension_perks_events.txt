@@ -23,8 +23,8 @@ country_event = {
 				every_war_participant = {
 					limit = {
 						is_subject = no
-						NOT = { has_country_flag = sync_subjects_virtual_relation }
 						merg_is_default_empire = yes
+						NOT = { has_country_flag = sync_subjects_virtual_relation }
 						OR = {
 							has_ascension_perk = ap_space_domestication
 							has_ascension_perk = ap_advanced_security
@@ -52,8 +52,8 @@ country_event = {
 		}
 		else_if = {
 			limit = {
-				NOT = { has_country_flag = sync_subjects_virtual_relation }
 				merg_is_default_empire = yes
+				NOT = { has_country_flag = sync_subjects_virtual_relation }
 				OR = {
 					has_ascension_perk = ap_space_domestication
 					has_ascension_perk = ap_advanced_security
@@ -82,8 +82,8 @@ country_event = {
 				exists = from
 				from = {
 					is_scope_type = country
-					NOT = { has_country_flag = sync_subjects_virtual_relation }
 					merg_is_default_empire = yes
+					NOT = { has_country_flag = sync_subjects_virtual_relation }
 					OR = {
 						has_ascension_perk = ap_space_domestication
 						has_ascension_perk = ap_advanced_security
@@ -114,7 +114,7 @@ country_event = {
 			limit = {
 				OR = { has_ascension_perk = ap_advanced_security has_ascension_perk = ap_defense_sentinels }
 				any_system_within_border = {
-					exists = space_owner
+					has_owner = yes
 					exists = starbase
 					starbase.owner = { is_same_empire = root }
 					has_star_flag = recent_security_strike_force
@@ -219,12 +219,13 @@ country_event = {
 			limit = { is_country_type = domesticated_spaceborn_alien has_country_flag = domesticated_spaceborn_alien }
 			if = {
 				limit = {
-					NOT = {
-						any_relation = {
+					count_relation = {
+						limit = {
 							merg_is_default_empire = yes
 							is_subject = no
 							reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
 						}
+						count = 0
 					}
 				}
 				destroy_country = yes
@@ -255,12 +256,13 @@ country_event = {
 			limit = { is_country_type = security_forces has_country_flag = security_strike_force }
 			if = {
 				limit = {
-					NOT = {
-						any_relation = {
+					count_relation = {
+						limit = {
 							merg_is_default_empire = yes
 							is_subject = no
 							reverse_has_relation_flag = { who = root flag = security_strike_force }
 						}
+						count = 0
 					}
 				}
 				destroy_country = yes
@@ -294,12 +296,13 @@ country_event = {
 			}
 			if = {
 				limit = {
-					NOT = {
-						any_relation = {
+					count_relation = {
+						limit = {
 							merg_is_default_empire = yes
 							is_subject = no
 							reverse_has_relation_flag = { who = root flag = defense_sentinels }
 						}
+						count = 0
 					}
 				}
 				destroy_country = yes
@@ -330,12 +333,13 @@ country_event = {
 			limit = { is_country_type = civilian_activities has_country_flag = civilian_activities_country }
 			if = {
 				limit = {
-					NOT = {
-						any_relation = {
+					count_relation = {
+						limit = {
 							merg_is_default_empire = yes
 							is_subject = no
 							reverse_has_relation_flag = { who = root flag = civilian_activities_country }
 						}
+						count = 0
 					}
 				}
 				destroy_country = yes
@@ -1474,7 +1478,7 @@ country_event = {
 		}
 		# FIXME: invalid design for create_ship v.3.9
 		create_fleet = {
-			name = "Recovered Fleet"
+			name = "UniqueAscensionPerksEvents.52.Name" # "Recovered Fleet"
 			settings = { spawn_debris = no }
 			effect = {
 				set_owner = prev
@@ -1748,6 +1752,11 @@ country_event = {
 			# star = { save_event_target_as = spawn_location }
 			create_fleet = {
 				name = ap_advanced_security
+				settings = {
+					spawn_debris = no
+					can_disband = no
+					ai_ignore_strength = yes
+				}
 				effect = {
 					set_owner = root # event_target:main_country
 					while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
@@ -1910,6 +1919,11 @@ country_event = {
 			}
 			create_fleet = {
 				name = ap_advanced_security
+				settings = {
+					spawn_debris = no
+					can_disband = no
+					ai_ignore_strength = yes
+				}
 				effect = {
 					set_owner = root # event_target:main_country
 					while = { count = 10
@@ -2040,39 +2054,69 @@ fleet_event = {
 			has_star_flag = recent_security_strike_force
 			exists = space_owner
 			space_owner = {
-				NOT = { is_same_empire = root.owner }
 				merg_is_default_empire = yes
-				NOT = { has_country_flag = sync_crossing_border_virtual_relation }
+				NOR = { is_same_empire = root.owner has_country_flag = sync_crossing_border_virtual_relation }
 				# OR = { root.owner = { is_hostile = prev }
 				is_hostile = root.owner
 				OR = { has_ascension_perk = ap_advanced_security has_ascension_perk = ap_defense_sentinels }
-			}
-			any_fleet_in_system = {
-				exists = owner
-				owner = {
-					is_country_type = security_forces
-					# NOT = { is_same_empire = root.owner }
-					NOT = { is_hostile = root.owner }
-				}
 			}
 		}
 	}
 	immediate = {
 		# log ="Security Forces found not synced enemy \\[This.Owner.GetName]"
 		fromfrom = {
-			space_owner = {
-				set_timed_country_flag = { flag = sync_crossing_border_virtual_relation days = 5 }
-			}
-			random_fleet_in_system = {
+			if = {
 				limit = {
-					exists = owner
-					owner = {
-						is_country_type = security_forces
-						NOR = { is_same_empire = root.owner is_hostile = root.owner }
+					any_fleet_in_system = {
+						exists = owner
+						owner = {
+							is_country_type = security_forces
+							NOT = { is_hostile = root.owner }
+						}
 					}
 				}
-				owner = {
-					set_faction_hostility = { target = root.owner set_hostile = yes set_neutral = no set_friendly = no }
+				random_fleet_in_system = {
+					limit = {
+						exists = owner
+						owner = {
+							is_country_type = security_forces
+							NOR = { is_same_empire = root.owner is_hostile = root.owner }
+						}
+					}
+					owner = {
+						set_faction_hostility = { target = root.owner set_hostile = yes set_neutral = no set_friendly = no }
+					}
+				}
+				space_owner = {
+					set_timed_country_flag = { flag = sync_crossing_border_virtual_relation days = 15 }
+				}
+			}
+			else_if = {
+				limit = {
+					space_owner = {
+						any_relation = {
+							is_country_type = security_forces
+							is_hostile = root.owner
+							OR = {
+								has_relation_flag = { who = prev flag = security_strike_force }
+								has_relation_flag = { who = prev flag = defense_sentinels }
+							}
+						}
+					}
+				}
+				space_owner = {
+					random_relation = {
+						limit = {
+							is_country_type = security_forces
+							is_hostile = root.owner
+							OR = {
+								has_relation_flag = { who = prev flag = security_strike_force }
+								has_relation_flag = { who = prev flag = defense_sentinels }
+							}
+						}
+						set_faction_hostility = { target = root.owner set_hostile = yes set_neutral = no set_friendly = no }
+					}
+					set_timed_country_flag = { flag = sync_crossing_border_virtual_relation days = 15 }
 				}
 			}
 		}
@@ -3863,7 +3907,7 @@ country_event = {
 							OR = {
 								is_fleet_idle = yes
 								NOT = { has_fleet_flag = defense_sentinels_fleet_patroling_order }
-								root = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
+								root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
 							}
 						}
 						AND = { has_fleet_flag = defense_sentinels_fleet_defending is_fleet_idle = yes }
@@ -3903,10 +3947,10 @@ fleet_event = {
 		if = { # Defense & Patrol
 			limit = { has_fleet_flag = defense_sentinels_fleet NOT = { has_fleet_flag = defense_sentinels_fleet_defending_order } }
 			if = {
-				limit = { event_target:main_country = { any_system_within_border = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
+				limit = { event_target:main_country = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
 				event_target:main_country = {
 					random_system_within_border = {
-						limit = { any_ship_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
+						limit = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
 						random_fleet_in_system = {
 							limit = { is_valid_target_for_domesticated_aliens_security = yes }
 							save_event_target_as = defense_sentinels_fleet_defend_against
@@ -3921,7 +3965,6 @@ fleet_event = {
 				auto_follow_fleet = { target = event_target:defense_sentinels_fleet_defend_against attack_fleet = yes }
 
 			}
-
 			else = {
 				event_target:main_country = { random_planet_within_border = { save_event_target_as = defense_sentinels_fleet_destination } }
 				save_event_target_as = defense_sentinels_fleet_patroling
@@ -6986,11 +7029,17 @@ country_event = {
 			else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
 			create_fleet = {
 				name = "Space Clouds"
-				settings = { spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
+				settings = {
+					spawn_debris = no
+					can_upgrade = no
+					uses_naval_capacity = no
+					# can_change_composition = no
+					# can_disband = no
+				}
 				effect = {
 					set_owner = root
-					while = { count = 7 create_ship = { name = "" design = NAME_Dom_Cloud effect = {	add_modifier = { modifier = domesticated_aliens } } } }
-					while = { count = 7 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud effect = {	add_modifier = { modifier = domesticated_aliens } } } } }
+					while = { count = 7 create_ship = { name = "" design = NAME_Dom_Cloud effect = { add_modifier = { modifier = domesticated_aliens } } } }
+					while = { count = 7 random = { chance = 50 create_ship = { name = "" design = NAME_Dom_Cloud effect = { add_modifier = { modifier = domesticated_aliens } } } } }
 					set_location = { target = event_target:spawn_location distance = 250 angle = random }
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self

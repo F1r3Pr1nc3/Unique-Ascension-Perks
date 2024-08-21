@@ -1,12 +1,18 @@
+# This = Planet
 is_valid_planet_civilian_space_activities_fleet_action = {
-	num_sapient_pops > 0
-	is_occupied_flag = no
-	NOT = { has_planet_flag = spawned_civilian_convoy_fleet }
+	has_owner = yes
+	is_colony = yes
+	NOR = {
+		is_occupied_flag = yes
+		num_pops = 0
+		has_planet_flag = spawned_civilian_convoy_fleet
+	}
 	solar_system = {
 		count_ship_in_system = {
 			limit = {
 				exists = owner owner = { is_hostile = root }
-				OR = { is_ship_class = shipclass_military is_ship_class = shipclass_military_station is_ship_class = shipclass_military_station is_ship_class = shipclass_starbase }
+				# OR = { is_ship_class = shipclass_military is_ship_class = shipclass_military_station is_ship_class = shipclass_military_station is_ship_class = shipclass_starbase }
+				is_civilian = no
 				is_disabled = no
 			}
 			count = 0
