@@ -1,0 +1,4271 @@
+namespace = SpecialProjectCompletedEvents
+
+country_event = {
+	id = SpecialProjectCompletedEvents.0
+	title = SpecialProjectCompletedEvents.0.Name
+	desc = SpecialProjectCompletedEvents.0.Desc
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = fromfromfrom
+	is_triggered_only = yes
+	option = { name = UNFORTUNATE }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1
+	title = SpecialProjectCompletedEvents.1.Name
+	desc = SpecialProjectCompletedEvents.1.Desc
+	picture = GFX_evt_asteroid_approaching_planet
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = minerals value = 3 min = 100 max = 400 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.2
+	title = SpecialProjectCompletedEvents.2.Name
+	desc = SpecialProjectCompletedEvents.2.Desc
+	picture = GFX_evt_mining_operations
+	show_sound = event_construction
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { add_resource = { minerals = 200 } }
+		event_target:special_project_target = { add_deposit = d_minerals_4 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.3
+	title = SpecialProjectCompletedEvents.3.Name
+	desc = SpecialProjectCompletedEvents.3.Desc
+	picture = GFX_evt_drilling_for_gas
+	show_sound = event_construction
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { add_resource = { minerals = 300 } }
+		event_target:special_project_target = { add_deposit = d_energy_4 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.4
+	title = SpecialProjectCompletedEvents.4.Name
+	desc = SpecialProjectCompletedEvents.4.Desc
+	picture = GFX_asteroid_surface
+	show_sound = event_super_explosion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { add_monthly_resource_mult = { resource = minerals value = 3 min = 200 max = 800 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.5
+	title = SpecialProjectCompletedEvents.5.Name
+	desc = SpecialProjectCompletedEvents.5.Desc
+	picture = GFX_evt_asteroid_field
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		event_target:special_project_target = { add_deposit = d_minerals_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.6
+	title = SpecialProjectCompletedEvents.6.Name
+	desc = SpecialProjectCompletedEvents.6.Desc
+	picture = GFX_evt_ice_asteroids
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = {
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			random_list = {
+				10 = { set_planet_flag = ice_asteroid_exploration_energy }
+				10 = { set_planet_flag = ice_asteroid_exploration_physics }
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = ice_asteroid_exploration_energy } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 50 max = 250 } add_monthly_resource_mult = { resource = energy value = 3 min = 100 max = 300 } }
+		event_target:special_project_target = { remove_planet_flag = ice_asteroid_exploration_energy }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = ice_asteroid_exploration_physics } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 50 max = 250 } add_monthly_resource_mult = { resource = physics_research value = 4 min = 200 max = 500 } }
+		event_target:special_project_target = { remove_planet_flag = ice_asteroid_exploration_physics }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.7
+	title = SpecialProjectCompletedEvents.7.Name
+	desc = SpecialProjectCompletedEvents.7.Desc
+	picture = GFX_evt_gas_giant
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 50 }
+		owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 600 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.8
+	title = SpecialProjectCompletedEvents.8.Name
+	desc = SpecialProjectCompletedEvents.8.Desc
+	picture = GFX_evt_warm_barren
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = {
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			random_list = {
+				10 = { set_planet_flag = warm_barrel_exploration_minerals }
+				10 = { set_planet_flag = warm_barrel_exploration_engineering }
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = warm_barrel_exploration_minerals } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = minerals value = 3 min = 200 max = 1000 } }
+		event_target:special_project_target = { remove_planet_flag = warm_barrel_exploration_minerals }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = warm_barrel_exploration_engineering } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = engineering_research value = 4 min = 300 max = 2000 } }
+		event_target:special_project_target = { remove_planet_flag = warm_barrel_exploration_engineering }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.9
+	title = SpecialProjectCompletedEvents.9.Name
+	desc = SpecialProjectCompletedEvents.9.Desc
+	picture = GFX_evt_cold_barren
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = {
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			random_list = {
+				10 = { set_planet_flag = cold_barren_exploration_energy }
+				10 = { set_planet_flag = cold_barrel_exploration_physics }
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = cold_barren_exploration_energy } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 400 } }
+		event_target:special_project_target = { remove_planet_flag = cold_barren_exploration_energy }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = cold_barrel_exploration_physics } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = physics_research value = 4 min = 300 max = 400 } }
+		event_target:special_project_target = { remove_planet_flag = cold_barrel_exploration_physics }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.10
+	title = SpecialProjectCompletedEvents.10.Name
+	desc = SpecialProjectCompletedEvents.10.Desc
+	picture = GFX_evt_frozen
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = {
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			random_list = {
+				10 = { set_planet_flag = frozen_world_exploration_energy }
+				10 = { set_planet_flag = frozen_world_exploration_physics }
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = frozen_world_exploration_energy } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 400 } }
+		event_target:special_project_target = { remove_planet_flag = frozen_world_exploration_energy }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = frozen_world_exploration_physics } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = physics_research value = 4 min = 300 max = 400 } }
+		event_target:special_project_target = { remove_planet_flag = frozen_world_exploration_physics }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.11
+	title = SpecialProjectCompletedEvents.11.Name
+	desc = SpecialProjectCompletedEvents.11.Desc
+	picture = GFX_evt_molten
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = {
+		check_special_project_target = yes
+		event_target:special_project_target =
+		{
+			random_list =
+			{
+				10 = { set_planet_flag = molten_world_exploration_minerals }
+				10 = { set_planet_flag = molten_world_exploration_engineering }
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = molten_world_exploration_minerals } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = minerals value = 3 min = 200 max = 400 } }
+		event_target:special_project_target = { remove_planet_flag = molten_world_exploration_minerals }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_planet_flag = molten_world_exploration_engineering } }
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = engineering_research value = 4 min = 300 max = 400 } }
+		event_target:special_project_target = { remove_planet_flag = molten_world_exploration_engineering }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.12
+	title = SpecialProjectCompletedEvents.12.Name
+	desc = SpecialProjectCompletedEvents.12.Desc
+	picture = GFX_evt_toxic
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 75 max = 150 } add_monthly_resource_mult = { resource = society_research value = 4 min = 200 max = 400 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.13
+	title = SpecialProjectCompletedEvents.13.Name
+	desc = SpecialProjectCompletedEvents.13.Desc
+	picture = GFX_evt_continental
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = society_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.14
+	title = SpecialProjectCompletedEvents.14.Name
+	desc = SpecialProjectCompletedEvents.14.Desc
+	picture = GFX_evt_tropical
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = society_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.15
+	title = SpecialProjectCompletedEvents.15.Name
+	desc = SpecialProjectCompletedEvents.15.Desc
+	picture = GFX_evt_ocean
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = society_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.16
+	title = SpecialProjectCompletedEvents.16.Name
+	desc = SpecialProjectCompletedEvents.16.Desc
+	picture = GFX_evt_desert
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = engineering_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.17
+	title = SpecialProjectCompletedEvents.17.Name
+	desc = SpecialProjectCompletedEvents.17.Desc
+	picture = GFX_evt_savana
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = engineering_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.18
+	title = SpecialProjectCompletedEvents.18.Name
+	desc = SpecialProjectCompletedEvents.18.Desc
+	picture = GFX_evt_arid
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = engineering_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.19
+	title = SpecialProjectCompletedEvents.19.Name
+	desc = SpecialProjectCompletedEvents.19.Desc
+	picture = GFX_evt_arctic
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = physics_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.20
+	title = SpecialProjectCompletedEvents.20.Name
+	desc = SpecialProjectCompletedEvents.20.Desc
+	picture = GFX_evt_tundra
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = physics_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.21
+	title = SpecialProjectCompletedEvents.21.Name
+	desc = SpecialProjectCompletedEvents.21.Desc
+	picture = GFX_evt_alpine
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 200 max = 500 } add_monthly_resource_mult = { resource = physics_research value = 3 min = 200 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.22
+	title = SpecialProjectCompletedEvents.22.Name
+	desc = SpecialProjectCompletedEvents.22.Desc
+	picture = GFX_evt_star_purple
+	show_sound = event_solar_fusion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 150 } owner = { add_monthly_resource_mult = { resource = influence value = 3 min = 25 max = 50 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.23
+	title = SpecialProjectCompletedEvents.23.Name
+	desc = SpecialProjectCompletedEvents.23.Desc
+	picture = GFX_evt_star_blue
+	show_sound = event_solar_fusion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 200 } owner = { add_monthly_resource_mult = { resource = physics_research value = 8 min = 500 max = 1000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.24
+	title = SpecialProjectCompletedEvents.24.Name
+	desc = SpecialProjectCompletedEvents.24.Desc
+	picture = GFX_evt_star_orange
+	show_sound = event_solar_fusion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 200 } owner = { add_monthly_resource_mult = { resource = engineering_research value = 8 min = 500 max = 1000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.25
+	title = SpecialProjectCompletedEvents.25.Name
+	desc = SpecialProjectCompletedEvents.25.Desc
+	picture = GFX_evt_star_red
+	show_sound = event_solar_fusion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 50 } owner = { add_monthly_resource_mult = { resource = minerals value = 8 min = 300 max = 600 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.26
+	title = SpecialProjectCompletedEvents.26.Name
+	desc = SpecialProjectCompletedEvents.26.Desc
+	picture = GFX_evt_star_white
+	show_sound = event_solar_fusion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = unity value = 6 min = 250 max = 750 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.27
+	title = SpecialProjectCompletedEvents.27.Name
+	desc = SpecialProjectCompletedEvents.27.Desc
+	picture = GFX_evt_star_yellow
+	show_sound = event_solar_fusion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 8 min = 500 max = 1000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.28
+	title = SpecialProjectCompletedEvents.28.Name
+	desc = SpecialProjectCompletedEvents.28.Desc
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			random_list = {
+				10 = { owner = { create_fleet = { effect = { set_owner = prev create_ship = { name = random random_existing_design = destroyer graphical_culture = prev } set_location = event_target:special_project_target } } } }
+				5 = { owner = { create_fleet = { effect = { set_owner = prev create_ship = { name = random random_existing_design = cruiser graphical_culture = prev } set_location = event_target:special_project_target } } } }
+				1 = { owner = { create_fleet = { effect = { set_owner = prev create_ship = { name = random random_existing_design = battleship graphical_culture = prev } set_location = event_target:special_project_target } } } }
+			}
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = { name = "We have no need for this." owner = { add_resource = { alloys = 400 } } event_target:special_project_target = { destroy_ambient_object = this } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.29
+	title = SpecialProjectCompletedEvents.29.Name
+	desc = SpecialProjectCompletedEvents.29.Desc
+	picture = GFX_evt_satellite_in_orbit
+	show_sound = event_sensor_ping
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 4 min = 100 max = 500 }
+			add_resource = { minerals = 200 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.30
+	title = SpecialProjectCompletedEvents.30.Name
+	desc = SpecialProjectCompletedEvents.30.Desc
+	picture = GFX_evt_ship_in_orbit_2
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = unity value = 4 min = 10 max = 200 }
+			add_resource = { energy = 300 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.31
+	title = SpecialProjectCompletedEvents.31.Name
+	desc = SpecialProjectCompletedEvents.31.Desc
+	picture = GFX_evt_exploding_ship
+	show_sound = event_construction
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = energy value = 4 min = 100 max = 200 }
+			add_monthly_resource_mult = { resource = minerals value = 3 min = 250 max = 500 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.32
+	title = SpecialProjectCompletedEvents.32.Name
+	desc = SpecialProjectCompletedEvents.32.Desc
+	picture = GFX_evt_sabotaged_ship
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = food value = 4 min = 100 max = 400 }
+			add_resource = { unity = 100 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.33
+	title = SpecialProjectCompletedEvents.33.Name
+	desc = SpecialProjectCompletedEvents.33.Desc
+	picture = GFX_evt_space_debris
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 4 min = 200 max = 400 }
+			add_monthly_resource_mult = { resource = engineering_research value = 4 min = 200 max = 400 }
+			add_resource = { minerals = 125 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.34
+	title = SpecialProjectCompletedEvents.34.Name
+	desc = SpecialProjectCompletedEvents.34.Desc
+	picture = GFX_evt_medium_debris
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 6 min = 400 max = 800 }
+			add_monthly_resource_mult = { resource = engineering_research value = 6 min = 400 max = 800 }
+			add_resource = { minerals = 250 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.35
+	title = SpecialProjectCompletedEvents.35.Name
+	desc = SpecialProjectCompletedEvents.35.Desc
+	picture = GFX_evt_ruined_system
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 8 min = 800 max = 1600 }
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 800 max = 1600 }
+			add_resource = { minerals = 500 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.36
+	title = SpecialProjectCompletedEvents.36.Name
+	desc = SpecialProjectCompletedEvents.36.Desc
+	picture = GFX_evt_alien_city
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 200 max = 500 }
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 100 max = 300 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.37
+	title = SpecialProjectCompletedEvents.37.Name
+	desc = SpecialProjectCompletedEvents.37.Desc
+	picture = GFX_evt_alien_nature
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 200 max = 500 }
+			add_monthly_resource_mult = { resource = food value = 8 min = 100 max = 300 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.38
+	title = SpecialProjectCompletedEvents.38.Name
+	desc = SpecialProjectCompletedEvents.38.Desc
+	picture = GFX_evt_animal_wildlife
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 400 max = 600 }
+			add_monthly_resource_mult = { resource = food value = 8 min = 200 max = 300 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.39
+	title = SpecialProjectCompletedEvents.39.Name
+	desc = SpecialProjectCompletedEvents.39.Desc
+	picture = GFX_evt_alien_planet
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 200 max = 800 }
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 200 max = 800 }
+			add_monthly_resource_mult = { resource = physics_research value = 8 min = 200 max = 800 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.40
+	title = SpecialProjectCompletedEvents.40.Name
+	desc = SpecialProjectCompletedEvents.40.Desc
+	picture = GFX_evt_alien_ruins
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 200 max = 600 }
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 100 max = 300 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.41
+	title = SpecialProjectCompletedEvents.41.Name
+	desc = SpecialProjectCompletedEvents.41.Desc
+	picture = GFX_evt_ancient_alien_temple
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = society_research value = 5 min = 500 max = 1000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.42
+	title = SpecialProjectCompletedEvents.42.Name
+	desc = SpecialProjectCompletedEvents.42.Desc
+	picture = GFX_evt_medieval_alien_civilization
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 150 } owner = { add_monthly_resource_mult = { resource = influence value = 3 min = 25 max = 50 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.43
+	title = SpecialProjectCompletedEvents.43.Name
+	desc = SpecialProjectCompletedEvents.43.Desc
+	picture = GFX_evt_archaeological_dig
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = unity value = 4 min = 50 max = 500 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.44
+	title = SpecialProjectCompletedEvents.44.Name
+	desc = SpecialProjectCompletedEvents.44.Desc
+	picture = GFX_evt_city_ruins
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = unity value = 4 min = 50 max = 500 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.45
+	title = SpecialProjectCompletedEvents.45.Name
+	desc = SpecialProjectCompletedEvents.45.Desc
+	picture = GFX_evt_nuclear_explosion
+	show_sound = event_super_explosion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = engineering_research value = 5 min = 500 max = 1000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.46
+	title = SpecialProjectCompletedEvents.46.Name
+	desc = SpecialProjectCompletedEvents.46.Desc
+	picture = GFX_evt_microscopic_life
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = society_research value = 5 min = 300 max = 700 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.47
+	title = SpecialProjectCompletedEvents.47.Name
+	desc = SpecialProjectCompletedEvents.47.Desc
+	picture = GFX_evt_atmospheric_entry
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_resource = { minerals = 500 } add_monthly_resource_mult = { resource = engineering_research value = 5 min = 300 max = 600 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.48
+	title = SpecialProjectCompletedEvents.48.Name
+	desc = SpecialProjectCompletedEvents.48.Desc
+	picture = GFX_evt_landing_ship
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 100 max = 400 } add_monthly_resource_mult = { resource = physics_research value = 3 min = 100 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.49
+	title = SpecialProjectCompletedEvents.49.Name
+	desc = SpecialProjectCompletedEvents.49.Desc
+	picture = GFX_evt_big_landing_ship
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 100 max = 400 } add_monthly_resource_mult = { resource = engineering_research value = 3 min = 100 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.50
+	title = SpecialProjectCompletedEvents.50.Name
+	desc = SpecialProjectCompletedEvents.50.Desc
+	picture = GFX_evt_colony_settlement
+	show_sound = event_airlock
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 100 max = 400 } add_monthly_resource_mult = { resource = society_research value = 3 min = 100 max = 400 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.51
+	title = SpecialProjectCompletedEvents.51.Name
+	desc = SpecialProjectCompletedEvents.51.Desc
+	picture = GFX_evt_burning_settlement
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 4 min = 50 max = 500 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.52
+	title = SpecialProjectCompletedEvents.52.Name
+	desc = SpecialProjectCompletedEvents.52.Desc
+	picture = GFX_evt_space_station
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 100 } owner = { add_monthly_resource_mult = { resource = unity value = 3 min = 10 max = 100 } add_monthly_resource_mult = { resource = engineering_research value = 3 min = 150 max = 800 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.53
+	title = SpecialProjectCompletedEvents.53.Name
+	desc = SpecialProjectCompletedEvents.53.Desc
+	picture = GFX_evt_space_hangar
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = engineering_research value = 6 min = 400 max = 800 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.54
+	title = SpecialProjectCompletedEvents.54.Name
+	desc = SpecialProjectCompletedEvents.54.Desc
+	picture = GFX_evt_hangar_bay
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { create_fleet = { effect = { set_owner = prev while = { count = 5 create_ship = { name = random random_existing_design = corvette graphical_culture = prev } } set_location = from } } }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.55
+	title = SpecialProjectCompletedEvents.55.Name
+	desc = SpecialProjectCompletedEvents.55.Desc
+	picture = GFX_evt_throne_room
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = influence value = 3 min = 50 max = 100 }
+		every_owned_leader = { limit = { leader_class = official } add_experience = 300 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.56
+	title = SpecialProjectCompletedEvents.56.Name
+	desc = SpecialProjectCompletedEvents.56.Desc
+	picture = GFX_evt_star_chart
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = physics_research value = 3 min = 200 max = 1000 }
+		add_monthly_resource_mult = { resource = society_research value = 3 min = 200 max = 1000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 3 min = 200 max = 1000 }
+		every_owned_leader = { limit = { leader_class = scientist } add_experience = 300 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.57
+	title = SpecialProjectCompletedEvents.57.Name
+	desc = SpecialProjectCompletedEvents.57.Desc
+	picture = GFX_evt_space_funeral
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = unity value = 5 min = 50 max = 500 }
+		add_monthly_resource_mult = { resource = influence value = 3 min = 5 max = 25 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.58
+	title = SpecialProjectCompletedEvents.58.Name
+	desc = SpecialProjectCompletedEvents.58.Desc
+	picture = GFX_evt_news_room
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = unity value = 3 min = 10 max = 200 }
+		add_monthly_resource_mult = { resource = society_research value = 4 min = 300 max = 800 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.59
+	title = SpecialProjectCompletedEvents.59.Name
+	desc = SpecialProjectCompletedEvents.59.Desc
+	picture = GFX_evt_galactic_senate
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = influence value = 5 min = 50 max = 100 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.60
+	title = SpecialProjectCompletedEvents.60.Name
+	desc = SpecialProjectCompletedEvents.60.Desc
+	picture = GFX_evt_arguing_senate
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = unity value = 6 min = 100 max = 1000 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.61
+	title = SpecialProjectCompletedEvents.61.Name
+	desc = SpecialProjectCompletedEvents.61.Desc
+	picture = GFX_evt_alien_propaganda
+	show_sound = event_celebration
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = unity value = 5 min = 100 max = 500 }
+		add_monthly_resource_mult = { resource = influence value = 3 min = 25 max = 50 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.62
+	title = SpecialProjectCompletedEvents.62.Name
+	desc = SpecialProjectCompletedEvents.62.Desc
+	picture = GFX_evt_physics_research
+	show_sound = event_administrative_work
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = physics_research value = 10 min = 1000 max = 1500 } add_modifier = { modifier = "physics_congress" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.63
+	title = SpecialProjectCompletedEvents.63.Name
+	desc = SpecialProjectCompletedEvents.63.Desc
+	picture = GFX_evt_society_research
+	show_sound = event_laboratory_sound
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = society_research value = 10 min = 1000 max = 1500 } add_modifier = { modifier = "society_congress" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.64
+	title = SpecialProjectCompletedEvents.64.Name
+	desc = SpecialProjectCompletedEvents.64.Desc
+	picture = GFX_evt_new_engineering_research
+	show_sound = event_construction
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 10 min = 1000 max = 1500 } add_modifier = { modifier = "engineering_congress" years = 10 } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.65
+	title = SpecialProjectCompletedEvents.65.Name
+	desc = SpecialProjectCompletedEvents.65.Desc
+	picture = GFX_evt_metropolis
+	show_sound = event_cityscape
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 3 min = 100 max = 400 } } ROOT = { add_deposit = "d_improved_city_district" } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.66
+	title = SpecialProjectCompletedEvents.66.Name
+	desc = SpecialProjectCompletedEvents.66.Desc
+	picture = GFX_evt_planet_minerals
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = minerals value = 3 min = 100 max = 300 } } ROOT = { add_deposit = "d_improved_mineral_district" } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.67
+	title = SpecialProjectCompletedEvents.67.Name
+	desc = SpecialProjectCompletedEvents.67.Desc
+	picture = GFX_evt_planet_energy
+	show_sound = event_mystic_reveal
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 3 min = 100 max = 300 } } ROOT = { add_deposit = "d_improved_energy_district" } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.68
+	title = SpecialProjectCompletedEvents.68.Name
+	desc = SpecialProjectCompletedEvents.68.Desc
+	picture = GFX_evt_planet_agrian
+	show_sound = event_scanner
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = food value = 3 min = 100 max = 200 } } ROOT = { add_deposit = "d_improved_food_district" } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.69
+	title = SpecialProjectCompletedEvents.69.Name
+	desc = SpecialProjectCompletedEvents.69.Desc
+	picture = GFX_evt_fleet_neutral
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 150 }
+		owner = {
+			add_resource = { minerals = 1000 energy = 2200 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.70
+	title = SpecialProjectCompletedEvents.70.Name
+	desc = SpecialProjectCompletedEvents.70.Desc
+	picture = GFX_evt_mining_station
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { add_resource = { minerals = 2000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.71
+	title = SpecialProjectCompletedEvents.71.Name
+	desc = SpecialProjectCompletedEvents.71.Desc
+	picture = GFX_evt_space_guerilla
+	show_sound = event_space_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_resource = { energy = 500 minerals = 750 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.72
+	title = SpecialProjectCompletedEvents.72.Name
+	desc = SpecialProjectCompletedEvents.72.Desc
+	picture = GFX_evt_robots_attack
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_resource = { minerals = 500 }
+			add_monthly_resource_mult = { resource = engineering_research value = 6 min = 200 max = 500 }
+			custom_tooltip = "A maximum of 1 army will be destroyed."
+			hidden_effect = { while = { count = 1 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.73
+	title = SpecialProjectCompletedEvents.73.Name
+	desc = SpecialProjectCompletedEvents.73.Desc
+	picture = GFX_evt_urban_combat
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_resource = { energy = 60 influence = 30 }
+			custom_tooltip = "A maximum of 1 army will be destroyed."
+			hidden_effect = { while = { count = 1 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.74
+	title = SpecialProjectCompletedEvents.74.Name
+	desc = SpecialProjectCompletedEvents.74.Desc
+	picture = GFX_evt_betharian_stone
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		while = { count = 2 add_deposit = d_betharian_deposit }
+		owner = { add_resource = { minerals = 300 } }
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.75
+	title = SpecialProjectCompletedEvents.75.Name
+	desc = SpecialProjectCompletedEvents.75.Desc
+	picture = GFX_evt_industry_started
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = engineering_research value = 5 min = 100 max = 400 } } ROOT = { add_modifier = { modifier = "building_dev_project" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.76
+	title = SpecialProjectCompletedEvents.76.Name
+	desc = SpecialProjectCompletedEvents.76.Desc
+	picture = GFX_evt_security_place
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = society_research value = 5 min = 100 max = 400 } } ROOT = { add_modifier = { modifier = "security_reinforcement" years = 10 } } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.77
+	title = SpecialProjectCompletedEvents.77.Name
+	desc = SpecialProjectCompletedEvents.77.Desc
+	picture = GFX_evt_researcher
+	show_sound = event_administrative_work
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = physics_research value = 7 min = 700 max = 1500 }
+		add_monthly_resource_mult = { resource = society_research value = 7 min = 700 max = 1500 }
+		add_monthly_resource_mult = { resource = engineering_research value = 7 min = 700 max = 1500 }
+		add_modifier = { modifier = "research_congress" years = 10 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.78
+	title = SpecialProjectCompletedEvents.78.Name
+	desc = SpecialProjectCompletedEvents.78.Desc
+	picture = GFX_evt_mandatory_military_service
+	show_sound = event_administrative_work
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = society_research value = 7 min = 200 max = 500 } add_modifier = { modifier = "military_service" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.79
+	title = SpecialProjectCompletedEvents.79.Name
+	desc = SpecialProjectCompletedEvents.79.Desc
+	picture = GFX_evt_ancient_robots_project
+	show_sound = event_construction
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 7 min = 300 max = 800 } add_modifier = { modifier = "robot_construction_project" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.80
+	title = SpecialProjectCompletedEvents.80.Name
+	desc = SpecialProjectCompletedEvents.80.Desc
+	picture = GFX_evt_rapid_assembly_systems
+	show_sound = event_construction
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 7 min = 300 max = 800 } add_modifier = { modifier = "shipyard_assembly_project" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.81
+	title = SpecialProjectCompletedEvents.81.Name
+	desc = SpecialProjectCompletedEvents.81.Desc
+	picture = GFX_evt_holographic_combat_simulators
+	show_sound = event_administrative_work
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = society_research value = 7 min = 200 max = 600 } add_modifier = { modifier = "combat_simulation" years = 10 } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.82
+	title = SpecialProjectCompletedEvents.82.Name
+	desc = SpecialProjectCompletedEvents.82.Desc
+	picture = GFX_evt_bright_sun
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option =
+	{
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_resource = { energy = 200 } add_monthly_resource_mult = { resource = physics_research value = 4 min = 100 max = 400 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.83
+	title = SpecialProjectCompletedEvents.83.Name
+	desc = SpecialProjectCompletedEvents.83.Desc
+	picture = GFX_evt_brown_dwarf
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 5 min = 200 max = 400 } add_monthly_resource_mult = { resource = physics_research value = 5 min = 200 max = 400 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.84
+	title = SpecialProjectCompletedEvents.84.Name
+	desc = SpecialProjectCompletedEvents.84.Desc
+	picture = GFX_evt_plasmoid_life
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = society_research value = 6 min = 200 max = 500 } add_monthly_resource_mult = { resource = physics_research value = 4 min = 300 max = 600 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.85
+	title = SpecialProjectCompletedEvents.85.Name
+	desc = SpecialProjectCompletedEvents.85.Desc
+	picture = GFX_evt_canyon_biome
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = minerals value = 4 min = 100 max = 300 } add_monthly_resource_mult = { resource = society_research value = 6 min = 200 max = 400 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.86
+	title = SpecialProjectCompletedEvents.86.Name
+	desc = SpecialProjectCompletedEvents.86.Desc
+	picture = GFX_evt_flooding_lake
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = energy value = 5 min = 100 max = 200 } add_monthly_resource_mult = { resource = society_research value = 6 min = 300 max = 600 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.87
+	title = SpecialProjectCompletedEvents.87.Name
+	desc = SpecialProjectCompletedEvents.87.Desc
+	picture = GFX_evt_forest_growth
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = food value = 5 min = 100 max = 300 } add_monthly_resource_mult = { resource = society_research value = 4 min = 400 max = 600 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.88
+	title = SpecialProjectCompletedEvents.88.Name
+	desc = SpecialProjectCompletedEvents.88.Desc
+	picture = GFX_evt_frozen_biome
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = physics_research value = 6 min = 200 max = 400 } add_monthly_resource_mult = { resource = society_research value = 6 min = 400 max = 600 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.89
+	title = SpecialProjectCompletedEvents.89.Name
+	desc = SpecialProjectCompletedEvents.89.Desc
+	picture = GFX_evt_frozen_expedition
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = minerals value = 5 min = 100 max = 300 } add_monthly_resource_mult = { resource = physics_research value = 8 min = 500 max = 800 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.90
+	title = SpecialProjectCompletedEvents.90.Name
+	desc = SpecialProjectCompletedEvents.90.Desc
+	picture = GFX_evt_proto_forest
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = society_research value = 6 min = 300 max = 800 } add_resource = { food = 150 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.91
+	title = SpecialProjectCompletedEvents.91.Name
+	desc = SpecialProjectCompletedEvents.91.Desc
+	picture = GFX_evt_volcano_biome
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 6 min = 200 max = 400 } add_monthly_resource_mult = { resource = society_research value = 6 min = 200 max = 400 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.92
+	title = SpecialProjectCompletedEvents.92.Name
+	desc = SpecialProjectCompletedEvents.92.Desc
+	picture = GFX_evt_thunderstorms
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = physics_research value = 8 min = 500 max = 1000 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.93
+	title = SpecialProjectCompletedEvents.93.Name
+	desc = SpecialProjectCompletedEvents.93.Desc
+	picture = GFX_evt_windy
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 8 min = 500 max = 1000 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.94
+	title = SpecialProjectCompletedEvents.94.Name
+	desc = SpecialProjectCompletedEvents.94.Desc
+	picture = GFX_evt_spaceship_graveyard
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 50 max = 250 } add_monthly_resource_mult = { resource = engineering_research value = 5 min = 200 max = 600 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.95
+	title = SpecialProjectCompletedEvents.95.Name
+	desc = SpecialProjectCompletedEvents.95.Desc
+	picture = GFX_evt_monster_fossil
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = society_research value = 8 min = 500 max = 1000 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.96
+	title = SpecialProjectCompletedEvents.96.Name
+	desc = SpecialProjectCompletedEvents.96.Desc
+	picture = GFX_evt_gemstones_sale
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = minerals value = 6 min = 300 max = 700 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.97
+	title = SpecialProjectCompletedEvents.97.Name
+	desc = SpecialProjectCompletedEvents.97.Desc
+	picture = GFX_evt_rogue_laboratory
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 6 min = 500 max = 800 }
+			add_monthly_resource_mult = { resource = society_research value = 6 min = 500 max = 800 }
+			add_monthly_resource_mult = { resource = engineering_research value = 6 min = 500 max = 800 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.98
+	title = SpecialProjectCompletedEvents.98.Name
+	desc = SpecialProjectCompletedEvents.98.Desc
+	picture = GFX_evt_alien_wildlife
+	show_sound = event_scanner
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_resource = { food = 500 } add_monthly_resource_mult = { resource = society_research value = 6 min = 400 max = 800 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.99
+	title = SpecialProjectCompletedEvents.99.Name
+	desc = SpecialProjectCompletedEvents.99.Desc
+	picture = GFX_evt_asteroid_cracking
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { add_resource = { unity = 100 minerals = 500 rare_crystals = 50 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1001
+	title = SpecialProjectCompletedEvents.1001.Name
+	desc = SpecialProjectCompletedEvents.1001.Desc
+	picture = GFX_evt_asteroid_lab
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 6 min = 200 max = 600 }
+			add_monthly_resource_mult = { resource = society_research value = 6 min = 200 max = 600 }
+			add_monthly_resource_mult = { resource = engineering_research value = 6 min = 200 max = 600 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1002
+	title = SpecialProjectCompletedEvents.1002.Name
+	desc = SpecialProjectCompletedEvents.1002.Desc
+	picture = GFX_evt_beautiful_lake
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 6 min = 300 max = 600 }
+			add_monthly_resource_mult = { resource = physics_research value = 6 min = 200 max = 400 }
+			add_resource = { food = 100 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1003
+	title = SpecialProjectCompletedEvents.1003.Name
+	desc = SpecialProjectCompletedEvents.1003.Desc
+	picture = GFX_evt_multiple_moons
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 6 min = 200 max = 500 }
+			add_monthly_resource_mult = { resource = minerals value = 3 min = 100 max = 200 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1004
+	title = SpecialProjectCompletedEvents.1004.Name
+	desc = SpecialProjectCompletedEvents.1004.Desc
+	picture = GFX_evt_planet_asteroid_belt
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = minerals value = 4 min = 200 max = 400 }
+			add_monthly_resource_mult = { resource = alloys value = 2 min = 20 max = 50 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1005
+	title = SpecialProjectCompletedEvents.1005.Name
+	desc = SpecialProjectCompletedEvents.1005.Desc
+	picture = GFX_evt_planet_surface
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 5 min = 300 max = 600 }
+			add_monthly_resource_mult = { resource = physics_research value = 5 min = 300 max = 600 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1006
+	title = SpecialProjectCompletedEvents.1006.Name
+	desc = SpecialProjectCompletedEvents.1006.Desc
+	picture = GFX_evt_system_review
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_resource = { alloys = 50 } }
+		event_target:special_project_target = { add_deposit = d_alloys_3 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1007
+	title = SpecialProjectCompletedEvents.1007.Name
+	desc = SpecialProjectCompletedEvents.1007.Desc
+	picture = GFX_evt_unusual_system
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_resource = { sr_dark_matter = 25 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1008
+	title = SpecialProjectCompletedEvents.1008.Name
+	desc = SpecialProjectCompletedEvents.1008.Desc
+	picture = GFX_evt_unusual_world
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		event_target:special_project_target = {
+			random_list = {
+				1 = { add_deposit = d_volatile_motes_1 }
+				1 = { add_deposit = d_rare_crystals_1 }
+				1 = { add_deposit = d_exotic_gases_1 }
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1009
+	title = SpecialProjectCompletedEvents.1009.Name
+	desc = SpecialProjectCompletedEvents.1009.Desc
+	picture = GFX_evt_busy_spaceport
+	show_sound = event_ship_thrusters
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = alloys value = 3 min = 30 max = 70 } } ROOT = { add_modifier = { modifier = "busy_spaceport" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1010
+	title = SpecialProjectCompletedEvents.1010.Name
+	desc = SpecialProjectCompletedEvents.1010.Desc
+	picture = GFX_evt_calm_place
+	show_sound = event_scanner
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_resource = { unity = 100 } } ROOT = { add_deposit = d_retirement_place } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1011
+	title = SpecialProjectCompletedEvents.1011.Name
+	desc = SpecialProjectCompletedEvents.1011.Desc
+	picture = GFX_evt_cargoship_caravan
+	show_sound = event_scanner
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = consumer_goods value = 2 min = 20 max = 40 } } ROOT = { add_modifier = { modifier = "trade_improvement" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1012
+	title = SpecialProjectCompletedEvents.1012.Name
+	desc = SpecialProjectCompletedEvents.1012.Desc
+	picture = GFX_evt_clear_moon
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 20 max = 40 } } ROOT = { add_deposit = d_clear_moon } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1013
+	title = SpecialProjectCompletedEvents.1013.Name
+	desc = SpecialProjectCompletedEvents.1013.Desc
+	picture = GFX_evt_close_planets
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 5 min = 200 max = 400 } } ROOT = { add_modifier = { modifier = "peak_colony" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1014
+	title = SpecialProjectCompletedEvents.1014.Name
+	desc = SpecialProjectCompletedEvents.1014.Desc
+	picture = GFX_evt_dark_alley
+	show_sound = event_conversation
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 20 max = 40 } } ROOT = { add_modifier = { modifier = "underworld_infiltration" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1015
+	title = SpecialProjectCompletedEvents.1015.Name
+	desc = SpecialProjectCompletedEvents.1015.Desc
+	picture = GFX_evt_more_fauna
+	show_sound = event_alien_nature
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = society_research value = 6 min = 100 max = 200 } } ROOT = { add_building = building_fe_xeno_zoo } } # add_deposit = d_more_fauna
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1016
+	title = SpecialProjectCompletedEvents.1016.Name
+	desc = SpecialProjectCompletedEvents.1016.Desc
+	picture = GFX_evt_perfect_night
+	show_sound = event_ship_bridge
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 2 min = 20 max = 40 } } ROOT = { add_modifier = { modifier = "perfect_night" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1017
+	title = SpecialProjectCompletedEvents.1017.Name
+	desc = SpecialProjectCompletedEvents.1017.Desc
+	picture = GFX_evt_local_industry
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 4 min = 100 max = 200 } } ROOT = { add_deposit = d_local_industry } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1018
+	title = SpecialProjectCompletedEvents.1018.Name
+	desc = SpecialProjectCompletedEvents.1018.Desc
+	picture = GFX_evt_ship_offloading_cargo
+	show_sound = event_ship_bridge
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = consumer_goods value = 4 min = 75 max = 150 } } ROOT = { add_modifier = { modifier = "consumer_delivery" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1019
+	title = SpecialProjectCompletedEvents.1019.Name
+	desc = SpecialProjectCompletedEvents.1019.Desc
+	picture = GFX_evt_shooting_stars
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = physics_research value = 6 min = 75 max = 175 } } ROOT = { add_modifier = { modifier = "shooting_stars" years = 10 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.1020
+	title = SpecialProjectCompletedEvents.1020.Name
+	desc = SpecialProjectCompletedEvents.1020.Desc
+	picture = GFX_evt_solar_eclipse
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = physics_research value = 6 min = 75 max = 175 } } ROOT = { add_modifier = { modifier = "solar_eclipse" years = 10 } } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1021
+	title = SpecialProjectCompletedEvents.1021.Name
+	desc = SpecialProjectCompletedEvents.1021.Desc
+	picture = GFX_evt_board_meeting
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "leaders_meeting" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1022
+	title = SpecialProjectCompletedEvents.1022.Name
+	desc = SpecialProjectCompletedEvents.1022.Desc
+	picture = GFX_evt_country_review
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_resource = { influence = 60 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1023
+	title = SpecialProjectCompletedEvents.1023.Name
+	desc = SpecialProjectCompletedEvents.1023.Desc
+	picture = GFX_evt_galactic_market
+	show_sound = event_galactic_market
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "national_market" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1024
+	title = SpecialProjectCompletedEvents.1024.Name
+	desc = SpecialProjectCompletedEvents.1024.Desc
+	picture = GFX_evt_machine_upkeep
+	show_sound = event_cityscape
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "machine_upkeep" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1025
+	title = SpecialProjectCompletedEvents.1025.Name
+	desc = SpecialProjectCompletedEvents.1025.Desc
+	picture = GFX_evt_radar_upgrade
+	show_sound = event_ship_bridge
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "radar_upgrade" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1026
+	title = SpecialProjectCompletedEvents.1026.Name
+	desc = SpecialProjectCompletedEvents.1026.Desc
+	picture = GFX_evt_space_walk
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "gravity_manipulation" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.1027
+	title = SpecialProjectCompletedEvents.1027.Name
+	desc = SpecialProjectCompletedEvents.1027.Desc
+	picture = GFX_evt_pirate_armada
+	show_sound = event_ship_bridge
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "trade_protection" years = 10 } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1028
+	title = SpecialProjectCompletedEvents.1028.Name
+	desc = SpecialProjectCompletedEvents.1028.Desc
+	picture = GFX_evt_probe_retrieve
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = {
+			add_resource = { physics_research = 400 society_research = 400 engineering_research = 400 minerals = 100 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.1029
+	title = SpecialProjectCompletedEvents.1029.Name
+	desc = SpecialProjectCompletedEvents.1029.Desc
+	picture = GFX_evt_navy_wormhole_training
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 100 }
+		owner = { add_monthly_resource_mult = { resource = unity value = 6 min = 200 max = 500 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.101
+	title = SpecialProjectCompletedEvents.101.Name
+	desc = SpecialProjectCompletedEvents.101.Desc
+	picture = GFX_evt_gaia
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate = { check_special_project_target = yes }
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 8 min = 1500 max = 3000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.102
+	title = SpecialProjectCompletedEvents.102.Name
+	desc = SpecialProjectCompletedEvents.102.Desc
+	picture = GFX_evt_tomb_world
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 1200 max = 1800 }
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 1200 max = 1800 }
+			add_monthly_resource_mult = { resource = physics_research value = 8 min = 1200 max = 1800 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.103
+	title = SpecialProjectCompletedEvents.103.Name
+	desc = SpecialProjectCompletedEvents.103.Desc
+	picture = GFX_evt_black_hole
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 8 min = 800 max = 1200 }
+			add_monthly_resource_mult = { resource = energy value = 8 min = 500 max = 750 }
+		}
+		event_target:special_project_target = { add_deposit = d_dark_matter_deposit_1 add_deposit = d_physics_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.104
+	title = SpecialProjectCompletedEvents.104.Name
+	desc = SpecialProjectCompletedEvents.104.Desc
+	picture = GFX_evt_star_neutron
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 800 max = 1200 }
+			add_monthly_resource_mult = { resource = minerals value = 8 min = 500 max = 750 }
+		}
+		event_target:special_project_target = { add_deposit = d_engineering_6 add_deposit = d_engineering_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.105
+	title = SpecialProjectCompletedEvents.105.Name
+	desc = SpecialProjectCompletedEvents.105.Desc
+	picture = GFX_evt_star_pulsar
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 13 min = 1000 max = 2000 }
+			add_monthly_resource_mult = { resource = physics_research value = 13 min = 1000 max = 2000 }
+		}
+		event_target:special_project_target = { add_deposit = d_physics_6 add_deposit = d_engineering_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.106
+	title = SpecialProjectCompletedEvents.106.Name
+	desc = SpecialProjectCompletedEvents.106.Desc
+	picture = GFX_evt_sapient_AI
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 13 min = 1000 max = 2000 } }
+		event_target:special_project_target = { add_deposit = d_engineering_6 add_deposit = d_engineering_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.107
+	title = SpecialProjectCompletedEvents.107.Name
+	desc = SpecialProjectCompletedEvents.107.Desc
+	picture = GFX_evt_junkheap
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 400 } owner = { add_resource = { energy = 2500 minerals = 2500 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.108
+	title = SpecialProjectCompletedEvents.108.Name
+	desc = SpecialProjectCompletedEvents.108.Desc
+	picture = GFX_evt_outpost
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = { name = EXCELLENT leader = { add_experience = 400 } owner = { add_resource = { energy = 1000 } add_monthly_resource_mult = { resource = physics_research value = 9 min = 1000 max = 2000 } } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.109
+	title = SpecialProjectCompletedEvents.109.Name
+	desc = SpecialProjectCompletedEvents.109.Desc
+	picture = GFX_evt_underground_civilization
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 1500 max = 2500 }
+			add_monthly_resource_mult = { resource = minerals value = 6 min = 1000 max = 1500 }
+		}
+		event_target:special_project_target = { add_deposit = d_society_9 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.110
+	title = SpecialProjectCompletedEvents.110.Name
+	desc = SpecialProjectCompletedEvents.110.Desc
+	picture = GFX_evt_ringworld
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 12 min = 1500 max = 3000 }
+			add_resource = { energy = 500 }
+		}
+		event_target:special_project_target = { add_deposit = d_engineering_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.111
+	title = SpecialProjectCompletedEvents.111.Name
+	desc = SpecialProjectCompletedEvents.111.Desc
+	picture = GFX_evt_strategic_resources
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 8 min = 500 max = 1000 }
+			add_monthly_resource_mult = { resource = society_research value = 8 min = 500 max = 1000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 8 min = 500 max = 1000 }
+		}
+		event_target:special_project_target = {
+			random_list = {
+				1 = { add_deposit = d_volatile_motes_3 }
+				1 = { add_deposit = d_rare_crystals_3 }
+				1 = { add_deposit = d_exotic_gases_3 }
+			}
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.112
+	title = SpecialProjectCompletedEvents.112.Name
+	desc = SpecialProjectCompletedEvents.112.Desc
+	picture = GFX_evt_wormhole
+	show_sound = event_sensor_ping
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			random_list = {
+				10 = { set_ambient_object_flag = temporal_wormhole_minerals }
+				10 = { set_ambient_object_flag = temporal_wormhole_energy }
+				10 = { set_ambient_object_flag = temporal_wormhole_food }
+				10 = { set_ambient_object_flag = temporal_wormhole_society }
+				10 = { set_ambient_object_flag = temporal_wormhole_physics }
+				10 = { set_ambient_object_flag = temporal_wormhole_engineering }
+			}
+		}
+
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_ambient_object_flag = temporal_wormhole_minerals } }
+		leader = { add_experience = 200 }
+		owner = { add_monthly_resource_mult = { resource = minerals value = 8 min = 500 max = 1000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_ambient_object_flag = temporal_wormhole_energy } }
+		leader = { add_experience = 200 }
+		owner = { add_monthly_resource_mult = { resource = energy value = 8 min = 500 max = 1000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_ambient_object_flag = temporal_wormhole_food } }
+		leader = { add_experience = 200 }
+		owner = { add_monthly_resource_mult = { resource = food value = 5 min = 200 max = 400 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_ambient_object_flag = temporal_wormhole_society } }
+		leader = { add_experience = 200 }
+		owner = { add_monthly_resource_mult = { resource = society_research value = 12 min = 1000 max = 2000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_ambient_object_flag = temporal_wormhole_physics } }
+		leader = { add_experience = 200 }
+		owner = { add_monthly_resource_mult = { resource = physics_research value = 12 min = 1000 max = 2000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = EXCELLENT
+		trigger = { event_target:special_project_target = { has_ambient_object_flag = temporal_wormhole_engineering } }
+		leader = { add_experience = 200 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 12 min = 1000 max = 2000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.113
+	title = SpecialProjectCompletedEvents.113.Name
+	desc = SpecialProjectCompletedEvents.113.Desc
+	picture = GFX_evt_megastructure_construction
+	show_sound = event_construction
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			random_list = {
+				4 = { owner = { create_fleet = { effect = { set_owner = prev while = { count = 13 create_ship = { name = random random_existing_design = destroyer graphical_culture = prev } } set_location = event_target:special_project_target } } } }
+				4 = { owner = { create_fleet = { effect = { set_owner = prev while = { count = 6 create_ship = { name = random random_existing_design = cruiser graphical_culture = prev } } set_location = event_target:special_project_target } } } }
+				1 = { owner = { create_fleet = { effect = { set_owner = prev while = { count = 3 create_ship = { name = random random_existing_design = battleship graphical_culture = prev } } set_location = event_target:special_project_target } } } }
+			}
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = { name = "We have no need for this." owner = { add_resource = { alloys = 2000 } } event_target:special_project_target = { destroy_ambient_object = this } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.114
+	title = SpecialProjectCompletedEvents.114.Name
+	desc = SpecialProjectCompletedEvents.114.Desc
+	picture = GFX_evt_circuitry_modification
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 10 min = 1000 max = 2000 } add_modifier = { modifier = "robo_modding_amelioration" days = -1 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.115
+	title = SpecialProjectCompletedEvents.115.Name
+	desc = SpecialProjectCompletedEvents.115.Desc
+	picture = GFX_evt_genetic_modification
+	show_sound = event_engineered_evolution
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = society_research value = 10 min = 1000 max = 2000 } add_modifier = { modifier = "genetic_amelioration" days = -1 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.116
+	title = SpecialProjectCompletedEvents.116.Name
+	desc = SpecialProjectCompletedEvents.116.Desc
+	picture = GFX_evt_engineering_research
+	show_sound = event_laboratory_sound
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 10 min = 500 max = 1000 } add_modifier = { modifier = "weaponry_amelioration" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.117
+	title = SpecialProjectCompletedEvents.117.Name
+	desc = SpecialProjectCompletedEvents.117.Desc
+	picture = GFX_evt_surreal_visions
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = physics_research value = 10 min = 500 max = 1000 } add_modifier = { modifier = "shield_amelioration" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.118
+	title = SpecialProjectCompletedEvents.118.Name
+	desc = SpecialProjectCompletedEvents.118.Desc
+	picture = GFX_evt_unity_symbol
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = unity value = 48 min = 10000 max = 5000 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.119
+	title = SpecialProjectCompletedEvents.119.Name
+	desc = SpecialProjectCompletedEvents.119.Desc
+	picture = GFX_evt_synth_sabotage
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_resource = { minerals = 2000 energy = 2000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 1 min = 1250 max = 1250 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.120
+	title = SpecialProjectCompletedEvents.120.Name
+	desc = SpecialProjectCompletedEvents.120.Desc
+	picture = GFX_evt_clones
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { energy = 5000 minerals = 5000 unity = 1000 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 2000 max = 2000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 9 min = 2000 max = 2000 }
+			custom_tooltip = "A maximum of 12 armies will be destroyed."
+			hidden_effect = { while = { count = 12 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.121
+	title = SpecialProjectCompletedEvents.121.Name
+	desc = SpecialProjectCompletedEvents.121.Desc
+	picture = GFX_evt_hive_mind
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { unity = 6000 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 4000 max = 4000 }
+			custom_tooltip = "A maximum of 20 armies will be destroyed."
+			hidden_effect = { while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.122
+	title = SpecialProjectCompletedEvents.122.Name
+	desc = SpecialProjectCompletedEvents.122.Desc
+	picture = GFX_evt_interior_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { energy = 5000 unity = 1000 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 2000 max = 2000 }
+			custom_tooltip = "A maximum of 20 armies will be destroyed."
+			hidden_effect = { while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.123
+	title = SpecialProjectCompletedEvents.123.Name
+	desc = SpecialProjectCompletedEvents.123.Desc
+	picture = GFX_evt_in_the_dark
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { food = 1000 unity = 2000 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 3500 max = 3500 }
+			custom_tooltip = "A maximum of 12 armies will be destroyed."
+			hidden_effect = { while = { count = 12 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.124
+	title = SpecialProjectCompletedEvents.124.Name
+	desc = SpecialProjectCompletedEvents.124.Desc
+	picture = GFX_evt_alien_cavemen
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { food = 500 minerals = 2500 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 1500 max = 2500 }
+			custom_tooltip = "A maximum of 6 armies will be destroyed."
+			hidden_effect = { while = { count = 6 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.125
+	title = SpecialProjectCompletedEvents.125.Name
+	desc = SpecialProjectCompletedEvents.125.Desc
+	picture = GFX_evt_cybernetics
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { energy = 1500 }
+			add_monthly_resource_mult = { resource = engineering_research value = 9 min = 1500 max = 2500 }
+			custom_tooltip = "A maximum of 6 armies will be destroyed."
+			hidden_effect = { while = { count = 6 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.126
+	title = SpecialProjectCompletedEvents.126.Name
+	desc = SpecialProjectCompletedEvents.126.Desc
+	picture = GFX_evt_smugglers_in_bar
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { energy = 4000 minerals = 1500 }
+			custom_tooltip = "A maximum of 8 armies will be destroyed."
+			hidden_effect = { while = { count = 8 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.127
+	title = SpecialProjectCompletedEvents.127.Name
+	desc = SpecialProjectCompletedEvents.127.Desc
+	picture = GFX_evt_victorious_army
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { energy = 2000 minerals = 3500 }
+			custom_tooltip = "A maximum of 10 armies will be destroyed."
+			hidden_effect = { while = { count = 10 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.128
+	title = SpecialProjectCompletedEvents.128.Name
+	desc = SpecialProjectCompletedEvents.128.Desc
+	picture = GFX_evt_friendly_amoeba
+	show_sound = event_super_explosion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = energy value = 6 min = 1000 max = 4000 }
+			add_monthly_resource_mult = { resource = society_research value = 12 min = 2000 max = 4500 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.129
+	title = SpecialProjectCompletedEvents.129.Name
+	desc = SpecialProjectCompletedEvents.129.Desc
+	picture = GFX_evt_federation_fleet
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = minerals value = 6 min = 1000 max = 4000 }
+			add_monthly_resource_mult = { resource = physics_research value = 12 min = 2000 max = 4500 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.130
+	title = SpecialProjectCompletedEvents.130.Name
+	desc = SpecialProjectCompletedEvents.130.Desc
+	picture = GFX_evt_fleet_good
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { energy = 2000 minerals = 4000 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.131
+	title = SpecialProjectCompletedEvents.131.Name
+	desc = SpecialProjectCompletedEvents.131.Desc
+	picture = GFX_evt_pirate_armada
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = unity value = 8 min = 600 max = 1400 }
+			add_resource = { energy = 1500 minerals = 1000 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.132
+	title = SpecialProjectCompletedEvents.132.Name
+	desc = SpecialProjectCompletedEvents.132.Desc
+	picture = GFX_evt_small_space_battle
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = energy value = 6 min = 1000 max = 2000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 10 min = 1500 max = 3000 }
+			add_resource = { minerals = 1250 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.133
+	title = SpecialProjectCompletedEvents.133.Name
+	desc = SpecialProjectCompletedEvents.133.Desc
+	picture = GFX_evt_large_explosion
+	show_sound = event_default
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 6 min = 2000 max = 4000 }
+			add_monthly_resource_mult = { resource = physics_research value = 12 min = 2000 max = 4000 }
+			add_resource = { minerals = 2500 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.134
+	title = SpecialProjectCompletedEvents.134.Name
+	desc = SpecialProjectCompletedEvents.134.Desc
+	picture = GFX_evt_hive
+	show_sound = event_super_explosion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = minerals value = 6 min = 1000 max = 4000 }
+			add_monthly_resource_mult = { resource = physics_research value = 12 min = 2000 max = 4500 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.135
+	title = SpecialProjectCompletedEvents.135.Name
+	desc = SpecialProjectCompletedEvents.135.Desc
+	picture = GFX_evt_binary_stars
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 8 min = 1000 max = 1200 }
+			add_monthly_resource_mult = { resource = energy value = 6 min = 600 max = 1000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.136
+	title = SpecialProjectCompletedEvents.136.Name
+	desc = SpecialProjectCompletedEvents.136.Desc
+	picture = GFX_evt_collapstar
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 12 min = 1000 max = 2000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 12 min = 1000 max = 2000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.137
+	title = SpecialProjectCompletedEvents.137.Name
+	desc = SpecialProjectCompletedEvents.137.Desc
+	picture = GFX_evt_ancient_tower
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { influence = 50 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 800 max = 1600 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.138
+	title = SpecialProjectCompletedEvents.138.Name
+	desc = SpecialProjectCompletedEvents.138.Desc
+	picture = GFX_evt_dangerous_world
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 14 min = 1000 max = 2500 }
+			add_resource = { food = 200 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.139
+	title = SpecialProjectCompletedEvents.139.Name
+	desc = SpecialProjectCompletedEvents.139.Desc
+	picture = GFX_evt_floating_islands
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 13 min = 800 max = 1600 }
+			add_monthly_resource_mult = { resource = physics_research value = 13 min = 800 max = 1600 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.140
+	title = SpecialProjectCompletedEvents.140.Name
+	desc = SpecialProjectCompletedEvents.140.Desc
+	picture = GFX_evt_forest_inferno
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 9 min = 1000 max = 2000 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 1000 max = 2000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.141
+	title = SpecialProjectCompletedEvents.141.Name
+	desc = SpecialProjectCompletedEvents.141.Desc
+	picture = GFX_evt_lava_fortress
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 15 min = 2000 max = 4000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.142
+	title = SpecialProjectCompletedEvents.142.Name
+	desc = SpecialProjectCompletedEvents.142.Desc
+	picture = GFX_evt_magnetic_wave_defence
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 15 min = 1500 max = 2500 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.143
+	title = SpecialProjectCompletedEvents.143.Name
+	desc = SpecialProjectCompletedEvents.143.Desc
+	picture = GFX_evt_moon_palace
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = unity value = 6 min = 300 max = 800 }
+			add_monthly_resource_mult = { resource = physics_research value = 12 min = 1000 max = 2000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.144
+	title = SpecialProjectCompletedEvents.144.Name
+	desc = SpecialProjectCompletedEvents.144.Desc
+	picture = GFX_evt_precursor_city
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = unity value = 7 min = 500 max = 1000 }
+			add_monthly_resource_mult = { resource = society_research value = 13 min = 1500 max = 2500 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.145
+	title = SpecialProjectCompletedEvents.145.Name
+	desc = SpecialProjectCompletedEvents.145.Desc
+	picture = GFX_evt_ruined_battlefield
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { unity = 1000 influence = 25 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.146
+	title = SpecialProjectCompletedEvents.146.Name
+	desc = SpecialProjectCompletedEvents.146.Desc
+	picture = GFX_evt_titan_fossil
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 15 min = 1500 max = 2500 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.147
+	title = SpecialProjectCompletedEvents.147.Name
+	desc = SpecialProjectCompletedEvents.147.Desc
+	picture = GFX_evt_wondrous_world
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = minerals value = 5 min = 400 max = 800 }
+			add_monthly_resource_mult = { resource = energy value = 6 min = 300 max = 600 }
+			add_monthly_resource_mult = { resource = physics_research value = 9 min = 800 max = 1400 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 800 max = 1400 }
+			add_monthly_resource_mult = { resource = engineering_research value = 9 min = 800 max = 1400 }
+			add_monthly_resource_mult = { resource = unity value = 6 min = 300 max = 800 }
+		}
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.148
+	title = SpecialProjectCompletedEvents.148.Name
+	desc = SpecialProjectCompletedEvents.148.Desc
+	picture = GFX_evt_advanced_powerplant
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT root = { add_deposit = "d_adv_power_plant" } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.149
+	title = SpecialProjectCompletedEvents.149.Name
+	desc = SpecialProjectCompletedEvents.149.Desc
+	picture = GFX_evt_augment_integrated_systems
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = unity value = 6 min = 800 max = 1600 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.150
+	title = SpecialProjectCompletedEvents.150.Name
+	desc = SpecialProjectCompletedEvents.150.Desc
+	picture = GFX_evt_energy_grid
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = energy value = 12 min = 1000 max = 2000 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.151
+	title = SpecialProjectCompletedEvents.151.Name
+	desc = SpecialProjectCompletedEvents.151.Desc
+	picture = GFX_evt_great_city
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = influence value = 6 min = 50 max = 100 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.152
+	title = SpecialProjectCompletedEvents.152.Name
+	desc = SpecialProjectCompletedEvents.152.Desc
+	picture = GFX_evt_mining_upgrade
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = minerals value = 8 min = 1000 max = 1600 } } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.153
+	title = SpecialProjectCompletedEvents.153.Name
+	desc = SpecialProjectCompletedEvents.153.Desc
+	picture = GFX_evt_native_interaction
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT owner = { add_monthly_resource_mult = { resource = society_research value = 9 min = 1000 max = 2200 } } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.154
+	title = SpecialProjectCompletedEvents.154.Name
+	desc = SpecialProjectCompletedEvents.154.Desc
+	picture = GFX_evt_university
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = unity value = 6 min = 300 max = 600 } add_modifier = { modifier = "has_university" years = 20 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.155
+	title = SpecialProjectCompletedEvents.155.Name
+	desc = SpecialProjectCompletedEvents.155.Desc
+	picture = GFX_evt_trubble_feast
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "entrepot_developpement" days = -1 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.156
+	title = SpecialProjectCompletedEvents.156.Name
+	desc = SpecialProjectCompletedEvents.156.Desc
+	picture = GFX_evt_strange_apparatus
+	show_sound = event_laboratory_sound
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_modifier = { modifier = "apparatus_working" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.157
+	title = SpecialProjectCompletedEvents.157.Name
+	desc = SpecialProjectCompletedEvents.157.Desc
+	picture = GFX_evt_ship_modification
+	show_sound = event_construction
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 6 min = 500 max = 900 } add_modifier = { modifier = "ship_thrusters_modif" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.158
+	title = SpecialProjectCompletedEvents.158.Name
+	desc = SpecialProjectCompletedEvents.158.Desc
+	picture = GFX_evt_palace_room
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_resource = { influence = 50 } add_modifier = { modifier = "palace_throne_working" years = 10 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.159
+	title = SpecialProjectCompletedEvents.159.Name
+	desc = SpecialProjectCompletedEvents.159.Desc
+	picture = GFX_evt_alien_union
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = society_research value = 8 min = 1000 max = 2000 } add_modifier = { modifier = "alien_union_done" years = 20 } }
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.160
+	title = SpecialProjectCompletedEvents.160.Name
+	desc = SpecialProjectCompletedEvents.160.Desc
+	picture = GFX_evt_alien_segregation
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = EXCELLENT add_monthly_resource_mult = { resource = unity value = 5 min = 500 max = 1000 } add_modifier = { modifier = "alien_segregation_done" years = 10 } }
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.161
+	title = SpecialProjectCompletedEvents.161.Name
+	desc = SpecialProjectCompletedEvents.161.Desc
+	picture = GFX_evt_ground_control
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_resource = { minerals = 1500 energy = 2000 unity = 1000 }
+			custom_tooltip = "A maximum of 7 armies will be destroyed."
+			hidden_effect = { while = { count = 7 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.162
+	title = SpecialProjectCompletedEvents.162.Name
+	desc = SpecialProjectCompletedEvents.162.Desc
+	picture = GFX_evt_seamonster
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 12 min = 1500 max = 3000 }
+			add_monthly_resource_mult = { resource = food value = 6 min = 200 max = 500 }
+			custom_tooltip = "A maximum of 7 armies will be destroyed."
+			hidden_effect = { while = { count = 7 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.163
+	title = SpecialProjectCompletedEvents.163.Name
+	desc = SpecialProjectCompletedEvents.163.Desc
+	picture = GFX_evt_giant_tanks
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 11 min = 1500 max = 2500 }
+			add_monthly_resource_mult = { resource = minerals value = 8 min = 1000 max = 2000 }
+			custom_tooltip = "A maximum of 7 armies will be destroyed."
+			hidden_effect = { while = { count = 7 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.164
+	title = SpecialProjectCompletedEvents.164.Name
+	desc = SpecialProjectCompletedEvents.164.Desc
+	picture = GFX_evt_fleet_blocus
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = energy value = 9 min = 1250 max = 2500 }
+			add_monthly_resource_mult = { resource = influence value = 6 min = 35 max = 75 }
+			custom_tooltip = "A maximum of 7 armies will be destroyed."
+			hidden_effect = { while = { count = 7 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.165
+	title = SpecialProjectCompletedEvents.165.Name
+	desc = SpecialProjectCompletedEvents.165.Desc
+	picture = GFX_evt_drifting_gateway
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 400 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 12 min = 1000 max = 2000 }
+			add_monthly_resource_mult = { resource = energy value = 12 min = 500 max = 1200 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.201
+	title = SpecialProjectCompletedEvents.201.Name
+	desc = SpecialProjectCompletedEvents.201.Desc
+	picture = GFX_evt_fleet_evil
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 1000 }
+		owner = {
+			add_resource = { minerals = 4000 energy = 8000 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.202
+	title = SpecialProjectCompletedEvents.202.Name
+	desc = SpecialProjectCompletedEvents.202.Desc
+	picture = GFX_evt_aggressive_flora
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 15 min = 4000 max = 6000 }
+			add_monthly_resource_mult = { resource = food value = 15 min = 600 max = 1200 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.203
+	title = SpecialProjectCompletedEvents.203.Name
+	desc = SpecialProjectCompletedEvents.203.Desc
+	picture = GFX_evt_black_hole_new
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = { add_monthly_resource_mult = { resource = physics_research value = 15 min = 2000 max = 4000 } }
+		event_target:special_project_target = { add_deposit = d_physics_6 add_deposit = d_physics_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.204
+	title = SpecialProjectCompletedEvents.204.Name
+	desc = SpecialProjectCompletedEvents.204.Desc
+	picture = GFX_evt_contingency_planet
+	show_sound = event_activating_unknown_technology
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			change_pc = pc_machine
+			set_planet_size = 25
+			reset_planet = yes
+			#WTF
+		}
+	}
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 15 min = 5000 max = 8000 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.205
+	title = SpecialProjectCompletedEvents.205.Name
+	desc = SpecialProjectCompletedEvents.205.Desc
+	picture = GFX_evt_exploding_planet
+	show_sound = event_super_explosion
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { minerals = 2000 energy = 3000 }
+		}
+		event_target:special_project_target = {
+			change_pc = pc_shattered
+			add_deposit = d_minerals_6 add_deposit = d_minerals_6
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.206
+	title = SpecialProjectCompletedEvents.206.Name
+	desc = SpecialProjectCompletedEvents.206.Desc
+	picture = GFX_evt_the_gaia_world
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = { add_monthly_resource_mult = { resource = society_research value = 19 min = 5000 max = 8000 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.207
+	title = SpecialProjectCompletedEvents.207.Name
+	desc = SpecialProjectCompletedEvents.207.Desc
+	picture = GFX_evt_monument_to_the_stars
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		event_target:special_project_target ={
+			random_list = {
+				1 = { change_pc = "pc_continental" }
+				1 = { change_pc = "pc_desert" }
+				1 = { change_pc = "pc_tropical" }
+				1 = { change_pc = "pc_arid" }
+				1 = { change_pc = "pc_ocean" }
+				1 = { change_pc = "pc_tundra" }
+				1 = { change_pc = "pc_arctic" }
+				1 = { change_pc = "pc_alpine" }
+				1 = { change_pc = "pc_savannah" }
+				1 = { change_pc = "pc_nuked" }
+				1 = { change_pc = "pc_gaia" }
+			}
+			set_planet_size = 25
+			reset_planet = yes
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.208
+	title = SpecialProjectCompletedEvents.208.Name
+	desc = SpecialProjectCompletedEvents.208.Desc
+	picture = GFX_evt_pulsar_clock
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 15 min = 2000 max = 4000 } }
+		event_target:special_project_target = { add_deposit = d_engineering_6 add_deposit = d_engineering_6 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.209
+	title = SpecialProjectCompletedEvents.209.Name
+	desc = SpecialProjectCompletedEvents.209.Desc
+	picture = GFX_evt_time_displaced
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 15 min = 1500 max = 3000 }
+			add_monthly_resource_mult = { resource = society_research value = 15 min = 1500 max = 3000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 15 min = 1500 max = 3000 }
+		}
+		event_target:special_project_target = { add_deposit = d_physics_9 add_deposit = d_society_9 add_deposit = d_engineering_9 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.210
+	title = SpecialProjectCompletedEvents.210.Name
+	desc = SpecialProjectCompletedEvents.210.Desc
+	picture = GFX_evt_l-gateway
+	show_sound = event_mystic_reveal
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 15 min = 2000 max = 4000 }
+			add_monthly_resource_mult = { resource = energy value = 15 min = 1500 max = 2500 }
+			generate_lcluster_clue = yes
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.211
+	title = SpecialProjectCompletedEvents.211.Name
+	desc = SpecialProjectCompletedEvents.211.Desc
+	picture = GFX_evt_shipyards_old
+	show_sound = event_construction
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			owner = {
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = { count = 10 create_ship = { name = random random_existing_design = corvette graphical_culture = prev } }
+						while = { count = 8 create_ship = { name = random random_existing_design = destroyer graphical_culture = prev } }
+						while = { count = 4	create_ship = { name = random random_existing_design = cruiser graphical_culture = prev } }
+						while = { count = 1 create_ship = { name = random random_existing_design = battleship graphical_culture = prev } }
+						while = { count = 10 random = { chance = 50 create_ship = { name = random random_existing_design = corvette graphical_culture = prev } } }
+						while = { count = 8 random = { chance = 50 create_ship = { name = random random_existing_design = destroyer graphical_culture = prev } } }
+						while = { count = 3 random = { chance = 50 create_ship = { name = random random_existing_design = cruiser graphical_culture = prev } } }
+						while = { count = 2 random = { chance = 50 create_ship = { name = random random_existing_design = battleship graphical_culture = prev } } }
+						set_location = event_target:special_project_target
+					}
+				}
+			}
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = { name = "We have no need for this." owner = { add_resource = { alloys = 7000 } } event_target:special_project_target = { destroy_ambient_object = this } }
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.212
+	title = SpecialProjectCompletedEvents.212.Name
+	desc = SpecialProjectCompletedEvents.212.Desc
+	picture = GFX_evt_disease_outbreak
+	show_sound = event_laboratory_sound
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_modifier = { modifier = "prototype_project" years = 20 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 15 min = 2500 max = 5000 }
+			add_monthly_resource_mult = { resource = unity value = 15 min = 1200 max = 2400 }
+		}
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.213
+	title = SpecialProjectCompletedEvents.213.Name
+	desc = SpecialProjectCompletedEvents.213.Desc
+	picture = GFX_evt_drydocks
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 15 min = 1500 max = 3000 }
+			add_modifier = { modifier = "drydock_efficiency" years = 10 }
+		}
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.214
+	title = SpecialProjectCompletedEvents.214.Name
+	desc = SpecialProjectCompletedEvents.214.Desc
+	picture = GFX_evt_halo
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_modifier = { modifier = "ringworld_improvement" years = 20 }
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.215
+	title = SpecialProjectCompletedEvents.215.Name
+	desc = SpecialProjectCompletedEvents.215.Desc
+	picture = GFX_evt_mineral_haul
+	show_sound = event_construction
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_modifier = { modifier = "minerals_grow_collection" years = 20 }
+	}
+}
+
+planet_event = {
+	id = SpecialProjectCompletedEvents.216
+	title = SpecialProjectCompletedEvents.216.Name
+	desc = SpecialProjectCompletedEvents.216.Desc
+	picture = GFX_evt_planet_beam
+	show_sound = event_default
+	location = root
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_modifier = { modifier = "planetary_space_elevator" days = -1 }
+		owner = { add_monthly_resource_mult = { resource = engineering_research value = 15 min = 2000 max = 4000 } }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.217
+	title = SpecialProjectCompletedEvents.217.Name
+	desc = SpecialProjectCompletedEvents.217.Desc
+	picture = GFX_evt_psionics
+	show_sound = event_mind_over_matter
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = society_research value = 20 min = 3500 max = 5500 }
+		add_monthly_resource_mult = { resource = energy value = 26 min = 1000 max = 2500 }
+		add_modifier = { modifier = "psionics_training" years = 20 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.218
+	title = SpecialProjectCompletedEvents.218.Name
+	desc = SpecialProjectCompletedEvents.218.Desc
+	picture = GFX_evt_machine_sapience
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = engineering_research value = 20 min = 3500 max = 5500 }
+		add_monthly_resource_mult = { resource = minerals value = 14 min = 1000 max = 2500 }
+		add_modifier = { modifier = "sapient_ai_transcendence" years = 20 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.219
+	title = SpecialProjectCompletedEvents.219.Name
+	desc = SpecialProjectCompletedEvents.219.Desc
+	picture = GFX_evt_synth_organic_relations
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = society_research value = 26 min = 3000 max = 6000 }
+		add_monthly_resource_mult = { resource = influence value = 10 min = 50 max = 100 }
+		add_modifier = { modifier = "synth_xeno_relations" years = 20 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.220
+	title = SpecialProjectCompletedEvents.220.Name
+	desc = SpecialProjectCompletedEvents.220.Desc
+	picture = GFX_evt_towel
+	show_sound = event_default
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = unity value = 26 min = 5000 max = 10000 }
+		add_modifier = { modifier = "unity_resistance_done" years = 20 }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.221
+	title = SpecialProjectCompletedEvents.221.Name
+	desc = SpecialProjectCompletedEvents.221.Desc
+	picture = GFX_evt_security_forces
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 75 energy = 4000 unity = 1500 }
+			add_monthly_resource_mult = { resource = physics_research value = 26 min = 2200 max = 4400 }
+			custom_tooltip = "A maximum of 20 armies will be destroyed."
+			hidden_effect = { while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.222
+	title = SpecialProjectCompletedEvents.222.Name
+	desc = SpecialProjectCompletedEvents.222.Desc
+	picture = GFX_evt_unspeakable_horror
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { food = 1500 unity = 3200 }
+			add_monthly_resource_mult = { resource = society_research value = 26 min = 3000 max = 6000 }
+			custom_tooltip = "A maximum of 20 armies will be destroyed."
+			hidden_effect = { while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.223
+	title = SpecialProjectCompletedEvents.223.Name
+	desc = SpecialProjectCompletedEvents.223.Desc
+	picture = GFX_evt_robot_assembly_plant
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 50 energy = 6000 unity = 2000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 26 min = 3000 max = 6000 }
+			custom_tooltip = "A maximum of 20 armies will be destroyed."
+			hidden_effect = { while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.224
+	title = SpecialProjectCompletedEvents.224.Name
+	desc = SpecialProjectCompletedEvents.224.Desc
+	picture = GFX_evt_organic_oppression
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 50 energy = 3500 unity = 2000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 26 min = 4000 max = 8000 }
+			custom_tooltip = "A maximum of 20 armies will be destroyed."
+			hidden_effect = { while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.225
+	title = SpecialProjectCompletedEvents.225.Name
+	desc = SpecialProjectCompletedEvents.225.Desc
+	picture = GFX_evt_ground_combat
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 125 energy = 12000 minerals = 9000 unity = 5000 }
+			custom_tooltip = "A maximum of 30 armies will be destroyed."
+			hidden_effect = { while = { count = 30 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.226
+	title = SpecialProjectCompletedEvents.226.Name
+	desc = SpecialProjectCompletedEvents.226.Desc
+	picture = GFX_evt_surface_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 2000 energy = 15000 minerals = 8000 unity = 4000 }
+			custom_tooltip = "A maximum of 30 armies will be destroyed."
+			hidden_effect = { while = { count = 30 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.227
+	title = SpecialProjectCompletedEvents.227.Name
+	desc = SpecialProjectCompletedEvents.227.Desc
+	picture = GFX_evt_unknown_ships
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 80 energy = 4500 unity = 5500 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.228
+	title = SpecialProjectCompletedEvents.228.Name
+	desc = SpecialProjectCompletedEvents.228.Desc
+	picture = GFX_evt_fleet_in_orbit
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_resource = { influence = 150 energy = 3000 unity = 4000 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.229
+	title = SpecialProjectCompletedEvents.229.Name
+	desc = SpecialProjectCompletedEvents.229.Desc
+	picture = GFX_evt_space_monster
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 22 min = 3000 max = 6000 }
+			add_monthly_resource_mult = { resource = energy value = 22 min = 1500 max = 3000 }
+			if = {
+				limit = { NOR = { has_technology = tech_crystal_armor_2 has_tech_option = tech_crystal_armor_2 } }
+				add_research_option = tech_crystal_armor_2
+			}
+			else_if = {
+				limit = { OR = { has_technology = tech_crystal_armor_2 has_tech_option = tech_crystal_armor_2 } }
+				 add_monthly_resource_mult = { resource = physics_research value = 1 min = 5000 max = 5000 }
+			}
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.230
+	title = SpecialProjectCompletedEvents.230.Name
+	desc = SpecialProjectCompletedEvents.230.Desc
+	picture = GFX_evt_abandoned_titan
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			owner = {
+				add_monthly_resource_mult = { resource = engineering_research value = 22 min = 2000 max = 2000 }
+				add_resource = { energy = 2000 }
+				save_event_target_as = player_country
+			}
+			create_hostile_random_faction_country = yes
+			create_fleet = {
+				effect = {
+					set_owner = last_created_country
+					while = { count = 1 create_ship = { name = random random_existing_design = titan graphical_culture = event_target:player_country } }
+					set_location = event_target:special_project_target
+				}
+			}
+			last_created_fleet = { set_owner = event_target:player_country }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = "We have no need for this."
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 22 min = 2000 max = 2000 }
+			add_resource = { energy = 2000 alloys = 4000 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.231
+	title = SpecialProjectCompletedEvents.231.Name
+	desc = SpecialProjectCompletedEvents.231.Desc
+	picture = GFX_evt_satelite_grid
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			if = {
+				limit = { NOR = { has_technology = tech_dark_matter_deflector has_tech_option = tech_dark_matter_deflector } }
+				add_research_option = tech_dark_matter_deflector
+			}
+			else_if = {
+				limit = { OR = { has_technology = tech_dark_matter_deflector has_tech_option = tech_dark_matter_deflector } }
+				add_monthly_resource_mult = { resource = physics_research value = 1 min = 12000 max = 12000 }
+			}
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.232
+	title = SpecialProjectCompletedEvents.232.Name
+	desc = SpecialProjectCompletedEvents.232.Desc
+	picture = GFX_evt_machine_space_battle
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 22 min = 8000 max = 12000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 22 min = 8000 max = 12000 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.233
+	title = SpecialProjectCompletedEvents.233.Name
+	desc = SpecialProjectCompletedEvents.233.Desc
+	picture = GFX_evt_ancient_tiyanki
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 22 min = 5000 max = 10000 }
+			add_monthly_resource_mult = { resource = energy value = 22 min = 2000 max = 3000 }
+			add_monthly_resource_mult = { resource = food value = 22 min = 500 max = 1000 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.234
+	title = SpecialProjectCompletedEvents.234.Name
+	desc = SpecialProjectCompletedEvents.234.Desc
+	picture = GFX_evt_mining_base
+	show_sound = event_ship_bridge
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = { add_resource = { minerals = 15000 } }
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.235
+	title = SpecialProjectCompletedEvents.235.Name
+	desc = SpecialProjectCompletedEvents.235.Desc
+	picture = GFX_evt_dyson_sphere
+	show_sound = event_mega_structure_other_empire_build_complete
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = { add_monthly_resource_mult = { resource = energy value = 15 min = 4000 max = 6000 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.236
+	title = SpecialProjectCompletedEvents.236.Name
+	desc = SpecialProjectCompletedEvents.236.Desc
+	picture = GFX_evt_think_tank
+	show_sound = event_think_tank_build_upgrade
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 15 min = 5000 max = 10000 }
+			add_monthly_resource_mult = { resource = society_research value = 15 min = 5000 max = 10000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 15 min = 5000 max = 10000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.237
+	title = SpecialProjectCompletedEvents.237.Name
+	desc = SpecialProjectCompletedEvents.237.Desc
+	picture = GFX_evt_spy_orb
+	show_sound = event_spy_orb_build_complete
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = { add_monthly_resource_mult = { resource = influence value = 15 min = 100 max = 200 } }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.301
+	title = SpecialProjectCompletedEvents.301.Name
+	desc = SpecialProjectCompletedEvents.301.Desc
+	picture = GFX_evt_ai_planet
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_skill = 2 }
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 1 min = 15000 max = 15000 }
+			add_monthly_resource_mult = { resource = society_research value = 1 min = 15000 max = 15000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 1 min = 15000 max = 15000 }
+			add_modifier = { modifier = "cybrex_technology_researcher" years = 50 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.302
+	title = SpecialProjectCompletedEvents.302.Name
+	desc = SpecialProjectCompletedEvents.302.Desc
+	picture = GFX_evt_shrouded_planet
+	show_sound = event_activating_unknown_technology
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{
+		check_special_project_target = yes
+		event_target:special_project_target = {
+			change_pc = pc_shrouded
+			set_planet_size = 25
+			reset_planet = yes
+			add_deposit = d_society_10 add_deposit = d_society_10 add_deposit = d_society_10 add_deposit = d_society_10
+			add_deposit = d_society_10 add_deposit = d_society_10 add_deposit = d_society_4
+			add_deposit = d_zro_deposit_2 add_deposit = d_zro_deposit_2
+		}
+	}
+	option = {
+		name = EXCELLENT
+		leader = { add_skill = 2 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 1 min = 10000 max = 10000 }
+			add_resource = { energy = 5000 }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.303
+	title = SpecialProjectCompletedEvents.303.Name
+	desc = SpecialProjectCompletedEvents.303.Desc
+	picture = GFX_evt_automated_dreadnought
+	show_sound = event_construction
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		owner = {
+			add_monthly_resource_mult = { resource = physics_research value = 1 min = 8000 max = 8000 }
+			add_monthly_resource_mult = { resource = engineering_research value = 1 min = 8000 max = 8000 }
+			add_resource = { energy = 2500 }
+			add_modifier = { modifier = "dreadnought_adv_computers" years = 50 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.304
+	title = SpecialProjectCompletedEvents.304.Name
+	desc = SpecialProjectCompletedEvents.304.Desc
+	picture = GFX_evt_fallen_empire_awakes
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			owner = {
+				add_monthly_resource_mult = { resource = engineering_research value = 1 min = 6000 max = 6000 }
+				add_resource = { energy = 3000 }
+				save_event_target_as = player_country
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = { count = 1 create_ship = { name = random design = "NAME_Alpha" graphical_culture = "fallen_empire_01" } }
+						set_location = event_target:special_project_target
+					}
+				}
+			}
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+	option = {
+		name = "We have no need for this."
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 1 min = 6000 max = 6000 }
+			add_resource = { energy = 3000 }
+			add_resource = { alloys = 8000 }
+		}
+		event_target:special_project_target = { destroy_ambient_object = this }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.305
+	title = SpecialProjectCompletedEvents.305.Name
+	desc = SpecialProjectCompletedEvents.305.Desc
+	picture = GFX_evt_clocks
+	show_sound = event_laboratory_sound
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = { resource = physics_research value = 1 min = 25000 max = 25000 }
+		add_monthly_resource_mult = { resource = society_research value = 1 min = 25000 max = 25000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 1 min = 25000 max = 25000 }
+		add_monthly_resource_mult = { resource = unity value = 35 min = 10000 max = 20000 }
+		add_modifier = { modifier = "view_the_future" days = -1 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectCompletedEvents.306
+	title = SpecialProjectCompletedEvents.306.Name
+	desc = SpecialProjectCompletedEvents.306.Desc
+	picture = GFX_evt_glitchy_matrix
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate = {
+		capital_scope = {
+			random_list = {
+				10 = { modifier = { factor = 0 has_planet_flag = hack_energy_bank } set_planet_flag = hack_energy_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_minerals_storage } set_planet_flag = hack_minerals_storage }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_data_bank } set_planet_flag = hack_data_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_capital_informations } set_planet_flag = hack_capital_informations }
+				5 = { modifier = { factor = 0 has_planet_flag = hack_food_entrepot } set_planet_flag = hack_food_entrepot }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_android_army } set_planet_flag = hack_android_army }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_corvette_hangar } set_planet_flag = hack_corvette_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_destroyer_hangar } set_planet_flag = hack_destroyer_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_cruiser_hangar } set_planet_flag = hack_cruiser_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_battle_hangar } set_planet_flag = hack_battle_hangar }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_energy } set_planet_flag = hacked_energy }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_food } set_planet_flag = hacked_food }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_enemy_fleet } set_planet_flag = hacked_enemy_fleet }
+			}
+		}
+	}
+	option = {
+		name = "We have hacked an Energy Bank"
+		trigger = { capital_scope = { has_planet_flag = hack_energy_bank } }
+		capital_scope = { remove_planet_flag = hack_energy_bank }
+		add_monthly_resource_mult = { resource = energy value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "We have hacked a Mineral Storage"
+		trigger = { capital_scope = { has_planet_flag = hack_minerals_storage } }
+		capital_scope = { remove_planet_flag = hack_minerals_storage }
+		add_monthly_resource_mult = { resource = minerals value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "We have hacked a Research Data Bank"
+		trigger = { capital_scope = { has_planet_flag = hack_data_bank } }
+		capital_scope = { remove_planet_flag = hack_data_bank }
+		add_monthly_resource_mult = { resource = physics_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = society_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 30 min = 9000 max = 52000 }
+	}
+	option = {
+		name = "We have hacked some Capital Informations"
+		trigger = { capital_scope = { has_planet_flag = hack_capital_informations } }
+		capital_scope = { remove_planet_flag = hack_capital_informations }
+		add_monthly_resource_mult = { resource = influence value = 20 min = 150 max = 300 }
+	}
+	option = {
+		name = "We have hacked a Food Entrepot"
+		trigger = { capital_scope = { has_planet_flag = hack_food_entrepot } }
+		capital_scope = { remove_planet_flag = hack_food_entrepot }
+		add_monthly_resource_mult = { resource = food value = 20 min = 800 max = 1500 }
+	}
+	option = {
+		name = "We have hacked some Android Armies"
+		trigger = { capital_scope = { has_planet_flag = hack_android_army } }
+		capital_scope = { remove_planet_flag = hack_android_army }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_army_transport = { graphical_culture = "ai_01" army_type = "robotic_army" } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "We have hacked a Corvette Shipyard"
+		trigger = { capital_scope = { has_planet_flag = hack_corvette_hangar } }
+		capital_scope = { remove_planet_flag = hack_corvette_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 30 create_ship = { name = random random_existing_design = corvette graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "We have hacked a Destroyer Shipyard"
+		trigger = { capital_scope = { has_planet_flag = hack_destroyer_hangar } }
+		capital_scope = { remove_planet_flag = hack_destroyer_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_ship = { name = random random_existing_design = destroyer graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "We have hacked a Cruiser Shipyard"
+		trigger = { capital_scope = { has_planet_flag = hack_cruiser_hangar } }
+		capital_scope = { remove_planet_flag = hack_cruiser_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 8 create_ship = { name = random random_existing_design = cruiser graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "We have hacked a Battleship Shipyard"
+		trigger = { capital_scope = { has_planet_flag = hack_battle_hangar } }
+		capital_scope = { remove_planet_flag = hack_battle_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 4 create_ship = { name = random random_existing_design = battleship graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "We have been hacked! Our Energy has been drained!"
+		trigger = { capital_scope = { has_planet_flag = hacked_energy } }
+		capital_scope = { remove_planet_flag = hacked_energy }
+		add_resource = { energy = -6000 }
+	}
+	option = {
+		name = "We have been hacked! Our Food has been drained!"
+		trigger = { capital_scope = { has_planet_flag = hacked_food } }
+		capital_scope = { remove_planet_flag = hacked_food }
+		add_resource = { food = -2000 }
+	}
+	option = {
+		name = "We have been hacked! Our Ships have been stolen!"
+		trigger = { capital_scope = { has_planet_flag = hacked_enemy_fleet } }
+		capital_scope = { remove_planet_flag = hacked_enemy_fleet }
+		random_owned_planet = { save_event_target_as = spawn_spot }
+		create_hostile_random_faction_country = yes
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = last_created_country
+				while = { count = 1 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } }
+				while = { count = 15 random = { chance = 50 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } } }
+				while = { count = 8 random = { chance = 50 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } } }
+				while = { count = 4 random = { chance = 50 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } } }
+				while = { count = 2 random = { chance = 50 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } } }
+				set_location = event_target:spawn_spot
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+			}
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.307
+	title = SpecialProjectCompletedEvents.307.Name
+	desc = SpecialProjectCompletedEvents.307.Desc
+	picture = GFX_evt_worm_attack
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = no save_event_target_as = special_project_fleet } } }
+	option = {
+		name = EXCELLENT
+		leader = { add_skill = 2 }
+		owner = {
+			add_resource = { energy = 625 }
+			add_resource = { unity = 50000 }
+			add_resource = { food = 5000 }
+			add_modifier = { modifier = "mighty_armies" years = 20 }
+			custom_tooltip = "A maximum of 40 armies will be destroyed."
+			hidden_effect = { while = { count = 40 random = { chance = 60 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.308
+	title = SpecialProjectCompletedEvents.308.Name
+	desc = SpecialProjectCompletedEvents.308.Desc
+	picture = GFX_evt_fallen_empire
+	show_sound = event_ship_thrusters
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_skill = 2 }
+		hidden_effect = {
+			owner = {
+				add_monthly_resource_mult = { resource = engineering_research value = 1 min = 5000 max = 5000 }
+				add_resource = { energy = 2500 }
+				save_event_target_as = player_country
+				create_fleet = {
+					effect = {
+						set_owner = prev
+						while = { count = 12 create_ship = { name = random design = "NAME_Gamma" graphical_culture = "fallen_empire_01" } }
+						while = { count = 6 create_ship = { name = random design = "NAME_Beta" graphical_culture = "fallen_empire_01" } }
+						while = { count = 12 random = { chance = 50 create_ship = { name = random design = "NAME_Gamma" graphical_culture = "fallen_empire_01" } } }
+						while = { count = 6 random = { chance = 50 create_ship = { name = random design = "NAME_Beta" graphical_culture = "fallen_empire_01" } } }
+						set_location = event_target:special_project_target
+					}
+				}
+			}
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+	option = {
+		name = "We have no need for this."
+		leader = { add_skill = 2 }
+		owner = {
+			add_monthly_resource_mult = { resource = engineering_research value = 1 min = 5000 max = 5000 }
+			add_resource = { energy = 2500 }
+			add_resource = { alloys = 9000 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}
+
+ship_event = {
+	id = SpecialProjectCompletedEvents.309
+	title = SpecialProjectCompletedEvents.309.Name
+	desc = SpecialProjectCompletedEvents.309.Desc
+	picture = GFX_evt_space_guardian
+	show_sound = event_laboratory_sound
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes }
+	option = {
+		name = EXCELLENT
+		leader = { add_experience = 500 add_skill = 1 }
+		owner = {
+			add_monthly_resource_mult = { resource = society_research value = 1 min = 15000 max = 15000 }
+			add_monthly_resource_mult = { resource = energy value = 1 min = 5000 max = 5000 }
+			add_modifier = { modifier = "guardian_regen_tech" years = 50 }
+		}
+		event_target:special_project_target = { destroy_ship = this }
+	}
+}

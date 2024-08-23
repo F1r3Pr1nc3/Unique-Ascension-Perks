@@ -1,0 +1,405 @@
+namespace = SpecialProjectGroundEvents
+
+ship_event = {
+	id = SpecialProjectGroundEvents.1
+	title = SpecialProjectGroundEvents.1.Name
+	desc = SpecialProjectGroundEvents.1.Desc
+	picture = GFX_evt_clones
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_scientist_clone_army_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { energy = 500 minerals = 500 }
+			add_monthly_resource_mult = { resource = society_research value = 6 min = 1000 max = 2000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 3 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = SCIENTIST_CLONE_ARMY } while = { count = 3 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.2
+	title = SpecialProjectGroundEvents.2.Name
+	desc = SpecialProjectGroundEvents.2.Desc
+	picture = GFX_evt_clones
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_scientist_clone_army_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { energy = 1200 minerals = 1200 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 2000 max = 3000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 6 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = SCIENTIST_CLONE_ARMY } while = { count = 6 random_list = { 10 = { special_project_destroy_ship = yes } 10 = {} } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.3
+	title = SpecialProjectGroundEvents.3.Name
+	desc = SpecialProjectGroundEvents.3.Desc
+	picture = GFX_evt_hive_mind
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_hive_minded_horde_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { unity = 1200 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 1000 max = 1000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 5 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = HIVE_MINDED_HORDE } while = { count = 5 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.4
+	title = SpecialProjectGroundEvents.4.Name
+	desc = SpecialProjectGroundEvents.4.Desc
+	picture = GFX_evt_hive_mind
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_hive_minded_horde_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { unity = 2400 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 1800 max = 1800 }
+			custom_tooltip = "Special project will be aborted and a maximum of 10 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = HIVE_MINDED_HORDE } while = { count = 10 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.5
+	title = SpecialProjectGroundEvents.5.Name
+	desc = SpecialProjectGroundEvents.5.Desc
+	picture = GFX_evt_interior_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_infested_station_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { energy = 500 unity = 100 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 400 max = 400 }
+			custom_tooltip = "Special project will be aborted and a maximum of 5 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = INFESTED_STATION } while = { count = 5 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.6
+	title = SpecialProjectGroundEvents.6.Name
+	desc = SpecialProjectGroundEvents.6.Desc
+	picture = GFX_evt_interior_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_infested_station_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { energy = 1000 unity = 250 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 800 max = 800 }
+			custom_tooltip = "Special project will be aborted and a maximum of 10 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = INFESTED_STATION } while = { count = 10 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.7
+	title = SpecialProjectGroundEvents.7.Name
+	desc = SpecialProjectGroundEvents.7.Desc
+	picture = GFX_evt_in_the_dark
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_monster_from_deepth_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { food = 250 unity = 500 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 750 max = 750 }
+			custom_tooltip = "Special project will be aborted and a maximum of 3 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = MONSTERS_FROM_DEEPTH } while = { count = 3 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.8
+	title = SpecialProjectGroundEvents.8.Name
+	desc = SpecialProjectGroundEvents.8.Desc
+	picture = GFX_evt_in_the_dark
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_monster_from_deepth_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { food = 500 unity = 1000 }
+			add_monthly_resource_mult = { resource = society_research value = 9 min = 1500 max = 1500 }
+			custom_tooltip = "Special project will be aborted and a maximum of 6 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = MONSTERS_FROM_DEEPTH } while = { count = 6 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.9
+	title = SpecialProjectGroundEvents.9.Name
+	desc = SpecialProjectGroundEvents.9.Desc
+	picture = GFX_evt_ground_combat
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_massive_war_ongoing_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 30 energy = 3000 minerals = 2250 unity = 1250 }
+			custom_tooltip = "Special project will be aborted and a maximum of 8 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = MASSIVE_WAR_ONGOING } while = { count = 8 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.10
+	title = SpecialProjectGroundEvents.10.Name
+	desc = SpecialProjectGroundEvents.10.Desc
+	picture = GFX_evt_ground_combat
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_massive_war_ongoing_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 60 energy = 6000 minerals = 4500 unity = 2500 }
+			custom_tooltip = "Special project will be aborted and a maximum of 16 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = MASSIVE_WAR_ONGOING } while = { count = 16 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.11
+	title = SpecialProjectGroundEvents.11.Name
+	desc = SpecialProjectGroundEvents.11.Desc
+	picture = GFX_evt_ground_combat
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_massive_war_ongoing_retreat_3 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 90 energy = 9000 minerals = 6750 unity = 3750 }
+			custom_tooltip = "Special project will be aborted and a maximum of 24 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = MASSIVE_WAR_ONGOING } while = { count = 24 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.12
+	title = SpecialProjectGroundEvents.12.Name
+	desc = SpecialProjectGroundEvents.12.Desc
+	picture = GFX_evt_surface_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_civil_war_raging_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 50 energy = 3750 minerals = 2000 unity = 1000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 8 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = CIVIL_WAR_RAGING } while = { count = 8 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.13
+	title = SpecialProjectGroundEvents.13.Name
+	desc = SpecialProjectGroundEvents.13.Desc
+	picture = GFX_evt_surface_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_civil_war_raging_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 100 energy = 7500 minerals = 4000 unity = 2000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 16 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = CIVIL_WAR_RAGING } while = { count = 16 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.14
+	title = SpecialProjectGroundEvents.14.Name
+	desc = SpecialProjectGroundEvents.14.Desc
+	picture = GFX_evt_surface_battle
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_civil_war_raging_retreat_3 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 150 energy = 11250 minerals = 6000 unity = 3000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 24 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = CIVIL_WAR_RAGING } while = { count = 24 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.15
+	title = SpecialProjectGroundEvents.15.Name
+	desc = SpecialProjectGroundEvents.15.Desc
+	picture = GFX_evt_worm_attack
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_ground_living_desaster_retreat_1 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 125 unity = 10000 food = 1000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 10 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = GROUND_LIVING_DESASTER } while = { count = 10 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.16
+	title = SpecialProjectGroundEvents.16.Name
+	desc = SpecialProjectGroundEvents.16.Desc
+	picture = GFX_evt_worm_attack
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_ground_living_desaster_retreat_2 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 250 unity = 20000 food = 2000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 20 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = GROUND_LIVING_DESASTER } while = { count = 20 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.17
+	title = SpecialProjectGroundEvents.17.Name
+	desc = SpecialProjectGroundEvents.17.Desc
+	picture = GFX_evt_worm_attack
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_ground_living_desaster_retreat_3 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 375 unity = 30000 food = 3000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 30 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = GROUND_LIVING_DESASTER } while = { count = 30 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}
+
+ship_event = {
+	id = SpecialProjectGroundEvents.18
+	title = SpecialProjectGroundEvents.18.Name
+	desc = SpecialProjectGroundEvents.18.Desc
+	picture = GFX_evt_worm_attack
+	show_sound = event_ground_battle
+	location = event_target:special_project_target
+	is_triggered_only = yes
+	immediate =	{ check_special_project_target = yes root = { fleet = { set_event_locked = yes save_event_target_as = special_project_fleet } } }
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { owner = { has_country_flag = can_ground_living_desaster_retreat_4 } }
+		root = { fleet = { set_event_locked = no } }
+		owner = {
+			add_resource = { influence = 500 unity = 40000 food = 4000 }
+			custom_tooltip = "Special project will be aborted and a maximum of 40 armies will be destroyed."
+			hidden_effect = { abort_special_project = { type = GROUND_LIVING_DESASTER } while = { count = 40 random = { chance = 50 special_project_destroy_ship = yes } } }
+		}
+	}
+}

@@ -4294,7 +4294,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerks.select_leader" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.251 } } }
 	option = { name = ABORT ai_chance = { factor = 0.1 } hidden_effect = { if = { limit = { exists = from } hidden_effect = { add_resource = { energy = 100 } } } } }
 }
-
+# From = owner
 leader_event = {
 	id = UniqueAscensionPerksEvents.252
 	title = "UniqueAscensionPerksEvents.252.Name"
@@ -4322,7 +4322,11 @@ leader_event = {
 							from = {
 								last_created_leader = {
 									set_age = 1
-									set_name = { key = "CLONED_LEADER_NAME" variable_string = "[This.GetName]" variable_string = "[From.cloned_leader_number]" }
+									set_name = {
+										key = "CLONED_LEADER_NAME"
+										variable_string = "[This.GetName]"
+										variable_string = "[Prev.cloned_leader_number]"
+									}
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
 							}

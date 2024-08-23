@@ -1,0 +1,765 @@
+namespace = SpecialProjectOtherEvents
+
+ship_event = {# Clean event ships which can't be destroyed
+	id = SpecialProjectOtherEvents.1
+	hide_window = yes
+	is_triggered_only = yes
+	immediate =	{ destroy_ship = this }
+}
+
+event = {# Clean event ambient object from systems
+	id = SpecialProjectOtherEvents.2
+	hide_window = yes
+	is_triggered_only = yes
+	immediate =	{
+		# save_event_target_as = object_to_remove
+		random_ambient_object = {
+			limit = {
+				has_ambient_object_flag = special_project_target_timed_object
+				NOT = { has_ambient_object_flag = special_project_target_timed_object_marked }
+			}
+			set_ambient_object_flag = special_project_target_timed_object_marked
+			solar_system = {
+				set_star_flag = solar_system_will_remove_object
+				system_event = { id = SpecialProjectOtherEvents.3 days = 2000 random = 100 }
+			}
+		}
+		random_system = {
+			limit = {
+				any_system_ambient_object = { has_ambient_object_flag = special_project_target_timed_object_marked }
+				any_system_ambient_object = { has_ambient_object_flag = special_project_target_timed_object NOT = { has_ambient_object_flag = special_project_target_timed_object_marked } }
+				has_star_flag = solar_system_will_remove_object
+			}
+			random_system_ambient_object = {
+				limit = {
+					has_ambient_object_flag = special_project_target_timed_object
+					NOT = { has_ambient_object_flag = special_project_target_timed_object_marked }
+				}
+				set_ambient_object_flag = special_project_target_timed_object_marked
+				prev = {
+					set_star_flag = solar_system_will_remove_object
+					system_event = { id = SpecialProjectOtherEvents.3 days = 2000 random = 100  }
+				}
+			}
+		}
+		every_playable_country = {
+			switch = { trigger = has_policy_flag
+				special_projects_spawn_rate_more = { special_project_selection = yes }
+				special_projects_spawn_rate_lots = { special_project_selection = yes special_project_selection = yes }
+				special_projects_spawn_rate_chaos = { special_project_selection = yes special_project_selection = yes special_project_selection = yes special_project_selection = yes }
+			}
+		}
+	}
+}
+# special_project system
+system_event = {
+	id = SpecialProjectOtherEvents.3
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_star_flag = solar_system_will_remove_object
+		any_system_ambient_object = {
+			has_ambient_object_flag = special_project_target_timed_object
+			has_ambient_object_flag = special_project_target_timed_object_marked
+		}
+		NOT = {
+			any_system_ambient_object = {
+				has_ambient_object_flag = special_project_target_timed_object
+				NOT = { has_ambient_object_flag = special_project_target_timed_object_marked }
+			}
+		}
+	}
+	immediate =	{
+		remove_star_flag = solar_system_will_remove_object
+		every_system_ambient_object = {
+			limit = {
+				has_ambient_object_flag = special_project_target_timed_object
+				has_ambient_object_flag = special_project_target_timed_object_marked
+			}
+			destroy_ambient_object = this
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.10
+	title = SpecialProjectOtherEvents.10.Name
+	desc = SpecialProjectOtherEvents.10.Desc
+	picture = GFX_evt_clocks
+	show_sound = event_mystic_reveal
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { has_country_flag = can_stop_time_machine_1 }
+		add_monthly_resource_mult = { resource = physics_research value = 1 min = 5000 max = 5000 }
+		add_monthly_resource_mult = { resource = society_research value = 1 min = 5000 max = 5000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 1 min = 5000 max = 5000 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.11
+	title = SpecialProjectOtherEvents.11.Name
+	desc = SpecialProjectOtherEvents.11.Desc
+	picture = GFX_evt_clocks
+	show_sound = event_mystic_reveal
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { has_country_flag = can_stop_time_machine_2 }
+		add_monthly_resource_mult = { resource = physics_research value = 1 min = 10000 max = 10000 }
+		add_monthly_resource_mult = { resource = society_research value = 1 min = 10000 max = 10000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 1 min = 10000 max = 10000 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.12
+	title = SpecialProjectOtherEvents.12.Name
+	desc = SpecialProjectOtherEvents.12.Desc
+	picture = GFX_evt_clocks
+	show_sound = event_mystic_reveal
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { has_country_flag = can_stop_time_machine_3 }
+		add_monthly_resource_mult = { resource = physics_research value = 1 min = 15000 max = 15000 }
+		add_monthly_resource_mult = { resource = society_research value = 1 min = 15000 max = 15000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 1 min = 15000 max = 15000 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.13
+	title = SpecialProjectOtherEvents.13.Name
+	desc = SpecialProjectOtherEvents.13.Desc
+	picture = GFX_evt_clocks
+	show_sound = event_mystic_reveal
+	location = capital_scope
+	is_triggered_only = yes
+	immediate =	{}
+	option = { name = "CONTINUE" }
+	option = {
+		name = "RETREAT"
+		trigger = { has_country_flag = can_stop_time_machine_4 }
+		add_monthly_resource_mult = { resource = physics_research value = 1 min = 20000 max = 20000 }
+		add_monthly_resource_mult = { resource = society_research value = 1 min = 20000 max = 20000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 1 min = 20000 max = 20000 }
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.14
+	title = SpecialProjectOtherEvents.14.Name
+	desc = SpecialProjectCompletedEvents.306.Desc
+	picture = GFX_evt_glitchy_matrix
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate = {
+		capital_scope = {
+			random_list = {
+				10 = { modifier = { factor = 0 has_planet_flag = hack_energy_bank } set_planet_flag = hack_energy_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_minerals_storage } set_planet_flag = hack_minerals_storage }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_data_bank } set_planet_flag = hack_data_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_capital_informations } set_planet_flag = hack_capital_informations }
+				5 = { modifier = { factor = 0 has_planet_flag = hack_food_entrepot } set_planet_flag = hack_food_entrepot }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_android_army } set_planet_flag = hack_android_army }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_corvette_hangar } set_planet_flag = hack_corvette_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_destroyer_hangar } set_planet_flag = hack_destroyer_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_cruiser_hangar } set_planet_flag = hack_cruiser_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_battle_hangar } set_planet_flag = hack_battle_hangar }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_energy } set_planet_flag = hacked_energy }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_food } set_planet_flag = hacked_food }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_enemy_fleet } set_planet_flag = hacked_enemy_fleet }
+			}
+		}
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energy"
+		trigger = { capital_scope = { has_planet_flag = hack_energy_bank } }
+		capital_scope = { remove_planet_flag = hack_energy_bank }
+		add_monthly_resource_mult = { resource = energy value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Mineral"
+		trigger = { capital_scope = { has_planet_flag = hack_minerals_storage } }
+		capital_scope = { remove_planet_flag = hack_minerals_storage }
+		add_monthly_resource_mult = { resource = minerals value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Research"
+		trigger = { capital_scope = { has_planet_flag = hack_data_bank } }
+		capital_scope = { remove_planet_flag = hack_data_bank }
+		add_monthly_resource_mult = { resource = physics_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = society_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 30 min = 9000 max = 52000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Capital"
+		trigger = { capital_scope = { has_planet_flag = hack_capital_informations } }
+		capital_scope = { remove_planet_flag = hack_capital_informations }
+		add_monthly_resource_mult = { resource = influence value = 20 min = 150 max = 300 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Food"
+		trigger = { capital_scope = { has_planet_flag = hack_food_entrepot } }
+		capital_scope = { remove_planet_flag = hack_food_entrepot }
+		add_monthly_resource_mult = { resource = food value = 20 min = 800 max = 1500 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Android"
+		trigger = { capital_scope = { has_planet_flag = hack_android_army } }
+		capital_scope = { remove_planet_flag = hack_android_army }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_army_transport = { graphical_culture = "ai_01" army_type = "robotic_army" } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Corvette"
+		trigger = { capital_scope = { has_planet_flag = hack_corvette_hangar } }
+		capital_scope = { remove_planet_flag = hack_corvette_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 30 create_ship = { name = random random_existing_design = corvette graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Destroyer"
+		trigger = { capital_scope = { has_planet_flag = hack_destroyer_hangar } }
+		capital_scope = { remove_planet_flag = hack_destroyer_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_ship = { name = random random_existing_design = destroyer graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Cruiser"
+		trigger = { capital_scope = { has_planet_flag = hack_cruiser_hangar } }
+		capital_scope = { remove_planet_flag = hack_cruiser_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 8 create_ship = { name = random random_existing_design = cruiser graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Battleship"
+		trigger = { capital_scope = { has_planet_flag = hack_battle_hangar } }
+		capital_scope = { remove_planet_flag = hack_battle_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 4 create_ship = { name = random random_existing_design = battleship graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energydrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_energy } }
+		capital_scope = { remove_planet_flag = hacked_energy }
+		add_resource = { energy = -6000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Fooddrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_food } }
+		capital_scope = { remove_planet_flag = hacked_food }
+		add_resource = { food = -2000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Shipsstolen"
+		trigger = { capital_scope = { has_planet_flag = hacked_enemy_fleet } }
+		capital_scope = { remove_planet_flag = hacked_enemy_fleet }
+		random_owned_planet = { save_event_target_as = spawn_spot }
+		create_hostile_random_faction_country = yes
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = last_created_country
+				while = { count = 1 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } }
+				while = { count = 15 random = { chance = 50 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } } }
+				while = { count = 8 random = { chance = 50 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } } }
+				while = { count = 4 random = { chance = 50 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } } }
+				while = { count = 2 random = { chance = 50 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } } }
+				set_location = event_target:spawn_spot
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+			}
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.15
+	title = SpecialProjectOtherEvents.15.Name
+	desc = SpecialProjectCompletedEvents.306.Desc
+	picture = GFX_evt_glitchy_matrix
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate = {
+		capital_scope = {
+			random_list = {
+				10 = { modifier = { factor = 0 has_planet_flag = hack_energy_bank } set_planet_flag = hack_energy_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_minerals_storage } set_planet_flag = hack_minerals_storage }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_data_bank } set_planet_flag = hack_data_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_capital_informations } set_planet_flag = hack_capital_informations }
+				5 = { modifier = { factor = 0 has_planet_flag = hack_food_entrepot } set_planet_flag = hack_food_entrepot }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_android_army } set_planet_flag = hack_android_army }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_corvette_hangar } set_planet_flag = hack_corvette_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_destroyer_hangar } set_planet_flag = hack_destroyer_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_cruiser_hangar } set_planet_flag = hack_cruiser_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_battle_hangar } set_planet_flag = hack_battle_hangar }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_energy } set_planet_flag = hacked_energy }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_food } set_planet_flag = hacked_food }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_enemy_fleet } set_planet_flag = hacked_enemy_fleet }
+			}
+		}
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energy"
+		trigger = { capital_scope = { has_planet_flag = hack_energy_bank } }
+		capital_scope = { remove_planet_flag = hack_energy_bank }
+		add_monthly_resource_mult = { resource = energy value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Mineral"
+		trigger = { capital_scope = { has_planet_flag = hack_minerals_storage } }
+		capital_scope = { remove_planet_flag = hack_minerals_storage }
+		add_monthly_resource_mult = { resource = minerals value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Research"
+		trigger = { capital_scope = { has_planet_flag = hack_data_bank } }
+		capital_scope = { remove_planet_flag = hack_data_bank }
+		add_monthly_resource_mult = { resource = physics_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = society_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 30 min = 9000 max = 52000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Capital"
+		trigger = { capital_scope = { has_planet_flag = hack_capital_informations } }
+		capital_scope = { remove_planet_flag = hack_capital_informations }
+		add_monthly_resource_mult = { resource = influence value = 20 min = 150 max = 300 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Food"
+		trigger = { capital_scope = { has_planet_flag = hack_food_entrepot } }
+		capital_scope = { remove_planet_flag = hack_food_entrepot }
+		add_monthly_resource_mult = { resource = food value = 20 min = 800 max = 1500 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Android"
+		trigger = { capital_scope = { has_planet_flag = hack_android_army } }
+		capital_scope = { remove_planet_flag = hack_android_army }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_army_transport = { graphical_culture = "ai_01" army_type = "robotic_army" } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Corvette"
+		trigger = { capital_scope = { has_planet_flag = hack_corvette_hangar } }
+		capital_scope = { remove_planet_flag = hack_corvette_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 30 create_ship = { name = random random_existing_design = corvette graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Destroyer"
+		trigger = { capital_scope = { has_planet_flag = hack_destroyer_hangar } }
+		capital_scope = { remove_planet_flag = hack_destroyer_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_ship = { name = random random_existing_design = destroyer graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Cruiser"
+		trigger = { capital_scope = { has_planet_flag = hack_cruiser_hangar } }
+		capital_scope = { remove_planet_flag = hack_cruiser_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 8 create_ship = { name = random random_existing_design = cruiser graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Battleship"
+		trigger = { capital_scope = { has_planet_flag = hack_battle_hangar } }
+		capital_scope = { remove_planet_flag = hack_battle_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 4 create_ship = { name = random random_existing_design = battleship graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energydrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_energy } }
+		capital_scope = { remove_planet_flag = hacked_energy }
+		add_resource = { energy = -6000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Fooddrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_food } }
+		capital_scope = { remove_planet_flag = hacked_food }
+		add_resource = { food = -2000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Shipsstolen"
+		trigger = { capital_scope = { has_planet_flag = hacked_enemy_fleet } }
+		capital_scope = { remove_planet_flag = hacked_enemy_fleet }
+		random_owned_planet = { save_event_target_as = spawn_spot }
+		create_hostile_random_faction_country = yes
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = last_created_country
+				while = { count = 1 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } }
+				while = { count = 15 random = { chance = 50 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } } }
+				while = { count = 8 random = { chance = 50 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } } }
+				while = { count = 4 random = { chance = 50 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } } }
+				while = { count = 2 random = { chance = 50 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } } }
+				set_location = event_target:spawn_spot
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+			}
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.16
+	title = SpecialProjectOtherEvents.16.Name
+	desc = SpecialProjectCompletedEvents.306.Desc
+	picture = GFX_evt_glitchy_matrix
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate = {
+		capital_scope = {
+			random_list = {
+				10 = { modifier = { factor = 0 has_planet_flag = hack_energy_bank } set_planet_flag = hack_energy_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_minerals_storage } set_planet_flag = hack_minerals_storage }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_data_bank } set_planet_flag = hack_data_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_capital_informations } set_planet_flag = hack_capital_informations }
+				5 = { modifier = { factor = 0 has_planet_flag = hack_food_entrepot } set_planet_flag = hack_food_entrepot }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_android_army } set_planet_flag = hack_android_army }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_corvette_hangar } set_planet_flag = hack_corvette_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_destroyer_hangar } set_planet_flag = hack_destroyer_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_cruiser_hangar } set_planet_flag = hack_cruiser_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_battle_hangar } set_planet_flag = hack_battle_hangar }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_energy } set_planet_flag = hacked_energy }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_food } set_planet_flag = hacked_food }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_enemy_fleet } set_planet_flag = hacked_enemy_fleet }
+			}
+		}
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energy"
+		trigger = { capital_scope = { has_planet_flag = hack_energy_bank } }
+		capital_scope = { remove_planet_flag = hack_energy_bank }
+		add_monthly_resource_mult = { resource = energy value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Mineral"
+		trigger = { capital_scope = { has_planet_flag = hack_minerals_storage } }
+		capital_scope = { remove_planet_flag = hack_minerals_storage }
+		add_monthly_resource_mult = { resource = minerals value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Research"
+		trigger = { capital_scope = { has_planet_flag = hack_data_bank } }
+		capital_scope = { remove_planet_flag = hack_data_bank }
+		add_monthly_resource_mult = { resource = physics_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = society_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 30 min = 9000 max = 52000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Capital"
+		trigger = { capital_scope = { has_planet_flag = hack_capital_informations } }
+		capital_scope = { remove_planet_flag = hack_capital_informations }
+		add_monthly_resource_mult = { resource = influence value = 20 min = 150 max = 300 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Food"
+		trigger = { capital_scope = { has_planet_flag = hack_food_entrepot } }
+		capital_scope = { remove_planet_flag = hack_food_entrepot }
+		add_monthly_resource_mult = { resource = food value = 20 min = 800 max = 1500 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Android"
+		trigger = { capital_scope = { has_planet_flag = hack_android_army } }
+		capital_scope = { remove_planet_flag = hack_android_army }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_army_transport = { graphical_culture = "ai_01" army_type = "robotic_army" } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Corvette"
+		trigger = { capital_scope = { has_planet_flag = hack_corvette_hangar } }
+		capital_scope = { remove_planet_flag = hack_corvette_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 30 create_ship = { name = random random_existing_design = corvette graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Destroyer"
+		trigger = { capital_scope = { has_planet_flag = hack_destroyer_hangar } }
+		capital_scope = { remove_planet_flag = hack_destroyer_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_ship = { name = random random_existing_design = destroyer graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Cruiser"
+		trigger = { capital_scope = { has_planet_flag = hack_cruiser_hangar } }
+		capital_scope = { remove_planet_flag = hack_cruiser_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 8 create_ship = { name = random random_existing_design = cruiser graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Battleship"
+		trigger = { capital_scope = { has_planet_flag = hack_battle_hangar } }
+		capital_scope = { remove_planet_flag = hack_battle_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 4 create_ship = { name = random random_existing_design = battleship graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energydrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_energy } }
+		capital_scope = { remove_planet_flag = hacked_energy }
+		add_resource = { energy = -6000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Fooddrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_food } }
+		capital_scope = { remove_planet_flag = hacked_food }
+		add_resource = { food = -2000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Shipsstolen"
+		trigger = { capital_scope = { has_planet_flag = hacked_enemy_fleet } }
+		capital_scope = { remove_planet_flag = hacked_enemy_fleet }
+		random_owned_planet = { save_event_target_as = spawn_spot }
+		create_hostile_random_faction_country = yes
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = last_created_country
+				while = { count = 1 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } }
+				while = { count = 15 random = { chance = 50 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } } }
+				while = { count = 8 random = { chance = 50 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } } }
+				while = { count = 4 random = { chance = 50 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } } }
+				while = { count = 2 random = { chance = 50 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } } }
+				set_location = event_target:spawn_spot
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+			}
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.17
+	title = SpecialProjectOtherEvents.17.Name
+	desc = SpecialProjectCompletedEvents.306.Desc
+	picture = GFX_evt_glitchy_matrix
+	show_sound = event_robo
+	location = capital_scope
+	is_triggered_only = yes
+	immediate = {
+		capital_scope = {
+			random_list = {
+				10 = { modifier = { factor = 0 has_planet_flag = hack_energy_bank } set_planet_flag = hack_energy_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_minerals_storage } set_planet_flag = hack_minerals_storage }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_data_bank } set_planet_flag = hack_data_bank }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_capital_informations } set_planet_flag = hack_capital_informations }
+				5 = { modifier = { factor = 0 has_planet_flag = hack_food_entrepot } set_planet_flag = hack_food_entrepot }
+				10 = { modifier = { factor = 0 has_planet_flag = hack_android_army } set_planet_flag = hack_android_army }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_corvette_hangar } set_planet_flag = hack_corvette_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_destroyer_hangar } set_planet_flag = hack_destroyer_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_cruiser_hangar } set_planet_flag = hack_cruiser_hangar }
+				3 = { modifier = { factor = 0 has_planet_flag = hack_battle_hangar } set_planet_flag = hack_battle_hangar }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_energy } set_planet_flag = hacked_energy }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_food } set_planet_flag = hacked_food }
+				5 = { modifier = { factor = 0 has_planet_flag = hacked_enemy_fleet } set_planet_flag = hacked_enemy_fleet }
+			}
+		}
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energy"
+		trigger = { capital_scope = { has_planet_flag = hack_energy_bank } }
+		capital_scope = { remove_planet_flag = hack_energy_bank }
+		add_monthly_resource_mult = { resource = energy value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Mineral"
+		trigger = { capital_scope = { has_planet_flag = hack_minerals_storage } }
+		capital_scope = { remove_planet_flag = hack_minerals_storage }
+		add_monthly_resource_mult = { resource = minerals value = 30 min = 5000 max = 8000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Research"
+		trigger = { capital_scope = { has_planet_flag = hack_data_bank } }
+		capital_scope = { remove_planet_flag = hack_data_bank }
+		add_monthly_resource_mult = { resource = physics_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = society_research value = 30 min = 9000 max = 15000 }
+		add_monthly_resource_mult = { resource = engineering_research value = 30 min = 9000 max = 52000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Capital"
+		trigger = { capital_scope = { has_planet_flag = hack_capital_informations } }
+		capital_scope = { remove_planet_flag = hack_capital_informations }
+		add_monthly_resource_mult = { resource = influence value = 20 min = 150 max = 300 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Food"
+		trigger = { capital_scope = { has_planet_flag = hack_food_entrepot } }
+		capital_scope = { remove_planet_flag = hack_food_entrepot }
+		add_monthly_resource_mult = { resource = food value = 20 min = 800 max = 1500 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Android"
+		trigger = { capital_scope = { has_planet_flag = hack_android_army } }
+		capital_scope = { remove_planet_flag = hack_android_army }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_army_transport = { graphical_culture = "ai_01" army_type = "robotic_army" } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Corvette"
+		trigger = { capital_scope = { has_planet_flag = hack_corvette_hangar } }
+		capital_scope = { remove_planet_flag = hack_corvette_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 30 create_ship = { name = random random_existing_design = corvette graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Destroyer"
+		trigger = { capital_scope = { has_planet_flag = hack_destroyer_hangar } }
+		capital_scope = { remove_planet_flag = hack_destroyer_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 15 create_ship = { name = random random_existing_design = destroyer graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Cruiser"
+		trigger = { capital_scope = { has_planet_flag = hack_cruiser_hangar } }
+		capital_scope = { remove_planet_flag = hack_cruiser_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 8 create_ship = { name = random random_existing_design = cruiser graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Battleship"
+		trigger = { capital_scope = { has_planet_flag = hack_battle_hangar } }
+		capital_scope = { remove_planet_flag = hack_battle_hangar save_event_target_as = spawn_location }
+		create_fleet = { effect = { set_owner = root while = { count = 4 create_ship = { name = random random_existing_design = battleship graphical_culture = root } } set_location = { target = event_target:spawn_location distance = 15 angle = random } } }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Energydrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_energy } }
+		capital_scope = { remove_planet_flag = hacked_energy }
+		add_resource = { energy = -6000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Fooddrained"
+		trigger = { capital_scope = { has_planet_flag = hacked_food } }
+		capital_scope = { remove_planet_flag = hacked_food }
+		add_resource = { food = -2000 }
+	}
+	option = {
+		name = "SpecialProjectCompletedEvents_Shipsstolen"
+		trigger = { capital_scope = { has_planet_flag = hacked_enemy_fleet } }
+		capital_scope = { remove_planet_flag = hacked_enemy_fleet }
+		random_owned_planet = { save_event_target_as = spawn_spot }
+		create_hostile_random_faction_country = yes
+		create_fleet = {
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = last_created_country
+				while = { count = 1 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } }
+				while = { count = 1 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } }
+				while = { count = 15 random = { chance = 50 create_ship = { name = random random_existing_design = corvette graphical_culture = last_created_country } } }
+				while = { count = 8 random = { chance = 50 create_ship = { name = random random_existing_design = destroyer graphical_culture = last_created_country } } }
+				while = { count = 4 random = { chance = 50 create_ship = { name = random random_existing_design = cruiser graphical_culture = last_created_country } } }
+				while = { count = 2 random = { chance = 50 create_ship = { name = random random_existing_design = battleship graphical_culture = last_created_country } } }
+				set_location = event_target:spawn_spot
+				set_fleet_stance = aggressive
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+			}
+		}
+	}
+}
+
+# event = {
+# 	id = SpecialProjectOtherEvents.100
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = {
+# 	}
+# }
+
+event = {
+	id = SpecialProjectOtherEvents.101
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_playable_country = {
+			limit = { has_policy_flag = special_projects_spawn_rate_normal }
+			special_project_selection = yes
+		}
+	}
+}
+
+event = {
+	id = SpecialProjectOtherEvents.102
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_playable_country = {
+			limit = { has_policy_flag = special_projects_spawn_rate_rare }
+			special_project_selection = yes
+		}
+	}
+}
+
+event = {
+	id = SpecialProjectOtherEvents.103
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		every_playable_country = {
+			limit = { has_policy_flag = special_projects_spawn_rate_very_rare }
+			special_project_selection = yes
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.1001
+	title = SpecialProjectCompletedEvents.0.Name
+	desc = SpecialProjectCompletedEvents.0.Desc
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = fromfromfrom
+	is_triggered_only = yes
+	option = {
+		name = UNFORTUNATE
+		from = {
+			add_modifier = { modifier = "special_project_failed_tier_1" years = 10 }
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.1002
+	title = SpecialProjectCompletedEvents.0.Name
+	desc = SpecialProjectCompletedEvents.0.Desc
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = fromfromfrom
+	is_triggered_only = yes
+	option = {
+		name = UNFORTUNATE
+		from = {
+			add_modifier = { modifier = "special_project_failed_tier_1" years = 10 }
+			add_modifier = { modifier = "special_project_failed_tier_2" years = 10 }
+		}
+	}
+}
+
+country_event = {
+	id = SpecialProjectOtherEvents.1003
+	title = SpecialProjectCompletedEvents.0.Name
+	desc = SpecialProjectCompletedEvents.0.Desc
+	picture = GFX_evt_ship_in_orbit
+	show_sound = event_alien_signal
+	location = fromfromfrom
+	is_triggered_only = yes
+	option = {
+		name = UNFORTUNATE
+		fromfrom = {
+			add_modifier = { modifier = "special_project_failed_tier_1" years = 10 }
+			add_modifier = { modifier = "special_project_failed_tier_2" years = 10 }
+			add_modifier = { modifier = "special_project_failed_tier_3" years = 10 }
+		}
+	}
+}
