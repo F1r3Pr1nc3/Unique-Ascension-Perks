@@ -311,14 +311,10 @@ planet_event = {
 							any_species_pop = {
 								is_enslaved = no
 								is_being_purged = no
-								OR = {
-									pop_has_happiness = no
-									happiness > 0.3
-								}
+								OR = { pop_has_happiness = no happiness > 0.3 }
 							}
 						}
-						weights = {
-							base = 1
+						weights = { base = 1
 							modifier = { add = 7 is_same_species = prev.species }
 							modifier = { add = 3 root = { habitability = { who = prev value >= 0.7 } } }
 							modifier = { add = 5 root = { habitability = { who = prev value >= 0.8 } } }
@@ -356,10 +352,7 @@ planet_event = {
 										is_being_purged = no
 										# is_robot_pop = no
 										can_live_on_planet = root
-										OR = {
-											pop_has_happiness = no
-											happiness > 0.3
-										}
+										OR = { pop_has_happiness = no happiness > 0.3 }
 										is_same_species = prevprev.species
 									}
 									count > 1
@@ -425,9 +418,7 @@ planet_event = {
 				if = {
 					limit = { num_unique_species > 1 }
 					random_owned_species = {
-						limit = {
-							NOT = { is_exact_same_species = event_target:owning_empire.owner_species }
-						}
+						limit = { NOT = { is_exact_same_species = event_target:owning_empire.owner_species } }
 						save_event_target_as = vassal_species
 					}
 				}
@@ -440,11 +431,7 @@ planet_event = {
 			}
 			if = {
 				limit = { exists = leader }
-				leader = {
-					save_event_target_as = vassal_leader
-					unassign_leader = this
-					log="Save planet leader \\[vassal_leader.GetName]"
-				}
+				leader = { save_event_target_as = vassal_leader unassign_leader = this log="Save planet leader \\[vassal_leader.GetName]" }
 			}
 			else_if = { # Changed in v.3.8
 				limit = {
@@ -452,11 +439,7 @@ planet_event = {
 					exists = sector
 					sector = { exists = sector_capital.leader }
 				}
-				sector.sector_capital.leader = {
-					save_event_target_as = vassal_leader
-					unassign_leader = this
-					log="Save sector leader \\[vassal_leader.GetName]"
-				}
+				sector.sector_capital.leader = { save_event_target_as = vassal_leader unassign_leader = this log="Save sector leader \\[vassal_leader.GetName]" }
 			}
 			if = {
 				limit = {
@@ -521,8 +504,7 @@ planet_event = {
 				set_controller = prev
 				if = {
 					limit = { has_building = no }
-					while = {
-						count = 12
+					while = { count = 12
 						limit = { num_sapient_pops < 30 }
 						create_pop = { species = event_target:vassal_species }
 					}
@@ -598,17 +580,12 @@ planet_event = {
 			# establish_contact = { who = event_target:owning_empire location = event_target:owning_empire.capital_scope }
 			if = {
 				limit = { is_same_species = event_target:owning_empire }
-				random = {
-					chance = 50
+				random = { chance = 50
 					copy_ethos_and_authority = event_target:owning_empire
 					change_government = {
 						authority = auth_imperial
 						remove_invalid_civics = yes cooldown = no
-						civics = {
-							civic = random
-							civic = random
-							civic = random
-						}
+						civics = { civic = random civic = random civic = random }
 					}
 				}
 			}
@@ -723,10 +700,7 @@ country_event = {
 
 	}
 	after = {
-		hidden_effect = {
-			clear_variable = num_perfect_vassals
-			clear_variable = num_vassals
-		}
+		hidden_effect = { clear_variable = num_perfect_vassals clear_variable = num_vassals }
 	}
 	option = {
 		name = "regentmaker.4.a"
@@ -868,17 +842,9 @@ planet_event = {
 				}
 				starbase = { set_owner = root.owner }
 				every_neighbor_system = {
-					limit = {
-						exists = starbase
-						is_owned_by = event_target:owning_empire
-					}
+					limit = { exists = starbase is_owned_by = event_target:owning_empire }
 					if = {
-						limit = {
-							any_system_colony = {
-								is_owned_by = event_target:owning_empire
-								has_planet_flag = planet_marked_for_handover
-							}
-						}
+						limit = { any_system_colony = { is_owned_by = event_target:owning_empire has_planet_flag = planet_marked_for_handover } }
 						starbase = { set_owner = root.owner }
 						every_system_colony = {
 							limit = {
@@ -901,10 +867,7 @@ planet_event = {
 					else_if = {
 						limit = {
 							count_system_colony = {
-								limit = {
-									is_star = no
-									is_asteroid = no
-								}
+								limit = { is_star = no is_asteroid = no }
 								count = 0
 							}
 						}
@@ -995,10 +958,7 @@ country_event = {
 	desc = "regentmaker.7.desc"
 	# picture = GFX_evt_throne_room
 	diplomatic = yes
-	picture_event_data = {
-		portrait = root.owner_main_species
-		room = enclave_curator_room
-	}
+	picture_event_data = { portrait = root.owner_main_species room = enclave_curator_room }
 	custom_gui = sgm_ScrollbarEventWindow
 	is_triggered_only = yes
 	# immediate = {
@@ -1239,7 +1199,7 @@ country_event = {
 		name = "regentmaker_auth_democratic"
 		every_subject = {
 			limit = {
-				NOT = { has_authority = auth_democratic }
+				is_democratic_authority = no
 				is_perfect_vassal = yes
 			}
 			set_timed_country_flag = { flag = auth_democratic days = 2 }
@@ -1255,7 +1215,7 @@ country_event = {
 		name = "regentmaker_auth_oligarchic"
 		every_subject = {
 			limit = {
-				NOT = { has_authority = auth_oligarchic }
+				is_oligarchic_authority = no
 				is_perfect_vassal = yes
 			}
 			set_timed_country_flag = { flag = auth_oligarchic days = 2 }
@@ -1271,7 +1231,7 @@ country_event = {
 		name = "regentmaker_auth_dictatorial"
 		every_subject = {
 			limit = {
-				NOT = { has_authority = auth_dictatorial }
+				is_dictatorial_authority = no
 				is_perfect_vassal = yes
 			}
 			set_timed_country_flag = { flag = auth_dictatorial days = 2 }
@@ -1287,7 +1247,7 @@ country_event = {
 		name = "regentmaker_auth_imperial"
 		every_subject = {
 			limit = {
-				NOT = { has_authority = auth_imperial }
+				is_imperial_authority = no
 				is_perfect_vassal = yes
 			}
 			set_timed_country_flag = { flag = auth_imperial days = 2 }
@@ -1302,10 +1262,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_corporate"
 		every_subject = {
-			limit = {
-				is_megacorp = no
-				is_perfect_vassal = yes
-			}
+			limit = { is_megacorp = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_corporate days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_corporate civics = random remove_invalid_civics = yes cooldown = no }
@@ -1385,13 +1342,7 @@ country_event = {
 		set_variable = { which = rm_total_subjects value = 0 }
 		# Count how many valid Subject States there are.
 		if = { # Find Subjects - Control
-			limit = {
-				OR = {
-					has_country_flag = "regentmaker.504"
-					has_country_flag = "regentmaker.510"
-					has_country_flag = "regentmaker.511"
-				}
-			}
+			limit = { OR = { has_country_flag = "regentmaker.504" has_country_flag = "regentmaker.510" has_country_flag = "regentmaker.511" } }
 			# ordered_subject = {
 			# 	position = 0
 			# 	order_by = trigger:fleet_power
@@ -1449,90 +1400,70 @@ country_event = {
 		# As the scripting language doesn't have proper loops, we use a lot of ifs and hope no one ever has more than 10 subjects.
 		# TODO can be removed with 3.1?
 		if = {
-			limit = {
-				check_variable = { which = rm_total_subjects value >= 1 }
-			}
+			limit = { check_variable = { which = rm_total_subjects value >= 1 } }
 			random_subject = {
 				limit = { has_country_flag = subject_sel_count }
 				remove_country_flag = subject_sel_count
 				save_event_target_as = subject_1
 			}
 			if = {
-				limit = {
-					check_variable = { which = rm_total_subjects value >= 2 }
-				}
+				limit = { check_variable = { which = rm_total_subjects value >= 2 } }
 				random_subject = {
 					limit = { has_country_flag = subject_sel_count }
 					remove_country_flag = subject_sel_count
 					save_event_target_as = subject_2
 				}
 				if = {
-					limit = {
-						check_variable = { which = rm_total_subjects value >= 3 }
-					}
+					limit = { check_variable = { which = rm_total_subjects value >= 3 } }
 					random_subject = {
 						limit = { has_country_flag = subject_sel_count }
 						remove_country_flag = subject_sel_count
 						save_event_target_as = subject_3
 					}
 					if = {
-						limit = {
-							check_variable = { which = rm_total_subjects value >= 4 }
-						}
+						limit = { check_variable = { which = rm_total_subjects value >= 4 } }
 						random_subject = {
 							limit = { has_country_flag = subject_sel_count }
 							remove_country_flag = subject_sel_count
 							save_event_target_as = subject_4
 						}
 						if = {
-							limit = {
-								check_variable = { which = rm_total_subjects value >= 5 }
-							}
+							limit = { check_variable = { which = rm_total_subjects value >= 5 } }
 							random_subject = {
 								limit = { has_country_flag = subject_sel_count }
 								remove_country_flag = subject_sel_count
 								save_event_target_as = subject_5
 							}
 							if = {
-								limit = {
-									check_variable = { which = rm_total_subjects value >= 6 }
-								}
+								limit = { check_variable = { which = rm_total_subjects value >= 6 } }
 								random_subject = {
 									limit = { has_country_flag = subject_sel_count }
 									remove_country_flag = subject_sel_count
 									save_event_target_as = subject_6
 								}
 								if = {
-									limit = {
-										check_variable = { which = rm_total_subjects value >= 7 }
-									}
+									limit = { check_variable = { which = rm_total_subjects value >= 7 } }
 									random_subject = {
 										limit = { has_country_flag = subject_sel_count }
 										remove_country_flag = subject_sel_count
 										save_event_target_as = subject_7
 									}
 									if = {
-										limit = {
-											check_variable = { which = rm_total_subjects value >= 8 }
-										}
+										limit = { check_variable = { which = rm_total_subjects value >= 8 } }
 										random_subject = {
 											limit = { has_country_flag = subject_sel_count }
 											remove_country_flag = subject_sel_count
 											save_event_target_as = subject_8
 										}
 										if = {
-											limit = {
-												check_variable = { which = rm_total_subjects value >= 9 }
-											}
+											limit = { check_variable = { which = rm_total_subjects value >= 9 } }
 											random_subject = {
 												limit = { has_country_flag = subject_sel_count }
 												remove_country_flag = subject_sel_count
 												save_event_target_as = subject_9
 											}
 											if = {
-												limit = {
-													check_variable = { which = rm_total_subjects value >= 10 }
-												}
+												limit = { check_variable = { which = rm_total_subjects value >= 10 } }
 												random_subject = {
 													limit = { has_country_flag = subject_sel_count }
 													remove_country_flag = subject_sel_count
@@ -1945,10 +1876,7 @@ country_event = {
 	picture = GFX_evt_board_meeting
 	show_sound = event_laboratory_sound
 	location = root
-	trigger = {
-		is_variable_set = rm_total_subjects
-		has_global_flag = dmm_installed
-	}
+	trigger = { is_variable_set = rm_total_subjects has_global_flag = dmm_installed }
 	is_triggered_only = yes
 	immediate = {
 		if = {
@@ -2562,10 +2490,7 @@ country_event = {
 	desc = regentmaker.60.desc
 	# picture = GFX_evt_arguing_senate
 	diplomatic = yes
-	picture_event_data = {
-		portrait = root.owner_main_species
-		room = enclave_curator_room
-	}
+	picture_event_data = { portrait = root.owner_main_species room = enclave_curator_room }
 	custom_gui = sgm_ScrollbarEventWindow
 	show_sound = event_conversation
 	location = event_target:subject_selected
@@ -2870,7 +2795,7 @@ country_event = {
 		name = "auth_democratic"
 		trigger = {
 			event_target:subject_selected = {
-				NOT = { has_authority = auth_democratic }
+				is_democratic_authority = no
 			}
 		}
 		event_target:subject_selected = {
@@ -2881,11 +2806,7 @@ country_event = {
 			change_government = {
 				authority = auth_democratic
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 		}
 	}
@@ -2903,11 +2824,7 @@ country_event = {
 			change_government = {
 				authority = auth_strict_democratic
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -2926,11 +2843,7 @@ country_event = {
 			change_government = {
 				authority = auth_direct_democratic
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -2950,11 +2863,7 @@ country_event = {
 				authority = auth_democratic_dictatorship
 				remove_invalid_civics = yes
 				cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -2963,7 +2872,7 @@ country_event = {
 		name = "auth_oligarchic"
 		trigger = {
 			event_target:subject_selected = {
-				NOT = { has_authority = auth_oligarchic }
+				is_oligarchic_authority = no
 			}
 		}
 		event_target:subject_selected = {
@@ -2973,11 +2882,7 @@ country_event = {
 			change_government = {
 				authority = auth_oligarchic
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -2986,7 +2891,7 @@ country_event = {
 		name = "auth_dictatorial"
 		trigger = {
 			event_target:subject_selected = {
-				NOT = { has_authority = auth_dictatorial }
+				is_dictatorial_authority = no
 			}
 		}
 		event_target:subject_selected = {
@@ -2996,11 +2901,7 @@ country_event = {
 			change_government = {
 				authority = auth_dictatorial
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -3009,7 +2910,7 @@ country_event = {
 		name = "auth_imperial"
 		trigger = {
 			event_target:subject_selected = {
-				NOT = { has_authority = auth_imperial }
+				is_imperial_authority = no
 			}
 		}
 		event_target:subject_selected = {
@@ -3019,11 +2920,7 @@ country_event = {
 			change_government = {
 				authority = auth_imperial
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -3044,11 +2941,7 @@ country_event = {
 			change_government = {
 				authority = auth_corporate
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 		}
 	}
@@ -3071,11 +2964,7 @@ country_event = {
 			change_government = {
 				authority = auth_corporate_imperial
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 			country_event = { id = regentmaker.30 }
 		}
@@ -3097,11 +2986,7 @@ country_event = {
 			change_government = {
 				authority = auth_direct_democratic
 				remove_invalid_civics = yes cooldown = no
-				civics = {
-					civic = random
-					civic = random
-					civic = random
-				}
+				civics = { civic = random civic = random civic = random }
 			}
 		}
 	}
@@ -3309,11 +3194,7 @@ country_event = {
 				exists = from
 				from = { is_scope_type = planet }
 			}
-			from = {
-				set_owner = root
-				set_controller = root
-				set_capital = yes
-			}
+			from = { set_owner = root set_controller = root set_capital = yes }
 		}
 
 		capital_scope = {
@@ -3355,11 +3236,7 @@ country_event = {
 				has_planet_flag = planet_marked_for_handover
 				OR = { is_colony = yes is_under_colonization = yes }
 				NOT = { is_planet = root.capital_scope }
-				OR = {
-					has_owner = no
-					is_owned_by = event_target:owning_empire
-					is_controlled_by = event_target:owning_empire
-				}
+				OR = { has_owner = no is_owned_by = event_target:owning_empire is_controlled_by = event_target:owning_empire }
 			}
 			planet_event = { id = regentmaker.9 days = -1 }
 		}
@@ -3373,11 +3250,7 @@ country_event = {
 			}
 			solar_system = {
 				random_fleet_in_system = {
-					limit = {
-						exists = owner
-						is_owned_by = event_target:owning_empire
-						is_civilian = yes
-					}
+					limit = { exists = owner is_owned_by = event_target:owning_empire is_civilian = yes }
 					# log="create_starting_fleets [From.Owner.GetName]"
 					set_owner = prevprevprev
 					if = {
@@ -3421,14 +3294,8 @@ country_event = {
 						is_star = no
 						is_asteroid = no
 						has_owner = yes
-						NOR = {
-							is_planet = prevprev
-							is_owned_by = prevprevprev
-						}
-						OR = {
-							is_owned_by = event_target:owning_empire
-							is_controlled_by = event_target:owning_empire
-						}
+						NOR = { is_planet = prevprev is_owned_by = prevprevprev }
+						OR = { is_owned_by = event_target:owning_empire is_controlled_by = event_target:owning_empire }
 					}
 					if = {
 						limit = { is_owned_by = event_target:owning_empire }
@@ -3509,19 +3376,9 @@ country_event = {
 				event_target:owning_empire = { used_naval_capacity_percent > 1.2 }
 			}
 			random_system_within_border = {
-				limit = {
-					any_fleet_in_system = {
-						exists = owner
-						is_ship_class = shipclass_military
-						is_owned_by = event_target:owning_empire
-					}
-				}
+				limit = { any_fleet_in_system = { exists = owner is_ship_class = shipclass_military is_owned_by = event_target:owning_empire } }
 				random_fleet_in_system = {
-					limit = {
-						exists = owner
-						is_ship_class = shipclass_military
-						is_owned_by = event_target:owning_empire
-					}
+					limit = { exists = owner is_ship_class = shipclass_military is_owned_by = event_target:owning_empire }
 					set_owner = prevprev
 					if = {
 						limit = { exists = leader }
@@ -3538,13 +3395,8 @@ country_event = {
 				}
 				event_target:owning_empire = {
 					random_owned_fleet = {
-						limit = {
-							is_ship_class = shipclass_military
-							is_mobile = yes
-							fleet_power < 32000
-						}
-						weights = {
-							base = 1
+						limit = { is_ship_class = shipclass_military is_mobile = yes fleet_power < 32000 }
+						weights = { base = 1
 							modifier = { add = 1 fleet_power < 8000 }
 							modifier = { add = 1 NOT = { exists = leader } }
 						}
@@ -3638,17 +3490,11 @@ country_event = {
 				NOT = { has_communications = root }
 				OR = {
 					has_communications = event_target:owning_empire
-					intel_level = {
-						level > low
-						system = event_target:owning_empire.capital_scope.solar_system
-					}
+					intel_level = { level > low system = event_target:owning_empire.capital_scope.solar_system }
 					any_system = {
 						has_star_flag = machup_system_flip
 						prev = {
-							intel_level = {
-								level > low
-								system = prev
-							}
+							intel_level = { level > low system = prev }
 						}
 					}
 				}

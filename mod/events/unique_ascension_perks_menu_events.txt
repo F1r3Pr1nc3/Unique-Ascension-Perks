@@ -17,7 +17,7 @@ namespace = UniqueAscensionPerksMenuEvents
 @ap_emergency_calculation = 7
 @ap_economic_prospertity = 7
 @ap_chosen_ruler = 7
-@ap_advanced_security = 1.75 # 7
+@ap_advanced_security = 1.5 # 7
 @ap_space_domestication = 3
 @ap_leviathan_master = 3
 @ap_friendly_nature = 7 # Robotic Assemblers
@@ -39,7 +39,7 @@ namespace = UniqueAscensionPerksMenuEvents
 @ap_powerful_vassals = 3
 @ap_mechanical_prophet = 9
 @ap_machine_core = 15
-@ap_defense_sentinels = 7
+@ap_defense_sentinels = 1.75 # 7
 @ap_leadership_transfer = 3
 @ap_civilian_activities = 2
 @ap_pyramidal_society = 3	# Pinnacle Society
@@ -1741,7 +1741,8 @@ country_event = {
 	}
 	immediate = {
 		if = { limit = { has_global_flag = ap_pyramidal_society }
-			country_event = { id = UniqueAscensionPerksEvents.9005 }
+			# country_event = { id = UniqueAscensionPerksEvents.9005 }
+			every_playable_country = { limit = { NOR = { has_country_flag = ap_pyramidal_society has_ascension_perk = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
 		} else = {
 			every_playable_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
 		}

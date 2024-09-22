@@ -9,29 +9,30 @@ create_security_forces_country = {
 	if = {
 		limit = { NOT = { exists = event_target:security_forces_country } }
 		if = {
-			limit = { any_relation = { has_relation_flag = { who = root flag = security_strike_force } } }
+			limit = { any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } } }
 			random_relation = {
-				limit = { has_relation_flag = { who = root flag = security_strike_force } }
+				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } }
 				save_event_target_as = security_forces_country
 			}
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				is_overlord = yes
-				any_subject = { has_relation_flag = { who = root flag = security_strike_force } }
+				any_subject = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } }
 			}
 			random_subject = {
-				limit = { has_relation_flag = { who = root flag = security_strike_force } }
+				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } }
 				save_event_target_as = security_forces_country
 			}
-		} else_if = {
-			limit = {
-				any_country = { has_relation_flag = { who = root flag = security_strike_force } }
-			}
+		}
+		else_if = {
+			limit = { any_country = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } } }
 			random_country = {
-				limit = { has_relation_flag = { who = root flag = security_strike_force } }
+				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } }
 				save_event_target_as = security_forces_country
 			}
-		} else = {
+		}
+		else = {
 			set_update_modifiers_batch = begin
 			create_country = {
 				name = "Security Forces"
@@ -41,7 +42,13 @@ create_security_forces_country = {
 					background= { category = "backgrounds" file = "diagonal.dds" }
 					colors = { "black" "blue" "null" "null" }
 				}
+				auto_delete = no
+				day_zero_contact = no
+				ignore_initial_colony_error = yes
 				effect = {
+					set_country_flag = limbo_country
+					set_country_flag = first_alien_life
+					set_country_flag = has_encountered_other_empire
 					save_event_target_as = security_forces_country
 					set_country_flag = security_strike_force
 					set_relation_flag = { who = root flag = security_strike_force }
@@ -67,7 +74,6 @@ create_security_forces_country = {
 							limit = { has_communications = root }
 							establish_communications_no_message = prevprev
 						}
-						sync_subjects_virtual_relation = yes
 					}
 					establish_communications_no_message = root
 					random_agreement = {
@@ -84,6 +90,7 @@ create_security_forces_country = {
 	if = {
 		limit = { exists = event_target:security_forces_country }
 		event_target:security_forces_country = {
+			root = { sync_subjects_virtual_relation = yes }
 			random_agreement = {
 				limit = { is_owned_by = root target = { is_same_empire = prev } }
 				add_loyalty = 10

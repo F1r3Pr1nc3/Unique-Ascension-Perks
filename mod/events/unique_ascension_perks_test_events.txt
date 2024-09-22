@@ -24,14 +24,15 @@ planet_event = {
 	immediate = { add_deposit = d_hivemind_reserve }
 }
 
-country_event = {
-	id = UniqueAscensionPerksEvents.9005
-	is_triggered_only = yes
-	hide_window = yes
-	is_test_event = yes
-	immediate = { every_playable_country = { limit = { NOR = { has_country_flag = ap_pyramidal_society has_ascension_perk = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
-}
-}
+# country_event = {
+# 	id = UniqueAscensionPerksEvents.9005
+# 	is_triggered_only = yes
+# 	hide_window = yes
+# 	is_test_event = yes
+# 	immediate = {
+# 		every_playable_country = { limit = { NOR = { has_country_flag = ap_pyramidal_society has_ascension_perk = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
+# 	}
+# }
 
 planet_event = { # 50 Pops
 	id = UniqueAscensionPerksEvents.9996
@@ -57,9 +58,9 @@ country_event = {
 	is_triggered_only = yes
 	trigger = {
 		OR = {
-			AND = { is_country_type = security_forces any_country = { NOT = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
-			AND = { is_country_type = security_forces any_country = { NOT = { reverse_has_relation_flag = { who = root flag = security_strike_force } } } }
-			AND = { is_country_type = domesticated_spaceborn_alien any_country = { NOT = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
+			AND = { is_country_type = security_forces				NOT = { any_country = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
+			AND = { is_country_type = security_forces				NOT = { any_country = { reverse_has_relation_flag = { who = root flag = security_strike_force } } } }
+			AND = { is_country_type = domesticated_spaceborn_alien	NOT = { any_country = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
 		}
 	}
 	immediate = { destroy_country = yes }

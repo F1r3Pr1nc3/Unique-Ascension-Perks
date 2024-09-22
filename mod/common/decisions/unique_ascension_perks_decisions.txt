@@ -648,8 +648,8 @@ decision_hivemind_reserve_unhabited = {
 	resources = {
 		category = decisions
 		cost = { influence = 25 }
-		cost = { trigger = { owner = { is_lithoid_empire = no } } food = 900 }
-		cost = { trigger = { owner = { is_lithoid_empire = yes } } minerals = 900 }
+		cost = { trigger = { from = { is_lithoid_empire = no } } food = 900 }
+		cost = { trigger = { from = { is_lithoid_empire = yes } } minerals = 900 }
 	}
 	potential = {
 		exists = from
@@ -846,7 +846,7 @@ decision_nanite_extraction_molten = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
-		OR = { is_planet_class = pc_molten is_planet_class = pc_legendary_forge }
+		OR = { merg_is_molten = yes is_planet_class = pc_legendary_forge }
 	}
 	allow = {
 		custom_tooltip = {
@@ -883,7 +883,7 @@ decision_nanite_extraction_toxic = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
-		is_planet_class = pc_toxic
+		merg_is_toxic = yes
 	}
 	allow = {
 		custom_tooltip = {
@@ -920,7 +920,7 @@ decision_nanite_extraction_barren = {
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
-		is_planet_class = pc_barren
+		merg_is_barren = yes
 	}
 	allow = {
 		custom_tooltip = {
@@ -1198,7 +1198,7 @@ decision_legendary_forge = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_legendary_forge }
-		is_planet_class = pc_molten
+		merg_is_molten = yes
 		has_owner = no
 	}
 	effect = {

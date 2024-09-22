@@ -737,8 +737,7 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
-		merg_is_default_empire = yes
-		has_technology = tech_expandable_brain_1
+		last_increased_tech = tech_expandable_brain_1
 		NOT = { has_country_flag = tech_expandable_brain_1_project }
 	}
 	immediate = { set_country_flag = tech_expandable_brain_1_project get_capital_planet = yes }
@@ -778,8 +777,7 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
-		merg_is_default_empire = yes
-		has_technology = tech_expandable_brain_2
+		last_increased_tech = tech_expandable_brain_2
 		NOT = { has_country_flag = tech_expandable_brain_2_project }
 	}
 	immediate = { get_capital_planet = yes set_country_flag = tech_expandable_brain_2_project }
@@ -1714,7 +1712,8 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT add_resource = { unity = 1000 } }
 }
-# (on_monthly_pulse_country)
+
+# Attack System Intruder (on_monthly_pulse_country)
 country_event = {
 	id = UniqueAscensionPerksEvents.56
 	title = "UniqueAscensionPerksEvents.56.Name"
@@ -1726,51 +1725,80 @@ country_event = {
 	location = event_target:spawn_location_system
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.56 } }
-		# has_ascension_perk = ap_advanced_security
-		# any_system_within_border = {
-		# 	NOT = { has_star_flag = recent_security_strike_force }
-		# 	trade_protected_value >= 1
-		# 	any_fleet_in_system = {
-		# 		exists = owner
-		# 		owner = {
-		# 			OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders }
-		# 		}
-		# 	}
-		# }
 	}
 	immediate = {
-		# deploy_secury_strike_forces = yes
+		# DEPLOY_SECURY_STRIKE_FORCES
 		create_security_forces_country = yes
 		random_system_within_border = {
 			limit = {
-				NOT = { has_star_flag = recent_security_strike_force }
+				is_in_frontier_space = no
+				has_trade_route = yes
 				trade_protected_value >= 1
-				any_fleet_in_system = { exists = owner owner = { OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders } } }
+				NOT = { has_star_flag = recent_security_strike_force }
+				any_fleet_in_system = {
+					exists = owner
+					owner = {
+						NOT = { is_same_empire = root }
+						OR = { is_pirate_country = yes is_crisis_faction = yes is_hostile = root }
+					}
+				}
 			}
 			save_event_target_as = spawn_location_system
 			set_timed_star_flag = { flag = recent_security_strike_force years = 1 }
-			# star = { save_event_target_as = spawn_location }
-			create_fleet = {
-				name = ap_advanced_security
-				settings = {
-					spawn_debris = no
-					can_disband = no
-					ai_ignore_strength = yes
+			if = {
+				limit = {
+					any_fleet_in_system = {
+						exists = owner
+						owner = { is_country_type = security_forces }
+					}
 				}
-				effect = {
-					set_owner = root # event_target:main_country
-					while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
-					while = { count = 10 random = { chance = 50 create_ship = { name = random random_existing_design = corvette } } }
-					set_location = { target = prev.star distance = 325 angle = random }
+				random_fleet_in_system = {
+					limit = {
+						exists = owner
+						is_disabled = no
+						is_in_combat = no
+						owner = { is_country_type = security_forces }
+					}
+					every_owned_ship = { set_disabled = no }
+					set_event_locked = no
+					if = {
+						limit = { num_ships < 10 }
+						create_ship = { name = random random_existing_design = corvette }
+					}
 					set_fleet_stance = aggressive
-					set_aggro_range_measure_from = self
-					set_aggro_range = 5000
 					save_event_target_as = security_fleet
-					fleet_event = { id = UniqueAscensionPerksEvents.57 days = 360 } # destroy_fleet
 				}
 			}
-			event_target:security_fleet = { set_owner = event_target:security_forces_country }
+			else = {
+				create_fleet = {
+					name = ap_advanced_security
+					settings = {
+						can_disband = no
+						can_upgrade = no
+						can_change_composition = no
+						can_change_leader = no
+						uses_naval_capacity = no
+						spawn_debris = no
+						ai_ignore_strength = yes
+					}
+					effect = {
+						set_owner = root
+						while = { count = 10 create_ship = { name = random random_existing_design = corvette } }
+						while = { count = 10 random = { chance = 50 create_ship = { name = random random_existing_design = corvette } } }
+						set_location = { target = event_target:spawn_location_system.star distance = 325 angle = random }
+						set_fleet_stance = aggressive
+						set_aggro_range_measure_from = self
+						set_aggro_range = 5000
+						save_event_target_as = security_fleet
+					}
+				}
+				event_target:security_fleet = { set_owner = event_target:security_forces_country }
+			}
 		}
+	}
+	after = {
+		# Deactivate fleet
+		event_target:security_fleet = { fleet_event = { id = UniqueAscensionPerksEvents.57 days = 180 } }
 	}
 	option = { name = OK }
 }
@@ -1779,7 +1807,53 @@ fleet_event = {
 	id = UniqueAscensionPerksEvents.57
 	is_triggered_only = yes
 	hide_window = yes
-	immediate = { destroy_fleet = this }
+	trigger = {
+		exists = owner
+		exists = solar_system
+		is_disabled = no
+		is_in_combat = no
+	}
+	immediate = {
+		if = {
+			limit = {
+				solar_system = {
+					NAND = {
+						has_owner = yes
+						exists = starbase
+						exists = starbase.owner
+						starbase.owner = { has_ascension_perk = ap_advanced_security }
+						is_in_frontier_space = no
+					}
+				}
+			}
+			destroy_fleet = this
+		}
+		else = {
+			set_fleet_stance = passive
+			if = {
+				limit = { num_ships < 10 }
+				create_ship = { name = random random_existing_design = corvette }
+			}
+			set_event_locked = yes
+			every_owned_ship = { set_disabled = yes }
+		}
+	}
+	after = {
+		# Deactivate all (self loop)
+		owner = {
+			random_owned_fleet = {
+				limit = {
+					NOR = {
+						# is_same_value = root
+						is_disabled = yes
+						is_in_combat = yes
+						solar_system = { has_star_flag = recent_security_strike_force }
+					}
+				}
+				fleet_event = { id = UniqueAscensionPerksEvents.57 }
+			}
+		}
+	}
 }
 
 country_event = {
@@ -1913,15 +1987,18 @@ country_event = {
 			limit = { exists = event_target:ship_escorted event_target:ship_escorted = { is_scope_type = ship } }
 			create_security_forces_country = yes
 			event_target:ship_escorted = {
-				solar_system = { star = { save_event_target_as = spawn_location } }
 				ship_event = { id = UniqueAscensionPerksEvents.8060 }
 				fleet = { save_event_target_as = ship_escorted }
 			}
 			create_fleet = {
 				name = ap_advanced_security
 				settings = {
-					spawn_debris = no
 					can_disband = no
+					can_upgrade = no
+					can_change_composition = no
+					can_change_leader = no
+					uses_naval_capacity = no
+					spawn_debris = no
 					ai_ignore_strength = yes
 				}
 				effect = {
@@ -1930,18 +2007,32 @@ country_event = {
 						create_ship = { name = random random_existing_design = corvette }
 						random = { chance = 50 create_ship = { name = random random_existing_design = corvette } }
 					}
-					set_location = { target = event_target:spawn_location distance = 325 angle = random }
+					set_location = { target = event_target:ship_escorted.star distance = 325 angle = random }
 					set_fleet_stance = passive
 					set_fleet_flag = security_escort_fleet
 					save_event_target_as = security_fleet
 				}
 			}
+			# Just superflous fallback
 			if = {
-				limit = { NOT = { exists = event_target:security_forces_country } last_created_country = { has_country_flag = security_strike_force } }
-				last_created_country = { save_event_target_as = security_forces_country }
+				limit = {
+					NOT = { exists = event_target:security_forces_country }
+					last_created_country = { has_country_flag = security_strike_force }
+				}
+				if = {
+					limit = { last_created_country = { has_country_flag = security_strike_force } }
+					last_created_country = { save_event_target_as = security_forces_country }
+				}
+				else_if = {
+					limit = { any_country = { has_country_flag = security_strike_force is_friendly_to = root } }
+					random_country = {
+						limit = { has_country_flag = security_strike_force is_friendly_to = root }
+						save_event_target_as = security_forces_country
+					}
+				}
+				else = { log = "DEBUG WARNING: no security_forces_country found!?!" }
 			}
-			event_target:security_fleet = {
-			# last_created_fleet = {
+			event_target:security_fleet = { # last_created_fleet = {
 				set_owner = event_target:security_forces_country auto_follow_fleet = { target = event_target:ship_escorted attack_fleet = no }
 			}
 		}
@@ -3560,72 +3651,98 @@ country_event = {
 	trigger = {
 		has_ascension_perk = ap_eternal_vigilance
 		has_country_flag = ap_eternal_vigilance_project
-		any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
-	}
-	immediate = {
-		random_system_within_border = {
-			limit = { NOR = { any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } has_star_flag = vigilance_system } }
-			set_timed_star_flag = { flag = vigilance_system years = 15 }
-			star = { save_event_target_as = spawn_location }
-			create_fleet = {
-				name = "Eternal Vigilance Fleet"
-				settings = { spawn_debris = no uses_naval_capacity = no }
-				effect = {
-					set_owner = root
-					create_ship = { name = random random_existing_design = military_station_small }
-					set_location = { target = event_target:spawn_location distance = 100 angle = random }
-					set_fleet_flag = eternal_vigilance_fleet
-					add_modifier = { modifier = eternal_vigilance_fleet }
-				}
-			}
-			while = { count = 3
-				random = { chance = 50
-					create_fleet = {
-						name = "Eternal Vigilance Fleet"
-						settings = { spawn_debris = no uses_naval_capacity = no }
-						effect = {
-							set_owner = root
-							create_ship = { name = random random_existing_design = military_station_small }
-							set_location = { target = event_target:spawn_location distance = 100 angle = random }
-							set_fleet_flag = eternal_vigilance_fleet
-							add_modifier = { modifier = eternal_vigilance_fleet }
-						}
-					}
-				}
+		any_owned_starbase = {
+			NOR = {
+				has_starbase_flag = vigilance_starbase
+				fleet = { is_in_frontier_space = yes }
+				fleet = { has_modifier = eternal_vigilance_fleet }
 			}
 		}
+		# any_system_within_border = { NOR = { is_in_frontier_space = yes has_star_flag = vigilance_system any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } } }
+	}
+	immediate = {
+		random_owned_starbase = {
+			limit = {
+				exists = fleet
+				NOR = {
+					has_starbase_flag = vigilance_starbase
+					fleet = { is_in_frontier_space = yes }
+					fleet = { has_modifier = eternal_vigilance_fleet }
+				}
+			}
+			set_timed_starbase_flag = { flag = vigilance_starbase years = 15 }
+			fleet = {
+				create_ship = { name = random random_existing_design = military_station_small }
+				while = { count = 3
+					random = { chance = 50 create_ship = { name = random random_existing_design = military_station_small } }
+				}
+				add_modifier = { modifier = eternal_vigilance_fleet }
+			}
+		}
+		# random_system_within_border = {
+		# 	limit = { NOR = { is_in_frontier_space = yes has_star_flag = vigilance_system any_fleet_in_system = { has_fleet_flag = eternal_vigilance_fleet exists = owner is_owned_by = root } } }
+		# 	set_timed_star_flag = { flag = vigilance_system years = 15 }
+		# 	# star = { save_event_target_as = spawn_location }
+		# 	create_fleet = {
+		# 		name = "eternal_vigilance_fleet"
+		# 		settings = { spawn_debris = no uses_naval_capacity = no }
+		# 		effect = {
+		# 			set_owner = root
+		# 			create_ship = { name = random random_existing_design = military_station_small }
+		# 			while = { count = 3
+		# 				random = { chance = 50 create_ship = { name = random random_existing_design = military_station_small } }
+		# 			}
+		# 			set_location = { target = prev.star distance = 100 angle = random }
+		# 			set_fleet_flag = eternal_vigilance_fleet
+		# 			add_modifier = { modifier = eternal_vigilance_fleet }
+		# 		}
+		# 	}
+		# }
 	}
 }
-
+# on_half_yearly_pulse
 country_event = {
 	id = UniqueAscensionPerksEvents.132
 	hide_window = yes
 	# mean_time_to_happen = { months = 6 }
 	is_triggered_only = yes
 	# trigger = {
-	# 	merg_is_default_empire = yes
 	# 	host_has_dlc = "Apocalypse"
 	# 	has_ascension_perk = ap_eternal_vigilance
 	# 	has_country_flag = ap_eternal_vigilance_project
 	# 	has_technology = tech_titans
-	# 	any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
 	# }
 	immediate = {
-		random_owned_planet = {
-			limit = { NOT = { has_planet_flag = vigilance_planet } }
-			save_event_target_as = spawn_location
-			set_timed_planet_flag = { flag = vigilance_planet years = 15 }
-			create_fleet = {
-				name = "Eternal Vigilance Fleet"
-				settings = { spawn_debris = no uses_naval_capacity = no }
-				effect = {
-					set_owner = root
-					create_ship = { name = random random_existing_design = ion_cannon }
-					set_location = { target = event_target:spawn_location distance = 8 angle = random }
-					set_fleet_flag = eternal_vigilance_fleet_ion_cannon
-					add_modifier = { modifier = eternal_vigilance_fleet }
+		random_owned_starbase = {
+			limit = {
+				exists = fleet
+				NOR = {
+					has_starbase_flag = vigilance_starbase
+					fleet = { any_owned_ship = { has_modifier = eternal_vigilance_fleet } }
+					fleet = { is_in_frontier_space = yes }
 				}
 			}
+			set_timed_starbase_flag = { flag = vigilance_starbase years = 15 }
+			fleet = {
+				create_ship = {
+					name = "eternal_vigilance_fleet" random_existing_design = ion_cannon
+					effect = {
+						add_modifier = { modifier = eternal_vigilance_fleet }
+					}
+				}
+			}
+			# set_timed_planet_flag = { flag = vigilance_starbase years = 15 }
+			# create_fleet = {
+			# 	name = "eternal_vigilance_fleet"
+			# 	settings = { spawn_debris = no uses_naval_capacity = no }
+			# 	effect = {
+			# 		set_owner = root
+			# 		create_ship = { name = random random_existing_design = ion_cannon }
+			# 		set_location = { target = prev distance = 8 angle = random }
+			# 		set_fleet_flag = eternal_vigilance_ion_cannon
+			# 		add_modifier = { modifier = eternal_vigilance_fleet }
+			# 	}
+			# }
 		}
 	}
 }
@@ -3965,6 +4082,7 @@ fleet_event = {
 				auto_follow_fleet = { target = event_target:defense_sentinels_fleet_defend_against attack_fleet = yes }
 
 			}
+
 			else = {
 				event_target:main_country = { random_planet_within_border = { save_event_target_as = defense_sentinels_fleet_destination } }
 				save_event_target_as = defense_sentinels_fleet_patroling
@@ -3977,42 +4095,31 @@ fleet_event = {
 	}
 }
 
-# Recover fleet power (Call merged with UniqueAscensionPerksEvents.239)
+## Recover fleet power (on_monthly_pulse Call merged with UniqueAscensionPerksEvents.239)
 country_event = {
 	id = UniqueAscensionPerksEvents.233
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 } # 14
-	# trigger = {
-	# 	has_ascension_perk = ap_defense_sentinels
-	# 	any_relation = {
-	# 		is_country_type = defense_sentinels
-	# 		has_relation_flag = { who = root flag = defense_sentinels }
-	# 		OR = {
-	# 			# AND = { num_fleets < 5 ROOT = { NOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-	# 			# AND = { num_fleets < 10 ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-	# 			# AND = { num_fleets < 20 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-	# 			# AND = { num_fleets < 30 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-	# 			AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 } ROOT = { NOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-	# 			AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 } ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-	# 			AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 } ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-	# 			AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 } ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-	# 			# event_target:the_ally_faction = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 50 } }
-	# 		}
-	# 	}
-	# }
+	trigger = {
+		# has_ascension_perk = ap_defense_sentinels
+		exists = event_target:defense_sentinels
+	}
 	immediate =	{
-		# create_defense_sentinels_fleet = yes
-		create_defense_sentinels_country = yes
+		# CREATE_DEFENSE_SENTINELS_FLEET
 		if = {
 			limit = { NOT = { exists = event_target:spawn_location } }
 			random_planet_within_border = {
 				limit = { has_planet_flag = defense_sentinels_home }
-				weights = { base = 1 modifier = { add = 5 is_sector_capital = no } }
+				# weights = { base = 1 modifier = { add = 10 is_sector_capital = no } }
 				save_event_target_as = spawn_location
 			}
 		}
 		event_target:defense_sentinels = {
+			random_owned_fleet = {
+				limit = { is_mobile = yes num_ships < 8 any_owned_ship = { is_ship_size = large_ship_ai } }
+				create_ship = { name = "" design = "Defense Sentinel" graphical_culture = "ai_01" }
+			}
 			create_fleet = {
 				name = NAME_defense_sentinels
 				settings = { garrison = yes spawn_debris = no }
@@ -4032,103 +4139,47 @@ country_event = {
 	}
 }
 
-# on_monthly_pulse
-event = {
+## Recover fleet power (on_monthly_pulse)
+country_event = {
 	id = UniqueAscensionPerksEvents.239
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 2 } # 14 days
-	trigger = {
-		any_playable_country = {
-			has_ascension_perk = ap_defense_sentinels
-			any_relation = {
-				is_country_type = security_forces # defense_sentinels
-				has_relation_flag = { who = root flag = defense_sentinels }
-				count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 }
-			}
-		}
-	}
 	immediate =	{
+		# random_playable_country = {
+		# 	limit = { has_ascension_perk = ap_defense_sentinels }
+		create_defense_sentinels_country = yes
 		if = {
-			limit = { NOT = { has_global_flag = defense_sentinels_2_months_flag } }
-			random_playable_country = {
-				limit = { has_ascension_perk = ap_defense_sentinels }
-				if = {
-					limit = { has_country_flag = ap_defense_sentinels_retriever_project }
-					create_defense_sentinels_country = yes
-					create_retriever_sentinels_fleet = yes
-				}
-				if = {
-					limit = { NOT = { exists = event_target:defense_sentinels } }
-					if = {
-						limit = { any_relation = { has_relation_flag = { who = root flag = defense_sentinels } } }
-						random_relation = {
-							limit = { has_relation_flag = { who = root flag = defense_sentinels } }
-							save_event_target_as = defense_sentinels
-						}
+			limit = { has_country_flag = ap_defense_sentinels_retriever_project }
+			create_retriever_sentinels_fleet = yes
+		}
+		if = {
+			limit = {
+				exists = event_target:defense_sentinels
+				event_target:defense_sentinels = {
+					OR = {
+						# num_fleets < 5
+						# AND = { num_fleets < 10 } root = { has_technology = tech_defense_sentinels_1 }
+						# AND = { num_fleets < 20 } root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 }
+						# AND = { num_fleets < 30 } root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 }
+						num_ships < 75
+						AND = { num_ships < 150 } root = { has_technology = tech_defense_sentinels_1 }
+						AND = { num_ships < 300 } root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 }
+						AND = { num_ships < 450 } root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 }
+						# count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 }
+						# AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 }	root = { has_technology = tech_defense_sentinels_1 } }
+						# AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 } }
+						# AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
+						# event_target:the_ally_faction = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 50 } }
 					}
-					else_if = {
-						limit = {
-							is_overlord = yes
-							any_subject = { has_relation_flag = { who = root flag = defense_sentinels } }
-						}
-						random_subject = {
-							limit = { has_relation_flag = { who = root flag = defense_sentinels } }
-							save_event_target_as = defense_sentinels
-						}
-					}
-					else_if = {
-						limit = { any_country = { has_relation_flag = { who = root flag = defense_sentinels } } }
-						random_country = {
-							limit = { has_relation_flag = { who = root flag = defense_sentinels } }
-							save_event_target_as = defense_sentinels
-						}
-					}
-				}
-
-				if = { # Recover fleet power
-					limit = {
-						exists = event_target:defense_sentinels
-						event_target:defense_sentinels = {
-							OR = {
-								# AND = { num_fleets < 5 ROOT = { NOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-								# AND = { num_fleets < 10 ROOT = { has_technology = tech_defense_sentinels_1 NOT = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-								# AND = { num_fleets < 20 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-								# AND = { num_fleets < 30 ROOT = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 75 }	root = { NOR = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 150 }	root = { has_technology = tech_defense_sentinels_1 NOR = { has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } } }
-								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 NOT = { has_technology = tech_defense_sentinels_3 } } }
-								AND = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 450 }	root = { has_technology = tech_defense_sentinels_1 has_technology = tech_defense_sentinels_2 has_technology = tech_defense_sentinels_3 } }
-								# event_target:the_ally_faction = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 50 } }
-							}
-						}
-					}
-					country_event = { id = UniqueAscensionPerksEvents.233 days = 5 random = 5 }
 				}
 			}
+			country_event = { id = UniqueAscensionPerksEvents.233 days = 5 random = 5 }
 		}
-		else = { set_global_flag = defense_sentinels_2_months_flag }
 	}
 }
 
-# on_yearly_pulse
-# event = {
-# 	id = UniqueAscensionPerksEvents.234
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	immediate = {
-# 		random_playable_country = {
-# 			limit = {
-# 				has_ascension_perk = ap_defense_sentinels
-# 				has_technology = tech_defense_sentinels_2
-# 				NOT = { has_country_flag = ap_defense_sentinels_retriever_project_check }
-# 			}
-# 			set_country_flag = ap_defense_sentinels_retriever_project_check
-# 			country_event = { id = UniqueAscensionPerksEvents.235 }
-# 		}
-# 	}
-# }
-# on_yearly_pulse_country
+# on_tech_increased was on_yearly_pulse_country
 country_event = {
 	id = UniqueAscensionPerksEvents.235
 	title = "RETRIEVER_SENTINEL"
@@ -4138,13 +4189,24 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
+		last_increased_tech = tech_defense_sentinels_2
 		# has_ascension_perk = ap_defense_sentinels
-		# has_technology = tech_defense_sentinels_2
-		# NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
-		NOT = { has_active_event = { UniqueAscensionPerksEvents.235 } }
+		NOR = {
+			has_active_event = { UniqueAscensionPerksEvents.235 }
+			has_country_flag = ap_defense_sentinels_retriever_project
+			has_special_project = RETRIEVER_SENTINEL
+		}
 	}
-	immediate = { set_country_flag = ap_defense_sentinels_retriever_project_check get_capital_planet = yes }
-	option = { name = EXCELLENT enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root } }
+	immediate = {
+		get_capital_planet = yes
+		enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root }
+	}
+	option = {
+		name = EXCELLENT
+		tooltip = {
+			enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root }
+		}
+	}
 }
 
 country_event = {
@@ -4158,42 +4220,70 @@ country_event = {
 	immediate = {
 		get_capital_planet = yes
 		set_country_flag = ap_defense_sentinels_retriever_project
-		remove_country_flag = ap_defense_sentinels_retriever_project_check # TODO TEST BUG REPORT
 		create_defense_sentinels_country = yes
 		while = { count = 3 create_retriever_sentinels_fleet = yes }
 	}
 	option = { name = EXCELLENT }
 }
 
-# on_half_yearly_pulse
+# Create "Defense Sentinel - Fortress" (on_yearly_pulse on_half_yearly_pulse)
 country_event = {
 	id = UniqueAscensionPerksEvents.237
 	hide_window = yes
 	# mean_time_to_happen = { months = 6 }
 	is_triggered_only = yes
-	# trigger = {
-	# 	merg_is_default_empire = yes
-	# 	has_ascension_perk = ap_defense_sentinels
-	# 	has_country_flag = ap_defense_sentinels_retriever_project
-	# 	any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
-	# 	any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
-	# }
 	immediate = {
 		create_defense_sentinels_country = yes
-		random_owned_planet = {
-			limit = { NOT = { has_planet_flag = defense_sentinels_planet } }
-			weights = { base = 1 modifier = { add = 5 is_sector_capital = no } }
-			save_event_target_as = spawn_location
-			set_timed_planet_flag = { flag = defense_sentinels_planet years = 15 }
-			event_target:defense_sentinels = {
+		if = {
+			limit = {
+				any_system_within_border = {
+					is_on_border = yes # native trigger v3.13
+					NOR = { is_in_frontier_space = yes any_fleet_in_system = { is_owned_by = event_target:defense_sentinels is_ship_size = blue_military_station_large_ai } }
+				}
+			}
+			if = {
+				limit = {
+					OR = {
+						NOT = { exists = event_target:spawn_location }
+						event_target:spawn_location = {
+							NAND = {
+								is_scope_type = planet
+								is_owned_by = root
+								is_in_frontier_space = no
+								solar_system = { is_on_border = yes }
+							}
+						}
+						event_target:spawn_location = { has_planet_flag = defense_sentinels_planet }
+						# Just one
+						event_target:spawn_location.solar_system = { any_fleet_in_system = { is_owned_by = event_target:defense_sentinels is_ship_size = blue_military_station_large_ai } }
+					}
+				}
+				random_system_within_border = {
+					limit = {
+						is_in_frontier_space = no
+						is_on_border = yes
+						any_system_colony = { num_pops > 10 NOT = { has_planet_flag = defense_sentinels_planet } }
+						# Just one
+						NOT = { any_fleet_in_system = { is_owned_by = event_target:defense_sentinels is_ship_size = blue_military_station_large_ai } }
+					}
+					# weights = { base = 1 modifier = { add = 50 } }
+					random_system_colony = {
+						limit = { num_pops > 10 NOT = { has_planet_flag = defense_sentinels_planet } }
+						save_event_target_as = spawn_location
+					}
+				}
+			}
+			if = {
+				limit = { exists = event_target:spawn_location }
+				event_target:spawn_location = { set_timed_planet_flag = { flag = defense_sentinels_planet years = 15 } }
 				create_fleet = {
 					name = NAME_defense_sentinels
 					settings = { garrison = yes spawn_debris = no }
 					effect = {
-						set_owner = prev
+						set_owner = event_target:defense_sentinels
 						create_ship = { name = "" design = "Defense Sentinel - Fortress" graphical_culture = "ai_01" }
 						set_location = { target = event_target:spawn_location distance = 8 angle = random }
-						set_fleet_flag = defense_sentinels_fortress
+						# set_fleet_flag = defense_sentinels_fortress
 					}
 				}
 			}
@@ -4206,41 +4296,46 @@ country_event = {
 	id = UniqueAscensionPerksEvents.238
 	hide_window = yes
 	is_triggered_only = yes
-	# mean_time_to_happen = { years = 1 }
-	# trigger = {
-	# 	has_ascension_perk = ap_defense_sentinels
-	# 	any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
-	# }
 	immediate = {
 		create_defense_sentinels_country = yes
 		random_system_within_border = {
-			limit = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
-			weights = { base = 1 modifier = { add = 5 is_capital_system = no } }
+			limit = { NOR = { has_star_flag = defense_sentinels_system any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } } }
+			# weights = { base = 1 modifier = { add = 10 is_capital_system = no } }
 			set_timed_star_flag = { flag = defense_sentinels_system years = 15 }
-			star = { save_event_target_as = spawn_location }
-			event_target:defense_sentinels = {
+			# star = { save_event_target_as = spawn_location }
+			if = {
+				limit = {
+					any_fleet_in_system = {
+						is_mobile = no
+						is_owned_by = event_target:defense_sentinels
+						any_owned_ship = { is_ship_class = shipclass_military_station }
+					}
+				}
+				random_fleet_in_system = {
+					limit = {
+						is_mobile = no
+						is_owned_by = event_target:defense_sentinels
+						any_owned_ship = { is_ship_class = shipclass_military_station }
+					}
+					create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" }
+					while = { count = 2
+						random = { chance = 40 create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" } }
+					}
+					set_fleet_flag = defense_sentinels_platforms
+				}
+			}
+			else = {
 				create_fleet = {
 					name = NAME_defense_sentinels
 					settings = { garrison = yes spawn_debris = no }
 					effect = {
-						set_owner = prev
+						set_owner = event_target:defense_sentinels
 						create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" }
-						set_location = { target = event_target:spawn_location distance = 100 angle = random }
-						set_fleet_flag = defense_sentinels_platforms
-					}
-				}
-				while = { count = 2
-					random = { chance = 40
-						create_fleet = {
-							name = NAME_defense_sentinels
-							settings = { garrison = yes spawn_debris = no }
-							effect = {
-								set_owner = prev
-								create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" }
-								set_location = { target = event_target:spawn_location distance = 100 angle = random }
-								set_fleet_flag = defense_sentinels_platforms
-							}
+						while = { count = 2
+							random = { chance = 40 create_ship = { name = "" design = "Defense Sentinel - Platform" graphical_culture = "ai_01" } }
 						}
+						set_location = { target = prev.star distance = 100 angle = random }
+						set_fleet_flag = defense_sentinels_platforms
 					}
 				}
 			}
@@ -4322,11 +4417,7 @@ leader_event = {
 							from = {
 								last_created_leader = {
 									set_age = 1
-									set_name = {
-										key = "CLONED_LEADER_NAME"
-										variable_string = "[This.GetName]"
-										variable_string = "[Prev.cloned_leader_number]"
-									}
+									set_name = { key = "CLONED_LEADER_NAME" variable_string = "[This.GetName]" variable_string = "[Prev.cloned_leader_number]" }
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
 							}
@@ -6311,7 +6402,7 @@ country_event = {
 	trigger = {
 		# has_ascension_perk = ap_wheel_fortune
 		# NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-		# any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+		# NOT = { any_owned_planet = { has_deposit = d_treasures_planet } }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.351 } }
 	}
 	immediate = {
@@ -8449,24 +8540,51 @@ event = {
 		}
 
 		## ON_YEARLY_PULSE_COUNTRY
-		# UniqueAscensionPerksEvents.235		# ap_defense_sentinels
+		# # ap_defense_sentinels
 		if = {
 			limit = { any_playable_country = { has_ascension_perk = ap_defense_sentinels } }
-			every_playable_country = {
-				limit = {
-					has_ascension_perk = ap_defense_sentinels
-					has_technology = tech_defense_sentinels_2
-					NOR = { has_country_flag = ap_defense_sentinels_retriever_project_check has_country_flag = ap_defense_sentinels_retriever_project }
-				}
-				country_event = { id = UniqueAscensionPerksEvents.235 }
-			}
+			# every_playable_country = {
+			# 	limit = {
+			# 		has_ascension_perk = ap_defense_sentinels
+			# 		has_technology = tech_defense_sentinels_2
+			# 		NOR = { has_active_event = { UniqueAscensionPerksEvents.235 } has_country_flag = ap_defense_sentinels_retriever_project }
+			# 	}
+			# 	country_event = { id = UniqueAscensionPerksEvents.235 }
+			# }
 			# UniqueAscensionPerksEvents.238		# ap_defense_sentinels
 			every_playable_country = {
 				limit = {
 					has_ascension_perk = ap_defense_sentinels
-					any_system_within_border = { NOR = { any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } has_star_flag = defense_sentinels_system } }
+					any_system_within_border = {
+						NOR = { has_star_flag = defense_sentinels_system any_fleet_in_system = { has_fleet_flag = defense_sentinels_platforms } }
+					}
 				}
 				country_event = { id = UniqueAscensionPerksEvents.238 }
+			}
+			# UniqueAscensionPerksEvents.237		# ap_defense_sentinels
+			# if = {
+			# 	limit = {
+			# 		any_playable_country = {
+			# 			has_ascension_perk = ap_defense_sentinels
+			# 			has_country_flag = ap_defense_sentinels_retriever_project
+			# 			any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
+			# 			NOR = { is_in_frontier_space = yes has_planet_flag = defense_sentinels_planet }
+			# 		}
+			# 	}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_defense_sentinels
+					has_country_flag = ap_defense_sentinels_retriever_project
+					# any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
+					any_owned_planet = {
+						NOR = { is_in_frontier_space = yes has_planet_flag = defense_sentinels_planet num_pops < 11 }
+						solar_system = {
+							is_on_border = yes # native trigger v3.13
+							NOT = { any_fleet_in_system = { is_ship_size = blue_military_station_large_ai } } # Just one
+						}
+					}
+				}
+				country_event = { id = UniqueAscensionPerksEvents.237 random = 8 }
 			}
 		}
 		# UniqueAscensionPerksEvents.351		# ap_wheel_fortune
@@ -8475,14 +8593,14 @@ event = {
 				any_playable_country = {
 					has_ascension_perk = ap_wheel_fortune
 					NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-					any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+					NOT = { any_owned_planet = { has_deposit = d_treasures_planet } }
 				}
 			}
 			every_playable_country = {
 				limit = {
 					has_ascension_perk = ap_wheel_fortune
 					NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-					any_owned_planet = { NOT = { has_deposit = d_treasures_planet } }
+					NOT = { any_owned_planet = { has_deposit = d_treasures_planet } }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.351 }
 			}
@@ -8606,7 +8724,7 @@ country_event = {
 					has_ascension_perk = ap_eternal_vigilance
 					has_country_flag = ap_eternal_vigilance_project
 					has_technology = tech_titans
-					any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
+					any_owned_starbase = { NOT = { has_planet_flag = vigilance_starbase } }
 				}
 			}
 			every_playable_country = {
@@ -8614,29 +8732,9 @@ country_event = {
 					has_ascension_perk = ap_eternal_vigilance
 					has_country_flag = ap_eternal_vigilance_project
 					has_technology = tech_titans
-					any_owned_planet = { NOT = { has_planet_flag = vigilance_planet } }
+					any_owned_starbase = { NOT = { has_planet_flag = vigilance_starbase } }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.132 random = 8 }
-			}
-		}
-		# UniqueAscensionPerksEvents.237		# ap_defense_sentinels
-		if = {
-			limit = {
-				any_playable_country = {
-					has_ascension_perk = ap_defense_sentinels
-					has_country_flag = ap_defense_sentinels_retriever_project
-					any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
-					any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
-				}
-			}
-			every_playable_country = {
-				limit = {
-					has_ascension_perk = ap_defense_sentinels
-					has_country_flag = ap_defense_sentinels_retriever_project
-					any_owned_planet = { NOT = { has_planet_flag = defense_sentinels_planet } }
-					any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
-				}
-				country_event = { id = UniqueAscensionPerksEvents.237 random = 8 }
 			}
 		}
 		# UniqueAscensionPerksEvents.451		# ap_artifact_hunter
@@ -8776,13 +8874,12 @@ country_event = {
 				country_event = { id = UniqueAscensionPerksEvents.8787 random = 8 }
 			}
 		}
-
 		# UniqueAscensionPerksEvents.8789		# Remove Special Subject countries
 		country_event = { id = UniqueAscensionPerksEvents.8789 }
 	}
 }
 
-# on_yearly_pulse and on_yearly_pulse_country action collector
+# on_monthly_pulse and on_monthly_pulse_country action collector
 event = {
 	id = UniqueAscensionPerksEvents.4040
 	hide_window = yes
@@ -8841,8 +8938,10 @@ event = {
 				any_playable_country = {
 					has_ascension_perk = ap_advanced_security
 					any_system_within_border = {
-						NOT = { has_star_flag = recent_security_strike_force }
+						is_in_frontier_space = no
+						has_trade_route = yes
 						trade_protected_value >= 1
+						NOT = { has_star_flag = recent_security_strike_force }
 					}
 				}
 			}
@@ -8850,12 +8949,15 @@ event = {
 				limit = {
 					has_ascension_perk = ap_advanced_security
 					any_system_within_border = {
-						NOT = { has_star_flag = recent_security_strike_force }
+						is_in_frontier_space = no
+						has_trade_route = yes
 						trade_protected_value >= 1
+						NOT = { has_star_flag = recent_security_strike_force }
 						any_fleet_in_system = {
 							exists = owner
 							owner = {
-								OR = { is_pirate_country = yes is_country_type = dormant_marauders is_country_type = awakened_marauders }
+								NOT = { is_same_empire = prevprevprev }
+								OR = { is_pirate_country = yes is_crisis_faction = yes is_hostile = prevprevprev }
 							}
 						}
 					}
@@ -8896,8 +8998,8 @@ event = {
 				any_playable_country = {
 					has_ascension_perk = ap_civilian_activities
 					OR = {
-						any_relation = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
-						any_country = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
+						any_relation = { is_country_type = civilian_activities has_relation_flag = { who = prev flag = civilian_activities_country } }
+						any_country = { is_country_type = civilian_activities has_relation_flag = { who = prev flag = civilian_activities_country } }
 					}
 				}
 			}
@@ -8905,8 +9007,8 @@ event = {
 				limit = {
 					has_ascension_perk = ap_civilian_activities
 					OR = {
-						any_relation = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
-						any_country = { is_country_type = civilian_activities has_relation_flag = { who = root flag = civilian_activities_country } }
+						any_relation = { is_country_type = civilian_activities has_relation_flag = { who = prev flag = civilian_activities_country } }
+						any_country = { is_country_type = civilian_activities has_relation_flag = { who = prev flag = civilian_activities_country } }
 					}
 				}
 				country_event = { id = UniqueAscensionPerksEvents.266 days = 1 random = 5 }
@@ -8938,16 +9040,37 @@ event = {
 			limit = {
 				any_playable_country = {
 					has_ascension_perk = ap_defense_sentinels
-					any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+					any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
 				}
 			}
 			every_playable_country = {
 				limit = {
 					has_ascension_perk = ap_defense_sentinels
-					any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+					any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.231 }
 				country_event = { id = UniqueAscensionPerksEvents.231 days = 15 }
+				# TODO on_bi_monthly_pulse?
+				if = {
+					limit = {
+						any_relation = {
+							is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels }
+							OR = {
+								num_fleets < 30
+								count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 }
+							}
+						}
+					}
+					country_event = { id = UniqueAscensionPerksEvents.239 }
+				}
+			}
+		}
+		# UniqueAscensionPerksEvents.1020		# ap_space_domestication Space Domestication
+		if = {
+			limit = { any_playable_country = { has_ascension_perk = ap_space_domestication } }
+			random_playable_country = {
+				limit = { has_ascension_perk = ap_space_domestication }
+				country_event = { id = UniqueAscensionPerksEvents.1020 }
 			}
 		}
 	}

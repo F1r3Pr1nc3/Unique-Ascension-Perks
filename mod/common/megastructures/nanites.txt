@@ -57,16 +57,34 @@ nanite_factory_site = {
 	construction_entity = "construction_platform_entity"
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
-	construction_blocks_and_blocked_by = none
+	construction_blocks_and_blocked_by = self_type
 	entity_offset = { x = @entity_x y = @entity_y }
 	build_time = 1800
 	resources = { category = megastructures cost = { alloys = 5000 nanites = 500 influence = 150 } upkeep = { energy = 5 } }
 	prerequisites = { "tech_nanite_factory" }
 	# potential = { has_technology = tech_nanite_factory }
+	# scope: galactic object, from: country
 	possible = {
 		exists = starbase
+		exists = sector
 		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
 		custom_tooltip = { fail_text = "requires_surveyed_system" count_system_planet = { limit = { is_surveyed = { who = prev.from status = no } } count = 0 } }
+		custom_tooltip = {
+			fail_text = "requires_no_existing_nanite_factory"
+			from = {
+				count_owned_megastructure = {
+					limit = {
+						exists = sector
+						sector = { is_same_value = root.sector }
+						OR = {
+							is_megastructure_type = nanite_factory_site
+							is_megastructure_type = nanite_factory
+						}
+					}
+					count = 0
+				}
+			}
+		}
 	}
 	placement_rules = {
 		planet_possible = {
