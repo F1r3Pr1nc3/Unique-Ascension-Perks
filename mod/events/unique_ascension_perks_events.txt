@@ -4147,7 +4147,7 @@ fleet_event = {
 				set_fleet_flag = defense_sentinels_fleet_patroling
 				set_timed_fleet_flag = { flag = defense_sentinels_fleet_defending_order days = 10 }
 				set_timed_fleet_flag = { flag = defense_sentinels_fleet_patroling_order months = 4 }
-				auto_move_to_planet = { target = event_target:defense_sentinels_fleet_destination clear_auto_move_on_arrival = no }
+				auto_move_to_planet = { target = event_target:defense_sentinels_fleet_destination clear_auto_move_on_arrival = yes }
 			}
 		}
 	}
@@ -8374,12 +8374,29 @@ event = {
 				}
 			}
 		}
+
+
+
+
 		# UniqueAscensionPerksEvents.1020		# ap_space_domestication Space Domestication
 		if = {
-			limit = { any_playable_country = { has_ascension_perk = ap_space_domestication } }
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_space_domestication
+				}
+			}
 			random_playable_country = {
-				limit = { has_ascension_perk = ap_space_domestication }
-				country_event = { id = UniqueAscensionPerksEvents.1020 }
+				limit = {
+					has_ascension_perk = ap_space_domestication
+				}
+				if = { # Only on_bi_monthly_pulse
+					limit = { NOT = { has_country_flag = bi_space_domestication_protocol } }
+					set_country_flag = bi_space_domestication_protocol
+				}
+				else = {
+					remove_country_flag = bi_space_domestication_protocol
+					country_event = { id = UniqueAscensionPerksEvents.1020 }
+				}
 			}
 		}
 	}
