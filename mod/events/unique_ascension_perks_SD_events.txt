@@ -483,10 +483,10 @@ country_event = {
 			}
 			remove_country_flag = bi_space_domestication_protocol
 			save_event_target_as = main_country
-			if = {
-				limit = { has_country_flag = killed_guardian NOT = { has_country_flag = has_killed_leviathan } }
-				set_country_flag = has_killed_leviathan
-			}
+			# if = {
+			# 	limit = { has_country_flag = killed_guardian NOT = { has_country_flag = has_killed_leviathan } }
+			# 	set_country_flag = has_killed_leviathan
+			# }
 
 			country_event = { id = UniqueAscensionPerksEvents.1030 days = 2 }
 			# SPACE_DOMESTICATION_CONSTANT_BREED_EVENT
@@ -662,12 +662,10 @@ country_event = {
 	is_triggered_only = yes
 	trigger = { is_country_type = domesticated_spaceborn_alien has_country_flag = domesticated_spaceborn_alien_cloud exists = fromfrom }
 	immediate = {
-		random = { chance = 35
-			# save_event_target_as = main_country
-			# from = { save_event_target_as = notify_country }
-			fromfrom = {
-				fleet_event = { id = UniqueAscensionPerksEvents.1026 days = 14 random = 7 }
-			}
+		# save_event_target_as = main_country
+		# from = { save_event_target_as = notify_country }
+		fromfrom = {
+			fleet_event = { id = UniqueAscensionPerksEvents.1026 days = 14 random = 7 }
 		}
 	}
 }
@@ -889,40 +887,31 @@ fleet_event = {
 		}
 	}
 }
-
-country_event = {
-	id = UniqueAscensionPerksEvents.1049
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		NOT = { has_country_flag = has_killed_leviathan }
-		fromfromfrom = {
-			OR = {
-				is_ship_size = space_dragon_red
-				is_ship_size = stellarite
-				is_ship_size = sphere
-				is_ship_size = station_xl
-				is_ship_size = dimensional_horror
-				is_ship_size = npc_warship_01
-				is_ship_size = wraith_01_blue
-				is_ship_size = wraith_01_red
-				is_ship_size = wraith_01_yellow
-				is_ship_size = leviathan_01_scavenger_bot
-				is_ship_size = leviathan_01_elder_tiyanki
-				is_ship_size = leviathan_01_voidspawn
-			}
-		}
-	}
-	immediate = { set_country_flag = has_killed_leviathan }
-}
-
+## Compare factions.10 on_fleet_destroyed_perp
 # country_event = {
-# 	id = UniqueAscensionPerksEvents.1050
+# 	id = UniqueAscensionPerksEvents.1049
 # 	hide_window = yes
-# 	mean_time_to_happen = { months = 1 }
+# 	is_triggered_only = yes
 # 	trigger = {
-# 		has_country_flag = killed_guardian
-# 		NOT = { has_country_flag = has_killed_leviathan }
+# 		merg_is_default_empire = yes
+# 		# from = { is_guardian_country = yes }
+# 		fromfromfrom = {
+# 			OR = {
+# 				is_ship_size = space_dragon_red
+# 				is_ship_size = stellarite
+# 				is_ship_size = sphere
+# 				is_ship_size = station_xl
+# 				is_ship_size = dimensional_horror
+# 				is_ship_size = npc_warship_01
+# 				is_ship_size = wraith_01_blue
+# 				is_ship_size = wraith_01_red
+# 				is_ship_size = wraith_01_yellow
+# 				is_ship_size = leviathan_01_scavenger_bot
+# 				is_ship_size = leviathan_01_elder_tiyanki
+# 				is_ship_size = leviathan_01_voidspawn
+# 			}
+# 		}
+# 		NOR = { has_country_flag = has_killed_leviathan has_country_flag = killed_guardian }
 # 	}
 # 	immediate = { set_country_flag = has_killed_leviathan }
 # }

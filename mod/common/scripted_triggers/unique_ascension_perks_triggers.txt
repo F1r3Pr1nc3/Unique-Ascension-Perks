@@ -6,13 +6,33 @@ is_unique_perk_special_subject = {
 		# is_country_type = defense_sentinels
 	}
 }
+
 # Is native trigger v3.13
-# REMOVE on v4.0
+# REMOVEME on v4.0!?
+# This = system with owner
 is_on_border = {
-	any_neighbor_system = {
-		NAND = {
-			has_owner = yes
-			owner = { is_same_empire = prevprev.owner }
+	OR = {
+		has_natural_wormhole = yes
+		has_any_megastructure = yes
+		# AND = {
+		# 	OR = {
+		# 		has_megastructure = gateway_restored
+		# 		has_megastructure = gateway_final
+		# 	}
+		# }
+		any_neighbor_system = {
+			OR = {
+				AND = {
+					has_owner = no
+					any_neighbor_system = {
+						NAND = { has_owner = yes is_owned_by = prevprev.owner }
+					}
+				}
+				AND = {
+					has_owner = yes
+					NOT = { is_owned_by = prev.owner }
+				}
+			}
 		}
 	}
 }

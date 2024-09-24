@@ -24,13 +24,13 @@ country_event = {
 					limit = {
 						is_subject = no
 						merg_is_default_empire = yes
-						NOT = { has_country_flag = sync_subjects_virtual_relation }
 						OR = {
 							has_ascension_perk = ap_space_domestication
 							has_ascension_perk = ap_advanced_security
 							has_ascension_perk = ap_defense_sentinels
 							has_ascension_perk = ap_civilian_activities
 						}
+						NOT = { has_country_flag = sync_subjects_virtual_relation }
 					}
 					set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 5 }
 					every_relation = {
@@ -53,13 +53,13 @@ country_event = {
 		else_if = {
 			limit = {
 				merg_is_default_empire = yes
-				NOT = { has_country_flag = sync_subjects_virtual_relation }
 				OR = {
 					has_ascension_perk = ap_space_domestication
 					has_ascension_perk = ap_advanced_security
 					has_ascension_perk = ap_defense_sentinels
 					has_ascension_perk = ap_civilian_activities
 				}
+				NOT = { has_country_flag = sync_subjects_virtual_relation }
 			}
 			set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 5 }
 			every_relation = {
@@ -83,13 +83,13 @@ country_event = {
 				from = {
 					is_scope_type = country
 					merg_is_default_empire = yes
-					NOT = { has_country_flag = sync_subjects_virtual_relation }
 					OR = {
 						has_ascension_perk = ap_space_domestication
 						has_ascension_perk = ap_advanced_security
 						has_ascension_perk = ap_defense_sentinels
 						has_ascension_perk = ap_civilian_activities
 					}
+					NOT = { has_country_flag = sync_subjects_virtual_relation }
 				}
 			}
 			from = {
@@ -1344,7 +1344,6 @@ country_event = {
 	}
 }
 
-# TODO needs more ship classes
 # on_ship_destroyed_perp
 country_event = {
 	id = UniqueAscensionPerksEvents.50
@@ -1353,67 +1352,66 @@ country_event = {
 	trigger = { has_ascension_perk = ap_recycling_drones } # has_country_flag = ap_recycling_drones_project
 	immediate = {
 		fromfromfrom = {
-			random = { chance = 33.4
-				switch = { trigger = is_ship_size
-					# Default Empire
-					science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-					battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
-					colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-					juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-					crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-					star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-					military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-					military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
-					research_station			= { ROOT = { add_resource = { minerals = 25 } } }
-					observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
-					# Pirates
-					pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-					galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
-					pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					# Marauders
-					marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-					marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
-					marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					# Fallen Empire
-					massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
-					large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					# Ancient Drone
-					ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
-					ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					# Contingency
-					small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-					military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-					core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
-					final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
-					construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-					# Leviathans
-					npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
-				}
+			# TODO extend
+			switch = { trigger = is_ship_size
+				# Default Empire
+				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
+				research_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				# Pirates
+				pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Marauders
+				marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				# Fallen Empire
+				massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Ancient Drone
+				ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
+				ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Contingency
+				small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+				final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
+				construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				# Leviathans
+				npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
 			}
 		}
 	}
@@ -3663,20 +3661,50 @@ country_event = {
 	immediate = {
 		random_owned_starbase = {
 			limit = {
+				has_starbase_size >= starbase_starhold
 				exists = fleet
 				NOR = {
 					has_starbase_flag = vigilance_starbase
 					fleet = { is_in_frontier_space = yes }
-					fleet = { has_modifier = eternal_vigilance_fleet }
+					# fleet = { has_modifier = eternal_vigilance_fleet }
 				}
 			}
 			set_timed_starbase_flag = { flag = vigilance_starbase years = 15 }
 			fleet = {
-				create_ship = { name = random random_existing_design = military_station_small }
-				while = { count = 3
-					random = { chance = 50 create_ship = { name = random random_existing_design = military_station_small } }
+				if = {
+					limit = { NOT = { has_modifier = eternal_vigilance_fleet } }
+					create_ship = { name = random random_existing_design = military_station_small }
+					while = { count = 3
+						random = { chance = 50 create_ship = { name = random random_existing_design = military_station_small } }
+					}
+					add_modifier = { modifier = eternal_vigilance_fleet }
 				}
-				add_modifier = { modifier = eternal_vigilance_fleet }
+			}
+			solar_system = {
+				if = {
+					limit = {
+						is_on_border = yes
+						any_system_colony = {
+							is_owned_by = root
+							has_orbital_station = yes
+							orbital_station = { NOT = { has_modifier = eternal_vigilance_fleet } }
+						}
+					}
+					random_system_colony = {
+						limit = {
+							is_owned_by = root
+							has_orbital_station = yes
+							orbital_station = { NOT = { has_modifier = eternal_vigilance_fleet } }
+						}
+						orbital_station = {
+							create_ship = { name = random random_existing_design = military_station_small }
+							while = { count = 2
+								random = { chance = 50 create_ship = { name = random random_existing_design = military_station_small } }
+							}
+							add_modifier = { modifier = eternal_vigilance_fleet }
+						}
+					}
+				}
 			}
 		}
 		# random_system_within_border = {
@@ -3711,39 +3739,69 @@ country_event = {
 	# 	has_ascension_perk = ap_eternal_vigilance
 	# 	has_country_flag = ap_eternal_vigilance_project
 	# 	has_technology = tech_titans
+	# 	any_owned_starbase = { NOT = { has_starbase_flag = vigilance_starbase } }
 	# }
 	immediate = {
 		random_owned_starbase = {
 			limit = {
+				has_starbase_size > starbase_starhold
 				exists = fleet
 				NOR = {
 					has_starbase_flag = vigilance_starbase
-					fleet = { any_owned_ship = { has_modifier = eternal_vigilance_fleet } }
 					fleet = { is_in_frontier_space = yes }
+					# fleet = { any_owned_ship = { has_modifier = eternal_vigilance_fleet } }
 				}
 			}
 			set_timed_starbase_flag = { flag = vigilance_starbase years = 15 }
 			fleet = {
-				create_ship = {
-					name = "eternal_vigilance_fleet" random_existing_design = ion_cannon
-					effect = {
-						add_modifier = { modifier = eternal_vigilance_fleet }
+				if = {
+					limit = { NOT = { any_owned_ship = { has_modifier = eternal_vigilance_fleet } } }
+					create_ship = {
+						name = "eternal_vigilance_fleet" random_existing_design = ion_cannon
+						effect = { add_modifier = { modifier = eternal_vigilance_fleet } }
 					}
 				}
 			}
-			# set_timed_planet_flag = { flag = vigilance_starbase years = 15 }
-			# create_fleet = {
-			# 	name = "eternal_vigilance_fleet"
-			# 	settings = { spawn_debris = no uses_naval_capacity = no }
-			# 	effect = {
-			# 		set_owner = root
-			# 		create_ship = { name = random random_existing_design = ion_cannon }
-			# 		set_location = { target = prev distance = 8 angle = random }
-			# 		set_fleet_flag = eternal_vigilance_ion_cannon
-			# 		add_modifier = { modifier = eternal_vigilance_fleet }
-			# 	}
-			# }
+			solar_system = {
+				if = {
+					limit = {
+						is_on_border = yes
+						any_system_colony = {
+							is_owned_by = root
+							has_orbital_station = yes
+							orbital_station = { NOT = { has_modifier = eternal_vigilance_fleet } }
+						}
+					}
+					random_system_colony = {
+						limit = {
+							is_owned_by = root
+							has_orbital_station = yes
+							orbital_station = { NOT = { has_modifier = eternal_vigilance_fleet } }
+						}
+						orbital_station = {
+							create_ship = { name = "eternal_vigilance_fleet" random_existing_design = ion_cannon }
+							add_modifier = { modifier = eternal_vigilance_fleet }
+						}
+					}
+				}
+			}
 		}
+		# random_owned_planet = {
+		# 	limit = { NOT = { has_planet_flag = vigilance_planet } }
+		# 	save_event_target_as = spawn_location
+		# 	set_timed_planet_flag = { flag = vigilance_starbase years = 15 }
+		# 	create_fleet = {
+		# 		name = "eternal_vigilance_fleet"
+		# 		settings = { spawn_debris = no uses_naval_capacity = no }
+		# 		effect = {
+		# 			set_owner = root
+		# 			create_ship = { name = random random_existing_design = ion_cannon }
+		# 			set_location = { target = prev distance = 8 angle = random }
+		# 			set_fleet_flag = eternal_vigilance_ion_cannon
+		# 			add_modifier = { modifier = eternal_vigilance_fleet }
+		# 		}
+		# 	}
+		# }
 	}
 }
 
@@ -4237,7 +4295,7 @@ country_event = {
 		if = {
 			limit = {
 				any_system_within_border = {
-					is_on_border = yes # native trigger v3.13
+					is_on_border = yes # Native trigger v3.13
 					NOR = { is_in_frontier_space = yes any_fleet_in_system = { is_owned_by = event_target:defense_sentinels is_ship_size = blue_military_station_large_ai } }
 				}
 			}
@@ -4264,7 +4322,7 @@ country_event = {
 						is_on_border = yes
 						any_system_colony = { num_pops > 10 NOT = { has_planet_flag = defense_sentinels_planet } }
 						# Just one
-						NOT = { any_fleet_in_system = { is_owned_by = event_target:defense_sentinels is_ship_size = blue_military_station_large_ai } }
+						count_fleet_in_system = { limit = { is_owned_by = event_target:defense_sentinels is_ship_size = blue_military_station_large_ai } count = 0 }
 					}
 					# weights = { base = 1 modifier = { add = 50 } }
 					random_system_colony = {
@@ -5050,38 +5108,39 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
+# on_planet_bombarded
+# From = Bombarder
 planet_event = {
 	id = UniqueAscensionPerksEvents.311
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		from = { has_ascension_perk = ap_orbital_surgical_strike has_country_flag = surgical_strike_active }
 		NOT = { has_planet_flag = had_surgical_strike }
-		from = {
-			has_ascension_perk = ap_orbital_surgical_strike
-			has_country_flag = surgical_strike_active
-			any_owned_fleet = {
-				is_ship_class = shipclass_military
-				orbit = { is_same_value = root }
-				fleet_size > 20
-			}
+		any_fleet_in_orbit = {
+			is_ship_class = shipclass_military
+			# exists = owner
+			is_owned_by = from
+			fleet_size > 20
 		}
  	}
 	immediate = {
-		random = { chance = 5
-			save_event_target_as = surgical_strike_planet
-			set_timed_planet_flag = { flag = had_surgical_strike months = 4 }
-			from = {
-				random_owned_fleet = {
-					limit = {
-						is_ship_class = shipclass_military
-						orbit = { is_same_value = event_target:surgical_strike_planet }
-					}
-					save_event_target_as = surgical_strike_fleet
-				}
-				country_event = { id = UniqueAscensionPerksEvents.312 }
+		random_fleet_in_orbit = {
+			limit = {
+				is_ship_class = shipclass_military
+				# exists = owner
+				is_owned_by = from
+				# exists = orbit
+				# orbit = { is_planet = root }
+				fleet_size > 20
 			}
+			root = {
+				set_timed_planet_flag = { flag = had_surgical_strike months = 4 }
+				random = { chance = 15 random_owned_pop = { kill_pop = yes } }
+			}
+			save_event_target_as = surgical_strike_fleet
+			from = { country_event = { id = UniqueAscensionPerksEvents.312 } }
 		}
-		# random_list = { 15 = { from = { random_owned_pop = { kill_pop = yes } } } 85 = {} }
 	}
 }
 
@@ -5093,6 +5152,9 @@ country_event = {
 	picture = GFX_evt_surgical_strike
 	location = event_target:surgical_strike_planet
 	is_triggered_only = yes
+	immediate = {
+		from = { save_event_target_as = surgical_strike_planet }
+	}
 	option = {
 		name = "UniqueAscensionPerksEvents.312.Raid"
 		allow = { has_technology = tech_raid_resources }
@@ -6260,6 +6322,18 @@ event = {
 	is_triggered_only = yes
 	# trigger = { }
 	immediate = {
+		# Sync special subject relations (virtual)
+		every_playable_country = {
+			limit = {
+				OR = {
+					has_ascension_perk = ap_space_domestication
+					has_ascension_perk = ap_advanced_security
+					has_ascension_perk = ap_defense_sentinels
+					has_ascension_perk = ap_civilian_activities
+				}
+			}
+			country_event = { id = UniqueAscensionPerksEvents.8785 days = 1 }
+		}
 		# if = {
 		# 	limit = {
 		# 		any_system = {
@@ -6275,18 +6349,6 @@ event = {
 		# 		}
 		# 	}
 		# }
-		# Sync special subject relations (virtual)
-		every_playable_country = {
-			limit = {
-				OR = {
-					has_ascension_perk = ap_space_domestication
-					has_ascension_perk = ap_advanced_security
-					has_ascension_perk = ap_defense_sentinels
-					has_ascension_perk = ap_civilian_activities
-				}
-			}
-			country_event = { id = UniqueAscensionPerksEvents.8785 days = 1 }
-		}
 		# Removed in v.3.5
 		# FIX SUBJECT TRUST (only works if they suposed to be subjects)
 		# if = {
@@ -6376,16 +6438,16 @@ event = {
 		# 		} else = { destroy_country = yes }
 		# 	}
 		# }
-		# REMOVEME in > v.3.12
-		every_playable_country = {
-			limit = {
-				is_ai = yes
-				NOT = { has_ascension_perk = ap_self_aware_colony }
-				any_owned_planet = { has_modifier = self_aware_colony }
-			}
-			# country_event = { id = UniqueAscensionPerksEvents.464 }
-			every_owned_planet = { limit = { is_colony = yes has_modifier = self_aware_colony } remove_self_aware_planet = yes }
-		}
+		# REMOVED in v.3.13
+		# every_playable_country = {
+		# 	limit = {
+		# 		is_ai = yes
+		# 		NOT = { has_ascension_perk = ap_self_aware_colony }
+		# 		any_owned_planet = { has_modifier = self_aware_colony }
+		# 	}
+		# 	# country_event = { id = UniqueAscensionPerksEvents.464 }
+		# 	every_owned_planet = { limit = { is_colony = yes has_modifier = self_aware_colony } remove_self_aware_planet = yes }
+		# }
 	}
 }
 
@@ -6398,16 +6460,15 @@ country_event = {
 	picture = GFX_evt_analyzing_artifacts
 	location = event_target:spawn_location
 	is_triggered_only = yes
-	# mean_time_to_happen = { years = 1 }
 	trigger = {
 		# has_ascension_perk = ap_wheel_fortune
 		# NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-		# NOT = { any_owned_planet = { has_deposit = d_treasures_planet } }
+		# any_owned_planet = { is_colony = yes NOT = { has_deposit = d_treasures_planet } }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.351 } }
 	}
 	immediate = {
 		random_owned_planet = {
-			limit = { NOT = { has_deposit = d_treasures_planet } }
+			limit = { is_colony = yes NOT = { has_deposit = d_treasures_planet } }
 			save_event_target_as = spawn_location
 		}
 		set_timed_country_flag = { flag = treasures_on_colony_found_cooldown years = 8 }
@@ -8579,8 +8640,8 @@ event = {
 					any_owned_planet = {
 						NOR = { is_in_frontier_space = yes has_planet_flag = defense_sentinels_planet num_pops < 11 }
 						solar_system = {
-							is_on_border = yes # native trigger v3.13
-							NOT = { any_fleet_in_system = { is_ship_size = blue_military_station_large_ai } } # Just one
+							is_on_border = yes # Native trigger v3.13
+							count_fleet_in_system = { limit = { is_ship_size = blue_military_station_large_ai } count = 0 } # Just one
 						}
 					}
 				}
@@ -8593,14 +8654,14 @@ event = {
 				any_playable_country = {
 					has_ascension_perk = ap_wheel_fortune
 					NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-					NOT = { any_owned_planet = { has_deposit = d_treasures_planet } }
+					any_owned_planet = { is_colony = yes NOT = { has_deposit = d_treasures_planet } }
 				}
 			}
 			every_playable_country = {
 				limit = {
 					has_ascension_perk = ap_wheel_fortune
 					NOT = { has_country_flag = treasures_on_colony_found_cooldown }
-					NOT = { any_owned_planet = { has_deposit = d_treasures_planet } }
+					any_owned_planet = { is_colony = yes NOT = { has_deposit = d_treasures_planet } }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.351 }
 			}
@@ -8724,7 +8785,7 @@ country_event = {
 					has_ascension_perk = ap_eternal_vigilance
 					has_country_flag = ap_eternal_vigilance_project
 					has_technology = tech_titans
-					any_owned_starbase = { NOT = { has_planet_flag = vigilance_starbase } }
+					any_owned_starbase = { NOT = { has_starbase_flag = vigilance_starbase } }
 				}
 			}
 			every_playable_country = {
@@ -8732,7 +8793,7 @@ country_event = {
 					has_ascension_perk = ap_eternal_vigilance
 					has_country_flag = ap_eternal_vigilance_project
 					has_technology = tech_titans
-					any_owned_starbase = { NOT = { has_planet_flag = vigilance_starbase } }
+					any_owned_starbase = { NOT = { has_starbase_flag = vigilance_starbase } }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.132 random = 8 }
 			}

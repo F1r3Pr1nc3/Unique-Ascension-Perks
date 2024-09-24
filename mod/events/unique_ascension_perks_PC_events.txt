@@ -452,32 +452,13 @@ planet_event = {
 					}
 					## Create new Species
 					event_target:SdjTargetPopA = {
-						species = {
-							create_species = {
-								name = this
-								plural = this
-								class = this
-								portrait = this
-								homeworld = root
-								traits = random
-								is_mod = yes
-								can_be_modified = yes
-								gender = this
-								# clear_parent_species_link = yes
-								effect = { save_event_target_as = primitive_world_species }
-							}
-							# FIXME Somehow changes the orignal species
-							# modify_species = {
-							# 	# species = this
-							# 	# base = this
-							# 	# portrait = this
-							# 	# add_trait = trait_leng_engineered later
-							# 	# remove_trait = <key> # Can specify multiple
-							# 	# add_traits_at_start_of_list = yes
-							# 	ideal_planet_class = root
-							# 	change_scoped_species = no
-							# 	effect = { save_event_target_as = primitive_world_species }
-							# }
+						modify_species = {
+							species = this
+							base = none
+							portrait = this
+							ideal_planet_class = root
+							change_scoped_species = no
+							effect = { save_event_target_as = primitive_world_species }
 						}
 					}
 					event_target:primitive_world_species = {
@@ -486,7 +467,7 @@ planet_event = {
 						if = {
 							limit = {
 								has_global_flag = life_engineering_installed
-								NOR = { has_global_flag = has_uap_mod prevprev = { has_ascension_perk = ap_primitives_creation } }
+								NOR = { has_global_flag = has_uap_mod prev = { has_ascension_perk = ap_primitives_creation } }
 							}
 							change_species_characteristics = { add_trait = trait_leng_engineered add_traits_at_start_of_list = yes }
 						}

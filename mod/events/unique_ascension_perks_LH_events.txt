@@ -29,9 +29,9 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = { any_system_within_border = { exists = starbase has_natural_wormhole = no any_system_colony = { } } }
+			limit = { any_system_within_border = { exists = starbase has_natural_wormhole = no count_system_colony = { count > 0 } } }
 			random_system_within_border = {
-				limit = { exists = starbase has_natural_wormhole = no any_system_colony = { } }
+				limit = { exists = starbase has_natural_wormhole = no count_system_colony = { count > 0 } }
 				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
 				save_event_target_as = lh_empire_capital_system
 			}
@@ -640,7 +640,7 @@ country_event = {
 									last_created_system = {
 										NAND = {
 											has_star_flag = lh_spawned_system
-											any_neighbor_system = { }
+											count_neighbor_system = { count > 0 }
 										}
 									}
 								}

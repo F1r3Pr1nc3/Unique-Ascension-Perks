@@ -1,4 +1,4 @@
-version="3.13.0.0"
+version="3.13.0.1"
 tags={
 	"Buildings"
 	"Gameplay"
@@ -10,7 +10,7 @@ tags={
 	"Diplomacy"
 	"Technologies"
 }
-name="Unique Ascension Perks 3.12 DEV branch"
+name="Unique Ascension Perks 3.13 DEV branch"
 picture="thumbnail.png"
 supported_version="v3.13.*"
 remote_file_id="2811428998"
