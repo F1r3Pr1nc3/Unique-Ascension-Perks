@@ -89,7 +89,8 @@ country_event = {
 			create_domestication_spaceborn_alien_country = yes
 			set_country_flag = space_domestication_project_completed
 		}
-		else = {
+		else_if = {
+			limit = { NOT = { exists = event_target:domesticated_spaceborn_alien } }
 			random_relation = {
 				limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
 				save_event_target_as = domesticated_spaceborn_alien
@@ -122,27 +123,34 @@ country_event = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_fertilization_protocol } }
 			custom_tooltip = {
-				fail_text = breeding_fertilization_protocol_req # CAN_BREEDING_FERTILIZATION_PROTOCOL
+				fail_text = "breeding_fertilization_protocol_req" # CAN_BREEDING_FERTILIZATION_PROTOCOL
 				can_SD_protocol = { RSC = 3000 }
 			}
+			any_planet_within_border = { has_planet_flag = domesticated_alien_home }
 		}
 		custom_tooltip = "breeding_fertilization_protocol_tooltip" # BREEDING_FERTILIZATION_PROTOCOL_PAYING
-		if		= { limit = { has_country_flag = space_domestication_tiyanki	} add_resource = { food		= -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_amoeba		} add_resource = { food		= -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_crystal	} add_resource = { minerals	= -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_cloud		} add_resource = { energy	= -3000 } }
-		else_if = { limit = { has_country_flag = space_domestication_drone		} add_resource = { energy	= -3000 } }
+		switch = { trigger = has_country_flag
+			space_domestication_tiyanki	= { add_resource = { food		= -3000 } }
+			space_domestication_amoeba	= { add_resource = { food		= -3000 } }
+			space_domestication_crystal	= { add_resource = { minerals	= -3000 } }
+			space_domestication_cloud	= { add_resource = { energy		= -3000 } }
+			space_domestication_drone	= { add_resource = { energy		= -3000 } }
+		}
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1010 days = 360 }
 			set_timed_country_flag = { flag = space_domestication_fertilization_protocol years = 1 }
 			# BREEDING_FERTILIZATION_PROTOCOL
 			random_planet_within_border = {
 				limit = { has_planet_flag = domesticated_alien_home }
-				if		= { limit = { root = { has_country_flag = space_domestication_tiyanki	} merg_is_gas_giant = yes } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_amoeba	} merg_is_toxic = yes } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_crystal	} merg_is_frozen = yes } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_cloud		} is_planet_class = pc_black_hole } save_event_target_as = spawn_location }
-				else_if = { limit = { root = { has_country_flag = space_domestication_drone		} is_planet_class = pc_asteroid } save_event_target_as = spawn_location }
+				root = {
+					switch = { trigger = has_country_flag
+						space_domestication_tiyanki	= { if = { limit = { prev = { merg_is_gas_giant = yes			} } save_event_target_as = spawn_location } }
+						space_domestication_amoeba	= { if = { limit = { prev = { merg_is_toxic = yes				} } save_event_target_as = spawn_location } }
+						space_domestication_crystal	= { if = { limit = { prev = { merg_is_frozen = yes				} } save_event_target_as = spawn_location } }
+						space_domestication_cloud	= { if = { limit = { prev = { is_planet_class = pc_black_hole	} } save_event_target_as = spawn_location } }
+						space_domestication_drone	= { if = { limit = { prev = { is_planet_class = pc_asteroid		} } save_event_target_as = spawn_location } }
+					}
+				}
 			}
 			event_target:domesticated_spaceborn_alien = {
 				create_fleet = {
@@ -164,7 +172,7 @@ country_event = {
 						set_aggro_range_measure_from = self
 						set_aggro_range = 5000
 						set_formation_scale = 4.0
-												set_fleet_flag = domesticated_fleet
+						set_fleet_flag = domesticated_fleet
 						set_fleet_flag = domesticated_mother_fleet
 					}
 				}
@@ -175,9 +183,12 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.1002.Gathering"
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_resources_protocol } }
-			custom_tooltip = { fail_text = "resources_gathering_protocol_req" can_SD_protocol = { RSC = 800 } }
 			custom_tooltip = {
-				fail_text = no_fertilized_fleet_req # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
+				fail_text = "resources_gathering_protocol_req" # CAN_RESOURCES_GATHERING_PROTOCOL
+				can_SD_protocol = { RSC = 800 }
+			}
+			custom_tooltip = {
+				fail_text = "no_fertilized_fleet_req" # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
 				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
 			}
 		}
@@ -195,20 +206,22 @@ country_event = {
 			custom_tooltip = { fail_text = requires_independence is_subject = no }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req03 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
 			custom_tooltip = {
-				fail_text = military_assault_protocol_req # CAN_MILITARY_ASSAULT_PROTOCOL
+				fail_text = "military_assault_protocol_req" # CAN_MILITARY_ASSAULT_PROTOCOL
 				can_SD_protocol = { RSC = 5000 }
 			}
 			custom_tooltip = {
-				fail_text = no_fertilized_fleet_req # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
+				fail_text = "no_fertilized_fleet_req" # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
 				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
 			}
 		}
 		custom_tooltip = "military_assault_protocol_tooltip" # MILITARY_ASSAULT_PROTOCOL_PAYING
-		if		= { limit = { has_country_flag = space_domestication_tiyanki	} add_resource = { food = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_amoeba		} add_resource = { food = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_crystal	} add_resource = { minerals = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_cloud		} add_resource = { energy = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_drone		} add_resource = { energy = -5000 } }
+		switch = { trigger = has_country_flag
+			space_domestication_tiyanki	= { add_resource = { food		= -5000 } }
+			space_domestication_amoeba	= { add_resource = { food		= -5000 } }
+			space_domestication_crystal	= { add_resource = { minerals	= -5000 } }
+			space_domestication_cloud	= { add_resource = { energy		= -5000 } }
+			space_domestication_drone	= { add_resource = { energy		= -5000 } }
+		}
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1012 days = 720 }
 			set_timed_country_flag = { flag = space_domestication_military_protocol years = 2 }
@@ -225,11 +238,13 @@ country_event = {
 			}
 		}
 		custom_tooltip = "security_defense_protocol_tooltip" # SECURITY_DEFENSE_PROTOCOL_PAYING
-		if		= { limit = { has_country_flag = space_domestication_tiyanki	} add_resource = { food = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_amoeba		} add_resource = { food = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_crystal	} add_resource = { minerals = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_cloud		} add_resource = { energy = -5000 } }
-		else_if = { limit = { has_country_flag = space_domestication_drone		} add_resource = { energy = -5000 } }
+		switch = { trigger = has_country_flag
+			space_domestication_tiyanki	= { add_resource = { food		= -5000 } }
+			space_domestication_amoeba	= { add_resource = { food		= -5000 } }
+			space_domestication_crystal	= { add_resource = { minerals	= -5000 } }
+			space_domestication_cloud	= { add_resource = { energy		= -5000 } }
+			space_domestication_drone	= { add_resource = { energy		= -5000 } }
+		}
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1013 days = 720 }
 			set_timed_country_flag = { flag = space_domestication_security_protocol years = 2 }
@@ -313,9 +328,12 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.1011.b"
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_resources_protocol } }
-			custom_tooltip = { fail_text = "resources_gathering_protocol_req" can_SD_protocol = { RSC = 800 } }
 			custom_tooltip = {
-				fail_text = no_fertilized_fleet_req # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
+				fail_text = "resources_gathering_protocol_req" # CAN_RESOURCES_GATHERING_PROTOCOL
+				can_SD_protocol = { RSC = 800 }
+			}
+			custom_tooltip = {
+				fail_text = "no_fertilized_fleet_req" # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
 				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
 			}
 		}
@@ -587,6 +605,7 @@ country_event = {
 	}
 }
 
+# Alien Cloud
 # From = owner
 fleet_event = {
 	id = UniqueAscensionPerksEvents.1026
@@ -608,7 +627,7 @@ fleet_event = {
 					set_aggro_range_measure_from = self
 					set_aggro_range = 5000
 					set_formation_scale = 4.0
-										set_fleet_flag = domesticated_fleet
+					set_fleet_flag = domesticated_fleet
 					if = {
 						limit = { event_target:spawn_location = { has_fleet_flag = domesticated_military_fleet } }
 						set_fleet_flag = domesticated_military_fleet set_name = "Military Effluvial Offspring"
@@ -626,6 +645,7 @@ fleet_event = {
 	}
 }
 # Take actions - on_bi_monthly_pulse (indirect)
+# Compare: DS - .231
 country_event = {
 	id = UniqueAscensionPerksEvents.1030
 	hide_window = yes
@@ -634,40 +654,28 @@ country_event = {
 	trigger = { exists = event_target:domesticated_spaceborn_alien }
 	immediate =	{
 		# SPACE_DOMESTICATION_IDLE_FLEET_SELECTION
-		save_event_target_as = main_country # Just for is_valid_target_for_domesticated_aliens_security
+		# save_event_target_as = main_country # Just for is_valid_target_for_domesticated_aliens_security
 		event_target:domesticated_spaceborn_alien = {
-			every_owned_fleet = { # Select Mother & Military Fleets
+			# Select Mother & Military Fleets,  # Select Security Fleets
+			every_owned_fleet = {
 				limit = {
-					is_fleet_idle = yes
+					is_in_combat = no # NOT = { has_fleet_flag = mobile_defender }
 					has_fleet_flag = domesticated_fleet
-					OR = { has_fleet_flag = domesticated_mother_fleet has_fleet_flag = domesticated_military_fleet }
-				}
-				remove_fleet_flag = domesticated_mother_fleet_moving
-				remove_fleet_flag = domesticated_military_fleet_hunting
-				fleet_event = { id = UniqueAscensionPerksEvents.1031 days = 1 }
-			}
-			every_owned_fleet = { # Select Security Fleets
-				limit = {
-					# has_fleet_flag = domesticated_fleet
-					has_fleet_flag = domesticated_security_fleet
-					NOT = { has_fleet_flag = domesticated_security_fleet_defending_order }
 					OR = {
-						AND = { is_fleet_idle = yes has_fleet_flag = domesticated_security_fleet_defending }
+						is_fleet_idle = yes
 						AND = {
-							is_fleet_idle = yes
-							NOR = { has_fleet_flag = domesticated_security_fleet_patroling has_fleet_flag = domesticated_security_fleet_defending }
-						}
-						AND = {
-							has_fleet_flag = domesticated_security_fleet_patroling
+							has_fleet_flag = domesticated_security_fleet
+							NOT = { has_fleet_flag = defender }
 							OR = {
-								is_fleet_idle = yes
-								NOT = { has_fleet_flag = domesticated_security_fleet_patroling_order }
-								root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
+								NOR = { has_fleet_flag = patroller has_fleet_flag = mobile_defender }
+								root = {
+									any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
+								}
 							}
 						}
 					}
 				}
-				fleet_event = { id = UniqueAscensionPerksEvents.1031 days = 1 }
+				fleet_event = { id = UniqueAscensionPerksEvents.1031 }
 			}
 		}
 	}
@@ -697,11 +705,15 @@ fleet_event = {
 		switch = { trigger = has_fleet_flag
 			domesticated_mother_fleet = {  # Mother Move
 				if = {
-					limit = { NOT = { has_fleet_flag = domesticated_mother_fleet_moving_order } }
-					from.capital_scope.solar_system = { random_system_planet = { save_event_target_as = domesticated_mother_fleet_destination } }
-					set_fleet_flag = domesticated_mother_fleet_moving
+					limit = { NOR = { has_auto_move_target = yes has_fleet_flag = domesticated_mother_fleet_moving_order } }
+					if = {
+						limit = { solar_system = { is_capital_system = no } }
+						from.capital_scope.solar_system = { random_system_planet = { save_event_target_as = domesticated_mother_fleet_destination } }
+					}
+					else = {
+						from = { random_owned_planet = { limit = { has_planet_flag = domesticated_alien_home } save_event_target_as = domesticated_mother_fleet_destination } }
+					}
 					set_timed_fleet_flag = { flag = domesticated_mother_fleet_moving_order days = 45 }
-					remove_auto_move_target = yes
 					auto_move_to_planet = { target = event_target:domesticated_mother_fleet_destination clear_auto_move_on_arrival = yes }
 				}
 			}
@@ -710,11 +722,38 @@ fleet_event = {
 					limit = { has_fleet_flag = domesticated_military_fleet NOT = { has_fleet_flag = domesticated_military_fleet_hunting_order } }
 					from = {
 						if = {
-							limit = { any_system_within_border = { any_neighbor_system = { NOT = { has_star_flag = guardian } any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } } } }
+							limit = {
+								any_system_within_border = {
+									is_on_border = yes
+									any_neighbor_system = {
+										has_presence = yes
+										NAND = { has_owner = yes is_owned_by = prevprev }
+										is_surveyed = { who = prevprev status = yes }
+										is_hostile_system = no
+										system_blocks_sensors = no
+										any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes }
+									}
+								}
+							}
 							random_system_within_border = {
-								limit = { any_neighbor_system = { NOT = { has_star_flag = guardian } any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } } }
+								limit = {
+									is_on_border = yes
+									any_neighbor_system = {
+										has_presence = yes
+										NAND = { has_owner = yes is_owned_by = prevprev }
+										is_surveyed = { who = prevprev status = yes }
+										is_hostile_system = no
+										any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes }
+									}
+								}
 								random_neighbor_system = {
-									limit = { NOT = { has_star_flag = guardian } any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes } }
+									limit = {
+										has_presence = yes
+										NAND = { has_owner = yes is_owned_by = prevprev }
+										is_surveyed = { who = prevprev status = yes }
+										is_hostile_system = no
+										any_fleet_in_system = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes }
+									}
 									random_fleet_in_system = {
 										limit = { is_valid_target_neigthbor_for_domesticated_aliens_military = yes }
 										save_event_target_as = domesticated_military_fleet_target
@@ -728,6 +767,8 @@ fleet_event = {
 								solar_system = {
 									closest_system = {
 										limit = {
+											has_presence = yes
+											is_surveyed = { who = prevprevprev status = yes }
 											any_fleet_in_system = {
 												is_valid_target_neigthbor_for_domesticated_aliens_military = yes
 												owner = {
@@ -760,39 +801,85 @@ fleet_event = {
 							}
 						}
 					}
-					set_fleet_flag = domesticated_military_fleet_hunting
 					set_timed_fleet_flag = { flag = domesticated_military_fleet_hunting_order days = 45 }
 					remove_auto_move_target = yes
 					auto_follow_fleet = { target = event_target:domesticated_military_fleet_target attack_fleet = yes }
 				}
 			}
 			domesticated_security_fleet = { # Defense & Patrol
+				# from = { save_event_target_as = main_country } # Just for is_valid_target_for_domesticated_aliens_security
 				if = {
-					limit = { NOT = { has_fleet_flag = domesticated_security_fleet_defending_order } }
-					from = { save_event_target_as = main_country } # Just for is_valid_target_for_domesticated_aliens_security
-					if = {
-						limit = { from = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
+					limit = {
+						NOT = { has_fleet_flag = defender }
 						from = {
-							random_system_within_border = {
-								limit = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
-								random_fleet_in_system = {
-									limit = { is_valid_target_for_domesticated_aliens_security = yes }
-									save_event_target_as = domesticated_security_fleet_defend_against
-									random = { chance = 16 set_timed_fleet_flag = { flag = domesticated_security_fleet_defend_against_no_more_defenders months = 6 } }
+							any_system_within_border = {
+								distance = { source = root type = hyperlane max_jumps = 8 }
+								any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes }
+							}
+						}
+					}
+					from = {
+						random_system_within_border = {
+							limit = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
+							random_fleet_in_system = {
+								limit = { is_valid_target_for_domesticated_aliens_security = yes }
+								random = { chance = 18 set_timed_fleet_flag = { flag = domesticated_security_fleet_defend_against_no_more_defenders months = 6 } }
+								root = {
+									set_timed_fleet_flag = { flag = defender days = 45 }
+									remove_auto_move_target = yes
+									if = {
+										limit = { has_fleet_flag = mobile_defender }
+										if = {
+											limit = { has_fleet_order = move_to_system_point_order }
+											clear_orders = yes
+											clear_fleet_actions = this
+										}
+										remove_fleet_flag = mobile_defender
+									}
+									auto_follow_fleet = { target = prev attack_fleet = yes }
 								}
 							}
 						}
-						set_fleet_flag = domesticated_security_fleet_defending
-						set_timed_fleet_flag = { flag = domesticated_security_fleet_defending_order days = 45 }
-						remove_auto_move_target = yes
-						auto_follow_fleet = { target = event_target:domesticated_security_fleet_defend_against attack_fleet = yes }
 					}
-					else = {
-						from = { random_planet_within_border = { save_event_target_as = domesticated_security_fleet_destination } }
-						set_fleet_flag = domesticated_security_fleet_patroling
-						set_timed_fleet_flag = { flag = domesticated_security_fleet_defending_order days = 10 }
-						set_timed_fleet_flag = { flag = domesticated_security_fleet_patroling_order months = 4 }
-						auto_move_to_planet = { target = event_target:domesticated_security_fleet_destination clear_auto_move_on_arrival = yes }
+				}
+				else_if = {
+					limit = {
+						NOR = {
+							has_fleet_order = move_to_system_point_order
+							has_fleet_flag = mobile_defender
+							has_fleet_flag = patroller
+							has_fleet_flag = defender
+						}
+					}
+					random_list = {
+						4 = {
+							set_fleet_flag = mobile_defender
+							queue_actions = {
+								repeat = {
+									find_random_system = {
+										trigger = {
+											id = "domesticated_security.trigger.1"
+											has_presence = yes
+											has_owner = yes
+											is_owned_by = from
+											distance = { source = root type = hyperlane min_jumps = 8 max_jumps = 16 }
+										}
+										found_system = { move_to = this wait = 20 }
+									}
+								}
+							}
+						}
+						6 = {
+							from = {
+								random_planet_within_border = {
+									limit = { distance = { source = root type = hyperlane min_jumps = 8 max_jumps = 16 } }
+									root = {
+										set_timed_fleet_flag = { flag = patroller months = 4 }
+										auto_move_to_planet = { target = prev clear_auto_move_on_arrival = yes }
+									}
+								}
+							}
+						}
 					}
 				}
 			}

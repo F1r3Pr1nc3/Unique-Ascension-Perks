@@ -2000,7 +2000,7 @@ country_event = {
 					ai_ignore_strength = yes
 				}
 				effect = {
-					set_owner = root # event_target:main_country
+					set_owner = root
 					while = { count = 10
 						create_ship = { name = random random_existing_design = corvette }
 						random = { chance = 50 create_ship = { name = random random_existing_design = corvette } }
@@ -4052,6 +4052,8 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
+# Take actions - on_monthly_pulse
+# Compare: SD - .1030
 country_event = {
 	id = UniqueAscensionPerksEvents.231
 	hide_window = yes
@@ -4063,36 +4065,27 @@ country_event = {
 	# 	any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
 	# }
 	immediate =	{
-		# defense_sentinels_idle_fleet_selection = yes
-		save_event_target_as = main_country
+		# DEFENSE_SENTINELS_IDLE_FLEET_SELECTION
+		# save_event_target_as = main_country
 		random_relation = {
 			limit = {
 				is_country_type = security_forces # defense_sentinels
 				has_country_flag = defense_sentinels
 				has_relation_flag = { who = root flag = defense_sentinels }
+				any_owned_fleet = { has_fleet_flag = defense_sentinels_fleet NOR = { is_in_combat = yes has_fleet_flag = mobile_defender } }
 			}
-			# save_event_target_as = domesticated_spaceborn_alien
 			every_owned_fleet = { # Select Fleets
 				limit = {
+					is_in_combat = no
 					has_fleet_flag = defense_sentinels_fleet
-					NOT = { has_fleet_flag = defense_sentinels_fleet_defending_order }
+					NOT = { has_fleet_flag = defender }
 					OR = {
-						AND = {
-							has_fleet_flag = defense_sentinels_fleet_patroling
-							OR = {
-								is_fleet_idle = yes
-								NOT = { has_fleet_flag = defense_sentinels_fleet_patroling_order }
-								root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
-							}
-						}
-						AND = { has_fleet_flag = defense_sentinels_fleet_defending is_fleet_idle = yes }
-						AND = {
-							NOR = { has_fleet_flag = defense_sentinels_fleet_patroling has_fleet_flag = defense_sentinels_fleet_defending }
-							is_fleet_idle = yes
-						}
+						AND = { is_fleet_idle = yes NOT = { has_fleet_flag = mobile_defender } }
+						NOR = { has_fleet_flag = patroller has_fleet_flag = mobile_defender }
+						root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
 					}
 				}
-				fleet_event = { id = UniqueAscensionPerksEvents.232 days = 1 random = 2 }
+				fleet_event = { id = UniqueAscensionPerksEvents.232 }
 			}
 		}
 	}
@@ -4103,51 +4096,97 @@ fleet_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	immediate =	{
-		# defense_sentinels_idle_fleet_action = yes
-		owner = {
-			# save_event_target_as = domesticated_spaceborn_alien
+		# DEFENSE_SENTINELS_IDLE_FLEET_ACTION
+		# owner = {
+		# 	save_event_target_as = domesticated_spaceborn_alien
+		# 	if = {
+		# 		limit = { NOT = { exists = event_target:main_country } }
+		# 		if = { limit = { exists = from from = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } } }
+		# 			from = { save_event_target_as = main_country }
+		# 		}
+		# 		else = {
+		# 			random_relation = {
+		# 				limit = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } }
+		# 				save_event_target_as = main_country
+		# 			}
+		# 		}
+		# 	}
+		# }
+		if = { # Defense & Patrol
+			limit = { has_fleet_flag = defense_sentinels_fleet NOT = { has_fleet_flag = mobile_defender } }
 			if = {
-				limit = { NOT = { exists = event_target:main_country } }
-				if = { limit = { exists = from from = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } } }
-					from = { save_event_target_as = main_country }
-				}
-				else = {
-					random_relation = {
-						limit = { reverse_has_relation_flag = { who = prev flag = defense_sentinels } }
-						save_event_target_as = main_country
+				limit = {
+					NOT = { has_fleet_flag = defender }
+					from = {
+						any_system_within_border = {
+							distance = { source = root type = hyperlane max_jumps = 8 }
+							any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes }
+						}
 					}
 				}
-			}
-		}
-		if = { # Defense & Patrol
-			limit = { has_fleet_flag = defense_sentinels_fleet NOT = { has_fleet_flag = defense_sentinels_fleet_defending_order } }
-			if = {
-				limit = { event_target:main_country = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } } }
-				event_target:main_country = {
+				from = {
 					random_system_within_border = {
 						limit = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
 						random_fleet_in_system = {
 							limit = { is_valid_target_for_domesticated_aliens_security = yes }
-							save_event_target_as = defense_sentinels_fleet_defend_against
-							random = { chance = 10 set_timed_fleet_flag = { flag = defense_sentinels_fleet_defend_against_no_more_defenders months = 6 } }
+							random = { chance = 12 set_timed_fleet_flag = { flag = defense_sentinels_fleet_defend_against_no_more_defenders months = 6 } }
+							root = {
+								set_timed_fleet_flag = { flag = defender days = 45 }
+								remove_auto_move_target = yes
+								if = {
+									limit = { has_fleet_flag = mobile_defender }
+									if = {
+										limit = { has_fleet_order = move_to_system_point_order }
+										clear_orders = yes
+										clear_fleet_actions = this
+									}
+									remove_fleet_flag = mobile_defender
+								}
+								auto_follow_fleet = { target = prev attack_fleet = yes }
+							}
 						}
 					}
 				}
-				save_event_target_as = defense_sentinels_fleet_defending
-				set_fleet_flag = defense_sentinels_fleet_defending
-				set_timed_fleet_flag = { flag = defense_sentinels_fleet_defending_order days = 45 }
-				remove_auto_move_target = yes
-				auto_follow_fleet = { target = event_target:defense_sentinels_fleet_defend_against attack_fleet = yes }
-
 			}
-
-			else = {
-				event_target:main_country = { random_planet_within_border = { save_event_target_as = defense_sentinels_fleet_destination } }
-				save_event_target_as = defense_sentinels_fleet_patroling
-				set_fleet_flag = defense_sentinels_fleet_patroling
-				set_timed_fleet_flag = { flag = defense_sentinels_fleet_defending_order days = 10 }
-				set_timed_fleet_flag = { flag = defense_sentinels_fleet_patroling_order months = 4 }
-				auto_move_to_planet = { target = event_target:defense_sentinels_fleet_destination clear_auto_move_on_arrival = yes }
+			else_if = {
+				limit = {
+					NOR = {
+						has_fleet_order = move_to_system_point_order
+						has_fleet_flag = mobile_defender
+						has_fleet_flag = patroller
+						has_fleet_flag = defender
+					}
+				}
+				random_list = {
+					4 = {
+						set_fleet_flag = mobile_defender
+						queue_actions = {
+							repeat = {
+								find_random_system = {
+									trigger = {
+										id = "defense_sentinel.trigger.1"
+										has_presence = yes
+										has_owner = yes
+										is_owned_by = from
+										distance = { source = root type = hyperlane min_jumps = 8 max_jumps = 16 }
+									}
+									found_system = { move_to = this wait = 20 }
+								}
+							}
+						}
+					}
+					6 = {
+						from = {
+							random_planet_within_border = {
+								limit = { distance = { source = root type = hyperlane min_jumps = 8 max_jumps = 16 } }
+								root = {
+									set_timed_fleet_flag = { flag = patroller months = 4 }
+									auto_move_to_planet = { target = prev clear_auto_move_on_arrival = yes }
+								}
+							}
+						}
+					}
+				}
 			}
 		}
 	}
@@ -4189,7 +4228,6 @@ country_event = {
 					set_aggro_range_measure_from = self
 					set_aggro_range = 5000
 					set_formation_scale = 1.0
-					save_event_target_as = defense_sentinels_fleet
 					set_fleet_flag = defense_sentinels_fleet
 				}
 			}
@@ -8349,7 +8387,7 @@ event = {
 			limit = {
 				any_playable_country = {
 					has_ascension_perk = ap_defense_sentinels
-					any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
+					# any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
 				}
 			}
 			every_playable_country = {
@@ -8357,8 +8395,8 @@ event = {
 					has_ascension_perk = ap_defense_sentinels
 					any_relation = { is_country_type = security_forces has_relation_flag = { who = prev flag = defense_sentinels } }
 				}
-				country_event = { id = UniqueAscensionPerksEvents.231 }
-				country_event = { id = UniqueAscensionPerksEvents.231 days = 15 }
+				country_event = { id = UniqueAscensionPerksEvents.231 days = 3 }
+				# country_event = { id = UniqueAscensionPerksEvents.231 days = 17 } # on_half_monthly_pulse
 				# TODO on_bi_monthly_pulse?
 				if = {
 					limit = {

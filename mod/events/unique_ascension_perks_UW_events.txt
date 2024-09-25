@@ -1554,23 +1554,25 @@ country_event = {
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
 					set_fleet_flag = raiding_fleet
-					assign_leader = last_created_leader
 				}
 			}
-			last_created_fleet = { set_owner = prev }				# Real owner
-			prev = {
-				random_system_within_border = {
+			last_created_fleet = {
+				set_owner = prev # Real owner
+				assign_leader = last_created_leader
+			}
+			root = {
+				random_owned_planet = {
 					limit = {
-						has_owner = yes
-						is_owned_by = root
-						any_system_colony = { is_owned_by = root num_sapient_pops > 0 }
-						last_created_fleet = { can_access_system = prev }
+						is_colony = yes
+						is_occupied_flag = no
+						num_sapient_pops > 2
+						is_owned_by = prev
+						has_orbital_bombardment = no
+						has_ground_combat = no
+						solar_system = { is_owned_by = root last_created_fleet = { can_access_system = prev } }
 					}
-					save_event_target_as = raid_system
-					random_system_colony = {
-						limit = { is_owned_by = root num_sapient_pops > 0 }
-						save_event_target_as = raid_planet
-					}
+					solar_system = { save_event_target_as = raid_system }
+					save_event_target_as = raid_planet
 				}
 			}
 			if = {
@@ -1752,8 +1754,7 @@ planet_event = {
 				while = { count = create_underworld_slave
 					random_playable_country = {
 						limit = {
-							NOT = { is_same_empire = prev }
-							is_gestalt = no
+							NOR = { is_same_empire = prev  is_gestalt = yes }
 						}
 						root = {
 							create_pop = { species = prev.species }

@@ -26,11 +26,11 @@
 # 			# is_country_type = lost_empire
 # 			# is_country_type = ally_faction
 # 			is_country_type = domesticated_spaceborn_alien
-# 			# is_country_type = tiyanki
-# 			# is_country_type = amoeba
-# 			# is_country_type = tiyanki
+# 			# is_tiyanki_country_type = yes
+# 			# is_amoeba_country_type = yes
+# 			# is_tiyanki_country_type = yes
 # 			# is_country_type = cloud
-# 			# is_country_type = crystal
+# 			# is_crystal_country_type = yes
 # 			# is_country_type = pirate
 # 		}
 # 		is_hostile = event_target:main_country
@@ -41,12 +41,16 @@
 # 		fleet = { has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders }
 # 	}
 # }
-# Onl used in UniqueAscensionPerksEvents.1031
-# This = fleet
+# Only used in UniqueAscensionPerksEvents.1031
+# This = hostile fleet
 # Root.from = event_target:main_country
 is_valid_target_neigthbor_for_domesticated_aliens_military = {
+	is_in_combat = no
 	exists = owner
-	owner = { is_hostile = root.from }
+	owner = {
+		NOT = { is_same_empire = root.from }
+		is_hostile = root.from
+	}
 	# OR = {
 	# 	is_ship_class = shipclass_transport
 	# 	is_ship_class = shipclass_military
@@ -60,18 +64,19 @@ is_valid_target_neigthbor_for_domesticated_aliens_military = {
 		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
 }
-# This = fleet
-# Root.from = event_target:main_country
+# This = hostile fleet
+# Prevprev = event_target:main_country
 is_valid_target_for_domesticated_aliens_security = {
+	is_in_combat = no
 	is_mobile = yes
 	exists = owner
-	owner = { is_hostile = event_target:main_country }
+	owner = {
+		NOT = { is_same_empire = prevprevprev }
+		is_hostile = prevprevprev
+	}
 	NOR = {
 		is_civilian = yes
 		is_disabled = yes
-		# is_ship_class = shipclass_science_ship
-		# is_ship_class = shipclass_constructor
-		# is_ship_class = shipclass_colonizer
 		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
 }

@@ -26,7 +26,7 @@ create_special_project_amoeba_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_amoeba_country
-			every_country = { limit = { is_country_type = amoeba } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			every_country = { limit = { is_amoeba_country_type = yes } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -46,7 +46,7 @@ create_special_project_drone_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_drone_country
-			every_country = { limit = { is_country_type = drone } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			every_country = { limit = { is_drone_country_type = yes } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -66,7 +66,7 @@ create_special_project_crystal_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_crystal_country
-			every_country = { limit = { is_country_type = crystal } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			every_country = { limit = { is_crystal_country_type = yes } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -86,7 +86,7 @@ create_special_project_tiyanki_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_tiyanki_country
-			every_country = { limit = { is_country_type = tiyanki } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			every_country = { limit = { is_tiyanki_country_type = yes } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -106,10 +106,21 @@ create_special_project_monster_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_monster_country
-			every_country = { limit = { is_country_type = crystal } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
-			every_country = { limit = { is_country_type = drone } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
-			every_country = { limit = { is_country_type = amoeba } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
-			every_country = { limit = { is_country_type = tiyanki } set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			every_country = {
+				limit = {
+					OR = {
+						is_crystal_country_type = yes
+						is_drone_country_type = yes
+						is_amoeba_country_type = yes
+						is_tiyanki_country_type = yes
+					}
+				}
+				set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no }
+			}
+			# every_country = { limit = { is_crystal_country_type = yes }	set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			# every_country = { limit = { is_drone_country_type = yes }		set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			# every_country = { limit = { is_amoeba_country_type = yes }	set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
+			# every_country = { limit = { is_tiyanki_country_type = yes }	set_faction_hostility = { target = prev set_hostile = no set_neutral = yes set_friendly = no } }
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}

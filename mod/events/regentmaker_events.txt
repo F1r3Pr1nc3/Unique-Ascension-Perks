@@ -3314,56 +3314,54 @@ country_event = {
 				event_target:owning_empire = { used_naval_capacity_percent > 1.2 }
 				used_naval_capacity_percent < 0.6
 			}
-			random_system_within_border = {
-				limit = {
-					any_fleet_in_system = {
-						exists = owner
-						is_ship_class = shipclass_military
-						fleet_size > 3
-						is_owned_by = event_target:owning_empire
-					}
-				}
-				random_fleet_in_system = {
-					limit = {
-						exists = owner
-						is_ship_class = shipclass_military
-						fleet_size > 3
-						is_owned_by = event_target:owning_empire
-					}
-					set_owner = prevprev
+			event_target:owning_empire = {
+				random_owned_fleet = {
+					limit = { is_ship_class = shipclass_military fleet_size > 3 is_inside_border = root }
+					set_owner = root
 					if = {
 						limit = { exists = leader }
-						leader = { set_owner = prevprevprev }
+						leader = { set_owner = root }
 						assign_leader = leader
 					}
 				}
 			}
+			# random_system_within_border = {
+			# 	limit = {
+			# 		any_fleet_in_system = {
+			# 			exists = owner
+			# 			is_ship_class = shipclass_military
+			# 			fleet_size > 3
+			# 			is_owned_by = event_target:owning_empire
+			# 		}
+			# 	}
+			# 	random_fleet_in_system = {
+			# 		limit = {
+			# 			exists = owner
+			# 			is_ship_class = shipclass_military
+			# 			fleet_size > 3
+			# 			is_owned_by = event_target:owning_empire
+			# 		}
+			# 		set_owner = prevprev
+			# 		if = {
+			# 			limit = { exists = leader }
+			# 			leader = { set_owner = prevprevprev }
+			# 			assign_leader = leader
+			# 		}
+			# 	}
+			# }
 		}
-		else_if = {
+		if = {
 			limit = {
 				event_target:owning_empire = { used_naval_capacity_percent > 0.6 }
 				used_naval_capacity_percent < 0.5
 			}
-			random_system_within_border = {
-				limit = {
-					any_fleet_in_system = {
-						exists = owner
-						is_ship_class = shipclass_military
-						fleet_size > 3
-						is_owned_by = event_target:owning_empire
-					}
-				}
-				random_fleet_in_system = {
-					limit = {
-						exists = owner
-						is_ship_class = shipclass_military
-						fleet_size > 3
-						is_owned_by = event_target:owning_empire
-					}
-					set_owner = prevprev
+			event_target:owning_empire = {
+				random_owned_fleet = {
+					limit = { is_ship_class = shipclass_military fleet_size > 3 is_inside_border = root }
+					set_owner = root
 					if = {
 						limit = { exists = leader }
-						leader = { set_owner = prevprevprev }
+						leader = { set_owner = root }
 						assign_leader = leader
 					}
 				}
@@ -3375,14 +3373,13 @@ country_event = {
 				fleet_power < 5000
 				event_target:owning_empire = { used_naval_capacity_percent > 1.2 }
 			}
-			random_system_within_border = {
-				limit = { any_fleet_in_system = { exists = owner is_ship_class = shipclass_military is_owned_by = event_target:owning_empire } }
-				random_fleet_in_system = {
-					limit = { exists = owner is_ship_class = shipclass_military is_owned_by = event_target:owning_empire }
-					set_owner = prevprev
+			event_target:owning_empire = {
+				random_owned_fleet = {
+					limit = { is_ship_class = shipclass_military is_inside_border = root }
+					set_owner = root
 					if = {
 						limit = { exists = leader }
-						leader = { set_owner = prevprevprev }
+						leader = { set_owner = root }
 						assign_leader = leader
 					}
 				}

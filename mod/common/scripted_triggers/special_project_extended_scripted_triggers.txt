@@ -524,236 +524,89 @@ can_paramilitarist_group = {
 	OR = { is_planet_class = pc_nuked habitable_planet = yes }
 }
 
-can_amoeba_system_invasion = {
-	NOR = {
+# this = system
+is_hostile_system = {
+	has_presence = yes
+	OR = {
+		has_star_flag = marauder_system
 		has_star_flag = hostile_system
 		has_star_flag = guardian
+		has_star_flag = sealed_system
 		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 14000 is_at_war = yes }
-		}
+		# SYSTEM_BLOCKS_SENSORS
+		is_inside_nebula = yes
+		has_modifier = space_storm
+		has_modifier = zroni_storm
+		has_modifier = queen_scorn_storm
+		has_star_flag = lcluster
+		has_star_flag = storm_system
+		# exists = space_owner
+		# exists = starbase
+		# any_fleet_in_system = {
+		# 	is_mobile = yes
+		# 	OR = {
+		# 		is_ship_class = shipclass_science_ship
+		# 		is_ship_class = shipclass_colonizer
+		# 		is_ship_class = shipclass_transport
+		# 		is_civilian = no
+		# 	}
+		# }
 	}
+}
+
+can_amoeba_system_invasion = {
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 14000 is_at_war = no }
 }
 
 can_hostile_from_wormhole = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 20000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 20000 is_at_war = no }
 }
 
 can_medium_carrier_assault = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 5000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 5000 is_at_war = no }
 }
 
 can_small_carrier_assault = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 4000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 4000 is_at_war = no }
 }
 
 can_large_carrier_assault = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 30000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 30000 is_at_war = no }
 }
 
 can_civilian_pirate_attack = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 15000 }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 15000 }
 }
 
 can_mining_drone_station = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 4000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 4000 is_at_war = no }
 }
 
 can_space_battle_debris = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 20000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 20000 is_at_war = no }
 }
 
 can_space_station_destroyed = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 15000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 15000 is_at_war = no }
 }
 
 can_crystal_hive_system = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 15000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 15000 is_at_war = no }
 }
 
 can_small_terrorist_fleet = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 1800 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 1800 is_at_war = no }
 }
 
 can_robot_assault = {
@@ -1078,13 +931,7 @@ can_pierce_the_blocus = {
 	NOR = {
 		has_planet_flag = pierce_the_blocus
 		solar_system = {
-			OR = {
-				has_star_flag = hostile_system
-				has_star_flag = guardian
-				has_star_flag = enclave
-				exists = starbase
-				exists = space_owner
-			}
+			is_hostile_system = yes
 		}
 		prevprevprev = {
 			OR = { fleet_power < 14000 is_at_war = yes }
@@ -1282,190 +1129,49 @@ can_civil_war_raging = {
 }
 
 can_unknow_enemy_assault = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { fleet_power < 800000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 800000 is_at_war = no }
 }
 
 can_space_monster_invasion = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 80000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 80000 is_at_war = no }
 }
 
 can_abandoned_titan = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 60000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 60000 is_at_war = no }
 }
 
 can_fe_techonology_cache = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 60000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 60000 is_at_war = no }
 }
 
 can_ai_core_study = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 40000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 40000 is_at_war = no }
 }
 
 can_ancient_tyanki_meeting = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 22000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 22000 is_at_war = no }
 }
 
 can_ancient_mining_station = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { is_ai = yes fleet_power < 22000 is_at_war = yes }
-		}
-	}
+	is_hostile_system = no
+	prevprev = { is_ai = no fleet_power > 22000 is_at_war = no }
 }
 
 can_system_controlled_station = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 85000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 85000 is_at_war = no }
 }
 
 can_cybrex_core_study = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { has_modifier = cybrex_technology_researcher fleet_power < 120000 is_at_war = yes }
-		}
+	is_hostile_system = no
+	prevprev = {
+		NOR = { has_modifier = cybrex_technology_researcher fleet_power < 120000 is_at_war = yes }
 	}
 }
 
@@ -1475,45 +1181,15 @@ can_shourding_planet = {
 }
 
 can_destroyed_auto_dreadnought = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { has_modifier = dreadnought_adv_computers fleet_power < 80000 is_at_war = yes }
-		}
+	is_hostile_system = no
+	prevprev = {
+		NOR = { has_modifier = dreadnought_adv_computers fleet_power < 80000 is_at_war = yes }
 	}
 }
 
 can_lost_fe_titan = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 135000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 135000 is_at_war = no }
 }
 
 can_ground_living_desaster = {
@@ -1528,44 +1204,14 @@ can_ground_living_desaster = {
 }
 
 can_fe_remnants_assault = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = { fleet_power < 135000 is_at_war = yes }
-	}
+	is_hostile_system = no
+	prevprev = { fleet_power > 135000 is_at_war = no }
 }
 
 can_space_guardian_spotted = {
-	NOR = {
-		has_star_flag = hostile_system
-		has_star_flag = guardian
-		has_star_flag = enclave
-		exists = starbase
-		exists = space_owner
-		any_fleet_in_system = {
-			is_mobile = yes
-			OR = {
-				is_ship_class = shipclass_science_ship
-				is_ship_class = shipclass_colonizer
-				is_ship_class = shipclass_transport
-				is_civilian = no
-			}
-		}
-		prevprev = {
-			OR = { has_modifier = guardian_regen_tech fleet_power < 80000 is_at_war = yes }
-		}
+	is_hostile_system = no
+	prevprev = {
+		NOR = { has_modifier = guardian_regen_tech fleet_power < 80000 is_at_war = yes }
 	}
 }
 
