@@ -1337,7 +1337,7 @@ country_event = {
 		custom_tooltip = "ap_recycling_drones_tooltip_3"
 		hidden_effect = {
 			event_target:capital_planet = {
-				planet_event = { id = UniqueAscensionPerksEvents.3053 days = 30 random = 30 }
+				planet_event = { id = UniqueAscensionPerksEvents.4153 days = 30 random = 30 }
 				solar_system = { set_star_flag = recycle_fleet_spawn_system }
 			}
 		}
@@ -1542,7 +1542,7 @@ country_event = {
 
 # From = owner
 planet_event = {
-	id = UniqueAscensionPerksEvents.3053
+	id = UniqueAscensionPerksEvents.4153
 	title = "RECYCLE_PERFORM_SHIPS"
 	desc = "RECYCLE_PERFORM_SHIPS_DESC"
 	show_sound = event_construction
@@ -4079,11 +4079,11 @@ country_event = {
 					is_in_combat = no
 					has_fleet_flag = defense_sentinels_fleet
 					NOT = { has_fleet_flag = defender }
-					OR = {
-						AND = { is_fleet_idle = yes NOT = { has_fleet_flag = mobile_defender } }
-						NOR = { has_fleet_flag = patroller has_fleet_flag = mobile_defender }
-						root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
-					}
+					# OR = { To much performance
+					# 	AND = { is_fleet_idle = yes NOT = { has_fleet_flag = mobile_defender } }
+					# 	NOR = { has_fleet_flag = patroller has_fleet_flag = mobile_defender }
+					# 	root = { any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } } }
+					# }
 				}
 				fleet_event = { id = UniqueAscensionPerksEvents.232 }
 			}
@@ -4168,7 +4168,7 @@ fleet_event = {
 										has_presence = yes
 										has_owner = yes
 										is_owned_by = from
-										distance = { source = root type = hyperlane min_jumps = 8 max_jumps = 16 }
+										distance = { source = root type = hyperlane min_jumps = 6 max_jumps = 18 }
 									}
 									found_system = { move_to = this wait = 20 }
 								}
@@ -4178,7 +4178,7 @@ fleet_event = {
 					6 = {
 						from = {
 							random_planet_within_border = {
-								limit = { distance = { source = root type = hyperlane min_jumps = 8 max_jumps = 16 } }
+								limit = { distance = { source = root type = hyperlane min_jumps = 6 max_jumps = 18 } }
 								root = {
 									set_timed_fleet_flag = { flag = patroller months = 4 }
 									auto_move_to_planet = { target = prev clear_auto_move_on_arrival = yes }
@@ -5423,514 +5423,6 @@ country_event = {
 		event_target:surgical_strike_fleet = { set_event_locked = no }
 	}
 	option = { name = EXCELLENT }
-}
-
-######################################
-#									 #
-############ Chosen Ruler ############
-#									 #
-######################################
-
-country_event = {
-	id = UniqueAscensionPerksEvents.320
-	title = "ap_chosen_ruler"
-	desc = "ap_chosen_ruler_desc"
-	show_sound = event_radio_chatter
-	picture = GFX_evt_khan_throne_room
-	location = event_target:capital_planet
-	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = {
-		name = EXCELLENT
-		ruler = { add_skill_without_trait_selection = 1 }
-	}
-}
-# on_monthly_pulse_country
-country_event = {
-	id = UniqueAscensionPerksEvents.321
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 1 }
-	# trigger = {
-	# 	merg_is_default_empire = yes # is_ai = no = yes
-	# 	has_ascension_perk = ap_chosen_ruler
-	# 	exists = ruler
-	# }
-	immediate = {
-		if = {
-			limit = { ruler = { has_skill < 10 } }
-			ruler = {
-				reroll_random = yes
-				random_list = {
-					98 = { add_experience = 40 }
-					80 = { add_experience = 100 }
-					80 = { add_experience = 150 }
-					60 = { add_experience = 200 }
-					60 = { add_experience = 300 }
-					20 = { add_experience = 400 }
-					20 = { add_experience = 800 }
-					2 = { add_skill_without_trait_selection = 1 }
-				}
-			}
-		}
-		else_if = {
-			limit = {
-				ruler = { has_skill > 9 }
-				NOT = { has_country_flag = ap_chosen_ruler_inactivity }
-			}
-			if = {
-				limit = { NOT = { has_country_flag = ap_chosen_ruler_no_warning } }
-				country_event = { id = UniqueAscensionPerksEvents.322 days = 1 }
-				country_event = { id = UniqueAscensionPerksEvents.323 days = 2 }
-				country_event = { id = UniqueAscensionPerksEvents.324 days = 3 }
-				country_event = { id = UniqueAscensionPerksEvents.325 days = 4 }
-				country_event = { id = UniqueAscensionPerksEvents.326 days = 5 }
-			}
-			else_if = {
-				limit = {
-					has_country_flag = ap_chosen_ruler_no_warning
-					NOT = { has_country_flag = ap_chosen_ruler_bi_month }
-				}
-				set_country_flag = ap_chosen_ruler_bi_month
-				country_event = { id = UniqueAscensionPerksEvents.332 days = 1 }
-				country_event = { id = UniqueAscensionPerksEvents.333 days = 2 }
-				country_event = { id = UniqueAscensionPerksEvents.334 days = 3 }
-				country_event = { id = UniqueAscensionPerksEvents.335 days = 4 }
-				country_event = { id = UniqueAscensionPerksEvents.336 days = 5 }
-			}
-			else = { remove_country_flag = ap_chosen_ruler_bi_month }
-		}
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.322
-	show_sound = event_conversation
-	title = "UniqueAscensionPerksEvents.322.Name"
-	desc = "UniqueAscensionPerksEvents.322.Desc"
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
-	location = event_target:target_planet
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 1 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
-		any_owned_planet = {
-			planet_crime > 10
-			NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				planet_crime > 10
-				NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_crime_preventive_counterstrike_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.a"
-		allow = { resource_stockpile_compare = { resource = energy value > 200 } }
-		add_resource = { energy = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_crime_preventive_counterstrike years = 3 } }
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.b"
-		allow = { resource_stockpile_compare = { resource = energy value > 200 } }
-		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
-		set_country_flag = ap_chosen_ruler_no_warning
-		add_resource = { energy = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_crime_preventive_counterstrike years = 3 } }
-	}
-	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.323
-	show_sound = event_conversation
-	title = "UniqueAscensionPerksEvents.323.Name"
-	desc = "UniqueAscensionPerksEvents.323.Desc"
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
-	location = event_target:target_planet
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 1 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
-		any_owned_planet = {
-			planet_stability <= 45
-			NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				planet_stability <= 45
-				NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_stability_local_meeting_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.a"
-		allow = { resource_stockpile_compare = { resource = unity value > 200 } }
-		add_resource = { unity = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_stability_local_meeting years = 3 } }
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.b"
-		allow = { resource_stockpile_compare = { resource = unity value > 200 } }
-		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
-		set_country_flag = ap_chosen_ruler_no_warning
-		add_resource = { unity = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_stability_local_meeting years = 3 } }
-	}
-	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.324
-	show_sound = event_conversation
-	title = "UniqueAscensionPerksEvents.324.Name"
-	desc = "UniqueAscensionPerksEvents.324.Desc"
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
-	location = event_target:target_planet
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 1 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
-		any_owned_planet = {
-			free_housing <= -3
-			NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				free_housing <= -3
-				NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_temporal_housing_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.a"
-		allow = { resource_stockpile_compare = { resource = minerals value > 200 } }
-		add_resource = { minerals = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_temporal_housing years = 3 } }
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.b"
-		allow = { resource_stockpile_compare = { resource = minerals value > 200 } }
-		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
-		set_country_flag = ap_chosen_ruler_no_warning
-		add_resource = { minerals = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_temporal_housing years = 3 } }
-	}
-	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.325
-	show_sound = event_conversation
-	title = "UniqueAscensionPerksEvents.325.Name"
-	desc = {
-		trigger = {
-			success_text = { text = "UniqueAscensionPerksEvents.325.1.Desc" is_gestalt = no }
-			success_text = { text = "UniqueAscensionPerksEvents.325.2.Desc" is_gestalt = yes }
-		}
-	}
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
-	location = event_target:target_planet
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 1 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
-		any_owned_planet = {
-			free_amenities <= -3
-			NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				free_amenities <= -3
-				NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_amenities_distribution_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.a"
-		allow = { resource_stockpile_compare = { resource = energy value > 200 } }
-		add_resource = { energy = -200 influence = 1 }
-		if = {
-			limit = { is_gestalt = no }
-			event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
-		}
-		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.b"
-		allow = { resource_stockpile_compare = { resource = energy value > 200 } }
-		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
-		set_country_flag = ap_chosen_ruler_no_warning
-		add_resource = { energy = -200 influence = 1 }
-		if = {
-			limit = { is_gestalt = no }
-			event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
-		}
-		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
-	}
-	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.326
-	show_sound = event_conversation
-	title = "UniqueAscensionPerksEvents.326.Name"
-	desc = "UniqueAscensionPerksEvents.326.Desc"
-	diplomatic = yes
-	force_open = yes
-	picture_event_data = { portrait = ruler planet_background = root graphical_culture = root city_level = root room = root }
-	location = event_target:target_planet
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 1 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		NOR = { has_country_flag = ap_chosen_ruler_no_warning has_country_flag = ap_chosen_ruler_inactivity }
-		any_owned_planet = {
-			count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-			NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-				NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_job_orientation_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.a"
-		allow = { resource_stockpile_compare = { resource = minerals value > 200 } }
-		add_resource = { minerals = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } }
-		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
-	}
-	option = {
-		name = "UniqueAscensionPerksEvents.322.b"
-		allow = { resource_stockpile_compare = { resource = minerals value > 200 } }
-		custom_tooltip = "UniqueAscensionPerksEvents.322.b.tooltip"
-		set_country_flag = ap_chosen_ruler_no_warning
-		add_resource = { minerals = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } }
-		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
-	}
-	option = { name = "UniqueAscensionPerksEvents.322.c" hidden_effect = { set_timed_country_flag = { flag = ap_chosen_ruler_inactivity years = 5 } } }
-	option = { name = "UniqueAscensionPerksEvents.322.Abort" ai_chance = { factor = 0.1 } default_hide_option = yes }
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.332
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 2 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		has_country_flag = ap_chosen_ruler_no_warning
-		NOT = { has_country_flag = ap_chosen_ruler_inactivity }
-		resource_stockpile_compare = { resource = energy value > 5000 }
-		any_owned_planet = {
-			planet_crime > 10
-			NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				planet_crime > 10
-				NOR = { has_modifier = chosen_ruler_crime_preventive_counterstrike has_planet_flag = chosen_ruler_crime_preventive_counterstrike_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_crime_preventive_counterstrike_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-		add_resource = { energy = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_crime_preventive_counterstrike years = 3 } }
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.333
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 2 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		has_country_flag = ap_chosen_ruler_no_warning
-		NOT = { has_country_flag = ap_chosen_ruler_inactivity }
-		resource_stockpile_compare = { resource = unity value > 5000 }
-		any_owned_planet = {
-			planet_stability <= 45
-			NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				planet_stability <= 45
-				NOR = { has_modifier = chosen_ruler_stability_local_meeting has_planet_flag = chosen_ruler_stability_local_meeting_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_stability_local_meeting_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-		add_resource = { unity = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_stability_local_meeting years = 3 } }
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.334
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 2 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		has_country_flag = ap_chosen_ruler_no_warning
-		NOT = { has_country_flag = ap_chosen_ruler_inactivity }
-		resource_stockpile_compare = { resource = minerals value > 5000 }
-		any_owned_planet = {
-			free_housing <= -3
-			NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				free_housing <= -3
-				NOR = { has_modifier = chosen_ruler_temporal_housing has_planet_flag = chosen_ruler_temporal_housing_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_temporal_housing_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-		add_resource = { minerals = -200 influence = 1 }
-		event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_temporal_housing years = 3 } }
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.335
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 2 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		has_country_flag = ap_chosen_ruler_no_warning
-		NOT = { has_country_flag = ap_chosen_ruler_inactivity }
-		resource_stockpile_compare = { resource = energy value > 5000 }
-		any_owned_planet = {
-			free_amenities <= -3
-			NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				free_amenities <= -3
-				NOR = { has_modifier = chosen_ruler_amenities_distribution has_modifier = chosen_ruler_maintenance_campaign has_planet_flag = chosen_ruler_amenities_distribution_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_amenities_distribution_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-		add_resource = { energy = -200 influence = 1 }
-		if = {
-			limit = { is_gestalt = no }
-			event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_amenities_distribution years = 3 } }
-		}
-		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_maintenance_campaign years = 3 } } }
-	}
-}
-
-country_event = {
-	id = UniqueAscensionPerksEvents.336
-	hide_window = yes
-	is_triggered_only = yes
-	# mean_time_to_happen = { months = 2 }
-	trigger = {
-		merg_is_default_empire = yes # is_ai = no = yes
-		has_ascension_perk = ap_chosen_ruler
-		exists = ruler
-		ruler = { has_skill > 9 }
-		has_country_flag = ap_chosen_ruler_no_warning
-		NOT = { has_country_flag = ap_chosen_ruler_inactivity }
-		resource_stockpile_compare = { resource = minerals value > 5000 }
-		any_owned_planet = {
-			count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-			NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
-		}
-	}
-	immediate = {
-		random_owned_planet = {
-			limit = {
-				count_owned_pop = { limit = { is_unemployed = yes } count > 3 }
-				NOR = { has_modifier = chosen_ruler_job_orientation_normal has_modifier = chosen_ruler_job_orientation_gesalt has_planet_flag = chosen_ruler_job_orientation_suggestion }
-			}
-			set_timed_planet_flag = { flag = chosen_ruler_job_orientation_suggestion years = 1 }
-			save_event_target_as = target_planet
-		}
-		add_resource = { minerals = -200 influence = 1 }
-		if = { limit = { is_gestalt = no } event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_normal years = 3 } } }
-		else = { event_target:target_planet = {	add_modifier = { modifier = chosen_ruler_job_orientation_gesalt years = 3 } } }
-	}
 }
 
 ######################################
@@ -7975,7 +7467,7 @@ event = {
 				country_event = { id = UniqueAscensionPerksEvents.3061 }
 			}
 		}
-		# UniqueAscensionPerksEvents.3063		# ap_robot_command
+		# UniqueAscensionPerksEvents.6163		# ap_robot_command
 		if = {
 			limit = { any_playable_country = { has_ascension_perk = ap_robot_command } }
 			every_playable_country = {
@@ -7983,7 +7475,7 @@ event = {
 					has_ascension_perk = ap_robot_command
 					# any_owned_planet = { has_building = building_unit_assembler }
 				}
-				country_event = { id = UniqueAscensionPerksEvents.3063 }
+				country_event = { id = UniqueAscensionPerksEvents.6163 }
 			}
 		}
 		# UniqueAscensionPerksEvents.4088		# ap_advanced_government_1
@@ -8271,12 +7763,12 @@ event = {
 				country_event = { id = UniqueAscensionPerksEvents.8041 days = 1 random = 5 }
 			}
 		}
-		# UniqueAscensionPerksEvents.3043		# ap_genius_cloning
+		# UniqueAscensionPerksEvents.4143		# ap_genius_cloning
 		if = {
 			limit = { any_playable_country = { has_ascension_perk = ap_genius_cloning } }
 			every_playable_country = {
 				limit = { has_ascension_perk = ap_genius_cloning }
-				country_event = { id = UniqueAscensionPerksEvents.3043 days = 1 random = 5 }
+				country_event = { id = UniqueAscensionPerksEvents.4143 days = 1 random = 5 }
 			}
 		}
 		# UniqueAscensionPerksEvents.56			# ap_advanced_security

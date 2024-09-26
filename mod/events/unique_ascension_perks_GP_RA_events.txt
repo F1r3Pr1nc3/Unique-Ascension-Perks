@@ -32,9 +32,34 @@ country_event = {
 # 		random = { chance = 30 create_pop = { species = fromfrom } }
 # 	}
 # }
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.42
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown years = 3 } # If change, do also tooltip
+
+		while = { count = 9
+			random_owned_pop = {
+				limit = { NOR = { is_robot_pop = yes is_valuable_pop = yes } }
+				prev = { create_pop = { species = prev } } }
+		}
+		if = {
+			limit = { owner = { is_hive_empire = yes } }
+			while = { count = 3
+				random_owned_pop = {
+					limit = { NOR = { is_robot_pop = yes is_valuable_pop = yes } }
+					prev = { create_pop = { species = prev } }
+				}
+			}
+		}
+	}
+}
+
 # on_monthly_pulse_country (similar to ap_robot_command)
 country_event = {
-	id = UniqueAscensionPerksEvents.3043
+	id = UniqueAscensionPerksEvents.4143
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -60,7 +85,7 @@ country_event = {
 					has_deposit = d_breeding_facility_5
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3049 days = 10 random = 10 }
+			planet_event = { id = UniqueAscensionPerksEvents.4149 days = 10 random = 10 }
 		}
 		random_planet_within_border = {
 			limit = {
@@ -77,38 +102,43 @@ country_event = {
 					has_deposit = d_breeding_facility_5
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3049 days = 10 random = 10 }
+			planet_event = { id = UniqueAscensionPerksEvents.4149 days = 10 random = 10 }
 		}
 
-		if = { limit = { has_country_flag = ap_genius_cloning_cycle any_owned_planet = { is_colony = yes has_building = building_breeding_facility } }
+		if = {
+			limit = { has_country_flag = ap_genius_cloning_cycle any_owned_planet = { is_colony = yes has_building = building_breeding_facility } }
 			remove_country_flag = ap_genius_cloning_cycle # All 2 months
 			every_owned_planet = {
 				limit = { is_colony = yes has_building = building_breeding_facility }
 				set_variable = { which = building_breeding_facility value = value:num_active_buildings|BUILDING|building_breeding_facility| }
-				if = { limit = { check_variable = { which = building_breeding_facility value > 0 } }
-					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3044 days = 5 random = 5 } }
-					if = { limit = { check_variable = { which = building_breeding_facility value > 1 } }
-						random = { chance = 75 planet_event = { id = UniqueAscensionPerksEvents.3045 days = 5 random = 5 } }
-						if = { limit = { check_variable = { which = building_breeding_facility value > 2 } }
-							random = { chance = 70 planet_event = { id = UniqueAscensionPerksEvents.3046 days = 5 random = 5 } }
-							if = { limit = { check_variable = { which = building_breeding_facility value > 3 } }
-								random = { chance = 65 planet_event = { id = UniqueAscensionPerksEvents.3047 days = 5 random = 5 } }
-								if = { limit = { check_variable = { which = building_breeding_facility value > 4 } }
-									random = { chance = 60 planet_event = { id = UniqueAscensionPerksEvents.3048 days = 5 random = 5 } }
+				if = {
+					limit = { check_variable = { which = building_breeding_facility value > 0 } }
+					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.4144 days = 5 random = 5 } }
+					if = {
+						limit = { check_variable = { which = building_breeding_facility value > 1 } }
+						random = { chance = 75 planet_event = { id = UniqueAscensionPerksEvents.4145 days = 5 random = 5 } }
+						if = {
+							limit = { check_variable = { which = building_breeding_facility value > 2 } }
+							random = { chance = 70 planet_event = { id = UniqueAscensionPerksEvents.4146 days = 5 random = 5 } }
+							if = {
+								limit = { check_variable = { which = building_breeding_facility value > 3 } }
+								random = { chance = 65 planet_event = { id = UniqueAscensionPerksEvents.4147 days = 5 random = 5 } }
+								if = {
+									limit = { check_variable = { which = building_breeding_facility value > 4 } }
+									random = { chance = 60 planet_event = { id = UniqueAscensionPerksEvents.4148 days = 5 random = 5 } }
 								}
 							}
 						}
 					}
 				}
 			}
-		} else = {
-			set_country_flag = ap_genius_cloning_cycle
 		}
+		else = { set_country_flag = ap_genius_cloning_cycle }
 	}
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3044
+	id = UniqueAscensionPerksEvents.4144
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -116,7 +146,8 @@ planet_event = {
 			limit = { check_variable = { which = d_breeding_facility_1 value < 24 } }
 			change_variable = { which = d_breeding_facility_1 value = 1 }
 			add_deposit = d_breeding_facility_1
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_breeding_facility_1 } remove_deposit = yes }
 			clear_variable = d_breeding_facility_1
 			random_owned_pop = {
@@ -132,7 +163,8 @@ planet_event = {
 				# 	modifier = { add = -5 is_enslaved = yes }
 				# }
 				prev = { create_pop = { species = prev } }
-				if = { limit = { is_same_species = root.owner_species }
+				if = {
+					limit = { is_same_species = root.owner_species }
 					prev = { random = { chance = 25 create_pop = { species = root.owner_species } } }
 				}
 			}
@@ -141,7 +173,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3045
+	id = UniqueAscensionPerksEvents.4145
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -149,7 +181,8 @@ planet_event = {
 			limit = { check_variable = { which = d_breeding_facility_2 value < 24 } }
 			change_variable = { which = d_breeding_facility_2 value = 1 }
 			add_deposit = d_breeding_facility_2
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_breeding_facility_2 } remove_deposit = yes }
 			clear_variable = d_breeding_facility_2
 			random_owned_pop = {
@@ -164,7 +197,8 @@ planet_event = {
 				# 	modifier = { add = -5 is_enslaved = yes }
 				# }
 				prev = { create_pop = { species = prev } }
-				if = { limit = { is_same_species = root.owner_species }
+				if = {
+					limit = { is_same_species = root.owner_species }
 					prev = { random = { chance = 25 create_pop = { species = root.owner_species } } }
 				}
 			}
@@ -173,7 +207,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3046
+	id = UniqueAscensionPerksEvents.4146
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -181,7 +215,8 @@ planet_event = {
 			limit = { check_variable = { which = d_breeding_facility_3 value < 24 } }
 			change_variable = { which = d_breeding_facility_3 value = 1 }
 			add_deposit = d_breeding_facility_3
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_breeding_facility_3 } remove_deposit = yes }
 			clear_variable = d_breeding_facility_3
 			random_owned_pop = {
@@ -196,7 +231,8 @@ planet_event = {
 				# 	modifier = { add = -5 is_enslaved = yes }
 				# }
 				prev = { create_pop = { species = prev } }
-				if = { limit = { is_same_species = root.owner_species }
+				if = {
+					limit = { is_same_species = root.owner_species }
 					prev = { random = { chance = 25 create_pop = { species = root.owner_species } } }
 				}
 			}
@@ -205,7 +241,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3047
+	id = UniqueAscensionPerksEvents.4147
 	hide_window = yes
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
@@ -214,7 +250,8 @@ planet_event = {
 			limit = { check_variable = { which = d_breeding_facility_4 value < 24 } }
 			change_variable = { which = d_breeding_facility_4 value = 1 }
 			add_deposit = d_breeding_facility_4
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_breeding_facility_4 } remove_deposit = yes }
 			clear_variable = d_breeding_facility_4
 			random_owned_pop = {
@@ -224,7 +261,8 @@ planet_event = {
 				# 	modifier = { add = -5 is_enslaved = yes }
 				# }
 				prev = { create_pop = { species = prev } }
-				if = { limit = { is_same_species = root.owner_species }
+				if = {
+					limit = { is_same_species = root.owner_species }
 					prev = { random = { chance = 25 create_pop = { species = root.owner_species } } }
 				}
 			}
@@ -233,7 +271,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3048
+	id = UniqueAscensionPerksEvents.4148
 	hide_window = yes
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
@@ -242,7 +280,8 @@ planet_event = {
 			limit = { check_variable = { which = d_breeding_facility_5 value < 24 } }
 			change_variable = { which = d_breeding_facility_5 value = 1 }
 			add_deposit = d_breeding_facility_5
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_breeding_facility_5 } remove_deposit = yes }
 			clear_variable = d_breeding_facility_5
 			random_owned_pop = {
@@ -252,7 +291,8 @@ planet_event = {
 				# 	modifier = { add = -5 is_enslaved = yes }
 				# }
 				prev = { create_pop = { species = prev } }
-				if = { limit = { is_same_species = root.owner_species }
+				if = {
+					limit = { is_same_species = root.owner_species }
 					prev = { random = { chance = 25 create_pop = { species = root.owner_species } } }
 				}
 			}
@@ -261,18 +301,15 @@ planet_event = {
 }
 
 # Cycle: Removing breeding_facility deposits/buildings
-# From UniqueAscensionPerksEvents.3043 (MTTH)
+# From UniqueAscensionPerksEvents.4143 (MTTH)
 planet_event = {
-	id = UniqueAscensionPerksEvents.3049
+	id = UniqueAscensionPerksEvents.4149
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 6 }
 	# pre_triggers = { has_owner = yes }
 	trigger = {
-		OR = {
-			has_building = yes
-			has_deposit = yes
-		}
+		OR = { has_building = yes has_deposit = yes }
 		OR = {
 			has_deposit = d_breeding_facility_1
 			has_deposit = d_breeding_facility_2
@@ -294,25 +331,29 @@ planet_event = {
 			while = { limit = { has_building = building_breeding_facility } remove_building = building_breeding_facility }
 		}
 		set_variable = { which = building_breeding_facility value = value:num_active_buildings|BUILDING|building_breeding_facility| }
-		if = { limit = { check_variable = { which = building_breeding_facility value < 5 } has_deposit = yes }
+		if = {
+			limit = { check_variable = { which = building_breeding_facility value < 5 } has_deposit = yes }
 			if = {
 				limit = { has_deposit = d_breeding_facility_5 }
 				every_deposit = { limit = { is_deposit_type = d_breeding_facility_5 } remove_deposit = yes }
 				clear_variable = d_breeding_facility_5
 			}
-			if = { limit = { check_variable = { which = building_breeding_facility value < 4 } has_deposit = yes }
+			if = {
+				limit = { check_variable = { which = building_breeding_facility value < 4 } has_deposit = yes }
 				if = {
 					limit = { has_deposit = d_breeding_facility_4 }
 					every_deposit = { limit = { is_deposit_type = d_breeding_facility_4 } remove_deposit = yes }
 					clear_variable = d_breeding_facility_4
 				}
-				if = { limit = { check_variable = { which = building_breeding_facility value < 3 } has_deposit = yes }
+				if = {
+					limit = { check_variable = { which = building_breeding_facility value < 3 } has_deposit = yes }
 					if = {
 						limit = { has_deposit = d_breeding_facility_3 }
 						every_deposit = { limit = { is_deposit_type = d_breeding_facility_3 } remove_deposit = yes }
 						clear_variable = d_breeding_facility_3
 					}
-					if = { limit = { check_variable = { which = building_breeding_facility value < 2 } has_deposit = yes }
+					if = {
+						limit = { check_variable = { which = building_breeding_facility value < 2 } has_deposit = yes }
 						if = {
 							limit = { has_deposit = d_breeding_facility_2 }
 							every_deposit = { limit = { is_deposit_type = d_breeding_facility_2 } remove_deposit = yes }
@@ -332,7 +373,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3050
+	id = UniqueAscensionPerksEvents.4150
 	title = "ap_genius_cloning"
 	desc = "UniqueAscensionPerksEvents.3050.Desc"
 	show_sound = event_laboratory_sound
@@ -340,8 +381,113 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	after = { check_planet_employment = yes }
+	option = {
+		name = "UniqueAscensionPerksEvents.3050.a"
+		hidden_effect = {
+			owner = {
+				set_country_flag = ap_genius_cloning_auto
+				country_event = { id = UniqueAscensionPerksEvents.4151 }
+			}
+		}
+	}
 	option = { name = EXCELLENT }
 }
+
+# Automation (on_yearly_pulse_country)
+country_event = {
+	id = UniqueAscensionPerksEvents.4151
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_ascension_perk = ap_genius_cloning
+		has_country_flag = ap_genius_cloning_auto
+		income > 90
+		resource_stockpile_compare = { resource = energy value > 5000 }
+		OR = {
+			AND = { is_hive_empire = yes resource_stockpile_compare = { resource = energy value > 7500 } }
+			AND = { is_lithoid_empire = yes resource_stockpile_compare = { resource = minerals value > 12000 } }
+			AND = { is_lithoid_empire = no resource_stockpile_compare = { resource = food value > 12000 } }
+		}
+		any_owned_planet = {
+			NOR = {
+				has_orbital_bombardment = yes
+				is_occupied_flag = yes
+				is_under_colonization = yes
+				has_planet_flag = decision_genious_pregnancy_cooldown
+				free_housing < 1
+				any_owned_pop = {
+					is_unemployed = yes
+					NOR = { is_robot_pop = yes is_valuable_pop = yes }
+				}
+			}
+			any_owned_pop = {
+				NOR = { is_robot_pop = yes is_valuable_pop = yes }
+			}
+		}
+	}
+	immediate = {
+		random_owned_planet = {
+			limit = {
+				NOR = {
+					has_orbital_bombardment = yes
+					is_occupied_flag = yes
+					is_under_colonization = yes
+					has_planet_flag = decision_genious_pregnancy_cooldown
+					free_housing < 1
+					any_owned_pop = {
+						is_unemployed = yes
+						NOR = { is_robot_pop = yes is_valuable_pop = yes }
+					}
+				}
+				any_owned_pop = {
+					NOR = { is_robot_pop = yes is_valuable_pop = yes }
+				}
+			}
+			planet_event = { id = UniqueAscensionPerksEvents.42 }
+			root = {
+				add_resource = { energy = -500 }
+				if = {
+					limit = { is_hive_empire = yes }
+					add_resource = { energy = -250 }
+				}
+				if = {
+					limit = { is_lithoid_empire = yes }
+					add_resource = { minerals = -1000 }
+				}
+				else = {
+					add_resource = { food = -1000 }
+				}
+
+				if = {
+					limit = {
+						prev = {
+							NOR = { has_modifier = planet_growth_discouraged has_modifier = planet_population_control has_modifier = planet_food_boost }
+						}
+					}
+					if = {
+						limit = { is_lithoid_empire = yes }
+						add_resource = { minerals = -1000 }
+					}
+					else = {
+						add_resource = { food = -1000 }
+					}
+					prev = {
+						add_modifier = { modifier = planet_food_boost years = 10 }
+					}
+				}
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.4152
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = { check_planet_employment = yes }
+}
+
+# .4153 is used
 
 ######################################
 #									 #
@@ -361,10 +507,12 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
-		if = { limit = { is_gestalt = no }
+		if = {
+			limit = { is_gestalt = no }
 			give_tech_option_or_progress_effect = { TECH = tech_droid_workers }
 			add_research_option = tech_synthetic_workers
-		} else = { add_monthly_resource_mult = { resource = engineering_research value = 1 min = 20000 max = 20000 } }
+		}
+		else = { add_monthly_resource_mult = { resource = engineering_research value = 1 min = 20000 max = 20000 } }
 		give_tech_option_or_progress_effect = { TECH = tech_unit_assembler }
 	}
 }
@@ -386,8 +534,97 @@ country_event = {
 # 	}
 # }
 
+# Automation (on_yearly_pulse_country)
+country_event = {
+	id = UniqueAscensionPerksEvents.6161
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_ascension_perk = ap_robot_command
+		has_country_flag = ap_robot_command_auto
+		income > 90
+		OR = {
+			AND = {
+				is_machine_empire = yes
+				resource_stockpile_compare = { resource = energy value > 7000 }
+				resource_stockpile_compare = { resource = minerals value > 15000 }
+				resource_stockpile_compare = { resource = alloys value > 1500 }
+			}
+			AND = {
+				NOR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers }
+				resource_stockpile_compare = { resource = energy value > 5000 }
+				resource_stockpile_compare = { resource = minerals value > 10000 }
+				resource_stockpile_compare = { resource = alloys value > 1000 }
+			}
+			AND = {
+				resource_stockpile_compare = { resource = energy value > 6500 }
+				resource_stockpile_compare = { resource = minerals value > 13000 }
+				resource_stockpile_compare = { resource = alloys value > 1350 }
+			}
+		}
+		any_owned_planet = {
+			NOR = {
+				has_orbital_bombardment = yes
+				is_occupied_flag = yes
+				is_under_colonization = yes
+				has_planet_flag = decision_genious_pregnancy_cooldown
+				free_housing < 1
+				any_owned_pop = {
+					is_unemployed = yes
+					OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit }
+				}
+			}
+			any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } }
+		}
+	}
+	immediate = {
+		random_owned_planet = {
+			limit = {
+				NOR = {
+					has_orbital_bombardment = yes
+					is_occupied_flag = yes
+					is_under_colonization = yes
+					has_planet_flag = decision_robot_command_cooldown
+					free_housing < 1
+					any_owned_pop = {
+						is_unemployed = yes
+						OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit }
+					}
+				}
+				any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } }
+			}
+			planet_event = { id = UniqueAscensionPerksEvents.62 }
+			root = {
+				add_resource = { energy = -500 minerals = -1000 alloys = -100 }
+				if = {
+					limit = { is_machine_empire = yes }
+					add_resource = { energy = -200 minerals = -500 alloys = -50 }
+				}
+				if = {
+					limit = { OR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers } }
+					add_resource = { energy = -150 minerals = -300 alloys = -35 }
+				}
+			}
+		}
+	}
+}
+
 planet_event = {
 	id = UniqueAscensionPerksEvents.62
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # If change, do also tooltip
+		owner = {
+			while = { count = 9
+				random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } }
+			}
+		}
+	}
+}
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.6162
 	title = "ap_robot_command"
 	desc = "UniqueAscensionPerksEvents.62.Desc"
 	show_sound = event_ai_started
@@ -395,12 +632,21 @@ planet_event = {
 	location = root
 	is_triggered_only = yes
 	after = { check_planet_employment = yes }
+	option = {
+		name = "UniqueAscensionPerksEvents.3050.a"
+		hidden_effect = {
+			owner = {
+				set_country_flag = ap_robot_command_auto
+				country_event = { id = UniqueAscensionPerksEvents.6161 }
+			}
+		}
+	}
 	option = { name = EXCELLENT }
 }
 
 # on_monthly_pulse_country (similar to ap_genius_cloning)
 country_event = {
-	id = UniqueAscensionPerksEvents.3063
+	id = UniqueAscensionPerksEvents.6163
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 1 }
@@ -427,7 +673,7 @@ country_event = {
 					has_deposit = d_robot_command_5
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 10 random = 10 }
+			planet_event = { id = UniqueAscensionPerksEvents.6169 days = 10 random = 10 }
 		}
 		random_planet_within_border = {
 			limit = {
@@ -444,37 +690,42 @@ country_event = {
 					has_deposit = d_robot_command_5
 				}
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3069 days = 10 random = 10 }
+			planet_event = { id = UniqueAscensionPerksEvents.6169 days = 10 random = 10 }
 		}
-		if = { limit = { has_country_flag = ap_robot_command_cycle any_owned_planet = { is_colony = yes has_building = building_breeding_facility } }
+		if = {
+			limit = { has_country_flag = ap_robot_command_cycle any_owned_planet = { is_colony = yes has_building = building_breeding_facility } }
 			remove_country_flag = ap_robot_command_cycle # All 2 months
 			every_owned_planet = {
 				limit = { is_colony = yes has_building = building_unit_assembler }
 				set_variable = { which = building_unit_assembler value = value:num_active_buildings|BUILDING|building_unit_assembler| }
-				if = { limit = { check_variable = { which = building_unit_assembler value > 0 } }
-					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.3064 days = 5 random = 5 } }
-					if = { limit = { check_variable = { which = building_unit_assembler value > 1 } }
-						random = { chance = 75 planet_event = { id = UniqueAscensionPerksEvents.3065 days = 5 random = 5 } }
-						if = { limit = { check_variable = { which = building_unit_assembler value > 2 } }
-							random = { chance = 70 planet_event = { id = UniqueAscensionPerksEvents.3066 days = 5 random = 5 } }
-							if = { limit = { check_variable = { which = building_unit_assembler value > 3 } }
-								random = { chance = 65 planet_event = { id = UniqueAscensionPerksEvents.3067 days = 5 random = 5 } }
-								if = { limit = { check_variable = { which = building_unit_assembler value > 4 } }
-									random = { chance = 60 planet_event = { id = UniqueAscensionPerksEvents.3068 days = 5 random = 5 } }
+				if = {
+					limit = { check_variable = { which = building_unit_assembler value > 0 } }
+					random = { chance = 80 planet_event = { id = UniqueAscensionPerksEvents.6164 days = 5 random = 5 } }
+					if = {
+						limit = { check_variable = { which = building_unit_assembler value > 1 } }
+						random = { chance = 75 planet_event = { id = UniqueAscensionPerksEvents.6165 days = 5 random = 5 } }
+						if = {
+							limit = { check_variable = { which = building_unit_assembler value > 2 } }
+							random = { chance = 70 planet_event = { id = UniqueAscensionPerksEvents.6166 days = 5 random = 5 } }
+							if = {
+								limit = { check_variable = { which = building_unit_assembler value > 3 } }
+								random = { chance = 65 planet_event = { id = UniqueAscensionPerksEvents.6167 days = 5 random = 5 } }
+								if = {
+									limit = { check_variable = { which = building_unit_assembler value > 4 } }
+									random = { chance = 60 planet_event = { id = UniqueAscensionPerksEvents.6168 days = 5 random = 5 } }
 								}
 							}
 						}
 					}
 				}
 			}
-		} else = {
-			set_country_flag = ap_robot_command_cycle
 		}
+		else = { set_country_flag = ap_robot_command_cycle }
 	}
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3064
+	id = UniqueAscensionPerksEvents.6164
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -482,7 +733,8 @@ planet_event = {
 			limit = { check_variable = { which = d_robot_command_1 value < 14 } }
 			change_variable = { which = d_robot_command_1 value = 1 }
 			add_deposit = d_robot_command_1
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_robot_command_1 } remove_deposit = yes }
 			set_variable = { which = d_robot_command_1 value = 0 }
 			random_owned_pop = {
@@ -501,7 +753,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3065
+	id = UniqueAscensionPerksEvents.6165
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -509,7 +761,8 @@ planet_event = {
 			limit = { check_variable = { which = d_robot_command_2 value < 14 } }
 			change_variable = { which = d_robot_command_2 value = 1 }
 			add_deposit = d_robot_command_2
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_robot_command_2 } remove_deposit = yes }
 			set_variable = { which = d_robot_command_2 value = 0 }
 			random_owned_pop = {
@@ -528,7 +781,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3066
+	id = UniqueAscensionPerksEvents.6166
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -536,7 +789,8 @@ planet_event = {
 			limit = { check_variable = { which = d_robot_command_3 value < 14 } }
 			change_variable = { which = d_robot_command_3 value = 1 }
 			add_deposit = d_robot_command_3
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_robot_command_3 } remove_deposit = yes }
 			set_variable = { which = d_robot_command_3 value = 0 }
 			random_owned_pop = {
@@ -555,7 +809,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3067
+	id = UniqueAscensionPerksEvents.6167
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -563,7 +817,8 @@ planet_event = {
 			limit = { check_variable = { which = d_robot_command_4 value < 14 } }
 			change_variable = { which = d_robot_command_4 value = 1 }
 			add_deposit = d_robot_command_4
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_robot_command_4 } remove_deposit = yes }
 			set_variable = { which = d_robot_command_4 value = 0 }
 			random_owned_pop = {
@@ -582,7 +837,7 @@ planet_event = {
 }
 
 planet_event = {
-	id = UniqueAscensionPerksEvents.3068
+	id = UniqueAscensionPerksEvents.6168
 	hide_window = yes
 	is_triggered_only = yes
 	immediate = {
@@ -590,7 +845,8 @@ planet_event = {
 			limit = { check_variable = { which = d_robot_command_5 value < 14 } }
 			change_variable = { which = d_robot_command_5 value = 1 }
 			add_deposit = d_robot_command_5
-		} else = {
+		}
+		else = {
 			every_deposit = { limit = { is_deposit_type = d_robot_command_5 } remove_deposit = yes }
 			set_variable = { which = d_robot_command_5 value = 0 }
 			random_owned_pop = {
@@ -609,18 +865,15 @@ planet_event = {
 }
 
 # Cycle: Removing unit_assembler deposits/buildings
-# From UniqueAscensionPerksEvents.3063 (MTTH)
+# From UniqueAscensionPerksEvents.6163 (MTTH)
 planet_event = {
-	id = UniqueAscensionPerksEvents.3069
+	id = UniqueAscensionPerksEvents.6169
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 6 }
 	# pre_triggers = { has_owner = yes }
 	trigger = {
-		OR = {
-			has_building = yes
-			has_deposit = yes
-		}
+		OR = { has_building = yes has_deposit = yes }
 		OR = {
 			has_deposit = d_robot_command_1
 			has_deposit = d_robot_command_2
@@ -642,25 +895,29 @@ planet_event = {
 			while = { limit = { has_building = building_unit_assembler } remove_building = building_unit_assembler }
 		}
 		set_variable = { which = building_unit_assembler value = value:num_active_buildings|BUILDING|building_unit_assembler| }
-		if = { limit = { check_variable = { which = building_unit_assembler value < 5 } has_deposit = yes }
+		if = {
+			limit = { check_variable = { which = building_unit_assembler value < 5 } has_deposit = yes }
 			if = {
 				limit = { has_deposit = d_robot_command_5 }
 				every_deposit = { limit = { is_deposit_type = d_robot_command_5 } remove_deposit = yes }
 				clear_variable = d_robot_command_5
 			}
-			if = { limit = { check_variable = { which = building_unit_assembler value < 4 } has_deposit = yes }
+			if = {
+				limit = { check_variable = { which = building_unit_assembler value < 4 } has_deposit = yes }
 				if = {
 					limit = { has_deposit = d_robot_command_4 }
 					every_deposit = { limit = { is_deposit_type = d_robot_command_4 } remove_deposit = yes }
 					clear_variable = d_robot_command_4
 				}
-				if = { limit = { check_variable = { which = building_unit_assembler value < 3 } has_deposit = yes }
+				if = {
+					limit = { check_variable = { which = building_unit_assembler value < 3 } has_deposit = yes }
 					if = {
 						limit = { has_deposit = d_robot_command_3 }
 						every_deposit = { limit = { is_deposit_type = d_robot_command_3 } remove_deposit = yes }
 						clear_variable = d_robot_command_3
 					}
-					if = { limit = { check_variable = { which = building_unit_assembler value < 2 } has_deposit = yes }
+					if = {
+						limit = { check_variable = { which = building_unit_assembler value < 2 } has_deposit = yes }
 						if = {
 							limit = { has_deposit = d_robot_command_2 }
 							every_deposit = { limit = { is_deposit_type = d_robot_command_2 } remove_deposit = yes }

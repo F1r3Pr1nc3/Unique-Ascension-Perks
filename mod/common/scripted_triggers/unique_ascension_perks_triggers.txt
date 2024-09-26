@@ -13,26 +13,48 @@ is_unique_perk_special_subject = {
 is_on_border = {
 	OR = {
 		has_natural_wormhole = yes
-		has_any_megastructure = yes
-		# AND = {
-		# 	OR = {
-		# 		has_megastructure = gateway_restored
-		# 		has_megastructure = gateway_final
-		# 	}
-		# }
-		any_neighbor_system = {
+		AND = {
+			has_any_megastructure = yes
 			OR = {
-				AND = {
+				has_megastructure = gateway_restored
+				has_megastructure = gateway_final
+				can_lgate_investigation = yes
+			}
+		}
+		AND = {
+			count_neighbor_system = { count > 0 }
+			OR = {
+				count_country_neighbor_to_system = { count > 0 }
+				any_neighbor_system = {
 					has_owner = no
-					any_neighbor_system = {
-						NAND = { has_owner = yes is_owned_by = prevprev.owner }
-					}
-				}
-				AND = {
-					has_owner = yes
-					NOT = { is_owned_by = prev.owner }
+					count_country_neighbor_to_system = { limit = { NOT = { is_same_empire = prevprev.owner } } count > 0 }
 				}
 			}
 		}
+		# any_neighbor_system = {
+		# 	OR = {
+		# 		AND = {
+		# 			has_owner = no
+		# 			any_neighbor_system = {
+		# 				NAND = { has_owner = yes is_owned_by = prevprev.owner }
+		# 			}
+		# 		}
+		# 		AND = {
+		# 			has_owner = yes
+		# 			NOT = { is_owned_by = prev.owner }
+		# 		}
+		# 	}
+		# }
+	}
+}
+
+is_valuable_pop = {
+	is_sapient = yes
+	NOR = {
+		is_pop_category = bio_trophy
+		is_pop_category = purge
+		is_pop_category = assimilation
+		is_pop_category = pre_sapients
+		is_pop_category = criminal
 	}
 }

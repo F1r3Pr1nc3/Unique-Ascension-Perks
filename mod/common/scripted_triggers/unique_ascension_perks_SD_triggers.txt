@@ -41,8 +41,9 @@
 # 		fleet = { has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders }
 # 	}
 # }
-# Only used in UniqueAscensionPerksEvents.1031
+# Only used by UniqueAscensionPerksEvents.1031
 # This = hostile fleet
+# Root = domesticated_aliens fleet
 # Root.from = event_target:main_country
 is_valid_target_neigthbor_for_domesticated_aliens_military = {
 	is_in_combat = no
@@ -63,9 +64,11 @@ is_valid_target_neigthbor_for_domesticated_aliens_military = {
 		has_fleet_flag = domesticated_military_fleet_target_no_more_hunters
 		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
+	root = { can_access_system = prevprev } # performance intense
 }
 # This = hostile fleet
 # Prevprev = event_target:main_country
+# Prevprevprev = domesticated_aliens fleet
 is_valid_target_for_domesticated_aliens_security = {
 	is_in_combat = no
 	is_mobile = yes
@@ -79,6 +82,7 @@ is_valid_target_for_domesticated_aliens_security = {
 		is_disabled = yes
 		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
+	prevprevprev = { can_access_system = prevprev } # performance intense
 }
 
 # can_breeding_fertilization_protocol = {

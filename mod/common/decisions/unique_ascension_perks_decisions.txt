@@ -223,21 +223,19 @@ decision_genious_pregnancy = {
 	allow = {
 		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_1" any_owned_pop = { is_robot_pop = no } }
 		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_2" NOT = { has_planet_flag = decision_genious_pregnancy_cooldown } }
+		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_3" any_owned_pop = { is_valuable_pop = yes } }
 	}
 	effect = {
 		custom_tooltip = "decision_genious_pregnancy_tooltip"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = decision_genious_pregnancy_cooldown years = 3 } # If change, do also tooltip
-			while = { count = 9
-				random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
-			}
+			planet_event = { id = UniqueAscensionPerksEvents.42 }
 			if = {
-				limit = { owner = { is_hive_empire = yes } }
-				while = { count = 3
-					random_owned_pop = { limit = { is_robot_pop = no } prev = { create_pop = { species = prev } } }
-				}
+				limit = { from = { has_country_flag = ap_genius_cloning_auto } }
+				planet_event = { id = UniqueAscensionPerksEvents.4152 days = 3 }
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.3050 }
+			else = {
+				planet_event = { id = UniqueAscensionPerksEvents.4150 days = 1 }
+			}
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -255,7 +253,7 @@ decision_genious_pregnancy2 = {
 	potential = {
 		exists = from
 		from = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
-		NOR = { has_modifier = planet_growth_discouraged has_modifier = planet_population_control  is_under_colonization = yes }
+		NOR = { has_modifier = planet_growth_discouraged has_modifier = planet_population_control is_under_colonization = yes }
 	}
 	allow = {
 		NOT = { has_modifier = planet_food_boost }
@@ -293,13 +291,14 @@ decision_robot_command = {
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
 		hidden_effect = {
-			set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # If change, do also tooltip
-			from = {
-				while = { count = 9
-					random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } }
-				}
-			}
 			planet_event = { id = UniqueAscensionPerksEvents.62 }
+			if = {
+				limit = { from = { has_country_flag = ap_robot_command_auto } }
+				planet_event = { id = UniqueAscensionPerksEvents.4152 days = 3 }
+			}
+			else = {
+				planet_event = { id = UniqueAscensionPerksEvents.6162 days = 1 }
+			}
 		}
 	}
 	ai_weight = { weight = 1 }
