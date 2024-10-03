@@ -932,7 +932,7 @@ country_event = {
 	trigger = {
 		has_ascension_perk = ap_nano_drones
 		OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
-		resource_stockpile_compare = { resource = automatic_drone value > 200 }
+		has_country_resource = { type = automatic_drone amount > 200 }
 	}
 	immediate = {
 		if = {
@@ -943,7 +943,7 @@ country_event = {
 			else = { remove_country_flag = ap_nano_drones_pulse }
 
 			if = {
-				limit = { has_country_flag = nano_auto_upgrade resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+				limit = { has_country_flag = nano_auto_upgrade has_country_resource = { type = automatic_drone amount > 200 } }
 				random_owned_planet = {
 					limit = { is_colony = yes is_colonizable = no }
 					while = { count = 3
@@ -974,8 +974,8 @@ country_event = {
 							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_2 owner = { has_technology = tech_space_mining_4 } } } remove_building = building_auto_engineering_campus_2 add_building = building_auto_engineering_campus_3 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_3 has_upgraded_capital = yes owner = { has_technology = tech_space_mining_4 } } } remove_building = building_auto_engineering_campus_3 add_building = building_auto_engineering_campus_4 owner = { add_resource = { automatic_drone = -200 } } }
 							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_engineering_campus_4 has_major_upgraded_capital = yes owner = { has_technology = tech_advanced_metallurgy_2 } } } remove_building = building_auto_engineering_campus_4 add_building = building_auto_engineering_campus_5 owner = { add_resource = { automatic_drone = -200 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_1 has_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_1 add_building = building_nanite_facility_2 owner = { add_resource = { automatic_drone = -400 } } }
-							999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value >= 400 } } } } remove_building = building_nanite_facility_2 add_building = building_nanite_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_1 has_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite has_country_resource = { type = automatic_drone amount >= 400 } } } } remove_building = building_nanite_facility_1 add_building = building_nanite_facility_2 owner = { add_resource = { automatic_drone = -400 } } }
+							999 = { modifier = { factor = 0 NAND = { has_building = building_nanite_facility_2 has_major_upgraded_capital = yes owner = { has_ascension_perk = ap_nano_to_nanite has_country_resource = { type = automatic_drone amount >= 400 } } } } remove_building = building_nanite_facility_2 add_building = building_nanite_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
 							999 = {
 								modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_1 } }
 								random_list = {
@@ -987,7 +987,7 @@ country_event = {
 									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_administrative_ai } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_physics_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
 									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_colonization_3 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_sociological_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
 									10 = { modifier = { factor = 0 owner = { NOT = { has_technology = tech_space_mining_4 } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -200 } } }
-									20 = { modifier = { factor = 0 owner = { NOR = { has_ascension_perk = ap_nano_to_nanite resource_stockpile_compare = { resource = automatic_drone value > 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
+									20 = { modifier = { factor = 0 owner = { NOR = { has_ascension_perk = ap_nano_to_nanite has_country_resource = { type = automatic_drone amount > 400 } } } } remove_building = building_auto_drone_facility_1 add_building = building_auto_engineering_campus_1 owner = { add_resource = { automatic_drone = -400 } } }
 								}
 							}
 							999 = { modifier = { factor = 0 NAND = { has_building = building_auto_drone_facility_2 has_major_upgraded_capital = yes } } remove_building = building_auto_drone_facility_2 add_building = building_auto_drone_facility_3 owner = { add_resource = { automatic_drone = -400 } } }
@@ -997,7 +997,7 @@ country_event = {
 			}
 			# Perfect Resource Replacement: if empire (or sector?) is running low of any strategic resources.
 			if = {
-				limit = { has_country_flag = nano_resource_replacement resource_stockpile_compare = { resource = automatic_drone value > 200 } }
+				limit = { has_country_flag = nano_resource_replacement has_country_resource = { type = automatic_drone amount > 200 } }
 				random_list = {
 					1 = {}
 					99 = { modifier = { factor = 0 NOR = { has_technology = tech_mine_volatile_motes	has_country_resource = { type = volatile_motes	amount = 12 } } } add_resource = { volatile_motes	= 10	automatic_drone = -100 } }
@@ -1183,458 +1183,6 @@ country_event = {
 			}
 		}
 	}
-}
-
-######################################
-#									 #
-####### Recycling Expeditions ########
-#									 #
-######################################
-
-country_event = {
-	id = UniqueAscensionPerksEvents.47
-	title = "ap_recycling_drones"
-	desc = "ap_recycling_drones_desc"
-	show_sound = event_construction
-	picture = GFX_evt_scavenger_bot
-	location = event_target:capital_planet
-	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_RECOVER_SHIPS location = event_target:capital_planet owner = root } }
-}
-
-# TODO needs more ship classes
-# on_ship_destroyed_victim
-country_event = {
-	id = UniqueAscensionPerksEvents.48
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = {
-		has_ascension_perk = ap_recycling_drones
-		exists = fromfrom
-		exists = fromfrom.solar_system
-		has_country_flag = ap_recycling_drones_project
-	}
-	immediate = {
-		# TODO use salvage_ships_from_debris
-		fromfrom = {
-			if = {
-				limit = {
-					# exists = solar_system
-					root = {
-						any_available_debris = {
-							exists = solar_system
-							solar_system = { is_same_value = prevprevprev.solar_system }
-							# num_ships_in_debris = { ship_size = root.fromfrom value > 0 } scope not working?
-						}
-					}
-				}
-				# perform_recover_ship_check = yes
-				reroll_random = yes
-				random = { chance = 33.4
-					switch = { trigger = is_ship_size
-						corvette	= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } } }
-						frigate		= { ROOT = { change_variable = { which = ship_frigate_recovered value = 1 } } }
-						destroyer	= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } } }
-						cruiser		= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } } }
-						battleship	= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } } }
-						titan		= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
-						juggernaut	= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
-					}
-				}
-			}
-			# TODO does not work in country scope (as documented)
-			# has_existing_ship_design = corvette
-			# has_existing_ship_design = destroyer
-			# has_existing_ship_design = cruiser
-			# has_existing_ship_design = battleship
-			# has_existing_ship_design = titan
-			# perform_recycling_expedition = yes
-			switch = { trigger = is_ship_size
-				# Default Empire
-				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
-				colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-				juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-				crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-				military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
-				research_station			= { ROOT = { add_resource = { minerals = 25 } } }
-				observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
-				# Pirates
-				pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
-				pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				# Marauders
-				marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
-				marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				# Fallen Empire
-				massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
-				large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				# Ancient Drone
-				ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
-				ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				# Contingency
-				small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
-				final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
-				construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				# Leviathans
-				npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
-			}
-		}
-	}
-}
-# Initial Project
-country_event = {
-	id = UniqueAscensionPerksEvents.49
-	title = "RECYCLE_RECOVER_SHIPS"
-	desc = "UniqueAscensionPerksEvents.49.Desc"
-	show_sound = event_construction
-	picture = GFX_evt_scavenger_bot
-	location = event_target:capital_planet
-	is_triggered_only = yes
-	immediate = {
-		get_capital_planet = yes
-		set_country_flag = ap_recycling_drones_project
-		set_variable = { which = ship_corvette_recovered value = 0 }
-		set_variable = { which = ship_frigate_recovered value = 0 }
-		set_variable = { which = ship_destroyer_recovered value = 0 }
-		set_variable = { which = ship_cruiser_recovered value = 0 }
-		set_variable = { which = ship_battleship_recovered value = 0 }
-		set_variable = { which = ship_titan_recovered value = 0 }
-	}
-	option = {
-		name = EXCELLENT
-		custom_tooltip = "ap_recycling_drones_tooltip_3"
-		hidden_effect = {
-			event_target:capital_planet = {
-				planet_event = { id = UniqueAscensionPerksEvents.4153 days = 30 random = 30 }
-				solar_system = { set_star_flag = recycle_fleet_spawn_system }
-			}
-		}
-	}
-}
-
-# on_ship_destroyed_perp
-country_event = {
-	id = UniqueAscensionPerksEvents.50
-	hide_window = yes
-	is_triggered_only = yes
-	trigger = { has_ascension_perk = ap_recycling_drones } # has_country_flag = ap_recycling_drones_project
-	immediate = {
-		fromfromfrom = {
-			# TODO extend
-			switch = { trigger = is_ship_size
-				# Default Empire
-				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
-				colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-				juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-				crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
-				military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
-				research_station			= { ROOT = { add_resource = { minerals = 25 } } }
-				observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
-				# Pirates
-				pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
-				pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				# Marauders
-				marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
-				marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
-				marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				# Fallen Empire
-				massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
-				large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				# Ancient Drone
-				ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
-				ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				# Contingency
-				small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
-				military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
-				core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
-				final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
-				construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
-				# Leviathans
-				npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
-			}
-		}
-	}
-}
-# on_yearly_pulse
-# event = {
-# 	id = UniqueAscensionPerksEvents.51
-# 	hide_window = yes
-# 	is_triggered_only = yes
-# 	immediate = {
-# 		random_playable_country = {
-# 			limit = {
-# 				has_country_flag = ap_recycling_drones_project
-# 				OR = {
-# 					check_variable = { which = ship_corvette_recovered value > 0 }
-# 					check_variable = { which = ship_frigate_recovered value > 0 }
-# 					check_variable = { which = ship_destroyer_recovered value > 0 }
-# 					check_variable = { which = ship_cruiser_recovered value > 0 }
-# 					check_variable = { which = ship_battleship_recovered value > 0 }
-# 					check_variable = { which = ship_titan_recovered value > 0 }
-# 				}
-# 			}
-# 			country_event = { id = UniqueAscensionPerksEvents.52 days = 5 }
-# 		}
-# 	}
-# }
-
-country_event = {
-	id = UniqueAscensionPerksEvents.52
-	title = "UniqueAscensionPerksEvents.52.Name"
-	desc = "UniqueAscensionPerksEvents.52.Desc"
-	show_sound = event_construction
-	picture = GFX_evt_scavenger_bot
-	location = event_target:recovery_fleet_position
-	is_triggered_only = yes
-	immediate = {
-		# perform_recovery_fleet = yes
-		random_system_within_border = {
-			limit = { has_star_flag = recycle_fleet_spawn_system }
-			if = {
-				limit = { exists = starbase }
-				starbase = { save_event_target_as = recovery_fleet_position }
-			}
-			else = { system_star = { save_event_target_as = recovery_fleet_position } }
-		}
-		# 2nd fallback
-		if = {
-			limit = { NOT = { exists = event_target:recovery_fleet_position } }
-			random_system_within_border = {
-				limit = { exists = starbase }
-				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
-				starbase = { save_event_target_as = recovery_fleet_position }
-			}
-		}
-		# Last fallback
-		if = {
-			limit = { NOT = { exists = event_target:recovery_fleet_position } }
-			get_capital_planet = yes
-			event_target:capital_planet.system_star = { save_event_target_as = recovery_fleet_position }
-		}
-		# FIXME: invalid design for create_ship v.3.9
-		create_fleet = {
-			name = "UniqueAscensionPerksEvents.52.Name" # "Recovered Fleet"
-			settings = { spawn_debris = no }
-			effect = {
-				set_owner = prev
-				if = {
-					limit = { ROOT = { has_country_flag = ap_recycling_drones_project_upgrade } }
-					while = { count = root.ship_corvette_recovered
-						create_ship = { name = random random_existing_design = corvette }
-					}
-					while = { count = root.ship_frigate_recovered
-						create_ship = { name = random random_existing_design = frigate }
-					}
-					while = { count = root.ship_destroyer_recovered
-						create_ship = { name = random random_existing_design = destroyer }
-					}
-					while = { count = root.ship_cruiser_recovered
-						create_ship = { name = random random_existing_design = cruiser }
-					}
-					while = { count = root.ship_battleship_recovered
-						create_ship = { name = random random_existing_design = battleship }
-					}
-					while = { count = root.ship_titan_recovered
-						create_ship = { name = random random_existing_design = titan }
-					}
-				}
-				else = {
-					while = { count = root.ship_corvette_recovered
-						create_ship = { name = random design = "Standard Basic Corvette" }
-					}
-					while = { count = root.ship_frigate_recovered
-						create_ship = { name = random design = "Standard Basic Frigate" }
-					}
-					while = { count = root.ship_destroyer_recovered
-						create_ship = { name = random design = "Standard Basic Destroyer" }
-					}
-					while = { count = root.ship_cruiser_recovered
-						create_ship = { name = random design = "Standard Basic Cruiser" }
-					}
-					while = { count = root.ship_battleship_recovered
-						create_ship = { name = random design = "Standard Basic Battleship" }
-					}
-					while = { count = root.ship_titan_recovered
-						create_ship = { name = random design = "Standard Basic Titan" }
-					}
-				}
-				set_location = { target = event_target:recovery_fleet_position distance = 8 angle = random }
-				# set_fleet_stance = aggressive error.log: not supported by this fleet?
-				set_aggro_range_measure_from = self
-				set_aggro_range = 1000
-				set_fleet_flag = recovery_fleet
-			}
-		}
-	}
-	option = {
-		name = EXCELLENT
-		hidden_effect = {
-			set_variable = { which = ship_corvette_recovered value = 0 }
-			set_variable = { which = ship_frigate_recovered value = 0 }
-			set_variable = { which = ship_destroyer_recovered value = 0 }
-			set_variable = { which = ship_cruiser_recovered value = 0 }
-			set_variable = { which = ship_battleship_recovered value = 0 }
-			set_variable = { which = ship_titan_recovered value = 0 }
-		}
-	}
-}
-
-# From = owner
-planet_event = {
-	id = UniqueAscensionPerksEvents.4153
-	title = "RECYCLE_PERFORM_SHIPS"
-	desc = "RECYCLE_PERFORM_SHIPS_DESC"
-	show_sound = event_construction
-	picture = GFX_evt_scavenger_bot
-	location = root
-	pre_triggers = { has_owner = yes }
-	is_triggered_only = yes
-	trigger = {
-		exists = from
-		from = { NOR = { has_country_flag = ap_recycling_drones_project_upgrade_added has_country_flag = ap_recycling_drones_project_upgrade } }
-	}
-	immediate = {
-		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
-	}
-	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = root owner = root.from } }
-}
-
-planet_event = {
-	id = UniqueAscensionPerksEvents.3054
-	title = "RECYCLE_PERFORM_SHIPS"
-	desc = "UniqueAscensionPerksEvents.3054.Desc"
-	show_sound = event_construction
-	picture = GFX_evt_scavenger_bot
-	location = root
-	pre_triggers = { has_owner = yes }
-	trigger = {
-		exists = owner # pre_trigger seems not sufficient
-	}
-	is_triggered_only = yes
-	immediate = {
-		owner = { set_country_flag = ap_recycling_drones_project_upgrade remove_country_flag = ap_recycling_drones_project_upgrade_added }
-	}
-	option = { name = EXCELLENT }
-}
-# Edict
-country_event = {
-	id = UniqueAscensionPerksEvents.3055
-	title = "UniqueAscensionPerksEvents.3055.Name"
-	desc = "UniqueAscensionPerksEvents.3055.Desc"
-	show_sound = event_construction
-	picture = GFX_evt_space_station
-	is_triggered_only = yes
-	immediate = {
-		random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } }
-			save_event_target_as = recycle_system_1
-			root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOT = { is_same_value = event_target:recycle_system_1 } }
-				save_event_target_as = recycle_system_2
-				root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 } }
-					save_event_target_as = recycle_system_3
-					root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 is_same_value = event_target:recycle_system_3 } }
-						save_event_target_as = recycle_system_4
-						root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 is_same_value = event_target:recycle_system_3 is_same_value = event_target:recycle_system_4 } }
-							save_event_target_as = recycle_system_5
-							root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 is_same_value = event_target:recycle_system_3 is_same_value = event_target:recycle_system_4 is_same_value = event_target:recycle_system_5 } } save_event_target_as = recycle_system_6 } }
-						} }
-					} }
-				} }
-			} }
-		}
-	}
-	option = {
-		name = UniqueAscensionPerksEvents.3055.System.1
-		trigger = { exists = event_target:recycle_system_1 }
-		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_1 = { set_star_flag = recycle_fleet_spawn_system } }
-	}
-	option = {
-		name = UniqueAscensionPerksEvents.3055.System.2
-		trigger = { exists = event_target:recycle_system_2 }
-		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_2 = { set_star_flag = recycle_fleet_spawn_system } }
-	}
-	option = {
-		name = UniqueAscensionPerksEvents.3055.System.3
-		trigger = { exists = event_target:recycle_system_3 }
-		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_3 = { set_star_flag = recycle_fleet_spawn_system } }
-	}
-	option = {
-		name = UniqueAscensionPerksEvents.3055.System.4
-		trigger = { exists = event_target:recycle_system_4 }
-		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_4 = { set_star_flag = recycle_fleet_spawn_system } }
-	}
-	option = {
-		name = UniqueAscensionPerksEvents.3055.System.5
-		trigger = { exists = event_target:recycle_system_5 }
-		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_5 = { set_star_flag = recycle_fleet_spawn_system } }
-	}
-	option = {
-		name = UniqueAscensionPerksEvents.3055.System.6
-		trigger = { exists = event_target:recycle_system_6 }
-		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_6 = { set_star_flag = recycle_fleet_spawn_system } }
-	}
-	option = { name = "UniqueAscensionPerksEvents.3055.Select" ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } } }
-	option = { name = CANCEL ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
 ######################################
@@ -1957,7 +1505,7 @@ country_event = {
 	location = from
 	is_triggered_only = yes
 	trigger = {
-		resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 }
+		has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 }
 	}
 	immediate = {
 		random_owned_fleet = { limit = { is_ship_class = shipclass_science_ship } save_event_target_as = ship_1
@@ -2037,7 +1585,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.1
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_1 exists = event_target:ship_1.solar_system }
 		allow = { event_target:ship_1.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2045,7 +1593,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.2
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_2 exists = event_target:ship_2.solar_system }
 		allow = { event_target:ship_2.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2053,7 +1601,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.3
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_3 exists = event_target:ship_3.solar_system }
 		allow = { event_target:ship_3.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2061,7 +1609,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.4
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_4 exists = event_target:ship_4.solar_system }
 		allow = { event_target:ship_4.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2069,7 +1617,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.5
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_5 exists = event_target:ship_5.solar_system }
 		allow = { event_target:ship_5.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2077,7 +1625,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.6
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_6 exists = event_target:ship_6.solar_system }
 		allow = { event_target:ship_6.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2085,7 +1633,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.7
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_7 exists = event_target:ship_7.solar_system }
 		allow = { event_target:ship_7.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -2093,7 +1641,7 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8059.Ship.8
-		# allow = { resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 } }
+		# allow = { has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 } }
 		trigger = { exists = event_target:ship_8 exists = event_target:ship_8.solar_system }
 		allow = { event_target:ship_8.solar_system = { trade_protected_value >= 2 } }
 		add_resource = { energy = -500 influence = -10 }
@@ -3050,7 +2598,7 @@ planet_event = {
 		trigger = { NOT = { has_planet_flag = galaxy_center_casino } }
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.84.Req01 NOT = { has_planet_flag = galaxy_center_casino } }
-			owner = { resource_stockpile_compare = { resource = energy value > 20000 } }
+			owner = { has_country_resource = { type = energy amount > 20000 } }
 		}
 		owner = { add_resource = { energy = -20000 } }
 		hidden_effect = {
@@ -3066,7 +2614,7 @@ planet_event = {
 		trigger = { NOT = { has_planet_flag = galaxy_center_administration } }
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.84.Req02 NOT = { has_planet_flag = galaxy_center_administration } }
-			owner = { resource_stockpile_compare = { resource = minerals value > 15000 } }
+			owner = { has_country_resource = { type = minerals amount > 15000 } }
 		}
 		owner = { add_resource = { minerals = -15000 } }
 		hidden_effect = {
@@ -3082,7 +2630,7 @@ planet_event = {
 		trigger = { NOT = { has_planet_flag = galaxy_center_museum } }
 		allow = {
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.84.Req03 NOT = { has_planet_flag = galaxy_center_museum } }
-			owner = { resource_stockpile_compare = { resource = minerals value > 15000 } }
+			owner = { has_country_resource = { type = minerals amount > 15000 } }
 		}
 		owner = { add_resource = { minerals = -15000 } }
 		hidden_effect = {
@@ -3096,7 +2644,7 @@ planet_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.84.Shipyard"
 		trigger = { NOT = { has_planet_flag = galaxy_center_super_shipyard } }
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 15000 } } }
+		allow = { owner = { has_country_resource = { type = minerals amount > 15000 } } }
 		owner = { add_resource = { minerals = -15000 } }
 		hidden_effect = {
 			set_planet_flag = galaxy_center_super_shipyard
@@ -3144,7 +2692,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_energy_generator"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_energy_generator
 		hidden_effect = { change_variable = { which = energy_generator value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3153,7 +2701,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_mineral_replicator"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_mineral_replicator
 		hidden_effect = { change_variable = { which = mineral_replicator value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3162,7 +2710,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_house_farming"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_house_farming
 		hidden_effect = { change_variable = { which = house_farming value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3171,7 +2719,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_research_center"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_research_center
 		hidden_effect = { change_variable = { which = research_center value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3180,7 +2728,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_trade_depot"
-		allow = { owner = { is_gestalt = no resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { is_gestalt = no has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_trade_depot
 		hidden_effect = { change_variable = { which = trade_depot value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3190,7 +2738,7 @@ planet_event = {
 	option = {
 		name = "d_hivemind_node"
 		trigger = { is_lithoid_empire = no }
-		allow = { owner = { is_hive_empire = yes resource_stockpile_compare = { resource = food value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { is_hive_empire = yes has_country_resource = { type = food amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 food = -1000 } }
 		add_deposit = d_hivemind_node
 		hidden_effect = { change_variable = { which = hivemind_node value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3200,7 +2748,7 @@ planet_event = {
 	option = {
 		name = "d_hivemind_node"
 		trigger = { is_lithoid_empire = yes }
-		allow = { owner = { is_hive_empire = yes resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { is_hive_empire = yes has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_hivemind_node
 		hidden_effect = { change_variable = { which = hivemind_node value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3209,7 +2757,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_auto_factory"
-		allow = { owner = { is_machine_empire = yes resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { is_machine_empire = yes has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_auto_factory
 		hidden_effect = { change_variable = { which = auto_factory value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3218,7 +2766,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_unit_entrepot"
-		allow = { owner = { is_machine_empire = yes resource_stockpile_compare = { resource = minerals value > 1000 } resource_stockpile_compare = { resource = energy value > 1000 } } }
+		allow = { owner = { is_machine_empire = yes has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_unit_entrepot
 		hidden_effect = { change_variable = { which = unity_entrepot value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -3245,7 +2793,7 @@ planet_event = {
 	}
 	option = {
 		name = "CORVETTE"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 150 } } }
+		allow = { owner = { has_country_resource = { type = alloys amount > 150 } } }
 		owner = { add_resource = { alloys = -150 } }
 		# galaxy_center_build_corvette = yes
 		create_fleet = {
@@ -3268,7 +2816,7 @@ planet_event = {
 	}
 	option = {
 		name = "DESTROYER"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 300 } has_technology = tech_destroyers } }
+		allow = { owner = { has_country_resource = { type = alloys amount > 300 } has_technology = tech_destroyers } }
 		owner = { add_resource = { alloys = -300 } }
 		# galaxy_center_build_destroyer = yes
 		create_fleet = {
@@ -3291,7 +2839,7 @@ planet_event = {
 	}
 	option = {
 		name = "CRUISER"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 550 } has_technology = tech_cruisers } }
+		allow = { owner = { has_country_resource = { type = alloys amount > 550 } has_technology = tech_cruisers } }
 		owner = { add_resource = { alloys = -550 } }
 		# galaxy_center_build_cruiser = yes
 		create_fleet = {
@@ -3314,7 +2862,7 @@ planet_event = {
 	}
 	option = {
 		name = "BATTLESHIP"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 900 } has_technology = tech_battleships } }
+		allow = { owner = { has_country_resource = { type = alloys amount > 900 } has_technology = tech_battleships } }
 		owner = { add_resource = { alloys = -900 } }
 		# galaxy_center_build_battleship = yes
 		create_fleet = {
@@ -3915,35 +3463,35 @@ country_event = {
 	immediate = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget } }
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.1
-		allow = { resource_stockpile_compare = { resource = alloys value > 2000 } resource_stockpile_compare = { resource = energy value > 1000 } }
+		allow = { has_country_resource = { type = alloys amount > 2000 } has_country_resource = { type = energy amount > 1000 } }
 		add_resource = { alloys = -2000 energy = -1000 }
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_1 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 30 random = 15 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.1.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.2
-		allow = { resource_stockpile_compare = { resource = alloys value > 5000 } resource_stockpile_compare = { resource = energy value > 2000 } }
+		allow = { has_country_resource = { type = alloys amount > 5000 } has_country_resource = { type = energy amount > 2000 } }
 		add_resource = { alloys = -5000 energy = -2000 }
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_2 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 60 random = 30 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.2.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.3
-		allow = { resource_stockpile_compare = { resource = alloys value > 10000 } resource_stockpile_compare = { resource = energy value > 4000 } }
+		allow = { has_country_resource = { type = alloys amount > 10000 } has_country_resource = { type = energy amount > 4000 } }
 		add_resource = { alloys = -10000 energy = -4000 }
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_3 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 120 random = 60 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.3.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.4
-		allow = { resource_stockpile_compare = { resource = alloys value > 20000 } resource_stockpile_compare = { resource = energy value > 8000 } }
+		allow = { has_country_resource = { type = alloys amount > 20000 } has_country_resource = { type = energy amount > 8000 } }
 		add_resource = { alloys = -20000 energy = -8000 }
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_4 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 240 random = 120 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.4.tooltip"
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.8144.Investment.5
-		allow = { resource_stockpile_compare = { resource = alloys value > 40000 } resource_stockpile_compare = { resource = energy value > 16000 } }
+		allow = { has_country_resource = { type = alloys amount > 40000 } has_country_resource = { type = energy amount > 16000 } }
 		add_resource = { alloys = -40000 energy = -16000 }
 		hidden_effect = { event_target:VassalNavyInvestmentTarget = { save_event_target_as = VassalNavyInvestmentTarget set_country_flag = subject_navy_investment_5 } country_event = { id = UniqueAscensionPerksEvents.8145 days = 480 random = 240 } country_event = { id = UniqueAscensionPerksEvents.8146 } }
 		custom_tooltip = "UniqueAscensionPerksEvents.8144.Investment.5.tooltip"
@@ -4525,13 +4073,13 @@ leader_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = energy value > 800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { resource_stockpile_compare = { resource = energy value > 1600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { resource_stockpile_compare = { resource = energy value > 2400 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { resource_stockpile_compare = { resource = energy value > 3200 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { from = { resource_stockpile_compare = { resource = energy value > 4000 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 5 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { resource_stockpile_compare = { resource = energy value > 4800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { resource_stockpile_compare = { resource = energy value > 5600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { has_country_resource = { type = energy amount > 800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { has_country_resource = { type = energy amount > 1600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { has_country_resource = { type = energy amount > 2400 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { has_country_resource = { type = energy amount > 3200 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { from = { has_country_resource = { type = energy amount > 4000 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 5 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { has_country_resource = { type = energy amount > 4800 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { has_country_resource = { type = energy amount > 5600 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
 	option = {
 		name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes
 		hidden_effect = {
@@ -5769,9 +5317,9 @@ ship_event = {
 	title = "UniqueAscensionPerksEvents.431.Name"
 	desc = {
 		trigger = {
-			success_text = { text = "UniqueAscensionPerksEvents.431.anti_matter" hidden:owner = { resource_stockpile_compare = { resource = anti_matter value > 0 } } }
-			success_text = { text = "UniqueAscensionPerksEvents.431.has_tech" OR = { AND = { hidden:owner = { resource_stockpile_compare = { resource = anti_matter value > 0 } } hidden:owner = { has_technology = tech_mine_anti_matter } } } }
-			success_text = { text = "UniqueAscensionPerksEvents.431.no_tech" NOR = { AND = { hidden:owner = { resource_stockpile_compare = { resource = anti_matter value > 0 } } hidden:owner = { has_technology = tech_mine_anti_matter } } } }
+			success_text = { text = "UniqueAscensionPerksEvents.431.anti_matter" hidden:owner = { has_country_resource = { type = anti_matter amount > 0 } } }
+			success_text = { text = "UniqueAscensionPerksEvents.431.has_tech" OR = { AND = { hidden:owner = { has_country_resource = { type = anti_matter amount > 0 } } hidden:owner = { has_technology = tech_mine_anti_matter } } } }
+			success_text = { text = "UniqueAscensionPerksEvents.431.no_tech" NOR = { AND = { hidden:owner = { has_country_resource = { type = anti_matter amount > 0 } } hidden:owner = { has_technology = tech_mine_anti_matter } } } }
 		}
 	}
 	picture = GFX_evt_surreal_visions
@@ -5781,12 +5329,12 @@ ship_event = {
 	trigger = {
 		from = { has_any_strategic_resource = yes }
 		owner = {
-			root.owner = { resource_stockpile_compare = { resource = anti_matter value > 0 } }
+			root.owner = { has_country_resource = { type = anti_matter amount > 0 } }
 			NOT = { has_country_flag = anti_matter_found }
 		}
 	}
-	immediate = { from = { if = { limit = { resource_stockpile_compare = { resource = anti_matter value > 0 } } root.owner = { set_country_flag = anti_matter_found } } } }
-	option = { name = OK from = { if = { limit = { resource_stockpile_compare = { resource = anti_matter value > 0 } } custom_tooltip = UniqueAscensionPerksEvents.431.anti_matter.tooltip } } }
+	immediate = { from = { if = { limit = { has_country_resource = { type = anti_matter amount > 0 } } root.owner = { set_country_flag = anti_matter_found } } } }
+	option = { name = OK from = { if = { limit = { has_country_resource = { type = anti_matter amount > 0 } } custom_tooltip = UniqueAscensionPerksEvents.431.anti_matter.tooltip } } }
 }
 
 country_event = {
@@ -5876,56 +5424,56 @@ country_event = {
 	# after = {}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Energy
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 500 } NOT = { has_modifier = anti_matter_energy } }
+		allow = { has_country_resource = { type = anti_matter amount > 500 } NOT = { has_modifier = anti_matter_energy } }
 		add_resource = { anti_matter = -500 }
 		add_modifier = { modifier = anti_matter_energy years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
 	# option = {
 	# 	name = UniqueAscensionPerksEvents.434.Physics
-	# 	allow = { resource_stockpile_compare = { resource = anti_matter value > 400 } NOT = { has_modifier = anti_matter_dark_physics } }
+	# 	allow = { has_country_resource = { type = anti_matter amount > 400 } NOT = { has_modifier = anti_matter_dark_physics } }
 	# 	add_resource = { anti_matter = -400 }
 	# 	add_modifier = { modifier = anti_matter_dark_physics years = 15 }
 	# 	hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	# }
 	option = {
 		name = UniqueAscensionPerksEvents.434.Engineer
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 400 } NOT = { has_modifier = anti_matter_dark_engineering } }
+		allow = { has_country_resource = { type = anti_matter amount > 400 } NOT = { has_modifier = anti_matter_dark_engineering } }
 		add_resource = { anti_matter = -400 }
 		add_modifier = { modifier = anti_matter_dark_engineering years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Dark
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 750 } NOT = { has_modifier = anti_matter_dark_matter } has_technology = tech_mine_dark_matter }
+		allow = { has_country_resource = { type = anti_matter amount > 750 } NOT = { has_modifier = anti_matter_dark_matter } has_technology = tech_mine_dark_matter }
 		add_resource = { anti_matter = -750 }
 		add_modifier = { modifier = anti_matter_dark_matter years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Weapons
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 900 } NOT = { has_modifier = anti_matter_energy_weapons } }
+		allow = { has_country_resource = { type = anti_matter amount > 900 } NOT = { has_modifier = anti_matter_energy_weapons } }
 		add_resource = { anti_matter = -900 }
 		add_modifier = { modifier = anti_matter_energy_weapons years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Shields
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 750 } NOT = { has_modifier = anti_matter_shields } }
+		allow = { has_country_resource = { type = anti_matter amount > 750 } NOT = { has_modifier = anti_matter_shields } }
 		add_resource = { anti_matter = -750 }
 		add_modifier = { modifier = anti_matter_shields years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Thrusters
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 500 } NOT = { has_modifier = anti_matter_trusters } }
+		allow = { has_country_resource = { type = anti_matter amount > 500 } NOT = { has_modifier = anti_matter_trusters } }
 		add_resource = { anti_matter = -500 }
 		add_modifier = { modifier = anti_matter_trusters years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Upkeep
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 500 } NOT = { has_modifier = anti_matter_upkeep } }
+		allow = { has_country_resource = { type = anti_matter amount > 500 } NOT = { has_modifier = anti_matter_upkeep } }
 		add_resource = { anti_matter = -500 }
 		add_modifier = { modifier = anti_matter_upkeep years = 15 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.434 } country_event = { id = UniqueAscensionPerksEvents.435 days = 5400 } }
@@ -5936,7 +5484,7 @@ country_event = {
 			check_variable = { which = white_hole_systems value < 9 }
 			event_target:global_event_country = { check_variable = { which = white_hole_systems value < 36 } }
 		}
-		allow = { resource_stockpile_compare = { resource = anti_matter value > 250 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req01 NOT = { has_country_flag = white_hole_detection_cooldown } } }
+		allow = { has_country_resource = { type = anti_matter amount > 250 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req01 NOT = { has_country_flag = white_hole_detection_cooldown } } }
 		add_resource = { anti_matter = -250 }
 		hidden_effect = {
 			set_timed_country_flag = { flag = white_hole_detection_cooldown years = 3 }
@@ -5948,7 +5496,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.434.Cloud"
 		allow = {
-			resource_stockpile_compare = { resource = anti_matter value > 500 } has_technology = tech_space_cloud_weapon_1 custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req02 NOT = { has_country_flag = space_clouds_generation_cooldown } }
+			has_country_resource = { type = anti_matter amount > 500 } has_technology = tech_space_cloud_weapon_1 custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req02 NOT = { has_country_flag = space_clouds_generation_cooldown } }
 			count_owned_fleet = { count < 11 limit = { has_fleet_flag = space_clouds_generation_fleet } }
 			count_owned_ship = { count < 101 limit = { is_ship_size = space_cloud } }
 		}
@@ -6166,7 +5714,7 @@ planet_event = {
 		hidden_effect = {
 			if = {
 				limit = { has_planet_flag = self_aware_planet }
-				if = { limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
+				if = { limit = { owner = { has_country_resource = { type = minerals amount < 200 } } }
 					remove_planet_flag = self_aware_planet
 				}
 				else = {
@@ -6178,11 +5726,11 @@ planet_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.461.Construct.Random"
 		custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.Random.tooltip"
-		allow = { owner = { resource_stockpile_compare = { resource = minerals value > 1000 } } }
+		allow = { owner = { has_country_resource = { type = minerals amount > 1000 } } }
 		hidden_effect = { set_planet_flag = self_aware_manual_order }
 		planet_event = { id = UniqueAscensionPerksEvents.465 days = -1 } # self_aware_colony_deposit_selection = yes
 	}
-	option = { name = "UniqueAscensionPerksEvents.461.Construct.NoRandom" allow = { owner = { resource_stockpile_compare = { resource = minerals value >= 200 } NOT = { has_active_event = { UniqueAscensionPerksEvents.466 } } } } custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.NoRandom.tooltip" hidden_effect = { remove_planet_flag = self_aware_planet planet_event = { id = UniqueAscensionPerksEvents.466 } } }
+	option = { name = "UniqueAscensionPerksEvents.461.Construct.NoRandom" allow = { owner = { has_country_resource = { type = minerals amount >= 200 } NOT = { has_active_event = { UniqueAscensionPerksEvents.466 } } } } custom_tooltip = "UniqueAscensionPerksEvents.461.Construct.NoRandom.tooltip" hidden_effect = { remove_planet_flag = self_aware_planet planet_event = { id = UniqueAscensionPerksEvents.466 } } }
 	option = { name = "UniqueAscensionPerksEvents.461.Energy"		allow = { NOT = { has_modifier = self_aware_energy } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_energy clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Minerals"		allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_minerals clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Food"			allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_food clear_on_owner_change = yes } }
@@ -6246,7 +5794,7 @@ country_event = {
 	# 	# OR = { has_global_flag = ap_self_aware_colony
 	# 	has_ascension_perk = ap_self_aware_colony
 	# 	# }
-	# 	has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
+	# 	has_resource = { type = minerals amount > 1000 } # has_country_resource = { type = minerals amount > 1000 }
 	# 	any_owned_planet = { is_colony = yes colony_age > 12 has_modifier = self_aware_colony }
 	# }
 	immediate = {
@@ -6325,7 +5873,7 @@ planet_event = {
 		# OR = { has_global_flag = ap_self_aware_colony
 		owner = {
 			has_ascension_perk = ap_self_aware_colony
-			has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
+			has_resource = { type = minerals amount > 1000 } # has_country_resource = { type = minerals amount > 1000 }
 		}
 		has_modifier = self_aware_colony
 	}
@@ -6620,12 +6168,12 @@ planet_event = {
 	location = root # event_target:self_aware_planet
 	is_triggered_only = yes
 	pre_triggers = { has_owner = yes }
-	trigger = { exists = owner owner = { resource_stockpile_compare = { resource = minerals value >= 200 } } }
+	trigger = { exists = owner owner = { has_country_resource = { type = minerals amount >= 200 } } }
 	immediate = { set_planet_flag = self_aware_planet }
 	after = {
 		hidden_effect = {
 			if = {
-				limit = { owner = { resource_stockpile_compare = { resource = minerals value < 200 } } }
+				limit = { owner = { has_country_resource = { type = minerals amount < 200 } } }
 				remove_planet_flag = self_aware_planet
 			}
 			if = {
@@ -6865,7 +6413,7 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.491.a"
 		allow = {
 			NOT = { has_country_flag = ap_library_wisedom_cooldown }
-			resource_stockpile_compare = { resource = unity value > 200 }
+			has_country_resource = { type = unity amount > 200 }
 		}
 		add_resource = { unity = -200 }
 		hidden_effect = {
@@ -6909,7 +6457,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.493.Research"		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.497 } } }
 	option = {
 		name = "UniqueAscensionPerksEvents.493.Knowledge"
-		allow = { resource_stockpile_compare = { resource = influence value > 500 } NOT = { has_country_flag = has_wisedom_relic } }
+		allow = { has_country_resource = { type = influence amount > 500 } NOT = { has_country_flag = has_wisedom_relic } }
 		add_relic = r_orb_of_knowledge
 		add_resource = { influence = -500 }
 		hidden_effect = { set_country_flag = has_wisedom_relic country_event = { id = UniqueAscensionPerksEvents.520 } }
@@ -6939,8 +6487,8 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.494.Leader"		allow = { NOT = { has_country_flag = ap_library_wisedom_teaching_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_teaching_campaign } custom_tooltip = "edict_lw_teaching_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.494.Edict"		allow = { NOT = { has_country_flag = ap_library_wisedom_edict_campaign } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_edict_campaign } custom_tooltip = "edict_lw_edict_campaign_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.494.Unity"		allow = { NOT = { has_country_flag = ap_library_wisedom_unity_cooldown } } add_monthly_resource_mult = { resource = unity value = 8 min = 2000 max = 8000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_unity_cooldown years = 5 } } custom_tooltip = "UniqueAscensionPerks.no_request_length" }
-	option = { name = "UniqueAscensionPerksEvents.494.Civic"		allow = { NOT = { has_modifier = library_wisedom_civic } resource_stockpile_compare = { resource = unity value > 10000 } } add_resource = { unity = -10000 }	add_modifier = { modifier = library_wisedom_civic } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
-	option = { name = "UniqueAscensionPerksEvents.494.Ascension"	allow = { NOT = { has_modifier = library_wisedom_ascension } resource_stockpile_compare = { resource = unity value > 25000 } } add_resource = { unity = -25000 }	add_modifier = { modifier = library_wisedom_ascension } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
+	option = { name = "UniqueAscensionPerksEvents.494.Civic"		allow = { NOT = { has_modifier = library_wisedom_civic } has_country_resource = { type = unity amount > 10000 } } add_resource = { unity = -10000 }	add_modifier = { modifier = library_wisedom_civic } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
+	option = { name = "UniqueAscensionPerksEvents.494.Ascension"	allow = { NOT = { has_modifier = library_wisedom_ascension } has_country_resource = { type = unity amount > 25000 } } add_resource = { unity = -25000 }	add_modifier = { modifier = library_wisedom_ascension } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } } }
 	option = { name = BACK ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
@@ -6979,12 +6527,12 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	option = { name = "UniqueAscensionPerksEvents.496.War"			allow = { NOT = { has_country_flag = ap_library_wisedom_war_preparation } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_war_preparation } custom_tooltip = "edict_lw_war_preparation_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Evade"		allow = { NOT = { has_country_flag = ap_library_wisedom_evade_danger } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_evade_danger } custom_tooltip = "edict_lw_evade_danger_unlock" }
-	option = { name = "UniqueAscensionPerksEvents.496.Ground"		allow = { NOT = { has_country_flag = ap_library_wisedom_ground_field_experience } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_ground_field_experience } custom_tooltip = "edict_lw_ground_field_experience_unlock" }
+	option = { name = "UniqueAscensionPerksEvents.496.Ground"		allow = { NOT = { has_country_flag = ap_library_wisedom_ground_field_experience } has_country_resource = { type = unity amount > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_ground_field_experience } custom_tooltip = "edict_lw_ground_field_experience_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Route"		allow = { NOT = { has_country_flag = ap_library_wisedom_fast_routes } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_fast_routes } custom_tooltip = "edict_lw_fast_routes_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.496.Experience"	allow = { NOT = { has_country_flag = ap_library_wisedom_experience_sharing } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_experience_sharing } custom_tooltip = "edict_lw_experience_sharing_unlock" }
-	option = { name = "UniqueAscensionPerksEvents.496.Pierce"		allow = { NOT = { has_country_flag = ap_library_wisedom_defense_weakness } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_defense_weakness } custom_tooltip = "edict_lw_defense_weakness_unlock" }
-	option = { name = "UniqueAscensionPerksEvents.496.Damage"		allow = { NOT = { has_country_flag = ap_library_wisedom_damage_output } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_damage_output } custom_tooltip = "edict_lw_damage_output_unlock" }
-	option = { name = "UniqueAscensionPerksEvents.496.Alloys"		allow = { NOT = { has_country_flag = ap_library_wisedom_alloys_cooldown } resource_stockpile_compare = { resource = unity value > 1000 } } add_resource = { unity = -1000 alloys = 2000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_alloys_cooldown years = 5 } } custom_tooltip = "UniqueAscensionPerks.no_request_length" }
+	option = { name = "UniqueAscensionPerksEvents.496.Pierce"		allow = { NOT = { has_country_flag = ap_library_wisedom_defense_weakness } has_country_resource = { type = unity amount > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_defense_weakness } custom_tooltip = "edict_lw_defense_weakness_unlock" }
+	option = { name = "UniqueAscensionPerksEvents.496.Damage"		allow = { NOT = { has_country_flag = ap_library_wisedom_damage_output } has_country_resource = { type = unity amount > 1000 } } add_resource = { unity = -1000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_damage_output } custom_tooltip = "edict_lw_damage_output_unlock" }
+	option = { name = "UniqueAscensionPerksEvents.496.Alloys"		allow = { NOT = { has_country_flag = ap_library_wisedom_alloys_cooldown } has_country_resource = { type = unity amount > 1000 } } add_resource = { unity = -1000 alloys = 2000 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_timed_country_flag = { flag = ap_library_wisedom_alloys_cooldown years = 5 } } custom_tooltip = "UniqueAscensionPerks.no_request_length" }
 	option = { name = BACK ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.493 } } }
 }
 
@@ -7009,7 +6557,7 @@ country_event = {
 	option = { name = "UniqueAscensionPerksEvents.497.Data"			allow = { NOT = { has_country_flag = ap_library_wisedom_adv_data_collection } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.520 } set_country_flag = ap_library_wisedom_adv_data_collection } custom_tooltip = "edict_lw_adv_data_collectione_unlock" }
 	option = { name = "UniqueAscensionPerksEvents.497.ResearchData" custom_tooltip = "UniqueAscensionPerks.no_request_length"
 		allow = { NOT = { has_country_flag = ap_library_wisedom_research_cooldown }
-		resource_stockpile_compare = { resource = unity value > 500 } }
+		has_country_resource = { type = unity amount > 500 } }
 		add_resource = { unity = -500 }
 		add_monthly_resource_mult = { resource = physics_research value = 8 min = 1500 max = 8000 }
 		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 8000 }
@@ -7018,7 +6566,7 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.497.PhysicsTech" custom_tooltip = "UniqueAscensionPerks.no_request_length"
-		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
+		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_physics_tech_cooldown } has_country_resource = { type = unity amount > 500 } }
 		add_resource = { unity = -500 }
 		# wisedom_get_physics_tech = yes
 		add_random_research_option = { area = physics add_progress = 0.2 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = physics_research value = 16 min = 3500 max = 14000 } } }
@@ -7026,14 +6574,14 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.497.SocietyTech" custom_tooltip = "UniqueAscensionPerks.no_request_length"
-		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_society_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
+		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_society_tech_cooldown } has_country_resource = { type = unity amount > 500 } }
 		add_resource = { unity = -500 }
 		# wisedom_get_society_tech = yes
 		add_random_research_option = { area = society add_progress = 0.2 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = society_research value = 16 min = 4000 max = 14000 } } }
 		hidden_effect = { set_timed_country_flag = { flag = ap_library_wisedom_wisedom_get_society_tech_cooldown years = 5 } country_event = { id = UniqueAscensionPerksEvents.520 } } }
 	option = {
 		name = "UniqueAscensionPerksEvents.497.EngineeringTech" custom_tooltip = "UniqueAscensionPerks.no_request_length"
-		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown } resource_stockpile_compare = { resource = unity value > 500 } }
+		allow = { NOT = { has_country_flag = ap_library_wisedom_wisedom_get_engineering_tech_cooldown } has_country_resource = { type = unity amount > 500 } }
 		add_resource = { unity = -500 }
 		# wisedom_get_engineering_tech = yes
 		add_random_research_option = { area = engineering add_progress = 0.2 ignore_rare = yes fail_effects = { add_monthly_resource_mult = { resource = engineering_research value = 16 min = 4000 max = 14000 } } }
@@ -7107,57 +6655,57 @@ ship_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Influence"
-		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = influence value > 100 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = influence amount > 100 } } }
 		owner = { add_resource = { influence = -100 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Energy"
-		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = energy value > 3000 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = energy amount > 3000 } } }
 		owner = { add_resource = { energy = -3000 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Minerals"
-		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = minerals value > 2500 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = minerals amount > 2500 } } }
 		owner = { add_resource = { minerals = -2500 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Alloys"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 900 } } }
+		allow = { owner = { has_country_resource = { type = alloys amount > 900 } } }
 		trigger = { from = { is_machine_empire = no } }
 		owner = { add_resource = { alloys = -900 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Alloys"
-		allow = { owner = { resource_stockpile_compare = { resource = alloys value > 1100 } } }
+		allow = { owner = { has_country_resource = { type = alloys amount > 1100 } } }
 		trigger = { from = { is_machine_empire = yes } }
 		owner = { add_resource = { alloys = -1100 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Unity"
-		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = unity value > 1750 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = unity amount > 1750 } } }
 		owner = { add_resource = { unity = -1750 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Food"
-		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { resource_stockpile_compare = { resource = food value > 3200 } } }
+		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = food amount > 3200 } } }
 		owner = { add_resource = { food = -3200 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Treasures"
-		allow = { owner = { resource_stockpile_compare = { resource = treasures value > 320 } } }
+		allow = { owner = { has_country_resource = { type = treasures amount > 320 } } }
 		owner = { add_resource = { treasures = -320 } }
 		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.NanoDrones"
-		allow = { owner = { resource_stockpile_compare = { resource = automatic_drone value > 1200 } } }
+		allow = { owner = { has_country_resource = { type = automatic_drone amount > 1200 } } }
 		owner = { add_resource = { automatic_drone = -1200 } }
 		deploy_outpost = yes
 	}
@@ -7751,14 +7299,14 @@ event = {
 				any_playable_country = {
 					has_ascension_perk = ap_nano_drones
 					OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
-					resource_stockpile_compare = { resource = automatic_drone value > 200 }
+					has_country_resource = { type = automatic_drone amount > 200 }
 				}
 			}
 			every_playable_country = {
 				limit = {
 					has_ascension_perk = ap_nano_drones
 					OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
-					resource_stockpile_compare = { resource = automatic_drone value > 200 }
+					has_country_resource = { type = automatic_drone amount > 200 }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.8041 days = 1 random = 5 }
 			}
@@ -7809,14 +7357,14 @@ event = {
 			limit = {
 				any_playable_country = {
 					has_ascension_perk = ap_self_aware_colony
-					has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
+					has_resource = { type = minerals amount > 1000 } # has_country_resource = { type = minerals amount > 1000 }
 					any_owned_planet = { is_colony = yes colony_age > 12 has_modifier = self_aware_colony }
 				}
 			}
 			every_playable_country = {
 				limit = {
 					has_ascension_perk = ap_self_aware_colony
-					has_resource = { type = minerals amount > 1000 } # resource_stockpile_compare = { resource = minerals value > 1000 }
+					has_resource = { type = minerals amount > 1000 } # has_country_resource = { type = minerals amount > 1000 }
 					any_owned_planet = { is_colony = yes colony_age > 12 has_modifier = self_aware_colony }
 				}
 				country_event = { id = UniqueAscensionPerksEvents.462 days = 1 random = 5 }

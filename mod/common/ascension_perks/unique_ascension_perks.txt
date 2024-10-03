@@ -78,11 +78,7 @@ ap_stellar_manipulation = {
 		}
 	}
 	potential = {
-		NOR = {
-			is_ai = yes
-			has_ascension_perk = ap_stellar_manipulation
-			has_global_flag = ap_stellar_manipulation
-		}
+		NOR = { is_ai = yes has_ascension_perk = ap_stellar_manipulation has_global_flag = ap_stellar_manipulation }
 	}
 	ai_weight = { factor = 0 }	# event_target:global_event_country.ap_stellar_manipulation
 }
@@ -102,11 +98,7 @@ ap_lost_heritage = {
 		}
 	}
 	potential = {
-		NOR = {
-			is_ai = yes
-			has_ascension_perk = ap_lost_heritage
-			has_global_flag = ap_lost_heritage
-		}
+		NOR = { is_ai = yes has_ascension_perk = ap_lost_heritage has_global_flag = ap_lost_heritage }
 	}
 	ai_weight = {
 		factor = 0
@@ -126,11 +118,7 @@ ap_void_expedition = {
 		custom_tooltip = { fail_text = "ap_void_expedition_req_6" has_technology = tech_space_science_5 }
 		custom_tooltip = {
 			fail_text = "ap_emergency_calculation_req_4"
-			OR = {
-				has_technology = tech_combat_computers_3
-				has_technology = tech_combat_computers_autonomous
-				has_technology = tech_precognition_interface
-			}
+			OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous has_technology = tech_precognition_interface }
 		}
 		has_distar = yes
 	}
@@ -169,11 +157,7 @@ ap_expandable_brain_1 = {
 	possible = {
 		custom_tooltip = {
 			fail_text = "ap_expandable_brain_1_req_1"
-			OR = {
-				has_ascension_perk = ap_transcendent_learning
-				has_ascension_perk = ap_esap_gov_2
-				has_ascension_perk = ap_esap_gov_GC_2
-			}
+			OR = { has_ascension_perk = ap_transcendent_learning has_ascension_perk = ap_esap_gov_2 has_ascension_perk = ap_esap_gov_GC_2 }
 		}
 		custom_tooltip = { fail_text = "ap_expandable_brain_1_req_2" has_modifier = expandable_brain_1 }
 	}
@@ -225,7 +209,7 @@ ap_ai_cortana = {
 		custom_tooltip = { fail_text = "ap_ai_cortana_req_1" has_technology = tech_administrative_ai }
 		custom_tooltip = {
 			fail_text = "ap_ai_cortana_req_2"
-			resource_stockpile_compare = { resource = energy value >= 40000 }
+			has_country_resource = { type = energy amount >= 40000 }
 		}
 	}
 	modifier = {
@@ -255,11 +239,7 @@ ap_nano_drones = {
 		# custom_tooltip = { fail_text = "ap_nano_drones_req_1" has_technology = tech_auto_drone }
 		custom_tooltip = {
 			fail_text = "ap_emergency_calculation_req_4"
-			OR = {
-				has_technology = tech_combat_computers_3
-				has_technology = tech_combat_computers_autonomous
-				has_technology = tech_precognition_interface
-			}
+			OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous has_technology = tech_precognition_interface }
 		}
 	}
 	modifier = { planet_max_buildings_add = 3 }
@@ -277,7 +257,15 @@ ap_nano_drones = {
 			event_target:global_event_country = { check_variable = { which = ap_nano_drones value = 0 } } # Because ai_weight doesn't work
 		}
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_nano_drones }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_nano_drones
+		modifier = { factor = 2 is_materialist = yes }
+		modifier = { factor = 2 has_ascension_perk = ap_the_flesh_is_weak }
+		modifier = { factor = 2 has_ascension_perk = ap_synthetic_evolution }
+		modifier = { factor = 2 has_ascension_perk = ap_synthetic_age }
+		modifier = { factor = 2 has_genetic_ascension = yes }
+		modifier = { factor = 2 has_ascension_perk = ap_mind_over_matter }
+	}
 }
 
 # Nanite Composition
@@ -286,17 +274,17 @@ ap_nano_to_nanite = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_nano_drones_req_1" has_technology = tech_auto_drone }
 		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_1" has_ascension_perk = ap_nano_drones }
-		custom_tooltip = {
-			fail_text = "ap_nano_to_nanite_req_2"
-			resource_stockpile_compare = { resource = automatic_drone value > 30000 } # 37500
-		}
+		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_2" has_country_resource = { type = automatic_drone amount > 30000 } }
+		custom_tooltip = { fail_text = "requires_ascension_perks_3" num_ascension_perks >= 2 }
+		custom_tooltip = { fail_text = "requires_technology_nanite_transmutation" has_technology = tech_nanite_transmutation }
 		has_distar = yes
 	}
 	modifier = {
 		ship_hull_regen_add_static = 2.5
 		ship_armor_regen_add_static = 2
-		ship_shield_regen_add_static = 1.5
+		# ship_shield_regen_add_static = 1.5
 		country_base_nanites_produces_add = 2
+		planet_researchers_engineering_research_produces_mult = 0.2
 	}
 	on_enabled = {
 		custom_tooltip = "ap_nano_to_nanite_tooltip_1"
@@ -315,7 +303,15 @@ ap_nano_to_nanite = {
 			event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value = 0 } } # Because ai_weight doesn't work
 		}
 	}
-	ai_weight = { factor = event_target:global_event_country.ap_nano_to_nanite }
+	ai_weight = {
+		factor = event_target:global_event_country.ap_nano_to_nanite
+		modifier = { factor = 2 is_materialist = yes }
+		modifier = { factor = 2 has_ascension_perk = ap_the_flesh_is_weak }
+		modifier = { factor = 2 has_ascension_perk = ap_synthetic_evolution }
+		modifier = { factor = 2 has_ascension_perk = ap_synthetic_age }
+		modifier = { factor = 2 has_genetic_ascension = yes }
+		modifier = { factor = 2 has_ascension_perk = ap_mind_over_matter }
+	}
 }
 
 # Genius Pregnancy
@@ -337,11 +333,7 @@ ap_genius_cloning = {
 	potential = {
 		merg_is_default_empire = yes # merg_is_awakened_fe = no Simply to omit wasting MTTH check
 		NOT = { has_ascension_perk = ap_genius_cloning }
-		OR = {
-			is_machine_empire = no
-			has_civic = civic_machine_assimilator
-			has_civic = civic_machine_servitor
-		}
+		OR = { is_machine_empire = no has_civic = civic_machine_assimilator has_civic = civic_machine_servitor }
 		NAND = {
 			is_ai = yes
 			event_target:global_event_country = { check_variable = { which = ap_genius_cloning value = 0 } } # Because ai_weight doesn't work
@@ -493,11 +485,7 @@ ap_emergency_calculation = {
 		custom_tooltip = { fail_text = "ap_emergency_calculation_req_3" has_technology = tech_thrusters_4 }
 		custom_tooltip = {
 			fail_text = "ap_emergency_calculation_req_4"
-			OR = {
-				has_technology = tech_combat_computers_3
-				has_technology = tech_combat_computers_autonomous
-				has_technology = tech_precognition_interface
-			}
+			OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous has_technology = tech_precognition_interface }
 		}
 	}
 	modifier = {
@@ -551,7 +539,7 @@ ap_economic_prospertity = {
 		add_resource = { energy = 10000 }
 	}
 	potential = {
-		NOT = { has_ascension_perk = ap_economic_prospertity  is_gestalt = yes }
+		NOR = { has_ascension_perk = ap_economic_prospertity is_gestalt = yes }
 		NAND = {
 			is_ai = yes
 			event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value = 0 } } # Because ai_weight doesn't work
@@ -762,7 +750,7 @@ ap_robot_command = {
 	}
 	potential = {
 		merg_is_default_empire = yes # merg_is_awakened_fe = no Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_robot_command  is_hive_empire = yes }
+		NOR = { has_ascension_perk = ap_robot_command is_hive_empire = yes }
 		NAND = {
 			is_ai = yes
 			event_target:global_event_country = { check_variable = { which = ap_robot_command value = 0 } } # Because ai_weight doesn't work
@@ -791,7 +779,7 @@ ap_recomposer = {
 		}
 	}
 	potential = {
-		NOT = { has_ascension_perk = ap_recomposer  is_gestalt = yes }
+		NOR = { has_ascension_perk = ap_recomposer is_gestalt = yes }
 		NAND = {
 			is_ai = yes
 			event_target:global_event_country = { check_variable = { which = ap_recomposer value = 0 } } # Because ai_weight doesn't work
@@ -956,7 +944,7 @@ ap_advanced_government_1 = {
 	}
 	potential = {
 		merg_is_default_empire = yes # merg_is_awakened_fe = no Simply to omit wasting MTTH check
-		NOT = { has_ascension_perk = ap_advanced_government_1  is_gestalt = yes }
+		NOR = { has_ascension_perk = ap_advanced_government_1 is_gestalt = yes }
 		NAND = {
 			is_ai = yes
 			event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value = 0 } } # Because ai_weight doesn't work
@@ -1212,11 +1200,7 @@ ap_powerful_vassals = {
 		}
 	}
 	potential = {
-		NOR = {
-			is_ai = yes
-			has_ascension_perk = ap_powerful_vassals
-			has_civic = civic_hive_devouring_swarm
-		}
+		NOR = { is_ai = yes has_ascension_perk = ap_powerful_vassals has_civic = civic_hive_devouring_swarm }
 	}
 	ai_weight = { factor = 0 }	# event_target:global_event_country.ap_powerful_vassals }
 }
@@ -1363,11 +1347,7 @@ ap_pyramidal_society = {
 		}
 	}
 	potential = {
-		NOR = {
-			has_ascension_perk = ap_pyramidal_society
-			has_country_flag = ap_pyramidal_society
-			has_global_flag = ap_pyramidal_society
-		}
+		NOR = { has_ascension_perk = ap_pyramidal_society has_country_flag = ap_pyramidal_society has_global_flag = ap_pyramidal_society }
 		NAND = {
 			is_ai = yes
 			event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value = 0 } } # Because ai_weight doesn't work
@@ -1429,7 +1409,7 @@ ap_underworld = {
 		custom_tooltip = {
 			fail_text = "ap_underworld_req_3"
 			OR = {
-				resource_stockpile_compare = { resource = treasures value >= 4000 }
+				has_country_resource = { type = treasures amount >= 4000 }
 				is_criminal_syndicate = yes # has_valid_civic = civic_criminal_heritage
 			}
 		}
@@ -1465,9 +1445,7 @@ ap_slow_learner = {
 		custom_tooltip = "ap_slow_learner_tooltip"
 		hidden_effect = {
 			if = {
-				limit = {
-					NOT = { has_active_event = { UniqueAscensionPerksEvents.400 UniqueAscensionPerksEvents.401 } }
-				}
+				limit = { NOT = { has_active_event = { UniqueAscensionPerksEvents.400 UniqueAscensionPerksEvents.401 } } }
 				country_event = { id = UniqueAscensionPerksEvents.400 }
 			}
 		}
@@ -1575,11 +1553,7 @@ ap_artifact_hunter = {
 		custom_tooltip = { fail_text = "ap_artifact_hunter_req_4" has_technology = tech_combat_computers_2 }
 		custom_tooltip = {
 			fail_text = "ap_emergency_calculation_req_4"
-			OR = {
-				has_technology = tech_combat_computers_3
-				has_technology = tech_combat_computers_autonomous
-				has_technology = tech_precognition_interface
-			}
+			OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous has_technology = tech_precognition_interface }
 		}
 		has_ancrel = yes
 	}

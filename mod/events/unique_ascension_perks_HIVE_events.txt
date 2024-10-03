@@ -148,13 +148,13 @@ leader_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { resource_stockpile_compare = { resource = influence value > 75 } resource_stockpile_compare = { resource = energy value > 75 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { resource_stockpile_compare = { resource = influence value > 150 } resource_stockpile_compare = { resource = energy value > 150 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { resource_stockpile_compare = { resource = influence value > 225 } resource_stockpile_compare = { resource = energy value > 225 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { resource_stockpile_compare = { resource = influence value > 300 } resource_stockpile_compare = { resource = energy value > 300 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { from = { resource_stockpile_compare = { resource = influence value > 375 } resource_stockpile_compare = { resource = energy value > 375 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 5 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { resource_stockpile_compare = { resource = influence value > 450 } resource_stockpile_compare = { resource = energy value > 450 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
-	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { resource_stockpile_compare = { resource = influence value > 525 } resource_stockpile_compare = { resource = energy value > 525 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.1" allow = { from = { has_country_resource = { type = influence amount > 75 } has_country_resource = { type = energy amount > 75 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 1 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.2" allow = { from = { has_country_resource = { type = influence amount > 150 } has_country_resource = { type = energy amount > 150 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 2 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.3" allow = { from = { has_country_resource = { type = influence amount > 225 } has_country_resource = { type = energy amount > 225 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 3 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.4" allow = { from = { has_country_resource = { type = influence amount > 300 } has_country_resource = { type = energy amount > 300 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 4 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.5" allow = { from = { has_country_resource = { type = influence amount > 375 } has_country_resource = { type = energy amount > 375 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 5 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.6" allow = { from = { has_country_resource = { type = influence amount > 450 } has_country_resource = { type = energy amount > 450 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 6 } } } }
+	option = { name = "UniqueAscensionPerksEvents.252.7" allow = { from = { has_country_resource = { type = influence amount > 525 } has_country_resource = { type = energy amount > 525 } } } hidden_effect = { from = { set_variable = { which = "cloned_leader_number" value = 7 } } } }
 	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
@@ -219,7 +219,7 @@ country_event = {
 	is_triggered_only = yes
 	option = {
 		name = "UniqueAscensionPerksEvents.112.a"
-		allow = { resource_stockpile_compare = { resource = exotic_gases value > 500 } }
+		allow = { has_country_resource = { type = exotic_gases amount > 500 } }
 		add_resource = { exotic_gases = -500 }
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.113 } }
 	}
@@ -654,7 +654,7 @@ country_event = {
 		add_monthly_resource_mult = { resource = society_research value = 1 min = 14000 max = 14000 }
 		realm_clear_flags = yes
 	}
-	option = { name = "UniqueAscensionPerksEvents.114.Activate" trigger = { has_country_flag = realm_destination_dropper }	allow = { resource_stockpile_compare = { resource = food value > 1500 } } add_resource = { energy = -1500 } realm_destination_dropper = yes }
+	option = { name = "UniqueAscensionPerksEvents.114.Activate" trigger = { has_country_flag = realm_destination_dropper }	allow = { has_country_resource = { type = food amount > 1500 } } add_resource = { energy = -1500 } realm_destination_dropper = yes }
 	option = { name = OK trigger = { has_country_flag = realm_destination_dropper_activated has_country_flag = realm_destination_dropper_nothing } custom_tooltip = "TRADE_OFFER_NOTHING" realm_destination_restart_or_not = yes }
 	option = { name = OK trigger = { has_country_flag = realm_destination_dropper_activated has_country_flag = realm_destination_dropper_food_bad } add_resource = { food = 100 } realm_destination_restart_or_not = yes }
 	option = { name = OK trigger = { has_country_flag = realm_destination_dropper_activated has_country_flag = realm_destination_dropper_food_good } add_resource = { food = 1500 } realm_destination_restart_or_not = yes }
@@ -1031,8 +1031,8 @@ planet_event = {
 		allow = {
 			owner = {
 				OR = {
-					AND = { is_lithoid_empire = no resource_stockpile_compare = { resource = food value > 900 } }
-					AND = { is_lithoid_empire = yes resource_stockpile_compare = { resource = minerals value > 900 } }
+					AND = { is_lithoid_empire = no has_country_resource = { type = food amount > 900 } }
+					AND = { is_lithoid_empire = yes has_country_resource = { type = minerals amount > 900 } }
 				}
 			}
 			OR = {

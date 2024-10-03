@@ -108,10 +108,10 @@ active_cortana_ai = {
 			has_active_event = { CortanaEvent.0 CortanaEvent.1 }
 		}
 		OR = {
-			resource_stockpile_compare = { resource = energy value > 5000 }
+			has_country_resource = { type = energy amount > 5000 }
 			AND = {
 				has_technology = tech_cortana_optimized
-				resource_stockpile_compare = { resource = energy value > 4000 }
+				has_country_resource = { type = energy amount > 4000 }
 			}
 		}
 	}
@@ -173,7 +173,7 @@ leader_cloning = {
 	length = -1
 	resources = { category = edicts cost = { } }
 	allow = {
-		resource_stockpile_compare = { resource = influence value > 75 }
+		has_country_resource = { type = influence amount > 75 }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.103 } }
 	}
 	potential = { is_ai = no has_country_flag = super_hivemind_project }
@@ -205,7 +205,7 @@ science_ship_escort = {
 	resources = { category = edicts cost = { } }
 	allow = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.8059 } }
-		resource_stockpile_compare = { resource = energy value > 500 } resource_stockpile_compare = { resource = influence value > 10 }
+		has_country_resource = { type = energy amount > 500 } has_country_resource = { type = influence amount > 10 }
 	}
 	potential = { is_ai = no has_ascension_perk = ap_advanced_security }
 	effect = { country_event = { id = UniqueAscensionPerksEvents.8059 } }
@@ -323,7 +323,7 @@ awaken_fallen_empire = {
 	length = -1
 	resources = { category = edicts cost = { } }
 	allow = {
-		resource_stockpile_compare = { resource = influence value >= 950 }
+		has_country_resource = { type = influence amount >= 950 }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.72 } }
 	}
 	potential = { is_ai = no has_country_flag = fallen_disciple_project }
@@ -342,16 +342,16 @@ void_expedition_menu = {
 	resources = { category = edicts cost = { } }
 	allow = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.145 } }
-		resource_stockpile_compare = { resource = energy value > 500 }
+		has_country_resource = { type = energy amount > 500 }
 		OR = {
 			AND = {
 				NOT = { has_country_flag = move_to_next_sector_cooldown }
-				resource_stockpile_compare = { resource = energy value > 3000 }
-				resource_stockpile_compare = { resource = sr_dark_matter value > 50 }
+				has_country_resource = { type = energy amount > 3000 }
+				has_country_resource = { type = sr_dark_matter amount > 50 }
 			}
 			AND = {
 				NOT = { has_country_flag = build_expedition_ship_cooldown }
-				resource_stockpile_compare = { resource = alloys value > 600 }
+				has_country_resource = { type = alloys amount > 600 }
 				check_variable = { which = expedition_research_ships value < 40 }
 			}
 		}
@@ -377,8 +377,8 @@ mechanical_prophet_menu = {
 	resources = { category = edicts cost = { } }
 	# resources = { category = edicts cost = { energy = 50000 influence = 200 } }
 	allow = {
-		resource_stockpile_compare = { resource = energy value > 50000 }
-		resource_stockpile_compare = { resource = influence value > 200 }
+		has_country_resource = { type = energy amount > 50000 }
+		has_country_resource = { type = influence amount > 200 }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.202 } }
 	}
 	potential = { is_ai = no has_country_flag = ap_mechanical_prophet_project }
@@ -395,9 +395,9 @@ machine_infiltration_menu = {
 	resources = { category = edicts cost = { } }
 	# resources = { category = edicts cost = { energy = 10000 unity = 1000 influence = 50 } }
 	allow = {
-		resource_stockpile_compare = { resource = energy value > 10000 }
-		resource_stockpile_compare = { resource = unity value > 1000 }
-		resource_stockpile_compare = { resource = influence value > 50 }
+		has_country_resource = { type = energy amount > 10000 }
+		has_country_resource = { type = unity amount > 1000 }
+		has_country_resource = { type = influence amount > 50 }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.206 } }
 	}
 	potential = { is_ai = no has_ascension_perk = ap_mechanical_prophet }
@@ -426,7 +426,7 @@ leader_uploading = {
 	resources = { category = edicts cost = { } }
 	# resources = { category = edicts cost = { energy = 100 } }
 	allow = {
-		resource_stockpile_compare = { resource = energy value > 800 }
+		has_country_resource = { type = energy amount > 800 }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.251 } }
 	}
 	potential = { is_ai = no has_ascension_perk = ap_leadership_transfer }
@@ -535,14 +535,14 @@ anti_matter_menu = {
 	resources = { category = edicts cost = { } }
 	allow = {
 		OR = {
-			resource_stockpile_compare = { resource = anti_matter value > 400 }
+			has_country_resource = { type = anti_matter amount > 400 }
 			NAND = { has_country_flag = white_hole_detection_cooldown has_country_flag = space_clouds_generation_cooldown }
 			AND = {
 				check_variable = { which = white_hole_systems value < 9 }
 				event_target:global_event_country = { check_variable = { which = white_hole_systems value < 36 } }
 			}
 			AND = {
-				resource_stockpile_compare = { resource = anti_matter value > 500 }
+				has_country_resource = { type = anti_matter amount > 500 }
 				has_technology = tech_space_cloud_weapon_1
 				count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = space_clouds_generation_fleet } }
 			}

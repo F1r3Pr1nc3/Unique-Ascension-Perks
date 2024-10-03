@@ -42,14 +42,14 @@ planet_event = {
 
 		while = { count = 9
 			random_owned_pop = {
-				limit = { NOR = { is_robot_pop = yes is_valuable_pop = yes } }
+				limit = { is_robot_pop = no is_valuable_pop = no }
 				prev = { create_pop = { species = prev } } }
 		}
 		if = {
 			limit = { owner = { is_hive_empire = yes } }
 			while = { count = 3
 				random_owned_pop = {
-					limit = { NOR = { is_robot_pop = yes is_valuable_pop = yes } }
+					limit = { is_robot_pop = no is_valuable_pop = no }
 					prev = { create_pop = { species = prev } }
 				}
 			}
@@ -393,20 +393,21 @@ planet_event = {
 	option = { name = EXCELLENT }
 }
 
-# Automation (on_yearly_pulse_country)
+# Automation (on_bi_yearly_pulse_country)
 country_event = {
 	id = UniqueAscensionPerksEvents.4151
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		is_ai = no
 		has_ascension_perk = ap_genius_cloning
 		has_country_flag = ap_genius_cloning_auto
 		income > 90
-		resource_stockpile_compare = { resource = energy value > 5000 }
+		has_country_resource = { type = energy amount > 5000 }
 		OR = {
-			AND = { is_hive_empire = yes resource_stockpile_compare = { resource = energy value > 7500 } }
-			AND = { is_lithoid_empire = yes resource_stockpile_compare = { resource = minerals value > 12000 } }
-			AND = { is_lithoid_empire = no resource_stockpile_compare = { resource = food value > 12000 } }
+			AND = { is_hive_empire = yes has_country_resource = { type = energy amount > 7500 } }
+			AND = { is_lithoid_empire = yes has_country_resource = { type = minerals amount > 12000 } }
+			AND = { is_lithoid_empire = no has_country_resource = { type = food amount > 12000 } }
 		}
 		any_owned_planet = {
 			NOR = {
@@ -417,11 +418,11 @@ country_event = {
 				free_housing < 1
 				any_owned_pop = {
 					is_unemployed = yes
-					NOR = { is_robot_pop = yes is_valuable_pop = yes }
+					is_robot_pop = no is_valuable_pop = no
 				}
 			}
 			any_owned_pop = {
-				NOR = { is_robot_pop = yes is_valuable_pop = yes }
+				is_robot_pop = no is_valuable_pop = no
 			}
 		}
 	}
@@ -436,11 +437,11 @@ country_event = {
 					free_housing < 1
 					any_owned_pop = {
 						is_unemployed = yes
-						NOR = { is_robot_pop = yes is_valuable_pop = yes }
+						is_robot_pop = no is_valuable_pop = no
 					}
 				}
 				any_owned_pop = {
-					NOR = { is_robot_pop = yes is_valuable_pop = yes }
+					is_robot_pop = no is_valuable_pop = no
 				}
 			}
 			planet_event = { id = UniqueAscensionPerksEvents.42 }
@@ -534,32 +535,33 @@ country_event = {
 # 	}
 # }
 
-# Automation (on_yearly_pulse_country)
+# Automation (on_bi_yearly_pulse_country)
 country_event = {
 	id = UniqueAscensionPerksEvents.6161
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		is_ai = no
 		has_ascension_perk = ap_robot_command
 		has_country_flag = ap_robot_command_auto
 		income > 90
 		OR = {
 			AND = {
 				is_machine_empire = yes
-				resource_stockpile_compare = { resource = energy value > 7000 }
-				resource_stockpile_compare = { resource = minerals value > 15000 }
-				resource_stockpile_compare = { resource = alloys value > 1500 }
+				has_country_resource = { type = energy amount > 7000 }
+				has_country_resource = { type = minerals amount > 15000 }
+				has_country_resource = { type = alloys amount > 1500 }
 			}
 			AND = {
 				NOR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers }
-				resource_stockpile_compare = { resource = energy value > 5000 }
-				resource_stockpile_compare = { resource = minerals value > 10000 }
-				resource_stockpile_compare = { resource = alloys value > 1000 }
+				has_country_resource = { type = energy amount > 5000 }
+				has_country_resource = { type = minerals amount > 10000 }
+				has_country_resource = { type = alloys amount > 1000 }
 			}
 			AND = {
-				resource_stockpile_compare = { resource = energy value > 6500 }
-				resource_stockpile_compare = { resource = minerals value > 13000 }
-				resource_stockpile_compare = { resource = alloys value > 1350 }
+				has_country_resource = { type = energy amount > 6500 }
+				has_country_resource = { type = minerals amount > 13000 }
+				has_country_resource = { type = alloys amount > 1350 }
 			}
 		}
 		any_owned_planet = {

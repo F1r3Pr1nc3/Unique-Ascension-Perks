@@ -216,9 +216,9 @@ decision_genious_pregnancy = {
 		cost = { trigger = { owner = { is_lithoid = no } } food = 1000 }
 	}
 	potential = {
-		exists = from
-		from = { has_ascension_perk = ap_genius_cloning }
 		is_under_colonization = no
+		can_generate_trade_value = yes
+		owner = { has_ascension_perk = ap_genius_cloning }
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_1" any_owned_pop = { is_robot_pop = no } }
@@ -238,7 +238,11 @@ decision_genious_pregnancy = {
 			}
 		}
 	}
-	ai_weight = { weight = 1 }
+	ai_weight = {
+		weight = 1
+		modifier = { factor = 0 free_housing < 1 }
+		modifier = { factor = 5 num_pops < 30 }
+	}
 }
 
 # Copy of decision_planet_food_boost
@@ -265,6 +269,7 @@ decision_genious_pregnancy2 = {
 		weight = 5
 		# don't encourage growth if there is no free housing
 		modifier = { factor = 0 free_housing < 1 }
+		modifier = { factor = 5 num_pops < 30 }
 	}
 }
 
@@ -276,13 +281,12 @@ decision_robot_command = {
 		category = decisions
 		cost = { energy = 500 minerals = 1000 alloys = 100 }
 		cost = { trigger = { owner = { is_machine_empire = yes } } energy = 200 minerals = 500 alloys = 50 }
-		cost = { trigger = { owner = { has_technology = tech_droid_workers } } energy = 150 minerals = 300 alloys = 35 }
-		cost = { trigger = { owner = { has_technology = tech_synthetic_workers } } energy = 150 minerals = 300 alloys = 35 }
+		cost = { trigger = { owner = { OR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers } } energy = 150 minerals = 300 alloys = 35 }
 	}
 	potential = {
-		exists = from
-		from = { has_ascension_perk = ap_robot_command }
+		can_generate_trade_value = yes
 		is_under_colonization = no
+		owner = { has_ascension_perk = ap_robot_command }
 	}
 	allow = {
 		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } } }
@@ -301,7 +305,11 @@ decision_robot_command = {
 			}
 		}
 	}
-	ai_weight = { weight = 1 }
+	ai_weight = {
+		weight = 1
+		modifier = { factor = 0 free_housing < 1 }
+		modifier = { factor = 5 num_pops < 30 }
+	}
 }
 
 decision_robot_command2 = {
@@ -335,6 +343,7 @@ decision_robot_command2 = {
 		weight = 4
 		# don't encourage growth if there is no free housing
 		modifier = { factor = 0 free_housing < 1 }
+		modifier = { factor = 5 num_pops < 30 }
 	}
 }
 

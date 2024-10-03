@@ -90,16 +90,16 @@ country_event = {
 			has_country_flag = build_expedition_ship_cooldown
 			has_country_flag = move_to_next_sector_cooldown
 		}
-		resource_stockpile_compare = { resource = energy value > 500 }
+		has_country_resource = { type = energy amount > 500 }
 		OR = {
 			AND = {
 				NOT = { has_country_flag = move_to_next_sector_cooldown }
-				resource_stockpile_compare = { resource = energy value > 3000 }
-				resource_stockpile_compare = { resource = sr_dark_matter value > 50 }
+				has_country_resource = { type = energy amount > 3000 }
+				has_country_resource = { type = sr_dark_matter amount > 50 }
 			}
 			AND = {
 				NOT = { has_country_flag = build_expedition_ship_cooldown }
-				resource_stockpile_compare = { resource = alloys value > 600 }
+				has_country_resource = { type = alloys amount > 600 }
 				check_variable = { which = expedition_research_ships value < 40 }
 			}
 		}
@@ -107,8 +107,8 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.145.Build"
 		allow = {
-			resource_stockpile_compare = { resource = alloys value > 600 }
-			resource_stockpile_compare = { resource = energy value > 500 }
+			has_country_resource = { type = alloys amount > 600 }
+			has_country_resource = { type = energy amount > 500 }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.145.Req01 NOT = { has_country_flag = build_expedition_ship_cooldown } }
 			custom_tooltip = {
 				fail_text = UniqueAscensionPerksEvents.145.Req02
@@ -159,8 +159,8 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.145.Move"
 		allow = {
-			resource_stockpile_compare = { resource = energy value > 3000 }
-			resource_stockpile_compare = { resource = sr_dark_matter value > 50 }
+			has_country_resource = { type = energy amount > 3000 }
+			has_country_resource = { type = sr_dark_matter amount > 50 }
 			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.145.Req03 NOT = { has_country_flag = move_to_next_sector_cooldown } }
 		}
 		custom_tooltip = "UniqueAscensionPerksEvents.145.Move.tooltip"

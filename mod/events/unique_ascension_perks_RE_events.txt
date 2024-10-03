@@ -1,0 +1,452 @@
+namespace = UniqueAscensionPerksEvents
+######################################
+#									 #
+####### Recycling Expeditions ########
+#									 #
+######################################
+
+country_event = {
+	id = UniqueAscensionPerksEvents.47
+	title = "ap_recycling_drones"
+	desc = "ap_recycling_drones_desc"
+	show_sound = event_construction
+	picture = GFX_evt_scavenger_bot
+	location = event_target:capital_planet
+	is_triggered_only = yes
+	immediate = { get_capital_planet = yes }
+	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_RECOVER_SHIPS location = event_target:capital_planet owner = root } }
+}
+
+# TODO needs more ship classes
+# on_ship_destroyed_victim
+country_event = {
+	id = UniqueAscensionPerksEvents.48
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		has_ascension_perk = ap_recycling_drones
+		exists = fromfrom
+		exists = fromfrom.solar_system
+		has_country_flag = ap_recycling_drones_project
+	}
+	immediate = {
+		# TODO use salvage_ships_from_debris
+		fromfrom = {
+			if = {
+				limit = {
+					# exists = solar_system
+					root = {
+						any_available_debris = {
+							exists = solar_system
+							solar_system = { is_same_value = prevprevprev.solar_system }
+							# num_ships_in_debris = { ship_size = root.fromfrom value > 0 } scope not working?
+						}
+					}
+				}
+				# perform_recover_ship_check = yes
+				reroll_random = yes
+				random = { chance = 33.4
+					switch = { trigger = is_ship_size
+						corvette	= { ROOT = { change_variable = { which = ship_corvette_recovered value = 1 } } }
+						frigate		= { ROOT = { change_variable = { which = ship_frigate_recovered value = 1 } } }
+						destroyer	= { ROOT = { change_variable = { which = ship_destroyer_recovered value = 1 } } }
+						cruiser		= { ROOT = { change_variable = { which = ship_cruiser_recovered value = 1 } } }
+						battleship	= { ROOT = { change_variable = { which = ship_battleship_recovered value = 1 } } }
+						titan		= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
+						juggernaut	= { ROOT = { change_variable = { which = ship_titan_recovered value = 1 } } }
+					}
+				}
+			}
+			# TODO does not work in country scope (as documented)
+			# has_existing_ship_design = corvette
+			# has_existing_ship_design = destroyer
+			# has_existing_ship_design = cruiser
+			# has_existing_ship_design = battleship
+			# has_existing_ship_design = titan
+			# perform_recycling_expedition = yes
+			switch = { trigger = is_ship_size
+				# Default Empire
+				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
+				research_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				# Pirates
+				pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Marauders
+				marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				# Fallen Empire
+				massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Ancient Drone
+				ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
+				ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Contingency
+				small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+				final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
+				construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				# Leviathans
+				npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+			}
+		}
+	}
+}
+# Initial Project
+country_event = {
+	id = UniqueAscensionPerksEvents.49
+	title = "RECYCLE_RECOVER_SHIPS"
+	desc = "UniqueAscensionPerksEvents.49.Desc"
+	show_sound = event_construction
+	picture = GFX_evt_scavenger_bot
+	location = event_target:capital_planet
+	is_triggered_only = yes
+	immediate = {
+		get_capital_planet = yes
+		set_country_flag = ap_recycling_drones_project
+		set_variable = { which = ship_corvette_recovered value = 0 }
+		set_variable = { which = ship_frigate_recovered value = 0 }
+		set_variable = { which = ship_destroyer_recovered value = 0 }
+		set_variable = { which = ship_cruiser_recovered value = 0 }
+		set_variable = { which = ship_battleship_recovered value = 0 }
+		set_variable = { which = ship_titan_recovered value = 0 }
+	}
+	option = {
+		name = EXCELLENT
+		custom_tooltip = "ap_recycling_drones_tooltip_3"
+		hidden_effect = {
+			event_target:capital_planet = {
+				planet_event = { id = UniqueAscensionPerksEvents.4153 days = 30 random = 30 }
+				solar_system = { set_star_flag = recycle_fleet_spawn_system }
+			}
+		}
+	}
+}
+
+# on_ship_destroyed_perp
+country_event = {
+	id = UniqueAscensionPerksEvents.50
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = { has_ascension_perk = ap_recycling_drones } # has_country_flag = ap_recycling_drones_project
+	immediate = {
+		fromfromfrom = {
+			# TODO extend
+			switch = { trigger = is_ship_size
+				# Default Empire
+				science						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				constructor					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colonizer					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				sponsored_colonizer			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				corvette					= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				frigate						= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				destroyer					= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				cruiser						= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				battleship					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				titan						= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				colossus					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				juggernaut 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				crisis_corvette 			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				crisis_destroyer 			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				crisis_cruiser 				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				star_eater 					= { ROOT = { add_resource = { minerals = 2160 alloys = 640 } } }
+				military_station_small		= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_medium		= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				military_station_large		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				ion_cannon					= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				mining_station				= { ROOT = { add_resource = { minerals = 25 } } }
+				research_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				observation_station			= { ROOT = { add_resource = { minerals = 25 } } }
+				# Pirates
+				pirate_corvette				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				pirate_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				pirate_cruiser				= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				galleon						= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				pirate_station				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Marauders
+				marauder_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				marauder_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_cruiser			= { ROOT = { add_resource = { minerals = 320 alloys = 80 } } }
+				marauder_galleon			= { ROOT = { add_resource = { minerals = 1000 alloys = 160 } } }
+				marauder_station			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				marauder_void_dwelling		= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				# Fallen Empire
+				massive_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 1080 alloys = 320 } } }
+				large_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				small_ship_fallen_empire	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Ancient Drone
+				ancient_mining_drone		= { ROOT = { add_resource = { minerals = 40 alloys = 10 } } }
+				ancient_corvette			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				ancient_destroyer			= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				# Contingency
+				small_ship_ai				= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				large_ship_ai				= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				military_station_small_ai	= { ROOT = { add_resource = { minerals = 160 alloys = 40 } } }
+				military_station_large_ai	= { ROOT = { add_resource = { minerals = 640 alloys = 160 } } }
+				core_ai						= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+				final_core_ai				= { ROOT = { add_resource = { minerals = 8640 alloys = 2560 } } }
+				construction_ship_ai		= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				colony_ship_ai				= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				transport_ship_ai			= { ROOT = { add_resource = { minerals = 80 alloys = 20 } } }
+				# Leviathans
+				npc_warship_01				= { ROOT = { add_resource = { minerals = 4320 alloys = 1280 } } }
+			}
+		}
+	}
+}
+# on_yearly_pulse
+# event = {
+# 	id = UniqueAscensionPerksEvents.51
+# 	hide_window = yes
+# 	is_triggered_only = yes
+# 	immediate = {
+# 		random_playable_country = {
+# 			limit = {
+# 				has_country_flag = ap_recycling_drones_project
+# 				OR = {
+# 					check_variable = { which = ship_corvette_recovered value > 0 }
+# 					check_variable = { which = ship_frigate_recovered value > 0 }
+# 					check_variable = { which = ship_destroyer_recovered value > 0 }
+# 					check_variable = { which = ship_cruiser_recovered value > 0 }
+# 					check_variable = { which = ship_battleship_recovered value > 0 }
+# 					check_variable = { which = ship_titan_recovered value > 0 }
+# 				}
+# 			}
+# 			country_event = { id = UniqueAscensionPerksEvents.52 days = 5 }
+# 		}
+# 	}
+# }
+
+country_event = {
+	id = UniqueAscensionPerksEvents.52
+	title = "UniqueAscensionPerksEvents.52.Name"
+	desc = "UniqueAscensionPerksEvents.52.Desc"
+	show_sound = event_construction
+	picture = GFX_evt_scavenger_bot
+	location = event_target:recovery_fleet_position
+	is_triggered_only = yes
+	immediate = {
+		# perform_recovery_fleet = yes
+		random_system_within_border = {
+			limit = { has_star_flag = recycle_fleet_spawn_system }
+			if = {
+				limit = { exists = starbase }
+				starbase = { save_event_target_as = recovery_fleet_position }
+			}
+			else = { system_star = { save_event_target_as = recovery_fleet_position } }
+		}
+		# 2nd fallback
+		if = {
+			limit = { NOT = { exists = event_target:recovery_fleet_position } }
+			random_system_within_border = {
+				limit = { exists = starbase }
+				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
+				starbase = { save_event_target_as = recovery_fleet_position }
+			}
+		}
+		# Last fallback
+		if = {
+			limit = { NOT = { exists = event_target:recovery_fleet_position } }
+			get_capital_planet = yes
+			event_target:capital_planet.system_star = { save_event_target_as = recovery_fleet_position }
+		}
+		# FIXME: invalid design for create_ship v.3.9
+		create_fleet = {
+			name = "UniqueAscensionPerksEvents.52.Name" # "Recovered Fleet"
+			settings = { spawn_debris = no }
+			effect = {
+				set_owner = prev
+				if = {
+					limit = { ROOT = { has_country_flag = ap_recycling_drones_project_upgrade } }
+					while = { count = root.ship_corvette_recovered
+						create_ship = { name = random random_existing_design = corvette }
+					}
+					while = { count = root.ship_frigate_recovered
+						create_ship = { name = random random_existing_design = frigate }
+					}
+					while = { count = root.ship_destroyer_recovered
+						create_ship = { name = random random_existing_design = destroyer }
+					}
+					while = { count = root.ship_cruiser_recovered
+						create_ship = { name = random random_existing_design = cruiser }
+					}
+					while = { count = root.ship_battleship_recovered
+						create_ship = { name = random random_existing_design = battleship }
+					}
+					while = { count = root.ship_titan_recovered
+						create_ship = { name = random random_existing_design = titan }
+					}
+				}
+				else = {
+					while = { count = root.ship_corvette_recovered
+						create_ship = { name = random design = "Standard Basic Corvette" }
+					}
+					while = { count = root.ship_frigate_recovered
+						create_ship = { name = random design = "Standard Basic Frigate" }
+					}
+					while = { count = root.ship_destroyer_recovered
+						create_ship = { name = random design = "Standard Basic Destroyer" }
+					}
+					while = { count = root.ship_cruiser_recovered
+						create_ship = { name = random design = "Standard Basic Cruiser" }
+					}
+					while = { count = root.ship_battleship_recovered
+						create_ship = { name = random design = "Standard Basic Battleship" }
+					}
+					while = { count = root.ship_titan_recovered
+						create_ship = { name = random design = "Standard Basic Titan" }
+					}
+				}
+				set_location = { target = event_target:recovery_fleet_position distance = 8 angle = random }
+				# set_fleet_stance = aggressive error.log: not supported by this fleet?
+				set_aggro_range_measure_from = self
+				set_aggro_range = 1000
+				set_fleet_flag = recovery_fleet
+			}
+		}
+	}
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			set_variable = { which = ship_corvette_recovered value = 0 }
+			set_variable = { which = ship_frigate_recovered value = 0 }
+			set_variable = { which = ship_destroyer_recovered value = 0 }
+			set_variable = { which = ship_cruiser_recovered value = 0 }
+			set_variable = { which = ship_battleship_recovered value = 0 }
+			set_variable = { which = ship_titan_recovered value = 0 }
+		}
+	}
+}
+
+# From = owner
+planet_event = {
+	id = UniqueAscensionPerksEvents.4153
+	title = "RECYCLE_PERFORM_SHIPS"
+	desc = "RECYCLE_PERFORM_SHIPS_DESC"
+	show_sound = event_construction
+	picture = GFX_evt_scavenger_bot
+	location = root
+	pre_triggers = { has_owner = yes }
+	is_triggered_only = yes
+	trigger = {
+		exists = from
+		from = { NOR = { has_country_flag = ap_recycling_drones_project_upgrade_added has_country_flag = ap_recycling_drones_project_upgrade } }
+	}
+	immediate = {
+		from = { set_country_flag = ap_recycling_drones_project_upgrade_added }
+	}
+	option = { name = EXCELLENT enable_special_project = { name = RECYCLE_PERFORM_SHIPS location = root owner = root.from } }
+}
+
+planet_event = {
+	id = UniqueAscensionPerksEvents.3054
+	title = "RECYCLE_PERFORM_SHIPS"
+	desc = "UniqueAscensionPerksEvents.3054.Desc"
+	show_sound = event_construction
+	picture = GFX_evt_scavenger_bot
+	location = root
+	pre_triggers = { has_owner = yes }
+	trigger = {
+		exists = owner # pre_trigger seems not sufficient
+	}
+	is_triggered_only = yes
+	immediate = {
+		owner = { set_country_flag = ap_recycling_drones_project_upgrade remove_country_flag = ap_recycling_drones_project_upgrade_added }
+	}
+	option = { name = EXCELLENT }
+}
+# Edict
+country_event = {
+	id = UniqueAscensionPerksEvents.3055
+	title = "UniqueAscensionPerksEvents.3055.Name"
+	desc = "UniqueAscensionPerksEvents.3055.Desc"
+	show_sound = event_construction
+	picture = GFX_evt_space_station
+	is_triggered_only = yes
+	immediate = {
+		random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } }
+			save_event_target_as = recycle_system_1
+			root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOT = { is_same_value = event_target:recycle_system_1 } }
+				save_event_target_as = recycle_system_2
+				root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 } }
+					save_event_target_as = recycle_system_3
+					root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 is_same_value = event_target:recycle_system_3 } }
+						save_event_target_as = recycle_system_4
+						root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 is_same_value = event_target:recycle_system_3 is_same_value = event_target:recycle_system_4 } }
+							save_event_target_as = recycle_system_5
+							root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_module = shipyard } NOR = { is_same_value = event_target:recycle_system_1 is_same_value = event_target:recycle_system_2 is_same_value = event_target:recycle_system_3 is_same_value = event_target:recycle_system_4 is_same_value = event_target:recycle_system_5 } } save_event_target_as = recycle_system_6 } }
+						} }
+					} }
+				} }
+			} }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3055.System.1
+		trigger = { exists = event_target:recycle_system_1 }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_1 = { set_star_flag = recycle_fleet_spawn_system } }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3055.System.2
+		trigger = { exists = event_target:recycle_system_2 }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_2 = { set_star_flag = recycle_fleet_spawn_system } }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3055.System.3
+		trigger = { exists = event_target:recycle_system_3 }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_3 = { set_star_flag = recycle_fleet_spawn_system } }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3055.System.4
+		trigger = { exists = event_target:recycle_system_4 }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_4 = { set_star_flag = recycle_fleet_spawn_system } }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3055.System.5
+		trigger = { exists = event_target:recycle_system_5 }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_5 = { set_star_flag = recycle_fleet_spawn_system } }
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.3055.System.6
+		trigger = { exists = event_target:recycle_system_6 }
+		hidden_effect = { every_system_within_border = { limit = { has_star_flag = recycle_fleet_spawn_system } remove_star_flag = recycle_fleet_spawn_system } event_target:recycle_system_6 = { set_star_flag = recycle_fleet_spawn_system } }
+	}
+	option = { name = "UniqueAscensionPerksEvents.3055.Select" ai_chance = { factor = 0.1 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3055 } } }
+	option = { name = CANCEL ai_chance = { factor = 0.1 } default_hide_option = yes }
+}
