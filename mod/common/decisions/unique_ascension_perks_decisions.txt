@@ -217,6 +217,7 @@ decision_genious_pregnancy = {
 	}
 	potential = {
 		is_under_colonization = no
+		num_sapient_pops > 0
 		can_generate_trade_value = yes
 		owner = { has_ascension_perk = ap_genius_cloning }
 	}
@@ -255,9 +256,14 @@ decision_genious_pregnancy2 = {
 		cost = { food = 1000 }
 	}
 	potential = {
-		exists = from
-		from = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
-		NOR = { has_modifier = planet_growth_discouraged has_modifier = planet_population_control is_under_colonization = yes }
+		exists = owner
+		owner = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
+		NOR = {
+			num_sapient_pops = 0
+			is_under_colonization = yes
+			has_modifier = planet_growth_discouraged
+			has_modifier = planet_population_control
+		}
 	}
 	allow = {
 		NOT = { has_modifier = planet_food_boost }
@@ -281,16 +287,16 @@ decision_robot_command = {
 		category = decisions
 		cost = { energy = 500 minerals = 1000 alloys = 100 }
 		cost = { trigger = { owner = { is_machine_empire = yes } } energy = 200 minerals = 500 alloys = 50 }
-		cost = { trigger = { owner = { OR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers } } energy = 150 minerals = 300 alloys = 35 }
+		cost = { trigger = { owner = { OR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers } } } energy = 150 minerals = 300 alloys = 35 }
 	}
 	potential = {
-		can_generate_trade_value = yes
 		is_under_colonization = no
+		can_generate_trade_value = yes
 		owner = { has_ascension_perk = ap_robot_command }
 	}
 	allow = {
-		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } } }
 		custom_tooltip = { fail_text = "decision_robot_command_req_1" NOT = { has_planet_flag = decision_robot_command_cooldown } }
+		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } } }
 	}
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
@@ -322,16 +328,16 @@ decision_robot_command2 = {
 		cost = { minerals = 500 alloys = 250 }
 	}
 	potential = {
-		exists = from
-		from = { has_ascension_perk = ap_robot_command }
+		exists = owner
+		owner = { has_ascension_perk = ap_robot_command }
 		NOR = {
+			is_under_colonization = yes
 			has_modifier = broken_assembly_line
 			# has_modifier = martial_law
 			# has_modifier = hunter_killer_drones
 			has_modifier = compliance_protocols
 			has_modifier = planet_robot_assembly_control
 		}
-		is_under_colonization = no
 	}
 	allow = {
 		NOT = { has_modifier = planet_alloy_boost }
