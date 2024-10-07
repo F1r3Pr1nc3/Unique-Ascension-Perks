@@ -52,7 +52,7 @@ create_domestication_spaceborn_alien_country = {
 					set_country_flag = first_alien_life
 					set_country_flag = has_encountered_other_empire
 					every_country = {
-						limit = { has_communications = event_target:main_country }
+						limit = { is_country_type_with_subjects = yes has_communications = event_target:main_country }
 						establish_communications_no_message = prev
 					}
 					add_modifier = { modifier = domesticated_aliens }
@@ -75,6 +75,7 @@ create_domestication_spaceborn_alien_country = {
 					add_modifier = { modifier = pledged_allegiance }
 					add_modifier = { modifier = pledge_loyalty_2 }
 					event_target:main_country = {
+						establish_communications_no_message = prev
 						switch = { trigger = has_country_flag
 							space_domestication_tiyanki	= { prev = { set_country_flag = domesticated_spaceborn_alien_tiyanki } }
 							space_domestication_amoeba	= { prev = { set_country_flag = domesticated_spaceborn_alien_amoeba } }

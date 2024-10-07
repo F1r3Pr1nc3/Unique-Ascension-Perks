@@ -1,209 +1,3 @@
-# ENREGISTRER LES IMAGES EN .dds option A8R8G8B8
-decision_stellar_manipulation = {
-	sound = event_alien_nature
-	resources = {
-		category = decisions
-		cost = {
-			trigger = { exists = owner owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } }
-			minerals = 4000 food = 2000 exotic_gases = 50
-		}
-		cost = { trigger = { has_global_flag = ap_stellar_manipulation } food = 500 minerals = 500 }
-	}
-	potential = {
-		exists = from
-		exists = space_owner
-		space_owner = { is_same_empire = from }
-		OR = { has_global_flag = ap_stellar_manipulation from = { has_ascension_perk = ap_stellar_manipulation } }
-		is_a_habitable_planet_megastructure = yes
-	}
-	# prerequisites = { "tech_penal_colonies" }
-	effect = {
-		custom_tooltip = "decision_stellar_manipulation_tooltip"
-		hidden_effect = {
-			reroll_planet = yes
-			if = {
-				limit = { has_global_flag = has_guillis_planet_modifiers_mod }
-				gpm_purge_all_planetary_modifiers = yes
-				gpm_roll_normal_habitable_modifiers = yes
-			}
-			while = { count = 15 random = { chance = 50 add_random_non_blocker_deposit = yes } }
-			planet_event = { id = UniqueAscensionPerksEvents.4025 }
-		}
-	}
-	ai_weight = { weight = 1 }
-}
-
-#####################################
-#									#
-########## Friendly Nature ##########
-#									#
-#####################################
-decision_nature_pacification = {
-	owned_planets_only = yes
-	sound = event_alien_nature
-	enactment_time = 360
-	resources = { category = decisions cost = { energy = 1000 food = 1500 } }
-	potential = {
-		NOT = { has_planet_flag = planet_nature_pacified }
-		can_find_rare_deposits = yes
-		exists = from
-		from = { has_ascension_perk = ap_friendly_nature } is_under_colonization = no
-	}
-	effect = {
-		custom_tooltip = "decision_nature_pacification_tooltip"
-		hidden_effect = {
-			# nature_pacification_effect = yes
-			### (Mod) Guilli Planet Modifier - compatibility
-			set_planet_flag = planet_nature_pacified
-			planet_event = { id = UniqueAscensionPerksEvents.60 }
-			# Green Modifers (Unused) ===> titanic_life asteroid_belt carbon_world
-			# Yellow Modifiers ( 70% Chances to be Removed & 80% Chances to Add Their Opposite Green Modifier if it exists)
-			if = { limit = { has_modifier = hazardous_weather } random = { chance = 30 remove_modifier = hazardous_weather } }
-			if = { limit = { has_modifier = dangerous_wildlife } random = { chance = 30 remove_modifier = dangerous_wildlife } }
-			if = { limit = { has_modifier = asteroid_impacts } random = { chance = 30 remove_modifier = asteroid_impacts } }
-			if = { limit = { has_modifier = wild_storms } random = { chance = 30 remove_modifier = wild_storms } }
-			if = { limit = { has_modifier = asteroid_impacts } random = { chance = 30 remove_modifier = asteroid_impacts } }
-			if = { limit = { has_modifier = low_gravity } random = { chance = 30 remove_modifier = low_gravity } }
-			if = { limit = { has_modifier = high_gravity } random = { chance = 30 remove_modifier = high_gravity } }
-			if = { limit = { has_modifier = atmospheric_aphrodisiac } random = { chance = 30 remove_modifier = atmospheric_aphrodisiac } }
-			if = { limit = { has_modifier = atmospheric_hallucinogen } random = { chance = 30 remove_modifier = atmospheric_hallucinogen } random = { chance = 80 add_modifier = { modifier = atmospheric_hallucinogen_good } } }
-			### (Mod) Guilli Planet Modifier - Yellow Modifiers
-			# if = { limit = { has_modifier = frequent_thunderstorms } random = { chance = 30 remove_modifier = frequent_thunderstorms } }
-			if = { limit = { has_modifier = gpm_global_thunderstorms } random = { chance = 30 remove_modifier = gpm_global_thunderstorms } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_thin_atmospheres } random = { chance = 30 remove_modifier = gpm_thin_atmospheres } random = { chance = 80 add_modifier = { modifier = gpm_dense_atmospheres } } }
-			if = { limit = { has_modifier = gpm_strong_volcanism } random = { chance = 30 remove_modifier = gpm_strong_volcanism } }
-			if = { limit = { has_modifier = gpm_weak_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_weak_magnetic_field_2 } }
-			# if = { limit = { has_modifier = gpm_strong_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_strong_magnetic_field_2 } }
-			if = { limit = { has_modifier = gpm_asteroid_impacts_2 } random = { chance = 30 remove_modifier = gpm_asteroid_impacts_2 } }
-			if = { limit = { has_modifier = gpm_high_gravity_2 } random = { chance = 30 remove_modifier = gpm_high_gravity_2 } }
-			if = { limit = { has_modifier = gpm_magma_ocean } random = { chance = 30 remove_modifier = gpm_magma_ocean } }
-			if = { limit = { has_modifier = gpm_titanic_predators } random = { chance = 30 remove_modifier = gpm_titanic_predators } }
-			if = { limit = { has_modifier = gpm_artificial_water } random = { chance = 30 remove_modifier = gpm_artificial_water } }
-			if = { limit = { has_modifier = gpm_windy } random = { chance = 30 remove_modifier = gpm_windy } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_flat_terrain } random = { chance = 30 remove_modifier = gpm_flat_terrain } }
-			if = { limit = { has_modifier = gpm_rugged_terrain } random = { chance = 30 remove_modifier = gpm_rugged_terrain } }
-			if = { limit = { has_modifier = gpm_ice_age } random = { chance = 30 remove_modifier = gpm_ice_age } }
-			if = { limit = { has_modifier = gpm_seasonal_flooding } random = { chance = 30 remove_modifier = gpm_seasonal_flooding } }
-			if = { limit = { has_modifier = gpm_lingering_pollution } random = { chance = 30 remove_modifier = gpm_lingering_pollution } }
-			if = { limit = { has_modifier = gpm_thin_ozone_layer } random = { chance = 30 remove_modifier = gpm_thin_ozone_layer } }
-			# if = { limit = { has_modifier = Trubbles } random = { chance = 30 remove_modifier = Trubbles } }
-			# Red Modifiers ( Removed & 66% Chances to Add Their Opposite Green Modifier if it exists)
-			if = { limit = { has_modifier = weak_magnetic_field } remove_modifier = weak_magnetic_field random = { chance = 66 add_modifier = { modifier = strong_magnetic_field } } }
-			if = { limit = { has_modifier = unstable_tectonics } remove_modifier = unstable_tectonics }
-			if = { limit = { has_modifier = tidal_locked } remove_modifier = tidal_locked }
-			if = { limit = { has_modifier = mineral_poor } remove_modifier = mineral_poor random = { chance = 66 add_modifier = { modifier = mineral_rich } } }
-			if = { limit = { has_modifier = bleak_planet } remove_modifier = bleak_planet random = { chance = 66 add_modifier = { modifier = lush_planet } } }
-			if = { limit = { has_modifier = irradiated_planet } remove_modifier = irradiated_planet }
-			### (Mod) Guilli Planet Modifier - Red Modifiers
-			if = { limit = { has_modifier = gpm_unstable_tectonics_2 } remove_modifier = gpm_unstable_tectonics_2 }
-			if = { limit = { has_modifier = gpm_hostile_flora } remove_modifier = gpm_hostile_flora random = { chance = 66 add_modifier = { modifier = gpm_friendly_wildlife } } }
-			if = { limit = { has_modifier = gpm_toxic_gas } remove_modifier = gpm_toxic_gas }
-			if = { limit = { has_modifier = gpm_unusual_seasons } remove_modifier = gpm_unusual_seasons random = { chance = 66 add_modifier = { modifier = gpm_perfect_seasons } } }
-			if = { limit = { has_modifier = gpm_living_planet } remove_modifier = gpm_living_planet }
-			if = { limit = { has_modifier = gpm_simple_organisms } remove_modifier = gpm_simple_organisms random = { chance = 66 add_modifier = { modifier = gpm_newly_evolved_complex_organisms } } }
-			if = { limit = { has_modifier = gpm_unusual_formations } remove_modifier = gpm_unusual_formations }
-			if = { limit = { has_modifier = gpm_great_temperature_variation } remove_modifier = gpm_great_temperature_variation }
-			if = { limit = { has_modifier = gpm_locust_plagues } remove_modifier = gpm_locust_plagues }
-			if = { limit = { has_modifier = gpm_acidic_seas } remove_modifier = gpm_acidic_seas }
-			if = { limit = { has_modifier = gpm_resilent_parasites } remove_modifier = gpm_resilent_parasites random = { chance = 66 add_modifier = { modifier = gpm_symbiotic_life } } }
-			if = { limit = { has_modifier = gpm_arachnophobia } remove_modifier = gpm_arachnophobia }
-			if = { limit = { has_modifier = gpm_sandstorms } remove_modifier = gpm_sandstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
-			if = { limit = { has_modifier = gpm_sand_tornadoes } remove_modifier = gpm_sand_tornadoes random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_quicksand } remove_modifier = gpm_quicksand }
-			if = { limit = { has_modifier = gpm_furry_packs } remove_modifier = gpm_furry_packs }
-			if = { limit = { has_modifier = gpm_blizzards } remove_modifier = gpm_blizzards random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_abominable_predators } remove_modifier = gpm_abominable_predators random = { chance = 66 add_modifier = { modifier = gpm_empathic_life } } }
-			if = { limit = { has_modifier = gpm_carnivorous_flies } remove_modifier = gpm_carnivorous_flies }
-			if = { limit = { has_modifier = gpm_torrential_rainstorms } remove_modifier = gpm_torrential_rainstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
-			if = { limit = { has_modifier = gpm_massive_waves } remove_modifier = gpm_massive_waves random = { chance = 66 add_modifier = { modifier = gpm_ocean_currents } } }
-			if = { limit = { has_modifier = gpm_toxic_garbage } remove_modifier = gpm_toxic_garbage }
-			if = { limit = { has_modifier = gpm_oppressive_laws } remove_modifier = gpm_oppressive_laws random = { chance = 66 add_modifier = { modifier = gpm_rights_movement } } }
-			if = { limit = { has_modifier = gpm_synopsys_overload } remove_modifier = gpm_synopsys_overload }
-			if = { limit = { has_modifier = gpm_falling_behind } remove_modifier = gpm_falling_behind }
-			if = { limit = { has_modifier = gpm_solar_storm } remove_modifier = gpm_solar_storm }
-			# Add Green Modifiers
-			while = { count = 4
-				random_list = {
-					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = mineral_rich } }
-					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = ultra_rich } }
-					10 = { modifier = { factor = 0 OR = { has_modifier = lush_planet can_lush_planet = no } } add_modifier = { modifier = lush_planet } }
-					10 = { modifier = { factor = 0 has_modifier = natural_beauty } add_modifier = { modifier = natural_beauty } }
-					# 10 = { modifier = { factor = 0 OR = { has_modifier = extensive_moon_system has_moon = no } } add_modifier = { modifier = extensive_moon_system } }
-					### (Mod) Guilli Planet Modifier - Green Modifiers
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_highly_charged_air_particles } } add_modifier = { modifier = gpm_highly_charged_air_particles } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_single_biome } } add_modifier = { modifier = gpm_single_biome } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_hyper_complex_biome } } add_modifier = { modifier = gpm_hyper_complex_biome } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_dense_atmospheres } } add_modifier = { modifier = gpm_dense_atmospheres } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_mineral_rich_2 } } add_modifier = { modifier = gpm_mineral_rich_2 } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ultra_rich_2 } } add_modifier = { modifier = gpm_ultra_rich_2 } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_low_gravity_2 } } add_modifier = { modifier = gpm_low_gravity_2 } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_floating_islands } } add_modifier = { modifier = gpm_floating_islands } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_extensive_cavern_system } } add_modifier = { modifier = gpm_extensive_cavern_system } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_unnatural_world } } add_modifier = { modifier = gpm_unnatural_world } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_atmospheric_stimulant } } add_modifier = { modifier = gpm_atmospheric_stimulant } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_perfect_seasons } } add_modifier = { modifier = gpm_perfect_seasons } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ruined_battlefield } } add_modifier = { modifier = gpm_ruined_battlefield } } #
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_spaceship_graveyard } } add_modifier = { modifier = gpm_spaceship_graveyard } } #
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_gemstones } } add_modifier = { modifier = gpm_gemstones } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ideal_for_life } } add_modifier = { modifier = gpm_ideal_for_life } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_endless_fish } } add_modifier = { modifier = gpm_endless_fish } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_clear_skies } } add_modifier = { modifier = gpm_clear_skies } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_android_pleasure_palace } } add_modifier = { modifier = gpm_android_pleasure_palace } } #
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_melted_ice_caps } } add_modifier = { modifier = gpm_melted_ice_caps } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_newly_evolved_complex_organisms } } add_modifier = { modifier = gpm_newly_evolved_complex_organisms } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_delicious_ingredients } } add_modifier = { modifier = gpm_delicious_ingredients } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_recent_mass_extinction } } add_modifier = { modifier = gpm_recent_mass_extinction } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_friendly_wildlife } } add_modifier = { modifier = gpm_friendly_wildlife } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_pleasant_weather } } add_modifier = { modifier = gpm_pleasant_weather } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_many_extremophiles } } add_modifier = { modifier = gpm_many_extremophiles } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_gorgeous_sky } } add_modifier = { modifier = gpm_gorgeous_sky } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_large_asteroid } } add_modifier = { modifier = gpm_large_asteroid } } #
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_asteroid_moon } } add_modifier = { modifier = gpm_asteroid_moon } } #
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ancient_temple } } add_modifier = { modifier = gpm_ancient_temple } } #
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_metal_asteroid } } add_modifier = { modifier = gpm_metal_asteroid } } #
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_dense_core } } add_modifier = { modifier = gpm_dense_core } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_radioactive_mantle } } add_modifier = { modifier = gpm_radioactive_mantle } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_empathic_life } } add_modifier = { modifier = gpm_empathic_life } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_symbiotic_life } } add_modifier = { modifier = gpm_symbiotic_life } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ice_flora } } add_modifier = { modifier = gpm_ice_flora } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_strange_ice_river } } add_modifier = { modifier = gpm_strange_ice_river } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_juggernaut_manta_rays } } add_modifier = { modifier = gpm_juggernaut_manta_rays } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_crystal_moon_palace } } add_modifier = { modifier = gpm_crystal_moon_palace } } #
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_cities_in_the_sky } } add_modifier = { modifier = gpm_cities_in_the_sky } } #
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_old_world } } add_modifier = { modifier = gpm_old_world } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_extensive_reef_systems } } add_modifier = { modifier = gpm_extensive_reef_systems } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_very_hot_core } } add_modifier = { modifier = gpm_very_hot_core } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_temple_of_the_ancient_one } } add_modifier = { modifier = gpm_temple_of_the_ancient_one } } #
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_beautiful_lakes } } add_modifier = { modifier = gpm_beautiful_lakes } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_proto_forests } } add_modifier = { modifier = gpm_proto_forests } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_artificial_core } } add_modifier = { modifier = gpm_artificial_core } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_fast_rotation } } add_modifier = { modifier = gpm_fast_rotation } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_exotic_spices } } add_modifier = { modifier = gpm_exotic_spices } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_silicon_crystals } } add_modifier = { modifier = gpm_silicon_crystals } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_never_ending_aurora } } add_modifier = { modifier = gpm_never_ending_aurora } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_rich_soil } } add_modifier = { modifier = gpm_rich_soil } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ecological_nervous_system } } add_modifier = { modifier = gpm_ecological_nervous_system } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_algae_boom } } add_modifier = { modifier = gpm_algae_boom } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ocean_currents } } add_modifier = { modifier = gpm_ocean_currents } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_surface_of_bones } } add_modifier = { modifier = gpm_surface_of_bones } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_beautiful_planet_rings } } add_modifier = { modifier = gpm_beautiful_planet_rings } } #
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_musical_creatures } } add_modifier = { modifier = gpm_musical_creatures } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_odd_cloud_shapes } } add_modifier = { modifier = gpm_odd_cloud_shapes } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_mushroom_forest } } add_modifier = { modifier = gpm_mushroom_forest } }
-					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_planet_wonder_ruined } } add_modifier = { modifier = gpm_planet_wonder_ruined } }
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_rights_movement } } add_modifier = { modifier = gpm_rights_movement } } #
-					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_cybernetic_breaktroughs } } add_modifier = { modifier = gpm_cybernetic_breaktroughs } } #
-					30 = { modifier = { factor = 0 OR = { has_planet_flag = planet_pacification_first_green_modifier } } }
-
-				}
-				set_planet_flag = planet_pacification_first_green_modifier
-			}
-			while = { count = 2 add_random_non_blocker_deposit = yes random = { chance = 10 add_random_non_blocker_deposit = yes } }
-		}
-	}
-	ai_weight = { weight = 1 }
-}
-
 decision_genious_pregnancy = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
@@ -216,10 +10,11 @@ decision_genious_pregnancy = {
 		cost = { trigger = { owner = { is_lithoid = no } } food = 1000 }
 	}
 	potential = {
+		exists = from
+		from = { has_ascension_perk = ap_genius_cloning }
 		is_under_colonization = no
 		num_sapient_pops > 0
-		can_generate_trade_value = yes
-		owner = { has_ascension_perk = ap_genius_cloning }
+		# can_generate_trade_value = yes
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_1" any_owned_pop = { is_robot_pop = no } }
@@ -228,8 +23,8 @@ decision_genious_pregnancy = {
 	}
 	effect = {
 		custom_tooltip = "decision_genious_pregnancy_tooltip"
+		planet_event = { id = UniqueAscensionPerksEvents.42 }
 		hidden_effect = {
-			planet_event = { id = UniqueAscensionPerksEvents.42 }
 			if = {
 				limit = { from = { has_country_flag = ap_genius_cloning_auto } }
 				planet_event = { id = UniqueAscensionPerksEvents.4152 days = 3 }
@@ -256,14 +51,15 @@ decision_genious_pregnancy2 = {
 		cost = { food = 1000 }
 	}
 	potential = {
-		exists = owner
-		owner = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
+		exists = from
+		from = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
 		NOR = {
 			num_sapient_pops = 0
 			is_under_colonization = yes
 			has_modifier = planet_growth_discouraged
 			has_modifier = planet_population_control
 		}
+		can_generate_trade_value = yes
 	}
 	allow = {
 		NOT = { has_modifier = planet_food_boost }
@@ -290,9 +86,10 @@ decision_robot_command = {
 		cost = { trigger = { owner = { OR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers } } } energy = 150 minerals = 300 alloys = 35 }
 	}
 	potential = {
+		exists = from
+		from = { has_ascension_perk = ap_robot_command }
 		is_under_colonization = no
-		can_generate_trade_value = yes
-		owner = { has_ascension_perk = ap_robot_command }
+		# can_generate_trade_value = yes
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_robot_command_req_1" NOT = { has_planet_flag = decision_robot_command_cooldown } }
@@ -300,8 +97,8 @@ decision_robot_command = {
 	}
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
+		planet_event = { id = UniqueAscensionPerksEvents.62 }
 		hidden_effect = {
-			planet_event = { id = UniqueAscensionPerksEvents.62 }
 			if = {
 				limit = { from = { has_country_flag = ap_robot_command_auto } }
 				planet_event = { id = UniqueAscensionPerksEvents.4152 days = 3 }
@@ -328,8 +125,8 @@ decision_robot_command2 = {
 		cost = { minerals = 500 alloys = 250 }
 	}
 	potential = {
-		exists = owner
-		owner = { has_ascension_perk = ap_robot_command }
+		exists = from
+		from = { has_ascension_perk = ap_robot_command }
 		NOR = {
 			is_under_colonization = yes
 			has_modifier = broken_assembly_line
@@ -338,6 +135,7 @@ decision_robot_command2 = {
 			has_modifier = compliance_protocols
 			has_modifier = planet_robot_assembly_control
 		}
+		can_generate_trade_value = yes
 	}
 	allow = {
 		NOT = { has_modifier = planet_alloy_boost }
@@ -522,13 +320,13 @@ decision_galaxy_center = {
 	}
 	potential = {
 		gpm_is_planet_class_city = yes # is_possible_galaxy_center
-		hidden_trigger = { exists = from NOT = { has_planet_flag = galaxy_center_planet } }
+		exists = from
 		from = { has_ascension_perk = ap_galaxy_center }
+		NOT = { has_planet_flag = galaxy_center_planet }
 		distance_to_core_percent < 34
 		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" from = { count_owned_planet = { limit = { has_planet_flag = galaxy_center_planet } count = 0 } } }
 	}
 	allow = {
-		hidden_trigger = { exists = from }
 		num_sapient_pops > 20
 		controller = { is_same_empire = from }
 		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
@@ -555,13 +353,11 @@ decision_galaxy_center_menu = {
 	sound = event_administrative_work
 	icon = decision_galaxy_center
 	potential = {
-		hidden_trigger = {
-			has_planet_flag = galaxy_center_planet
-			exists = from from = { has_ascension_perk = ap_galaxy_center }
-		}
+		has_planet_flag = galaxy_center_planet
+		exists = from
+		from = { has_ascension_perk = ap_galaxy_center }
 	}
 	allow = {
-		hidden_trigger = { exists = from }
 		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
 			NOR = {
 				has_planet_flag = decision_galaxy_center_cooldown
@@ -1166,7 +962,6 @@ decision_self_aware_colony = {
 		from = { has_ascension_perk = ap_self_aware_colony }
 	}
 	allow = {
-		hidden_trigger = { exists = from }
 		NOR = {
 			has_planet_flag = self_aware_planet
 			from = { has_active_event = { UniqueAscensionPerksEvents.461 UniqueAscensionPerksEvents.465 UniqueAscensionPerksEvents.466 } }
@@ -1219,6 +1014,212 @@ decision_legendary_forge = {
 		change_pc = pc_legendary_forge
 		save_event_target_as = legendary_forge_planet
 		from = { country_event = { id = UniqueAscensionPerksEvents.481 } }
+	}
+	ai_weight = { weight = 1 }
+}
+
+# ENREGISTRER LES IMAGES EN .dds option A8R8G8B8
+decision_stellar_manipulation = {
+	sound = event_alien_nature
+	resources = {
+		category = decisions
+		cost = {
+			trigger = { exists = owner owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } }
+			minerals = 4000 food = 2000 exotic_gases = 50
+		}
+		cost = { trigger = { has_global_flag = ap_stellar_manipulation } food = 500 minerals = 500 }
+	}
+	potential = {
+		exists = from
+		exists = space_owner
+		space_owner = { is_same_empire = from }
+		OR = { has_global_flag = ap_stellar_manipulation from = { has_ascension_perk = ap_stellar_manipulation } }
+		is_a_habitable_planet_megastructure = yes
+	}
+	# prerequisites = { "tech_penal_colonies" }
+	effect = {
+		custom_tooltip = "decision_stellar_manipulation_tooltip"
+		hidden_effect = {
+			reroll_planet = yes
+			if = {
+				limit = { has_global_flag = has_guillis_planet_modifiers_mod }
+				gpm_purge_all_planetary_modifiers = yes
+				gpm_roll_normal_habitable_modifiers = yes
+			}
+			while = { count = 15 random = { chance = 50 add_random_non_blocker_deposit = yes } }
+			planet_event = { id = UniqueAscensionPerksEvents.4025 }
+		}
+	}
+	ai_weight = { weight = 1 }
+}
+
+#####################################
+#									#
+########## Friendly Nature ##########
+#									#
+#####################################
+decision_nature_pacification = {
+	owned_planets_only = yes
+	sound = event_alien_nature
+	enactment_time = 360
+	resources = { category = decisions cost = { energy = 1000 food = 1500 } }
+	potential = {
+		exists = from
+		from = { has_ascension_perk = ap_friendly_nature } is_under_colonization = no
+		can_find_rare_deposits = yes
+		NOT = { has_planet_flag = planet_nature_pacified }
+	}
+	effect = {
+		custom_tooltip = "decision_nature_pacification_tooltip"
+		hidden_effect = {
+			# nature_pacification_effect = yes
+			### (Mod) Guilli Planet Modifier - compatibility
+			set_planet_flag = planet_nature_pacified
+			planet_event = { id = UniqueAscensionPerksEvents.60 }
+			# Green Modifers (Unused) ===> titanic_life asteroid_belt carbon_world
+			# Yellow Modifiers ( 70% Chances to be Removed & 80% Chances to Add Their Opposite Green Modifier if it exists)
+			if = { limit = { has_modifier = hazardous_weather } random = { chance = 30 remove_modifier = hazardous_weather } }
+			if = { limit = { has_modifier = dangerous_wildlife } random = { chance = 30 remove_modifier = dangerous_wildlife } }
+			if = { limit = { has_modifier = asteroid_impacts } random = { chance = 30 remove_modifier = asteroid_impacts } }
+			if = { limit = { has_modifier = wild_storms } random = { chance = 30 remove_modifier = wild_storms } }
+			if = { limit = { has_modifier = asteroid_impacts } random = { chance = 30 remove_modifier = asteroid_impacts } }
+			if = { limit = { has_modifier = low_gravity } random = { chance = 30 remove_modifier = low_gravity } }
+			if = { limit = { has_modifier = high_gravity } random = { chance = 30 remove_modifier = high_gravity } }
+			if = { limit = { has_modifier = atmospheric_aphrodisiac } random = { chance = 30 remove_modifier = atmospheric_aphrodisiac } }
+			if = { limit = { has_modifier = atmospheric_hallucinogen } random = { chance = 30 remove_modifier = atmospheric_hallucinogen } random = { chance = 80 add_modifier = { modifier = atmospheric_hallucinogen_good } } }
+			### (Mod) Guilli Planet Modifier - Yellow Modifiers
+			# if = { limit = { has_modifier = frequent_thunderstorms } random = { chance = 30 remove_modifier = frequent_thunderstorms } }
+			if = { limit = { has_modifier = gpm_global_thunderstorms } random = { chance = 30 remove_modifier = gpm_global_thunderstorms } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
+			if = { limit = { has_modifier = gpm_thin_atmospheres } random = { chance = 30 remove_modifier = gpm_thin_atmospheres } random = { chance = 80 add_modifier = { modifier = gpm_dense_atmospheres } } }
+			if = { limit = { has_modifier = gpm_strong_volcanism } random = { chance = 30 remove_modifier = gpm_strong_volcanism } }
+			if = { limit = { has_modifier = gpm_weak_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_weak_magnetic_field_2 } }
+			# if = { limit = { has_modifier = gpm_strong_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_strong_magnetic_field_2 } }
+			if = { limit = { has_modifier = gpm_asteroid_impacts_2 } random = { chance = 30 remove_modifier = gpm_asteroid_impacts_2 } }
+			if = { limit = { has_modifier = gpm_high_gravity_2 } random = { chance = 30 remove_modifier = gpm_high_gravity_2 } }
+			if = { limit = { has_modifier = gpm_magma_ocean } random = { chance = 30 remove_modifier = gpm_magma_ocean } }
+			if = { limit = { has_modifier = gpm_titanic_predators } random = { chance = 30 remove_modifier = gpm_titanic_predators } }
+			if = { limit = { has_modifier = gpm_artificial_water } random = { chance = 30 remove_modifier = gpm_artificial_water } }
+			if = { limit = { has_modifier = gpm_windy } random = { chance = 30 remove_modifier = gpm_windy } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
+			if = { limit = { has_modifier = gpm_flat_terrain } random = { chance = 30 remove_modifier = gpm_flat_terrain } }
+			if = { limit = { has_modifier = gpm_rugged_terrain } random = { chance = 30 remove_modifier = gpm_rugged_terrain } }
+			if = { limit = { has_modifier = gpm_ice_age } random = { chance = 30 remove_modifier = gpm_ice_age } }
+			if = { limit = { has_modifier = gpm_seasonal_flooding } random = { chance = 30 remove_modifier = gpm_seasonal_flooding } }
+			if = { limit = { has_modifier = gpm_lingering_pollution } random = { chance = 30 remove_modifier = gpm_lingering_pollution } }
+			if = { limit = { has_modifier = gpm_thin_ozone_layer } random = { chance = 30 remove_modifier = gpm_thin_ozone_layer } }
+			# if = { limit = { has_modifier = Trubbles } random = { chance = 30 remove_modifier = Trubbles } }
+			# Red Modifiers ( Removed & 66% Chances to Add Their Opposite Green Modifier if it exists)
+			if = { limit = { has_modifier = weak_magnetic_field } remove_modifier = weak_magnetic_field random = { chance = 66 add_modifier = { modifier = strong_magnetic_field } } }
+			if = { limit = { has_modifier = unstable_tectonics } remove_modifier = unstable_tectonics }
+			if = { limit = { has_modifier = tidal_locked } remove_modifier = tidal_locked }
+			if = { limit = { has_modifier = mineral_poor } remove_modifier = mineral_poor random = { chance = 66 add_modifier = { modifier = mineral_rich } } }
+			if = { limit = { has_modifier = bleak_planet } remove_modifier = bleak_planet random = { chance = 66 add_modifier = { modifier = lush_planet } } }
+			if = { limit = { has_modifier = irradiated_planet } remove_modifier = irradiated_planet }
+			### (Mod) Guilli Planet Modifier - Red Modifiers
+			if = { limit = { has_modifier = gpm_unstable_tectonics_2 } remove_modifier = gpm_unstable_tectonics_2 }
+			if = { limit = { has_modifier = gpm_hostile_flora } remove_modifier = gpm_hostile_flora random = { chance = 66 add_modifier = { modifier = gpm_friendly_wildlife } } }
+			if = { limit = { has_modifier = gpm_toxic_gas } remove_modifier = gpm_toxic_gas }
+			if = { limit = { has_modifier = gpm_unusual_seasons } remove_modifier = gpm_unusual_seasons random = { chance = 66 add_modifier = { modifier = gpm_perfect_seasons } } }
+			if = { limit = { has_modifier = gpm_living_planet } remove_modifier = gpm_living_planet }
+			if = { limit = { has_modifier = gpm_simple_organisms } remove_modifier = gpm_simple_organisms random = { chance = 66 add_modifier = { modifier = gpm_newly_evolved_complex_organisms } } }
+			if = { limit = { has_modifier = gpm_unusual_formations } remove_modifier = gpm_unusual_formations }
+			if = { limit = { has_modifier = gpm_great_temperature_variation } remove_modifier = gpm_great_temperature_variation }
+			if = { limit = { has_modifier = gpm_locust_plagues } remove_modifier = gpm_locust_plagues }
+			if = { limit = { has_modifier = gpm_acidic_seas } remove_modifier = gpm_acidic_seas }
+			if = { limit = { has_modifier = gpm_resilent_parasites } remove_modifier = gpm_resilent_parasites random = { chance = 66 add_modifier = { modifier = gpm_symbiotic_life } } }
+			if = { limit = { has_modifier = gpm_arachnophobia } remove_modifier = gpm_arachnophobia }
+			if = { limit = { has_modifier = gpm_sandstorms } remove_modifier = gpm_sandstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
+			if = { limit = { has_modifier = gpm_sand_tornadoes } remove_modifier = gpm_sand_tornadoes random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
+			if = { limit = { has_modifier = gpm_quicksand } remove_modifier = gpm_quicksand }
+			if = { limit = { has_modifier = gpm_furry_packs } remove_modifier = gpm_furry_packs }
+			if = { limit = { has_modifier = gpm_blizzards } remove_modifier = gpm_blizzards random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
+			if = { limit = { has_modifier = gpm_abominable_predators } remove_modifier = gpm_abominable_predators random = { chance = 66 add_modifier = { modifier = gpm_empathic_life } } }
+			if = { limit = { has_modifier = gpm_carnivorous_flies } remove_modifier = gpm_carnivorous_flies }
+			if = { limit = { has_modifier = gpm_torrential_rainstorms } remove_modifier = gpm_torrential_rainstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
+			if = { limit = { has_modifier = gpm_massive_waves } remove_modifier = gpm_massive_waves random = { chance = 66 add_modifier = { modifier = gpm_ocean_currents } } }
+			if = { limit = { has_modifier = gpm_toxic_garbage } remove_modifier = gpm_toxic_garbage }
+			if = { limit = { has_modifier = gpm_oppressive_laws } remove_modifier = gpm_oppressive_laws random = { chance = 66 add_modifier = { modifier = gpm_rights_movement } } }
+			if = { limit = { has_modifier = gpm_synopsys_overload } remove_modifier = gpm_synopsys_overload }
+			if = { limit = { has_modifier = gpm_falling_behind } remove_modifier = gpm_falling_behind }
+			if = { limit = { has_modifier = gpm_solar_storm } remove_modifier = gpm_solar_storm }
+			# Add Green Modifiers
+			while = { count = 4
+				random_list = {
+					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = mineral_rich } }
+					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = ultra_rich } }
+					10 = { modifier = { factor = 0 OR = { has_modifier = lush_planet can_lush_planet = no } } add_modifier = { modifier = lush_planet } }
+					10 = { modifier = { factor = 0 has_modifier = natural_beauty } add_modifier = { modifier = natural_beauty } }
+					# 10 = { modifier = { factor = 0 OR = { has_modifier = extensive_moon_system has_moon = no } } add_modifier = { modifier = extensive_moon_system } }
+					### (Mod) Guilli Planet Modifier - Green Modifiers
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_highly_charged_air_particles } } add_modifier = { modifier = gpm_highly_charged_air_particles } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_single_biome } } add_modifier = { modifier = gpm_single_biome } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_hyper_complex_biome } } add_modifier = { modifier = gpm_hyper_complex_biome } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_dense_atmospheres } } add_modifier = { modifier = gpm_dense_atmospheres } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_mineral_rich_2 } } add_modifier = { modifier = gpm_mineral_rich_2 } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ultra_rich_2 } } add_modifier = { modifier = gpm_ultra_rich_2 } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_low_gravity_2 } } add_modifier = { modifier = gpm_low_gravity_2 } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_floating_islands } } add_modifier = { modifier = gpm_floating_islands } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_extensive_cavern_system } } add_modifier = { modifier = gpm_extensive_cavern_system } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_unnatural_world } } add_modifier = { modifier = gpm_unnatural_world } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_atmospheric_stimulant } } add_modifier = { modifier = gpm_atmospheric_stimulant } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_perfect_seasons } } add_modifier = { modifier = gpm_perfect_seasons } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ruined_battlefield } } add_modifier = { modifier = gpm_ruined_battlefield } } #
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_spaceship_graveyard } } add_modifier = { modifier = gpm_spaceship_graveyard } } #
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_gemstones } } add_modifier = { modifier = gpm_gemstones } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ideal_for_life } } add_modifier = { modifier = gpm_ideal_for_life } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_endless_fish } } add_modifier = { modifier = gpm_endless_fish } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_clear_skies } } add_modifier = { modifier = gpm_clear_skies } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_android_pleasure_palace } } add_modifier = { modifier = gpm_android_pleasure_palace } } #
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_melted_ice_caps } } add_modifier = { modifier = gpm_melted_ice_caps } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_newly_evolved_complex_organisms } } add_modifier = { modifier = gpm_newly_evolved_complex_organisms } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_delicious_ingredients } } add_modifier = { modifier = gpm_delicious_ingredients } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_recent_mass_extinction } } add_modifier = { modifier = gpm_recent_mass_extinction } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_friendly_wildlife } } add_modifier = { modifier = gpm_friendly_wildlife } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_pleasant_weather } } add_modifier = { modifier = gpm_pleasant_weather } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_many_extremophiles } } add_modifier = { modifier = gpm_many_extremophiles } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_gorgeous_sky } } add_modifier = { modifier = gpm_gorgeous_sky } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_large_asteroid } } add_modifier = { modifier = gpm_large_asteroid } } #
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_asteroid_moon } } add_modifier = { modifier = gpm_asteroid_moon } } #
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ancient_temple } } add_modifier = { modifier = gpm_ancient_temple } } #
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_metal_asteroid } } add_modifier = { modifier = gpm_metal_asteroid } } #
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_dense_core } } add_modifier = { modifier = gpm_dense_core } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_radioactive_mantle } } add_modifier = { modifier = gpm_radioactive_mantle } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_empathic_life } } add_modifier = { modifier = gpm_empathic_life } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_symbiotic_life } } add_modifier = { modifier = gpm_symbiotic_life } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ice_flora } } add_modifier = { modifier = gpm_ice_flora } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_strange_ice_river } } add_modifier = { modifier = gpm_strange_ice_river } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_juggernaut_manta_rays } } add_modifier = { modifier = gpm_juggernaut_manta_rays } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_crystal_moon_palace } } add_modifier = { modifier = gpm_crystal_moon_palace } } #
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_cities_in_the_sky } } add_modifier = { modifier = gpm_cities_in_the_sky } } #
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_old_world } } add_modifier = { modifier = gpm_old_world } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_extensive_reef_systems } } add_modifier = { modifier = gpm_extensive_reef_systems } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_very_hot_core } } add_modifier = { modifier = gpm_very_hot_core } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_temple_of_the_ancient_one } } add_modifier = { modifier = gpm_temple_of_the_ancient_one } } #
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_beautiful_lakes } } add_modifier = { modifier = gpm_beautiful_lakes } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_proto_forests } } add_modifier = { modifier = gpm_proto_forests } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_artificial_core } } add_modifier = { modifier = gpm_artificial_core } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_fast_rotation } } add_modifier = { modifier = gpm_fast_rotation } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_exotic_spices } } add_modifier = { modifier = gpm_exotic_spices } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_silicon_crystals } } add_modifier = { modifier = gpm_silicon_crystals } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_never_ending_aurora } } add_modifier = { modifier = gpm_never_ending_aurora } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_rich_soil } } add_modifier = { modifier = gpm_rich_soil } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ecological_nervous_system } } add_modifier = { modifier = gpm_ecological_nervous_system } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_algae_boom } } add_modifier = { modifier = gpm_algae_boom } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_ocean_currents } } add_modifier = { modifier = gpm_ocean_currents } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_surface_of_bones } } add_modifier = { modifier = gpm_surface_of_bones } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_beautiful_planet_rings } } add_modifier = { modifier = gpm_beautiful_planet_rings } } #
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_musical_creatures } } add_modifier = { modifier = gpm_musical_creatures } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_odd_cloud_shapes } } add_modifier = { modifier = gpm_odd_cloud_shapes } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_mushroom_forest } } add_modifier = { modifier = gpm_mushroom_forest } }
+					10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_planet_wonder_ruined } } add_modifier = { modifier = gpm_planet_wonder_ruined } }
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_rights_movement } } add_modifier = { modifier = gpm_rights_movement } } #
+					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_cybernetic_breaktroughs } } add_modifier = { modifier = gpm_cybernetic_breaktroughs } } #
+					30 = { modifier = { factor = 0 OR = { has_planet_flag = planet_pacification_first_green_modifier } } }
+
+				}
+				set_planet_flag = planet_pacification_first_green_modifier
+			}
+			while = { count = 2 add_random_non_blocker_deposit = yes random = { chance = 10 add_random_non_blocker_deposit = yes } }
+		}
 	}
 	ai_weight = { weight = 1 }
 }
