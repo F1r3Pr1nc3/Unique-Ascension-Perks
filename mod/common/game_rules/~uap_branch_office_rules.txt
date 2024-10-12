@@ -57,6 +57,7 @@ can_build_branch_office_on_planet = {
 	# }
 	custom_tooltip = {
 		fail_text = requires_recipient_not_fanatic_purifiers
+		exists = owner
 		owner = {
 			OR = {
 				is_same_species = root
@@ -74,11 +75,42 @@ can_build_branch_office_on_planet = {
 			has_observation_outpost = yes
 			observation_outpost_owner = { is_same_empire = root }
 		}
+
+		else_if = {
+			limit = {
+				ROOT = { is_worker_coop_empire = yes }
+				THIS = {
+					any_owned_pop = { is_enslaved = yes }
+				}
+				owner = { is_primitive = yes }
+			}
+			has_observation_outpost = yes
+			observation_outpost_owner = { is_same_empire = root }
+		}
+		else_if = {
+			limit = {
+				ROOT = { has_civic = civic_ruthless_competition }
+				THIS = {
+					any_owned_pop = { is_enslaved = yes }
+				}
+				owner = { is_primitive = yes }
+			}
+			has_observation_outpost = yes
+			observation_outpost_owner = { is_same_empire = root }
+		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_COMMERCIAL_PACT
+		exists = owner
 		OR = {
-			root = { is_criminal_syndicate = yes }
+			ROOT = { is_criminal_syndicate = yes }
+			ROOT = { has_civic = civic_ruthless_competition }
+			AND = {
+				is_worker_coop_empire = yes
+				THIS = {
+					any_owned_pop = { is_enslaved = yes }
+				}
+			}
 			owner = { has_commercial_pact = root }
 			owner = { is_in_federation_with = root }
 			AND = {
@@ -87,52 +119,37 @@ can_build_branch_office_on_planet = {
 			}
 			# Allow branch offices in subsidiaries and vice versa (and fellow subjects)
 			root = {
-				is_subject = yes # exists = overlord
-				OR = {
-					is_megacorp = yes
-					has_civic = civic_galactic_sovereign_megacorp
-				}
+				is_subject = yes
+				OR = { is_megacorp = yes has_civic = civic_galactic_sovereign_megacorp }
 				overlord = {
 					OR = {
 						is_same_empire = prevprev.owner
-						AND = {
-							exists = prevprev.owner.overlord
-							is_same_empire = prevprev.owner.overlord
-						}
+						AND = { exists = prevprev.owner.overlord is_same_empire = prevprev.owner.overlord }
 					}
 				}
 			}
 			owner = {
-				is_subject = yes # exists = overlord
+				is_subject = yes
 				overlord = {
 					OR = {
 						is_same_empire = root
-						AND = {
-							exists = root.overlord
-							is_same_empire = root.overlord
-						}
+						AND = { exists = root.overlord is_same_empire = root.overlord }
 					}
-					OR = {
-						is_megacorp = yes
-						has_civic = civic_galactic_sovereign_megacorp
-					}
+					OR = { is_megacorp = yes has_civic = civic_galactic_sovereign_megacorp }
 				}
 			}
 			AND = {
 				root = {
-					OR = {
-						has_modifier = imperial_charter
-						has_civic = civic_galactic_sovereign_megacorp
-					}
+					OR = { has_modifier = imperial_charter has_civic = civic_galactic_sovereign_megacorp }
 				}
 				owner = { is_galactic_community_member = yes }
 			}
 			AND = {
-				root = { has_ascension_perk = ap_megacorp } # UAP
+				root = { has_ascension_perk = ap_megacorp }				# UAP
 				owner = {
 					OR = {
-						is_megacorp = yes		# Imposed Megacorp allows branch offices on other MegaCorp (MOD)
-						is_gestalt = yes		# Imposed Megacorp allows branch offices on Gesalt Empire (MOD)
+						is_megacorp = yes						# Imposed Megacorp allows branch offices on other MegaCorp (MOD)
+						is_gestalt = yes						# Imposed Megacorp allows branch offices on Gesalt Empire (MOD)
 						# is_same_empire = root	# Imposed Megacorp allows branch offices without commercial (MOD)
 					}
 				}
@@ -140,20 +157,17 @@ can_build_branch_office_on_planet = {
 		}
 	}
 	custom_tooltip = {
-		fail_text = BRANCH_OFFICE_MEGACORP_OVERLORD
-		# Failure message for having a corporate overlord
+		fail_text = BRANCH_OFFICE_MEGACORP_OVERLORD # Failure message for having a corporate overlord
+		exists = owner
 		if = {
 			limit = {
 				root = {
 					NAND = {
 						# Not valid if you aren't a subject.
-						is_subject = yes # exists = overlord
+						is_subject = yes
 						# Or if your overlord isn't a megacorp.
 						overlord = {
-							OR = {
-								is_megacorp = yes
-								has_civic = civic_galactic_sovereign_megacorp
-							}
+							OR = { is_megacorp = yes has_civic = civic_galactic_sovereign_megacorp }
 						}
 					}
 				}
@@ -162,17 +176,14 @@ can_build_branch_office_on_planet = {
 		}
 		else = {
 			root = {
-				is_subject = yes # exists = overlord
+				is_subject = yes
 				overlord = {
-					OR = {
-						is_megacorp = yes
-						has_civic = civic_galactic_sovereign_megacorp
-					}
+					OR = { is_megacorp = yes has_civic = civic_galactic_sovereign_megacorp }
 				}
 			}
 			owner = {
 				NAND = {
-					is_subject = yes # exists = overlord
+					is_subject = yes
 					overlord = { is_same_empire = root.overlord }
 				}
 			}
@@ -180,18 +191,17 @@ can_build_branch_office_on_planet = {
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_CRIMINAL_HERITAGE_HAS_TRUCE
+		exists = owner
 		NAND = {
 			root = { is_criminal_syndicate = yes }
 			owner = {
-			OR = {
-					has_truce = root
-					is_at_war_with = root
-				}
+				OR = { has_truce = root is_at_war_with = root }
 			}
 		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_CRIMINAL_COOLDOWN
+		exists = owner
 		NAND = {
 			root = { is_criminal_syndicate = yes }
 			OR = {
@@ -203,5 +213,9 @@ can_build_branch_office_on_planet = {
 	custom_tooltip = {
 		fail_text = NO_BRANCH_OFFICE_ON_NANITE_WORLD
 		NOT = { is_planet_class = pc_gray_goo }
+	}
+	custom_tooltip = {
+		fail_text = NO_BRANCH_OFFICE_ON_SYNAPTIC_LATHE
+		NOT = { is_planet_class = pc_cosmogenesis_world }
 	}
 }

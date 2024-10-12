@@ -741,10 +741,10 @@ country_event = {
 		NOT = { has_country_flag = tech_expandable_brain_1_project }
 	}
 	immediate = { set_country_flag = tech_expandable_brain_1_project get_capital_planet = yes }
-	after = {
+	option = {
+		name = EXCELLENT
 		enable_special_project = { name = EXPANDABLE_BRAIN_2 location = event_target:capital_planet owner = root }
 	}
-	option = { name = EXCELLENT }
 }
 
 country_event = {
@@ -1342,11 +1342,15 @@ country_event = {
 			}
 		}
 	}
-	after = {
-		# Deactivate fleet
-		event_target:security_fleet = { fleet_event = { id = UniqueAscensionPerksEvents.57 days = 180 } }
+	option = {
+		name = OK
+		hidden_effect = {
+			if = { # Deactivate fleet
+				limit = { exists = event_target:security_fleet }
+				event_target:security_fleet = { fleet_event = { id = UniqueAscensionPerksEvents.57 days = 180 } }
+			}
+		}
 	}
-	option = { name = OK }
 }
 
 fleet_event = {
@@ -2121,8 +2125,7 @@ country_event = {
 	location = event_target:capital_planet
 	immediate = { get_capital_planet = yes }
 	after = {
-		hidden_effect = {
-			# fe_clear_gift_flags = yes
+		hidden_effect = { # FE_CLEAR_GIFT_FLAGS
 			remove_country_flag = fe_gift_escorts
 			remove_country_flag = fe_gift_resources_small
 			remove_country_flag = fe_gift_battlecruiser
@@ -2590,7 +2593,6 @@ planet_event = {
 			set_variable = { which = galaxy_center_features value = 0 }
 		}
 	}
-	# after = {}
 	option = {
 		allow = { hidden_trigger = { check_variable = { which = galaxy_center_features value < 100 } } }
 		name = "DEPOSITS_TITLE"
@@ -3042,9 +3044,6 @@ planet_event = {
 		set_variable = { which = unity_needed_on_planet value = num_ethic_pop_on_planet }
 		multiply_variable = { which = unity_needed_on_planet value = 5 }
 	}
-	after = {
-		hidden_effect = { clear_variable = num_ethic_pop_on_planet clear_variable = unity_needed_on_planet }
-	}
 	option = {
 		name = EXCELLENT
 		owner = {
@@ -3061,6 +3060,7 @@ planet_event = {
 				}
 			}
 		}
+		hidden_effect = { clear_variable = num_ethic_pop_on_planet clear_variable = unity_needed_on_planet }
 		# hidden_effect = {
 		# 	if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 10 } } owner = { add_resource = { influence = 10 } } }
 		# 	else_if = { limit = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count < 20 } } owner = { add_resource = { influence = 20 } } }
@@ -3846,13 +3846,10 @@ country_event = {
 	}
 	immediate = {
 		get_capital_planet = yes
-		enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root }
 	}
 	option = {
 		name = EXCELLENT
-		tooltip = {
-			enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root }
-		}
+		enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root }
 	}
 }
 
@@ -4017,13 +4014,37 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		random_owned_leader = { limit = { is_ruler = no } save_event_target_as = leader_1 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 } } save_event_target_as = leader_2 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7 }
-		random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
+		random_owned_leader = {
+			limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 } } save_event_target_as = leader_2
+			root = {
+				random_owned_leader = {
+					limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3
+					root = {
+						random_owned_leader = {
+							limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4
+							root = {
+								random_owned_leader = {
+									limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5
+									root = {
+										random_owned_leader = {
+											limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6
+											root = {
+												random_owned_leader = {
+													limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7
+													root = {
+														random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.1" trigger = { exists = event_target:leader_1 } hidden_effect = { event_target:leader_1 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
 	option = { name = "UniqueAscensionPerksEvents.251.Leader.2" trigger = { exists = event_target:leader_2 } hidden_effect = { event_target:leader_2 = { leader_event = { id = UniqueAscensionPerksEvents.252 } } } }
@@ -4046,7 +4067,6 @@ leader_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = {
-		# save_event_target_as = leader_uploaded
 	}
 	after = {
 		hidden_effect = {
@@ -4101,7 +4121,6 @@ leader_event = {
 	location = owner.capital_scope
 	is_triggered_only = yes
 	immediate = {
-		# save_event_target_as = leader_uploaded
 	}
 	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.251 } } } }
 	option = { name = EXCELLENT }
@@ -4970,10 +4989,7 @@ country_event = {
 			}
 		}
 	}
-	after = {
-		event_target:surgical_strike_fleet = { set_event_locked = no }
-	}
-	option = { name = EXCELLENT }
+	option = { name = EXCELLENT event_target:surgical_strike_fleet = { set_event_locked = no } }
 }
 
 ######################################
@@ -5424,7 +5440,6 @@ country_event = {
 		# 	UniqueAscensionPerksEvents.435 UniqueAscensionPerksEvents.436 UniqueAscensionPerksEvents.438
 		# } }
 	}
-	# after = {}
 	option = {
 		name = UniqueAscensionPerksEvents.434.Energy
 		allow = { has_country_resource = { type = anti_matter amount > 500 } NOT = { has_modifier = anti_matter_energy } }
@@ -6263,7 +6278,9 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.471.a" }
+	option = {
+		name = "UniqueAscensionPerksEvents.471.a"
+	}
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
 }
 
@@ -6645,8 +6662,8 @@ ship_event = {
 		exists = owner
 		owner = {
 			has_ascension_perk = ap_expansionist_development
-			NOT = { has_country_flag = no_expansionist_development }
-			NOT = { has_active_event = { UniqueAscensionPerksEvents.531 } }
+			NOT = { has_country_flag = no_expansionist_development } # edict
+			# NOT = { has_active_event = { UniqueAscensionPerksEvents.531 } } multiple allowed
 		}
 		exists = from
 		from = {
@@ -6714,6 +6731,7 @@ ship_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Disable"
+		ai_chance = { factor = 0 }
 		hidden_effect = {
 			owner = { set_country_flag = no_expansionist_development }
 		}
