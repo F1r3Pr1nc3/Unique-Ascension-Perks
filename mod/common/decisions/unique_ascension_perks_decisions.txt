@@ -172,7 +172,7 @@ decision_recomposer_life_to_ai = {
 		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_1" count_owned_pop = { limit = { is_robot_pop = no } count > 1 } }
 		custom_tooltip = {
 			fail_text = "decision_recomposer_life_to_ai_req_2"
-			owner = { count_owned_pop = { limit = { is_robot_pop = yes num_trait_points > 1 } count > 1 } }
+			owner = { count_owned_pop = { limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 1 } count > 1 } }
 		}
 		from = {
 			has_country_resource = { type = energy amount > 500 }
@@ -204,7 +204,7 @@ decision_recomposer_life_to_ai = {
 				limit = { any_owned_pop = { is_robot_pop = no } }
 				from = {
 					random_owned_pop = {
-						limit = { is_robot_pop = yes num_trait_points > 1 }
+						limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 1 }
 						root = { create_pop = { species = prev } }
 					}
 				}
@@ -235,7 +235,7 @@ decision_recomposer_ai_to_life = {
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_1" count_owned_pop = { limit = { is_robot_pop = yes } count > 1 } }
-		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = no num_trait_points > 1 } count > 1 } } }
+		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = no num_trait_points > 1 num_positive_traits > 1 } count > 1 } } }
 		from = {
 			has_country_resource = { type = energy amount > 500 }
 			has_country_resource = { type = food amount > 500 }
@@ -266,7 +266,7 @@ decision_recomposer_ai_to_life = {
 				limit = { any_owned_pop = { is_robot_pop = yes } }
 				from = {
 					random_owned_pop = {
-						limit = { is_robot_pop = no num_trait_points > 1 }
+						limit = { is_robot_pop = no num_trait_points > 1 num_positive_traits > 1 }
 						root = { create_pop = { species = prev } }
 					}
 				}
