@@ -1906,9 +1906,7 @@ planet_event = {
 	picture = GFX_evt_recomposer
 	location = root
 	is_triggered_only = yes
-	immediate = {
-		clear_variable = num_non_robot_pop
-	}
+	immediate = { clear_variable = num_non_robot_pop }
 	option = { name = EXCELLENT }
 }
 
@@ -3844,9 +3842,7 @@ country_event = {
 			has_special_project = RETRIEVER_SENTINEL
 		}
 	}
-	immediate = {
-		get_capital_planet = yes
-	}
+	immediate = { get_capital_planet = yes }
 	option = {
 		name = EXCELLENT
 		enable_special_project = { name = RETRIEVER_SENTINEL location = event_target:capital_planet owner = root }
@@ -4066,8 +4062,7 @@ leader_event = {
 	show_sound = event_psionic
 	location = from
 	is_triggered_only = yes
-	immediate = {
-	}
+	immediate = {  }
 	after = {
 		hidden_effect = {
 			from = {
@@ -4120,8 +4115,7 @@ leader_event = {
 	show_sound = event_psionic
 	location = owner.capital_scope
 	is_triggered_only = yes
-	immediate = {
-	}
+	immediate = {  }
 	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.251 } } } }
 	option = { name = EXCELLENT }
 }
@@ -5326,9 +5320,10 @@ country_event = {
 		# v3.4 values doubled
 		set_variable = { which = white_hole_systems value = 1 }
 		event_target:global_event_country = { change_variable = { which = white_hole_systems value = 1 } }
-		country_event = { id = UniqueAscensionPerksEvents.432 days = 720 random = 360 }
 	}
-	option = { name = EXCELLENT add_research_option = tech_mine_anti_matter }
+	after = { add_research_option = tech_mine_anti_matter }
+	option = { name = "UniqueAscensionPerksEvents.430.a" hidden_effect = { set_country_flag = white_hole_detection_manually } }
+	option = { name = EXCELLENT hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.432 days = 720 random = 360 } } default_hide_option = yes }
 }
 
 ship_event = {
@@ -5393,15 +5388,18 @@ country_event = {
 		event_target:global_event_country = { change_variable = { which = white_hole_systems value = 1 } }
 
 		if = {
-			limit = {
-				check_variable = { which = white_hole_systems value < 4 }
-				event_target:global_event_country = { check_variable = { which = white_hole_systems value < 22 } }
+			limit = { NOT = { has_country_flag = white_hole_detection_manually } }
+			if = {
+				limit = {
+					check_variable = { which = white_hole_systems value < 4 }
+					event_target:global_event_country = { check_variable = { which = white_hole_systems value < 22 } }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.432 days = 800 random = 400 }
 			}
-			country_event = { id = UniqueAscensionPerksEvents.432 days = 800 random = 400 }
-		}
-		else_if = {
-			limit = { check_variable = { which = white_hole_systems value = 4 } }
-			random = { chance = 33.4 country_event = { id = UniqueAscensionPerksEvents.432 days = 1080 random = 360 } }
+			else_if = {
+				limit = { check_variable = { which = white_hole_systems value = 4 } }
+				random = { chance = 33.4 country_event = { id = UniqueAscensionPerksEvents.432 days = 1080 random = 360 } }
+			}
 		}
 	}
 }
@@ -5502,8 +5500,20 @@ country_event = {
 			check_variable = { which = white_hole_systems value < 9 }
 			event_target:global_event_country = { check_variable = { which = white_hole_systems value < 36 } }
 		}
-		allow = { has_country_resource = { type = anti_matter amount > 250 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req01 NOT = { has_country_flag = white_hole_detection_cooldown } } }
-		add_resource = { anti_matter = -250 }
+		allow = {
+			OR = {
+				check_variable = { which = white_hole_systems value < 4 }
+				has_country_resource = { type = anti_matter amount > 250 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.434.Req01 NOT = { has_country_flag = white_hole_detection_cooldown } }
+			}
+		}
+		if = {
+			limit = { check_variable = { which = white_hole_systems value >= 4 } }
+			add_resource = { anti_matter = -250 }
+			if = {
+				limit = { has_country_flag = white_hole_detection_manually }
+				remove_country_flag = white_hole_detection_manually
+			}
+		}
 		hidden_effect = {
 			set_timed_country_flag = { flag = white_hole_detection_cooldown years = 3 }
 			country_event = { id = UniqueAscensionPerksEvents.432 }
@@ -5713,7 +5723,7 @@ country_event = {
 # This = event_target:self_aware_planet
 planet_event = {
 	id = UniqueAscensionPerksEvents.461
-	title = "decision_self_aware_colony_menu"
+	title = "ap_self_aware_colony"
 	desc = "UniqueAscensionPerksEvents.461.Desc"
 	show_sound = event_cityscape
 	picture = GFX_evt_self_aware_colony
@@ -6278,9 +6288,7 @@ country_event = {
 			}
 		}
 	}
-	option = {
-		name = "UniqueAscensionPerksEvents.471.a"
-	}
+	option = { name = "UniqueAscensionPerksEvents.471.a" }
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
 }
 
@@ -7479,15 +7487,9 @@ event = {
 
 		# UniqueAscensionPerksEvents.1020		# ap_space_domestication Space Domestication
 		if = {
-			limit = {
-				any_playable_country = {
-					has_ascension_perk = ap_space_domestication
-				}
-			}
+			limit = { any_playable_country = { has_ascension_perk = ap_space_domestication } }
 			random_playable_country = {
-				limit = {
-					has_ascension_perk = ap_space_domestication
-				}
+				limit = { has_ascension_perk = ap_space_domestication }
 				if = { # Only on_bi_monthly_pulse
 					limit = { NOT = { has_country_flag = bi_space_domestication_protocol } }
 					set_country_flag = bi_space_domestication_protocol
