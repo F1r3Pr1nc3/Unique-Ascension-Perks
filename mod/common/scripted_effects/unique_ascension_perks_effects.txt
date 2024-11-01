@@ -50,7 +50,7 @@ deploy_outpost = {
 # Prev = Virtual Subject (Helper Country)
 # This = Virtual Overlord Country
 sync_subjects_virtual_relation = {
-	every_country = {
+	every_country = { # Hostile
 		limit = {
 			has_communications = prev
 			prevprev = { is_friendly_to = prev }
@@ -75,7 +75,7 @@ sync_subjects_virtual_relation = {
 			set_faction_hostility = { target = prev set_hostile = yes }
 		}
 	}
-	every_relation = {
+	every_relation = { # Friendly
 		limit = {
 			has_communications = prev
 			prevprev = {
@@ -112,7 +112,7 @@ sync_subjects_virtual_relation = {
 			set_faction_hostility = { target = prev set_neutral = yes }
 		}
 	}
-	prev = {
+	prev = { # Fix overlord relation not friendly
 		if = {
 			limit = { NOT = { is_friendly_to = prev } }
 			set_faction_hostility = { target = prev set_friendly = yes }

@@ -250,6 +250,7 @@ ap_nano_drones = {
 		}
 	}
 	potential = {
+		has_distar = yes
 		merg_is_default_empire = yes # merg_is_awakened_fe = no Simply to omit wasting MTTH check
 		NOT = { has_ascension_perk = ap_nano_drones }
 		NAND = {
@@ -297,6 +298,7 @@ ap_nano_to_nanite = {
 		}
 	}
 	potential = {
+		has_distar = yes
 		NOT = { has_ascension_perk = ap_nano_to_nanite }
 		NAND = {
 			is_ai = yes
@@ -351,7 +353,10 @@ ap_adv_colonisation = {
 		custom_tooltip = { fail_text = "ap_adv_colonisation_req_1" has_technology = tech_cryostasis_2 }
 		custom_tooltip = {
 			fail_text = "ap_adv_colonisation_req_2"
-			OR = { is_machine_empire = yes has_technology = tech_colonization_5 }
+			OR = {
+				is_synthetic_empire = yes # is_machine_empire = yes
+				has_technology = tech_colonization_5
+			}
 		}
 		custom_tooltip = { fail_text = "ap_adv_colonisation_req_3" tradition_expansion_finish = yes }
 	}
@@ -480,13 +485,17 @@ ap_recycling_drones = {
 # v3.3 reduced values
 ap_emergency_calculation = {
 	possible = {
+		custom_tooltip = { fail_text = "ap_nano_to_nanite_req_1" has_ascension_perk = ap_nano_drones }
 		custom_tooltip = { fail_text = "ap_emergency_calculation_req_1" has_technology = tech_zero_point_power }
 		custom_tooltip = { fail_text = "ap_emergency_calculation_req_2" has_technology = tech_hyper_drive_3 }
 		custom_tooltip = { fail_text = "ap_emergency_calculation_req_3" has_technology = tech_thrusters_4 }
-		custom_tooltip = {
-			fail_text = "ap_emergency_calculation_req_4"
+		custom_tooltip = { fail_text = "ap_emergency_calculation_req_4"
 			OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous has_technology = tech_precognition_interface }
 		}
+		custom_tooltip = { fail_text = "ap_emergency_calculation_req_5"
+			any_system_within_border = { OR = { is_star_class = sc_black_hole is_star_class = sc_neutron_star is_star_class = sc_pulsar } }
+		}
+		has_event_chain = l_cluster_chain # has seen a lgate
 	}
 	modifier = {
 		ship_disengage_chance_mult = 0.25			# 2.0
@@ -503,6 +512,7 @@ ap_emergency_calculation = {
 		custom_tooltip = "ap_emergency_calculation_tooltip"
 	}
 	potential = {
+		has_distar = yes
 		NOT = { has_ascension_perk = ap_emergency_calculation }
 		NAND = {
 			is_ai = yes

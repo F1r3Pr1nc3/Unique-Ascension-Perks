@@ -1,0 +1,72 @@
+###- Gray -###
+disco_gray_cat = {
+	desc = "disco_gray_cat_desc"
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 3
+	# max_once = yes # FIXME: vanilla has not?
+
+	spawn_chance = {
+		modifier = {
+			add = 10
+			is_planet_class = pc_gray_goo
+			solar_system = { has_star_flag = lcluster }
+		}
+		modifier = {
+			factor = 0
+			OR = {
+				has_global_flag = gray_goo_crisis_set
+				exists = event_target:gray_owner
+				AND = {
+					exists = from exists = from.owner
+					from.owner = { has_country_flag = disco_gray }
+				}
+				# has_global_flag = dragon_season
+				# has_global_flag = gray_goo_empire_set
+			}
+		}
+	}
+	on_spawn = {
+		if = {
+			limit = { exists = from exists = from.owner }
+			from.owner = { set_country_flag = disco_gray }
+		}
+	}
+	on_success = graygoo.400
+}
+
+transmitter_cat = {
+	picture = "GFX_evt_ship_in_orbit_2"
+	level = 2
+	max_once = yes
+	max_once_global = no
+
+	spawn_chance = {
+		modifier = {
+			add = 3
+			has_distar = yes
+			is_star = no
+			from.owner = {
+				NOR = {
+					has_global_flag = l_cluster_opened
+					has_completed_event_chain_counter = {
+						event_chain = l_cluster_chain
+						counter = clues
+					}
+				}
+				has_event_chain = l_cluster_chain
+			}
+			solar_system = {
+				any_system_megastructure = {
+					OR = {
+						is_megastructure_type = gateway_ruined
+						is_megastructure_type = gateway_restored
+						is_megastructure_type = gateway_final
+						is_megastructure_type = lgate_base
+						is_megastructure_type = lgate_disabled
+					}
+				}
+			}
+		}
+	}
+	on_success = distar.2045
+}

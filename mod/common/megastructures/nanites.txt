@@ -1,6 +1,4 @@
-@entity_x = 0
-@entity_y = -20
-
+# DEPRECATED: REMOVEME at v4.0 replaced with lgate_disabled
 nanite_gateway = {
 	entity = "gatebuilder_01_gateway_entity"
 	construction_entity = "gatebuilder_01_gateway_entity"
@@ -11,46 +9,67 @@ nanite_gateway = {
 	show_in_outliner = no
 	construction_blocks_and_blocked_by = none
 	build_time = 720
-	resources = { category = megastructures cost = { nanites = 1200 energy = 1000 minerals = 1000 } }
+	resources = {
+		category = megastructures
+		cost = { nanites = 1200 energy = 1000 minerals = 1000 }
+	}
 	# upgrade_from = { lgate_disabled }
-	prerequisites = { "tech_nanite_gate" } # "tech_lgate_construction"
+	prerequisites = {
+		"tech_lgate_construction"
+		# "tech_nanite_gate"
+	}
 	potential = {
-		OR = {
-			has_global_flag = l_cluster_opened
-			has_ascension_perk = ap_emergency_calculation
-		}
-		OR = {
-			has_technology = tech_nanite_gate
-			has_technology = tech_lgate_construction # ADT
-		}
+		always = no
+		# OR = {
+		# 	has_global_flag = l_cluster_opened
+		# 	has_ascension_perk = ap_emergency_calculation
+		# }
+		# OR = {
+		# 	has_technology = tech_nanite_gate
+		# 	has_technology = tech_lgate_construction			# ADT
+		# }
 	}
 	possible = {
-		exists = starbase
-		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
-		custom_tooltip = { fail_text = "requires_surveyed_system" count_system_planet = { limit = { is_surveyed = { who = prev.from status = no } } count = 0 } }
-		custom_tooltip = { fail_text = "requires_no_existing_gateway" NOT = { has_megastructure = nanite_gateway } }
-		custom_tooltip = { fail_text = "requires_technology_gateway_construction" from = { has_technology = tech_nanite_gate } }
+		always = no
+		# exists = starbase
+		# custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
+		# custom_tooltip = {
+		# 	fail_text = "requires_surveyed_system"
+		# 	count_system_planet = { limit = { is_surveyed = { who = prev.from status = no } } count = 0 }
+		# }
+		# custom_tooltip = {
+		# 	fail_text = "requires_no_existing_gateway"
+		# 	NOR = { has_megastructure = lgate_disabled has_megastructure = lgate_base }
+		# }
+		# custom_tooltip = {
+		# 	fail_text = "requires_technology_gateway_construction"
+		# 	from = { has_technology = tech_nanite_gate }
+		# }
 	}
-	bypass_type = lgate # nanite_gateway
-	on_build_complete = {
-		from = {
-			if = {
-				limit = {
-					has_global_flag = l_cluster_opened
-					OR = {
-						has_ascension_perk = ap_nano_to_nanite
-						has_technology = tech_nanite_gate
-						has_technology = tech_lgate_construction # ADT
-					}
-					NOT = { has_ascension_perk = ap_emergency_calculation }
-				}
-				country_event = { id = UniqueAscensionPerksEvents.8003 }
-			} else = { # if = { limit = { has_ascension_perk = ap_emergency_calculation }
-				country_event = { id = UniqueAscensionPerksEvents.8054 }
-			}
-		}
-	}
+	bypass_type = lgate	# nanite_gateway
+	# on_build_complete = {
+	# 	# Notify
+	# 	from = {
+	# 		if = {
+	# 			limit = {
+	# 				has_global_flag = l_cluster_opened
+	# 				OR = {
+	# 					has_ascension_perk = ap_emergency_calculation					# UAP
+	# 					has_technology = tech_nanite_gate
+	# 					has_technology = tech_lgate_construction						# ADT
+	# 				}
+	# 				NOT = { has_ascension_perk = ap_emergency_calculation }
+	# 			}
+	# 			country_event = { id = UniqueAscensionPerksEvents.8003 }
+	# 		}
+	# 		else = {
+	# 			# if = { limit = { has_ascension_perk = ap_emergency_calculation }
+	# 			country_event = { id = UniqueAscensionPerksEvents.8054 }
+	# 		}
+	# 	}
+	# }
 }
+
 # Nanite Factory
 nanite_factory_site = {
 	entity = "construction_platform_entity"
@@ -58,9 +77,13 @@ nanite_factory_site = {
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
 	construction_blocks_and_blocked_by = self_type
-	entity_offset = { x = @entity_x y = @entity_y }
+	entity_offset = { x = 0 y = -20 }
 	build_time = 1800
-	resources = { category = megastructures cost = { alloys = 5000 nanites = 500 influence = 150 } upkeep = { energy = 5 } }
+	resources = {
+		category = megastructures
+		cost = { alloys = 5000 nanites = 500 influence = 150 }
+		upkeep = { energy = 5 }
+	}
 	prerequisites = { "tech_nanite_factory" }
 	# potential = { has_technology = tech_nanite_factory }
 	# scope: galactic object, from: country
@@ -68,7 +91,13 @@ nanite_factory_site = {
 		exists = starbase
 		exists = sector
 		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
-		custom_tooltip = { fail_text = "requires_surveyed_system" count_system_planet = { limit = { is_surveyed = { who = prev.from status = no } } count = 0 } }
+		custom_tooltip = {
+			fail_text = "requires_surveyed_system"
+			count_system_planet = {
+				limit = { is_surveyed = { who = prev.from status = no } }
+				count = 0
+			}
+		}
 		custom_tooltip = {
 			fail_text = "requires_no_existing_nanite_factory"
 			from = {
@@ -76,10 +105,7 @@ nanite_factory_site = {
 					limit = {
 						exists = sector
 						sector = { is_same_value = root.sector }
-						OR = {
-							is_megastructure_type = nanite_factory_site
-							is_megastructure_type = nanite_factory
-						}
+						OR = { is_megastructure_type = nanite_factory_site is_megastructure_type = nanite_factory }
 					}
 					count = 0
 				}
@@ -89,21 +115,27 @@ nanite_factory_site = {
 	placement_rules = {
 		planet_possible = {
 			custom_tooltip = { fail_text = "requires_no_anomaly" has_anomaly = no }
-			custom_tooltip = { fail_text = "requires_not_minor_planetary_body" NOR = { is_asteroid = yes is_moon = yes } }
+			custom_tooltip = {
+				fail_text = "requires_not_minor_planetary_body"
+				NOR = { is_asteroid = yes is_moon = yes }
+			}
 			custom_tooltip = { fail_text = "requires_not_star" is_star = no }
 			custom_tooltip = { fail_text = "requires_not_ring_world" has_ringworld_output_boost = no }
-			if = { limit = { from = { is_ai = yes } }
-				OR = {
-					has_deposit_for = shipclass_mining_station
-	 				has_deposit_for = shipclass_research_station
-				}
+			if = {
+				limit = { from = { is_ai = yes } }
+				OR = { has_deposit_for = shipclass_mining_station has_deposit_for = shipclass_research_station }
 			}
 		}
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_nano_to_nanite }
-	on_build_start = {}
-	on_build_cancel = {}
-	on_build_complete = { fromfrom.planet = { set_planet_flag = has_megastructure } from = { country_event = { id = UniqueAscensionPerksEvents.8004 } } }
+	on_build_start = {  }
+	on_build_cancel = {  }
+	on_build_complete = {
+		fromfrom.planet = { set_planet_flag = has_megastructure }
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.8004 }
+		}
+	}
 }
 
 nanite_factory = {
@@ -112,16 +144,21 @@ nanite_factory = {
 	portrait = "GFX_megastructure_construction_background"
 	place_entity_on_planet_plane = no
 	construction_blocks_and_blocked_by = none
-	entity_offset = { x = @entity_x y = @entity_y }
+	entity_offset = { x = 0 y = -20 }
 	upgrade_from = { nanite_factory_site }
 	build_time = 3600
 	resources = {
 		category = megastructures
 		cost = { alloys = 10000 nanites = 5000 }
-		upkeep = { energy = 50 minerals = 150 } # < v.3.12 upkeep = { energy = 25 minerals = 75 }
-		produces = { nanites = 350 alloys = 150 } # < v.3.12 alloys = 50
+		upkeep = { energy = 50 minerals = 150 }
+		# < v.3.12 upkeep = { energy = 25 minerals = 75 }
+		produces = { nanites = 350 alloys = 150 }		# < v.3.12 alloys = 50
 	}
 	prerequisites = { "tech_nanite_factory" }
 	# potential = { has_technology = tech_nanite_factory }
-	on_build_complete = { from = { country_event = { id = UniqueAscensionPerksEvents.8005 } } }
+	on_build_complete = {
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.8005 }
+		}
+	}
 }

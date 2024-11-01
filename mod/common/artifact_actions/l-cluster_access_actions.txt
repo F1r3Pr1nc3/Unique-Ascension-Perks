@@ -1,0 +1,117 @@
+decision_open_lcluster = {
+	resources = {
+		category = artifact_actions
+		cost = { minor_artifacts = 10 }
+	}
+	potential = {
+		NOT = { has_global_flag = lgates_activated_globally }
+		can_set_lcluster_policiy = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "lcluster_policy_cannot_set_name"
+			owner = {
+				exists = capital_scope
+				NOT = {
+					capital_scope = { has_modifier = "artifact_lgate_insight_cooldown" }
+				}
+			}
+			controls_lcluster = yes
+		}
+	}
+	effect = {
+		custom_tooltip = decision_open_lcluster_effects
+		hidden_effect = { open_terminal_egress = yes }
+	}
+	ai_weight = { weight = 0 }
+}
+
+decision_close_lcluster = {
+	resources = {
+		category = artifact_actions
+		cost = { minor_artifacts = 20 }
+	}
+	potential = {
+		has_global_flag = lgates_activated_globally
+		can_set_lcluster_policiy = yes
+	}
+	allow = {
+		custom_tooltip = {
+			fail_text = "lcluster_policy_cannot_set_name"
+			owner = {
+				exists = capital_scope
+				NOT = {
+					capital_scope = { has_modifier = "artifact_lgate_insight_cooldown" }
+				}
+			}
+			controls_lcluster = yes
+		}
+	}
+	effect = {
+		custom_tooltip = decision_close_lcluster_effects
+		hidden_effect = {
+			remove_global_flag = lgates_activated_globally
+			owner = {
+				capital_scope = {
+					add_modifier = { modifier = "artifact_lgate_insight_cooldown" months = 1 }
+				}
+				remove_notification_modifier = lgate_access
+			}
+			every_playable_country = { remove_country_flag = lgates_activated }
+			owner = { set_country_flag = lcluster_closer }
+			# Workaround Fix AI bypassing
+			event_target:lcluster1 = {
+				set_star_flag = pike_star_flag_banned_system
+				set_star_flag = sealed_system
+				set_star_flag = guardian
+			}
+			every_country = {
+				limit = {
+					is_ai = yes
+					OR = {
+						is_crisis_faction = yes
+						merg_is_default_empire = yes
+						# CmtTriggerIsPlayableEmpire = yes
+					}
+				}
+				run_ai_strategic_war_data = yes
+			}
+		}
+	}
+	ai_weight = { weight = 0 }
+}
+
+artifact_lgate_clue = {
+	resources = {
+		category = artifact_actions
+		cost = { minor_artifacts = 800 } # 1000
+	}
+	potential = {
+		has_country_flag = encountered_first_lgate
+		NOR = {
+			has_country_flag = completed_lcluster_chain
+			has_global_flag = l_cluster_opened
+		}
+		has_distar = yes
+	}
+	allow = {
+		NOT = { has_modifier = artifact_lgate_insight_cooldown }
+	}
+	effect = {
+		custom_tooltip = artifact_lgate_clue_effect
+		hidden_effect = {
+			generate_lcluster_clue = yes
+			add_modifier = { modifier = "artifact_lgate_insight_cooldown" years = 10 }
+		}
+	}
+	ai_weight = {
+		weight = 1
+		modifier = {
+			factor = 0
+			OR = {
+				mid_game_years_passed < 0
+				has_country_resource = { type = minor_artifacts amount < 450 }
+			}
+		}
+	}
+}

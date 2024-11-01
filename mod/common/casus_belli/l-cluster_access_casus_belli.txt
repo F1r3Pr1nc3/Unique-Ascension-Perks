@@ -1,0 +1,90 @@
+# my_casus_belli = {
+#	potential = { ... }		# Trigger to make some CBs invalid for certain types of countries; this = attacker (CB owner); default: { always = yes }
+#	is_valid = { ... }		# trigger, evaluated daily to check if CB should be created or destroyed automatically, does not affect CBs granted via script;
+#								# this = attacker (CB owner), from = defender (target country); default: { always = yes }
+#	destroy_if = { ... }	# trigger, evaluated daily to destroy CBs that have been granted via script ahead of expiration date;
+#								# this = attacker (CB owner), from = defender (target country); default: { always = no }
+#	show_notification = no/yes	# Optional (default = yes), flag to control whether this CB will generate a notification (to avoid duplicate
+# 								# Notification when a claim CB is generated)
+#}
+cb_lgate_port = {
+	show_in_diplomacy = yes
+	show_notification = no
+	#  (Country scope, this = casus belli owner, from = casus belli target)
+	potential = {
+		has_global_flag = l_cluster_opened
+		is_country_type_with_subjects = yes # Better compatiblity
+		NOR = {
+			has_global_flag = lgates_activated_globally
+			is_in_federation_with = from
+		}
+		is_subject = no
+	}
+	is_valid = {
+		exists = from
+		NOR = {
+			has_global_flag = lgates_activated_globally
+			is_overlord_to = from
+			is_machine_empire = yes
+		}
+		# OR = {
+		# 	is_subject = no
+		# 	overlord = { NOT = { is_same_value = from } }
+		# }
+		# merg_is_awakened_fe = yes
+		# has_closed_borders = root
+		from = { controls_lcluster = yes } # can_set_lcluster_policiy = yes
+	}
+}
+
+cb_lgate_danger = {
+	show_in_diplomacy = yes
+	show_notification = no
+	#  (Country scope, this = casus belli owner, from = casus belli target)
+	potential = {
+		always = no
+		# is_country_type_with_subjects = yes
+		# NOR = {
+		# 	has_global_flag = l_cluster_opened
+		# 	has_global_flag = lgates_activated_globally
+		# 	is_in_federation_with = from
+		# }
+		# is_subject = no
+		# exists = from
+		# NOR = {
+		# 	has_global_flag = lgates_activated_globally
+		# 	is_overlord_to = from
+		# 	is_machine_empire = yes
+		# }
+		# from = {
+		# 	CmtTriggerIsPlayableEmpire = yes
+	 	# 	OR = {
+		# 		has_event_chain = l_cluster_chain
+		# 		has_special_project = LCLUSTER_PROJECT
+		# 	}
+		# 	is_variable_set = CmtVarLgateReqClues
+		# 	check_variable = { which = num_lcluster_clues value > CmtVarLgateReqClues }
+		# 	has_lgate = yes
+		# }
+	}
+	is_valid = {
+		always = no # Triggered only
+	}
+	# is_valid = {
+	# 	exists = from
+	# 	NOR = {
+	# 		has_global_flag = lgates_activated_globally
+	# 		is_overlord_to = from
+	# 		is_machine_empire = yes
+	# 	}
+	# 	from = {
+	# 		CmtTriggerIsPlayableEmpire = yes
+	#  		OR = {
+	# 			has_event_chain = l_cluster_chain
+	# 			has_special_project = LCLUSTER_PROJECT
+	# 		}
+	# 		check_variable = { which = num_lcluster_clues value > CmtVarLgateReqClues }
+	# 		has_lgate = yes
+	# 	}
+	# }
+}

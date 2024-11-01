@@ -1,4 +1,5 @@
 namespace = UniqueAscensionPerksMenuEvents
+@UAP_version = 3.1411
 # AI weight values - needs match UniqueAscensionPerksMenuEvents.100
 # All value = 3 are default disabled
 @ap_space_engineers = 7
@@ -1659,72 +1660,89 @@ country_event = {
 	option = { name = BACK }
 }
 
+# on_single_player_save_game_load
 # AI weight values - needs match UniqueAscensionPerksMenuEvents
 event = {
 	id = UniqueAscensionPerksMenuEvents.100
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { NOT = { has_global_flag = has_uap_mod } }
+	# trigger = {  }
 	immediate = {
-		log="INIT UAP MOD"
 		event_target:global_event_country = {
-			set_variable = { which = ap_space_engineers value = @ap_space_engineers }
-			set_variable = { which = ap_stellar_manipulation value = 0 }
-			set_variable = { which = ap_lost_heritage value = 0 }
-			set_variable = { which = ap_void_expedition value = 0 } # TODO
-			set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
-			set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
-			set_variable = { which = ap_ai_cortana value = 0 }
-			set_variable = { which = ap_nano_drones value = 0 } # v3.3 halved values
-			set_variable = { which = ap_nano_to_nanite value = 0 } # Genius Pregnancy
-			set_variable = { which = ap_genius_cloning value = 0 } # TODO may split in 2 AP?
-			set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } # TODO may split in 2 AP?
-			set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } # Recycling Expeditions
-			set_variable = { which = ap_recycling_drones value = @ap_recycling_drones }
-			set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation }
-			set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
-			set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
-			set_variable = { which = ap_advanced_security value = @ap_advanced_security }
-			set_variable = { which = ap_space_domestication value = 0 }
-			set_variable = { which = ap_leviathan_master value = 0 }
-			set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } # Robotic Assemblers
-			set_variable = { which = ap_robot_command value = 0 }
-			set_variable = { which = ap_recomposer value = 0 }
-			set_variable = { which = ap_megacorp value = @ap_megacorp }
-			set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
-			set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
-			set_variable = { which = ap_galaxy_center value = 0 }
-			set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
-			set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
-			set_variable = { which = ap_space_merchant value = 0 }
-			set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
-			set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
-			set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
-			set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
-			set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
-			set_variable = { which = ap_primitives_creation value = 0 }
-			set_variable = { which = ap_powerful_vassals value = 0 }
-			set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
-			set_variable = { which = ap_machine_core value = @ap_machine_core }
-			set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
-			set_variable = { which = ap_leadership_transfer value = 0 }
-			set_variable = { which = ap_civilian_activities value = 0 } # Pinnacle Society
-			set_variable = { which = ap_pyramidal_society value = 0 }
-			set_variable = { which = ap_orbital_surgical_strike value = 0 }
-			set_variable = { which = ap_wheel_fortune value = 0 }
-			set_variable = { which = ap_underworld value = 0 }
-			set_variable = { which = ap_slow_learner value = @ap_slow_learner }
-			set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
-			set_variable = { which = ap_antimatter value = 0 }
-			set_variable = { which = ap_deep_scanner value = 0 }
-			set_variable = { which = ap_artifact_hunter value = 0 }
-			set_variable = { which = ap_self_aware_colony value = 0 }
-			set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
-			set_variable = { which = ap_legendary_forge value = 0 }
-			set_variable = { which = ap_library_wisedom value = 0 }
-			set_variable = { which = ap_expansionist_development value = 0 }
+			if = {
+				limit = { # If the version number is not set or is outdated, update the version number and trigger the event
+					NAND = {
+						is_variable_set = UAP_version
+						check_variable = { which = UAP_version value = @UAP_version }
+					}
+				}
+				set_variable = { which = UAP_version value = @UAP_version }
+				every_playable_country = {
+					limit = { is_ai = no }
+					country_event = { id = UniqueAscensionPerksMenuEvents.1003 days = 1 }
+				}
+			}
+			if = {
+				limit = { NOT = { has_global_flag = has_uap_mod } }
+				log="INIT UAP MOD"
+				set_variable = { which = ap_space_engineers value = @ap_space_engineers }
+				set_variable = { which = ap_stellar_manipulation value = 0 }
+				set_variable = { which = ap_lost_heritage value = 0 }
+				set_variable = { which = ap_void_expedition value = 0 } # TODO
+				set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
+				set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
+				set_variable = { which = ap_ai_cortana value = 0 }
+				set_variable = { which = ap_nano_drones value = 0 } # v3.3 halved values
+				set_variable = { which = ap_nano_to_nanite value = 0 } # Genius Pregnancy
+				set_variable = { which = ap_genius_cloning value = 0 } # TODO may split in 2 AP?
+				set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } # TODO may split in 2 AP?
+				set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } # Recycling Expeditions
+				set_variable = { which = ap_recycling_drones value = @ap_recycling_drones }
+				set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation }
+				set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
+				set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
+				set_variable = { which = ap_advanced_security value = @ap_advanced_security }
+				set_variable = { which = ap_space_domestication value = 0 }
+				set_variable = { which = ap_leviathan_master value = 0 }
+				set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } # Robotic Assemblers
+				set_variable = { which = ap_robot_command value = 0 }
+				set_variable = { which = ap_recomposer value = 0 }
+				set_variable = { which = ap_megacorp value = @ap_megacorp }
+				set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
+				set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
+				set_variable = { which = ap_galaxy_center value = 0 }
+				set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
+				set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
+				set_variable = { which = ap_space_merchant value = 0 }
+				set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
+				set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
+				set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
+				set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
+				set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
+				set_variable = { which = ap_primitives_creation value = 0 }
+				set_variable = { which = ap_powerful_vassals value = 0 }
+				set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
+				set_variable = { which = ap_machine_core value = @ap_machine_core }
+				set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
+				set_variable = { which = ap_leadership_transfer value = 0 }
+				set_variable = { which = ap_civilian_activities value = 0 } # Pinnacle Society
+				set_variable = { which = ap_pyramidal_society value = 0 }
+				set_variable = { which = ap_orbital_surgical_strike value = 0 }
+				set_variable = { which = ap_wheel_fortune value = 0 }
+				set_variable = { which = ap_underworld value = 0 }
+				set_variable = { which = ap_slow_learner value = @ap_slow_learner }
+				set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
+				set_variable = { which = ap_antimatter value = 0 }
+				set_variable = { which = ap_deep_scanner value = 0 }
+				set_variable = { which = ap_artifact_hunter value = 0 }
+				set_variable = { which = ap_self_aware_colony value = 0 }
+				set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
+				set_variable = { which = ap_legendary_forge value = 0 }
+				set_variable = { which = ap_library_wisedom value = 0 }
+				set_variable = { which = ap_expansionist_development value = 0 }
+				set_global_flag = has_uap_mod
+			}
 		}
-		set_global_flag = has_uap_mod
 	}
 }
 
@@ -1743,7 +1761,8 @@ country_event = {
 		if = { limit = { has_global_flag = ap_pyramidal_society }
 			# country_event = { id = UniqueAscensionPerksEvents.9005 }
 			every_playable_country = { limit = { NOR = { has_country_flag = ap_pyramidal_society has_ascension_perk = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
-		} else = {
+		}
+		else = {
 			every_playable_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
 		}
 	}
@@ -1882,4 +1901,14 @@ country_event = {
 			set_variable = { which = ap_expansionist_development value = 0 } #
 		}
 	}
+}
+
+country_event = {
+	id = UniqueAscensionPerksMenuEvents.1003
+	title = UniqueAscensionPerksMenuEvents.1003.name
+	desc = UniqueAscensionPerksMenuEvents.1003.desc
+	picture = GFX_evt_unity_symbol
+	show_sound = event_coronation
+	is_triggered_only = yes
+	option = { name = OK }
 }

@@ -1,0 +1,33 @@
+## country
+can_set_lcluster_policiy = {
+	exists = capital_scope
+	has_technology = tech_lcluster_access
+	OR = {
+		has_technology = tech_gateway_activation
+		any_relation = {
+			has_communications = prev
+			OR = {
+				is_country_type_with_subjects = yes
+				has_technology = tech_gateway_activation
+			}
+		}
+	}
+}
+
+controls_lcluster = {
+	# exists = capital_scope
+	any_system_within_border = {
+		has_star_flag = lcluster1
+	}
+	has_technology = tech_lcluster_access
+	OR = {
+		NOT = { has_global_flag = active_gray_goo }
+		AND = { # L-Cluster PLus
+			has_global_flag = l_cluster_origin
+			OR = {
+				has_origin = origin_lclusterplus_gatebuilders
+				has_origin = origin_lclusterplus_gatebuilders_advanced
+			}
+		}
+	}
+}

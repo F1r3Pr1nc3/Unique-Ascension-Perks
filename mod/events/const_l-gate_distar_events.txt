@@ -1,0 +1,282 @@
+namespace = distar
+#################################
+#
+# Anomaly Events
+# By Dee Majek
+# Tweaked by FirePrince
+# For disabled L-Gates (less important)
+# distar.2050 - distar.5055
+#
+#################################
+
+### Empty outcome removed ###
+# Randomize L-Cluster outcome on_game_start
+event = {
+	id = distar.8000
+	hide_window = yes
+	is_triggered_only = yes
+	immediate = {
+		random_list = {
+			5 = {
+				set_global_flag = gray_goo_crisis_set
+				set_global_flag = active_gray_goo
+				set_global_flag = dragon_season
+			}
+			3 = {
+				set_global_flag = gray_goo_empire_set
+				set_global_flag = dragon_season
+			}
+			# 3 = {}
+			4 = {
+				set_global_flag = dragon_season
+			}
+		}
+	}
+}
+
+##### THE ENIGMATIC CACHE ######
+# (vanilla only tweaked for lgate_disabled)
+event = {
+	id = distar.2050
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = {
+		has_distar = yes
+		count_system = {
+			limit = {
+				has_star_flag = enigmatic_cache_system
+			}
+			count = 0
+		}
+		any_playable_country = {
+			is_ai = no
+			# is_at_war = no
+		}
+	}
+	immediate = {
+		# Spawn tube by random gateway
+		random_system = {
+			limit = {
+				any_system_megastructure = {
+					OR = {
+						is_megastructure_type = gateway_ruined
+						is_megastructure_type = gateway_restored
+						is_megastructure_type = gateway_final
+						is_megastructure_type = lgate_base
+						is_megastructure_type = lgate_disabled
+					}
+				}
+			}
+			star = {
+				planet_event = { id = distar.20501 }
+			}
+		}
+	}
+}
+
+# Attempts to create new enigmatic cache at safe location
+country_event = {
+	id = distar.5055
+	hide_window = yes
+
+	is_triggered_only = yes
+
+	trigger = {
+	# Shouldn't trigger if the enigmatic cache country already has an enigmatic cache in rotation
+		count_owned_ship = {
+			limit = {
+				has_ship_flag = enigmatic_cache_ship
+			}
+			count = 0
+		}
+	}
+
+	immediate = {
+		if = {
+			limit = {
+				any_playable_country = {
+					is_ai = no
+					NOR = { is_at_war = yes is_hostile = root.owner }
+					any_owned_planet = {
+						NOT = { has_planet_flag = has_been_scanned }
+					}
+				}
+			}
+			closest_system = {
+				limit = {
+					has_owner = yes
+					owner = {
+						is_ai = no
+						NOR = { is_at_war = yes is_hostile = root.owner }
+					}
+					any_system_colony = {
+						NOT = { has_planet_flag = has_been_scanned }
+					}
+				}
+				random_system_colony = {
+					limit = {
+						NOT = { has_planet_flag = has_been_scanned }
+					}
+					save_event_target_as = new_location
+					solar_system = {
+						set_star_flag = enigmatic_cache_system
+					}
+				}
+			}
+			create_enigmatic_cache_fleet = yes
+		}
+		# A gateway
+		else_if = {
+			limit = {
+				any_system = {
+					any_system_megastructure = {
+						OR = {
+							is_megastructure_type = gateway_ruined
+							is_megastructure_type = gateway_restored
+							is_megastructure_type = gateway_final
+							is_megastructure_type = lgate_base
+							is_megastructure_type = lgate_disabled
+						}
+					}
+				}
+			}
+			closest_system = {
+				limit = {
+					any_system_megastructure = {
+						OR = {
+							is_megastructure_type = gateway_ruined
+							is_megastructure_type = gateway_restored
+							is_megastructure_type = gateway_final
+							is_megastructure_type = lgate_base
+							is_megastructure_type = lgate_disabled
+						}
+					}
+				}
+				random_system_megastructure = {
+					limit = {
+						OR = {
+							is_megastructure_type = gateway_ruined
+							is_megastructure_type = gateway_restored
+							is_megastructure_type = gateway_final
+							is_megastructure_type = lgate_base
+							is_megastructure_type = lgate_disabled
+						}
+					}
+					save_event_target_as = new_location
+					solar_system = {
+						set_star_flag = enigmatic_cache_system
+					}
+				}
+			}
+			create_enigmatic_cache_fleet = yes
+		}
+		# A non hostile system without an owner
+		else_if = {
+			limit = {
+				any_system = {
+					has_owner = no
+					NOR = {
+						has_star_flag = guardian
+						has_star_flag = hostile_system
+					}
+				}
+			}
+			random_system = {
+				limit = {
+					has_owner = no
+					NOR = {
+						has_star_flag = guardian
+						has_star_flag = hostile_system
+					}
+				}
+				random_system_planet = {
+					limit = {
+						has_owner = no
+					}
+					save_event_target_as = new_location
+					solar_system = {
+						set_star_flag = enigmatic_cache_system
+					}
+				}
+			}
+			create_enigmatic_cache_fleet = yes
+		}
+		else = {
+			country_event = { id = distar.5055 days = 500 }
+		}
+	}
+}
+
+# Abandoned Cluster Found (bit opt. < 3.0)
+# Cancel L-project for others (with compensation)
+country_event = {
+	id = distar.10951
+	title = "distar.10951.name"
+	desc = "distar.10951.desc"
+	picture = GFX_evt_l-gateway
+	show_sound = event_activating_unknown_technology
+	location = event_target:candidate_gateway
+	is_triggered_only = yes
+
+	immediate = {
+		if = {
+			limit = { NOT = { exists = event_target:lcluster1 } }
+			country_event = { id = distar.11000 }
+		}
+		every_playable_country = {
+			limit = {
+				NOR = { is_same_empire = from has_country_flag = lcluster_opener }
+			}
+			if = {
+				limit = { has_special_project = LCLUSTER_PROJECT }
+				country_event = { id = distar.10952 days = 1 }
+			} else_if = {
+				limit = { has_event_chain = l_cluster_chain }
+				country_event = { id = distar.10953 days = 1 }
+			} else = {
+				country_event = { id = distar.10954 days = 1 }
+			}
+		}
+		observer_event = { id = observer.62 }
+
+	}
+	option = {
+		name = "distar.10951.a"
+	}
+}
+
+event = {
+	id = distar.999
+	is_triggered_only = yes
+	hide_window = yes
+	trigger = {
+		has_distar = yes
+		has_global_flag = l_cluster_opened
+		any_playable_country = {
+			NOR = {
+				is_ai = yes
+				has_seen_any_bypass = lgate
+				has_lgate = no
+			}
+		}
+	}
+	immediate = {
+		every_playable_country = {
+			limit = {
+				# is_ai = no
+				NOT = { has_seen_any_bypass = lgate }
+				# has_lgate = yes
+				any_owned_megastructure = {
+					is_megastructure_type = lgate_base
+				}
+			}
+			add_seen_bypass_type = lgate
+		}
+		every_megastructure = {
+			limit = { is_megastructure_type = lgate_base }
+			create_bypass = {
+				owner = owner type = lgate effect = { CmtEffectOpenLgate = yes }
+			}
+		}
+	}
+}
