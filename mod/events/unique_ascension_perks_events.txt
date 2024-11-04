@@ -1358,6 +1358,7 @@ country_event = {
 				create_fleet = {
 					name = ap_advanced_security
 					settings = {
+						garrison = yes
 						can_disband = no
 						can_upgrade = no
 						can_change_composition = no
@@ -1372,7 +1373,7 @@ country_event = {
 						while = { count = 10 random = { chance = 50 create_ship = { name = random random_existing_design = corvette } } }
 						set_location = { target = event_target:spawn_location_system.star distance = 325 angle = random }
 						set_fleet_stance = aggressive
-						set_aggro_range_measure_from = self
+						set_aggro_range_measure_from = return_point
 						set_aggro_range = 5000
 						save_event_target_as = security_fleet
 					}
@@ -1586,6 +1587,7 @@ country_event = {
 			create_fleet = {
 				name = ap_advanced_security
 				settings = {
+					# garrison = yes
 					can_disband = no
 					can_upgrade = no
 					can_change_composition = no
@@ -1601,7 +1603,9 @@ country_event = {
 						random = { chance = 50 create_ship = { name = random random_existing_design = corvette } }
 					}
 					set_location = { target = event_target:ship_escorted.star distance = 325 angle = random }
-					set_fleet_stance = passive
+					# set_fleet_stance = aggressive
+					# set_aggro_range_measure_from = return_point
+					# set_aggro_range = 5000
 					set_fleet_flag = security_escort_fleet
 					save_event_target_as = security_fleet
 				}
