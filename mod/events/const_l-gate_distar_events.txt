@@ -243,6 +243,7 @@ country_event = {
 	}
 }
 
+# on_single_player_save_game_load
 event = {
 	id = distar.999
 	is_triggered_only = yes
@@ -270,11 +271,13 @@ event = {
 			}
 			add_seen_bypass_type = lgate
 		}
+
 		every_megastructure = {
 			limit = { is_megastructure_type = lgate_base }
-			create_bypass = {
-				owner = owner type = lgate effect = { CmtEffectOpenLgate = yes }
-			}
+			CmtEffectOpenLgate = yes
+			# create_bypass = { # FIXME: Not working?
+			# 	owner = owner type = lgate effect = { CmtEffectOpenLgate = yes }
+			# }
 		}
 	}
 }
