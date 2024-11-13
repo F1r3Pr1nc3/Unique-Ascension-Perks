@@ -958,7 +958,7 @@ country_event = {
 	}
 }
 
-# on_monthly_pulse_country
+# on_half_yearly_pulse_country
 country_event = {
 	id = UniqueAscensionPerksEvents.8041
 	hide_window = yes
@@ -7359,6 +7359,24 @@ country_event = {
 				country_event = { id = UniqueAscensionPerksEvents.451 days = 30 random = 60 }
 			}
 		}
+		# UniqueAscensionPerksEvents.8041		# ap_nano_drones
+		if = {
+			limit = {
+				any_playable_country = {
+					has_ascension_perk = ap_nano_drones
+					OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
+					has_country_resource = { type = automatic_drone amount > 200 }
+				}
+			}
+			every_playable_country = {
+				limit = {
+					has_ascension_perk = ap_nano_drones
+					OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
+					has_country_resource = { type = automatic_drone amount > 200 }
+				}
+				country_event = { id = UniqueAscensionPerksEvents.8041 days = 1 random = 5 }
+			}
+		}
 		# UniqueAscensionPerksEvents.8082		# ap_stability_celebration
 		if = {
 			limit = {
@@ -7472,24 +7490,6 @@ event = {
 	is_triggered_only = yes
 	immediate = {
 		# ON_MONTHLY_PULSE_COUNTRY
-		# UniqueAscensionPerksEvents.8041		# ap_nano_drones
-		if = {
-			limit = {
-				any_playable_country = {
-					has_ascension_perk = ap_nano_drones
-					OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
-					has_country_resource = { type = automatic_drone amount > 200 }
-				}
-			}
-			every_playable_country = {
-				limit = {
-					has_ascension_perk = ap_nano_drones
-					OR = { has_country_flag = nano_auto_upgrade has_country_flag = nano_resource_replacement }
-					has_country_resource = { type = automatic_drone amount > 200 }
-				}
-				country_event = { id = UniqueAscensionPerksEvents.8041 days = 1 random = 5 }
-			}
-		}
 		# UniqueAscensionPerksEvents.4143		# ap_genius_cloning
 		if = {
 			limit = { any_playable_country = { has_ascension_perk = ap_genius_cloning } }

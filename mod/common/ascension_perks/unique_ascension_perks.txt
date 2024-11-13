@@ -271,6 +271,7 @@ ap_nano_drones = {
 
 # Nanite Composition
 # v3.3 halved values
+# v3.14 again reduced values
 ap_nano_to_nanite = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_nano_drones_req_1" has_technology = tech_auto_drone }
@@ -281,11 +282,10 @@ ap_nano_to_nanite = {
 		has_distar = yes
 	}
 	modifier = {
-		ship_hull_regen_add_static = 2.5
-		ship_armor_regen_add_static = 2
-		# ship_shield_regen_add_static = 1.5
-		country_base_nanites_produces_add = 2
-		planet_researchers_engineering_research_produces_mult = 0.2
+		ship_hull_regen_add_static = 1.5 # 2.5
+		ship_armor_regen_add_static = 1.2 # 2
+		country_base_nanites_produces_add = 1 # 2
+		planet_researchers_engineering_research_produces_mult = 0.1 # 0.2
 	}
 	on_enabled = {
 		custom_tooltip = "ap_nano_to_nanite_tooltip_1"
@@ -323,7 +323,7 @@ ap_genius_cloning = {
 		custom_tooltip = { fail_text = "ap_genius_cloning_req_1" has_technology = tech_cloning }
 		custom_tooltip = { fail_text = "ap_genius_cloning_req_2" has_technology = tech_housing_2 }
 		custom_tooltip = { fail_text = "ap_genius_cloning_req_3" tradition_expansion_finish = yes }
-		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_1" num_ascension_perks > 0 }
 	}
 	modifier = { pop_growth_speed = 0.15 }	# 0.3 < v3.4
 	on_enabled = {
@@ -449,7 +449,9 @@ ap_expansion_infinity = {
 # Recycling Expeditions
 ap_recycling_drones = {
 	possible = {
-		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_2" num_ascension_perks > 1 }
+		has_tradition = tr_adaptability_recycling
+		AND = { count_system_within_border = { count > 15 } num_owned_planets > 6 }
 	}
 	modifier = {
 		# country_ship_upgrade_cost_mult = -0.25 # -0.66 removed in v3.4.5
@@ -564,7 +566,7 @@ ap_economic_prospertity = {
 ap_chosen_ruler = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_chosen_ruler_req_1" tradition_domination_finish = yes }
-		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_1" num_ascension_perks > 0 }
 	}
 	modifier = {
 		# ruler_skill_levels = 4 removed in v.3.8
@@ -635,7 +637,7 @@ ap_space_domestication = {
 		custom_tooltip = { fail_text = "ap_space_domestication_req_4" has_technology = tech_mining_3 }
 		has_leviathans = yes
 		custom_tooltip = { fail_text = "requires_independence" is_subject = no }
-		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_2" num_ascension_perks > 1 }
 	}
 	modifier = {
 		damage_vs_country_type_crystal_mult = 0.25
@@ -749,7 +751,7 @@ ap_robot_command = {
 				OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit }
 			}
 		}
-		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_1" num_ascension_perks > 0 }
 	}
 	modifier = { planet_pop_assembly_mult = 0.2 }	# 0.3 < v3.4
 	on_enabled = {
@@ -810,7 +812,7 @@ ap_megacorp = {
 			}
 		}
 		has_megacorp = yes
-		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_2" num_ascension_perks > 1 }
 	}
 	modifier = {
 		branch_office_value_mult = 0.4
@@ -855,7 +857,7 @@ ap_megacorp = {
 ap_fallen_disciple = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_fallen_disciple_req_1" tradition_harmony_finish = yes }
-		custom_tooltip = { fail_text = "ap_requires_4_perk" num_ascension_perks > 3 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_4" num_ascension_perks > 3 }
 	}
 	modifier = { }
 	on_enabled = {
@@ -1027,7 +1029,7 @@ ap_super_hive_mind = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_super_hive_mind_req_1" has_technology = tech_colonial_centralization }
 		has_utopia = yes
-		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_1" num_ascension_perks > 0 }
 	}
 	modifier = {
 		pop_amenities_usage_mult = -0.1		# -0.25
@@ -1131,7 +1133,7 @@ ap_connected_hivemind = {
 
 ap_hivemind_reserve = {
 	possible = {
-		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_2" num_ascension_perks > 1 }
 		years_passed > 14
 	}
 	modifier = { }
@@ -1219,7 +1221,7 @@ ap_mechanical_prophet = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_mechanical_prophet_req_1" has_technology = tech_machine_principle_transfer }
 		custom_tooltip = { fail_text = "ap_mechanical_prophet_req_2" has_technology = tech_machine_rebellion }
-		custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_2" num_ascension_perks > 1 }
 	}
 	modifier = { }
 	on_enabled = {
@@ -1375,7 +1377,7 @@ ap_orbital_surgical_strike = {
 		custom_tooltip = { fail_text = "ap_orbital_surgical_strike_req_1" has_technology = tech_cruisers }
 		custom_tooltip = { fail_text = "ap_orbital_surgical_strike_req_2" tradition_supremacy_finish = yes }
 		host_has_dlc = "Apocalypse"
-		custom_tooltip = { fail_text = "ap_requires_1_perk" num_ascension_perks > 0 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_1" num_ascension_perks > 0 }
 	}
 	modifier = { ship_orbital_bombardment_mult = 1.5 }
 	on_enabled = {
@@ -1506,7 +1508,7 @@ ap_utopian_realisation = {
 
 ap_antimatter = {
 	possible = {
-		custom_tooltip = { fail_text = "ap_requires_3_perk" num_ascension_perks > 2 }
+		custom_tooltip = { fail_text = "requires_ascension_perks_3" num_ascension_perks > 2 }
 	}
 	# v3.4 reduced from 0.25
 	modifier = { ship_speed_mult = 0.15 }
@@ -1597,7 +1599,7 @@ ap_artifact_hunter = {
 	}
 	ai_weight = { factor = event_target:global_event_country.ap_artifact_hunter }
 }
-
+# Self Managed Colony
 ap_self_aware_colony = {
 	possible = {
 		custom_tooltip = { fail_text = "ap_self_aware_colony_req_1" tradition_expansion_finish = yes }
@@ -1632,7 +1634,7 @@ ap_self_aware_colony = {
 
 ap_flourishing_technocracy = {
 	possible = {
-		# custom_tooltip = { fail_text = "ap_requires_2_perk" num_ascension_perks > 1 }
+		# custom_tooltip = { fail_text = "requires_ascension_perks_2" num_ascension_perks > 1 }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_2" has_technology = tech_basic_science_lab_3 }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_3" OR = { has_technology = tech_combat_computers_3 has_technology = tech_combat_computers_autonomous } }
 		custom_tooltip = { fail_text = "ap_flourishing_technocracy_req_4" has_technology = tech_colonization_4 }
