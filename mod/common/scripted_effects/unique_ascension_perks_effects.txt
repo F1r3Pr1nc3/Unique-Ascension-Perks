@@ -72,6 +72,7 @@ sync_subjects_virtual_relation = {
 			}
 		}
 		prevprev = {
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
 			set_faction_hostility = { target = prev set_hostile = yes }
 		}
 	}
@@ -109,12 +110,14 @@ sync_subjects_virtual_relation = {
 			}
 		}
 		prevprev = {
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
 			set_faction_hostility = { target = prev set_neutral = yes }
 		}
 	}
 	prev = { # Fix overlord relation not friendly
 		if = {
 			limit = { NOT = { is_friendly_to = prev } }
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
 			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 		if = {
@@ -122,6 +125,7 @@ sync_subjects_virtual_relation = {
 				exists = prev.overlord
 				NOT = { is_friendly_to = prev.overlord }
 			}
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev.overlord }
 			set_faction_hostility = { target = prev.overlord set_friendly = yes }
 		}
 		if = {

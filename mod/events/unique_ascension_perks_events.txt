@@ -11,8 +11,9 @@ country_event = {
 }
 
 # SYNC_SUBJECTS_VIRTUAL_RELATIONs (on_war_beginning, on_war_ended)
+# Similar UniqueAscensionPerksEvents.1022
 country_event = {
-	id = UniqueAscensionPerksEvents.8786 # Similar UniqueAscensionPerksEvents.1022
+	id = UniqueAscensionPerksEvents.8786
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = { is_subject = no }
@@ -59,6 +60,16 @@ country_event = {
 					has_ascension_perk = ap_civilian_activities
 				}
 				NOT = { has_country_flag = sync_subjects_virtual_relation }
+				any_relation = {
+					is_subject = no
+					is_unique_perk_special_subject = yes
+					OR = {
+						has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+						has_relation_flag = { who = prev flag = security_strike_force }
+						has_relation_flag = { who = prev flag = defense_sentinels }
+						has_relation_flag = { who = prev flag = civilian_activities_country }
+					}
+				}
 			}
 			set_timed_country_flag = { flag = sync_subjects_virtual_relation days = 5 }
 			every_relation = {
@@ -1798,6 +1809,10 @@ fleet_event = {
 							set_fleet_stance = aggressive
 						}
 						owner = {
+							if = {
+								limit = { NOT = { has_communications = root.owner } }
+								establish_communications_no_message = root.owner
+							}
 							set_faction_hostility = { target = root.owner set_hostile = yes }
 						}
 					}
@@ -1830,6 +1845,10 @@ fleet_event = {
 									has_relation_flag = { who = prev flag = security_strike_force }
 									has_relation_flag = { who = prev flag = defense_sentinels }
 								}
+							}
+							if = {
+								limit = { NOT = { has_communications = root.owner } }
+								establish_communications_no_message = root.owner
 							}
 							set_faction_hostility = { target = root.owner set_hostile = yes }
 						}
@@ -1869,6 +1888,10 @@ fleet_event = {
 							}
 						}
 						owner = {
+							if = {
+								limit = { NOT = { has_communications = root.owner } }
+								establish_communications_no_message = root.owner
+							}
 							set_faction_hostility = { target = root.owner set_hostile = no }
 						}
 					}
@@ -1901,6 +1924,10 @@ fleet_event = {
 									has_relation_flag = { who = prev flag = security_strike_force }
 									has_relation_flag = { who = prev flag = defense_sentinels }
 								}
+							}
+							if = {
+								limit = { NOT = { has_communications = root.owner } }
+								establish_communications_no_message = root.owner
 							}
 							set_faction_hostility = { target = root.owner set_hostile = no }
 						}
