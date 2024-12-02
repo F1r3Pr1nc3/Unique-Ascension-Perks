@@ -19,17 +19,20 @@ trade_policy = {
 		# FREE MARKET
 		name = "trade_policy_consumer_goods"
 		potential = {
-			is_trade_league_federation = no
+			# is_trade_league_federation = no
+			NAND = {
+				has_federation = yes
+				is_trade_league_federation = yes
+			}
 			has_tradition = tr_mercantile_adaptive_economic_policies
 			is_worker_coop_empire = no
 		}
 		policy_flags = { trade_conversion_consumer_goods }
-		modifier = {}
 		valid = {
 			merg_is_default_empire = yes
 			NOT = { has_policy_flag = "economic_stance_planned" }
 		}
-
+		modifier = {}
 		AI_weight = { factor = 2 }
 	}
 	option = {
@@ -39,17 +42,17 @@ trade_policy = {
 			# is_trade_league_federation = no
 			NAND = {
 				has_federation = yes
-				federation = {
-					OR = {
-						has_federation_perk = trade_federation_passive
-						has_federation_perk = unity_trade_1
-					}
-				}
+				is_trade_league_federation = yes
+				federation = { has_federation_perk = unity_trade_1 }
 			}
 			has_tradition = tr_mercantile_adaptive_economic_policies
 			is_worker_coop_empire = no
 		}
 		policy_flags = { trade_conversion_unity }
+		valid = {
+			merg_is_default_empire = yes
+			NOT = { has_policy_flag = "economic_stance_market" } # ECC v3.14
+		}
 		modifier = {}
 		AI_weight = { factor = 0 }
 	}

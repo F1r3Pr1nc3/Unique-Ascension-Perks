@@ -2852,10 +2852,10 @@ planet_event = {
 			text = "UniqueAscensionPerksEvents.84.Mineral"
 			text = "UniqueAscensionPerksEvents.84.Food"
 			text = "UniqueAscensionPerksEvents.84.Research"
-			success_text = { text = "UniqueAscensionPerksEvents.84.Trade" owner = { is_gestalt = no } }
-			success_text = { text = "UniqueAscensionPerksEvents.84.Hive" owner = { is_hive_empire = yes } }
-			success_text = { text = "UniqueAscensionPerksEvents.84.Auto" owner = { is_machine_empire = yes } }
-			success_text = { text = "UniqueAscensionPerksEvents.84.Entrepot" owner = { is_machine_empire = yes } }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Trade"		owner = { is_gestalt = no } }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Hive"		owner = { is_hive_empire = yes } }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Auto"		owner = { is_synthetic_empire = yes } }
+			success_text = { text = "UniqueAscensionPerksEvents.84.Entrepot"	owner = { is_machine_empire = yes } }
 		}
 	}
 	show_sound = event_cityscape
@@ -2935,7 +2935,7 @@ planet_event = {
 	}
 	option = {
 		name = "d_auto_factory"
-		allow = { owner = { is_machine_empire = yes has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
+		allow = { owner = { is_synthetic_empire = yes has_country_resource = { type = minerals amount > 1000 } has_country_resource = { type = energy amount > 1000 } } }
 		owner = { add_resource = { energy = -1000 minerals = -1000 } }
 		add_deposit = d_auto_factory
 		hidden_effect = { change_variable = { which = auto_factory value = 1 } change_variable = { which = galaxy_center_features value = 1 } }
@@ -5908,7 +5908,9 @@ planet_event = {
 	pre_triggers = { has_owner = yes }
 	trigger = {
 		exists = owner # pre_trigger seems not sufficient
+		is_colony = yes
 		has_modifier = self_aware_colony
+		is_under_colonization = no
 	}
 	immediate = {
 		# save_event_target_as = self_aware_planet
@@ -5938,7 +5940,7 @@ planet_event = {
 	option = { name = "UniqueAscensionPerksEvents.461.Energy"		allow = { NOT = { has_modifier = self_aware_energy } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_energy clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Minerals"		allow = { NOT = { has_modifier = self_aware_minerals } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = mining_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_minerals clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Food"			allow = { NOT = { has_modifier = self_aware_food } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_food clear_on_owner_change = yes } }
-	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { owner = { is_gestalt = no has_technology = tech_luxuries_2 } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_consumers clear_on_owner_change = yes } }
+	option = { name = "UniqueAscensionPerksEvents.461.Consumers"	allow = { owner = { has_technology = tech_luxuries_2 is_gestalt = no } NOT = { has_modifier = self_aware_consumers } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_consumers clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Alloys"		allow = { owner = { has_technology = tech_alloys_2 } NOT = { has_modifier = self_aware_alloys } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 merg_is_habitat = no } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_alloys clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Research"		allow = { owner = { has_technology = tech_basic_science_lab_3 } NOT = { has_modifier = self_aware_research } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.461.Req01 OR = { merg_is_habitat = no AND = { merg_is_habitat = yes has_planet_flag = research_habitat } } } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_research clear_on_owner_change = yes } }
 	option = { name = "UniqueAscensionPerksEvents.461.Trade"		allow = { owner = { has_technology = tech_interstellar_economics is_gestalt = no } NOT = { has_modifier = self_aware_trade } } self_aware_colony_clear_focus = yes	add_modifier = { modifier = self_aware_trade clear_on_owner_change = yes } }
@@ -6159,7 +6161,7 @@ planet_event = {
 							}
 						}
 						modifier = { factor = 10 owner = { has_deficit = food } }
-						modifier = { factor = 0.5 owner = { is_machine_empire = yes } }
+						modifier = { factor = 0.5 owner = { is_synthetic_empire = yes } }
 						add_deposit = d_aware_farming_building
 					}
 					2 = {
@@ -6254,7 +6256,7 @@ planet_event = {
 						}
 						modifier = { add = -2
 							OR = {
-								owner = { is_machine_empire = yes }
+								owner = { is_synthetic_empire = yes }
 								AND = {
 									is_variable_set = d_aware_growth_building
 									check_variable = { which = d_aware_growth_building value > 0 }
@@ -6327,7 +6329,7 @@ planet_event = {
 							2 = {
 								modifier = { factor = 0
 									OR = {
-										owner = { is_machine_empire = yes }
+										owner = { is_synthetic_empire = yes }
 										AND = {
 											is_variable_set = d_aware_growth_building
 											check_variable = { which = d_aware_growth_building value > 0 }
