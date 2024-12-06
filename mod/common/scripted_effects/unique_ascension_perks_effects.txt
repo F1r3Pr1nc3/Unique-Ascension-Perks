@@ -52,6 +52,7 @@ deploy_outpost = {
 sync_subjects_virtual_relation = {
 	every_country = { # Hostile
 		limit = {
+			NOR = { is_same_empire = prev is_same_empire = prevprev }
 			has_communications = prev
 			prevprev = { is_friendly_to = prev }
 			OR = {
@@ -66,8 +67,6 @@ sync_subjects_virtual_relation = {
 				AND = { is_subject = yes overlord = { is_same_empire = prevprev } }
 				prevprev = { is_country_type = civilian_activities }
 				is_friendly_to = prev
-				is_same_empire = prev
-				is_same_empire = prevprev
 				prevprev = { is_hostile = prev }
 			}
 		}
@@ -101,10 +100,11 @@ sync_subjects_virtual_relation = {
 				is_country_type = guardian_sphere
 				is_country_type = ratlings
 				is_country_type = ldragon_country
+				is_country_type = enclave_mercenary
 			}
 			NOR = {
 				is_hostile = prev
-				is_same_empire = prev
+				# is_same_empire = prev
 				is_same_empire = prevprev
 				has_attitude_behavior = { target = prev behavior = attack }
 			}
@@ -112,6 +112,30 @@ sync_subjects_virtual_relation = {
 		prevprev = {
 			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
 			set_faction_hostility = { target = prev set_neutral = yes }
+		}
+	}
+	# TODO TEst relation?
+	random_country = { # Own Mercenary are friendly
+		limit = {
+			NOR = { is_same_empire = prev is_same_empire = prevprev }
+			has_communications = prev
+			is_country_type = enclave_mercenary
+			OR = {
+				prev = { has_country_flag = merc_enclave_founder@prev }
+				any_owned_fleet = {
+					is_ship_size = enclave_mercenary_station
+					space_owner = { is_same_empire = prevprevprev }
+				}
+			}
+			OR = {
+				is_hostile = prev
+				is_hostile_to = prev
+				has_attitude_behavior = { target = prev behavior = attack }
+			}
+		}
+		prevprev = {
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
+			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 	}
 	prev = { # Fix overlord relation not friendly

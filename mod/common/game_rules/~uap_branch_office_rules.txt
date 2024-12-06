@@ -78,9 +78,9 @@ can_build_branch_office_on_planet = {
 
 		else_if = {
 			limit = {
-				ROOT = { is_worker_coop_empire = yes }
-				THIS = {
-					any_owned_pop = { is_enslaved = yes }
+				root = { is_worker_coop_empire = yes }
+				this = {
+					count_enslaved_species = { count > 0 }
 				}
 				owner = { is_primitive = yes }
 			}
@@ -89,9 +89,9 @@ can_build_branch_office_on_planet = {
 		}
 		else_if = {
 			limit = {
-				ROOT = { has_civic = civic_ruthless_competition }
-				THIS = {
-					any_owned_pop = { is_enslaved = yes }
+				root = { has_civic = civic_ruthless_competition }
+				this = {
+					count_enslaved_species = { count > 0 }
 				}
 				owner = { is_primitive = yes }
 			}
@@ -103,8 +103,8 @@ can_build_branch_office_on_planet = {
 		fail_text = BRANCH_OFFICE_NOT_COMMERCIAL_PACT
 		exists = owner
 		OR = {
-			ROOT = { is_criminal_syndicate = yes }
-			ROOT = { has_civic = civic_ruthless_competition }
+			root = { is_criminal_syndicate = yes }
+			root = { has_civic = civic_ruthless_competition }
 			owner = { has_commercial_pact = root }
 			owner = { is_in_federation_with = root }
 			AND = {
@@ -146,6 +146,13 @@ can_build_branch_office_on_planet = {
 						is_gestalt = yes						# Imposed Megacorp allows branch offices on Gesalt Empire (MOD)
 						# is_same_empire = root	# Imposed Megacorp allows branch offices without commercial (MOD)
 					}
+				}
+			}
+			# ECC MEGACORP v3.14
+			AND = {
+				root = { is_worker_coop_empire = yes }
+				this = {
+					count_enslaved_species = { count > 0 }
 				}
 			}
 		}

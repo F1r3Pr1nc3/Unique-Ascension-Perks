@@ -220,43 +220,33 @@ planet_event = {
 	immediate = {
 		if = {
 			limit = { NOT = { exists = event_target:owning_empire } }
-			if = { limit = { exists = from from = { is_scope_type = country } }
+			if = { limit = { exists = from from = { is_scope_valid = yes is_scope_type = country } }
 				from = { save_event_target_as = owning_empire }
 			}
 			else_if = {
-				limit = { exists = fromfrom fromfrom = { is_scope_type = country } }
+				limit = { exists = fromfrom fromfrom = { is_scope_valid = yes is_scope_type = country } }
 				fromfrom = { save_event_target_as = owning_empire }
 			}
+			else_if = {
+				limit = { exists = space_owner }
+				space_owner = { save_event_target_as = owning_empire }
+			}
 			else = {
-				if = {
-					limit = { exists = space_owner }
-					space_owner = { save_event_target_as = owning_empire }
-				}
-				else = {
-					planet_owner = { save_event_target_as = owning_empire }
-				}
+				planet_owner = { save_event_target_as = owning_empire }
 			}
 		}
 	}
 	option = {
 		name = "regentmaker.2.a"
 		hidden_effect = {
-			event_target:owning_empire.owner_species = { save_event_target_as = vassal_species }
+			set_timed_planet_flag = { flag = owner_main_species days = 3 }
+			planet_event = { id = regentmaker.3 scopes = { from = event_target:owning_empire fromfrom = fromfrom } }
 		}
-		planet_event = { id = regentmaker.3 }
 	}
 	option = {
 		name = "regentmaker.2.b"
 		hidden_effect = {
-			if = {
-				limit = { exists = event_target:vassal_species }
-				event_target:vassal_species = { save_global_event_target_as = vassal_species }
-				clear_global_event_target = vassal_species
-				planet_event = { id = regentmaker.3 scopes = { fromfrom = from } }
-			}
-			else = {
-				planet_event = { id = regentmaker.3 }
-			}
+			planet_event = { id = regentmaker.3 scopes = { from = event_target:owning_empire fromfrom = fromfrom } }
 		}
 	}
 	option = {
@@ -277,28 +267,23 @@ planet_event = {
 	}
 }
 
-# owner = event_target:owning_empire (HIDDEN helper from regentmaker.2)
+# From = owner = event_target:owning_empire (HIDDEN helper from regentmaker.2)
 planet_event = {
 	id = regentmaker.3
 	location = root
 	hide_window = yes
 	is_triggered_only = yes
+	trigger = {
+		exists = owner
+	}
 	immediate = {
-		if = {
-			limit = { NOT = { exists = event_target:owning_empire } }
-			if = { limit = { exists = fromfrom fromfrom = { is_scope_valid = yes is_scope_type = country } }
-				fromfrom = { save_event_target_as = owning_empire }
-			}
-			else_if = {
-				limit = { exists = space_owner }
-				space_owner = { save_event_target_as = owning_empire }
-			}
-			else = {
-				planet_owner = { save_event_target_as = owning_empire }
-			}
-		}
 		## Save target species
-		if = { limit = { NOT = { exists = event_target:vassal_species } }
+		if = { limit = { has_planet_flag = owner_main_species }
+			event_target:owning_empire.owner_main_species = { save_event_target_as = vassal_species }
+			remove_planet_flag = owner_main_species
+		}
+		else_if = {
+			limit = { NOT = { exists = event_target:vassal_species } }
 			## Save target species get_vassal_species
 			if = {
 				limit = { is_colonizable = yes }
@@ -453,16 +438,16 @@ planet_event = {
 			}
 		}
 		create_country = {
-			# name = random
+			name = random
 			# name = "[This.GetStarName]" TODO
 			name_list = event_target:owning_empire
 			# type = default
 			# ship_prefix = ""
-			government_restrictions = {
-				authority = {
-					NOR = { value = auth_machine_intelligence value = auth_hive_mind }
-				}
-			}
+			# government_restrictions = {
+			# 	authority = {
+			# 		NOR = { value = auth_machine_intelligence value = auth_hive_mind }
+			# 	}
+			# }
 			authority = event_target:owning_empire
 			civics = random
 			ignore_initial_colony_error = yes
@@ -520,7 +505,11 @@ planet_event = {
 				limit = { has_overlord_dlc = yes }
 				set_origin = origin_imperial_vassal
 			}
-			else = { set_origin = origin_separatists }
+			else_if = {
+				limit = { has_origin = origin_default }
+				set_origin = origin_separatists
+			}
+			set_origin_effect = yes # From = overlord
 
 			set_graphical_culture = event_target:owning_empire
 
@@ -957,11 +946,6 @@ country_event = {
 	picture_event_data = { portrait = root.owner_main_species room = enclave_curator_room }
 	custom_gui = sgm_ScrollbarEventWindow
 	is_triggered_only = yes
-	# immediate = {
-	#	random_subject = {
-	#		save_event_target_as = vassal_empire
-	#	}
-	# }
 	option = {
 		name = "regentmaker.50.a"
 		every_subject = {
@@ -1194,10 +1178,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_democratic"
 		every_subject = {
-			limit = {
-				is_democratic_authority = no
-				is_perfect_vassal = yes
-			}
+			limit = { is_democratic_authority = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_democratic days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_democratic civics = random remove_invalid_civics = yes cooldown = no }
@@ -1210,10 +1191,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_oligarchic"
 		every_subject = {
-			limit = {
-				is_oligarchic_authority = no
-				is_perfect_vassal = yes
-			}
+			limit = { is_oligarchic_authority = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_oligarchic days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_oligarchic civics = random remove_invalid_civics = yes cooldown = no }
@@ -1226,10 +1204,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_dictatorial"
 		every_subject = {
-			limit = {
-				is_dictatorial_authority = no
-				is_perfect_vassal = yes
-			}
+			limit = { is_dictatorial_authority = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_dictatorial days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_dictatorial civics = random remove_invalid_civics = yes cooldown = no }
@@ -1242,10 +1217,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_imperial"
 		every_subject = {
-			limit = {
-				is_imperial_authority = no
-				is_perfect_vassal = yes
-			}
+			limit = { is_imperial_authority = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_imperial days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_imperial civics = random remove_invalid_civics = yes cooldown = no }
@@ -2790,9 +2762,7 @@ country_event = {
 	option = {
 		name = "auth_democratic"
 		trigger = {
-			event_target:subject_selected = {
-				is_democratic_authority = no
-			}
+			event_target:subject_selected = { is_democratic_authority = no }
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
@@ -2867,9 +2837,7 @@ country_event = {
 	option = {
 		name = "auth_oligarchic"
 		trigger = {
-			event_target:subject_selected = {
-				is_oligarchic_authority = no
-			}
+			event_target:subject_selected = { is_oligarchic_authority = no }
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
@@ -2886,9 +2854,7 @@ country_event = {
 	option = {
 		name = "auth_dictatorial"
 		trigger = {
-			event_target:subject_selected = {
-				is_dictatorial_authority = no
-			}
+			event_target:subject_selected = { is_dictatorial_authority = no }
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
@@ -2905,9 +2871,7 @@ country_event = {
 	option = {
 		name = "auth_imperial"
 		trigger = {
-			event_target:subject_selected = {
-				is_imperial_authority = no
-			}
+			event_target:subject_selected = { is_imperial_authority = no }
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
