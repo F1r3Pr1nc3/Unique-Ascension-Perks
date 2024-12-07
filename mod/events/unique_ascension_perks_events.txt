@@ -691,6 +691,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	trigger = {
+		merg_is_default_empire = yes
 		has_ascension_perk = ap_transcendent_learning
 		NOR = { has_ascension_perk = ap_expandable_brain_1 has_country_flag = ap_transcendent_learning_project }
 	}
@@ -830,7 +831,6 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-# TODO may split them into more AP's
 country_event = {
 	id = UniqueAscensionPerksEvents.37
 	title = "ap_expandable_brain_2"
@@ -841,11 +841,19 @@ country_event = {
 	is_triggered_only = yes
 	immediate = {
 		get_capital_planet = yes
-		every_owned_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill_without_trait_selection = 2 } BR_add_random_leader_trait = yes } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
-		every_pool_leader	= { if = { limit = { has_skill < 5 } set_skill = 3 add_skill_without_trait_selection = 2 } BR_add_random_leader_trait = yes } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+		while = { count = 3
+			limit = { any_owned_leader = { has_skill < 5 } }
+			random_owned_leader	= { if = { limit = { has_skill < 5 exists = species species = { is_sapient = yes } } set_skill = 3 add_skill_without_trait_selection = 2 } BR_add_random_leader_trait = yes } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+		}
 	}
 	after = {
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.3038 days = 30 random = 70 }
+			while = { count = 3
+				limit = { any_pool_leader = { has_skill < 5 } }
+				random_pool_leader	= { if = { limit = { has_skill < 5 exists = species species = { is_sapient = yes } } set_skill = 3 add_skill_without_trait_selection = 2 } BR_add_random_leader_trait = yes } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+			}
+		}
 	}
 	option = { name = "UniqueAscensionPerksEvents.37.Offense"		add_modifier = { modifier = expandable_brain_3_offense } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
 	option = { name = "UniqueAscensionPerksEvents.37.Expansion"		add_modifier = { modifier = expandable_brain_3_expansion } custom_tooltip = "ALLOW_LEADER_MIN_LVL_5" custom_tooltip = "ALLOW_LEADER_MIN_TRAIT_3" }
@@ -905,7 +913,7 @@ country_event = {
 		# has_country_flag = ap_expandable_brain_2_project_completed
 		NOT = { has_country_flag = ap_expandable_brain_2_project_2 }
 	}
-	immediate = { set_country_flag = ap_expandable_brain_2_project_2 get_capital_planet = yes }
+	immediate = { get_capital_planet = yes set_country_flag = ap_expandable_brain_2_project_2 }
 	option = { name = EXCELLENT enable_special_project = { name = EXPANDABLE_BRAIN_4 location = event_target:capital_planet owner = root } }
 }
 
@@ -1246,11 +1254,7 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	immediate = { get_capital_planet = yes }
-	option = {
-		name = EXCELLENT
-		generate_lcluster_clue = yes
-		add_research_option = tech_jump_drive_1
-	}
+	option = { name = EXCELLENT generate_lcluster_clue = yes add_research_option = tech_jump_drive_1 }
 	after = {
 		give_tech_no_error_effect = { TECH = tech_lgate_activation MESSAGE = yes }
 		if = {
@@ -1436,7 +1440,7 @@ fleet_event = {
 				# random_existing_design = corvette TODO not exists
 				random_owned_ship = {
 					limit = { is_ship_size = corvette }
-					prev = { create_ship = { name = random design = prev  } }
+					prev = { create_ship = { name = random design = prev } }
 				}
 			}
 			set_event_locked = yes
@@ -1796,10 +1800,7 @@ fleet_event = {
 							}
 						}
 						if = {
-							limit = {
-								is_disabled = yes
-								is_in_combat = no
-							}
+							limit = { is_disabled = yes is_in_combat = no }
 							every_owned_ship = { set_disabled = no }
 							set_event_locked = no
 							if = {
@@ -4166,11 +4167,7 @@ country_event = {
 	id = UniqueAscensionPerksEvents.2380
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = {
-		is_country_type = enclave_mercenary
-		has_country_flag = mercenary_enclave_country
-		exists = from.owner
-	}
+	trigger = { is_country_type = enclave_mercenary has_country_flag = mercenary_enclave_country exists = from.owner }
 	immediate = {
 		from.owner = {
 			country_event = { id = UniqueAscensionPerksEvents.8787 days = 1 } # prev = { sync_subjects_virtual_relation = yes }
@@ -4257,7 +4254,7 @@ leader_event = {
 	show_sound = event_psionic
 	location = from
 	is_triggered_only = yes
-	immediate = {  }
+	immediate = { }
 	after = {
 		hidden_effect = {
 			from = {
@@ -4310,7 +4307,7 @@ leader_event = {
 	show_sound = event_psionic
 	location = owner.capital_scope
 	is_triggered_only = yes
-	immediate = {  }
+	immediate = { }
 	option = { name = "UniqueAscensionPerks.lets_again" hidden_effect = { owner = { country_event = { id = UniqueAscensionPerksEvents.251 } } } }
 	option = { name = EXCELLENT }
 }
