@@ -3,18 +3,20 @@
 ##### Expansionist Development ######
 #									#
 #####################################
+# This = ship
+# From = solar_system
 deploy_outpost = {
 	custom_tooltip = "UniqueAscensionPerksED.tooltip"
 	hidden_effect = {
-		from = {
-			create_starbase = { size = starbase_outpost owner = event_target:science_ship_owner }
+		solar_system = {
+			create_starbase = { size = starbase_outpost owner = prev } # event_target:science_ship_owner
 		}
-		event_target:science_ship_owner = {
+		owner = { # event_target:science_ship_owner
 			set_timed_country_flag = { flag = no_expansionist_development_yet months = 1 }
 			if = {
 				limit = {
 					mid_game_years_passed > 0
-					prev.from = {
+					prev.solar_system = {
 						NOR = { has_megastructure = hyper_relay has_megastructure = hyper_relay_restored }
 					}
 					has_technology = tech_hyper_relays
@@ -23,8 +25,8 @@ deploy_outpost = {
 					has_country_resource = { type = rare_crystals amount > 100 }
 					has_country_resource = { type = influence amount > 25 }
 				}
-				prev.from = {
-					add_resource = { alloys = -500 rare_crystals = -100 influence = -25 }
+				add_resource = { alloys = -500 rare_crystals = -100 influence = -25 }
+				prev.solar_system = {
 					if = {
 						limit = { has_megastructure = hyper_relay_ruined }
 						random_system_megastructure = {
@@ -59,6 +61,8 @@ sync_subjects_virtual_relation = {
 				is_hostile = prev
 				is_hostile_to = prev
 				has_attitude_behavior = { target = prev behavior = attack }
+				AND = { is_default_or_fallen = yes is_at_war_with = prev }
+				is_marauder = yes
 			}
 			NOR = {
 				is_in_federation_with = prev
@@ -75,9 +79,12 @@ sync_subjects_virtual_relation = {
 			set_faction_hostility = { target = prev set_hostile = yes }
 		}
 	}
-	every_relation = { # Friendly
+	# Friendly
+	# every_relation = {
+	every_country = {
 		limit = {
 			has_communications = prev
+
 			prevprev = {
 				OR = {
 					is_hostile = prev
@@ -91,10 +98,11 @@ sync_subjects_virtual_relation = {
 				is_in_federation_with = prev
 				has_defensive_pact = prev
 				is_overlord_to = prev
+				is_fallen_empire = yes
 				AND = { has_global_flag = galactic_crisis_recently_fired is_galactic_community_member = yes prev = { is_galactic_community_member = yes } }
 				AND = { is_subject = yes overlord = { is_same_empire = prevprev } }
 				# AND = { is_subject = yes overlord = { is_overlord_to = prevprev } } subjects can have war between
-				is_non_hostile_to_wraith = yes
+				AND = { is_non_hostile_to_wraith = yes is_marauder = no }
 				is_country_type = caravaneer_home
 				is_country_type = caravaneer_fleet
 				is_country_type = guardian_sphere
@@ -107,6 +115,7 @@ sync_subjects_virtual_relation = {
 				# is_same_empire = prev
 				is_same_empire = prevprev
 				has_attitude_behavior = { target = prev behavior = attack }
+				AND = { is_default_or_fallen = yes is_at_war_with = prev }
 			}
 		}
 		prevprev = {
@@ -115,11 +124,19 @@ sync_subjects_virtual_relation = {
 		}
 	}
 	# TODO TEst relation?
-	random_country = { # Own Mercenary are friendly
+	# Own Mercenary are friendly
+	random_country = {
 		limit = {
 			NOR = { is_same_empire = prev is_same_empire = prevprev }
 			has_communications = prev
 			is_country_type = enclave_mercenary
+			prevprev = {
+				OR = {
+					is_hostile = prev
+					is_hostile_to = prev
+					has_attitude_behavior = { target = prev behavior = attack }
+				}
+			}
 			OR = {
 				prev = { has_country_flag = merc_enclave_founder@prev }
 				any_owned_fleet = {
@@ -127,18 +144,14 @@ sync_subjects_virtual_relation = {
 					space_owner = { is_same_empire = prevprevprev }
 				}
 			}
-			OR = {
-				is_hostile = prev
-				is_hostile_to = prev
-				has_attitude_behavior = { target = prev behavior = attack }
-			}
 		}
 		prevprev = {
 			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
 			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 	}
-	prev = { # Fix overlord relation not friendly
+	# Overlord relation must be friendly
+	prev = {
 		if = {
 			limit = { NOT = { is_friendly_to = prev } }
 			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }

@@ -86,7 +86,7 @@ country_event = {
 			NOT = { has_active_event = { regentmaker.504 } }
 		}
 		hidden_effect = {
-			set_timed_country_flag = { flag = "regentmaker.504" days = 10 }
+			set_timed_country_flag = { flag = "regentmaker.504" days = 20 }
 			country_event = { id = regentmaker.500 }
 			# country_event = { id = regentmaker.501 }
 		}
@@ -107,7 +107,7 @@ country_event = {
 			NOT = { has_active_event = { regentmaker.510 } }
 		}
 		hidden_effect = {
-			set_timed_country_flag = { flag = "regentmaker.510" days = 10 }
+			set_timed_country_flag = { flag = "regentmaker.510" days = 20 }
 			country_event = { id = regentmaker.500 }
 		}
 	}
@@ -155,21 +155,23 @@ planet_event = {
 				}
 			}
 		}
-		event_target:owning_empire = {
-			if = {
-				limit = { NOT = { has_country_flag = first_alien_life } }
-				set_country_flag = first_alien_life
-				set_timed_country_flag = { flag = not_alien_life days = 10 }
-			}
-			if = {
-				limit = { NOT = { has_country_flag = has_encountered_other_empire } }
-				set_country_flag = has_encountered_other_empire
-				set_timed_country_flag = { flag = not_encountered_other_empire days = 10 }
-			}
-		}
 	}
 	option = {
 		name = "regentmaker.1.a"
+		hidden_effect = {
+			event_target:owning_empire = {
+				if = {
+					limit = { NOT = { has_country_flag = first_alien_life } }
+					set_country_flag = first_alien_life
+					set_timed_country_flag = { flag = not_alien_life days = 20 }
+				}
+				if = {
+					limit = { NOT = { has_country_flag = has_encountered_other_empire } }
+					set_country_flag = has_encountered_other_empire
+					set_timed_country_flag = { flag = not_encountered_other_empire days = 20 }
+				}
+			}
+		}
 		planet_event = { id = regentmaker.2 }
 	}
 	# option = {
@@ -622,12 +624,14 @@ planet_event = {
 			# every_owned_planet = {
 			every_planet_within_border = {
 				limit = {
-					NOT = { is_planet = root }
 					has_planet_flag = planet_marked_for_handover
 					exists = space_owner
-					has_ground_combat = no
-					is_capital = no
-					is_occupied_flag = no
+					NOR = {
+						is_planet = root
+						has_ground_combat = yes
+						is_capital = yes
+						is_occupied_flag = yes
+					}
 					OR = {
 						is_owned_by = event_target:owning_empire
 						is_controlled_by = event_target:owning_empire
@@ -646,6 +650,16 @@ planet_event = {
 				remove_country_flag = first_alien_life
 			}
 			country_event = { id = specialist.1000 days = 3 } # Adjust subject type
+		}
+	}
+	after = {
+		event_target:owning_empire = {
+			every_planet_within_border = {
+				limit = { has_planet_flag = planet_marked_for_handover }
+				remove_planet_flag = planet_marked_for_handover
+				remove_modifier = "perfect_vassal_colony"
+				remove_modifier = "pm_perfect_vassal_colony"
+			}
 		}
 	}
 }
@@ -676,8 +690,7 @@ country_event = {
 			}
 			variable = num_vassals
 		}
-		# log="num_vassals \\[This.num_perfect_vassals]"
-		# log="num_vassals \\[This.num_vassals]"
+		# log="num_perfect_vassals: \\[This.num_perfect_vassals] num_vassals: \\[This.num_vassals]"
 		multiply_variable = { which = num_perfect_vassals value = 25 }
 		multiply_variable = { which = num_vassals value = 10 }
 		change_variable = { which = num_perfect_vassals value = 25 }

@@ -595,7 +595,10 @@ active_expansionist_development = {
 	allow = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.531 } }
 	}
-	effect = { remove_country_flag = no_expansionist_development }
+	effect = {
+		remove_country_flag = no_expansionist_development
+		clear_variable = expansionist_development_res
+	}
 	ai_weight = { weight = 0 }
 }
 
@@ -612,7 +615,15 @@ flourishing_technocracy = {
 		}
 	}
 	allow = {
-		NOT = { has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
+		NOR = {
+			has_active_event = { UniqueAscensionPerksEvents.470 UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 }
+			has_modifier = flourishing_technocracy_new_worlds
+			has_modifier = flourishing_technocracy_statecraft
+			has_modifier = flourishing_technocracy_biology
+			has_modifier = flourishing_technocracy_military_theory
+			has_modifier = flourishing_technocracy_psionics
+			has_modifier = flourishing_technocracy_good_trading
+		}
 	}
 	effect = {
 		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.471 } }

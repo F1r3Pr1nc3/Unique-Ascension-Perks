@@ -153,7 +153,7 @@ decision_true_emperor = {
 						has_ascension_perk = ap_powerful_vassals
 					# }
 				}
-				set_timed_country_flag = { flag = "regentmaker.510" days = 10 }
+				set_timed_country_flag = { flag = "regentmaker.510" days = 20 }
 				country_event = { id = regentmaker.500 }
 			} else = {
 				remove_country_flag = regentmaker_control_sel
@@ -169,6 +169,7 @@ decision_true_emperor = {
 decision_powerful_vassal = {
 	# icon = decision_regent
 	sound = event_mystic_reveal_light
+	owned_planets_only = yes
 	enactment_time = 7
 	resources = {
 		category = decisions
@@ -181,13 +182,8 @@ decision_powerful_vassal = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
-		OR = {
-			colonizable_planet = yes
-			AND = {
-				is_colony = yes
-				is_owned_by = from
-			}
-		}
+		is_colony = yes
+		is_owned_by = from
 		has_ground_combat = no
 		is_capital = no
 		is_occupied_flag = no
@@ -224,7 +220,10 @@ decision_give_planet_to_vassal = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
-		colonizable_planet = yes
+		OR = {
+			AND = { is_colony = no colonizable_planet = yes }
+			AND = { is_colony = yes is_owned_by = from }
+		}
 		NOR = { is_capital = yes is_occupied_flag = yes has_planet_flag = planet_marked_for_handover }
 	}
 	effect = {
@@ -244,7 +243,6 @@ decision_dont_give_planet_to_vassal = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { is_ai = no has_ascension_perk = ap_powerful_vassals }
-		colonizable_planet = yes
 		has_planet_flag = planet_marked_for_handover
 	}
 	effect = {
