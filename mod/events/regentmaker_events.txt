@@ -279,6 +279,14 @@ planet_event = {
 		exists = owner
 	}
 	immediate = {
+		if = { limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = from from = { is_scope_type = planet } }
+				from = { save_event_target_as = owning_empire }
+			}
+			else = {
+				owner = { save_event_target_as = owning_empire }
+			}
+		}
 		## Save target species
 		if = { limit = { has_planet_flag = owner_main_species }
 			event_target:owning_empire.owner_main_species = { save_event_target_as = vassal_species }
@@ -441,9 +449,8 @@ planet_event = {
 		}
 		create_country = {
 			name = random
-			# name = "[This.GetStarName]" TODO
 			name_list = event_target:owning_empire
-			# type = default
+			type = default
 			# ship_prefix = ""
 			# government_restrictions = {
 			# 	authority = {
@@ -464,6 +471,7 @@ planet_event = {
 			released_by_country = event_target:owning_empire
 			released_from_country = event_target:owning_empire
 			effect = {
+				# set_name = "[This.GetStarName]" TODO
 				event_target:owning_empire = {
 					if = {
 						limit = { OR = { has_country_flag = not_encountered_other_empire NOT = { has_country_flag = has_encountered_other_empire } } }
