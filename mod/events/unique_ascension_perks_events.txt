@@ -6539,30 +6539,30 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
+		NOT = {
 			has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 }
-			has_modifier = flourishing_technocracy_field_manipulation
-			has_modifier = flourishing_technocracy_particles
-			has_modifier = flourishing_technocracy_computing
+			# has_modifier = flourishing_technocracy_field_manipulation
+			# has_modifier = flourishing_technocracy_particles
+			# has_modifier = flourishing_technocracy_computing
 		}
 	}
 	immediate = { get_capital_planet = yes }
 	option = {
 		name = "field_manipulation"
 		add_modifier = { modifier = flourishing_technocracy_field_manipulation years = 5 }
-		trigger = { NOT = { has_modifier = flourishing_technocracy_field_manipulation } }
+		# trigger = { NOT = { has_modifier = flourishing_technocracy_field_manipulation } }
 		hidden_effect = { set_variable = { which = flourishing_technocracy_phy value = 1 } country_event = { id = UniqueAscensionPerksEvents.473 } } ai_chance = { factor = 0.1 } default_hide_option = yes
 	}
 	option = {
 		name = "particles"
 		add_modifier = { modifier = flourishing_technocracy_particles years = 5 }
-		trigger = { NOT = { has_modifier = flourishing_technocracy_particles } }
+		# trigger = { NOT = { has_modifier = flourishing_technocracy_particles } }
 		hidden_effect = { set_variable = { which = flourishing_technocracy_phy value = 2 } country_event = { id = UniqueAscensionPerksEvents.473 } }
 	}
 	option = {
 		name = "computing"
 		add_modifier = { modifier = flourishing_technocracy_computing years = 5 }
-		trigger = { NOT = { has_modifier = flourishing_technocracy_computing } }
+		# trigger = { NOT = { has_modifier = flourishing_technocracy_computing } }
 		hidden_effect = { set_variable = { which = flourishing_technocracy_phy value = 3 } country_event = { id = UniqueAscensionPerksEvents.473 } }
 	}
 	option = { name = AMOUNT_NONE ai_chance = { factor = 0.1 } }
@@ -6579,14 +6579,14 @@ country_event = {
 	location = event_target:capital_planet
 	is_triggered_only = yes
 	trigger = {
-		NOR = {
+		NOT = {
 			has_active_event = { UniqueAscensionPerksEvents.471 UniqueAscensionPerksEvents.473 UniqueAscensionPerksEvents.474 } }
-			has_modifier = flourishing_technocracy_new_worlds
-			has_modifier = flourishing_technocracy_statecraft
-			has_modifier = flourishing_technocracy_biology
-			has_modifier = flourishing_technocracy_military_theory
-			has_modifier = flourishing_technocracy_psionics
-			has_modifier = flourishing_technocracy_good_trading
+			# has_modifier = flourishing_technocracy_new_worlds
+			# has_modifier = flourishing_technocracy_statecraft
+			# has_modifier = flourishing_technocracy_biology
+			# has_modifier = flourishing_technocracy_military_theory
+			# has_modifier = flourishing_technocracy_psionics
+			# has_modifier = flourishing_technocracy_good_trading
 		}
 	immediate = { get_capital_planet = yes }
 	after = {
@@ -6926,24 +6926,36 @@ ship_event = {
 	location = from
 	is_triggered_only = yes
 	trigger = {
-		exists = fromfrom
-		fromfrom = {
-			NOR = { exists = starbase exists = space_owner }
+		exists = owner
+		owner = {
+			has_ascension_perk = ap_expansionist_development
+			NOT = { has_country_flag = no_expansionist_development } # edict
 		}
+		exists = from
+		from = { NOR = { exists = starbase exists = space_owner } }
+		# exists = fromfrom
+		# fromfrom = { NOR = { exists = starbase exists = space_owner } }
 	}
 	immediate = {
 		owner = {
 			save_event_target_as = science_ship_owner
 			if = {
-				limit = { is_variable_set = expansionist_development_res }
+				limit = { is_variable_set = expansionist_development_res NOR = { has_country_flag = no_expansionist_development has_active_event = { UniqueAscensionPerksEvents.534 } } }
 				clear_variable = expansionist_development_res
 			}
 		}
 	}
+	# abort_trigger = {
+	# 	owner = { is_variable_set = expansionist_development_res }
+	# }
+	# abort_effect = { log = "ABORT" }
 	after = {
-		hidden_effect = {
+		# log = "AFTER"
+		if = {
+			limit = { owner = { is_variable_set = expansionist_development_res NOT = { has_country_flag = no_expansionist_development } } }
+			deploy_outpost = yes
 			if = {
-				limit = { owner = { is_variable_set = expansionist_development_res NOT = { has_country_flag = no_expansionist_development } } }
+				limit = { owner = { NOR = { has_country_flag = noauto_expansionist_development has_active_event = { UniqueAscensionPerksEvents.534 } } } }
 				ship_event = { id = UniqueAscensionPerksEvents.534 }
 			}
 		}
@@ -6951,78 +6963,84 @@ ship_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Influence"
 		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = influence amount > 100 } } }
-		owner = { add_resource = { influence = -100 } }
+		# owner = { add_resource = { influence = -100 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 1 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Energy"
 		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = energy amount > 3000 } } }
-		owner = { add_resource = { energy = -3000 } }
+		# owner = { add_resource = { energy = -3000 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 2 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Minerals"
 		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = minerals amount > 2500 } } }
-		owner = { add_resource = { minerals = -2500 } }
+		# owner = { add_resource = { minerals = -2500 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 3 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Alloys"
 		allow = { owner = { has_country_resource = { type = alloys amount > 900 } } }
-		trigger = { from = { is_machine_empire = no } }
-		owner = { add_resource = { alloys = -900 } }
+		trigger = { owner = { is_machine_empire = no } }
+		# owner = { add_resource = { alloys = -900 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 4 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Alloys"
 		allow = { owner = { has_country_resource = { type = alloys amount > 1100 } } }
-		trigger = { from = { is_machine_empire = yes } }
-		owner = { add_resource = { alloys = -1100 } }
-		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 4 } } }
-		deploy_outpost = yes
+		trigger = { owner = { is_machine_empire = yes } }
+		# owner = { add_resource = { alloys = -1100 } }
+		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 5 } } }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Unity"
 		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = unity amount > 1750 } } }
-		owner = { add_resource = { unity = -1750 } }
+		# owner = { add_resource = { unity = -1750 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 6 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Food"
 		allow = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = food amount > 3200 } } }
-		owner = { add_resource = { food = -3200 } }
+		# owner = { add_resource = { food = -3200 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 7 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Treasures"
 		allow = { owner = { has_country_resource = { type = treasures amount > 320 } } }
-		owner = { add_resource = { treasures = -320 } }
+		# owner = { add_resource = { treasures = -320 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 8 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.NanoDrones"
 		allow = { owner = { has_country_resource = { type = automatic_drone amount > 1200 } } }
-		owner = { add_resource = { automatic_drone = -1200 } }
+		# owner = { add_resource = { automatic_drone = -1200 } }
 		hidden_effect = { owner = { set_variable = { which = expansionist_development_res value = 9 } } }
-		deploy_outpost = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.531.Disable"
 		ai_chance = { factor = 0 }
 		hidden_effect = {
-			owner = { set_country_flag = no_expansionist_development }
+			owner = {
+				set_country_flag = no_expansionist_development
+				clear_variable = expansionist_development_res
+			}
 		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.531.Enable"
+		trigger = { owner = { has_country_flag = noauto_expansionist_development } }
+		ai_chance = { factor = 0 }
+		hidden_effect = {
+			owner = {
+				remove_country_flag = noauto_expansionist_development
+			}
+		}
+		ship_event = { id = UniqueAscensionPerksEvents.531 scopes = { from = from } }
 	}
 	option = { name = "UniqueAscensionPerksEvents.531.Nope" ai_chance = { factor = 0.1 } default_hide_option = yes }
 }
 
+# on_system_survey_ship
 ship_event = {
 	id = UniqueAscensionPerksEvents.532
 	hide_window = yes
@@ -7041,110 +7059,16 @@ ship_event = {
 	}
 	immediate = {
 		if = { # Automation
-			limit = { owner = { is_variable_set = expansionist_development_res } }
-			owner = {
-				if = {
-					limit = { check_variable = { which = expansionist_development_res value = 1 } }
-					if = {
-						limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = influence amount > 100 } } } }
-						add_resource = { influence = -100 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = influence amount < 100 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 2 } }
-					if = {
-						limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = energy amount > 3000 } } } }
-						add_resource = { energy = -3000 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = energy amount < 3000 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 3 } }
-					if = {
-						limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = minerals amount > 2500 } } } }
-						add_resource = { minerals = -2500 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = minerals amount < 2500 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 4 } }
-					if = {
-						limit = { is_machine_empire = no has_country_resource = { type = alloys amount > 900 } }
-						add_resource = { alloys = -900 }
-						prev = { deploy_outpost = yes }
-					}
-					else_if = {
-						limit = { is_machine_empire = yes has_country_resource = { type = alloys amount > 1100 } }
-						add_resource = { alloys = -1100 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = alloys amount < 1100 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 6 } }
-					if = {
-						limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = unity amount > 1750 } } } }
-						add_resource = { unity = -1750 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = unity amount < 1750 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 7 } }
-					if = {
-						limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = food amount > 3200 } } } }
-						add_resource = { food = -3200 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = food amount < 3200 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 8 } }
-					if = {
-						limit = { has_country_resource = { type = treasures amount > 320 } }
-						add_resource = { treasures = -320 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = treasures amount < 320 } }
-						clear_variable = expansionist_development_res
-					}
-				}
-				else_if = {
-					limit = { check_variable = { which = expansionist_development_res value = 9 } }
-					if = {
-						limit = { has_country_resource = { type = automatic_drone amount > 1200 } }
-						add_resource = { automatic_drone = -1200 }
-						prev = { deploy_outpost = yes }
-					}
-					if = {
-						limit = { has_country_resource = { type = automatic_drone amount < 1200 } }
-						clear_variable = expansionist_development_res
+			limit = {
+				owner = {
+					is_variable_set = expansionist_development_res
+					NOR = {
+						has_country_flag = noauto_expansionist_development
+						has_active_event = { UniqueAscensionPerksEvents.534 UniqueAscensionPerksEvents.531 }
 					}
 				}
 			}
+			deploy_outpost = yes
 		}
 		else = { ship_event = { id = UniqueAscensionPerksEvents.531 } }
 	}
@@ -7152,13 +7076,21 @@ ship_event = {
 
 ship_event = {
 	id = UniqueAscensionPerksEvents.534
-	title = "ap_expansionist_development"
+	title = "FLEETORDER_BUILD_CURRENT_shipclass_starbase_BUTTON"
 	desc = "UniqueAscensionPerksEvents.534.Desc"
 	show_sound = event_scanner
 	picture = GFX_evt_space_station
 	is_triggered_only = yes
 	trigger = {
-		owner = { is_variable_set = expansionist_development_res }
+		owner = {
+			is_variable_set = expansionist_development_res
+			NOR = {
+				has_country_flag = noauto_expansionist_development
+				has_active_event = { UniqueAscensionPerksEvents.534 }
+			}
+		}
+	}
+	immediate = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.534.a"

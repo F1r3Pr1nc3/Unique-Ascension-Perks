@@ -31,11 +31,6 @@ get_capital_planet = {
 					}
 					position = 0
 					order_by = trigger:num_sapient_pops
-					# weights = {
-					# 	base = 1
-					#	modifier = { add = 3 solar_system = { is_capital_system = yes } }
-					# 	modifier = { add = 3 num_pops > 30 }
-					# }
 					save_event_target_as = capital_planet
 				}
 			}
@@ -46,10 +41,7 @@ get_capital_planet = {
 						has_owner = yes
 						is_colony = yes
 						OR = {
-							AND = {
-								exists = owner
-								is_owned_by = prev
-							}
+							AND = { exists = owner is_owned_by = prev }
 							AND = {
 								exists = controller
 								controller = { is_same_empire = prev }
@@ -58,15 +50,33 @@ get_capital_planet = {
 					}
 					position = 0
 					order_by = trigger:num_sapient_pops
-					# weights = {
-					# 	base = 1
-					# 	modifier = { add = 1 exists = owner is_owned_by = prev }
-					# 	modifier = { add = 1 num_pops > 5 }
-					# }
 					save_event_target_as = capital_planet
 				}
 			}
-			else = { log = "Failed: no own planet found for \\[This.GetName]?!" }
+			else = {
+				random_owned_planet = {
+					limit = { has_owner = yes num_pops > 0 }
+					weights = { base = 1
+						modifier = { add = 4 solar_system = { is_capital_system = yes } }
+						modifier = { add = 1 num_pops > 5 }
+						modifier = { add = 3 num_pops > 30 }
+					}
+					save_event_target_as = capital_planet
+				}
+				log = "FAIL: No planet found for [This.GetName]?!"
+			}
+		}
+		else = {
+			random_owned_planet = {
+				limit = { has_owner = yes num_pops > 0 }
+				weights = { base = 1
+					modifier = { add = 4 solar_system = { is_capital_system = yes } }
+					modifier = { add = 1 num_pops > 5 }
+					modifier = { add = 3 num_pops > 30 }
+				}
+				save_event_target_as = capital_planet
+			}
+			log = "FAIL: No planet found for [This.GetName]?!"
 		}
 	}
 }

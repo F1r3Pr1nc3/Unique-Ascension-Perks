@@ -567,6 +567,7 @@ country_event = {
 			}
 		}
 		any_owned_planet = {
+			any_owned_species = { is_robotic = yes }
 			NOR = {
 				has_orbital_bombardment = yes
 				is_occupied_flag = yes
@@ -576,15 +577,15 @@ country_event = {
 				num_sapient_pops = 0
 				any_owned_pop = {
 					is_unemployed = yes
-					OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit }
+					is_robot_pop = yes
 				}
 			}
-			any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } }
 		}
 	}
 	immediate = {
 		random_owned_planet = {
 			limit = {
+				any_owned_species = { is_robotic = yes }
 				NOR = {
 					has_orbital_bombardment = yes
 					is_occupied_flag = yes
@@ -594,10 +595,9 @@ country_event = {
 					num_sapient_pops = 0
 					any_owned_pop = {
 						is_unemployed = yes
-						OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit }
+						is_robot_pop = yes
 					}
 				}
-				any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } }
 			}
 			planet_event = { id = UniqueAscensionPerksEvents.62 }
 			root = {
@@ -623,7 +623,7 @@ planet_event = {
 		set_timed_planet_flag = { flag = decision_robot_command_cooldown years = 4 } # If change, do also tooltip
 		owner = {
 			while = { count = 9
-				random_owned_pop = { limit = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } prevprev = { create_pop = { species = prev } } }
+				random_owned_pop = { limit = { is_robot_pop = yes } prevprev = { create_pop = { species = prev } } }
 			}
 		}
 	}

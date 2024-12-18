@@ -719,21 +719,10 @@ ap_friendly_nature = {
 # v3.4 reduced growth_speed
 ap_robot_command = {
 	possible = {
-		custom_tooltip = {
-			fail_text = "ap_robot_command_req_1"
-			OR = { is_machine_empire = yes has_technology = tech_robotic_workers }
-		}
-		custom_tooltip = {
-			fail_text = "ap_robot_command_req_2"
-			OR = { has_technology = tech_robomodding_m has_technology = tech_robomodding }
-		}
+		custom_tooltip = { fail_text = "ap_robot_command_req_1" OR = { is_machine_empire = yes has_technology = tech_robotic_workers } }
+		custom_tooltip = { fail_text = "ap_robot_command_req_2" OR = { has_technology = tech_robomodding_m has_technology = tech_robomodding } }
 		custom_tooltip = { fail_text = "ap_robot_command_req_3" has_technology = tech_assembly_pattern }
-		custom_tooltip = {
-			fail_text = "ap_robot_command_req_4"
-			any_owned_pop = {
-				OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit }
-			}
-		}
+		custom_tooltip = { fail_text = "ap_robot_command_req_4" any_owned_species = { is_robotic = yes } }
 		custom_tooltip = { fail_text = "requires_ascension_perks_1" num_ascension_perks > 0 }
 	}
 	modifier = { planet_pop_assembly_mult = 0.2 }	# 0.3 < v3.4

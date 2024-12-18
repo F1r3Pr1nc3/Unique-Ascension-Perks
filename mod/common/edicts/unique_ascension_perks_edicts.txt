@@ -556,32 +556,24 @@ anti_matter_menu = {
 	ai_weight = { weight = 0 }
 }
 
-# TODO
-# dark_galaxy_web_menu = {
-# 	icon = "GFX_edict_type_menu"
-# 	length = -1
-# 	resources = { category = edicts cost = { } }
-# 	allow = {
-# 		NOT = { has_active_event = { UniqueAscensionPerksEvents.542 } }
-# 	}
-# 	potential = { has_country_flag = ap_dark_galaxy_web_project }
-# 	effect = {
-# 		country_event = { id = UniqueAscensionPerksEvents.542 }
-# 	}
-# 	ai_weight = { weight = 0 }
-# }
-
-# deactive_expansionist_development = {
-# 	icon = "GFX_text_building"
-# 	length = -1
-# 	resources = { category = edicts cost = { } }
-# 	potential = {
-# 		has_ascension_perk = ap_expansionist_development
-# 		NOT = { has_country_flag = no_expansionist_development }
-# 	}
-# 	ai_weight = { weight = 0 }
-# 	effect = { set_country_flag = no_expansionist_development }
-# }
+deactive_auto_expansionist_development = {
+	icon = "GFX_text_building"
+	length = -1
+	resources = { category = edicts cost = { } }
+	potential = {
+		is_ai = no
+		has_ascension_perk = ap_expansionist_development
+		NOT = { has_country_flag = noauto_expansionist_development }
+	}
+	allow = {
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.531 UniqueAscensionPerksEvents.534 } }
+	}
+	effect = {
+		set_country_flag = noauto_expansionist_development
+		clear_variable = expansionist_development_res
+	}
+	ai_weight = { weight = 0 }
+}
 
 active_expansionist_development = {
 	icon = "GFX_text_building"
@@ -593,7 +585,7 @@ active_expansionist_development = {
 		has_country_flag = no_expansionist_development
 	}
 	allow = {
-		NOT = { has_active_event = { UniqueAscensionPerksEvents.531 } }
+		NOT = { has_active_event = { UniqueAscensionPerksEvents.531 UniqueAscensionPerksEvents.534 } }
 	}
 	effect = {
 		remove_country_flag = no_expansionist_development
@@ -647,3 +639,18 @@ unique_perk_menu = {
 	}
 	ai_weight = { weight = 0 }
 }
+
+# TODO
+# dark_galaxy_web_menu = {
+# 	icon = "GFX_edict_type_menu"
+# 	length = -1
+# 	resources = { category = edicts cost = { } }
+# 	allow = {
+# 		NOT = { has_active_event = { UniqueAscensionPerksEvents.542 } }
+# 	}
+# 	potential = { has_country_flag = ap_dark_galaxy_web_project }
+# 	effect = {
+# 		country_event = { id = UniqueAscensionPerksEvents.542 }
+# 	}
+# 	ai_weight = { weight = 0 }
+# }

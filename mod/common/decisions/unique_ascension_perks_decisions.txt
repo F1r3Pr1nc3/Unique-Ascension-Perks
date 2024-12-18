@@ -17,7 +17,7 @@ decision_genious_pregnancy = {
 		# can_generate_trade_value = yes
 	}
 	allow = {
-		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_1" any_owned_pop = { is_robot_pop = no } }
+		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_1" any_owned_species = { is_robotic = no } }
 		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_2" NOT = { has_planet_flag = decision_genious_pregnancy_cooldown } }
 		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_3" any_owned_pop = { is_valuable_pop = yes } }
 	}
@@ -93,7 +93,7 @@ decision_robot_command = {
 	}
 	allow = {
 		custom_tooltip = { fail_text = "decision_robot_command_req_1" NOT = { has_planet_flag = decision_robot_command_cooldown } }
-		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_pop = { OR = { pop_has_trait = trait_mechanical pop_has_trait = trait_machine_unit } } } }
+		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_species = { is_robotic = yes } } }
 	}
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
@@ -201,7 +201,7 @@ decision_recomposer_life_to_ai = {
 				}
 			}
 			while = { count = num_non_robot_pop
-				limit = { any_owned_pop = { is_robot_pop = no } }
+				limit = { any_owned_species = { is_robotic = no } }
 				from = {
 					random_owned_pop = {
 						limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 1 }
@@ -263,7 +263,7 @@ decision_recomposer_ai_to_life = {
 				}
 			}
 			while = { count = num_robot_pop
-				limit = { any_owned_pop = { is_robot_pop = yes } }
+				limit = { any_owned_species = { is_robotic = yes } }
 				from = {
 					random_owned_pop = {
 						limit = { is_robot_pop = no num_trait_points > 1 num_positive_traits > 1 }

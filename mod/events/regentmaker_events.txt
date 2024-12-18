@@ -279,12 +279,19 @@ planet_event = {
 		exists = owner
 	}
 	immediate = {
-		if = { limit = { NOT = { exists = event_target:owning_empire } }
-			if = { limit = { exists = from from = { is_scope_type = planet } }
+		if = {
+			limit = { NOT = { exists = event_target:owning_empire } }
+			if = { limit = { exists = from from = { is_scope_type = country } }
 				from = { save_event_target_as = owning_empire }
 			}
 			else = {
-				owner = { save_event_target_as = owning_empire }
+				if = {
+					limit = { exists = space_owner }
+					space_owner = { save_event_target_as = owning_empire }
+				}
+				else = {
+					owner = { save_event_target_as = owning_empire }
+				}
 			}
 		}
 		## Save target species
