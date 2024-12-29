@@ -6925,17 +6925,17 @@ ship_event = {
 	show_sound = event_scanner
 	location = from
 	is_triggered_only = yes
-	trigger = {
-		exists = owner
-		owner = {
-			has_ascension_perk = ap_expansionist_development
-			NOT = { has_country_flag = no_expansionist_development } # edict
-		}
-		exists = from
-		from = { NOR = { exists = starbase exists = space_owner } }
-		# exists = fromfrom
-		# fromfrom = { NOR = { exists = starbase exists = space_owner } }
-	}
+	# trigger = {
+	# 	exists = owner
+	# 	owner = {
+	# 		has_ascension_perk = ap_expansionist_development
+	# 		NOT = { has_country_flag = no_expansionist_development } # edict
+	# 	}
+	# 	exists = from
+	# 	from = { NOR = { exists = starbase exists = space_owner } }
+	# 	# exists = fromfrom
+	# 	# fromfrom = { NOR = { exists = starbase exists = space_owner } }
+	# }
 	immediate = {
 		owner = {
 			save_event_target_as = science_ship_owner
@@ -7050,12 +7050,9 @@ ship_event = {
 		owner = {
 			has_ascension_perk = ap_expansionist_development
 			NOT = { has_country_flag = no_expansionist_development } # edict
-			# NOT = { has_active_event = { UniqueAscensionPerksEvents.531 } } multiple allowed
 		}
 		exists = from
-		from = {
-			NOR = { exists = starbase exists = space_owner }
-		}
+		from = { NOR = { exists = starbase exists = space_owner } }
 	}
 	immediate = {
 		if = { # Automation
@@ -7070,7 +7067,7 @@ ship_event = {
 			}
 			deploy_outpost = yes
 		}
-		else = { ship_event = { id = UniqueAscensionPerksEvents.531 } }
+		else = { ship_event = { id = UniqueAscensionPerksEvents.531 scopes = { from = from } } }
 	}
 }
 

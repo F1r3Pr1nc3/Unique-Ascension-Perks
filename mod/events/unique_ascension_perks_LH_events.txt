@@ -11,7 +11,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.20.Desc"
 	show_sound = event_psionic
 	picture = GFX_evt_lost_heritage
-	location = event_target:lh_empire_capital_system # capital_scope
+	location = event_target:lh_empire_capital_system
 	is_triggered_only = yes
 	immediate = {
 		if = {
@@ -29,24 +29,30 @@ country_event = {
 			}
 		}
 		else_if = {
-			limit = { any_system_within_border = { exists = starbase has_natural_wormhole = no count_system_colony = { count > 0 } } }
+			limit = { any_system_within_border = { exists = starbase has_natural_wormhole = no count_system_colony = { count > 0 limit = { num_sapient_pops > 3 } } } }
 			random_system_within_border = {
-				limit = { exists = starbase has_natural_wormhole = no count_system_colony = { count > 0 } }
+				limit = { exists = starbase has_natural_wormhole = no count_system_colony = { count > 0 limit = { num_sapient_pops > 3 } } }
 				weights = { base = 1 modifier = { add = 3 is_capital_system = yes } }
 				save_event_target_as = lh_empire_capital_system
 			}
 		}
 		else = {
-			random_owned_planet = {
-				limit = { solar_system = { exists = starbase } }
+			random_owned_starbase = {
+				limit = { solar_system = { count_system_colony = { count > 0 } } }
 				weights = {
 					base = 1
 					modifier = { add = 3 solar_system = { is_capital_system = yes } }
-					modifier = { add = 3 solar_system = { has_natural_wormhole = no } }
+					modifier = { add = 6 solar_system = { has_natural_wormhole = no } }
 				}
 				solar_system = { save_event_target_as = lh_empire_capital_system }
 			}
 		}
+		if = {
+			limit = { NOT = { exists = event_target:lh_empire_capital_system } }
+			get_capital_planet = yes
+			event_target:capital_planet.solar_system = { save_event_target_as = lh_empire_capital_system }
+		}
+
 		set_variable = { which = amount_spawn_lh_systems_total value = 0 }
 		set_spawn_system_batch = begin
 		random_rim_system = {

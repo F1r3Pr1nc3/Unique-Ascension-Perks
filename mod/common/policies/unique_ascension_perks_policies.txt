@@ -277,15 +277,14 @@ trade_policy = {
 	option = {
 		name = "trade_policy_adv_conversion_trade_league_name"
 		potential = {
-			mid_game_years_passed > 0
+			mid_game_years_passed > -10 # 0
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
 				AND = {
 					is_trade_league_federation = yes
-					federation = { federation_level > 1 }
 					OR = {
-						is_federation_leader = yes
-						federation = { federation_level > 2 } # > 3
+						AND = { mid_game_years_passed > 0 federation = { federation_level > 3 } }
+						AND = { is_federation_leader = yes federation = { federation_level > 1 } }
 					}
 				}
 			}
