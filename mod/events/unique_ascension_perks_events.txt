@@ -5333,6 +5333,15 @@ planet_event = {
 	location = this
 	immediate = {
 		while = { count = 8
+			limit = {
+				any_galaxy_species = {
+					is_sapient = yes
+					is_robotic = no
+					root.owner = {
+						count_owned_species = { limit = { is_same_species = prevprev } count = 0 }
+					}
+				}
+			}
 			random_galaxy_species = {
 				limit = {
 					is_sapient = yes
@@ -5358,7 +5367,7 @@ planet_event = {
 						24 = { modifier = { factor = 2 ideal_planet_class = root } }
 						24 = { modifier = { factor = 24 is_same_species_class = root.growing_species } set_species_homeworld = root }
 						2 = {
-							modifier = { factor = 0 OR = { root = { is_planet_class = pc_gaia } NOT = { has_trait = trait_pc_gaia_preference } } }
+							modifier = { factor = 0 OR = { root = { merg_is_gaia_basic = yes } NOT = { has_trait = trait_pc_gaia_preference } } }
 							modifier = { factor = 24 has_trait = trait_pc_gaia_preference }
 							modify_species = {
 								species = this
@@ -5403,23 +5412,23 @@ planet_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.411.a" # "Do it completely."
 		custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
-		trigger = { NOT = { is_planet_class = pc_gaia } }
+		trigger = { merg_is_gaia_basic = no is_artificial = no }
 		change_pc = pc_gaia
 		add_modifier = { modifier = "utopian_gaia_world" }
 		ai_chance = {
-			factor = 0.5
-			modifier = { factor = 0 owner = { is_gestalt = yes } }
+			factor = 0.1
+			modifier = { factor = 0 owner = { OR = { is_gestalt = yes is_synthetic_empire = yes } } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.411.a"
-		trigger = { is_planet_class = pc_gaia }
+		trigger = { merg_is_gaia_basic = yes }
 		custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
 		add_modifier = { modifier = "utopian_gaia_world" }
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.411.b"
-		trigger = { NOT = { is_planet_class = pc_gaia } }
+		trigger = { merg_is_gaia_basic = no }
 		custom_tooltip = "UniqueAscensionPerksEvents.411.a.tooltip"
 	}
 }
