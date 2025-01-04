@@ -40,6 +40,7 @@ planet_event = {
 		}
 	}
 	after = {
+		hidden_effect = {
 		if = { limit = { has_planet_flag = new_primitive_world }
 			# if = { limit = { uninhabitable_regular_planet = yes }
 			# 	if = {
@@ -66,7 +67,7 @@ planet_event = {
 		}
 		else = { # refund
 			from = {
-				add_resource = { food = 700 minerals = 1600 energy = 1600 }
+				add_resource = { food = 700 minerals = 1600 energy = 1600 } }
 			}
 		}
 	}
@@ -102,7 +103,7 @@ planet_event = {
 	option = {
 		name = "late_medieval_age"
 		custom_tooltip = "late_medieval_age_desc"
-		# allow = { has_owner = yes }
+		allow = { has_owner = yes NOT = { has_planet_flag = leng_create_presapient } }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_medieval_age days = 5 }
 		}
@@ -111,7 +112,7 @@ planet_event = {
 	option = {
 		name = "renaissance_age"
 		custom_tooltip = "renaissance_age_desc"
-		allow = { has_owner = yes }
+		allow = { has_owner = yes NOT = { has_planet_flag = leng_create_presapient } has_owner = yes }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_renaissance_age days = 5 }
 		}
@@ -120,7 +121,7 @@ planet_event = {
 	option = {
 		name = "steam_age"
 		custom_tooltip = "steam_age_desc"
-		allow = { has_owner = yes }
+		allow = { NOT = { has_planet_flag = leng_create_presapient } has_owner = yes }
 		hidden_effect = {
 			set_timed_planet_flag = { flag = new_primitive_world_steam_age days = 5 }
 		}
@@ -128,6 +129,7 @@ planet_event = {
 	}
 	option = {
 		name = "random_early_age"
+		allow = { NOT = { has_planet_flag = leng_create_presapient } }
 		hidden_effect = {
 			random_list = {
 				4 = { modifier = { factor = 0.4 has_owner = yes }	set_timed_planet_flag = { flag = new_primitive_world_stone_age			days = 5 } }
@@ -853,7 +855,6 @@ planet_event = {
 				base = none
 				portrait = event_target:primitive_world_species
 				ideal_planet_class = root
-				# add_trait = trait_uplifted
 				effect = {
 					save_event_target_as = species_target
 					create_random_devolved_species = yes
@@ -862,13 +863,12 @@ planet_event = {
 			event_target:devolved_species_target = {
 				# every_species_pop = {
 				# 	limit = {
-				# 		# is_robot_pop = no
-				# 		# is_same_species = prev
+				# 		is_robot_pop = no
+				# 		is_exact_same_species = prev
 				# 		is_sapient = yes
 				# 		exists = planet
 				# 		planet = { is_planet = root }
 				# 	}
-				# 	create_random_devolved_species = yes
 				# 	change_species = event_target:devolved_species_target
 				# }
 				set_species_identity = event_target:primitive_world_species
@@ -898,8 +898,8 @@ planet_event = {
 		set_planet_flag = primitive_creation_done
 
 		### Resettle pops:
-		export_trigger_value_to_variable = { variable = num_sapient_pops trigger = num_pops }
-		if = { limit = { has_owner = yes check_variable = { which = num_sapient_pops value > 0 } }
+		export_trigger_value_to_variable = { variable = num_pops trigger = num_pops }
+		if = { limit = { has_owner = yes check_variable = { which = num_pops value > 0 } }
 			switch = { trigger = has_planet_flag
 				new_primitive_world_stone_age		= { set_variable = { which = primitive_pops value = @stone_age_pops } }			# = 4
 				new_primitive_world_bronze_age		= { set_variable = { which = primitive_pops value = @bronze_age_pops } }		# = 8
@@ -913,7 +913,7 @@ planet_event = {
 				new_primitive_world_early_space_age	= { set_variable = { which = primitive_pops value = @early_space_age_pops } }	# = 28
 			}
 			if = { limit = { is_variable_set = primitive_pops }
-				set_variable = { which = pops_to_resettle value = num_sapient_pops }
+				set_variable = { which = pops_to_resettle value = num_pops }
 				subtract_variable = { which = pops_to_resettle value = primitive_pops }
 				multiply_variable = { which = pops_to_resettle value = 1.20 } # 20% increased chance to get primitive_pops
 
@@ -967,7 +967,7 @@ planet_event = {
 		### Resettle pops
 		if = {
 			limit = {
-				check_variable = { which = num_sapient_pops value > 1 }
+				check_variable = { which = num_pops value > 1 }
 				check_variable = { which = pops_to_resettle value > 0 }
 				event_target:owning_empire = {
 					any_owned_planet = {
@@ -1108,7 +1108,7 @@ planet_event = {
 					30 = {
 						modifier = { factor = 3 NOT = { event_target:owning_empire = { has_ascension_perk = ap_primitives_creation } } }
 						modifier = { factor = 0 NOT = { root = { has_planet_flag = new_primitive_world_stone_age } } }
-						modifier = { factor = 0.1 root = { check_variable = { which = num_sapient_pops value > 28 } } }
+						modifier = { factor = 0.1 root = { check_variable = { which = num_pops value > 28 } } }
 						set_pre_ftl_age_effect = { PRE_FTL_AGE = stone_age }
 						root = {
 							while = {
@@ -1129,8 +1129,8 @@ planet_event = {
 							factor = 0.1
 							root = {
 								OR = {
-									check_variable = { which = num_sapient_pops value > 34 }
-									check_variable = { which = num_sapient_pops value < @stone_age_pops }
+									check_variable = { which = num_pops value > 34 }
+									check_variable = { which = num_pops value < @stone_age_pops }
 								}
 							}
 						}
@@ -1143,8 +1143,8 @@ planet_event = {
 							factor = 0.1
 							root = {
 								OR = {
-									check_variable = { which = num_sapient_pops value > 40 }
-									check_variable = { which = num_sapient_pops value < @bronze_age_pops }
+									check_variable = { which = num_pops value > 40 }
+									check_variable = { which = num_pops value < @bronze_age_pops }
 								}
 							}
 						}
@@ -1169,7 +1169,7 @@ planet_event = {
 		else_if = { limit = { check_variable = { which = pops_to_resettle value > 0 } }
 			log="pops_to_resettle [This.pops_to_resettle]"
 			while = { count = pops_to_resettle
-				limit = { num_sapient_pops > 1 }
+				limit = { num_pops > 1 }
 				random_owned_pop = {
 					limit = {
 						can_think = yes
@@ -1218,7 +1218,7 @@ planet_event = {
 			}
 		}
 		event_target:owning_empire = { set_visited = prev.solar_system }
-		clear_variable = num_sapient_pops
+		clear_variable = num_pops
 		clear_variable = pops_to_resettle
 		planet_event = { id = leng_project_event.103 days = 25 }
 		check_planet_employment = yes

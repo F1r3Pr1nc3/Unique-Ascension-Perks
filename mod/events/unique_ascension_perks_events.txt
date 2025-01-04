@@ -1775,7 +1775,6 @@ fleet_event = {
 							exists = owner
 							owner = {
 								is_country_type = security_forces
-								NOT = { is_hostile = root.owner }
 								# There is a possibility both opponents have this but a remaining force is in the system
 								OR = {
 									has_country_flag = is_unique_perk_special_subject_of@event_target:system_owner # New in v3.14
@@ -1790,7 +1789,6 @@ fleet_event = {
 							exists = owner
 							owner = {
 								is_country_type = security_forces
-								NOT = { is_hostile = root.owner }
 								# There is a possibility both opponents have this but a remaining force is in the system
 								OR = {
 									has_country_flag = is_unique_perk_special_subject_of@event_target:system_owner # New in v3.14
@@ -1814,7 +1812,10 @@ fleet_event = {
 								limit = { NOT = { has_communications = root.owner } }
 								establish_communications_no_message = root.owner
 							}
-							set_faction_hostility = { target = root.owner set_hostile = yes }
+							if = {
+								limit = { NOT = { is_hostile = root.owner } }
+								set_faction_hostility = { target = root.owner set_hostile = yes }
+							}
 						}
 					}
 					event_target:system_owner = {
