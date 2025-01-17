@@ -4193,6 +4193,7 @@ country_event = {
 	option = { name = EXCELLENT hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.251 } } add_resource = { energy = 800 } }
 }
 
+# Compare with UniqueAscensionPerksEvents.103
 country_event = {
 	id = UniqueAscensionPerksEvents.251
 	title = "UniqueAscensionPerksEvents.251.Name"
@@ -4202,26 +4203,26 @@ country_event = {
 	location = from
 	is_triggered_only = yes
 	immediate = {
-		random_owned_leader = { limit = { is_ruler = no } save_event_target_as = leader_1 }
+		random_owned_leader = { limit = { NOR = { is_ruler = yes has_leader_flag = clone } } save_event_target_as = leader_1 }
 		random_owned_leader = {
-			limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 } } save_event_target_as = leader_2
+			limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 } } save_event_target_as = leader_2
 			root = {
 				random_owned_leader = {
-					limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3
+					limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 } } save_event_target_as = leader_3
 					root = {
 						random_owned_leader = {
-							limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4
+							limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 } } save_event_target_as = leader_4
 							root = {
 								random_owned_leader = {
-									limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5
+									limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 } } save_event_target_as = leader_5
 									root = {
 										random_owned_leader = {
-											limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6
+											limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 } } save_event_target_as = leader_6
 											root = {
 												random_owned_leader = {
-													limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7
+													limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 } } save_event_target_as = leader_7
 													root = {
-														random_owned_leader = { limit = { NOR = { is_ruler = yes is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
+														random_owned_leader = { limit = { NOR = { is_ruler = yes has_leader_flag = clone is_same_value = event_target:leader_1 is_same_value = event_target:leader_2 is_same_value = event_target:leader_3 is_same_value = event_target:leader_4 is_same_value = event_target:leader_5 is_same_value = event_target:leader_6 is_same_value = event_target:leader_7 } } save_event_target_as = leader_8 }
 													}
 												}
 											}
@@ -4273,6 +4274,7 @@ leader_event = {
 								last_created_leader = {
 									set_age = 1
 									set_name = { key = "CLONED_LEADER_NAME" variable_string = "[This.GetName]" variable_string = "[Prev.cloned_leader_number]" }
+									set_leader_flag = clone # TODO TEST IF NEEDED
 								}
 								change_variable = { which = "cloned_leader_number" value = -1 }
 							}

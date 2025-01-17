@@ -1027,15 +1027,25 @@ decision_stellar_manipulation = {
 #									#
 #####################################
 decision_nature_pacification = {
-	owned_planets_only = yes
+	# owned_planets_only = yes # Changed in v3.14
 	sound = event_alien_nature
 	enactment_time = 360
 	resources = { category = decisions cost = { energy = 1000 food = 1500 } }
 	potential = {
 		exists = from
-		from = { has_ascension_perk = ap_friendly_nature } is_under_colonization = no
-		can_find_rare_deposits = yes
+		from = { has_ascension_perk = ap_friendly_nature }
 		NOT = { has_planet_flag = planet_nature_pacified }
+		can_find_rare_deposits = yes
+		OR = { # Since v3.14
+			AND = { has_owner = no from = { is_ai = no } }
+			AND = { has_owner = yes is_owned_by = from is_under_colonization = no }
+			AND = { has_owner = yes is_owned_by = from is_under_colonization = yes from = { is_ai = no } }
+		}
+		NOR = { is_terraforming = yes has_designation = col_nanotech_world }
+	}
+	allow = {
+		exists = space_owner
+		space_owner = { is_same_empire = from }
 	}
 	effect = {
 		custom_tooltip = "decision_nature_pacification_tooltip"
@@ -1189,5 +1199,8 @@ decision_nature_pacification = {
 			while = { count = 2 add_random_non_blocker_deposit = yes random = { chance = 10 add_random_non_blocker_deposit = yes } }
 		}
 	}
-	ai_weight = { weight = 1 }
+	ai_weight = {
+		weight = 1
+		modifier = { factor = 0 has_owner = no }
+	}
 }
