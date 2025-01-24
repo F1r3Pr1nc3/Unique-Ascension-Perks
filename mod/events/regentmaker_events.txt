@@ -539,12 +539,7 @@ planet_event = {
 			# 	set_subject_of = { who = event_target:owning_empire preset = preset_bulwark allow_instant_negotiation = yes }
 			# 	add_intel = { who = event_target:owning_empire amount = 100 }
 			# } else = {
-			set_faction_hostility = {
-				set_hostile = no
-				set_neutral = no
-				set_friendly = yes
-				target = event_target:owning_empire
-			}
+			set_faction_hostility = { set_friendly = yes target = event_target:owning_empire }
 			set_subject_of = {
 				who = event_target:owning_empire
 				# preset = preset_vassal TODO?
@@ -556,12 +551,7 @@ planet_event = {
 			# change_dominant_species = { species = event_target:vassal_species change_all = yes } # Buggy 3.0.3
 			event_target:owning_empire = {
 				set_country_flag = has_communications@prev
-				set_faction_hostility = {
-					set_hostile = no
-					set_neutral = no
-					set_friendly = yes
-					target = prev
-				}
+				set_faction_hostility = { set_friendly = yes target = prev }
 				# establish_contact = { who = last_created_country location = root }
 				every_federation_ally = { establish_communications = prevprev }
 				every_relation = {

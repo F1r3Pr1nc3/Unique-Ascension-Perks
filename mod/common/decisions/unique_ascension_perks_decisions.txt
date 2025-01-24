@@ -999,10 +999,14 @@ decision_stellar_manipulation = {
 	}
 	potential = {
 		exists = from
-		exists = space_owner
-		space_owner = { is_same_empire = from }
+		# exists = space_owner
+		# space_owner = { is_same_empire = from }
 		OR = { has_global_flag = ap_stellar_manipulation from = { has_ascension_perk = ap_stellar_manipulation } }
 		is_a_habitable_planet_megastructure = yes
+	}
+	allow = {
+		exists = space_owner
+		space_owner = { is_same_empire = from }
 	}
 	# prerequisites = { "tech_penal_colonies" }
 	effect = {
@@ -1033,19 +1037,35 @@ decision_nature_pacification = {
 	resources = { category = decisions cost = { energy = 1000 food = 1500 } }
 	potential = {
 		exists = from
+		# exists = space_owner
+		# space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_friendly_nature }
 		NOT = { has_planet_flag = planet_nature_pacified }
 		can_find_rare_deposits = yes
 		OR = { # Since v3.14
-			AND = { has_owner = no from = { is_ai = no } }
-			AND = { has_owner = yes is_owned_by = from is_under_colonization = no }
-			AND = { has_owner = yes is_owned_by = from is_under_colonization = yes from = { is_ai = no } }
+			NOR = { has_owner = yes is_colony = yes from = { is_ai = yes } }
+			AND = {
+				has_owner = yes
+				is_colony = yes
+				is_owned_by = from
+				is_controlled_by = from
+				NAND = {
+					is_under_colonization = yes
+					from = { is_ai = yes }
+				}
+			}
 		}
 		NOR = { is_terraforming = yes has_designation = col_nanotech_world }
 	}
 	allow = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
+		NOR = {
+			has_orbital_bombardment = yes
+			is_occupied_flag = yes
+			from = { has_active_event = { UniqueAscensionPerksEvents.60 } }
+			# from = { num_owned_planets < 3 }
+		}
 	}
 	effect = {
 		custom_tooltip = "decision_nature_pacification_tooltip"
