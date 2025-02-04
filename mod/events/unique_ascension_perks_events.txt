@@ -3183,8 +3183,11 @@ country_event = {
 					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_egalitarian	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_egalitarian } }		pop_change_ethic = ethic_egalitarian }
 					500 = { modifier = { factor = 0.01 NOT = { root = { has_ethic = ethic_authoritarian	} } } modifier = { factor = 100 root = { has_ethic = ethic_fanatic_authoritarian } }	pop_change_ethic = ethic_authoritarian }
 					# (Mod) Ethics and Civics Classic
+					# modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } }
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
 					2000 = {
-						modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } }
 						modifier = { factor = 25 has_global_flag = cultural_overhaul_active root = { OR = { has_ethic = ethic_fanatic_green has_ethic = ethic_fanatic_industrial has_ethic = ethic_fanatic_socialism has_ethic = ethic_fanatic_capitalism } } }
 						random_list = {
 							500 = { modifier = { factor = 0 NOT = { root = { has_ethic = ethic_green		} } } modifier = { factor = 10 root = { has_ethic = ethic_fanatic_green } }			pop_change_ethic = ethic_green }
@@ -3193,6 +3196,10 @@ country_event = {
 							500 = { modifier = { factor = 0 NOT = { root = { has_ethic = ethic_capitalism	} } } modifier = { factor = 10 root = { has_ethic = ethic_fanatic_capitalism } }	pop_change_ethic = ethic_capitalism }
 						}
 					}
+						"
+						toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+					}
+
 				}
 			}
 		}
@@ -3957,6 +3964,36 @@ country_event = {
 					set_formation_scale = 1.0
 					set_fleet_flag = defense_sentinels_fleet
 				}
+			}
+		}
+	}
+}
+
+# Virtual Subject gives Starbase to Overlord
+# This = starbase being disabled (not ship!)
+# From = fleet that disabled the starbase
+starbase_event = {
+	id = UniqueAscensionPerksEvents.234
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		exists = from.owner
+		from.owner = {
+			is_country_type = security_forces
+		}
+	}
+	immediate = {
+		from.owner = {
+			random_relation = {
+				limit = {
+					merg_is_default_empire = yes
+					OR = {
+						reverse_has_relation_flag = { who = prev flag = defense_sentinels }
+						prev = { has_country_flag = is_unique_perk_special_subject_of@prev } # New in v3.14
+					}
+				}
+				root = { set_owner = prev fleet = { set_controller = prevprev } }
+				sync_subjects_virtual_relation = yes
 			}
 		}
 	}
@@ -7262,7 +7299,6 @@ event = {
 				1 = {}
 			}
 		}
-		# UniqueAscensionPerksEvents.234
 		# UniqueAscensionPerksEvents.269		# ap_civilian_activities
 		if = {
 			limit = {

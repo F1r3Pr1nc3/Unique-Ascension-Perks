@@ -518,7 +518,14 @@ ap_economic_prospertity = {
 		custom_tooltip = { fail_text = "ap_economic_prospertity_req_1" tradition_prosperity_finish = yes }
 		custom_tooltip = { fail_text = "ap_economic_prospertity_req_2" OR = { has_technology = tech_galactic_markets is_megacorp = yes } }
 		custom_tooltip = { fail_text = "ap_economic_prospertity_req_3" NOT = { has_global_flag = emex_version_rejuvenation } } # 'Empires Expanded'
-		custom_tooltip = { fail_text = "ap_economic_prospertity_req_4" NAND = { has_global_flag = bug_branch_active has_bug_branch = yes } } # Ethics and Civics - Bug Branch
+		# custom_tooltip = { fail_text = "ap_economic_prospertity_req_4" NAND = { has_global_flag = bug_branch_active has_bug_branch = yes } } # Ethics and Civics - Bug Branch
+		inline_script = {
+			script = merger_of_rules/toggled_code_inverse
+			code = "
+			custom_tooltip = { fail_text = ap_economic_prospertity_req_4 }
+			"
+			toggle = @has_bug_branch
+		}
 	}
 	modifier = {
 		country_trade_fee = -0.1
@@ -1334,8 +1341,22 @@ ap_pyramidal_society = {
 			has_ascension_perk = ap_pyramidal_society
 			has_country_flag = ap_pyramidal_society
 			has_global_flag = ap_pyramidal_society
+			# Gigastructural Engineering & More
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
 			giga_has_frameworld_origin = yes
+				"
+				toggle = @has_gigastructures
+			}
+			# Sparble's Stellar Hyperconstructs 3022132203
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
 			capital_scope = { ssh_is_special_planet = yes }
+				"
+				toggle = @ssh_tech_tier_a_mega_cost
+			}
 		}
 		NAND = {
 			is_ai = yes
@@ -1524,7 +1545,13 @@ ap_deep_scanner = {
 	potential = {
 		NOR = {
 			has_ascension_perk = ap_deep_scanner
-			has_civic = civic_exploration # Compat. E&CC
+			inline_script = { # Compat. E&CC
+				script = merger_of_rules/toggled_code
+				code = "
+			has_valid_civic = civic_exploration
+				"
+				toggle = @[ has_eca_funefork + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
 		}
 		NAND = {
 			is_ai = yes

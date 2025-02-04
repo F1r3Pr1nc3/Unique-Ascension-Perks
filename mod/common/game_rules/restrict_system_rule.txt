@@ -9,15 +9,30 @@ ai_should_restrict_system = {
 				OR = {
 					merg_is_fallen_empire = yes
 					is_country_type = caravaneer_fleet
-					is_country_type = eternal_empire # Twinks Eternal Empire
+					# Twinks Eternal Empire
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							is_country_type = eternal_empire
+						"
+						toggle = @has_eternal_empire
+					}
 				}
 			}
 			exists = owner
 			owner = {
 				OR = {
 					is_country_type = awakened_marauders
-					is_country_type = dormant_marauders # Ariphaos Patch
-					# is_country_type = awakened_marauders_ev # The Empty Vagrant
+					# Ariphaos Patch
+					is_country_type = dormant_marauders
+					# The Empty Vagrant
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							is_country_type = awakened_marauders_ev
+						"
+						toggle = @homeless_class_trait_weight
+					}
 				}
 			}
 		}
@@ -26,8 +41,16 @@ ai_should_restrict_system = {
 				OR = {
 					is_country_type = caravaneer_fleet
 					is_country_type = awakened_marauders
-					is_country_type = marauder_raiders # Ariphaos Patch
-					# is_country_type = awakened_marauders_ev # The Empty Vagrant
+					# Ariphaos Patch
+					is_country_type = marauder_raiders
+					# The Empty Vagrant
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							is_country_type = awakened_marauders_ev
+						"
+						toggle = @homeless_class_trait_weight
+					}
 				}
 			}
 			exists = owner
@@ -40,7 +63,14 @@ ai_should_restrict_system = {
 				OR = {
 					is_country_type = dormant_marauders
 					is_country_type = awakened_marauders
-					# is_country_type = awakened_marauders_ev # The Empty Vagrant
+					# The Empty Vagrant
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							is_country_type = awakened_marauders_ev
+						"
+						toggle = @homeless_class_trait_weight
+					}
 				}
 			}
 		}
@@ -51,8 +81,15 @@ ai_should_restrict_system = {
 					is_country_type = awakened_marauders
 					is_country_type = marauder_raiders
 					is_country_type = caravaneer_fleet
-					# is_country_type = awakened_marauders_ev # The Empty Vagrant
 					is_country_type = voidworms
+					# The Empty Vagrant
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							is_country_type = awakened_marauders_ev
+						"
+						toggle = @homeless_class_trait_weight
+					}
 				}
 			}
 			OR = {
@@ -75,7 +112,17 @@ ai_should_restrict_system = {
 		AND = {
 			root = {
 				OR = {
-					AND = { is_crisis_faction = yes is_blokkat_country_type = no }
+					AND = {
+						is_crisis_faction = yes
+						# Gigastructural Engineering & More
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
+								is_blokkat_country_type = no
+							"
+							toggle = @has_gigastructures
+						}
+					}
 					merg_is_awakened_fe = yes
 				}
 			}
@@ -112,39 +159,210 @@ ai_should_restrict_system = {
 			has_global_flag = gray_goo_crisis_active
 		}
 		# Gigastructural Engineering & More
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		giga_ai_should_restrict_system = yes
-		# AND = {
-		# 	has_global_flag = gigastructures_enabled
-		# 	NOT = { has_global_flag = katzenartig_imperium_happened }
-		# 	OR = {
-		# 		has_global_flag = katzenartig_always
-		# 		has_global_flag = katzenartig_deathwish
-		# 		has_global_flag = katzenartig_stellarite
-		# 		has_global_flag = katzenartig_improbable
-		# 	}
-		# 	has_star_flag = flusion_system
-		# 	exists = event_target:gigaflusion
-		# 	event_target:gigaflusion = {
-		# 		exists = owner
-		# 		owner = { is_primitive = yes }
-		# 	}
-		# }
-		# ACOT
-		AND = {
-			has_global_flag = acot_activated
-			root = { merg_is_default_empire = yes }
-			exists = owner
-			owner = { is_progenitor_empires = yes }
+			"
+			toggle = @has_gigastructures
 		}
-		# General restriction flag (introduced by OldEnt, used by A Deadly Tempest)
+		# Spaceborne Civs Expanded
 		AND = {
 			root = {
 				OR = {
-					is_crisis_faction = yes
+					merg_is_fallen_empire = yes
+					is_country_type = awakened_marauders
+					is_country_type = marauder_raiders
+					is_country_type = caravaneer_fleet
+					# The Empty Vagrant
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							is_country_type = awakened_marauders_ev
+						"
+						toggle = @homeless_class_trait_weight
+					}
+				}
+			}
+			OR = {
+				has_star_flag = crystal_home_system
+				has_star_flag = amoeba_home_system
+				has_star_flag = drone_home_system
+			}
+			any_fleet_in_system = {
+				exists = owner
+				owner = {
+					OR = {
+						is_crystal_country_type = yes
+						is_amoeba_country_type = yes
+						is_drone_country_type = yes
+					}
+				}
+			}
+		}
+		# TODO # # Ancient Cache of Technologies : Secrets Beyond The Gates 1481972266 merg_has_sofe = { has_global_flag = sofe_activated }
+		# inline_script = {
+		# 	script = merger_of_rules/toggled_code
+		# 	code = "
+		# AND = {
+		# 	root = { merg_is_default_empire = yes }
+		# 	exists = owner
+		# 	owner = { is_progenitor_empires = yes }
+		# }
+		# AND = {
+		# 	root = { merg_is_fallen_empire = yes }
+		# 	any_fleet_in_system = {
+		# 		exists = owner
+		# 		owner = {
+		# 			OR = {
+		# 				is_guardian_country = yes
+		# 				is_country_type = sbtg_sentinel_active
+		# 			}
+		# 		}
+		# 	}
+		# }
+		# 	"
+		# 	toggle = @has_sbtg_mod
+		# }
+		# General restriction flag (introduced by OldEnt, used by A Deadly Tempest)
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+		AND = {
+			root = {
+				OR = {
+					AND = {
+						is_crisis_faction = yes
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = \"
+								is_blokkat_country_type = no
+							\"
+							toggle = @has_gigastructures
+						}
+					}
 					has_country_flag = pike_assisted_ai
 				}
 			}
 			has_star_flag = pike_star_flag_banned_system
+		}
+			"
+			toggle = @has_a_deadly_tempest_mod
+		}
+		# Ancient Empire
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+		AND = {
+			root = {
+				OR = {
+					merg_is_fallen_empire = yes
+					merg_is_awakened_fe = yes
+					is_country_type = awakened_marauders
+					is_country_type = ag_ancient_psi_guardian
+					# The Empty Vagrant
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = \"
+							is_country_type = awakened_marauders_ev
+						\"
+						toggle = @homeless_class_trait_weight
+					}
+				}
+			}
+			OR = {
+				has_star_flag = ag_zeta_crisis_psionic_storm_system
+				has_star_flag = ag_zeta_crisis_psionic_singularity_system
+			}
+		}
+			"
+			toggle = @ag_null_edict_length
+		}
+		# harvester_beamcage_ship_count Harvest Engine Crisis 3381939844
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+		AND = {
+			root = { is_harvester_country = yes }
+			OR = {
+				any_country_neighbor_to_system  = { merg_is_fallen_empire = yes }
+				AND = {
+					has_star_flag = guardian
+					any_fleet_in_system = { exists = owner owner = { is_guardian_country = yes } }
+				}
+				AND = { exists = owner owner = { merg_is_fallen_empire = yes } }
+			}
+		}
+			"
+			toggle = @harvester_beamcage_ship_count # TODO
+		}
+
+		# Scripted Triggers Undercoat
+		# has_star_flag = stu_ai_restrict_system@root
+		# The Sleeper
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+		AND = {
+			exists = owner
+			has_star_flag = sleeper_system
+			root = {
+				merg_is_default_empire = yes
+				is_homicidal = no
+				OR = {
+					AND = {
+						OR = {
+							has_valid_civic = civic_inwards_perfection
+							has_global_flag = sleeper_warning_happened
+						}
+						NOT = { has_ethic = ethic_fanatic_xenophobe }
+					}
+					AND = {
+						is_xenophile = yes
+						is_militarist = no
+					}
+					is_pacifist = yes
+					has_valid_civic = civic_machine_servitor
+					AND = {
+						is_active_resolution = resolution_sleeper_sanctions
+						is_militarist = no
+						OR = {
+							is_xenophobe = no
+							has_valid_civic = civic_inwards_perfection
+						}
+					}
+					any_neighbor_country = { is_country_type = the_sleeper_fallen check_variable = { which = sleeper_aggro value > 500 } }
+				}
+			}
+		}
+		AND = {
+			exists = owner
+			root = { merg_is_fallen_empire = yes }
+			OR = {
+				owner = { is_marauder = yes }
+				any_fleet_in_system = { # Stop FEs FROM just killing the Sleeper
+					exists = owner
+					owner = { is_country_type = berserker_awoken_hive }
+				}
+				AND = { # Stop FEs FROM just killing the Sleeper
+					owner = { is_country_type = the_sleeper_fallen }
+					has_star_flag = sleeper_system
+				}
+			}
+		}
+			"
+			toggle = @has_the_sleeper_mod
+		}
+		# Forgotten Empires
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				AND = {
+					has_star_flag = scfe_ai_avoid_system
+					NOT = { exists = owner }
+				}
+			"
+			toggle = @forgotten_empires
 		}
 	}
 }

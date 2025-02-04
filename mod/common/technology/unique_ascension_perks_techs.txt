@@ -929,7 +929,13 @@ tech_deep_scanner = {
 	potential = {
 		OR = {
 			has_ascension_perk = ap_deep_scanner
-			has_valid_civic = civic_exploration # Compat. E&CC
+			inline_script = { # Compat. E&CC
+				script = merger_of_rules/toggled_code
+				code = "
+			has_valid_civic = civic_exploration
+				"
+				toggle = @[ has_eca_funefork + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
 		}
 	}
 	weight = @tier3weight1

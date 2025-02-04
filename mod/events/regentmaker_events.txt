@@ -455,15 +455,47 @@ planet_event = {
 			}
 		}
 		create_country = {
-			name = random
+			# name = random
 			name_list = event_target:owning_empire
-			type = default
+			# type = default
 			# ship_prefix = ""
-			# government_restrictions = {
-			# 	authority = {
-			# 		NOR = { value = auth_machine_intelligence value = auth_hive_mind }
-			# 	}
-			# }
+			government_restrictions = {
+				# authority = {
+				# 	NOR = { value = auth_machine_intelligence value = auth_hive_mind }
+				# }
+				civics = {
+					NOR = {
+						value = civic_corporate_beastmasters
+						value = civic_eager_explorers
+						# Anti-Vassalization Civics
+						value = civic_fanatic_purifiers
+						value = civic_hive_devouring_swarm
+						value = civic_machine_terminator
+						value = civic_machine_assimilator
+						value = civic_machine_servitor
+						value = civic_criminal_heritage
+						value = civic_barbaric_despoilers
+						# Autonomy & Rebellion-Prone Civics
+						value = civic_citizen_service
+						value = civic_distinguished_admiralty
+						value = civic_free_haven
+						value = civic_memorialist
+						value = civic_reanimated_armies
+						# Civics That Conflict with Certain Ascensions
+						value = civic_idyllic_bloom # Idyllic Bloom
+						value = civic_functional_architecture
+						# Ethics-Locked Civics That may not fit all Vassals
+						value = civic_franchising # Franchising
+						value = civic_ruthless_competition # Ruthless Competition
+						value = civic_death_cult # Death Cult
+						value = civic_hive_ascetic # Ascetic (Hive Mind)
+						# Unique Government Civics That would be a Problem
+						value = civic_imperial_cult # Imperial Cult
+						value = civic_feudal_realm # Feudal Society
+						value = civic_shared_burden # Shared Burdens
+					}
+				}
+			}
 			authority = event_target:owning_empire
 			civics = random
 			ignore_initial_colony_error = yes
@@ -522,11 +554,7 @@ planet_event = {
 				limit = { has_overlord_dlc = yes }
 				set_origin = origin_imperial_vassal
 			}
-			else_if = {
-				limit = { has_origin = origin_default }
-				set_origin = origin_separatists
-			}
-			set_origin_effect = yes # From = overlord
+			fire_on_action = { on_action = on_released_as_vassal scopes = { from = event_target:owning_empire } } # set_origin_effect = yes  # From = overlord
 
 			set_graphical_culture = event_target:owning_empire
 
@@ -547,39 +575,17 @@ planet_event = {
 			}
 			# action_open_borders
 			set_closed_borders = { who = event_target:owning_empire status = no forced = 5 }
-			# TODO test
-			# change_dominant_species = { species = event_target:vassal_species change_all = yes } # Buggy 3.0.3
-			event_target:owning_empire = {
-				set_country_flag = has_communications@prev
-				set_faction_hostility = { set_friendly = yes target = prev }
-				# establish_contact = { who = last_created_country location = root }
-				every_federation_ally = { establish_communications = prevprev }
-				every_relation = {
-					establish_communications_no_message = prevprev
-					# establish_contact = { who = last_created_country location = root }
-				}
-				# action_open_borders
-				set_closed_borders = { who = prev status = no forced = 5 }
-				add_intel = { who = prev amount = 200 }
-				switch = { trigger = has_valid_civic
-					civic_fanatic_purifiers		= { prev = { force_add_civic = civic_fanatic_purifiers } }
-					civic_hive_devouring_swarm	= { prev = { force_add_civic = civic_hive_devouring_swarm } }
-					civic_machine_terminator	= { prev = { force_add_civic = civic_machine_terminator } }
-					civic_machine_assimilator	= { prev = { force_add_civic = civic_machine_assimilator } }
-					civic_machine_servitor		= { prev = { force_add_civic = civic_machine_servitor } }
-					civic_criminal_heritage		= { prev = { force_add_civic = civic_criminal_heritage } }
-					civic_barbaric_despoilers	= { prev = { force_add_civic = civic_barbaric_despoilers } }
-				}
-			}
 			# establish_contact = { who = event_target:owning_empire location = event_target:owning_empire.capital_scope }
 			if = {
 				limit = { is_same_species = event_target:owning_empire }
 				random = { chance = 50
 					copy_ethos_and_authority = event_target:owning_empire
+					force_add_civic = civic_imperial_cult
 					change_government = {
 						authority = auth_imperial
-						remove_invalid_civics = yes cooldown = no
-						civics = { civic = random civic = random civic = random }
+						remove_invalid_civics = yes
+						# cooldown = yes
+						# civics = { civic = random civic = random civic = random }
 					}
 				}
 			}
@@ -594,10 +600,130 @@ planet_event = {
 			# }
 			set_name = random
 
-			if = {
-				limit = { root = { has_planet_flag = planet_marked_for_handover } }
-				log = "Release selected planet [Root.GetName]!"
-				root = {
+			# TODO test
+			# change_dominant_species = { species = event_target:vassal_species change_all = yes } # Buggy 3.0.3
+			event_target:owning_empire = {
+				set_country_flag = has_communications@prev
+				set_faction_hostility = { set_friendly = yes target = prev }
+				# establish_contact = { who = last_created_country location = root }
+				every_federation_ally = { establish_communications = prevprev }
+				every_relation = {
+					establish_communications_no_message = prevprev
+					# establish_contact = { who = last_created_country location = root }
+				}
+				# action_open_borders
+				set_closed_borders = { who = prev status = no forced = 5 }
+				add_intel = { who = prev amount = 200 }
+				# Really?
+				random = { chance = 50
+					switch = { trigger = has_valid_civic
+						civic_fanatic_purifiers		= { prev = { force_add_civic = civic_fanatic_purifiers } }
+						civic_hive_devouring_swarm	= { prev = { force_add_civic = civic_hive_devouring_swarm } }
+						civic_machine_terminator	= { prev = { force_add_civic = civic_machine_terminator } }
+						civic_machine_assimilator	= { prev = { force_add_civic = civic_machine_assimilator } }
+						civic_machine_servitor		= { prev = { force_add_civic = civic_machine_servitor } }
+						civic_criminal_heritage		= { prev = { force_add_civic = civic_criminal_heritage } }
+						civic_barbaric_despoilers	= { prev = { force_add_civic = civic_barbaric_despoilers } }
+					}
+				}
+			}
+			# Civics That Could Work for a Perfect Vassal
+			random_list = {
+				# Indentured Assets (Megacorp) # Allows direct population control.
+				1 = {
+					force_add_civic = civic_indentured_assets
+					modifier = { factor = 0
+						OR = {
+							has_civic = civic_indentured_assets
+							is_authoritarian = yes
+							has_civic = civic_corporate_hedonism
+							has_civic = civic_slaver_guilds
+							has_civic = civic_pleasure_seekers
+						}
+					}
+					modifier = {
+						factor = 10
+						OR = {
+							has_authority = auth_corporate
+							has_civic = civic_galactic_sovereign_megacorp
+						}
+					}
+				}
+				# Police State # Keeps stability high, making them obedient.
+				1 = {
+					force_add_civic = civic_police_state
+					modifier = { factor = 0
+						OR = {
+							has_civic = civic_police_state
+							has_ethic = ethic_fanatic_egalitarian
+							is_gestalt = yes
+							is_megacorp = yes
+						}
+					}
+				}
+				# Efficient Bureaucracy # Makes administration smoother.
+				1 = {
+					force_add_civic = civic_efficient_bureaucracy
+					modifier = { factor = 0
+						OR = {
+							has_civic = civic_efficient_bureaucracy
+							is_gestalt = yes
+							is_megacorp = yes
+						}
+					}
+				}
+				# Functional Architecture # Keeps the vassal efficient without being too independent.
+				1 = {
+					force_add_civic = civic_functional_architecture
+					modifier = { factor = 0
+						OR = {
+							has_civic = civic_functional_architecture
+							is_gestalt = yes
+							is_megacorp = yes
+						}
+					}
+				}
+				# Anglers (if aquatic) # Generates strong economy with low micromanagement.
+				1 = {
+					force_add_civic = civic_anglers
+					modifier = { factor = 0
+						OR = {
+							has_civic = civic_anglers
+							event_target:vassal_species = { is_archetype = MACHINE }
+							has_origin = origin_post_apocalyptic
+							has_origin = origin_shattered_ring
+							has_origin = origin_void_dwellers
+							has_origin = origin_subterranean
+							is_gestalt = yes
+							is_megacorp = yes
+						}
+					}
+					modifier = { factor = 10 event_target:vassal_species = { has_trait = trait_aquatic } }
+				}
+				# Anglers (if aquatic) # Generates strong economy with low micromanagement.
+				1 = {
+					force_add_civic = civic_machine_anglers
+					modifier = { factor = 0
+						OR = {
+							has_civic = civic_machine_anglers
+							event_target:vassal_species = { NOT = { is_archetype = MACHINE } }
+							has_origin = origin_post_apocalyptic
+							has_origin = origin_shattered_ring
+							has_origin = origin_void_dwellers
+							has_origin = origin_subterranean
+							is_gestalt = yes
+							is_megacorp = yes
+						}
+					}
+					modifier = { factor = 10 event_target:vassal_species = { is_archetype = MACHINE has_trait = trait_robot_aquatic } }
+				}
+
+			}
+
+			root = {
+				if = {
+					limit = { has_planet_flag = planet_marked_for_handover }
+					log = "Release selected planet [Root.GetName]!"
 					if = { limit = { planet_size < 25 } set_planet_size = 25 }	# Cheating!?
 					set_advanced_colony = yes
 					planet_event = { id = regentmaker.9 days = -1 }
@@ -664,6 +790,15 @@ planet_event = {
 				remove_planet_flag = planet_marked_for_handover
 				remove_modifier = "perfect_vassal_colony"
 				remove_modifier = "pm_perfect_vassal_colony"
+			}
+		}
+		if = {
+			limit = { exists = event_target:new_empire }
+			event_target:new_empire = {
+				if = {
+					limit = { has_origin = origin_default }
+					set_origin = origin_separatists
+				}
 			}
 		}
 	}
@@ -1086,7 +1221,13 @@ country_event = {
 	# (Mod) Ethics and Civics Classic
 	option = {
 		name = "ethic_fanatic_green"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_green } }
 			shift_ethic = ethic_fanatic_green
@@ -1094,7 +1235,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_green"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_green } }
 			shift_ethic = ethic_green
@@ -1102,7 +1249,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_fanatic_industrial"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_industrial } }
 			shift_ethic = ethic_fanatic_industrial
@@ -1110,7 +1263,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_industrial"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_industrial } }
 			shift_ethic = ethic_industrial
@@ -1118,7 +1277,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_fanatic_socialism"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_socialism } }
 			shift_ethic = ethic_fanatic_socialism
@@ -1126,7 +1291,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_socialism"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_socialism } }
 			shift_ethic = ethic_socialism
@@ -1134,7 +1305,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_fanatic_capitalism"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_fanatic_capitalism } }
 			shift_ethic = ethic_fanatic_capitalism
@@ -1142,7 +1319,13 @@ country_event = {
 	}
 	option = {
 		name = "ethic_capitalism"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = { is_perfect_vassal = yes NOT = { has_ethic = ethic_capitalism } }
 			shift_ethic = ethic_capitalism
@@ -1196,7 +1379,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_democratic"
 		every_subject = {
-			limit = { is_democratic_authority = no is_perfect_vassal = yes }
+			limit = { is_democracy = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_democratic days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_democratic civics = random remove_invalid_civics = yes cooldown = no }
@@ -1209,7 +1392,7 @@ country_event = {
 	option = {
 		name = "regentmaker_auth_oligarchic"
 		every_subject = {
-			limit = { is_oligarchic_authority = no is_perfect_vassal = yes }
+			limit = { is_oligarchy = no is_perfect_vassal = yes }
 			set_timed_country_flag = { flag = auth_oligarchic days = 2 }
 			country_event = { id = regentmaker.30 }
 			change_government = { authority = auth_oligarchic civics = random remove_invalid_civics = yes cooldown = no }
@@ -1261,7 +1444,13 @@ country_event = {
 	}
 	option = {
 		name = "regentmaker_auth_direct_democratic"
-		trigger = { has_global_flag = cultural_overhaul_active }
+		trigger = {
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "always = yes"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+		}
 		every_subject = {
 			limit = {
 				NOT = { has_authority = auth_direct_democratic }
@@ -1355,7 +1544,13 @@ country_event = {
 			}
 		}
 		else_if = { # comp. Civil Wars mod
-			limit = { has_global_flag = civil_wars_active }
+			limit = {
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "always = yes"
+					toggle = @has_civil_wars_mod
+				}
+			}
 			every_subject = { # count < 11
 				limit = {
 					merg_is_default_empire = yes
@@ -2780,7 +2975,7 @@ country_event = {
 	option = {
 		name = "auth_democratic"
 		trigger = {
-			event_target:subject_selected = { is_democratic_authority = no }
+			event_target:subject_selected = { is_democracy = no }
 		}
 		event_target:subject_selected = {
 			clear_ethos = yes
@@ -3150,6 +3345,7 @@ country_event = {
 }
 
 # create_starting_fleets (on release subject, on .215 decentralisation, on .7 change subjct type on wg)
+# initialize_advanced_colony
 # Root = last_created_country/subject country (similar in syndaw.1022)
 # From = planet = capital_scope
 country_event = {
@@ -3404,6 +3600,7 @@ country_event = {
 		country_event = { id = game_start.8 days = 9	random = 3 }	# +tech +resources
 		country_event = { id = game_start.9 days = 12	random = 4 }	# empire_init_create_ships
 		from = {
+			# fire_on_action = { on_action = on_initialize_advanced_colony }
 			planet_event = { id = game_start.20 days = 80	random = 30 } # Remove blockers on capital
 			planet_event = { id = game_start.21 days = 120	random = 40 } # Upgrade colony shelter on additional colonies.
 			planet_event = { id = game_start.22 days = 180	random = 60 } # Set up additional buildings (mines, farms, power plants)

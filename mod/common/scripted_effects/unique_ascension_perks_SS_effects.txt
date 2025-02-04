@@ -57,6 +57,9 @@ surgical_strike_abducted_pop_colony_transfer = {
 			2 = { modifier = { factor = 100 has_ethic = ethic_authoritarian } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_authoritarian } }
 			2 = { modifier = { factor = 100 is_gestalt = yes } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_gestalt_consciousness } }
 			# (Mod) Ethics and Civics Classic
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
 			1002 = {
 				modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } }
 				modifier = { add = -200 is_gestalt = no }
@@ -72,6 +75,10 @@ surgical_strike_abducted_pop_colony_transfer = {
 					2 = { modifier = { factor = 100 has_ethic = ethic_capitalism } last_created_pop = { wipe_pop_ethos = yes pop_change_ethic = ethic_capitalism } }
 				}
 			}
+				"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
+
 		}
 		kill_pop = yes
 	}
@@ -660,6 +667,9 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_magmaminer_1 } } remove_building = esc_building_magmaminer_1 }
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_magmaminer_2 } } remove_building = esc_building_magmaminer_2 }
 		# (Mod) Ethics and Civics Classic - Buildings
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NAND = { has_global_flag = cultural_overhaul_active has_building = building_national_park } }		remove_building = building_national_park }
 		100 = { modifier = { factor = 0 NAND = { has_global_flag = cultural_overhaul_active has_building = building_climate_control } }		remove_building = building_climate_control }
 		100 = { modifier = { factor = 0 NAND = { has_global_flag = cultural_overhaul_active has_building = building_tribal_council } }		remove_building = building_tribal_council }
@@ -678,6 +688,9 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NAND = { has_global_flag = cultural_overhaul_active has_building = building_thermal_borehole } }		remove_building = building_thermal_borehole }
 		100 = { modifier = { factor = 0 NAND = { has_global_flag = cultural_overhaul_active has_building = building_colliseum } }			remove_building = building_colliseum }
 		100 = { modifier = { factor = 0 NAND = { has_global_flag = cultural_overhaul_active has_building = building_mecha_monastery } }		remove_building = building_mecha_monastery }
+			"
+			toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+		}
 	}
 }
 

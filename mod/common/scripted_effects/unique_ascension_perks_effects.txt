@@ -196,12 +196,33 @@ sync_subjects_virtual_relation = {
 			set_faction_hostility = { target = prev set_hostile = yes }
 		}
 	}
-	# Friendly
+	## Friendly
+	# Overlord relation must be friendly
+	prev = {
+		if = {
+			# limit = { NOT = { is_friendly_to = prev } }
+			limit = { is_hostile = prev }
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
+			set_faction_hostility = { target = prev set_friendly = yes }
+		}
+		if = {
+			limit = {
+				exists = prev.overlord
+				# NOT = { is_friendly_to = prev.overlord }
+				is_hostile = prev.overlord
+			}
+			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev.overlord }
+			set_faction_hostility = { target = prev.overlord set_friendly = yes }
+		}
+		if = {
+			limit = { count_owned_starbase = { count > 0 } }
+			every_owned_starbase = { set_owner = prevprev }
+		}
+	}
 	# every_relation = {
 	every_country = {
 		limit = {
 			has_communications = prev
-
 			prevprev = {
 				OR = {
 					is_hostile = prev
@@ -240,7 +261,7 @@ sync_subjects_virtual_relation = {
 			set_faction_hostility = { target = prev set_neutral = yes }
 		}
 	}
-	# TODO TEst relation?
+	# TODO Test relation?
 	# Own Mercenary are friendly
 	random_country = {
 		limit = {
@@ -265,26 +286,6 @@ sync_subjects_virtual_relation = {
 		prevprev = {
 			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
 			set_faction_hostility = { target = prev set_friendly = yes }
-		}
-	}
-	# Overlord relation must be friendly
-	prev = {
-		if = {
-			limit = { NOT = { is_friendly_to = prev } }
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
-			set_faction_hostility = { target = prev set_friendly = yes }
-		}
-		if = {
-			limit = {
-				exists = prev.overlord
-				NOT = { is_friendly_to = prev.overlord }
-			}
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev.overlord }
-			set_faction_hostility = { target = prev.overlord set_friendly = yes }
-		}
-		if = {
-			limit = { count_owned_starbase = { count > 0 } }
-			every_owned_starbase = { set_owner = prevprev }
 		}
 	}
 }
