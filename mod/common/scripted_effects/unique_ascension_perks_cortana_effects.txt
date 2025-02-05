@@ -31,7 +31,7 @@ cortana_research_random_repeatable_technology = {
 		100 = { modifier = { factor = 0 NAND = { has_technology = tech_missiles_3 can_research_technology = tech_repeatable_weapon_type_explosive_fire_rate } } give_technology = { tech = tech_repeatable_weapon_type_explosive_fire_rate } }
 		100 = { modifier = { factor = 0 NAND = { has_technology = tech_mass_drivers_3 can_research_technology = tech_repeatable_weapon_type_kinetic_damage } } give_technology = { tech = tech_repeatable_weapon_type_kinetic_damage } }
 		100 = { modifier = { factor = 0 NAND = { has_technology = tech_mass_drivers_3 can_research_technology = tech_repeatable_weapon_type_kinetic_fire_rate } } give_technology = { tech = tech_repeatable_weapon_type_kinetic_fire_rate } }
-		# 100 = { modifier = { factor = 0 NOT = { can_research_technology = tech_repeatable_improved_edict_length } } give_technology = { tech = tech_repeatable_improved_edict_length } } # Removed in v.3.3
+		# 100 = { modifier = { factor = 0 NOT = { can_research_technology = tech_repeatable_improved_edict_length } } give_technology = { tech = tech_repeatable_improved_edict_length } } # Removed in v3.3
 		# Fallbacks
 		5 = { add_monthly_resource_mult = { resource = engineering_research value = 3 min = 30 max = 1200 } }
 		5 = { add_monthly_resource_mult = { resource = society_research value = 3 min = 30 max = 1200 } }
@@ -287,7 +287,7 @@ cortana_helps_research_current_technology = {
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_morphogenetic_field_mastery } } add_tech_progress = { tech = tech_morphogenetic_field_mastery progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_gene_tailoring } } add_tech_progress = { tech = tech_gene_tailoring progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_glandular_acclimation } } add_tech_progress = { tech = tech_glandular_acclimation progress = 0.4 } }
-		# 100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_genetic_resequencing } } add_tech_progress = { tech = tech_genetic_resequencing progress = 0.4 } } removed in v.3.6
+		# 100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_genetic_resequencing } } add_tech_progress = { tech = tech_genetic_resequencing progress = 0.4 } } removed in v3.6
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_covenant_composer } } add_tech_progress = { tech = tech_covenant_composer progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_covenant_eater } } add_tech_progress = { tech = tech_covenant_eater progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_covenant_instrument } } add_tech_progress = { tech = tech_covenant_instrument progress = 0.4 } }
@@ -577,7 +577,10 @@ cortana_helps_research_current_technology = {
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_tomahawk_cruise_missile_1 } } add_tech_progress = { tech = tech_tomahawk_cruise_missile_1 progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_galactic_mall } } add_tech_progress = { tech = tech_galactic_mall progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_hospital } } add_tech_progress = { tech = tech_hospital progress = 0.4 } }
-		# (Mod) Guilli Planet Modifiers - Technologies
+		# (Mod) Guilli's Planet Modifiers - Technologies
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_gpm_tb_seasonal_flooding } } add_tech_progress = { tech = tech_gpm_tb_seasonal_flooding progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_gpm_tb_locust_plagues } } add_tech_progress = { tech = tech_gpm_tb_locust_plagues progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_gpm_tb_toxic_gas } } add_tech_progress = { tech = tech_gpm_tb_toxic_gas progress = 0.4 } }
@@ -589,7 +592,13 @@ cortana_helps_research_current_technology = {
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = gpm_tech_ringworld_simulators } } add_tech_progress = { tech = gpm_tech_ringworld_simulators progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = gpm_tech_ringworld_endless_oceans } } add_tech_progress = { tech = gpm_tech_ringworld_endless_oceans progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = gpm_tech_ringworld_mass_transit } } add_tech_progress = { tech = gpm_tech_ringworld_mass_transit progress = 0.4 } }
+			"
+			toggle = @has_guillis_planet_modifiers
+		}
 		# (Mod) More Events Mod - Technologies
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = mem_surveyor_alkree_secrets } } add_tech_progress = { tech = mem_surveyor_alkree_secrets progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = mem_tech_planetary_shield_generator_heavy } } add_tech_progress = { tech = mem_tech_planetary_shield_generator_heavy progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_mem_vazuran_xentronium_armor } } add_tech_progress = { tech = tech_mem_vazuran_xentronium_armor progress = 0.4 } }
@@ -597,6 +606,9 @@ cortana_helps_research_current_technology = {
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_mem_vazuran_damper_field_bypass } } add_tech_progress = { tech = tech_mem_vazuran_damper_field_bypass progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_mem_vazuran_rift_stabilization } } add_tech_progress = { tech = tech_mem_vazuran_rift_stabilization progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_mem_scourge_damage_bonus } } add_tech_progress = { tech = tech_mem_scourge_damage_bonus progress = 0.4 } }
+		"
+			toggle = @has_more_events_mod
+		}
 		# (Mod) Technology Ascendant - Technologies
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_materials_breakthrough } } add_tech_progress = { tech = tech_materials_breakthrough progress = 0.4 } }
 		100 = { modifier = { factor = 0 NOT = { is_researching_technology = tech_industry_breakthrough } } add_tech_progress = { tech = tech_industry_breakthrough progress = 0.4 } }

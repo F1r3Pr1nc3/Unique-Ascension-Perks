@@ -435,7 +435,7 @@ planet_event = {
 				limit = { exists = leader }
 				leader = { save_event_target_as = vassal_leader unassign_leader = this log="Save planet leader \\[vassal_leader.GetName]" }
 			}
-			else_if = { # Changed in v.3.8
+			else_if = { # Changed in v3.8
 				limit = {
 					is_sector_capital = no
 					exists = sector
@@ -644,7 +644,7 @@ planet_event = {
 					modifier = {
 						factor = 10
 						OR = {
-							has_authority = auth_corporate
+							is_megacorp = yes
 							has_civic = civic_galactic_sovereign_megacorp
 						}
 					}
@@ -690,10 +690,10 @@ planet_event = {
 						OR = {
 							has_civic = civic_anglers
 							event_target:vassal_species = { is_archetype = MACHINE }
-							has_origin = origin_post_apocalyptic
+							is_apocalyptic_empire = yes
 							has_origin = origin_shattered_ring
-							has_origin = origin_void_dwellers
-							has_origin = origin_subterranean
+							has_void_dweller_origin = yes
+							is_subterranean_empire = yes
 							is_gestalt = yes
 							is_megacorp = yes
 						}
@@ -707,17 +707,16 @@ planet_event = {
 						OR = {
 							has_civic = civic_machine_anglers
 							event_target:vassal_species = { NOT = { is_archetype = MACHINE } }
-							has_origin = origin_post_apocalyptic
+							is_apocalyptic_empire = yes
 							has_origin = origin_shattered_ring
-							has_origin = origin_void_dwellers
-							has_origin = origin_subterranean
+							has_void_dweller_origin = yes
+							is_subterranean_empire = yes
 							is_gestalt = yes
 							is_megacorp = yes
 						}
 					}
 					modifier = { factor = 10 event_target:vassal_species = { is_archetype = MACHINE has_trait = trait_robot_aquatic } }
 				}
-
 			}
 
 			root = {
@@ -3204,10 +3203,16 @@ country_event = {
 				4 = { country_add_ethic = ethic_fanatic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 				3 = { country_add_ethic = ethic_fanatic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
 				# (Mod) Ethics and Civics Classic
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green			} }	country_add_ethic = ethic_fanatic_green }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_industrial	} }	country_add_ethic = ethic_fanatic_industrial }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_socialism		} }	country_add_ethic = ethic_fanatic_socialism }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_capitalism	} }	country_add_ethic = ethic_fanatic_capitalism }
+					"
+					toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+				}
 			}
 			random_list = {
 				1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_materialist has_ethic = ethic_fanatic_spiritualist		has_ethic = ethic_fanatic_materialist } } }
@@ -3219,10 +3224,16 @@ country_event = {
 				3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_egalitarian has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 				2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_authoritarian has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic } } }
 				# (Mod) Ethics and Civics Classic
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_green			has_ethic = ethic_fanatic_industrial	has_ethic = ethic_fanatic_green } }		 country_add_ethic = ethic_green		}
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_industrial	has_ethic = ethic_fanatic_green			has_ethic = ethic_fanatic_industrial } } country_add_ethic = ethic_industrial	}
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_socialism		has_ethic = ethic_fanatic_capitalism	has_ethic = ethic_fanatic_socialism } }	 country_add_ethic = ethic_socialism	}
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_capitalism	has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_capitalism } } country_add_ethic = ethic_capitalism	}
+					"
+					toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+				}
 			}
 		}
 		else_if = {
@@ -3237,10 +3248,16 @@ country_event = {
 				4 = { shift_ethic = ethic_fanatic_egalitarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 				3 = { shift_ethic = ethic_fanatic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
 				# (Mod) Ethics and Civics Classic
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green } } 		country_add_ethic = ethic_fanatic_green }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_industrial } }	country_add_ethic = ethic_fanatic_industrial }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_socialism } }		country_add_ethic = ethic_fanatic_socialism }
 				1 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_capitalism } }	country_add_ethic = ethic_fanatic_capitalism }
+					"
+					toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+				}
 			}
 			random_list = {
 				1 = { shift_ethic = ethic_materialist	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_materialist	has_ethic = ethic_fanatic_spiritualist	has_ethic = ethic_materialist } } }
@@ -3252,10 +3269,16 @@ country_event = {
 				3 = { shift_ethic = ethic_egalitarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_egalitarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 				2 = { shift_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_authoritarian has_country_flag = auth_democratic } } }
 				# (Mod) Ethics and Civics Classic
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
 				1 = { shift_ethic = ethic_green			modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_green			has_ethic = ethic_fanatic_industrial	has_ethic = ethic_fanatic_green } } }
 				1 = { shift_ethic = ethic_industrial	modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_industrial		has_ethic = ethic_fanatic_green			has_ethic = ethic_fanatic_industrial } } }
 				1 = { shift_ethic = ethic_socialism		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_socialism		has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_socialism } } }
 				1 = { shift_ethic = ethic_capitalism	modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_authoritarian	has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_authoritarian } } }
+					"
+					toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+				}
 			}
 		}
 		else = {
@@ -3271,10 +3294,16 @@ country_event = {
 						4 = { country_add_ethic = ethic_fanatic_egalitarian modifier = { factor = 0 OR = { has_country_flag = auth_dictatorial has_country_flag = auth_oligarchic has_country_flag = auth_imperial has_country_flag = auth_corporate } } }
 						3 = { country_add_ethic = ethic_fanatic_authoritarian modifier = { factor = 0 OR = { has_country_flag = auth_democratic has_country_flag = auth_oligarchic has_country_flag = auth_corporate } } }
 						# (Mod) Ethics and Civics Classic
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_fanatic_green }
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_fanatic_industrial }
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_fanatic_socialism }
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_fanatic_authoritarian }
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+						}
 					}
 					random_list = {
 						1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_materialist	has_ethic = ethic_fanatic_spiritualist } } }
@@ -3286,10 +3315,16 @@ country_event = {
 						3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_egalitarian	has_ethic = ethic_fanatic_authoritarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_egalitarian has_country_flag = auth_democratic } } }
 						# (Mod) Ethics and Civics Classic
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
 						1 = { country_add_ethic = ethic_green			modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_green			has_ethic = ethic_fanatic_industrial } } }
 						1 = { country_add_ethic = ethic_industrial		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_industrial		has_ethic = ethic_fanatic_green } } }
 						1 = { country_add_ethic = ethic_socialism		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_socialism		has_ethic = ethic_fanatic_authoritarian } } }
 						1 = { country_add_ethic = ethic_capitalism		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_fanatic_authoritarian	has_ethic = ethic_fanatic_socialism } } }
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+						}
 					}
 				}
 				30 = { # Only non-fanatic
@@ -3303,10 +3338,16 @@ country_event = {
 						3 = { country_add_ethic = ethic_egalitarian modifier = { factor = 0 OR = { has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian modifier = { factor = 0 has_country_flag = auth_democratic } }
 						# (Mod) Ethics and Civics Classic
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_green }
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_industrial }
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_socialism }
 						1 = { modifier = { factor = 0 NOT = { has_global_flag = cultural_overhaul_active } } country_add_ethic = ethic_capitalism }
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+						}
 					}
 					random_list = {
 						1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_materialist	has_ethic = ethic_spiritualist } } }
@@ -3318,10 +3359,16 @@ country_event = {
 						3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_egalitarian	has_ethic = ethic_authoritarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_authoritarian	has_ethic = ethic_egalitarian has_country_flag = auth_democratic } } }
 						# (Mod) Ethics and Civics Classic
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
 						1 = { country_add_ethic = ethic_green			modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_green		has_ethic = ethic_industrial } } }
 						1 = { country_add_ethic = ethic_industrial		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_industrial	has_ethic = ethic_green } } }
 						1 = { country_add_ethic = ethic_socialism		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_socialism	has_ethic = ethic_capitalism } } }
 						1 = { country_add_ethic = ethic_capitalism		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_capitalism	has_ethic = ethic_socialism } } }
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+						}
 					}
 					random_list = {
 						1 = { country_add_ethic = ethic_materialist		modifier = { factor = 0 OR = { has_ethic = ethic_materialist	has_ethic = ethic_spiritualist } } }
@@ -3333,10 +3380,16 @@ country_event = {
 						3 = { country_add_ethic = ethic_egalitarian		modifier = { factor = 0 OR = { has_ethic = ethic_egalitarian	has_ethic = ethic_authoritarian has_country_flag = auth_dictatorial has_country_flag = auth_imperial } } }
 						2 = { country_add_ethic = ethic_authoritarian	modifier = { factor = 0 OR = { has_ethic = ethic_authoritarian	has_ethic = ethic_egalitarian has_country_flag = auth_democratic } } }
 						# (Mod) Ethics and Civics Classic
+						inline_script = {
+							script = merger_of_rules/toggled_code
+							code = "
 						1 = { country_add_ethic = ethic_green		modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_green			has_ethic = ethic_industrial } } }
 						1 = { country_add_ethic = ethic_industrial	modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_industrial	has_ethic = ethic_green } } }
 						1 = { country_add_ethic = ethic_socialism	modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_socialism		has_ethic = ethic_capitalism } } }
 						1 = { country_add_ethic = ethic_capitalism	modifier = { factor = 0 OR = { NOT = { has_global_flag = cultural_overhaul_active } has_ethic = ethic_capitalism	has_ethic = ethic_socialism } } }
+							"
+							toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+						}
 					}
 				}
 			}

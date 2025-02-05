@@ -1,0 +1,394 @@
+# Use in war scope. War is deleted.
+# Prev = war_participant
+# Vanilla Fix: don't break the loop
+end_war_effect = {
+	# every_war_participant = {
+	if = { # Is defenders
+		# Because strange log behavior
+		limit = {
+			exists = this
+			is_scope_valid = yes
+			is_scope_type = war
+			# count_attacker = { count > 0 throws already error
+			exists = prev
+			prev = { is_scope_valid = yes is_scope_type = country }
+			any_attacker = { always = yes }
+			any_defender = { always = yes }
+		}
+		# Try to omit error.log
+		every_defender = {
+			limit = {
+				is_war_participant = { war = prev side = defenders } # Because strange log behavior
+			}
+			prev = { remove_war_participant = prev }
+		}
+
+		if = {
+			limit = { # Check again all after remove_war_participant.
+				exists = this
+				is_scope_valid = yes
+				is_scope_type = war
+				any_attacker = { always = yes }
+				# count_war_participants = {
+				# 	count > 0
+				# 	# limit = { }
+				# 	side = prev
+				# }
+				# prev = { is_war_participant = { who = prev side = prevprev } }
+			}
+			every_attacker = {
+				limit = {
+					# NOT = { is_same_empire = prevprev }
+					# NOT = { is_war_participant = { war = prev side = prevprev } }
+					is_war_participant = { war = prev side = attackers } # Because strange log behavior
+				}
+				prev = { remove_war_participant = prev }
+			}
+			# remove_war_participant = prev
+		}
+	}
+}
+
+# Make some factions neutral (not everything should be hostile to non crisis factions)
+# Scope = country (hostile)
+make_moderately_hostile = {
+	set_country_flag = first_alien_life
+	set_country_flag = has_encountered_other_empire
+	every_country = {
+		limit = {
+			# merg_is_default_empire = no
+			OR = {
+				# is_fallen_empire = yes # merg_is_fallen_empire = yes
+				# is_non_hostile_to_wraith = yes
+				is_country_type = nomad
+				is_country_type = enclave
+				# is_country_type = enclave_mercenary
+				# is_country_type = marauder_raiders
+				is_tiyanki_country_type = yes
+				is_amoeba_country_type = yes
+				is_crystal_country_type = yes
+				is_drone_country_type = yes
+				is_country_type = vluur
+
+				is_country_type = caravaneer_home
+				is_country_type = caravaneer_fleet
+				is_country_type = guardian_sphere
+				is_country_type = ratlings
+				is_country_type = ldragon_country
+				# is_primitive = yes
+			}
+			OR = {
+				is_hostile = prev
+				prev = { is_hostile = prev }
+				# prev = { NOT = { is_neutral_to = prev } }
+			}
+			# prev = { NOR = { is_friendly_to = prev is_neutral_to = prev } }
+		}
+		establish_communications_no_message = prev
+		prev = {
+			set_faction_hostility = {
+				target = prev
+				set_hostile = no
+				set_neutral = yes
+				# set_friendly = no
+			}
+		}
+	}
+}
+
+### Marauders ###
+# create_marauder_starbase = {
+# 	optimize_memory
+# 	create_starbase = { size = "starbase_marauder" owner = event_target:marauder_starbase_owner }
+# }
+
+create_marauder_merc_admiral = {
+	create_leader = {
+		class = commander
+		species = event_target:marauder_species
+		name = random
+		event_leader = yes
+		skill = 3
+		leader_age_min = 25
+		leader_age_max = 45
+		traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_admiral }
+		background_ethic = "ethic_fanatic_militarist"
+		skip_background_generation = yes
+		custom_description = "custom_mercenary_admiral_desc"
+		effect = {
+			random_list = {
+				1 = { add_trait = leader_trait_aggressive }
+				1 = { add_trait = leader_trait_aggressive_2 }
+				1 = { add_trait = leader_trait_skirmisher }
+				1 = { add_trait = leader_trait_skirmisher_2 }
+			}
+			set_leader_flag = marauder_merc_leader
+		}
+	}
+}
+
+create_marauder_merc_general = {
+	create_leader = {
+		class = commander
+		species = event_target:marauder_species
+		name = random
+		event_leader = yes
+		skill = 3
+		leader_age_min = 25
+		leader_age_max = 45
+		traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_general }
+		background_ethic = "ethic_fanatic_militarist"
+		skip_background_generation = yes
+		custom_description = "custom_mercenary_admiral_desc"
+		effect = {
+			random_list = {
+				1 = { add_trait = leader_trait_dreaded }
+				1 = { add_trait = leader_trait_dreaded_2 }
+				1 = { add_trait = leader_trait_butcher }
+				1 = { add_trait = leader_trait_butcher_2 }
+			}
+			set_owner = root
+		}
+	}
+}
+
+# THIS and ROOT are the Situation
+# Vanilla Bug Fix (v.3.11) for syncretic species https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
+deduce_planetary_separatism_species = {
+	target = {
+		random_owned_species = {
+			limit = {
+				is_sapient = yes
+				OR = {
+					species_has_happiness_with_owner = root.owner
+					NOT = {
+						prev = {
+							any_owned_species = { species_has_happiness_with_owner = root.owner }
+						}
+					}
+				}
+				OR = {
+					root = {
+						NOT = { has_situation_flag = slave_revolt }
+					}
+					has_citizenship_type = { type = citizenship_slavery country = root.owner }
+				}
+			}
+			weights = { base = 100
+				complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
+					trigger = count_owned_pop
+					trigger_scope = root.target
+					potential = { species_has_happiness_with_owner = root.owner }
+					parameters = {
+						limit = {
+							is_same_species = prevprev # Prev should be root.target, prevprev the species
+							happiness < 0.3
+						}
+					}
+					mode = add
+					mult = 10
+				}
+				complex_trigger_modifier = { # Multiply it by the percentage of pops on the planet
+					trigger = pop_percentage
+					trigger_scope = root.target
+					parameters = {
+						limit = { is_same_species = prevprev }
+					}
+					mode = mult
+				}
+				modifier = { # It looks unusual for a species to rebel against itself
+					factor = 0.5
+					is_same_species = root.owner
+				}
+			}
+			save_event_target_as = rebellion_species
+			set_species_flag = rebellion_species@root
+			# Vanilla Bug Fix (v.3.11)
+			if = {
+				limit = { has_trait = trait_syncretic_proles }
+				prev = {
+					modify_species = {
+						species = prev
+						remove_trait = trait_syncretic_proles
+						change_scoped_species = no
+						effect = {
+							save_event_target_as = rebellion_species
+							log="Fixed rebelling syncretic owner_main_species from \\[This.GetName]"
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+# Needs event_target:former_owner
+# This = Country
+give_planets_former_owner = {
+	# Give former owner
+	while = { count = trigger:num_owned_planets
+		limit = {
+			exists = event_target:former_owner
+			any_owned_planet = { # Just double check
+				exists = owner
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = { is_capital_system = no }
+				any_playable_country = { has_country_flag = former_owner@prev }
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = { is_capital_system = no }
+				any_playable_country = { has_country_flag = former_owner@prev }
+			}
+			random_playable_country = {
+				limit = { has_country_flag = former_owner@prev }
+				prev = {
+					set_owner = prev
+					set_controller = prev
+					if = {
+						limit = { exists = starbase NOT = { starbase.fleet = { is_owned_by = prevprev } } }
+						starbase = { set_owner = prevprev }
+					}
+				}
+				remove_country_flag = former_owner@prev
+			}
+		}
+	}
+	# Give system owner
+	while = { count = trigger:controlled_systems
+		limit = {
+			exists = event_target:former_owner
+			any_owned_planet = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					can_generate_trade_value = yes
+				}
+				exists = space_owner
+				space_owner = {
+					NOT = { is_same_empire = event_target:former_owner }
+					is_country_type_with_subjects = yes
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					can_generate_trade_value = yes
+				}
+				exists = space_owner
+				space_owner = {
+					NOT = { is_same_empire = event_target:former_owner }
+					is_country_type_with_subjects = yes
+				}
+			}
+			set_owner = space_owner
+		}
+	}
+	# Give system owner 2 # Another colony
+	while = { count = trigger:num_owned_planets
+		limit = {
+			exists = event_target:former_owner
+			any_owned_planet = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					any_system_colony = {
+						NOR = {
+							is_planet = prevprev
+							is_owned_by = event_target:former_owner
+						}
+					}
+				}
+			}
+		}
+		random_owned_planet = {
+			limit = {
+				has_owner = yes
+				is_owned_by = event_target:former_owner
+				owner = { is_ai = yes }
+				solar_system = {
+					is_capital_system = no
+					any_system_colony = {
+						has_owner = yes
+						NOR = {
+							is_planet = prevprev
+							is_owned_by = event_target:former_owner
+						}
+					}
+				}
+			}
+			# Another colony
+			solar_system = {
+				random_system_colony = {
+					limit = {
+						has_owner = yes
+						NOR = {
+							is_planet = prevprev
+							is_owned_by = event_target:former_owner
+						}
+					}
+					weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
+					prevprev = { set_owner = prev.owner }
+				}
+			}
+		}
+	}
+}
+
+# Fleet reaches destination - Via on_fleet_auto_move_arrival | from = fleet; fromfrom = planet
+# This = fleet
+# From = planet (if any)
+marauder_path_attack = {
+	# log = "MARAUDER PATH ATTACK"
+	if = {
+		limit = { NOT = { exists = event_target:marauder_target } }
+		if = {
+			limit = { exists = solar_system.starbase }
+			solar_system.starbase.owner = { save_event_target_as = marauder_target }
+		}
+		else_if = {
+			limit = { exists = space_owner }
+			space_owner = { save_event_target_as = marauder_target }
+		}
+		else = {
+			random_country = {
+				limit = {
+					is_country_type = dormant_marauders
+					has_country_flag = raid_ongoing
+					has_country_flag = parent_of@prev.owner
+				}
+				# Find event_target:marauder_target
+				random_playable_country = {
+					limit = {
+						has_country_flag = raid_target_of@prev
+						OR = {
+							has_relation_flag = { who = prev flag = current_hired_target }
+							has_relation_flag = { who = prev flag = current_target }
+						}
+					}
+					weights = { base = 1 # Passive raid flag
+						modifier = { add = 10 NOT = { has_country_flag = under_marauder_attack } any_playable_country = { is_ai = no has_relation_flag = { who = prevprev flag = hired_fleet } } }
+						modifier = { factor = 2 is_hostile = prev }
+						modifier = { factor = 2 is_ai = yes }
+					}
+					save_event_target_as = marauder_target
+				}
+			}
+		}
+	}
+	fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } days = 7 }
+}

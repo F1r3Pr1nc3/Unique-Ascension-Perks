@@ -1,52 +1,61 @@
 ## For compatibility: Dummy triggers - to be overwritten by their respective mods.
-# Guilli's Planet Modifiers and Features
-#############################
-### Used for Terraforming ###
-#############################
-gpm_is_planet_wet_hot = {
+merg_is_molten = { is_planet_class = pc_molten }
+merg_is_toxic = { is_planet_class = pc_toxic }
+merg_is_frozen = { is_planet_class = pc_frozen }
+merg_is_barren = { is_planet_class = pc_barren }
+merg_is_barren_cold = { is_planet_class = pc_barren_cold }
+merg_is_arctic = {
+	# OR = {
+	is_planet_class = pc_arctic
+	# 	# Planetary Diversity
+	# 	is_pd_arctic = yes
+	# 	# All These Worlds
+	# 	atw_is_arctic = yes
+	# }
+}
+merg_is_gaia_basic = {
 	optimize_memory
 	OR = {
-		is_planet_class = pc_gaia				# Vanilla
-		is_planet_class = pc_continental		# Vanilla
-		is_planet_class = pc_alpine				# Vanilla
-		is_planet_class = pc_tropical			# Vanilla
-		is_planet_class = pc_ocean				# Vanilla
+		is_planet_class = pc_gaia
+		# All These Worlds
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				atw_is_gaia = yes
+			"
+			toggle = @has_atw_lite
+		}
+		# Planetary Diversity
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+				pd_is_planet_class_gaia = yes
+			"
+			toggle = @has_planetary_diversity
+		}
+		 # Nanite Machine and Distant Stars Overhaul
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
+			is_nanite_gaia = yes
+			"
+			toggle = @dso_pnm
+		}
 	}
 }
-gpm_is_planet_wet_cold = {
-	optimize_memory
+
+merg_is_shielded_world = {
 	OR = {
-		is_planet_class = pc_gaia				# Vanilla
-		is_planet_class = pc_continental		# Vanilla
-		is_planet_class = pc_alpine				# Vanilla
-		is_planet_class = pc_ocean				# Vanilla
-	}
-}
-gpm_is_planet_dry_hot = {
-	optimize_memory
-	OR = {
-		is_planet_class = pc_gaia				# Vanilla
-		is_dry = yes							# Vanilla
-		# is_planet_class = pc_savannah			# Vanilla
-		# is_planet_class = pc_arid				# Vanilla
-		# is_planet_class = pc_desert			# Vanilla
-	}
-}
-gpm_is_planet_dry_cold = {
-	optimize_memory
-	OR = {
-		is_planet_class = pc_gaia				# Vanilla
-		is_planet_class = pc_arctic				# Vanilla
-		is_planet_class = pc_tundra				# Vanilla
-	}
-}
-gpm_is_planet_water = {
-	optimize_memory
-	OR = {
-		is_planet_class = pc_gaia				# Vanilla
-		is_planet_class = pc_continental		# Vanilla
-		is_planet_class = pc_ocean				# Vanilla
-		is_planet_class = pc_arctic				# Vanilla
+		is_planet_class = pc_habitat_shielded
+		is_planet_class = pc_ringworld_shielded
+		is_planet_class = pc_shielded
+		inline_script = { # Nanite Machine and Distant Stars Overhaul
+			script = merger_of_rules/toggled_code
+			code = "
+			is_nanite_habitat_shielded = yes
+			"
+			toggle = @dso_pnm
+		}
 	}
 }
 ## Gigastructural Engineering & More
@@ -146,7 +155,6 @@ merg_is_habitat = {
 		# is_giga_habitat = yes ## Gigastructural Engineering & More
 		# has_planet_flag = hab_init # Habitation
 		# has_planet_flag = stpg_planetary_habitat # # Living Space
-		# is_pc_mem_vazuran_habitat = yes ## More Events Mod
 		# uses_district_set = GF_nyto_devil_furnace_world ## Nyto Species Pack
 		# uses_district_set = SRA_city_world ## StellarRegulator Array
 		# uses_district_set = skypalace ## Twinks Atlantean
@@ -154,7 +162,6 @@ merg_is_habitat = {
 		# uses_district_set = utopian_habitat ## ZOFE
 		# is_planet_class = pc_interstellar_habitat ### (Mod) Gigastructural Engineering & More
 		# is_planet_class = pc_gigaorbital_ring ### (Mod) Gigastructural Engineering & More
-		# is_planet_class = pc_mem_vazuran_habitat # More Events Mod
 		# is_planet_class = pc_dm_habitat # Acquisition of Technology
 		# is_planet_class = pc_ae_habitat # Acquisition of Technology
 		# is_planet_class = pc_sigma_habitat # Acquisition of Technology
@@ -175,7 +182,7 @@ merg_is_habitat = {
 merg_is_hab_ringworld = {
 	habitable_structure = yes  # Exlcude some ringworld entities is_artificial = yes
 	has_ringworld_output_boost = yes
-	NOT = { is_planet_class = pc_habitat }
+	merg_is_habitat = no
 	OR = {
 		is_colonizable = yes
 		is_colony = yes
@@ -328,64 +335,64 @@ merg_is_relic_world = {
 		# is_planet_class = pc_midas_relic # Midas
 	}
 }
-
+### Guilli's Planet Modifiers and Features
 gpm_is_planet_class_city = {
 	optimize_memory
 	OR = {
-		is_planet_class = pc_city
-		is_planet_class = pc_relic
+		merg_is_arcology = yes # is_planet_class = pc_city
+		merg_is_relic_world = yes # is_planet_class = pc_relic
 		# is_planet_class = pc_matryoshka ### (Mod) Additional Mega Planets merged into Forgotten Queens
 		# is_planet_class = pc_hollow ### (Mod) Additional Mega Planets merged into Forgotten Queens
 	}
 }
-
-merg_is_molten = { is_planet_class = pc_molten }
-merg_is_toxic = { is_planet_class = pc_toxic }
-merg_is_frozen = { is_planet_class = pc_frozen }
-merg_is_barren = { is_planet_class = pc_barren }
-merg_is_barren_cold = { is_planet_class = pc_barren_cold }
-merg_is_gaia_basic = {
+#############################
+### Used for Terraforming ###
+#############################
+gpm_is_planet_wet_hot = {
 	optimize_memory
 	OR = {
-		is_planet_class = pc_gaia
-		# All These Worlds
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = "
-				atw_is_gaia = yes
-			"
-			toggle = @has_atw_lite
-		}
-		# Planetary Diversity
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = "
-				pd_is_planet_class_gaia = yes
-			"
-			toggle = @has_planetary_diversity
-		}
-		 # Nanite Machine and Distant Stars Overhaul
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = "
-			is_nanite_gaia = yes
-			"
-			toggle = @dso_pnm
-		}
+		merg_is_gaia_basic = yes
+		is_wet = yes
+		# is_planet_class = pc_continental		# Vanilla
+		# is_planet_class = pc_tropical			# Vanilla
+		# is_planet_class = pc_ocean			# Vanilla
 	}
 }
-
-merg_is_shielded_world = {
+gpm_is_planet_wet_cold = {
+	optimize_memory
 	OR = {
-		is_planet_class = pc_habitat_shielded
-		is_planet_class = pc_ringworld_shielded
-		is_planet_class = pc_shielded
-		inline_script = { # Nanite Machine and Distant Stars Overhaul
-			script = merger_of_rules/toggled_code
-			code = "
-			is_nanite_habitat_shielded = yes
-			"
-			toggle = @dso_pnm
-		}
+		merg_is_gaia_basic = yes				# Vanilla
+		is_planet_class = pc_alpine				# Vanilla
+		is_planet_class = pc_continental		# Vanilla
+		is_planet_class = pc_ocean				# Vanilla
+	}
+}
+gpm_is_planet_dry_hot = {
+	optimize_memory
+	OR = {
+		merg_is_gaia_basic = yes				# Vanilla
+		is_dry = yes							# Vanilla
+		# is_planet_class = pc_savannah			# Vanilla
+		# is_planet_class = pc_arid				# Vanilla
+		# is_planet_class = pc_desert			# Vanilla
+	}
+}
+gpm_is_planet_dry_cold = {
+	optimize_memory
+	OR = {
+		merg_is_gaia_basic = yes				# Vanilla
+		# is_cold = yes
+		# is_planet_class = pc_alpine				# Vanilla
+		is_planet_class = pc_arctic				# Vanilla
+		is_planet_class = pc_tundra				# Vanilla
+	}
+}
+gpm_is_planet_water = {
+	optimize_memory
+	OR = {
+		merg_is_gaia_basic = yes				# Vanilla
+		is_planet_class = pc_continental		# Vanilla
+		is_planet_class = pc_ocean				# Vanilla
+		is_planet_class = pc_arctic				# Vanilla
 	}
 }

@@ -71,27 +71,27 @@ can_gas_giant_overflow = {
 }
 
 can_warm_barren_exploration = {
-	is_planet_class = pc_barren
+	merg_is_barren = yes
 	NOT = { has_planet_flag = warm_barren_exploration }
 }
 
 can_cold_barren_exploration = {
-	is_planet_class = pc_barren_cold
+	merg_is_barren_cold = yes
 	NOT = { has_planet_flag = cold_barren_exploration }
 }
 
 can_frozen_world_exploration = {
-	is_planet_class = pc_frozen
+	merg_is_frozen = yes
 	NOT = { has_planet_flag = frozen_world_exploration }
 }
 
 can_molten_world_exploration = {
-	is_planet_class = pc_molten
+	merg_is_molten = yes
 	NOT = { has_planet_flag = molten_world_exploration }
 }
 
 can_toxic_world_exploration = {
-	is_planet_class = pc_toxic
+	merg_is_toxic = yes
 	NOT = { has_planet_flag = toxic_world_exploration }
 }
 
@@ -256,16 +256,16 @@ can_microscopic_life_study = {
 		has_planet_flag = microscopic_life_study
 	}
 }
-
-can_ship_crash_harvestage = {
-	NOR = {
-		has_owner = yes
-		is_star = yes
-		is_asteroid = yes
-		merg_is_gas_giant = yes
-		has_planet_flag = microscopic_life_study
-	}
-}
+# Replaced with can_microscopic_life_study
+# can_ship_crash_harvestage = {
+# 	NOR = {
+# 		has_owner = yes
+# 		is_star = yes
+# 		is_asteroid = yes
+# 		merg_is_gas_giant = yes
+# 		has_planet_flag = microscopic_life_study
+# 	}
+# }
 
 can_science_landing_test = {
 	NOR = {
@@ -286,11 +286,11 @@ can_construction_landing_test = {
 		has_planet_flag = construction_landing_test
 	}
 }
-
-can_transport_landing_test = {
-	habitable_planet = yes
-	NOT = { has_planet_flag = alien_dead_city }
-}
+# Replaced with can_military_exercice
+# can_transport_landing_test = {
+# 	habitable_planet = yes
+# 	NOT = { has_planet_flag = alien_dead_city }
+# }
 
 can_military_exercice = {
 	habitable_planet = yes
@@ -364,7 +364,7 @@ can_improve_agrian_district = {
 }
 
 can_gaia_world_tourism = {
-	is_planet_class = pc_gaia
+	merg_is_gaia_basic = yes
 	NOT = { has_planet_flag = gaia_world_tourism }
 }
 
@@ -719,7 +719,7 @@ can_ice_biome_exploration = {
 }
 
 can_frozen_expedition = {
-	is_planet_class = pc_frozen
+	merg_is_frozen = yes
 	NOT = { has_planet_flag = frozen_expedition }
 }
 
@@ -729,7 +729,7 @@ can_micro_forest_study = {
 }
 
 can_volcano_biome_exploration = {
-	is_planet_class = pc_molten
+	merg_is_molten = yes
 	NOT = { has_planet_flag = canyon_biome_exploration }
 }
 
@@ -795,12 +795,12 @@ can_floating_islands_study = {
 }
 
 can_infernal_forest_study = {
-	is_planet_class = pc_molten
+	merg_is_molten = yes
 	NOT = { has_planet_flag = infernal_forest_study }
 }
 
 can_lava_fortress_exploration = {
-	is_planet_class = pc_molten
+	merg_is_molten = yes
 	NOT = { has_planet_flag = lava_fortress_exploration }
 }
 
@@ -960,7 +960,7 @@ can_black_hole_growing = {
 }
 
 can_machine_world_detected = {
-	OR = { is_planet_class = pc_barren is_planet_class = pc_barren_cold is_planet_class = pc_frozen }
+	OR = { merg_is_barren = yes merg_is_barren_cold = yes merg_is_frozen = yes }
 	NOR = { has_resource = yes has_planet_flag = machine_world_detected }
 }
 
@@ -977,7 +977,7 @@ can_exploding_planet = {
 }
 
 can_gaia_world_study = {
-	is_planet_class = pc_gaia
+	merg_is_gaia_basic = yes
 	NOR = { is_capital = yes has_planet_flag = gaia_world_study }
 }
 
@@ -1251,7 +1251,7 @@ can_beautiful_lake = {
 		is_planet_class = pc_tropical
 		is_planet_class = pc_ocean
 		is_planet_class = pc_tundra
-		is_planet_class = pc_gaia
+		merg_is_gaia_basic = yes
 		is_planet_class = pc_savannah
 	}
 	NOR = { is_capital = yes has_planet_flag = beautiful_lake }

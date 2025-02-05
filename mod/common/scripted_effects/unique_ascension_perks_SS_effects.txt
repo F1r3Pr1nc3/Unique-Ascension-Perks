@@ -105,8 +105,8 @@ surgical_strike_districts = {
 		75 = { modifier = { factor = 0 NOT = { has_district = district_hab_science } } remove_district = district_hab_science }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_hab_industrial } } remove_district = district_hab_industrial }
 		25 = { modifier = { factor = 0 NOT = { has_district = district_hab_mining } } remove_district = district_hab_mining }
-		# 75 = { modifier = { factor = 0 NOT = { has_district = district_hab_cultural } } remove_district = district_hab_cultural } removed in v.3.9
-		# 75 = { modifier = { factor = 0 NOT = { has_district = district_hab_commercial } } remove_district = district_hab_commercial } removed in v.3.9
+		# 75 = { modifier = { factor = 0 NOT = { has_district = district_hab_cultural } } remove_district = district_hab_cultural } removed in v3.9
+		# 75 = { modifier = { factor = 0 NOT = { has_district = district_hab_commercial } } remove_district = district_hab_commercial } removed in v3.9
 		### Econumopolis Districts
 		100 = { modifier = { factor = 0 NOT = { has_district = district_arcology_housing } } remove_district = district_arcology_housing }
 		75 = { modifier = { factor = 0 NOT = { has_district = district_arcology_arms_industry } } remove_district = district_arcology_arms_industry }
@@ -218,6 +218,9 @@ surgical_strike_districts = {
 		50 = { modifier = { factor = 0 NOT = { has_district = district_scrapyard_recyclers } } remove_district = district_scrapyard_recyclers }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_techno_industrial } } remove_district = district_techno_industrial }
 		### (Mod) Gigastructural Engineering & More - compatibility
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		50 = { modifier = { factor = 0 NOT = { has_district = district_planetary_computer } } remove_district = district_planetary_computer }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_penrose_lab } } remove_district = district_penrose_lab }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_penrose_ringworld_generator } } remove_district = district_penrose_ringworld_generator }
@@ -236,11 +239,20 @@ surgical_strike_districts = {
 		50 = { modifier = { factor = 0 NOT = { has_district = district_elysium_energy } } remove_district = district_elysium_energy }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_interstellar_scavenger } } remove_district = district_interstellar_scavenger }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_gasgiant_pump } } remove_district = district_gasgiant_pump }
-		### (Mod) Guilli Planet Modifiers - Districts
+			"
+			toggle = @has_gigastructures
+		}
+		### (Mod) Guilli's Planet Modifiers - Districts
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		50 = { modifier = { factor = 0 NOT = { has_district = district_gpm_precursor_housing } } remove_district = district_gpm_precursor_housing }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_gpm_precursor_science } } remove_district = district_gpm_precursor_science }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_gpm_precursor_manufactorium } } remove_district = district_gpm_precursor_manufactorium }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_gpm_precursor_power_plant } } remove_district = district_gpm_precursor_power_plant }
+			"
+			toggle = @has_guillis_planet_modifiers
+		}
 		### (Mod) Ascendancy Ringworlds - compatibility outdated
 		# 50 = { modifier = { factor = 0 NOT = { has_district = district_ringworld_generator_uncapped } } remove_district = district_ringworld_generator_uncapped }
 		# 50 = { modifier = { factor = 0 NOT = { has_district = district_ringworld_mining_uncapped } } remove_district = district_ringworld_mining_uncapped }
@@ -426,7 +438,7 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_artist_patron } } remove_building = building_artist_patron }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_waste_reprocessing_center } } remove_building = building_waste_reprocessing_center }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_nuumismatic_shrine } } remove_building = building_nuumismatic_shrine }
-		### (Mod) Unique Ascension Perk - Unique Ascension Perk - Buildings
+		### (Mod) Unique Ascension Perk - Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_1 } } remove_building = building_auto_drone_facility_1 }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_2 } } remove_building = building_auto_drone_facility_2 }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_3 } } remove_building = building_auto_drone_facility_3 }
@@ -498,7 +510,10 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_automation_sector } } remove_building = building_eutab_automation_sector }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_preservation_nexus } } remove_building = building_eutab_preservation_nexus }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_geothermal_tap } } remove_building = building_eutab_geothermal_tap }
-		### (Mod) Guilli Planet Modifiers - Buildings
+		### (Mod) Guilli's Planet Modifiers - Buildings
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NOT = { has_building = gpm_building_stronghold } } remove_building = gpm_building_stronghold }
 		100 = { modifier = { factor = 0 NOT = { has_building = gpm_building_mining_nanite_nexus } } remove_building = gpm_building_mining_nanite_nexus }
 		100 = { modifier = { factor = 0 NOT = { has_building = gpm_precursor_research_center } } remove_building = gpm_precursor_research_center }
@@ -506,8 +521,17 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = gpm_building_exotic_park } } remove_building = gpm_building_exotic_park }
 		100 = { modifier = { factor = 0 NOT = { has_building = gpm_building_manufactory_hub } } remove_building = gpm_building_manufactory_hub }
 		100 = { modifier = { factor = 0 NOT = { has_building = gpm_building_core_prison } } remove_building = gpm_building_core_prison }
+			"
+			toggle = @has_guillis_planet_modifiers
+		}
 		### (Mod) Gigastructural Engineering & More - Buildings
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		2 = { modifier = { factor = 0 NOT = { has_building = gpm_building_stronghold } } remove_building = gpm_building_stronghold }
+			"
+			toggle = @has_gigastructures
+		}
 		### (Mod) Planetary Diversity - Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = building_undersea_gasmine } } remove_building = building_undersea_gasmine }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_storm_lab } } remove_building = building_storm_lab }
@@ -641,12 +665,18 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_magma_forge } } remove_building = building_pd_magma_forge }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_techno_04_clone_vat } } remove_building = building_techno_04_clone_vat }
 		### (Mod) More Events Mod - Buildings
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_primitive_capital } } remove_building = building_mem_primitive_capital }
 		2 = { modifier = { factor = 0 NOT = { has_building = building_mem_planetary_shield_generator } } remove_building = building_mem_planetary_shield_generator }
 		2 = { modifier = { factor = 0 NOT = { has_building = building_mem_planetary_shield_generator_heavy } } remove_building = building_mem_planetary_shield_generator_heavy }
 		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_lunar_age_elevator } } remove_building = building_mem_lunar_age_elevator }
 		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_lost_emperor_ancient_palace } } remove_building = building_mem_lost_emperor_ancient_palace }
 		1 = { modifier = { factor = 0 NOT = { has_building = building_mem_colony_ship_shelter } } remove_building = building_mem_colony_ship_shelter }
+		"
+			toggle = @has_more_events_mod
+		}
 		### (Mod) Extra Ship Components - Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_central_research_bureau } } remove_building = esc_building_central_research_bureau }
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_culture_nexus } } remove_building = esc_building_culture_nexus }
