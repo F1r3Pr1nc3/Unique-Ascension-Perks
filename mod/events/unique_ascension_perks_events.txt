@@ -686,11 +686,11 @@ planet_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######## Expandable Knowledge ########
-#									 #
-######################################
+#									#
+#####################################
 # on_ascension_perk_picked (FALLBACKS)
 country_event = {
 	id = UniqueAscensionPerksEvents.30
@@ -960,11 +960,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ############ Nano Drones ###########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.40
@@ -1074,11 +1074,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######### Nanite Composition #########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.8001
@@ -1150,11 +1150,11 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ####### Advanced Colonisation ########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.43
@@ -1178,11 +1178,11 @@ planet_event = {
 	immediate = { set_advanced_colony = yes }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ####### Expansion of Infinity ########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.45
@@ -1245,11 +1245,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ####### Emergency Calculation ########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.53
@@ -1293,11 +1293,11 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######## Economic Prosperity #########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.54
@@ -1311,11 +1311,11 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ####### Security Strike Forces #######
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.55
@@ -2013,11 +2013,11 @@ fleet_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Friendly Nature ##########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.59
@@ -2112,11 +2112,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########### The Recomposer ###########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.63
@@ -2146,7 +2146,7 @@ country_event = {
 		custom_tooltip = "ap_recomposer_tooltip"
 	}
 }
-
+# FromFrom = owner
 planet_event = {
 	id = UniqueAscensionPerksEvents.65
 	title = "UniqueAscensionPerksEvents.65.Name"
@@ -2155,10 +2155,113 @@ planet_event = {
 	picture = GFX_evt_recomposer
 	location = root
 	is_triggered_only = yes
-	immediate = { clear_variable = num_non_robot_pop }
+	trigger = { is_variable_set = num_non_robot_pop }
+	immediate = {
+		if = {
+			limit = { check_variable = { which = num_non_robot_pop value > 20 } }
+			set_variable = { which = num_non_robot_pop value = 20 }
+		}
+		owner = {
+			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
+			# Maybe save the robot species somewhere
+
+			if = {
+				limit = {
+					any_owned_species = {
+						is_species = prev.species
+						is_robotic = yes
+						num_positive_traits > 0
+					}
+				}
+				random_owned_species = {
+					limit = {
+						is_species = prev.species
+						is_robotic = yes
+						num_positive_traits > 0
+					}
+					save_event_target_as = robotspecies
+				}
+			}
+			else_if = {
+				limit = {
+					exists = built_species
+					built_species = {
+						is_robotic = yes
+						num_positive_traits > 0
+					}
+				}
+				built_species = {
+					save_event_target_as = robotspecies
+				}
+			}
+			else_if = {
+				limit = {
+					exists = capital_scope
+					exists = capital_scope.assembling_species
+					capital_scope.assembling_species = {
+						is_robotic = yes
+						num_positive_traits > 0
+					}
+				}
+				capital_scope.assembling_species = {
+					save_event_target_as = robotspecies
+				}
+			}
+			else = {
+				ordered_owned_species = {
+					limit = {
+						is_robotic = yes
+						num_positive_traits > 0
+					}
+					position = 0
+					order_by = trigger:num_trait_points
+					save_event_target_as = robotspecies
+				}
+			}
+
+			if = {
+				limit = { NOT = { exists = event_target:robotspecies } }
+				# Don't create something new what already must exists somewhere
+				random_galaxy_species = {
+					limit = {
+						is_sapient = yes
+						is_robotic = yes
+						num_positive_traits > 1
+						OR = {
+							is_species = prev.species
+							AND = {
+								exists = home_planet # TODO robots have no home_planet?
+								prev = {
+									any_owned_planet = { is_planet = prevprev.home_planet }
+								}
+							}
+						}
+					}
+					save_event_target_as = robotspecies
+				}
+			}
+			# TODO Last Fallback # maybe using some kind of other event target
+			if = {
+				limit = { NOT = { exists = event_target:robotspecies } }
+				log_error = "No fitting robotspecies found"
+				break = yes
+			}
+
+			while = { count = num_non_robot_pop
+				limit = { any_owned_species = { is_robotic = no } }
+				random_owned_pop = {
+					limit = { is_robot_pop = no }
+					change_species = event_target:robotspecies
+				}
+			}
+			# TODO also planet armies?
+		}
+	}
 	option = { name = EXCELLENT }
+	after = { clear_variable = num_non_robot_pop }
 }
 
+# FromFrom = owner
 planet_event = {
 	id = UniqueAscensionPerksEvents.66
 	title = "UniqueAscensionPerksEvents.66.Name"
@@ -2167,15 +2270,115 @@ planet_event = {
 	picture = GFX_evt_recomposer
 	location = root
 	is_triggered_only = yes
-	immediate = { clear_variable = num_robot_pop }
+	trigger = {
+		is_variable_set = num_robot_pop
+	}
+	immediate = {
+		if = {
+			limit = { check_variable = { which = num_robot_pop value > 20 } }
+			set_variable = { which = num_robot_pop value = 20 }
+		}
+		owner = {
+			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
+			if = {
+				limit = {
+					any_owned_species = {
+						is_species = prev.species
+						is_robotic = no
+						num_positive_traits > 1
+					}
+				}
+				random_owned_species = {
+					limit = {
+						is_species = prev.species
+						is_robotic = no
+						num_positive_traits > 1
+					}
+					save_event_target_as = biospecies
+				}
+			}
+			else_if = {
+				limit = {
+					exists = built_species
+					built_species = {
+						is_robotic = no
+						num_positive_traits > 1
+					}
+				}
+				built_species = {
+					save_event_target_as = biospecies
+				}
+			}
+			else_if = {
+				limit = {
+					exists = capital_scope
+					exists = capital_scope.growing_species
+					capital_scope.growing_species = {
+						is_robotic = no
+						num_positive_traits > 1
+					}
+				}
+				capital_scope.growing_species = {
+					save_event_target_as = biospecies
+				}
+			}
+			else = {
+				ordered_owned_species = {
+					limit = {
+						is_sapient = yes
+						is_robotic = no
+						num_positive_traits > 1
+					}
+					position = 0
+					order_by = trigger:num_trait_points
+					save_event_target_as = biospecies
+				}
+			}
+
+			if = {
+				limit = { NOT = { exists = event_target:biospecies } }
+				# Don't create something new what already must exists somewhere
+				random_galaxy_species = {
+					limit = {
+						is_sapient = yes
+						is_robotic = no
+						num_positive_traits > 1
+						exists = home_planet
+						OR = {
+							is_species = prev.species
+							prev = {
+								any_owned_planet = { is_planet = prevprev.home_planet }
+							}
+						}
+					}
+					save_event_target_as = biospecies
+				}
+			}
+			# TODO Last Fallback # maybe using some kind of other event target
+			if = {
+				limit = { NOT = { exists = event_target:biospecies } }
+				log_error = "No fitting biospecies found"
+				break = yes
+			}
+			# TODO also planet armies?
+			while = { count = num_robot_pop
+				limit = { any_owned_species = { is_robotic = yes } }
+				random_owned_pop = {
+					limit = { is_robot_pop = yes }
+					change_species = event_target:biospecies
+				}
+			}
+		}
+	}
 	option = { name = EXCELLENT }
+	after = { clear_variable = num_robot_pop }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Imposed Megacorp ##########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.67
@@ -2235,11 +2438,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########### Fallen Disciple ##########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.68
@@ -2634,11 +2837,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######## Stability Celebration #######
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.80
@@ -2774,11 +2977,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########### Galaxy Center ############
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.82
@@ -3045,7 +3248,7 @@ planet_event = {
 		has_planet_flag = galaxy_center_planet
 		NOT = { has_planet_flag = decision_galaxy_center_cooldown }
 	}
-	immediate = {  }
+	immediate = { }
 	option = {
 		name = "CORVETTE"
 		allow = { owner = { has_country_resource = { type = alloys amount > 150 } } }
@@ -3213,11 +3416,11 @@ event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ###### Influenceable Population ######
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.87
@@ -3406,11 +3609,11 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######### Eternal Vigilance ##########
-#									 #
-######################################
+#									#
+#####################################
 
 # event = {
 # 	id = UniqueAscensionPerksEvents.128
@@ -3613,11 +3816,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Powerful Vassals ##########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.142
@@ -3842,11 +4045,11 @@ country_event = {
 	option = { name = OK }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Defense Sentinels #########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.230
@@ -4285,11 +4488,11 @@ country_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Leadership Upload #########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.250
@@ -4424,11 +4627,11 @@ leader_event = {
 	option = { name = EXCELLENT }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ############ Sector Z749 #############
-#									 #
-######################################
+#									#
+#####################################
 
 # country_event = {
 # 	id = UniqueAscensionPerksEvents.270
@@ -4529,13 +4732,13 @@ leader_event = {
 # 		}
 # 	}
 # 	option = { name = UniqueAscensionPerksEvents.272.Alpha	hidden_effect = { set_variable = { which = invasion_gate_type value = 1 } } }
-# 	option = { name = UniqueAscensionPerksEvents.272.Beta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 1 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 2 } } }
-# 	option = { name = UniqueAscensionPerksEvents.272.Gamma	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 2 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 3 } } }
-# 	option = { name = UniqueAscensionPerksEvents.272.Delta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 3 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 4 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Beta	trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 1 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 2 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Gamma	trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 2 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 3 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Delta	trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 3 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 4 } } }
 # 	option = { name = UniqueAscensionPerksEvents.272.Epsilon trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 4 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 5 } } }
-# 	option = { name = UniqueAscensionPerksEvents.272.Zeta	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 5 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 6 } } }
-# 	option = { name = UniqueAscensionPerksEvents.272.Kappa	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 6 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 7 } } }
-# 	option = { name = UniqueAscensionPerksEvents.272.Omega	 trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 7 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 8 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Zeta	trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 5 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 6 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Kappa	trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 6 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 7 } } }
+# 	option = { name = UniqueAscensionPerksEvents.272.Omega	trigger = { hidden_trigger = { check_variable = { which = invasion_gate_wave_type value > 7 } } } hidden_effect = { set_variable = { which = invasion_gate_type value = 8 } } }
 # 	option = { name = BACK hidden_effect = { set_variable = { which = invasion_gate_type value = 0 } country_event = { id = UniqueAscensionPerksEvents.271 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
 # }
 # # TODO
@@ -4691,11 +4894,11 @@ leader_event = {
 # 	}
 # }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Pinnacle Society ##########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.300
@@ -4996,11 +5199,11 @@ planet_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ###### Surgical Orbital Strike #######
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.310
@@ -5290,11 +5493,11 @@ country_event = {
 	option = { name = EXCELLENT event_target:surgical_strike_fleet = { set_event_locked = no } }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ############ Slow Learner ############
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.400
@@ -5408,11 +5611,11 @@ country_event = {
 	option = { name = EXCELLENT add_resource = { unity = 12000 } }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######## Utopian Realisation #########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.410
@@ -5563,11 +5766,11 @@ planet_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Executive Vigor ###########
-#									 #
-######################################
+#									#
+#####################################
 
 # event = {
 # 	id = UniqueAscensionPerksEvents.420
@@ -5609,11 +5812,11 @@ country_event = {
 	option = { name = OK default_hide_option = yes }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######### Light of Eternity ##########
-#									 #
-###################################### Credits to Thanatos996 the original creator of that feature in Stellaris 2.1
+#									#
+##################################### Credits to Thanatos996 the original creator of that feature in Stellaris 2.1
 
 country_event = {
 	id = UniqueAscensionPerksEvents.430
@@ -6019,11 +6222,11 @@ system_event = {
 	}
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######### Self Managed Colony ########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.460
@@ -6552,11 +6755,11 @@ planet_event = {
 	abort_effect = { remove_planet_flag = self_aware_planet }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ###### Flourishing Technocracy #######
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.470
@@ -6745,11 +6948,11 @@ country_event = {
 	abort_trigger = { has_active_event = { UniqueAscensionPerksEvents.472 UniqueAscensionPerksEvents.471 } }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########## Legendary Forge ###########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.480
@@ -6776,11 +6979,11 @@ country_event = {
 	option = { name = EXCELLENT }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ######### Library of Wisdom ##########
-#									 #
-######################################
+#									#
+#####################################
 
 country_event = {
 	id = UniqueAscensionPerksEvents.490
@@ -7013,11 +7216,11 @@ country_event = {
 	option = { name = OK }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ###### Expansionist Development ######
-#									 #
-######################################
+#									#
+#####################################
 # TODO FIXME: Deletes any anomaly probability that the system might have.
 
 country_event = {
@@ -7203,7 +7406,7 @@ ship_event = {
 			}
 		}
 	}
-	immediate = {  }
+	immediate = { }
 	option = {
 		name = "UniqueAscensionPerksEvents.534.a"
 		custom_tooltip = "UniqueAscensionPerksEvents.534.a.tooltip"
@@ -7213,11 +7416,11 @@ ship_event = {
 	option = { name = "UniqueAscensionPerksEvents.534.b" custom_tooltip = "UniqueAscensionPerksEvents.534.b.tooltip" }
 }
 
-######################################
-#									 #
+#####################################
+#									#
 ########### Dark Galaxy Web ##########
-#									 #
-######################################
+#									#
+#####################################
 
 # country_event = {
 # 	id = UniqueAscensionPerksEvents.540

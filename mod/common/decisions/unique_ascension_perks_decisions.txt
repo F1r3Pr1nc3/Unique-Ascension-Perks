@@ -207,36 +207,7 @@ decision_recomposer_life_to_ai = {
 				}
 				variable = num_non_robot_pop
 			}
-			if = {
-				limit = { is_variable_set = num_non_robot_pop }
-				if = {
-					limit = { check_variable = { which = num_non_robot_pop value > 20 } }
-					set_variable = { which = num_non_robot_pop value = 20 }
-				}
-				from = {
-					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
-					ordered_owned_species = {
-						limit = {
-							is_robotic = yes
-							num_positive_traits > 1
-						}
-						position = 0
-						order_by = trigger:num_trait_points
-						root = {
-							while = { count = num_non_robot_pop
-								limit = { any_owned_species = { is_robotic = no } }
-								# create_pop = { species = prev }
-								random_owned_pop = {
-									limit = { is_robot_pop = no }
-									change_species = prevprev
-								}
-							}
-						}
-					}
-					# random_owned_pop = { limit = { is_robot_pop = no } kill_pop = yes }
-				}
-				planet_event = { id = UniqueAscensionPerksEvents.65 }
-			}
+			planet_event = { id = UniqueAscensionPerksEvents.65 }
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -291,37 +262,7 @@ decision_recomposer_ai_to_life = {
 				}
 				variable = num_robot_pop
 			}
-			if = {
-				limit = { is_variable_set = num_robot_pop }
-				if = {
-					limit = { check_variable = { which = num_robot_pop value > 20 } }
-					set_variable = { which = num_robot_pop value = 20 }
-				}
-				from = {
-					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
-					ordered_owned_species = {
-						limit = {
-							is_sapient = yes
-							is_robotic = no
-							num_positive_traits > 1
-						}
-						position = 0
-						order_by = trigger:num_trait_points
-						root = {
-							while = { count = num_robot_pop
-								limit = { any_owned_species = { is_robotic = yes } }
-								# create_pop = { species = prev }
-								random_owned_pop = {
-									limit = { is_robot_pop = yes }
-									change_species = prevprev
-								}
-							}
-						}
-					}
-					# random_owned_pop = { limit = { is_robot_pop = yes } kill_pop = yes }
-				}
-				planet_event = { id = UniqueAscensionPerksEvents.66 }
-			}
+			planet_event = { id = UniqueAscensionPerksEvents.66 }
 		}
 	}
 	ai_weight = { weight = 1 }
