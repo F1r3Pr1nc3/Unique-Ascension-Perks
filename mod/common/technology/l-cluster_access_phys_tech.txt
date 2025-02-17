@@ -49,7 +49,14 @@ tech_lgate_construction = {
 	icon = "tech_lcluster_access"
 	prerequisites = {
 		"tech_gateway_construction"
-		"tech_nanite_living_metal" # "tech_nanite_mega_construction" too high
+		inline_script = { # A Deadly Tempest
+			script = merger_of_rules/toggled_code
+			code = "
+		tech_nanite_living_metal
+		"
+			toggle = @has_a_deadly_tempest_mod
+		}
+		 # "tech_nanite_mega_construction" too high
 	}
 	# feature_flags = { lgate_construction }
 	prereqfor_desc = {

@@ -3,6 +3,7 @@
 ########## Defense Sentinels ##########
 #									 #
 ######################################
+# Monthly
 # This = root
 create_defense_sentinels_country = {
 	if = {
@@ -12,6 +13,7 @@ create_defense_sentinels_country = {
 			random_relation = {
 				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
 				save_event_target_as = defense_sentinels
+				copy_random_tech_from = { who = root }
 			}
 		}
 		# else_if = {
@@ -35,15 +37,24 @@ create_defense_sentinels_country = {
 			create_country = {
 				name = NAME_defense_sentinels
 				type = security_forces
+				species = root
 				flag = root
 				# flag = {
 				# 	icon = { category = "spherical" file = "flag_spherical_3.dds" }
 				# 	background = { category = "backgrounds" file = "diagonal.dds" }
 				# 	colors = { "black" "blue" "null" "null" }
 				# }
+				# authority = root
+				# civics = root
+				# randomize_ethos = yes
+				# ethos = root
+				contact_rule = never
 				auto_delete = no
-				day_zero_contact = no
 				ignore_initial_colony_error = yes
+				day_zero_contact = no
+				exclude_day_zero_contact = root
+				released_by_country = root
+				released_from_country = root
 				effect = {
 					set_update_modifiers_batch = begin
 					set_faction_hostility = { target = root set_friendly = yes }
@@ -86,6 +97,7 @@ create_defense_sentinels_country = {
 						add_opinion_modifier = { who = prev modifier = opinion_shade_giver }
 						add_opinion_modifier = { who = prev modifier = opinion_imperial_overlord_ai_opinion }
 					}
+					copy_techs_from = { target = root }
 					set_update_modifiers_batch = end
 				}
 			}

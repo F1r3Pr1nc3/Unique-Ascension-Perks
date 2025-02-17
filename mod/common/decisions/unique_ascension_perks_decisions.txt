@@ -156,7 +156,19 @@ decision_recomposer_life_to_ai = {
 		cost = { energy = 400 minerals = 400 }
 	}
 	on_queued = {
-		set_variable = { which = num_non_robot_pop value = value:num_non_robot_pop }
+		# set_variable = { which = num_non_robot_pop value = value:num_non_robot_pop }
+		export_trigger_value_to_variable = {
+			trigger = count_owned_pop
+			parameters = {
+				limit = {
+					is_sapient = yes
+					is_robot_pop = no
+					num_trait_points > 1
+					num_positive_traits > 1
+				}
+			}
+			variable = num_non_robot_pop
+		}
 	}
 	on_unqueued = { clear_variable = num_non_robot_pop }
 	potential = {
@@ -165,10 +177,15 @@ decision_recomposer_life_to_ai = {
 		is_under_colonization = no
 	}
 	allow = {
-		custom_tooltip = { fail_text = "decision_recomposer_life_to_ai_req_1" count_owned_pop = { limit = { is_robot_pop = no } count > 1 } }
+		custom_tooltip = {
+			fail_text = "decision_recomposer_life_to_ai_req_1"
+			count_owned_species = { limit = { is_robotic = no } count > 0 }
+		}
 		custom_tooltip = {
 			fail_text = "decision_recomposer_life_to_ai_req_2"
-			owner = { count_owned_pop = { limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 1 } count > 1 } }
+			owner = {
+				count_owned_species = { limit = { is_robotic = yes num_trait_points > 1 num_positive_traits > 1 } count > 0 }
+			}
 		}
 		from = {
 			has_country_resource = { type = energy amount > 500 }
@@ -180,33 +197,46 @@ decision_recomposer_life_to_ai = {
 		hidden_effect = {
 			export_trigger_value_to_variable = {
 				trigger = count_owned_pop
-				parameters = { limit = { is_robot_pop = no } }
+				parameters = {
+					limit = {
+						is_sapient = yes
+						is_robot_pop = no
+						num_trait_points > 1
+						num_positive_traits > 1
+					}
+				}
 				variable = num_non_robot_pop
 			}
-			from = {
+			if = {
+				limit = { is_variable_set = num_non_robot_pop }
 				if = {
-					limit = { prev = { is_variable_set = num_non_robot_pop } }
-					if = {
-						limit = { prev = { check_variable = { which = num_non_robot_pop value > 20 } } }
-						set_variable = { which = num_non_robot_pop value = 20 }
-					}
-					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
+					limit = { check_variable = { which = num_non_robot_pop value > 20 } }
+					set_variable = { which = num_non_robot_pop value = 20 }
 				}
-				else = {
-					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.value:num_non_robot_pop }
-				}
-			}
-			while = { count = num_non_robot_pop
-				limit = { any_owned_species = { is_robotic = no } }
 				from = {
-					random_owned_pop = {
-						limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 1 }
-						root = { create_pop = { species = prev } }
+					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
+					ordered_owned_species = {
+						limit = {
+							is_robotic = yes
+							num_positive_traits > 1
+						}
+						position = 0
+						order_by = trigger:num_trait_points
+						root = {
+							while = { count = num_non_robot_pop
+								limit = { any_owned_species = { is_robotic = no } }
+								# create_pop = { species = prev }
+								random_owned_pop = {
+									limit = { is_robot_pop = no }
+									change_species = prevprev
+								}
+							}
+						}
 					}
+					# random_owned_pop = { limit = { is_robot_pop = no } kill_pop = yes }
 				}
-				random_owned_pop = { limit = { is_robot_pop = no } kill_pop = yes }
+				planet_event = { id = UniqueAscensionPerksEvents.65 }
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.65 }
 		}
 	}
 	ai_weight = { weight = 1 }
@@ -220,7 +250,14 @@ decision_recomposer_ai_to_life = {
 		cost = { energy = 400 food = 400 }
 	}
 	on_queued = {
-		set_variable = { which = num_robot_pop value = value:num_robot_pop }
+		# set_variable = { which = num_robot_pop value = value:num_robot_pop }
+		export_trigger_value_to_variable = {
+			trigger = count_owned_pop
+			parameters = {
+				limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 0 }
+			}
+			variable = num_robot_pop
+		}
 	}
 	on_unqueued = { clear_variable = num_robot_pop }
 	potential = {
@@ -229,8 +266,16 @@ decision_recomposer_ai_to_life = {
 		is_under_colonization = no
 	}
 	allow = {
-		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_1" count_owned_pop = { limit = { is_robot_pop = yes } count > 1 } }
-		custom_tooltip = { fail_text = "decision_recomposer_ai_to_life_req_2" owner = { count_owned_pop = { limit = { is_robot_pop = no num_trait_points > 1 num_positive_traits > 1 } count > 1 } } }
+		custom_tooltip = {
+			fail_text = "decision_recomposer_ai_to_life_req_1"
+			count_owned_species = { limit = { is_robotic = yes } count > 0 }
+		}
+		custom_tooltip = {
+			fail_text = "decision_recomposer_ai_to_life_req_2"
+			owner = {
+				count_owned_species = { limit = { is_robotic = no num_trait_points > 1 num_positive_traits > 0 } count > 0 }
+			}
+		}
 		from = {
 			has_country_resource = { type = energy amount > 500 }
 			has_country_resource = { type = food amount > 500 }
@@ -241,33 +286,42 @@ decision_recomposer_ai_to_life = {
 		hidden_effect = {
 			export_trigger_value_to_variable = {
 				trigger = count_owned_pop
-				parameters = { limit = { is_robot_pop = yes } }
+				parameters = {
+					limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 0 }
+				}
 				variable = num_robot_pop
 			}
-			from = {
+			if = {
+				limit = { is_variable_set = num_robot_pop }
 				if = {
-					limit = { prev = { is_variable_set = num_robot_pop } }
-					if = {
-						limit = { prev = { check_variable = { which = num_robot_pop value > 20 } } }
-						set_variable = { which = num_robot_pop value = 20 }
-					}
-					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
+					limit = { check_variable = { which = num_robot_pop value > 20 } }
+					set_variable = { which = num_robot_pop value = 20 }
 				}
-				else = {
-					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.value:num_robot_pop }
-				}
-			}
-			while = { count = num_robot_pop
-				limit = { any_owned_species = { is_robotic = yes } }
 				from = {
-					random_owned_pop = {
-						limit = { is_robot_pop = no num_trait_points > 1 num_positive_traits > 1 }
-						root = { create_pop = { species = prev } }
+					add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
+					ordered_owned_species = {
+						limit = {
+							is_sapient = yes
+							is_robotic = no
+							num_positive_traits > 1
+						}
+						position = 0
+						order_by = trigger:num_trait_points
+						root = {
+							while = { count = num_robot_pop
+								limit = { any_owned_species = { is_robotic = yes } }
+								# create_pop = { species = prev }
+								random_owned_pop = {
+									limit = { is_robot_pop = yes }
+									change_species = prevprev
+								}
+							}
+						}
 					}
+					# random_owned_pop = { limit = { is_robot_pop = yes } kill_pop = yes }
 				}
-				random_owned_pop = { limit = { is_robot_pop = yes } kill_pop = yes }
+				planet_event = { id = UniqueAscensionPerksEvents.66 }
 			}
-			planet_event = { id = UniqueAscensionPerksEvents.66 }
 		}
 	}
 	ai_weight = { weight = 1 }

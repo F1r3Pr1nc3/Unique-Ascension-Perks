@@ -124,8 +124,8 @@ country_event = {
 				any_system_within_border = {
 					has_owner = yes
 					exists = starbase
-					starbase.owner = { is_same_empire = root }
-					has_star_flag = recent_security_strike_force
+					starbase = { is_owned_by = root }
+					# has_star_flag = recent_security_strike_force
 					any_fleet_in_system = {
 						exists = owner
 						owner = { is_country_type = security_forces }
@@ -136,6 +136,8 @@ country_event = {
 						owner = {
 							NOR = { is_same_empire = root is_country_type = security_forces }
 							OR = {
+								is_pirate_country = yes
+								is_crisis_faction = yes
 								is_hostile = root
 								root = { is_hostile = prev }
 							}
@@ -154,13 +156,15 @@ country_event = {
 			}
 			random_system_within_border = {
 				limit = {
-					has_star_flag = recent_security_strike_force
+					# has_star_flag = recent_security_strike_force
 					any_fleet_in_system = {
 						is_mobile = yes
 						exists = owner
 						owner = {
 							NOR = { is_same_empire = root is_country_type = security_forces }
 							OR = {
+								is_pirate_country = yes
+								is_crisis_faction = yes
 								is_hostile = root
 								root = { is_hostile = prev }
 							}
@@ -184,7 +188,9 @@ country_event = {
 						owner = {
 							NOT = { is_same_empire = root }
 							OR = {
-								is_hostile =root
+								is_pirate_country = yes
+								is_crisis_faction = yes
+								is_hostile = root
 								root = { is_hostile = prev }
 							}
 							prevprev = {
@@ -1256,10 +1262,20 @@ country_event = {
 	immediate = { get_capital_planet = yes }
 	option = { name = EXCELLENT generate_lcluster_clue = yes add_research_option = tech_jump_drive_1 }
 	after = {
+		give_tech_no_error_effect = { TECH = tech_hyper_drive_3 MESSAGE = no }
+		give_tech_no_error_effect = { TECH = tech_gateway_activation MESSAGE = yes }
 		give_tech_no_error_effect = { TECH = tech_lgate_activation MESSAGE = yes }
-		if = {
-			limit = { can_research_technology = tech_lgate_construction }
-			add_research_option = tech_lgate_construction
+		inline_script = { # A Deadly Tempest
+			script = merger_of_rules/toggled_code
+			code = "
+		give_tech_no_error_effect = { TECH = tech_nanite_living_metal MESSAGE = yes }
+			"
+			toggle = @has_a_deadly_tempest_mod
+		}
+		add_tech_option_or_research_effect = {
+			TECH = tech_lgate_construction # Tier 5
+			PROGRESS = 0.1
+			CATEGORY = particles
 		}
 	}
 }
@@ -1331,10 +1347,14 @@ country_event = {
 		create_security_forces_country = yes
 		random_system_within_border = {
 			limit = {
-				is_in_frontier_space = no
 				has_trade_route = yes
-				trade_protected_value >= 1
-				NOT = { has_star_flag = recent_security_strike_force }
+				NOR = {
+					is_in_frontier_space = yes
+					trade_protected_value < 1
+					has_star_flag = recent_security_strike_force
+				}
+				exists = starbase # just double check for caching issue
+				starbase.fleet = { is_controlled_by = root }
 				any_fleet_in_system = {
 					exists = owner
 					owner = {
@@ -1342,6 +1362,10 @@ country_event = {
 						OR = { is_pirate_country = yes is_crisis_faction = yes is_hostile = root }
 					}
 				}
+			}
+			weights = { base = 1
+				modifier = { add = 33 any_system_colony = { is_owned_by = root } }
+				modifier = { add = 33 NOT = { any_fleet_in_system = { exists = owner owner = { is_country_type = security_forces } } } }
 			}
 			save_event_target_as = spawn_location_system
 			set_timed_star_flag = { flag = recent_security_strike_force years = 1 }
@@ -1400,7 +1424,7 @@ country_event = {
 	option = {
 		name = OK
 		hidden_effect = {
-			if = { # Deactivate fleet
+			if = { # Deactivate/Maintain fleet
 				limit = { exists = event_target:security_fleet }
 				event_target:security_fleet = { fleet_event = { id = UniqueAscensionPerksEvents.57 days = 180 } }
 			}
@@ -1408,14 +1432,13 @@ country_event = {
 	}
 }
 
+# Indirect (on_monthly_pulse_country)
 fleet_event = {
 	id = UniqueAscensionPerksEvents.57
 	is_triggered_only = yes
 	hide_window = yes
 	trigger = {
-		exists = owner
 		exists = solar_system
-		is_disabled = no
 		is_in_combat = no
 	}
 	immediate = {
@@ -1424,17 +1447,17 @@ fleet_event = {
 				solar_system = {
 					NAND = {
 						has_owner = yes
-						exists = starbase
-						exists = starbase.owner
-						starbase.owner = { has_ascension_perk = ap_advanced_security }
 						is_in_frontier_space = no
+						exists = starbase
+						exists = from
+						starbase = { is_owned_by = from }
+						from = { has_ascension_perk = ap_advanced_security }
 					}
 				}
 			}
 			destroy_fleet = this
 		}
 		else = {
-			set_fleet_stance = passive
 			if = {
 				limit = { num_ships < 10 }
 				# random_existing_design = corvette TODO not exists
@@ -1443,23 +1466,72 @@ fleet_event = {
 					prev = { create_ship = { name = random design = prev } }
 				}
 			}
-			set_event_locked = yes
-			every_owned_ship = { set_disabled = yes }
+			# Disabling: needs to be really careful when
+			if = {
+				limit = {
+					exists = starbase
+					starbase.fleet = {
+						is_disabled = no
+						is_controlled_by = from
+						NOT = { any_owned_ship = { is_damaged = yes } }
+					}
+					NOR = {
+						# is_in_combat = yes
+						num_ships < 3 # Not worth it
+						any_owned_ship = { is_damaged = yes }
+						solar_system = {
+							OR = {
+								has_star_flag = recent_security_strike_force
+								any_fleet_in_system = {
+									exists = owner
+									NOR = { is_owned_by = root.owner is_owned_by = from }
+									owner = {
+										OR = { is_pirate_country = yes is_crisis_faction = yes is_hostile = root }
+									}
+								}
+							}
+						}
+					}
+				}
+				set_fleet_stance = passive
+				set_event_locked = yes
+				every_owned_ship = { set_disabled = yes }
+			}
 		}
 	}
 	after = {
-		# Deactivate all (self loop)
+		# (country self loop)
 		owner = {
 			random_owned_fleet = {
 				limit = {
-					NOR = {
-						# is_same_value = root
-						is_disabled = yes
-						is_in_combat = yes
-						solar_system = { has_star_flag = recent_security_strike_force }
+					exists = solar_system
+				}
+				weights = { base = 1
+					modifier = { add = 6 is_in_combat = no }
+					modifier = { add = 6 num_ships < 10 }
+					modifier = { add = 6 NOT = { solar_system = { has_star_flag = recent_security_strike_force } } }
+				}
+
+				fleet_event = { id = UniqueAscensionPerksEvents.57 days = 90 scopes = { from = from } }
+			}
+			# Enable sleeping
+			random_owned_fleet = {
+				limit = {
+					exists = solar_system
+					is_disabled = yes
+					solar_system = {
+						any_fleet_in_system = {
+							exists = owner
+							NOR = { is_owned_by = prevprevprev is_owned_by = from }
+							owner = {
+								OR = { is_pirate_country = yes is_crisis_faction = yes is_hostile = root }
+							}
+						}
 					}
 				}
-				fleet_event = { id = UniqueAscensionPerksEvents.57 }
+				every_owned_ship = { set_disabled = no }
+				set_event_locked = no
+				set_fleet_stance = aggressive
 			}
 		}
 	}
@@ -2095,6 +2167,7 @@ planet_event = {
 	picture = GFX_evt_recomposer
 	location = root
 	is_triggered_only = yes
+	immediate = { clear_variable = num_robot_pop }
 	option = { name = EXCELLENT }
 }
 
@@ -2972,9 +3045,7 @@ planet_event = {
 		has_planet_flag = galaxy_center_planet
 		NOT = { has_planet_flag = decision_galaxy_center_cooldown }
 	}
-	immediate = {
-
-	}
+	immediate = {  }
 	option = {
 		name = "CORVETTE"
 		allow = { owner = { has_country_resource = { type = alloys amount > 150 } } }
@@ -3981,9 +4052,7 @@ starbase_event = {
 	is_triggered_only = yes
 	trigger = {
 		exists = from.owner
-		from.owner = {
-			is_country_type = security_forces
-		}
+		from.owner = { is_country_type = security_forces }
 	}
 	immediate = {
 		from.owner = {
@@ -7072,10 +7141,7 @@ ship_event = {
 		name = "UniqueAscensionPerksEvents.531.Disable"
 		ai_chance = { factor = 0 }
 		hidden_effect = {
-			owner = {
-				set_country_flag = no_expansionist_development
-				clear_variable = expansionist_development_res
-			}
+			owner = { set_country_flag = no_expansionist_development clear_variable = expansionist_development_res }
 		}
 	}
 	option = {
@@ -7083,9 +7149,7 @@ ship_event = {
 		trigger = { owner = { has_country_flag = noauto_expansionist_development } }
 		ai_chance = { factor = 0 }
 		hidden_effect = {
-			owner = {
-				remove_country_flag = noauto_expansionist_development
-			}
+			owner = { remove_country_flag = noauto_expansionist_development }
 		}
 		ship_event = { id = UniqueAscensionPerksEvents.531 scopes = { from = from } }
 	}
@@ -7139,18 +7203,14 @@ ship_event = {
 			}
 		}
 	}
-	immediate = {
-	}
+	immediate = {  }
 	option = {
 		name = "UniqueAscensionPerksEvents.534.a"
 		custom_tooltip = "UniqueAscensionPerksEvents.534.a.tooltip"
 		hidden_effect = { clear_variable = expansionist_development_res }
 		ai_chance = { factor = 2 } default_hide_option = yes
 	}
-	option = {
-		name = "UniqueAscensionPerksEvents.534.b"
-		custom_tooltip = "UniqueAscensionPerksEvents.534.b.tooltip"
-	}
+	option = { name = "UniqueAscensionPerksEvents.534.b" custom_tooltip = "UniqueAscensionPerksEvents.534.b.tooltip" }
 }
 
 ######################################
