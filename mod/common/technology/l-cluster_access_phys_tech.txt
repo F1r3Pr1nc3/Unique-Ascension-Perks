@@ -49,14 +49,8 @@ tech_lgate_construction = {
 	icon = "tech_lcluster_access"
 	prerequisites = {
 		"tech_gateway_construction"
-		inline_script = { # A Deadly Tempest
-			script = merger_of_rules/toggled_code
-			code = "
-		tech_nanite_living_metal
-		"
-			toggle = @has_a_deadly_tempest_mod
-		}
-		 # "tech_nanite_mega_construction" too high
+		# "tech_nanite_living_metal"
+		# "tech_nanite_mega_construction" too high
 	}
 	# feature_flags = { lgate_construction }
 	prereqfor_desc = {
@@ -71,6 +65,13 @@ tech_lgate_construction = {
 			has_country_flag = completed_nanite_technology_mastery_chain
 		}
 		has_distar = yes
+		inline_script = { # A Deadly Tempest
+			script = merger_of_rules/toggled_code
+			code = "
+		has_technology = tech_nanite_living_metal
+		"
+			toggle = @has_a_deadly_tempest_mod
+		}
 	}
 	feature_flags = { gateway_construction }
 

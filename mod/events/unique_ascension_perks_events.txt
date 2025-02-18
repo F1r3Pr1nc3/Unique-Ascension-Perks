@@ -2162,9 +2162,7 @@ planet_event = {
 			set_variable = { which = num_non_robot_pop value = 20 }
 		}
 		owner = {
-			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
 			# Maybe save the robot species somewhere
-
 			if = {
 				limit = {
 					any_owned_species = {
@@ -2246,7 +2244,7 @@ planet_event = {
 				log_error = "No fitting robotspecies found"
 				break = yes
 			}
-
+			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_non_robot_pop }
 			while = { count = num_non_robot_pop
 				limit = { any_owned_species = { is_robotic = no } }
 				random_owned_pop = {
@@ -2279,20 +2277,23 @@ planet_event = {
 			set_variable = { which = num_robot_pop value = 20 }
 		}
 		owner = {
-			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
 			if = {
 				limit = {
 					any_owned_species = {
 						is_species = prev.species
 						is_robotic = no
+						can_live_on_planet = root
 						num_positive_traits > 1
+						root = { habitability = { who = prev value > 0.5 } }
 					}
 				}
 				random_owned_species = {
 					limit = {
 						is_species = prev.species
 						is_robotic = no
+						can_live_on_planet = root
 						num_positive_traits > 1
+						root = { habitability = { who = prev value > 0.5 } }
 					}
 					save_event_target_as = biospecies
 				}
@@ -2302,7 +2303,9 @@ planet_event = {
 					exists = built_species
 					built_species = {
 						is_robotic = no
+						can_live_on_planet = root
 						num_positive_traits > 1
+						root = { habitability = { who = prev value > 0.5 } }
 					}
 				}
 				built_species = {
@@ -2315,7 +2318,9 @@ planet_event = {
 					exists = capital_scope.growing_species
 					capital_scope.growing_species = {
 						is_robotic = no
+						can_live_on_planet = root
 						num_positive_traits > 1
+						root = { habitability = { who = prev value > 0.5 } }
 					}
 				}
 				capital_scope.growing_species = {
@@ -2327,7 +2332,9 @@ planet_event = {
 					limit = {
 						is_sapient = yes
 						is_robotic = no
+						can_live_on_planet = root
 						num_positive_traits > 1
+						root = { habitability = { who = prev value > 0.5 } }
 					}
 					position = 0
 					order_by = trigger:num_trait_points
@@ -2342,8 +2349,10 @@ planet_event = {
 					limit = {
 						is_sapient = yes
 						is_robotic = no
+						can_live_on_planet = root
 						num_positive_traits > 1
 						exists = home_planet
+						root = { habitability = { who = prev value > 0.5 } }
 						OR = {
 							is_species = prev.species
 							prev = {
@@ -2360,6 +2369,7 @@ planet_event = {
 				log_error = "No fitting biospecies found"
 				break = yes
 			}
+			add_resource = { energy = -2.5 minerals = -2.5 mult = prev.num_robot_pop }
 			# TODO also planet armies?
 			while = { count = num_robot_pop
 				limit = { any_owned_species = { is_robotic = yes } }
