@@ -40,16 +40,12 @@ ship_event = {
 	}
 	immediate = {
 		if = {
-			limit = {
-				NAND = {
-					exists = event_target:ship_special_project
-					is_same_value = event_target:ship_special_project
-				}
-			}
+			limit = { NAND = { exists = event_target:ship_special_project is_same_value = event_target:ship_special_project } }
 			save_event_target_as = ship_special_project
 		}
 		owner = { save_event_target_as = project_owner }
-		if = { limit = { exists = orbit }
+		if = {
+			limit = { exists = orbit }
 			orbit = { save_event_target_as = project_location }
 		}
 		else = { save_event_target_as = project_location }
@@ -71,12 +67,7 @@ ship_event = {
 	# trigger = {}
 	immediate = {
 		if = {
-			limit = {
-				NAND = {
-					exists = event_target:ship_special_project
-					is_same_value = event_target:ship_special_project
-				}
-			}
+			limit = { NAND = { exists = event_target:ship_special_project is_same_value = event_target:ship_special_project } }
 			save_event_target_as = ship_special_project
 		}
 		remove_ship_flag = ship_has_space_engineer_project
@@ -175,16 +166,19 @@ ship_event = {
 	}
 	immediate = {
 		owner = { save_event_target_as = project_owner }
-		if = { limit = { exists = orbit }
+		if = {
+			limit = { exists = orbit }
 			orbit = { save_event_target_as = project_location }
 		}
 		else = { save_event_target_as = project_location }
 	}
 	after = {
 		hidden_effect = {
-			if = { limit = { has_ship_flag = planetary_program_cancel }
+			if = {
+				limit = { has_ship_flag = planetary_program_cancel }
 				remove_ship_flag = planetary_program_cancel
-			} else = {
+			}
+			else = {
 				set_ship_flag = ship_has_planetary_program
 				save_event_target_as = ship_special_project
 			}
@@ -250,9 +244,13 @@ ship_event = {
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_0 }
 		enable_special_project = { name = PLANETARY_PROJECT_0 location = event_target:project_location owner = event_target:project_owner }
 	}
+	# Gigastructural Engineering & More
+	inline_script = {
+		script = merger_of_rules/toggled_code
+		code = "
 	option = {
-		name = "PLANETARY_PROJECT_0a"
-		custom_tooltip = "PLANETARY_PROJECT_WARNING"
+		name = PLANETARY_PROJECT_0a
+		custom_tooltip = PLANETARY_PROJECT_WARNING
 		trigger = { has_global_flag = gigastructures_enabled NOT = { has_global_flag = ap_stellar_manipulation } }
 		allow = {
 			owner = {
@@ -264,6 +262,10 @@ ship_event = {
 		hidden_effect = { set_ship_flag = ship_has_planetary_program_0a }
 		enable_special_project = { name = PLANETARY_PROJECT_0a location = event_target:project_location owner = event_target:project_owner }
 	}
+		"
+		toggle = @has_gigastructures
+	}
+
 	option = {
 		name = "PLANETARY_PROJECT_100a"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
@@ -435,12 +437,7 @@ ship_event = {
 	}
 	immediate = {
 		if = {
-			limit = {
-				NAND = {
-					exists = event_target:ship_special_project
-					is_same_value = event_target:ship_special_project
-				}
-			}
+			limit = { NAND = { exists = event_target:ship_special_project is_same_value = event_target:ship_special_project } }
 			save_event_target_as = ship_special_project
 		}
 		# finish_plantery_program = yes
@@ -459,12 +456,30 @@ ship_event = {
 				random_list = {
 					80 = {
 						modifier = { factor = 2 owner = { has_technology = tech_stellar_manipulation_z } }
-						if = { limit = { has_global_flag = planetarydiversity }
-							solar_system = { spawn_planet = { class = rl_CM_PD_planet_spawner	location = prev has_ring = no size = 13 init_effect = { set_name = "NAME_Random_World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed save_event_target_as = new_planet } } }
-						} else = {
-							solar_system = { spawn_planet = { class = rl_CM_planet_spawner		location = prev has_ring = no size = 13 init_effect = { set_name = "NAME_Random_World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed save_event_target_as = new_planet } } }
+						solar_system = {
+						# Planetary Diversity # if = { limit = { has_global_flag = planetarydiversity }
+							inline_script = {
+								script = merger_of_rules/toggled_code
+								code = "
+							spawn_planet = { class = rl_CM_PD_planet_spawner location = prev has_ring = no size = 13 init_effect = { save_event_target_as = new_planet } }
+								"
+								toggle = @has_planetary_diversity
+							}
+							# } else = {
+							inline_script = {
+								script = merger_of_rules/toggled_code_inverse
+								code = "
+							spawn_planet = { class = rl_CM_planet_spawner location = prev has_ring = no size = 13 init_effect = { save_event_target_as = new_planet } }
+								"
+								toggle = @has_planetary_diversity
+							}
 						}
-						event_target:new_planet = { planet_event = { id = UniqueAscensionPerksEvents.14 days = 1 } }
+						event_target:new_planet = {
+							set_name = NAME_Random_World
+							set_planet_flag = new_planet
+							set_planet_flag = new_planet_unnamed
+							planet_event = { id = UniqueAscensionPerksEvents.14 days = 1 }
+						}
 					}
 					20 = { modifier = { factor = 0 has_global_flag = ap_stellar_manipulation } owner = { country_event = { id = UniqueAscensionPerksEvents.16 } } }
 				}
@@ -600,7 +615,8 @@ country_event = {
 					limit = { has_ship_flag = ship_has_planetary_program_2 }
 					solar_system = { spawn_planet = { class = pc_shattered location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
 					remove_ship_flag = ship_has_planetary_program_2
-				} else_if = {
+				}
+				else_if = {
 					limit = { has_ship_flag = ship_has_planetary_program_3 }
 					solar_system = { spawn_planet = { class = pc_nuked location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
 					remove_ship_flag = ship_has_planetary_program_3
@@ -706,17 +722,15 @@ planet_event = {
 	# mean_time_to_happen = { days = 10 }
 	is_triggered_only = yes
 	immediate = {
-		if = { limit = { NAND = { exists = from from = { is_scope_type = country } } }
+		if = {
+			limit = { NAND = { exists = from from = { is_scope_type = country } } }
 			log="No country from planet spawn!"
 		}
 		# from = { change_variable = { which = "random_habitat_name" value = 1 } } not sure from is country
 		# random_galaxy_planet = { limit = { has_planet_flag = new_habitat_unnamed }
 		remove_planet_flag = new_habitat_unnamed
 		add_modifier = { modifier = pm_stellar_manipulation_habitat } # +20% resource output and -10% pop job upkeep, +4 max districts and +4 building slots.
-		set_name = {
-			key = "HABITAT_RANDOM_NAME"
-			variable_string = "[Root.random_habitat_name]"
-		}
+		set_name = { key = "HABITAT_RANDOM_NAME" variable_string = "[Root.random_habitat_name]" }
 	}
 }
 
@@ -751,7 +765,8 @@ planet_event = {
 	is_triggered_only = yes
 	# mean_time_to_happen = { days = 10 }
 	immediate = {
-		if = { limit = { NAND = { exists = from from = { is_scope_type = country } } }
+		if = {
+			limit = { NAND = { exists = from from = { is_scope_type = country } } }
 			log="planet spawn from is not country"
 		}
 		# from = { change_variable = { which = "random_elysium_name" value = 1 } } not sure from is country
@@ -759,10 +774,7 @@ planet_event = {
 		# 	limit = { has_planet_flag = new_elysium_unnamed }
 		remove_planet_flag = new_elysium_unnamed
 		# set_name = "ELYSIUM_RANDOM_NAME"
-		set_name = {
-			key = "ELYSIUM_RANDOM_NAME"
-			variable_string = "[Root.random_elysium_name]"
-		}
+		set_name = { key = "ELYSIUM_RANDOM_NAME" variable_string = "[Root.random_elysium_name]" }
 	}
 }
 

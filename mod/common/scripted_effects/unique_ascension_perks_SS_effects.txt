@@ -12,10 +12,7 @@ surgical_strike_killed_pop = {
 			limit = {
 				has_communications = root
 				exists = species
-				OR = {
-					merg_is_default_empire = yes
-					has_ai_personality = awakened_fallen_empire_xenophile
-				}
+				OR = { merg_is_default_empire = yes has_ai_personality = awakened_fallen_empire_xenophile }
 				NOR = {
 					is_same_empire = root
 					species = { is_same_species = root.species }
@@ -153,19 +150,22 @@ surgical_strike_districts = {
 		50 = { modifier = { factor = 0 NOT = { has_district = district_smuggling } } remove_district = district_smuggling }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_intel } } remove_district = district_intel }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_machinery } } remove_district = district_machinery }
-		### (Mod) Megastructure District Rework - Districts
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringresidential } } remove_district = district_lrsk_ringresidential }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringnesting } } remove_district = district_lrsk_ringnesting }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringinfra } } remove_district = district_lrsk_ringinfra }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringfarming } } remove_district = district_lrsk_ringfarming }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringgenerator } } remove_district = district_lrsk_ringgenerator }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_recreation } } remove_district = district_lrsk_recreation }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_maintenance } } remove_district = district_lrsk_maintenance }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_elysian } } remove_district = district_lrsk_elysian }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_spawning } } remove_district = district_lrsk_spawning }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_arcology_coordination } } remove_district = district_lrsk_arcology_coordination }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_arcology_organic } } remove_district = district_lrsk_arcology_organic }
+		### (Mod) Megastructure District Rework - Districts no update since 2019
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringresidential } } remove_district = district_lrsk_ringresidential }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringnesting } } remove_district = district_lrsk_ringnesting }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringinfra } } remove_district = district_lrsk_ringinfra }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringfarming } } remove_district = district_lrsk_ringfarming }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_ringgenerator } } remove_district = district_lrsk_ringgenerator }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_recreation } } remove_district = district_lrsk_recreation }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_maintenance } } remove_district = district_lrsk_maintenance }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_elysian } } remove_district = district_lrsk_elysian }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_spawning } } remove_district = district_lrsk_spawning }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_arcology_coordination } } remove_district = district_lrsk_arcology_coordination }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_lrsk_arcology_organic } } remove_district = district_lrsk_arcology_organic }
 		### (Mod) Planetary Diversity - Districts
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		50 = { modifier = { factor = 0 NOT = { has_district = district_mf_alloy } } remove_district = district_mf_alloy }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_mf_replicator } } remove_district = district_mf_replicator }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_bioforge_maintenance } } remove_district = district_bioforge_maintenance }
@@ -217,6 +217,9 @@ surgical_strike_districts = {
 		50 = { modifier = { factor = 0 NOT = { has_district = district_scrapyard_energy } } remove_district = district_scrapyard_energy }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_scrapyard_recyclers } } remove_district = district_scrapyard_recyclers }
 		50 = { modifier = { factor = 0 NOT = { has_district = district_techno_industrial } } remove_district = district_techno_industrial }
+		"
+			toggle = @has_planetary_diversity
+		}
 		### (Mod) Gigastructural Engineering & More - compatibility
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -265,59 +268,60 @@ surgical_strike_districts = {
 		# 50 = { modifier = { factor = 0 NOT = { has_district = district_asc_rw_arcology_research_complex } } remove_district = district_asc_rw_arcology_research_complex }
 		# 50 = { modifier = { factor = 0 NOT = { has_district = district_asc_rw_ecoarcology_leisure } } remove_district = district_asc_rw_ecoarcology_leisure }
 		### (Mod) District Overhaul - compatibility
-		50 = { modifier = { factor = 0 NOT = { has_district = district_wind_turbines } } remove_district = district_wind_turbines }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_geothermal_generator } } remove_district = district_geothermal_generator }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_solar_generator } } remove_district = district_solar_generator }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_secure_mining } } remove_district = district_secure_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_surface_mining } } remove_district = district_surface_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_academy } } remove_district = district_academy }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_ascended_housing } } remove_district = district_ascended_housing }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_belt_mining } } remove_district = district_asteroid_belt_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_cultural } } remove_district = district_asteroid_cultural }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_housing } } remove_district = district_asteroid_housing }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_mining } } remove_district = district_asteroid_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_automatic_farms } } remove_district = district_automatic_farms }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_chemistry_industry } } remove_district = district_chemistry_industry }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_civilian_industrys_belt } } remove_district = district_civilian_industrys_belt }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_cloning_facility } } remove_district = district_cloning_facility }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_commerce } } remove_district = district_commerce }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_criminal_mining } } remove_district = district_criminal_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_crystal_mines } } remove_district = district_crystal_mines }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_drone_lab } } remove_district = district_drone_lab }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_drone_production_line } } remove_district = district_drone_production_line }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_drone_recycling_center } } remove_district = district_drone_recycling_center }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_drone_research_complex } } remove_district = district_drone_research_complex }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_drone_waste_inceneration } } remove_district = district_drone_waste_inceneration }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_dyson_spaceport } } remove_district = district_dyson_spaceport }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_ecogardens } } remove_district = district_ecogardens }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_farming_barren } } remove_district = district_farming_barren }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_food_production_line } } remove_district = district_food_production_line }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_gardens } } remove_district = district_gardens }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_gas_refinery } } remove_district = district_gas_refinery }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_generator_luna } } remove_district = district_generator_luna }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_geothermal_generator } } remove_district = district_geothermal_generator }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_hydroponic_bay } } remove_district = district_hydroponic_bay }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_local_industry } } remove_district = district_local_industry }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_local_industrys_belt } } remove_district = district_local_industrys_belt }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_local_stores } } remove_district = district_local_stores }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_machine_production_line } } remove_district = district_machine_production_line }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_nature_farms } } remove_district = district_nature_farms }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_nature_reserve } } remove_district = district_nature_reserve }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_ocean_farming } } remove_district = district_ocean_farming }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_ocean_housing } } remove_district = district_ocean_housing }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_research_complex } } remove_district = district_research_complex }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_robot_assembly } } remove_district = district_robot_assembly }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_science_luna } } remove_district = district_science_luna }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_secure_mining } } remove_district = district_secure_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_shelters } } remove_district = district_shelters }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_solar_generator } } remove_district = district_solar_generator }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_spaceport } } remove_district = district_spaceport }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_surface_mining } } remove_district = district_surface_mining }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_tourism } } remove_district = district_tourism }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_underground_city } } remove_district = district_underground_city }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_wind_turbine_belt } } remove_district = district_wind_turbine_belt }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_wind_turbines } } remove_district = district_wind_turbines }
-		50 = { modifier = { factor = 0 NOT = { has_district = district_workshops } } remove_district = district_workshops }
+		# Latest version is District Overhaul 3 ver 3.7 2945076073 ?
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_wind_turbines } } remove_district = district_wind_turbines }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_geothermal_generator } } remove_district = district_geothermal_generator }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_solar_generator } } remove_district = district_solar_generator }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_secure_mining } } remove_district = district_secure_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_surface_mining } } remove_district = district_surface_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_academy } } remove_district = district_academy }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_ascended_housing } } remove_district = district_ascended_housing }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_belt_mining } } remove_district = district_asteroid_belt_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_cultural } } remove_district = district_asteroid_cultural }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_housing } } remove_district = district_asteroid_housing }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_asteroid_mining } } remove_district = district_asteroid_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_automatic_farms } } remove_district = district_automatic_farms }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_chemistry_industry } } remove_district = district_chemistry_industry }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_civilian_industrys_belt } } remove_district = district_civilian_industrys_belt }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_cloning_facility } } remove_district = district_cloning_facility }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_commerce } } remove_district = district_commerce }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_criminal_mining } } remove_district = district_criminal_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_crystal_mines } } remove_district = district_crystal_mines }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_drone_lab } } remove_district = district_drone_lab }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_drone_production_line } } remove_district = district_drone_production_line }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_drone_recycling_center } } remove_district = district_drone_recycling_center }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_drone_research_complex } } remove_district = district_drone_research_complex }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_drone_waste_inceneration } } remove_district = district_drone_waste_inceneration }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_dyson_spaceport } } remove_district = district_dyson_spaceport }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_ecogardens } } remove_district = district_ecogardens }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_farming_barren } } remove_district = district_farming_barren }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_food_production_line } } remove_district = district_food_production_line }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_gardens } } remove_district = district_gardens }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_gas_refinery } } remove_district = district_gas_refinery }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_generator_luna } } remove_district = district_generator_luna }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_geothermal_generator } } remove_district = district_geothermal_generator }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_hydroponic_bay } } remove_district = district_hydroponic_bay }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_local_industry } } remove_district = district_local_industry }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_local_industrys_belt } } remove_district = district_local_industrys_belt }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_local_stores } } remove_district = district_local_stores }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_machine_production_line } } remove_district = district_machine_production_line }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_nature_farms } } remove_district = district_nature_farms }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_nature_reserve } } remove_district = district_nature_reserve }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_ocean_farming } } remove_district = district_ocean_farming }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_ocean_housing } } remove_district = district_ocean_housing }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_research_complex } } remove_district = district_research_complex }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_robot_assembly } } remove_district = district_robot_assembly }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_science_luna } } remove_district = district_science_luna }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_secure_mining } } remove_district = district_secure_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_shelters } } remove_district = district_shelters }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_solar_generator } } remove_district = district_solar_generator }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_spaceport } } remove_district = district_spaceport }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_surface_mining } } remove_district = district_surface_mining }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_tourism } } remove_district = district_tourism }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_underground_city } } remove_district = district_underground_city }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_wind_turbine_belt } } remove_district = district_wind_turbine_belt }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_wind_turbines } } remove_district = district_wind_turbines }
+		# 50 = { modifier = { factor = 0 NOT = { has_district = district_workshops } } remove_district = district_workshops }
 	}
 }
 
@@ -404,7 +408,6 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_hospital } } remove_building = building_hospital }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_maintenance_depot } } remove_building = building_maintenance_depot }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_spawning_pool } } remove_building = building_spawning_pool }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_slave_huts } } remove_building = building_slave_huts }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_overseer_homes } } remove_building = building_overseer_homes }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_autochthon_monument } } remove_building = building_autochthon_monument }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_heritage_site } } remove_building = building_heritage_site }
@@ -426,9 +429,6 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_corporate_site } } remove_building = building_corporate_site }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_corporate_forum } } remove_building = building_corporate_forum }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_corporate_vault } } remove_building = building_corporate_vault }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_mote_harvesters } } remove_building = building_mote_harvesters }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_gas_extractors } } remove_building = building_gas_extractors }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_crystal_mines } } remove_building = building_crystal_mines }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_betharian_power_plant } } remove_building = building_betharian_power_plant }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_xeno_zoo } } remove_building = building_xeno_zoo }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_crude_huts } } remove_building = building_crude_huts }
@@ -438,6 +438,10 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_artist_patron } } remove_building = building_artist_patron }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_waste_reprocessing_center } } remove_building = building_waste_reprocessing_center }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_nuumismatic_shrine } } remove_building = building_nuumismatic_shrine }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_slave_huts } } remove_building = building_slave_huts }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_mote_harvesters } } remove_building = building_mote_harvesters }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_gas_extractors } } remove_building = building_gas_extractors }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_crystal_mines } } remove_building = building_crystal_mines }
 		### (Mod) Unique Ascension Perk - Buildings
 		100 = { modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_1 } } remove_building = building_auto_drone_facility_1 }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_auto_drone_facility_2 } } remove_building = building_auto_drone_facility_2 }
@@ -487,9 +491,12 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = eb_hydrofarm2 } } remove_building = eb_hydrofarm2 }
 		100 = { modifier = { factor = 0 NOT = { has_building = eb_hydrofarm3 } } remove_building = eb_hydrofarm3 }
 		### (Mod) Housing Buildings - Buildings
-		100 = { modifier = { factor = 0 NOT = { has_building = building_atmosphere_controller } } remove_building = building_atmosphere_controller }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_atmosphere_controller_2 } } remove_building = building_atmosphere_controller_2 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_atmosphere_controller } } remove_building = building_atmosphere_controller }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_atmosphere_controller_2 } } remove_building = building_atmosphere_controller_2 }
 		### (Mod) EUTAB - Ethos Unique Techs and Buildings - Buildings
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_dev_district } } remove_building = building_eutab_dev_district }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_support_lab } } remove_building = building_eutab_support_lab }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_battle_praxeum } } remove_building = building_eutab_battle_praxeum }
@@ -510,6 +517,9 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_automation_sector } } remove_building = building_eutab_automation_sector }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_preservation_nexus } } remove_building = building_eutab_preservation_nexus }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_eutab_geothermal_tap } } remove_building = building_eutab_geothermal_tap }
+			"
+			toggle = @has_eutab_unofficial
+		}
 		### (Mod) Guilli's Planet Modifiers - Buildings
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -533,13 +543,10 @@ surgical_strike_buildings = {
 			toggle = @has_gigastructures
 		}
 		### (Mod) Planetary Diversity - Buildings
-		100 = { modifier = { factor = 0 NOT = { has_building = building_undersea_gasmine } } remove_building = building_undersea_gasmine }
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NOT = { has_building = building_storm_lab } } remove_building = building_storm_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_inquisition_hall } } remove_building = building_inquisition_hall }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_inquisition_fortress } } remove_building = building_inquisition_fortress }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_necroseeders_1 } } remove_building = building_necroseeders_1 }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_necroseeders_2 } } remove_building = building_necroseeders_2 }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_necroseeders_3 } } remove_building = building_necroseeders_3 }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_cryo_lab } } remove_building = building_cryo_lab }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_cryo_guild } } remove_building = building_cryo_guild }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_cryo_resort } } remove_building = building_cryo_resort }
@@ -585,7 +592,6 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_coral_resort } } remove_building = building_coral_resort }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_coral_lab } } remove_building = building_coral_lab }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_coral_guild } } remove_building = building_coral_guild }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_storm_lab_regular } } remove_building = building_storm_lab_regular }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_storm_grid } } remove_building = building_storm_grid }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_storm_mine } } remove_building = building_storm_mine }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_primal_foundry } } remove_building = building_primal_foundry }
@@ -603,67 +609,78 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = building_superhab_lab } } remove_building = building_superhab_lab }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_superhab_farm } } remove_building = building_superhab_farm }
 		100 = { modifier = { factor = 0 NOT = { has_building = building_superhab_foundry } } remove_building = building_superhab_foundry }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_sugarbush } } remove_building = building_sugarbush }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_gamma_research } } remove_building = pd_building_gamma_research }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_rad_farms } } remove_building = pd_building_rad_farms }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_gamma_energy } } remove_building = pd_building_gamma_energy }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_acid_lab } } remove_building = building_acid_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_acidseeders_1 } } remove_building = building_acidseeders_1 }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_acidseeders_2 } } remove_building = building_acidseeders_2 }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_acid_farm } } remove_building = pd_building_acid_farm }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_acid_rock } } remove_building = pd_building_acid_rock }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_acid_research } } remove_building = pd_building_acid_research }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_tectonic_drills } } remove_building = building_pd_tectonic_drills }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_tectonic_drills_2 } } remove_building = building_pd_tectonic_drills_2 }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_ash_grid } } remove_building = building_ash_grid }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_ash_foundry } } remove_building = building_ash_foundry }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_ash_lab } } remove_building = building_ash_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_frozen_gas_mine } } remove_building = building_frozen_gas_mine }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_methane_mine } } remove_building = building_methane_mine }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_methane_lab } } remove_building = building_methane_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_methane_guild } } remove_building = building_methane_guild }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_sulfur_onsen } } remove_building = building_sulfur_onsen }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_sulfer_springs } } remove_building = pd_building_sulfer_springs }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_sulfer_lab } } remove_building = pd_building_sulfer_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_sulfer_resort } } remove_building = pd_building_sulfer_resort }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_ammonia_electrodeposition } } remove_building = building_ammonia_electrodeposition }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_ammonia_artisans } } remove_building = pd_building_ammonia_artisans }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_ammonia_farm } } remove_building = pd_building_ammonia_farm }
-		100 = { modifier = { factor = 0 NOT = { has_building = pd_building_ammonia_study } } remove_building = pd_building_ammonia_study }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_rogue_lab } } remove_building = building_rogue_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_rogue_grid } } remove_building = building_rogue_grid }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_rogue_mine } } remove_building = building_rogue_mine }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_hycean_farm } } remove_building = building_hycean_farm }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_hycean_lab } } remove_building = building_hycean_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_hycean_foundry } } remove_building = building_hycean_foundry }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_mine } } remove_building = building_eludium_mine }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_institute } } remove_building = building_eludium_institute }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_floating_islands } } remove_building = building_eludium_floating_islands }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_graveyard_well } } remove_building = building_graveyard_well }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_research_centre } } remove_building = building_tiyanki_research_centre }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_parts_market } } remove_building = building_tiyanki_parts_market }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_power_plant } } remove_building = building_tiyanki_power_plant }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_observation_headquarters } } remove_building = building_tiyanki_observation_headquarters }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_observation_lab } } remove_building = building_tiyanki_observation_lab }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_crystal_carver } } remove_building = building_crystal_carver }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_acean_farm } } remove_building = building_acean_farm }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_acean_patch } } remove_building = building_acean_patch }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_techno_synth_workshop } } remove_building = building_techno_synth_workshop }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_biosynth_lm_refinery } } remove_building = building_biosynth_lm_refinery }
-		100 = { modifier = { factor = 0 NOT = { has_building = holding_pd_techno_canal } } remove_building = holding_pd_techno_canal }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pdzro_harvester } } remove_building = building_pdzro_harvester }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pdzro_dealer_domestic } } remove_building = building_pdzro_dealer_domestic }
-		100 = { modifier = { factor = 0 NOT = { has_building = holding_pdzro_dealer } } remove_building = holding_pdzro_dealer }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_corporate_pdzro } } remove_building = building_corporate_pdzro }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_crime_syndicate_pdzro } } remove_building = building_crime_syndicate_pdzro }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_zro_institute } } remove_building = building_zro_institute }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pdzro_hub } } remove_building = building_pdzro_hub }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_junksmelter } } remove_building = building_pd_junksmelter }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_scrap_coordination } } remove_building = building_pd_scrap_coordination }
-		100 = { modifier = { factor = 0 NOT = { has_building = holding_pd_scrap_pile } } remove_building = holding_pd_scrap_pile }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_archive_link_node } } remove_building = building_pd_archive_link_node }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_pd_magma_forge } } remove_building = building_pd_magma_forge }
-		100 = { modifier = { factor = 0 NOT = { has_building = building_techno_04_clone_vat } } remove_building = building_techno_04_clone_vat }
+		"
+			toggle = @has_planetary_diversity
+		}
+		# Seems not to exists anywhere?
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_undersea_gasmine } } remove_building = building_undersea_gasmine }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_inquisition_hall } } remove_building = building_inquisition_hall }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_inquisition_fortress } } remove_building = building_inquisition_fortress }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_necroseeders_1 } } remove_building = building_necroseeders_1 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_necroseeders_2 } } remove_building = building_necroseeders_2 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_necroseeders_3 } } remove_building = building_necroseeders_3 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_storm_lab_regular } } remove_building = building_storm_lab_regular }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_sugarbush } } remove_building = building_sugarbush }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_gamma_research } } remove_building = pd_building_gamma_research }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_rad_farms } } remove_building = pd_building_rad_farms }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_gamma_energy } } remove_building = pd_building_gamma_energy }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_acid_lab } } remove_building = building_acid_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_acidseeders_1 } } remove_building = building_acidseeders_1 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_acidseeders_2 } } remove_building = building_acidseeders_2 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_acid_farm } } remove_building = pd_building_acid_farm }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_acid_rock } } remove_building = pd_building_acid_rock }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_acid_research } } remove_building = pd_building_acid_research }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pd_tectonic_drills } } remove_building = building_pd_tectonic_drills }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pd_tectonic_drills_2 } } remove_building = building_pd_tectonic_drills_2 }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_ash_grid } } remove_building = building_ash_grid }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_ash_foundry } } remove_building = building_ash_foundry }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_ash_lab } } remove_building = building_ash_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_frozen_gas_mine } } remove_building = building_frozen_gas_mine }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_methane_mine } } remove_building = building_methane_mine }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_methane_lab } } remove_building = building_methane_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_methane_guild } } remove_building = building_methane_guild }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_sulfur_onsen } } remove_building = building_sulfur_onsen }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_sulfer_springs } } remove_building = pd_building_sulfer_springs }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_sulfer_lab } } remove_building = pd_building_sulfer_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_sulfer_resort } } remove_building = pd_building_sulfer_resort }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_ammonia_electrodeposition } } remove_building = building_ammonia_electrodeposition }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_ammonia_artisans } } remove_building = pd_building_ammonia_artisans }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_ammonia_farm } } remove_building = pd_building_ammonia_farm }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = pd_building_ammonia_study } } remove_building = pd_building_ammonia_study }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_rogue_lab } } remove_building = building_rogue_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_rogue_grid } } remove_building = building_rogue_grid }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_rogue_mine } } remove_building = building_rogue_mine }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_hycean_farm } } remove_building = building_hycean_farm }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_hycean_lab } } remove_building = building_hycean_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_hycean_foundry } } remove_building = building_hycean_foundry }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_mine } } remove_building = building_eludium_mine }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_institute } } remove_building = building_eludium_institute }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_eludium_floating_islands } } remove_building = building_eludium_floating_islands }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_graveyard_well } } remove_building = building_graveyard_well }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_research_centre } } remove_building = building_tiyanki_research_centre }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_parts_market } } remove_building = building_tiyanki_parts_market }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_power_plant } } remove_building = building_tiyanki_power_plant }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_observation_headquarters } } remove_building = building_tiyanki_observation_headquarters }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_tiyanki_observation_lab } } remove_building = building_tiyanki_observation_lab }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_crystal_carver } } remove_building = building_crystal_carver }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_acean_farm } } remove_building = building_acean_farm }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_acean_patch } } remove_building = building_acean_patch }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_techno_synth_workshop } } remove_building = building_techno_synth_workshop }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_biosynth_lm_refinery } } remove_building = building_biosynth_lm_refinery }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = holding_pd_techno_canal } } remove_building = holding_pd_techno_canal }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pdzro_harvester } } remove_building = building_pdzro_harvester }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pdzro_dealer_domestic } } remove_building = building_pdzro_dealer_domestic }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = holding_pdzro_dealer } } remove_building = holding_pdzro_dealer }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_corporate_pdzro } } remove_building = building_corporate_pdzro }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_crime_syndicate_pdzro } } remove_building = building_crime_syndicate_pdzro }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_zro_institute } } remove_building = building_zro_institute }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pdzro_hub } } remove_building = building_pdzro_hub }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pd_junksmelter } } remove_building = building_pd_junksmelter }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pd_scrap_coordination } } remove_building = building_pd_scrap_coordination }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = holding_pd_scrap_pile } } remove_building = holding_pd_scrap_pile }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pd_archive_link_node } } remove_building = building_pd_archive_link_node }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_pd_magma_forge } } remove_building = building_pd_magma_forge }
+		# 100 = { modifier = { factor = 0 NOT = { has_building = building_techno_04_clone_vat } } remove_building = building_techno_04_clone_vat }
 		### (Mod) More Events Mod - Buildings
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -678,6 +695,9 @@ surgical_strike_buildings = {
 			toggle = @has_more_events_mod
 		}
 		### (Mod) Extra Ship Components - Buildings
+		inline_script = {
+			script = merger_of_rules/toggled_code
+			code = "
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_central_research_bureau } } remove_building = esc_building_central_research_bureau }
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_culture_nexus } } remove_building = esc_building_culture_nexus }
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_cerebral_node } } remove_building = eb_nhsc_building_cerebral_nodehydrofarm3 }
@@ -696,6 +716,9 @@ surgical_strike_buildings = {
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_reprocessing_plant } } remove_building = esc_building_reprocessing_plant }
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_magmaminer_1 } } remove_building = esc_building_magmaminer_1 }
 		100 = { modifier = { factor = 0 NOT = { has_building = esc_building_magmaminer_2 } } remove_building = esc_building_magmaminer_2 }
+		"
+			toggle = @has_esc_next
+		}
 		# (Mod) Ethics and Civics Classic - Buildings
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -738,45 +761,39 @@ surgical_strike_resources = {
 	}
 	# Energy
 	if = {
-		limit = {
-			check_variable = { which = num_EI_technician value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_technician value > 1 } }
+		limit = { check_variable = { which = num_EI_technician value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_technician value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = energy value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_technician value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_technician value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = energy value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_technician value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_technician value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = energy value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_technician value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_technician value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = energy value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_technician value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_technician value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = energy value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_technician value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_technician value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = energy value = 6 min = 600 max = 2500 }
 		}
@@ -791,45 +808,39 @@ surgical_strike_resources = {
 	}
 	# Minerals
 	if = {
-		limit = {
-			check_variable = { which = num_EI_miner value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_miner value > 1 } }
+		limit = { check_variable = { which = num_EI_miner value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_miner value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = minerals value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_miner value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_miner value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = minerals value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_miner value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_miner value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = minerals value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_miner value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_miner value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = minerals value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_miner value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_miner value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = minerals value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_miner value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_miner value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = minerals value = 6 min = 600 max = 2500 }
 		}
@@ -844,45 +855,39 @@ surgical_strike_resources = {
 	}
 	# Food
 	if = {
-		limit = {
-			check_variable = { which = num_EI_farmer value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_farmer value > 1 } }
+		limit = { check_variable = { which = num_EI_farmer value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_farmer value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = food value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_farmer value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_farmer value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = food value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_farmer value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_farmer value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = food value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_farmer value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_farmer value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = food value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_farmer value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_farmer value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = food value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_farmer value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_farmer value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = food value = 6 min = 600 max = 2500 }
 		}
@@ -897,45 +902,39 @@ surgical_strike_resources = {
 	}
 	# Alloys
 	if = {
-		limit = {
-			check_variable = { which = num_EI_foundry value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_foundry value > 1 } }
+		limit = { check_variable = { which = num_EI_foundry value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_foundry value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = alloys value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_foundry value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_foundry value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = alloys value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_foundry value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_foundry value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = alloys value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_foundry value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_foundry value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = alloys value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_foundry value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_foundry value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = alloys value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_foundry value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_foundry value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = alloys value = 6 min = 600 max = 2500 }
 		}
@@ -950,45 +949,39 @@ surgical_strike_resources = {
 	}
 	# Consumer Goods
 	if = {
-		limit = {
-			check_variable = { which = num_EI_artisan value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_artisan value > 1 } }
+		limit = { check_variable = { which = num_EI_artisan value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_artisan value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = consumer_goods value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_artisan value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_artisan value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = consumer_goods value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_artisan value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_artisan value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = consumer_goods value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_artisan value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_artisan value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = consumer_goods value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_artisan value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_artisan value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = consumer_goods value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_artisan value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_artisan value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = consumer_goods value = 6 min = 600 max = 2500 }
 		}
@@ -1003,45 +996,39 @@ surgical_strike_resources = {
 	}
 	# Physics
 	if = {
-		limit = {
-			check_variable = { which = num_EI_physics value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_physics value > 1 } }
+		limit = { check_variable = { which = num_EI_physics value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_physics value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = physics_research value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_physics value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_physics value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = physics_research value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_physics value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_physics value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = physics_research value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_physics value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_physics value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = physics_research value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_physics value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_physics value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = physics_research value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_physics value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_physics value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = physics_research value = 6 min = 600 max = 2500 }
 		}
@@ -1056,45 +1043,39 @@ surgical_strike_resources = {
 	}
 	# Society
 	if = {
-		limit = {
-			check_variable = { which = num_EI_society value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_society value > 1 } }
+		limit = { check_variable = { which = num_EI_society value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_society value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = society_research value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_society value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_society value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = society_research value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_society value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_society value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = society_research value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_society value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_society value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = society_research value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_society value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_society value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = society_research value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_society value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_society value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = society_research value = 6 min = 600 max = 2500 }
 		}
@@ -1109,45 +1090,39 @@ surgical_strike_resources = {
 	}
 	# Engineering
 	if = {
-		limit = {
-			check_variable = { which = num_EI_engineering value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_engineering value > 1 } }
+		limit = { check_variable = { which = num_EI_engineering value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_engineering value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = engineering_research value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_engineering value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_engineering value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = engineering_research value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_engineering value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_engineering value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = engineering_research value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_engineering value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_engineering value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = engineering_research value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_engineering value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_engineering value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = engineering_research value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_engineering value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_engineering value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = engineering_research value = 6 min = 600 max = 2500 }
 		}
@@ -1162,45 +1137,39 @@ surgical_strike_resources = {
 	}
 	# Unity
 	if = {
-		limit = {
-			check_variable = { which = num_EI_unity value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_unity value > 1 } }
+		limit = { check_variable = { which = num_EI_unity value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_unity value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = unity value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_unity value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_unity value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = unity value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_unity value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_unity value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = unity value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_unity value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_unity value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = unity value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_unity value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_unity value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = unity value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_unity value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_unity value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = unity value = 6 min = 600 max = 2500 }
 		}
@@ -1215,45 +1184,39 @@ surgical_strike_resources = {
 	}
 	# Rare Crystals
 	if = {
-		limit = {
-			check_variable = { which = num_EI_rare_crystals value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_rare_crystals value > 1 } }
+		limit = { check_variable = { which = num_EI_rare_crystals value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_rare_crystals value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = rare_crystals value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_rare_crystals value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_rare_crystals value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = rare_crystals value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_rare_crystals value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_rare_crystals value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = rare_crystals value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_rare_crystals value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_rare_crystals value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = rare_crystals value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_rare_crystals value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_rare_crystals value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = rare_crystals value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_rare_crystals value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_rare_crystals value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = rare_crystals value = 6 min = 600 max = 2500 }
 		}
@@ -1268,45 +1231,39 @@ surgical_strike_resources = {
 	}
 	# Exotic Gases
 	if = {
-		limit = {
-			check_variable = { which = num_EI_exotic_gases value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_exotic_gases value > 1 } }
+		limit = { check_variable = { which = num_EI_exotic_gases value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_exotic_gases value > 1 } }
 			owner = { add_monthly_resource_mult = { resource = exotic_gases value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_exotic_gases value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_exotic_gases value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = exotic_gases value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_exotic_gases value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_exotic_gases value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = exotic_gases value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_exotic_gases value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_exotic_gases value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = exotic_gases value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_exotic_gases value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_exotic_gases value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = exotic_gases value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_exotic_gases value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_exotic_gases value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = exotic_gases value = 6 min = 600 max = 2500 }
 		}
@@ -1321,45 +1278,39 @@ surgical_strike_resources = {
 	}
 	# Volatile Motes
 	if = {
-		limit = {
-			check_variable = { which = num_EI_volatile_motes value < 10 }
-		}
-		if = { limit = { check_variable = { which = num_EI_volatile_motes value >= 1 } }
+		limit = { check_variable = { which = num_EI_volatile_motes value < 10 } }
+		if = {
+			limit = { check_variable = { which = num_EI_volatile_motes value >= 1 } }
 			owner = { add_monthly_resource_mult = { resource = volatile_motes value = 1 min = 100 max = 200 } }
 		}
 		# nothing
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_volatile_motes value < 20 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_volatile_motes value < 20 } }
 		owner = {
 			add_monthly_resource_mult = { resource = volatile_motes value = 2 min = 200 max = 400 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_volatile_motes value < 30 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_volatile_motes value < 30 } }
 		owner = {
 			add_monthly_resource_mult = { resource = volatile_motes value = 3 min = 300 max = 500 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_volatile_motes value < 40 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_volatile_motes value < 40 } }
 		owner = {
 			add_monthly_resource_mult = { resource = volatile_motes value = 4 min = 400 max = 600 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_volatile_motes value < 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_volatile_motes value < 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = volatile_motes value = 5 min = 500 max = 1000 }
 		}
-	} else_if = {
-		limit = {
-			check_variable = { which = num_EI_volatile_motes value >= 50 }
-		}
+	}
+	else_if = {
+		limit = { check_variable = { which = num_EI_volatile_motes value >= 50 } }
 		owner = {
 			add_monthly_resource_mult = { resource = volatile_motes value = 6 min = 600 max = 2500 }
 		}

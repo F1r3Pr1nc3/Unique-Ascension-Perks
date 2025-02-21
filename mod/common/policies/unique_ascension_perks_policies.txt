@@ -24,7 +24,12 @@ trade_policy = {
 		policy_flags = { trade_conversion_consumer_goods }
 		valid = {
 			merg_is_default_empire = yes
-			NOT = { has_policy_flag = economic_stance_planned }
+			# (Mod) Ethics and Civics Classic
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "NOT = { has_policy_flag = economic_stance_planned }"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
 		}
 		modifier = {}
 		AI_weight = { factor = 2 }
@@ -45,7 +50,12 @@ trade_policy = {
 		policy_flags = { trade_conversion_unity }
 		valid = {
 			merg_is_default_empire = yes
-			NOT = { has_policy_flag = "economic_stance_market" } # ECC v3.14
+			# (Mod) Ethics and Civics Classic
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "NOT = { has_policy_flag = economic_stance_market }"
+				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
+			}
 		}
 		modifier = {}
 		AI_weight = { factor = 0 }
@@ -272,6 +282,50 @@ trade_policy = {
 		modifier = {}
 		AI_weight = { factor = 220 }
 	}
+	# EMEX begin
+	inline_script = {
+		script = merger_of_rules/toggled_code
+		code = "
+	option = {
+		name = trade_policy_technocorp
+		potential = {
+			has_valid_civic = civic_technocorp
+		}
+
+		policy_flags = {
+			trade_conversion_technocorp
+		}
+
+		modifier = {
+		}
+
+		AI_weight = {
+			factor = 100
+		}
+	}
+	option = {
+		name = trade_policy_technocorp_tl
+		potential = {
+			has_valid_civic = civic_technocorp
+			has_federation = yes
+			federation = { has_federation_perk = trade_federation_passive }
+		}
+
+		policy_flags = {
+			trade_conversion_technocorp_tl
+		}
+
+		modifier = {
+		}
+
+		AI_weight = {
+			factor = 1100
+		}
+	}
+		"
+		toggle = @has_emex_mod
+	}
+	# EMEX end
 }
 
 # Increased on v3.8
@@ -617,7 +671,7 @@ ruler_special_focus = {
 		ai_weight = { weight = 5 }
 	}
 	option = {
-		name = "Trading" # "ruler_special_trading_policy_name"
+		name = "ruler_special_trading_policy_name"
 		policy_flags = { ruler_special_trading_policy }
 		modifier = { country_trade_fee = -0.03 trade_value_mult = 0.10 }
 		ai_weight = { weight = 5 }
