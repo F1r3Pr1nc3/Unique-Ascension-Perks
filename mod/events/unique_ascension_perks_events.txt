@@ -1259,12 +1259,19 @@ country_event = {
 	picture = GFX_evt_emergency_calculation
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT generate_lcluster_clue = yes add_research_option = tech_jump_drive_1 }
-	after = {
+	immediate = {
+		get_capital_planet = yes
+		# set_global_flag = CmtFlagLgateSkipTech
 		give_tech_no_error_effect = { TECH = tech_hyper_drive_3 MESSAGE = no }
 		give_tech_no_error_effect = { TECH = tech_gateway_activation MESSAGE = yes }
-		give_tech_no_error_effect = { TECH = tech_lgate_activation MESSAGE = yes }
+		generate_lcluster_clue = yes
+	}
+	option = {
+		name = EXCELLENT
+		add_research_option = tech_jump_drive_1
+		give_tech_no_error_effect = { TECH = tech_lgate_activation MESSAGE = yes } # CmtEffectLgateClueComplete = yes
+	}
+	after = {
 		inline_script = { # A Deadly Tempest
 			script = merger_of_rules/toggled_code
 			code = " give_tech_no_error_effect = { TECH = tech_nanite_living_metal MESSAGE = yes } "
@@ -1275,6 +1282,8 @@ country_event = {
 			PROGRESS = 0.1
 			CATEGORY = physics_research # particles
 		}
+		# remove_global_flag = CmtFlagLgateSkipTech
+		country_event = { id = distar.10900 }
 	}
 }
 
