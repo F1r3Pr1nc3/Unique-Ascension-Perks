@@ -1,4 +1,6 @@
-# NOT COMPAT. With E&C BUG BRANCH
+# COMPAT with Merger of Rules
+# COMPAT with Empire Expanded
+# NOT COMPAT with E&C BUG BRANCH
 trade_policy = {
 	potential = { is_gestalt = no }
 	# DEFAULT (GAME START)
@@ -91,12 +93,13 @@ trade_policy = {
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = "trade_policy_growth_dev"
-		policy_flags = { trade_conversion_growth_dev }
-		valid = { merg_is_default_empire = yes has_policy_flag = economic_stance_planned }
-		AI_weight = { factor = 0 }
-	}
+		option = {
+			name = trade_policy_growth_dev
+			policy_flags = { trade_conversion_growth_dev }
+			potential = { merg_is_default_empire = yes }
+			valid = { has_policy_flag = economic_stance_planned }
+			AI_weight = { factor = 0 }
+		}
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
@@ -105,13 +108,14 @@ trade_policy = {
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = "trade_policy_development"
-		policy_flags = { trade_conversion_development }
-		valid = { merg_is_default_empire = yes has_policy_flag = economic_stance_planned }
-		modifier = { planet_building_build_speed_mult = 0.1 starbase_shipyard_build_speed_mult = 0.1 planet_colony_development_speed_mult = 0.1 }
-		AI_weight = { factor = 0 }
-	}
+		option = {
+			name = trade_policy_development
+			policy_flags = { trade_conversion_development }
+			potential = { merg_is_default_empire = yes }
+			valid = { has_policy_flag = economic_stance_planned }
+			modifier = { planet_building_build_speed_mult = 0.1 starbase_shipyard_build_speed_mult = 0.1 planet_colony_development_speed_mult = 0.1 }
+			AI_weight = { factor = 0 }
+		}
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
@@ -120,17 +124,17 @@ trade_policy = {
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = "trade_policy_innovation"
-		policy_flags = { trade_conversion_innovation }
-		valid = {
-			merg_is_default_empire = yes
-			has_technology = tech_innovations
-			NOR = { has_valid_civic = civic_ultimate_collective has_policy_flag = "economic_stance_market" has_policy_flag = economic_stance_planned }
+		option = {
+			name = trade_policy_innovation
+			policy_flags = { trade_conversion_innovation }
+			potential = { merg_is_default_empire = yes }
+			valid = {
+				has_technology = tech_innovations
+				NOR = { has_valid_civic = civic_ultimate_collective has_policy_flag = "economic_stance_market" has_policy_flag = economic_stance_planned }
+			}
+			modifier = {}
+			AI_weight = { factor = 0 }
 		}
-		modifier = {}
-		AI_weight = { factor = 0 }
-	}
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
@@ -139,17 +143,17 @@ trade_policy = {
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = trade_policy_growth
-		policy_flags = { trade_conversion_growth }
-		modifier = { planet_districts_hab_farming_cost_mult = -0.33 planet_district_farming_build_speed_mult = 1 pop_ethic_green_attraction_mult = 0.25 }
-		valid = {
-			merg_is_default_empire = yes
-			has_technology = tech_agri_consortium
-			NOR = { has_policy_flag = economic_stance_market has_policy_flag = economic_stance_planned }
+		option = {
+			name = trade_policy_growth
+			policy_flags = { trade_conversion_growth }
+			modifier = { planet_districts_hab_farming_cost_mult = -0.33 planet_district_farming_build_speed_mult = 1 pop_ethic_green_attraction_mult = 0.25 }
+			potential = { merg_is_default_empire = yes }
+			valid = {
+				has_technology = tech_agri_consortium
+				NOR = { has_policy_flag = economic_stance_market has_policy_flag = economic_stance_planned }
+			}
+			AI_weight = { factor = 0 }
 		}
-		AI_weight = { factor = 0 }
-	}
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
@@ -157,22 +161,21 @@ trade_policy = {
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = trade_policy_mining
-		policy_flags = { trade_conversion_mining }
-		modifier = { planet_districts_hab_mining_cost_mult = -0.33 planet_district_hab_mining_build_speed_mult = 1 pop_ethic_industrial_attraction_mult = 0.25 }
-		valid = {
-			merg_is_default_empire = yes
-			OR = { has_technology = tech_mining_consortium has_valid_civic = civic_mining_guilds }
-			NOR = { has_policy_flag = economic_stance_market has_policy_flag = economic_stance_planned }
+		option = {
+			name = trade_policy_mining
+			policy_flags = { trade_conversion_mining }
+			modifier = { planet_districts_hab_mining_cost_mult = -0.33 planet_district_hab_mining_build_speed_mult = 1 pop_ethic_industrial_attraction_mult = 0.25 }
+			potential = { merg_is_default_empire = yes }
+			valid = {
+				OR = { has_technology = tech_mining_consortium has_valid_civic = civic_mining_guilds }
+				NOR = { has_policy_flag = economic_stance_market has_policy_flag = economic_stance_planned }
+			}
+			AI_weight = { factor = 0 }
 		}
-		AI_weight = { factor = 0 }
-	}
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
 	# End (Mod) Ethics and Civics Classic
-
 	option = {
 		name = "trade_policy_adv_conversion_energy_name"
 		policy_flags = { trade_policy_adv_conversion_energy }
@@ -286,48 +289,29 @@ trade_policy = {
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = trade_policy_technocorp
-		potential = {
-			has_valid_civic = civic_technocorp
+		option = {
+			name = trade_policy_technocorp
+			potential = { has_civic = civic_technocorp }
+			valid = { has_valid_civic = civic_technocorp }
+			policy_flags = { trade_conversion_technocorp }
+			AI_weight = { factor = 100 }
 		}
-
-		policy_flags = {
-			trade_conversion_technocorp
+		option = {
+			name = trade_policy_technocorp_tl
+			potential = {
+				has_civic = civic_technocorp
+				has_federation = yes
+				federation = { has_federation_perk = trade_federation_passive }
+			}
+			valid = { has_valid_civic = civic_technocorp }
+			policy_flags = { trade_conversion_technocorp_tl }
+			AI_weight = { factor = 1100 }
 		}
-
-		modifier = {
-		}
-
-		AI_weight = {
-			factor = 100
-		}
-	}
-	option = {
-		name = trade_policy_technocorp_tl
-		potential = {
-			has_valid_civic = civic_technocorp
-			has_federation = yes
-			federation = { has_federation_perk = trade_federation_passive }
-		}
-
-		policy_flags = {
-			trade_conversion_technocorp_tl
-		}
-
-		modifier = {
-		}
-
-		AI_weight = {
-			factor = 1100
-		}
-	}
 		"
 		toggle = @has_emex_mod
 	}
 	# EMEX end
 }
-
 # Increased on v3.8
 ruler_raw_resources = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
@@ -356,7 +340,6 @@ ruler_raw_resources = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_advanced_resources = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -384,7 +367,6 @@ ruler_advanced_resources = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 # Increased on v3.8
 ruler_strategic_resources = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
@@ -413,7 +395,6 @@ ruler_strategic_resources = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_research_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -447,7 +428,6 @@ ruler_research_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_weapons_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -475,7 +455,6 @@ ruler_weapons_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_defense_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -507,7 +486,6 @@ ruler_defense_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_construction_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -548,7 +526,6 @@ ruler_construction_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_capacity_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -587,7 +564,6 @@ ruler_capacity_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_colony_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -631,7 +607,6 @@ ruler_colony_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 ruler_special_focus = {
 	potential = { has_ascension_perk = ap_chosen_ruler }
 	option = {
@@ -677,7 +652,6 @@ ruler_special_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
-
 # dark_galaxy_web_security_finance = {
 # 	potential = { has_country_flag = ap_dark_galaxy_web_project }
 # 	option = {

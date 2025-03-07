@@ -1,3 +1,4 @@
+# Sorry for overwriting, please claim this to "Ancient Empire" 2389589691 :P
 # this = system
 # root = country
 # Determines if AI-controlled empires should restrict (and thus avoid) a system
@@ -184,6 +185,7 @@ ai_should_restrict_system = {
 				}
 			}
 		}
+		# SOFE seems very similar to SBTG (or the same?) and another extension for ACOT?
 		# TODO # # Ancient Cache of Technologies : Secrets Beyond The Gates 1481972266 merg_has_sofe = { has_global_flag = sofe_activated }
 		# inline_script = {
 		# 	script = merger_of_rules/toggled_code
@@ -233,29 +235,41 @@ ai_should_restrict_system = {
 			"
 			toggle = @has_a_deadly_tempest_mod
 		}
-		# Ancient Empire
+		# Ancient Empire (古代帝国) 2389589691
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
 			AND = {
+				OR = {
+					has_star_flag = ag_zeta_crisis_psionic_storm_system
+					has_star_flag = ag_zeta_crisis_psionic_singularity_system
+				}
 				root = {
 					OR = {
-						is_fallen_empire = yes
-						is_country_type = awakened_marauders
+						is_default_or_fallen = yes
+						is_crisis_faction = yes
 						is_country_type = ag_ancient_psi_guardian
-						# The Empty Vagrant
-						inline_script = {
+						inline_script = { # The Empty Vagrant
 							script = merger_of_rules/toggled_code
-							code = \"
-								is_country_type = awakened_marauders_ev
-							\"
+							code = \" is_country_type = awakened_marauders_ev \"
 							toggle = @homeless_class_trait_weight
 						}
 					}
 				}
+			}
+			AND = { # TAC?
 				OR = {
-					has_star_flag = ag_zeta_crisis_psionic_storm_system
-					has_star_flag = ag_zeta_crisis_psionic_singularity_system
+					has_star_flag = AI_system1
+					has_star_flag = AI_system2
+					has_star_flag = AI_system3
+					has_star_flag = AI_system4
+				}
+				root = {
+					OR = {
+						is_default_or_fallen = yes
+						is_country_type = awakened_marauders
+						is_country_type = ag_ancient_psi_guardian
+					}
 				}
 			}
 			"

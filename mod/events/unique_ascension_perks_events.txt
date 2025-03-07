@@ -1229,8 +1229,9 @@ country_event = {
 	immediate = {
 		random_owned_planet = {
 			limit = {
-				NOT = { has_planet_flag = ap_expansion_infinity_collection }
+				is_colony = yes
 				colony_age > 2
+				NOT = { has_planet_flag = ap_expansion_infinity_collection }
 				num_pops > 10
 				count_owned_pop = { count > 10 limit = { has_job = yes } }
 			}
@@ -7756,6 +7757,7 @@ event = {
 			limit = {
 				has_ascension_perk = ap_expansion_infinity
 				any_owned_planet = {
+					is_colony = yes
 					NOT = { has_planet_flag = ap_expansion_infinity_collection }
 					colony_age > 2
 					num_pops > 10
