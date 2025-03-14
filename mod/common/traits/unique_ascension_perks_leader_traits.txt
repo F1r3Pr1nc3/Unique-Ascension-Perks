@@ -962,7 +962,8 @@ leader_trait_natural_engineer = {
 			has_paragon_dlc = no
 			has_trait = subclass_scientist_councilor
 		}
-		exists = from OR = { from = { has_country_flag = tech_expandable_brain_1_project } has_global_flag = ap_expandable_brain_1 }
+		exists = from
+		OR = { from = { has_country_flag = tech_expandable_brain_1_project } has_global_flag = ap_expandable_brain_1 }
 	}
 	leader_class = { scientist }
 	opposites = {
@@ -991,4 +992,31 @@ leader_trait_natural_engineer = {
 		inline_script = paragon/council_weight_mult
 	}
 	# background_icon = "GFX_leader_subclass_scientist_scholar_background"
+}
+
+# Restored vanilla
+leader_trait_restore_point = {
+	inline_script = {
+		script = trait/icon
+		CLASS = commander
+		ICON = GFX_leader_trait_restore_point
+		RARITY = common
+		COUNCIL = no
+		TIER = none
+	}
+	leader_potential_add = {
+		has_synthetic_dawn = yes
+		OR = {
+			has_trait = trait_mechanical
+			has_trait = trait_machine_unit
+		}
+		exists = from
+		from = {
+			is_robot_empire = yes
+			has_ascension_perk = ap_leadership_transfer
+		}
+	}
+	leader_class = { commander scientist }
+	initial = no
+	randomized = no
 }

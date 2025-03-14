@@ -1,0 +1,140 @@
+namespace = syndaw
+########## Leadership Upload #########
+# Leader backed up
+# This = owner of fleet 1 (destroyed)
+# From = owner of fleet 2 (combatant)
+# FromFrom = fleet 1
+# FromFromFrom = fleet 2
+country_event = {
+	id = syndaw.30
+	hide_window = yes
+	is_triggered_only = yes
+	trigger = {
+		is_robot_empire = yes
+		has_ascension_perk = ap_leadership_transfer
+		fromfrom = {
+			exists = leader
+			fleet = { num_ships = 0 }
+			leader = { has_trait = leader_trait_restore_point }
+		}
+	}
+	immediate = {
+		random = { chance = 70
+			fromfrom = {
+				leader = { exile_leader_as = restore_point_leader save_event_target_as = restore_point_leader }
+			}
+			country_event = { id = syndaw.31 days = 30 }
+		}
+	}
+}
+
+country_event = {
+	id = syndaw.31
+	title = syndaw.31.name
+	desc = syndaw.31.desc
+	picture = GFX_evt_synth_sabotage
+	show_sound = event_ship_bridge
+	location = event_target:restored_leader.fleet
+	is_triggered_only = yes
+	immediate = {
+		return_leader_from_exile = restore_point_leader
+		if = {
+			limit = { exists = event_target:restore_point_leader }
+			event_target:restore_point_leader = {
+				if = {
+					limit = {
+						leader_class = scientist
+						root = {
+							any_owned_fleet = {
+								NOT = { exists = leader }
+								is_ship_class = shipclass_science_ship
+							}
+						}
+					}
+					root = {
+						random_owned_fleet = {
+							limit = {
+								NOT = { exists = leader }
+								is_ship_class = shipclass_science_ship
+							}
+							set_leader = prevprev # restore_point_leader
+							leader = { save_event_target_as = restored_leader }
+						}
+					}
+				}
+				else_if = {
+					limit = {
+						leader_class = commander
+						root = {
+							any_owned_fleet = {
+								NOR = { is_civilian = yes exists = leader }
+							}
+						}
+					}
+					root = {
+						random_owned_fleet = {
+							limit = {
+								NOR = { is_civilian = yes exists = leader }
+							}
+							set_leader = prevprev # restore_point_leader
+							leader = { save_event_target_as = restored_leader }
+						}
+					}
+				}
+				else = {
+					recruitable = yes
+				}
+			}
+		}
+		else = {
+			# Not tested fallback HACK
+			create_fleet = {
+				name = "NECROID4_SHIP_GoneGoneGone"
+				effect = {
+					set_owner = prev
+					create_ship = { random_existing_design = science }
+					set_leader = restore_point_leader
+					leader = { save_event_target_as = restored_leader }
+				}
+			}
+			destroy_fleet = {
+				target = last_created_fleet
+				kill_leader = no
+				destroy_template = yes
+			}
+			if = {
+				limit = {
+					NOT = { exists = event_target:restored_leader }
+				}
+				create_fleet = {
+					name = "NECROID4_SHIP_GoneGoneGone"
+					effect = {
+						set_owner = prev
+						create_ship = { random_existing_design = corvette }
+						set_leader = restore_point_leader
+						leader = { save_event_target_as = restored_leader }
+					}
+				}
+				destroy_fleet = {
+					target = last_created_fleet
+					kill_leader = no
+					destroy_template = yes
+				}
+			}
+		}
+	}
+	after = {
+		hidden_effect = {
+			if = {
+				limit = {
+					exists = event_target:restored_leader
+					NOT = { exists = event_target:restored_leader.fleet }
+				}
+				event_target:restored_leader = {
+					recruitable = yes
+				}
+			}
+		}
+	}
+	option = { name = OK }
+}
