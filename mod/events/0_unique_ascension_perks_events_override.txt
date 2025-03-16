@@ -46,16 +46,16 @@ country_event = {
 						leader_class = scientist
 						root = {
 							any_owned_fleet = {
-								NOT = { exists = leader }
 								is_ship_class = shipclass_science_ship
+								NOR = { exists = leader is_in_combat = yes }
 							}
 						}
 					}
 					root = {
 						random_owned_fleet = {
 							limit = {
-								NOT = { exists = leader }
 								is_ship_class = shipclass_science_ship
+								NOR = { exists = leader is_in_combat = yes }
 							}
 							set_leader = prevprev # restore_point_leader
 							leader = { save_event_target_as = restored_leader }
@@ -67,14 +67,30 @@ country_event = {
 						leader_class = commander
 						root = {
 							any_owned_fleet = {
-								NOR = { is_civilian = yes exists = leader }
+								is_ship_class = shipclass_military
+								NOR = {
+									is_civilian = yes
+									exists = leader
+									is_in_combat = yes
+									is_space_fauna = yes
+								}
+								is_mobile = yes
+								is_designable = yes
 							}
 						}
 					}
 					root = {
 						random_owned_fleet = {
 							limit = {
-								NOR = { is_civilian = yes exists = leader }
+								is_ship_class = shipclass_military
+								NOR = {
+									is_civilian = yes
+									exists = leader
+									is_in_combat = yes
+									is_space_fauna = yes
+								}
+								is_mobile = yes
+								is_designable = yes
 							}
 							set_leader = prevprev # restore_point_leader
 							leader = { save_event_target_as = restored_leader }

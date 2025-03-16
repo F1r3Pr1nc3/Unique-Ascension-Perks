@@ -2,34 +2,94 @@
 can_support_branch_offices = {
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_FALLEN_EMPIRES
-		is_fallen_empire = no
+		NOR = {
+			is_fallen_empire = yes
+			# Assault Lily
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
+					is_country_type = al_fallen_empire
+					is_country_type = al_fallen_empire_no_ai
+				"
+				toggle = @change_planet_size_bullet_num
+			}
+			# Azur Lane Stellaris DLC
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
+					has_authority = auth_azur_dictatorial
+				"
+				toggle = @azl_mod
+			}
+		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_ON_MEGACORP_PLANET
 		OR = {
-			# Imposed Megacorp allows branch offices without commercial (MOD)
-			# inline_script = {
-			# 	script = merger_of_rules/toggled_code
-			# 	code = "
-			AND = {
-				is_megacorp = yes
-				OR = {
+			NOR = {
+				is_megacorp = yes # Vanilla
+				has_civic = civic_galactic_sovereign_megacorp # Vanilla
+				# Assault Lily
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_country_type = huge_country
+					"
+					toggle = @change_planet_size_bullet_num
+				}
+				# Arknights Near Future
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						has_valid_civic = civic_business_union
+					"
+					toggle = @arknights_ANF
+				}
+				# Ethics & Civics Infinity
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						is_eci_megacorp = yes
+					"
+					toggle = @post_revolutionary_re_revolution_years
+				}
+				# Warship Girls R And MIST Species
+				inline_script = {
+					script = merger_of_rules/toggled_code
+					code = "
+						AND = {
+							wg_compat_has_auth_shenhai = yes
+							OR = {
+								has_country_flag = pantsu_shop_origin
+								has_valid_civic = civic_sh_criminal_syndicate
+							}
+						}
+					"
+					toggle = @wsg_mod
+				}
+			}
+			# Megacorps can't build on other corps, only criminal corps and Imposed Megacorp.
+			# Unique Ascension Perks
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
+				NOR = {
 					is_criminal_syndicate = yes
 					has_ascension_perk = ap_megacorp
 				}
-			}
-			# 	"
-			# 	toggle = @has_uap_mod
-			# }
-			NOR = {
-				is_megacorp = yes
-				has_civic = civic_galactic_sovereign_megacorp
+				"
+				toggle = @has_uap_mod
 			}
 		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_REGULAR_EMPIRE
-		is_gestalt = no
+		NOR = {
+			is_gestalt = yes
+			# Merger of Rules
+			is_country_type = gate_builders
+			is_country_type = awakened_marauders
+		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_ADVANCED_PRE_FTL
@@ -53,7 +113,7 @@ can_support_branch_offices = {
 can_build_branch_office_on_planet = {
 	custom_tooltip = {
 		fail_text = requires_recipient_not_fanatic_purifiers
-		exists = owner
+		has_owner = yes
 		owner = {
 			OR = {
 				is_same_species = root
@@ -61,51 +121,23 @@ can_build_branch_office_on_planet = {
 			}
 		}
 	}
-	custom_tooltip = {
-		fail_text = BRANCH_OFFICE_NO_OBSERVATION_OUTPOST
-		exists = owner
-		if = {
-			limit = {
-				root = {
-					OR = {
-						is_criminal_syndicate = yes
-						AND = {
-							inline_script = {
-								script = merger_of_rules/toggled_code
-								code = " is_zofe_country = yes"
-								toggle = @has_zofe_vanilla
-							}
-							has_civic = civic_criminal_heritage
-						}
-					}
-				}
-				owner = { is_primitive = yes }
-			}
-			has_observation_outpost = yes
-			observation_outpost_owner = { is_same_empire = root }
-		}
-	}
-	# Bugs Criminal Corp Rework - BCCR: Normal Megacorps can't build on other corps, only criminal corps.
-	# Imposed Megacorp allows branch offices without commercial (MOD)
-	# Changed by FirePrince: Still very tiny mod, questionable support, no var?
+	# Normal Megacorps can't build on other corps, only Imposed Megacorp allows branch offices (MOD)
+	# Unique Ascension Perks
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
 		custom_tooltip = {
 			fail_text = BRANCH_OFFICE_NOT_ON_MEGACORP_PLANET
-			exists = owner
-			root = {
-				OR = {
-					is_criminal_syndicate = yes
+			has_owner = yes
+			OR = {
+				root = {
 					has_ascension_perk = ap_megacorp
 				}
-			}
-			owner = {
-				is_megacorp = yes
-				OR = {
-					is_criminal_syndicate = no
-					has_commercial_pact = root
-					is_in_federation_with = root
+				owner = {
+					NOR = {
+						is_megacorp = yes
+						has_civic = civic_galactic_sovereign_megacorp
+					}
 				}
 			}
 		}
@@ -114,8 +146,20 @@ can_build_branch_office_on_planet = {
 	}
 	# Vanilla
 	custom_tooltip = {
+		fail_text = BRANCH_OFFICE_NO_OBSERVATION_OUTPOST
+		if = {
+			limit = {
+				root = { is_criminal_syndicate = yes } # ZOFE changes make no sense here, should be rather in is_criminal_syndicate_rule
+				owner = { is_primitive = yes }
+			}
+			has_observation_outpost = yes
+			observation_outpost_owner = { is_same_empire = root }
+		}
+	}
+	# Vanilla
+	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_COMMERCIAL_PACT
-		exists = owner
+		has_owner = yes
 		OR = {
 			root = {
 				OR = {
@@ -123,26 +167,45 @@ can_build_branch_office_on_planet = {
 					# Assault Lily
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = " has_authority = auth_AL_democratic "
+						code = "
+							has_authority = auth_AL_democratic
+						"
 						toggle = @change_planet_size_bullet_num
 					}
 					# Azur Lane Stellaris DLC
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = " has_authority = auth_azur_lane_1 "
+						code = "
+							root = {
+								exists = event_target:elizabeth_leader
+								has_country_flag = azur_lane_leader_elizabeth
+							}
+						"
 						toggle = @azl_mod
 					}
 					# Voyage to Eternity
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = " KZ_VOY_can_build_branch_offices = yes "
+						code = "
+							KZ_VOY_can_build_branch_offices = yes
+						"
 						toggle = @vte_mod
 					}
 					# Warship Girls R And MIST Species
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = " has_civic = civic_sh_criminal_syndicate "
+						code = "
+							has_civic = civic_sh_criminal_syndicate
+						"
 						toggle = @wsg_mod
+					}
+					# Unique Ascension Perks
+					inline_script = {
+						script = merger_of_rules/toggled_code
+						code = "
+							has_ascension_perk = ap_megacorp
+						"
+						toggle = @has_uap_mod
 					}
 				}
 			}
@@ -152,37 +215,24 @@ can_build_branch_office_on_planet = {
 				has_observation_outpost = yes
 				observation_outpost = { has_modifier = preftl_action_trade_pact }
 			}
-						# Expanded Traits, Civics, Pops, and More
+			# Expanded Traits, Civics, Pops, and More
 			inline_script = {
 				script = merger_of_rules/toggled_code
-				code = " owner = { has_country_flag = cb_markets_opened@root } "
+				code = "
+					owner = { has_country_flag = cb_markets_opened@root }
+				"
 				toggle = @expops_compatch_var
 			}
 			# Warship Girls R And MIST Species
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-				AND = {
-					owner = { has_country_flag = lose_wg_shop_war }
-					root = { has_country_flag = pantsu_shop_origin }
-				}
+					AND = {
+						owner = { has_country_flag = lose_wg_shop_war }
+						root = { has_country_flag = pantsu_shop_origin }
+					}
 				"
 				toggle = @wsg_mod
-			}
-			# Azur Lane Stellaris DLC
-			inline_script = {
-				script = merger_of_rules/toggled_code
-				code = "
-				owner = {
-					OR = {
-						has_authority = auth_azur_lane_2
-						has_authority = auth_azur_lane_0
-						has_authority = auth_azur_lane_k
-					}
-					is_same_value = root
-				}
-				"
-				toggle = @azl_mod
 			}
 			# Vanilla
 			# Allow branch offices in subsidiaries and vice versa (and fellow subjects)
@@ -231,51 +281,35 @@ can_build_branch_office_on_planet = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-				OR = {
-					root = {
-						is_subject = yes
-						overlord = {
-							OR = {
-								is_same_empire = prevprev.owner
-								AND = {
-									exists = prevprev.owner.overlord
-									is_same_empire = prevprev.owner.overlord
+					OR = {
+						root = {
+							is_subject = yes
+							overlord = {
+								OR = {
+									is_same_empire = prevprev.owner
+									AND = {
+										exists = prevprev.owner.overlord
+										is_same_empire = prevprev.owner.overlord
+									}
 								}
 							}
 						}
+						owner = {
+							is_subject = yes
+							overlord = { is_same_empire = root }
+						}
 					}
-					owner = {
-						is_subject = yes
-						overlord = { is_same_empire = root }
-					}
-				}
 				"
 				toggle = @has_vear_f_mod
-				}
-			# Unique Ascension Perks
-			AND = {
-				owner = {
-					OR = {
-						is_megacorp = yes
-						is_gestalt = yes
-					}
-				}
-				inline_script = {
-					script = merger_of_rules/toggled_code
-					code = " root = { has_ascension_perk = ap_megacorp } "
-					toggle = @has_uap_mod
-				}
 			}
 			# EDA
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-				owner = {
-					AND = {
-						OR = { has_authority = auth_traveler }
-						is_same_value = root
+					owner = {
+						has_authority = auth_traveler
+						is_same_empire = root
 					}
-				}
 				"
 				toggle = @eda_mod
 			}
@@ -283,7 +317,7 @@ can_build_branch_office_on_planet = {
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_MEGACORP_OVERLORD
-		exists = owner
+		has_owner = yes
 		# Failure message for having a corporate overlord
 		OR = {
 			root = {
@@ -320,7 +354,7 @@ can_build_branch_office_on_planet = {
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_CRIMINAL_HERITAGE_HAS_TRUCE
-		exists = owner
+		has_owner = yes
 		OR = {
 			root = {
 				OR = {
@@ -328,7 +362,9 @@ can_build_branch_office_on_planet = {
 					# Assault Lily
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = " has_authority = auth_AL_democratic "
+						code = "
+							has_authority = auth_AL_democratic
+						"
 						toggle = @change_planet_size_bullet_num
 					}
 				}
@@ -340,44 +376,36 @@ can_build_branch_office_on_planet = {
 				}
 			}
 		}
-		# Azur Lane Stellaris DLC
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = " NOT = { root = { has_authority = auth_azur_lane_1 } }"
-			toggle = @azl_mod
-		}
 	}
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_CRIMINAL_COOLDOWN
-		exists = owner
+		has_owner = yes
 		OR = {
+			AND = {
+				root = { is_criminal_syndicate = yes }
+				NOT = { has_planet_flag = criminal_branch_closed_cooldown_planet@root }
+			}
 			root = {
 				OR = {
 					is_criminal_syndicate = no
 					# Assault Lily
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = " has_authority = auth_AL_democratic "
+						code = "
+							has_authority = auth_AL_democratic
+						"
 						toggle = @change_planet_size_bullet_num
 					}
 				}
 			}
-			AND = {
-				root = { is_criminal_syndicate = yes }
-				NOT = { has_planet_flag = criminal_branch_closed_cooldown_planet@root }
-			}
 			# Powerful & Realistic Orbital Bombardments
 			inline_script = {
 				script = merger_of_rules/toggled_code
-				code = " root = { is_criminal_syndicate = yes has_country_flag = prob_no_criminal_branch@root.owner } "
+				code = "
+					root = { is_criminal_syndicate = yes has_country_flag = prob_no_criminal_branch@root.owner }
+				"
 				toggle = @has_prob_mod
 			}
-		}
-		# Azur Lane Stellaris DLC
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = " NOT = { root = { has_authority = auth_azur_lane_1 } } "
-			toggle = @azl_mod
 		}
 	}
 	# Warship Girls R And MIST Species
@@ -386,7 +414,7 @@ can_build_branch_office_on_planet = {
 		code = "
 		custom_tooltip = {
 			fail_text = requires_recipient_not_warshipgirls
-			exists = owner
+			has_owner = yes
 			owner = {
 				NOR = {
 					wg_compat_has_auth_warshipgirls = yes
