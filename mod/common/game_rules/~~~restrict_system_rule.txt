@@ -6,6 +6,7 @@
 ai_should_restrict_system = {
 	OR = {
 		AND = {
+			has_owner = yes
 			root = {
 				OR = {
 					merg_is_fallen_empire = yes
@@ -18,7 +19,6 @@ ai_should_restrict_system = {
 					}
 				}
 			}
-			exists = owner
 			owner = {
 				OR = {
 					is_country_type = awakened_marauders
@@ -34,6 +34,7 @@ ai_should_restrict_system = {
 			}
 		}
 		AND = {
+			has_owner = yes
 			root = {
 				OR = {
 					is_country_type = caravaneer_fleet
@@ -48,12 +49,11 @@ ai_should_restrict_system = {
 					}
 				}
 			}
-			exists = owner
 			owner = { merg_is_fallen_empire = yes }
 		}
 		AND = {
+			has_owner = yes
 			root = { is_country_type = voidworms }
-			exists = owner
 			owner = {
 				OR = {
 					is_country_type = dormant_marauders
@@ -93,14 +93,23 @@ ai_should_restrict_system = {
 				exists = owner
 				owner = {
 					is_guardian_country = yes
-					is_country_type = crystal
-					is_country_type = amoeba
-					is_country_type = amoeba_garrison
-					is_country_type = drone
+					is_crystal_country_type = yes
+					is_amoeba_country_type = yes
+					is_drone_country_type = yes
 				}
 			}
 		}
 		AND = {
+			OR = {
+				has_star_flag = pike_star_flag_banned_system # ACE
+				AND = {
+					has_star_flag = guardian
+					any_fleet_in_system = {
+						exists = owner
+						owner = { is_country_type = guardian_fortress }
+					}
+				}
+			}
 			root = {
 				OR = {
 					AND = {
@@ -108,17 +117,13 @@ ai_should_restrict_system = {
 						# Gigastructural Engineering & More
 						inline_script = {
 							script = merger_of_rules/toggled_code
-							code = " is_blokkat_country_type = no"
+							code = " is_blokkat_country_type = no "
 							toggle = @has_gigastructures
 						}
 					}
 					merg_is_awakened_fe = yes
+					has_country_flag = pike_assisted_ai # ACE
 				}
-			}
-			has_star_flag = guardian
-			any_fleet_in_system = {
-				exists = owner
-				owner = { is_country_type = guardian_fortress }
 			}
 		}
 		# SirBlackAxe's Unofficial Bug Patch
@@ -150,49 +155,48 @@ ai_should_restrict_system = {
 		# Gigastructural Engineering & More
 		inline_script = {
 			script = merger_of_rules/toggled_code
-			code = " giga_ai_should_restrict_system = yes"
+			code = " giga_ai_should_restrict_system = yes "
 			toggle = @has_gigastructures
 		}
-		# Spaceborne Civs Expanded
-		AND = {
-			root = {
-				OR = {
-					merg_is_fallen_empire = yes
-					is_country_type = awakened_marauders
-					is_country_type = marauder_raiders
-					is_country_type = caravaneer_fleet
-					# The Empty Vagrant
-					inline_script = {
-						script = merger_of_rules/toggled_code
-						code = " is_country_type = awakened_marauders_ev"
-						toggle = @homeless_class_trait_weight
-					}
-				}
-			}
-			OR = {
-				has_star_flag = crystal_home_system
-				has_star_flag = amoeba_home_system
-				has_star_flag = drone_home_system
-			}
-			any_fleet_in_system = {
-				exists = owner
-				owner = {
-					OR = {
-						is_crystal_country_type = yes
-						is_amoeba_country_type = yes
-						is_drone_country_type = yes
-					}
-				}
-			}
-		}
-		# SOFE seems very similar to SBTG (or the same?) and another extension for ACOT?
-		# TODO # # Ancient Cache of Technologies : Secrets Beyond The Gates 1481972266 merg_has_sofe = { has_global_flag = sofe_activated }
+		# JUST SUPERFLOUS Spaceborne Civs Expanded
+		# AND = {
+		# 	root = {
+		# 		OR = {
+		# 			merg_is_fallen_empire = yes
+		# 			is_country_type = awakened_marauders
+		# 			is_country_type = marauder_raiders
+		# 			is_country_type = caravaneer_fleet
+		# 			# The Empty Vagrant
+		# 			inline_script = {
+		# 				script = merger_of_rules/toggled_code
+		# 				code = " is_country_type = awakened_marauders_ev"
+		# 				toggle = @homeless_class_trait_weight
+		# 			}
+		# 		}
+		# 	}
+		# 	OR = {
+		# 		has_star_flag = crystal_home_system
+		# 		has_star_flag = amoeba_home_system
+		# 		has_star_flag = drone_home_system
+		# 	}
+		# 	any_fleet_in_system = {
+		# 		exists = owner
+		# 		owner = {
+		# 			OR = {
+		# 				is_crystal_country_type = yes
+		# 				is_amoeba_country_type = yes
+		# 				is_drone_country_type = yes
+		# 			}
+		# 		}
+		# 	}
+		# }
+		# ACOT STBG TODO # # Ancient Cache of Technologies : Secrets Beyond The Gates 1481972266 (former SOFE) merg_has_sofe = { has_global_flag = sofe_activated }
 		# inline_script = {
 		# 	script = merger_of_rules/toggled_code
 		# 	code = "
 		# 	AND = {
 		# 		root = { merg_is_default_empire = yes }
-		# 		exists = owner
+		# 		has_owner = yes
 		# 		owner = { is_progenitor_empires = yes }
 		# 	}
 		# 	AND = {
@@ -211,21 +215,28 @@ ai_should_restrict_system = {
 		# 	toggle = @has_sbtg_mod
 		# }
 		# General restriction flag (introduced by OldEnt, used by A Deadly Tempest)
-		inline_script = {
-			script = merger_of_rules/toggled_code
-			code = "
-			AND = {
-				root = {
-					OR = {
-						is_crisis_faction = yes
-						has_country_flag = pike_assisted_ai
-					}
-				}
-				has_star_flag = pike_star_flag_banned_system
-			}
-			"
-			toggle = @has_a_deadly_tempest_mod
-		}
+		# inline_script = {
+		# 	script = merger_of_rules/toggled_code
+		# 	code = "
+		# 	AND = {
+		# 		root = {
+		# 			OR = {
+		# 				AND = {
+		# 					is_crisis_faction = yes
+		# 					inline_script = {
+		# 						script = merger_of_rules/toggled_code
+		# 						code = \" is_blokkat_country_type = no \"
+		# 						toggle = @has_gigastructures
+		# 					}
+		# 				}
+		# 				has_country_flag = pike_assisted_ai
+		# 			}
+		# 		}
+		# 		has_star_flag = pike_star_flag_banned_system
+		# 	}
+		# 	"
+		# 	toggle = @has_a_deadly_tempest_mod
+		# }
 		# Ancient Empire (古代帝国) 2389589691
 		inline_script = {
 			script = merger_of_rules/toggled_code
@@ -273,21 +284,20 @@ ai_should_restrict_system = {
 						has_star_flag = guardian
 						any_fleet_in_system = { exists = owner owner = { is_guardian_country = yes } }
 					}
-					AND = { exists = owner owner = { merg_is_fallen_empire = yes } }
+					AND = { has_owner = yes owner = { merg_is_fallen_empire = yes } }
 				}
 			}
 			"
 			toggle = @harvester_beamcage_ship_count # TODO
 		}
-
 		# Scripted Triggers Undercoat
-		# has_star_flag = stu_ai_restrict_system@root
-		# The Sleeper
+		# has_star_flag = stu_ai_restrict_system@root TODO with var?
+		# The Sleeper # Stop FEs from just killing The Sleeper
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
 			AND = {
-				exists = owner
+				has_owner = yes
 				has_star_flag = sleeper_system
 				root = {
 					merg_is_default_empire = yes
@@ -319,15 +329,15 @@ ai_should_restrict_system = {
 				}
 			}
 			AND = {
-				exists = owner
+				has_owner = yes
 				root = { merg_is_fallen_empire = yes }
 				OR = {
 					owner = { is_marauder = yes }
-					any_fleet_in_system = { # Stop FEs FROM just killing the Sleeper
+					any_fleet_in_system = {
 						exists = owner
 						owner = { is_country_type = berserker_awoken_hive }
 					}
-					AND = { # Stop FEs FROM just killing the Sleeper
+					AND = {
 						owner = { is_country_type = the_sleeper_fallen }
 						has_star_flag = sleeper_system
 					}
@@ -342,7 +352,7 @@ ai_should_restrict_system = {
 			code = "
 			AND = {
 				has_star_flag = scfe_ai_avoid_system
-				NOT = { exists = owner }
+				has_owner = no
 			}
 			"
 			toggle = @forgotten_empires

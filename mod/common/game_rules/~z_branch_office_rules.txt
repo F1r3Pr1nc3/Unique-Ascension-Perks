@@ -1,111 +1,3 @@
-# This = country
-can_support_branch_offices = {
-	custom_tooltip = {
-		fail_text = BRANCH_OFFICE_NOT_FALLEN_EMPIRES
-		NOR = {
-			is_fallen_empire = yes
-			# Assault Lily
-			inline_script = {
-				script = merger_of_rules/toggled_code
-				code = "
-					is_country_type = al_fallen_empire
-					is_country_type = al_fallen_empire_no_ai
-				"
-				toggle = @change_planet_size_bullet_num
-			}
-			# Azur Lane Stellaris DLC
-			inline_script = {
-				script = merger_of_rules/toggled_code
-				code = "
-					has_authority = auth_azur_dictatorial
-				"
-				toggle = @azl_mod
-			}
-		}
-	}
-	custom_tooltip = {
-		fail_text = BRANCH_OFFICE_NOT_ON_MEGACORP_PLANET
-		OR = {
-			NOR = {
-				is_megacorp = yes # Vanilla
-				has_civic = civic_galactic_sovereign_megacorp # Vanilla
-				# Assault Lily
-				inline_script = {
-					script = merger_of_rules/toggled_code
-					code = "
-						is_country_type = huge_country
-					"
-					toggle = @change_planet_size_bullet_num
-				}
-				# Arknights Near Future
-				inline_script = {
-					script = merger_of_rules/toggled_code
-					code = "
-						has_valid_civic = civic_business_union
-					"
-					toggle = @arknights_ANF
-				}
-				# Ethics & Civics Infinity
-				inline_script = {
-					script = merger_of_rules/toggled_code
-					code = "
-						is_eci_megacorp = yes
-					"
-					toggle = @post_revolutionary_re_revolution_years
-				}
-				# Warship Girls R And MIST Species
-				inline_script = {
-					script = merger_of_rules/toggled_code
-					code = "
-						AND = {
-							wg_compat_has_auth_shenhai = yes
-							OR = {
-								has_country_flag = pantsu_shop_origin
-								has_valid_civic = civic_sh_criminal_syndicate
-							}
-						}
-					"
-					toggle = @wsg_mod
-				}
-			}
-			# Megacorps can't build on other corps, only criminal corps and Imposed Megacorp.
-			# Unique Ascension Perks
-			inline_script = {
-				script = merger_of_rules/toggled_code
-				code = "
-				NOR = {
-					is_criminal_syndicate = yes
-					has_ascension_perk = ap_megacorp
-				}
-				"
-				toggle = @has_uap_mod
-			}
-		}
-	}
-	custom_tooltip = {
-		fail_text = BRANCH_OFFICE_NOT_REGULAR_EMPIRE
-		NOR = {
-			is_gestalt = yes
-			# Merger of Rules
-			is_country_type = gate_builders
-			is_country_type = awakened_marauders
-		}
-	}
-	custom_tooltip = {
-		fail_text = BRANCH_OFFICE_NOT_ADVANCED_PRE_FTL
-		if = {
-			limit = {
-				is_primitive = yes
-				is_gestalt = no
-			}
-			OR = {
-				has_pre_ftl_age = atomic_age
-				has_pre_ftl_age = early_space_age
-			}
-		}
-	}
-}
-
 # Included in the Merger of Rules (sync with UAP mod)
 # Sync with Powerful & Realistic Orbital Bombardments (only add country flag check prob_no_criminal_branch@root.owner)
 # This = planet
@@ -130,9 +22,7 @@ can_build_branch_office_on_planet = {
 			fail_text = BRANCH_OFFICE_NOT_ON_MEGACORP_PLANET
 			has_owner = yes
 			OR = {
-				root = {
-					has_ascension_perk = ap_megacorp
-				}
+				root = { has_ascension_perk = ap_megacorp }
 				owner = {
 					NOR = {
 						is_megacorp = yes
@@ -362,9 +252,7 @@ can_build_branch_office_on_planet = {
 					# Assault Lily
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = "
-							has_authority = auth_AL_democratic
-						"
+						code = " has_authority = auth_AL_democratic "
 						toggle = @change_planet_size_bullet_num
 					}
 				}
@@ -391,9 +279,7 @@ can_build_branch_office_on_planet = {
 					# Assault Lily
 					inline_script = {
 						script = merger_of_rules/toggled_code
-						code = "
-							has_authority = auth_AL_democratic
-						"
+						code = " has_authority = auth_AL_democratic "
 						toggle = @change_planet_size_bullet_num
 					}
 				}

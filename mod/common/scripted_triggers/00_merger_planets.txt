@@ -1,10 +1,11 @@
 ## For compatibility: Dummy triggers - to be overwritten by their respective mods.
-merg_is_molten = { is_planet_class = pc_molten }
-merg_is_toxic = { is_planet_class = pc_toxic }
-merg_is_frozen = { is_planet_class = pc_frozen }
-merg_is_barren = { is_planet_class = pc_barren }
-merg_is_barren_cold = { is_planet_class = pc_barren_cold }
+merg_is_molten = { optimize_memory is_planet_class = pc_molten }
+merg_is_toxic = { optimize_memory is_planet_class = pc_toxic }
+merg_is_frozen = { optimize_memory is_planet_class = pc_frozen }
+merg_is_barren = { optimize_memory is_planet_class = pc_barren }
+merg_is_barren_cold = { optimize_memory is_planet_class = pc_barren_cold }
 merg_is_arctic = {
+	optimize_memory
 	# OR = {
 	is_planet_class = pc_arctic
 	# 	# Planetary Diversity
@@ -39,6 +40,7 @@ merg_is_gaia_basic = {
 }
 
 merg_is_shielded_world = {
+	optimize_memory
 	OR = {
 		is_planet_class = pc_habitat_shielded
 		is_planet_class = pc_ringworld_shielded
@@ -62,11 +64,18 @@ merg_is_shielded_world = {
 # is_nanite_gaia =				{ always = no }
 # is_nanite_habitat_shielded =	{ always = no }
 # is_nanite_gas_giant = { always = no }
-is_dessanu_relic = { always = no }
-is_ds_skycatcher = { always = no }
+is_dessanu_relic = {
+	optimize_memory
+	always = no
+}
+is_ds_skycatcher = {
+	optimize_memory
+	always = no
+}
 
 # Listing habitats
 merg_is_habitat = {
+	optimize_memory
 	habitable_structure = yes  # Exlcude some entities is_artificial = yes
 	OR = {
 		is_planet_class = pc_habitat
@@ -94,13 +103,13 @@ merg_is_habitat = {
 		# More Events Mod
 		inline_script = {
 			script = merger_of_rules/toggled_code
-			code = "is_pc_mem_vazuran_habitat = yes"
+			code = "is_pc_mem_vazuran_habitat = yes "
 			toggle = @has_more_events_mod
 		}
 		# Girls Frontline
 		inline_script = {
 			script = merger_of_rules/toggled_code
-			code = "is_planet_class = pc_GFnytp_habitis"
+			code = "is_planet_class = pc_GFnytp_habitis "
 			toggle = @gf_compatch_var
 		}
 		# StellarRegulator Array
@@ -110,13 +119,13 @@ merg_is_habitat = {
 		# Wula Fallen Empire
 		inline_script = {
 			script = merger_of_rules/toggled_code
-			code = "is_planet_class = pc_fallen_empire_rogue_trader_habitat"
+			code = "is_planet_class = pc_fallen_empire_rogue_trader_habitat "
 			toggle = @wula_compatch_var
 		}
 		# ZOFE
 		inline_script = {
 			script = merger_of_rules/toggled_code
-			code = "is_planet_class = pc_utopian_habitat"
+			code = "is_planet_class = pc_utopian_habitat "
 			toggle = @has_zofe_vanilla
 		}
 		inline_script = { ## NSC2 Modjam Freebooters Origin
@@ -160,6 +169,7 @@ merg_is_habitat = {
 
 # List of all habitable ringworld sections.
 merg_is_hab_ringworld = {
+	optimize_memory
 	habitable_structure = yes  # Exlcude some ringworld entities is_artificial = yes
 	has_ringworld_output_boost = yes
 	NOT = { is_planet_class = pc_habitat }
@@ -278,9 +288,13 @@ merg_is_machine_world = {
 	}
 }
 
-merg_is_arcology = { is_planet_class = pc_city }
+merg_is_arcology = {
+	optimize_memory
+	is_planet_class = pc_city
+}
 
 merg_is_relic_world = {
+	optimize_memory
 	OR = {
 		is_planet_class = pc_relic
 		inline_script = { # Nanite Machine and Distant Stars Overhaul
