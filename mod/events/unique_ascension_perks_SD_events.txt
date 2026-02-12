@@ -1,3 +1,4 @@
+
 namespace = UniqueAscensionPerksEvents
 
 ######################################
@@ -10,105 +11,255 @@ country_event = {
 	id = UniqueAscensionPerksEvents.1000
 	show_sound = event_mystic_reveal
 	title = "UniqueAscensionPerksEvents.1000.Name"
+
 	desc = {
-		trigger = { text = "ap_space_domestication_desc" text = newline text = "UniqueAscensionPerksEvents.1001.Desc" }
+		trigger = {
+			text = "ap_space_domestication_desc"
+			text = newline
+			text = "UniqueAscensionPerksEvents.1001.Desc"
+		}
 	}
+
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = space_domestication_room }
+
+	picture_event_data = {
+		room = space_domestication_room
+	}
+
 	is_triggered_only = yes
+
 	trigger = {
 		NOR = {
 			has_active_event = { UniqueAscensionPerksEvents.1000 UniqueAscensionPerksEvents.1001 }
 			has_special_project = SPACE_DOMESTICATION
 		}
 	}
+
 	# immediate = {}
 	# after = {}
-	option = { name = "NAME_Tiyanki_Space_Whale" allow = { has_technology = tech_space_whale_weapon_1 } custom_tooltip = "domesticated_tiyanki_tooltip_1" custom_tooltip = "domesticated_tiyanki_tooltip_2" hidden_effect = { set_country_flag = space_domestication_tiyanki set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = "space_amoeba" allow = { has_technology = tech_amoeba_strike_craft_1 } custom_tooltip = "domesticated_amoeba_tooltip_1" custom_tooltip = "domesticated_amoeba_tooltip_2" hidden_effect = { set_country_flag = space_domestication_amoeba set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = "NAME_Crystalline_Entity" allow = { OR = { has_technology = tech_crystal_armor_1 has_technology = tech_crystal_armor_2 } } custom_tooltip = "domesticated_crystals_tooltip_1" custom_tooltip = "domesticated_crystals_tooltip_2" hidden_effect = { set_country_flag = space_domestication_crystal set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = "clouds_1_chain_title" allow = { has_technology = tech_space_cloud_weapon_1 } custom_tooltip = "domesticated_cloud_tooltip_1" custom_tooltip = "domesticated_cloud_tooltip_2" hidden_effect = { set_country_flag = space_domestication_cloud set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = "job_mining_drone" allow = { has_technology = tech_mining_drone_weapon_1 } custom_tooltip = "domesticated_drones_tooltip_1" custom_tooltip = "domesticated_drones_tooltip_2" hidden_effect = { set_country_flag = space_domestication_drone set_country_flag = space_domestication_selected country_event = { id = UniqueAscensionPerksEvents.1001 } } }
-	option = { name = EXIT ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = "NAME_Tiyanki_Space_Whale"
+		allow = { has_technology = tech_space_whale_weapon_1 }
+		custom_tooltip = "domesticated_tiyanki_tooltip_1"
+		custom_tooltip = "domesticated_tiyanki_tooltip_2"
+		hidden_effect = {
+			set_country_flag = space_domestication_tiyanki
+			set_country_flag = space_domestication_selected
+			country_event = { id = UniqueAscensionPerksEvents.1001 }
+		}
+	}
+	option = {
+		name = "space_amoeba"
+		allow = { has_technology = tech_amoeba_strike_craft_1 }
+		custom_tooltip = "domesticated_amoeba_tooltip_1"
+		custom_tooltip = "domesticated_amoeba_tooltip_2"
+		hidden_effect = {
+			set_country_flag = space_domestication_amoeba
+			set_country_flag = space_domestication_selected
+			country_event = { id = UniqueAscensionPerksEvents.1001 }
+		}
+	}
+	option = {
+		name = "NAME_Crystalline_Entity"
+		allow = {
+			OR = {
+				has_technology = tech_crystal_armor_1
+				has_technology = tech_crystal_armor_2
+			}
+		}
+		custom_tooltip = "domesticated_crystals_tooltip_1"
+		custom_tooltip = "domesticated_crystals_tooltip_2"
+		hidden_effect = {
+			set_country_flag = space_domestication_crystal
+			set_country_flag = space_domestication_selected
+			country_event = { id = UniqueAscensionPerksEvents.1001 }
+		}
+	}
+	option = {
+		name = "clouds_1_chain_title"
+		allow = { has_technology = tech_space_cloud_weapon_1 }
+		custom_tooltip = "domesticated_cloud_tooltip_1"
+		custom_tooltip = "domesticated_cloud_tooltip_2"
+		hidden_effect = {
+			set_country_flag = space_domestication_cloud
+			set_country_flag = space_domestication_selected
+			country_event = { id = UniqueAscensionPerksEvents.1001 }
+		}
+	}
+	option = {
+		name = "job_mining_drone"
+		allow = { has_technology = tech_mining_drone_weapon_1 }
+		custom_tooltip = "domesticated_drones_tooltip_1"
+		custom_tooltip = "domesticated_drones_tooltip_2"
+		hidden_effect = {
+			set_country_flag = space_domestication_drone
+			set_country_flag = space_domestication_selected
+			country_event = { id = UniqueAscensionPerksEvents.1001 }
+		}
+	}
+	option = {
+		name = EXIT
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.1001
 	title = "UniqueAscensionPerksEvents.1001.Name"
+
 	desc = {
 		trigger = {
-			success_text = { text = "UniqueAscensionPerksEvents.1001.Tiyanki"	has_country_flag = space_domestication_tiyanki }
-			success_text = { text = "UniqueAscensionPerksEvents.1001.Amoeba"	has_country_flag = space_domestication_amoeba }
-			success_text = { text = "UniqueAscensionPerksEvents.1001.Crystal"	has_country_flag = space_domestication_crystal }
-			success_text = { text = "UniqueAscensionPerksEvents.1001.Cloud"		has_country_flag = space_domestication_cloud }
-			success_text = { text = "UniqueAscensionPerksEvents.1001.Drone"		has_country_flag = space_domestication_drone }
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1001.Tiyanki"
+				has_country_flag = space_domestication_tiyanki
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1001.Amoeba"
+				has_country_flag = space_domestication_amoeba
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1001.Crystal"
+				has_country_flag = space_domestication_crystal
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1001.Cloud"
+				has_country_flag = space_domestication_cloud
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1001.Drone"
+				has_country_flag = space_domestication_drone
+			}
 			text = newline
 			text = "UniqueAscensionPerksEvents.1001.Desc"
 		}
 	}
+
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = space_domestication_room }
+
+	picture_event_data = {
+		room = space_domestication_room
+	}
+
 	is_triggered_only = yes
+
 	trigger = {
 		NOR = {
 			has_active_event = { UniqueAscensionPerksEvents.1001 }
 			has_special_project = SPACE_DOMESTICATION
 		}
 	}
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT enable_special_project = { name = SPACE_DOMESTICATION location = event_target:capital_planet owner = root } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+		enable_special_project = {
+			name = SPACE_DOMESTICATION
+			location = event_target:capital_planet
+			owner = root
+		}
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.1002
 	title = "UniqueAscensionPerksEvents.1002.Name"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.1002.Desc"
 			text = newline
 			text = "UniqueAscensionPerksEvents.1002.Selected"
-			success_text = { text = "UniqueAscensionPerksEvents.1002.Tiyanki"	has_country_flag = space_domestication_tiyanki }
-			success_text = { text = "UniqueAscensionPerksEvents.1002.Amoeba"	has_country_flag = space_domestication_amoeba }
-			success_text = { text = "UniqueAscensionPerksEvents.1002.Crystal"	has_country_flag = space_domestication_crystal }
-			success_text = { text = "UniqueAscensionPerksEvents.1002.Cloud"		has_country_flag = space_domestication_cloud }
-			success_text = { text = "UniqueAscensionPerksEvents.1002.Drone"		has_country_flag = space_domestication_drone }
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1002.Tiyanki"
+				has_country_flag = space_domestication_tiyanki
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1002.Amoeba"
+				has_country_flag = space_domestication_amoeba
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1002.Crystal"
+				has_country_flag = space_domestication_crystal
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1002.Cloud"
+				has_country_flag = space_domestication_cloud
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1002.Drone"
+				has_country_flag = space_domestication_drone
+			}
 		}
 	}
+
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = space_domestication_room }
+
+	picture_event_data = {
+		room = space_domestication_room
+	}
+
 	is_triggered_only = yes
-	trigger = { NOT = { has_country_flag = space_domestication_engaged } }
+
+	trigger = {
+		NOT = { has_country_flag = space_domestication_engaged }
+	}
+
 	immediate = {
 		set_country_flag = space_domestication_engaged
 		save_event_target_as = main_country
 		if = {
-			limit = { NOT = { has_country_flag = space_domestication_project_completed } }
+			limit = {
+				NOT = { has_country_flag = space_domestication_project_completed }
+			}
 			create_domestication_spaceborn_alien_country = yes
 			set_country_flag = space_domestication_project_completed
 		}
 		else_if = {
-			limit = { NOT = { exists = event_target:domesticated_spaceborn_alien } }
+			limit = {
+				NOT = { exists = event_target:domesticated_spaceborn_alien }
+			}
 			random_relation = {
-				limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+				limit = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+				}
 				save_event_target_as = domesticated_spaceborn_alien
 			}
 		}
 		# Fallback for wathever reason
 		if = {
-			limit = { NOT = { exists = event_target:domesticated_spaceborn_alien } }
-			if = { limit = { any_country = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } }
+			limit = {
+				NOT = { exists = event_target:domesticated_spaceborn_alien }
+			}
+			if = {
+				limit = {
+					any_country = {
+						is_country_type = domesticated_spaceborn_alien
+						has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+					}
+				}
 				random_country = {
-					limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = root flag = domesticated_spaceborn_alien } }
+					limit = {
+						is_country_type = domesticated_spaceborn_alien
+						has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+					}
 					save_event_target_as = domesticated_spaceborn_alien
 				}
 			}
-			else = { create_domestication_spaceborn_alien_country = yes }
+			else = {
+				create_domestication_spaceborn_alien_country = yes
+			}
 		}
 		run_in_ai_mode = yes # Without this immediate is not invoked when event runs in a special mode that allows AI to collect trade data
 	}
+
 	after = {
 		hidden_effect = {
 			if = {
@@ -118,11 +269,20 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Breeding"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 is_subject = no }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_fertilization_protocol } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				is_subject = no
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				NOT = {
+					has_country_flag = space_domestication_fertilization_protocol
+				}
+			}
 			custom_tooltip = {
 				fail_text = "breeding_fertilization_protocol_req" # CAN_BREEDING_FERTILIZATION_PROTOCOL
 				can_SD_protocol = { RSC = 3000 }
@@ -139,7 +299,10 @@ country_event = {
 		}
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1010 days = 360 }
-			set_timed_country_flag = { flag = space_domestication_fertilization_protocol years = 1 }
+			set_timed_country_flag = {
+				flag = space_domestication_fertilization_protocol
+				years = 1
+			}
 			# BREEDING_FERTILIZATION_PROTOCOL
 			random_planet_within_border = {
 				limit = { has_planet_flag = domesticated_alien_home }
@@ -156,7 +319,6 @@ country_event = {
 			event_target:domesticated_spaceborn_alien = {
 				create_fleet = {
 					name = "Domesticated Fertilized Aliens"
-					settings = { spawn_debris = no is_boss = yes }
 					effect = {
 						set_owner = event_target:domesticated_spaceborn_alien
 						event_target:main_country = {
@@ -168,13 +330,21 @@ country_event = {
 								space_domestication_drone	= { prev = { create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } } }
 							}
 						}
-						set_location = { target = event_target:spawn_location distance = 10 angle = random }
+						set_location = {
+							target = event_target:spawn_location
+							distance = 10
+							angle = random
+						}
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
 						set_aggro_range = 5000
 						set_formation_scale = 4.0
 						set_fleet_flag = domesticated_fleet
 						set_fleet_flag = domesticated_mother_fleet
+					}
+					settings = {
+						spawn_debris = no
+						is_boss = yes
 					}
 				}
 			}
@@ -183,14 +353,19 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Gathering"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_resources_protocol } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				NOT = { has_country_flag = space_domestication_resources_protocol }
+			}
 			custom_tooltip = {
 				fail_text = "resources_gathering_protocol_req" # CAN_RESOURCES_GATHERING_PROTOCOL
 				can_SD_protocol = { RSC = 800 }
 			}
 			custom_tooltip = {
 				fail_text = "no_fertilized_fleet_req" # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
-				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
+				event_target:domesticated_spaceborn_alien = {
+					any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet }
+				}
 			}
 		}
 		custom_tooltip = "resources_gathering_protocol_tooltip"
@@ -204,15 +379,26 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Military"
 		allow = {
-			custom_tooltip = { fail_text = requires_independence is_subject = no }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req03 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
+			custom_tooltip = {
+				fail_text = requires_independence
+				is_subject = no
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req03
+				NOR = {
+					has_country_flag = space_domestication_security_protocol
+					has_country_flag = space_domestication_military_protocol
+				}
+			}
 			custom_tooltip = {
 				fail_text = "military_assault_protocol_req" # CAN_MILITARY_ASSAULT_PROTOCOL
 				can_SD_protocol = { RSC = 5000 }
 			}
 			custom_tooltip = {
 				fail_text = "no_fertilized_fleet_req" # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
-				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
+				event_target:domesticated_spaceborn_alien = {
+					any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet }
+				}
 			}
 		}
 		custom_tooltip = "military_assault_protocol_tooltip" # MILITARY_ASSAULT_PROTOCOL_PAYING
@@ -231,8 +417,17 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Security"
 		allow = {
-			custom_tooltip = { fail_text = requires_independence is_subject = no }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req04 NOR = { has_country_flag = space_domestication_security_protocol has_country_flag = space_domestication_military_protocol } }
+			custom_tooltip = {
+				fail_text = requires_independence
+				is_subject = no
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req04
+				NOR = {
+					has_country_flag = space_domestication_security_protocol
+					has_country_flag = space_domestication_military_protocol
+				}
+			}
 			custom_tooltip = {
 				fail_text = "military_assault_protocol_req" # CAN_SECURITY_DEFENSE_PROTOCOL
 				can_SD_protocol = { RSC = 5000 }
@@ -254,7 +449,10 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Assistance"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_research_protocol } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				NOT = { has_country_flag = space_domestication_research_protocol }
+			}
 			custom_tooltip = {
 				fail_text = "resources_gathering_protocol_req" # CAN_RESEARCH_ASSISTANCE_PROTOCOL
 				can_SD_protocol = { RSC = 800 }
@@ -270,20 +468,35 @@ country_event = {
 	}
 	option = {
 		name = EXIT
-		hidden_effect = { remove_country_flag = space_domestication_engaged }
+		hidden_effect = {
+			remove_country_flag = space_domestication_engaged
+		}
 		ai_chance = { factor = 0.1 }
 		default_hide_option = yes
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1002.Kill" # DOMESTICATED_KILL_ALL_DOMESTICATED_ALIENS
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_all_killed } }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req05 event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_fleet } } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				NOT = { has_country_flag = space_domestication_all_killed }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req05
+				event_target:domesticated_spaceborn_alien = {
+					any_owned_fleet = { has_fleet_flag = domesticated_fleet }
+				}
+			}
 		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1002.Kill.tooltip"  # SPACE_DOMESTICATION_KILL_THEM
 		hidden_effect = {
 			set_timed_country_flag = { flag = space_domestication_all_killed years = 1 }
-			event_target:domesticated_spaceborn_alien = { every_controlled_fleet = { limit = { has_fleet_flag = domesticated_fleet } destroy_fleet = this } }
+			event_target:domesticated_spaceborn_alien = {
+				every_controlled_fleet = {
+					limit = { has_fleet_flag = domesticated_fleet }
+					destroy_fleet = this
+				}
+			}
 		}
 	}
 }
@@ -296,16 +509,29 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1010 } }
 	}
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "UniqueAscensionPerks.lets_see"
-		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+		trigger = {
+			NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1002 }
+		}
 	}
-	option = { name = OK default_hide_option = yes ai_chance = { factor = 0.1 } }
+	option = {
+		name = OK
+		default_hide_option = yes
+		ai_chance = { factor = 0.1 }
+	}
 }
 
 country_event = {
@@ -316,26 +542,40 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1011 } }
 	}
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "UniqueAscensionPerks.lets_see"
-		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+		trigger = {
+			NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1002 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1011.b"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_resources_protocol } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				NOT = { has_country_flag = space_domestication_resources_protocol }
+			}
 			custom_tooltip = {
 				fail_text = "resources_gathering_protocol_req" # CAN_RESOURCES_GATHERING_PROTOCOL
 				can_SD_protocol = { RSC = 800 }
 			}
 			custom_tooltip = {
 				fail_text = "no_fertilized_fleet_req" # DOMESTICATED_ALIEN_HAS_FERTILIZED_FLEET
-				event_target:domesticated_spaceborn_alien = { any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet } }
+				event_target:domesticated_spaceborn_alien = {
+					any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet }
+				}
 			}
 		}
 		custom_tooltip = "resources_gathering_protocol_tooltip"
@@ -346,7 +586,11 @@ country_event = {
 			resources_gathering_protocol = yes
 		}
 	}
-	option = { name = OK default_hide_option = yes ai_chance = { factor = 0.1 } }
+	option = {
+		name = OK
+		default_hide_option = yes
+		ai_chance = { factor = 0.1 }
+	}
 }
 
 country_event = {
@@ -357,16 +601,29 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1012 } }
 	}
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "UniqueAscensionPerks.lets_see"
-		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+		trigger = {
+			NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1002 }
+		}
 	}
-	option = { name = OK default_hide_option = yes ai_chance = { factor = 0.1 } }
+	option = {
+		name = OK
+		default_hide_option = yes
+		ai_chance = { factor = 0.1 }
+	}
 }
 
 country_event = {
@@ -377,16 +634,29 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1013 } }
 	}
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "UniqueAscensionPerks.lets_see"
-		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+		trigger = {
+			NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1002 }
+		}
 	}
-	option = { name = OK default_hide_option = yes ai_chance = { factor = 0.1 } }
+	option = {
+		name = OK
+		default_hide_option = yes
+		ai_chance = { factor = 0.1 }
+	}
 }
 
 country_event = {
@@ -397,19 +667,31 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1014 } }
 	}
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "UniqueAscensionPerks.lets_see"
-		trigger = { NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1002 } }
+		trigger = {
+			NOT = { has_active_event = { UniqueAscensionPerksEvents.1002 } }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1002 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1011.b"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1002.Req02 NOT = { has_country_flag = space_domestication_research_protocol } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1002.Req02
+				NOT = { has_country_flag = space_domestication_research_protocol }
+			}
 			custom_tooltip = {
 				fail_text = "resources_gathering_protocol_req" # CAN_RESEARCH_ASSISTANCE_PROTOCOL
 				can_SD_protocol = { RSC = 800 }
@@ -423,7 +705,11 @@ country_event = {
 			research_assistance_protocol = yes
 		}
 	}
-	option = { name = OK default_hide_option = yes ai_chance = { factor = 0.1 } }
+	option = {
+		name = OK
+		default_hide_option = yes
+		ai_chance = { factor = 0.1 }
+	}
 }
 
 # Recover Space Domestication - on_bi_monthly_pulse (indirect)
@@ -435,10 +721,18 @@ country_event = {
 	# trigger = { }
 	immediate = {
 		if = {
-			limit = { any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } } }
+			limit = {
+				any_relation = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+				}
+			}
 			# Control domesticated_spaceborn_alien
 			random_relation = {
-				limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
+				limit = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+				}
 				save_event_target_as = domesticated_spaceborn_alien
 				# if = { limit = { prev = { is_subject = yes } }
 				# 	# Remove domesticated_spaceborn_alien
@@ -446,7 +740,13 @@ country_event = {
 				# 	destroy_country = yes
 				# } else = {
 				every_controlled_fleet = {
-					limit = { is_ship_class = shipclass_starbase solar_system = { exists = space_owner space_owner = { is_same_empire = event_target:domesticated_spaceborn_alien } } }
+					limit = {
+						is_ship_class = shipclass_starbase
+						solar_system = {
+							exists = space_owner
+							space_owner = { is_same_empire = event_target:domesticated_spaceborn_alien }
+						}
+					}
 					set_owner = prevprev
 					set_controller = prevprev
 				}
@@ -462,10 +762,22 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.1030 days = 3 } # Take actions
 			if = {
 				limit = {
-					OR = { has_country_flag = space_domestication_military_protocol has_country_flag = space_domestication_security_protocol }
+					OR = {
+						has_country_flag = space_domestication_military_protocol
+						has_country_flag = space_domestication_security_protocol
+					}
 					event_target:domesticated_spaceborn_alien = {
-						any_owned_fleet = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
-						count_owned_fleet = { count < 21 limit = { is_civilian = no has_fleet_flag = domesticated_military_fleet } }
+						any_owned_fleet = {
+							has_fleet_flag = domesticated_mother_fleet
+							NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith }
+						}
+						count_owned_fleet = {
+							count < 21
+							limit = {
+								is_civilian = no
+								has_fleet_flag = domesticated_military_fleet
+							}
+						}
 					}
 				}
 				# save_event_target_as = main_country
@@ -476,13 +788,20 @@ country_event = {
 				# SPACE_DOMESTICATION_CONSTANT_BREED_EVENT
 				event_target:domesticated_spaceborn_alien = {
 					random_owned_fleet = {
-						limit = { has_fleet_flag = domesticated_mother_fleet NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith } }
+						limit = {
+							has_fleet_flag = domesticated_mother_fleet
+							NOT = { has_fleet_flag = domesticated_mother_fleet_gave_bith }
+						}
 						save_event_target_as = domesticated_mother_fleet
 						if = {
-							limit = { root = { has_country_flag = space_domestication_amoeba } }
+							limit = {
+								root = { has_country_flag = space_domestication_amoeba }
+							}
 							set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 2 }
 						}
-						else = { set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 3 } }
+						else = {
+							set_timed_fleet_flag = { flag = domesticated_mother_fleet_gave_bith months = 3 }
+						}
 					}
 					create_fleet = {
 						name = ""
@@ -540,7 +859,11 @@ country_event = {
 									}
 								}
 							}
-							set_location = { target = event_target:domesticated_mother_fleet distance = 5 angle = random }
+							set_location = {
+								target = event_target:domesticated_mother_fleet
+								distance = 5
+								angle = random
+							}
 							set_fleet_stance = aggressive
 							set_aggro_range_measure_from = self
 							set_aggro_range = 5000
@@ -549,11 +872,17 @@ country_event = {
 							prev = {
 								if = {
 									limit = { has_country_flag = space_domestication_military_protocol }
-									prev = { set_fleet_flag = domesticated_military_fleet set_name = "Domesticated Military Aliens" }
+									prev = {
+										set_fleet_flag = domesticated_military_fleet
+										set_name = "Domesticated Military Aliens"
+									}
 								}
 								else_if = {
 									limit = { has_country_flag = space_domestication_security_protocol }
-									prev = { set_fleet_flag = domesticated_security_fleet set_name = "Domesticated Security Aliens" }
+									prev = {
+										set_fleet_flag = domesticated_security_fleet
+										set_name = "Domesticated Security Aliens"
+									}
 								}
 							}
 						}
@@ -569,19 +898,26 @@ country_event = {
 	id = UniqueAscensionPerksEvents.1021
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
+		exists = from
 		OR = {
 			is_country_type = domesticated_spaceborn_alien
 			from = { is_country_type = domesticated_spaceborn_alien }
 		}
+		exists = fromfrom
 		OR = {
 			fromfrom = { has_fleet_flag = domesticated_fleet has_auto_move_target = yes }
 			fromfromfrom = { has_fleet_flag = domesticated_fleet has_auto_move_target = yes }
 		}
 	}
+
 	immediate = {
 		if = {
-			limit = { is_country_type = domesticated_spaceborn_alien fromfrom = { has_fleet_flag = domesticated_fleet } }
+			limit = {
+				is_country_type = domesticated_spaceborn_alien
+				fromfrom = { has_fleet_flag = domesticated_fleet }
+			}
 			fromfrom = { remove_auto_move_target = yes }
 		}
 		else = {
@@ -598,7 +934,12 @@ country_event = {
 	id = UniqueAscensionPerksEvents.1025
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { is_country_type = domesticated_spaceborn_alien has_country_flag = domesticated_spaceborn_alien_cloud }
+
+	trigger = {
+		is_country_type = domesticated_spaceborn_alien
+		has_country_flag = domesticated_spaceborn_alien_cloud
+	}
+
 	immediate = {
 		fromfrom = {
 			fleet_event = { id = UniqueAscensionPerksEvents.1026 days = 14 random = 7 }
@@ -612,6 +953,7 @@ fleet_event = {
 	id = UniqueAscensionPerksEvents.1026
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		# space_domestication_cloud_multiplication = yes
 		if = {
@@ -621,21 +963,40 @@ fleet_event = {
 				name = "NAME_Effluvial_Offspring"
 				effect = {
 					set_owner = root.owner
-					while = { count = 3 create_ship = { name = "" design = "NAME_Dom_Cloud" } }
-					while = { count = 2 random = { chance = 50 create_ship = { name = "" design = "NAME_Dom_Cloud" } } }
-					set_location = { target = event_target:spawn_location distance = 5 angle = random }
+					while = {
+						count = 3
+						create_ship = { name = "" design = "NAME_Dom_Cloud" }
+					}
+					while = {
+						count = 2
+						random = {
+							chance = 50
+							create_ship = { name = "" design = "NAME_Dom_Cloud" }
+						}
+					}
+					set_location = {
+						target = event_target:spawn_location
+						distance = 5
+						angle = random
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 5000
 					set_formation_scale = 4.0
 					set_fleet_flag = domesticated_fleet
 					if = {
-						limit = { event_target:spawn_location = { has_fleet_flag = domesticated_military_fleet } }
-						set_fleet_flag = domesticated_military_fleet set_name = "Military Effluvial Offspring"
+						limit = {
+							event_target:spawn_location = { has_fleet_flag = domesticated_military_fleet }
+						}
+						set_fleet_flag = domesticated_military_fleet
+						set_name = "Military Effluvial Offspring"
 					}
 					else_if = {
-						limit = { event_target:spawn_location = { has_fleet_flag = domesticated_security_fleet } }
-						set_fleet_flag = domesticated_security_fleet set_name = "Security Effluvial Offspring"
+						limit = {
+							event_target:spawn_location = { has_fleet_flag = domesticated_security_fleet }
+						}
+						set_fleet_flag = domesticated_security_fleet
+						set_name = "Security Effluvial Offspring"
 					}
 				}
 			}
@@ -645,6 +1006,7 @@ fleet_event = {
 		}
 	}
 }
+
 # Take actions - on_bi_monthly_pulse (indirect)
 # Compare: DS - .231
 country_event = {
@@ -652,8 +1014,11 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { days = 14 }
-	trigger = { exists = event_target:domesticated_spaceborn_alien }
-	immediate =	{
+	trigger = {
+		exists = event_target:domesticated_spaceborn_alien
+	}
+
+	immediate = {
 		# SPACE_DOMESTICATION_IDLE_FLEET_SELECTION
 		# save_event_target_as = main_country # Just for is_valid_target_for_domesticated_aliens_security
 		event_target:domesticated_spaceborn_alien = {
@@ -668,9 +1033,14 @@ country_event = {
 							has_fleet_flag = domesticated_security_fleet
 							NOT = { has_fleet_flag = defender }
 							OR = {
-								NOR = { has_fleet_flag = patroller has_fleet_flag = mobile_defender }
+								NOR = {
+									has_fleet_flag = patroller
+									has_fleet_flag = mobile_defender
+								}
 								root = {
-									any_system_within_border = { any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes } }
+									any_system_within_border = {
+										any_fleet_in_system = { is_valid_target_for_domesticated_aliens_security = yes }
+									}
 								}
 							}
 						}
@@ -686,7 +1056,8 @@ fleet_event = {
 	id = UniqueAscensionPerksEvents.1031
 	hide_window = yes
 	is_triggered_only = yes
-	immediate =	{
+
+	immediate = {
 		# SPACE_DOMESTICATION_IDLE_FLEET_ACTION
 		# owner = {
 		# 	save_event_target_as = domesticated_spaceborn_alien
@@ -886,6 +1257,7 @@ fleet_event = {
 		}
 	}
 }
+
 ## Compare factions.10 on_fleet_destroyed_perp
 # country_event = {
 # 	id = UniqueAscensionPerksEvents.1049
@@ -921,15 +1293,33 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	desc = {
-		trigger = { text = "ap_leviathan_master_desc" text = newline text = "UniqueAscensionPerksEvents.1051.Desc" }
+		trigger = {
+			text = "ap_leviathan_master_desc"
+			text = newline
+			text = "UniqueAscensionPerksEvents.1051.Desc"
+		}
 	}
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT
-		enable_special_project = { name = LEVIATHAN_MASTER location = event_target:capital_planet owner = root }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+		enable_special_project = {
+			name = LEVIATHAN_MASTER
+			location = event_target:capital_planet
+			owner = root
+		}
 	}
 }
 
@@ -939,22 +1329,43 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
-	desc = {
-		trigger = { text = "UniqueAscensionPerksEvents.1052.Talk.1" text = newline text = "UniqueAscensionPerksEvents.1052.Talk.2" }
+
+	picture_event_data = {
+		room = leviathan_master_room
 	}
+
+	desc = {
+		trigger = {
+			text = "UniqueAscensionPerksEvents.1052.Talk.1"
+			text = newline
+			text = "UniqueAscensionPerksEvents.1052.Talk.2"
+		}
+	}
+
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1052 UniqueAscensionPerksEvents.1056 } }
 	}
-	immediate = { set_country_flag = leviathan_master_project }
+
+	immediate = {
+		set_country_flag = leviathan_master_project
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.1052.a"
 		add_resource = { food = -1 }
 		custom_tooltip = "edict_contact_leviathan_master_unlock"
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1056 } set_country_flag = summoning_leviathan_present }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1056 }
+			set_country_flag = summoning_leviathan_present
+		}
 	}
-	option = { name = "cara_home_exit" ai_chance = { factor = 0.1 } custom_tooltip = "edict_contact_leviathan_master_unlock" }
+	option = {
+		name = "cara_home_exit"
+		ai_chance = { factor = 0.1 }
+		custom_tooltip = "edict_contact_leviathan_master_unlock"
+	}
 }
 
 country_event = {
@@ -964,43 +1375,85 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1055 } }
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.1052.a"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1056 } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1056 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1055.Knowledge"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req02 NOT = { has_modifier = leviathan_sharing_knowledge } } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1057 } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req02
+				NOT = { has_modifier = leviathan_sharing_knowledge }
+			}
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1057 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1055.Sacrifice"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req03 num_sapient_pops > 25 any_owned_planet = { num_sapient_pops > 19 } }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req03
+				sapient_pop_amount > 2500
+				any_owned_planet = { sapient_pop_amount > 19 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
 		}
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1058 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1058 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1055.Attack"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req05 any_relation = { ROOT = { is_rival = prev } } }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req05
+				any_relation = { root = { is_rival = prev } }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req06
+				NOT = { has_country_flag = leviathan_attacked_rival_cooldown }
+			}
 		}
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1059 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1059 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1055.Hell"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req07 NOT = { has_country_flag = leviathan_master_provocation_delay } } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req07
+				NOT = { has_country_flag = leviathan_master_provocation_delay }
+			}
+		}
 		custom_tooltip = "leviathan_master_provocation"
 		hidden_effect = {
-			set_timed_country_flag = { flag = leviathan_master_provocation_delay days = 10 }# 30
+			set_timed_country_flag = { flag = leviathan_master_provocation_delay days = 10 } # 30
 			country_event = { id = UniqueAscensionPerksEvents.1060 }
 			random_list = {
 				4 = { set_country_flag = leviathan_master_provocation_ignore }
@@ -1012,7 +1465,11 @@ country_event = {
 			}
 		}
 	}
-	option = { name = "cara_home_exit" ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = "cara_home_exit"
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -1022,89 +1479,325 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	trigger = {
 		NOR = {
 			has_active_event = { UniqueAscensionPerksEvents.1056 }
 			has_special_project = LEVIATHAN_MASTER_SUMMON
 		}
 	}
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "leviathans.510.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 15000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -15000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_drake set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 15000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -15000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_drake
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "NAME_Stellarite_Devourer"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_stellarite set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 10000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -10000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_stellarite
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1056.Wraith"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_spectre set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 10000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -10000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_spectre
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "leviathans.540.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_dreadnought set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 10000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -10000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_dreadnought
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "NAME_Scavenger_Bot"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_scavenger set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 10000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -10000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_scavenger
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "leviathans.556.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 5000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -5000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_matriarch set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 5000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -5000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_matriarch
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "distar.5011.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 5000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -5000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_voidspawn set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 5000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -5000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_voidspawn
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "leviathans.535.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 10000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -10000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_machine set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 10000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -10000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_machine
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
 	option = {
 		name = "leviathans.525.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 15000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 15000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1056.Horror.tooltip"
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -15000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_horror set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1061 } }
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -15000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_horror
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1061 }
+		}
 	}
 	option = {
 		name = "leviathans.515.name"
-		allow = { OR = { has_country_flag = summoning_leviathan_present has_country_resource = { type = food amount > 15000 } } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req01 NOT = { has_country_flag = summoning_leviathan } } }
+		allow = {
+			OR = {
+				has_country_flag = summoning_leviathan_present
+				has_country_resource = { type = food amount > 15000 }
+			}
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req01
+				NOT = { has_country_flag = summoning_leviathan }
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1056.Horror.tooltip"
-		if = { limit = { NOT = { has_country_flag = summoning_leviathan_present } } add_resource = { food = -15000 } }
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:capital_planet owner = root }
-		hidden_effect = { set_country_flag = summoning_leviathan_fortress set_country_flag = summoning_leviathan country_event = { id = UniqueAscensionPerksEvents.1061 } }
+		if = {
+			limit = {
+				NOT = { has_country_flag = summoning_leviathan_present }
+			}
+			add_resource = { food = -15000 }
+		}
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:capital_planet
+			owner = root
+		}
+		hidden_effect = {
+			set_country_flag = summoning_leviathan_fortress
+			set_country_flag = summoning_leviathan
+			country_event = { id = UniqueAscensionPerksEvents.1061 }
+		}
 	}
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -1114,69 +1807,177 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
-		random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_size > starbase_starport } }
+		random_system_within_border = {
+			limit = {
+				exists = starbase
+				starbase = { has_starbase_size > starbase_starport }
+			}
 			save_event_target_as = starbase_target_1
-			root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_size > starbase_starport } NOT = { is_same_value = event_target:starbase_target_1 } }
-				save_event_target_as = starbase_target_2
-				root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_size > starbase_starport } NOR = { is_same_value = event_target:starbase_target_1 is_same_value = event_target:starbase_target_2 } }
-					save_event_target_as = starbase_target_3
-					root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_size > starbase_starport } NOR = { is_same_value = event_target:starbase_target_1 is_same_value = event_target:starbase_target_2 is_same_value = event_target:starbase_target_3 } }
-						save_event_target_as = starbase_target_4
-						root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_size > starbase_starport } NOR = { is_same_value = event_target:starbase_target_1 is_same_value = event_target:starbase_target_2 is_same_value = event_target:starbase_target_3 is_same_value = event_target:starbase_target_4 } }
-							save_event_target_as = starbase_target_5
-							root = { random_system_within_border = { limit = { exists = starbase starbase = { has_starbase_size > starbase_starport } NOR = { is_same_value = event_target:starbase_target_1 is_same_value = event_target:starbase_target_2 is_same_value = event_target:starbase_target_3 is_same_value = event_target:starbase_target_4 is_same_value = event_target:starbase_target_5 } } save_event_target_as = starbase_target_6 } }
-						} }
-					} }
-				} }
-			} }
+			root = {
+				random_system_within_border = {
+					limit = {
+						exists = starbase
+						starbase = { has_starbase_size > starbase_starport }
+						NOT = { is_same_value = event_target:starbase_target_1 }
+					}
+					save_event_target_as = starbase_target_2
+					root = {
+						random_system_within_border = {
+							limit = {
+								exists = starbase
+								starbase = { has_starbase_size > starbase_starport }
+								NOR = {
+									is_same_value = event_target:starbase_target_1
+									is_same_value = event_target:starbase_target_2
+								}
+							}
+							save_event_target_as = starbase_target_3
+							root = {
+								random_system_within_border = {
+									limit = {
+										exists = starbase
+										starbase = { has_starbase_size > starbase_starport }
+										NOR = {
+											is_same_value = event_target:starbase_target_1
+											is_same_value = event_target:starbase_target_2
+											is_same_value = event_target:starbase_target_3
+										}
+									}
+									save_event_target_as = starbase_target_4
+									root = {
+										random_system_within_border = {
+											limit = {
+												exists = starbase
+												starbase = { has_starbase_size > starbase_starport }
+												NOR = {
+													is_same_value = event_target:starbase_target_1
+													is_same_value = event_target:starbase_target_2
+													is_same_value = event_target:starbase_target_3
+													is_same_value = event_target:starbase_target_4
+												}
+											}
+											save_event_target_as = starbase_target_5
+											root = {
+												random_system_within_border = {
+													limit = {
+														exists = starbase
+														starbase = { has_starbase_size > starbase_starport }
+														NOR = {
+															is_same_value = event_target:starbase_target_1
+															is_same_value = event_target:starbase_target_2
+															is_same_value = event_target:starbase_target_3
+															is_same_value = event_target:starbase_target_4
+															is_same_value = event_target:starbase_target_5
+														}
+													}
+													save_event_target_as = starbase_target_6
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
+
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.1
 		trigger = { exists = event_target:starbase_target_1.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_1.star owner = root }
-		hidden_effect = { event_target:starbase_target_1.star = { set_planet_flag = leviathan_summon_defense_project } }
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:starbase_target_1.star
+			owner = root
+		}
+		hidden_effect = {
+			event_target:starbase_target_1.star = { set_planet_flag = leviathan_summon_defense_project }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.2
 		trigger = { exists = event_target:starbase_target_2.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_2.star owner = root }
-		hidden_effect = { event_target:starbase_target_2.star = { set_planet_flag = leviathan_summon_defense_project } }
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:starbase_target_2.star
+			owner = root
+		}
+		hidden_effect = {
+			event_target:starbase_target_2.star = { set_planet_flag = leviathan_summon_defense_project }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.3
 		trigger = { exists = event_target:starbase_target_3.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_3.star owner = root }
-		hidden_effect = { event_target:starbase_target_3.star = { set_planet_flag = leviathan_summon_defense_project } }
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:starbase_target_3.star
+			owner = root
+		}
+		hidden_effect = {
+			event_target:starbase_target_3.star = { set_planet_flag = leviathan_summon_defense_project }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.4
 		trigger = { exists = event_target:starbase_target_4.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_4.star owner = root }
-		hidden_effect = { event_target:starbase_target_4.star = { set_planet_flag = leviathan_summon_defense_project } }
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:starbase_target_4.star
+			owner = root
+		}
+		hidden_effect = {
+			event_target:starbase_target_4.star = { set_planet_flag = leviathan_summon_defense_project }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.5
 		trigger = { exists = event_target:starbase_target_5.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_5.star owner = root }
-		hidden_effect = { event_target:starbase_target_5.star = { set_planet_flag = leviathan_summon_defense_project } }
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:starbase_target_5.star
+			owner = root
+		}
+		hidden_effect = {
+			event_target:starbase_target_5.star = { set_planet_flag = leviathan_summon_defense_project }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1061.Starbase.6
 		trigger = { exists = event_target:starbase_target_6.star }
 		custom_tooltip = "UniqueAscensionPerksEvents.1061.Starbase.1.tooltip"
-		enable_special_project = { name = LEVIATHAN_MASTER_SUMMON_DEFENSE location = event_target:starbase_target_6.star owner = root }
-		hidden_effect = { event_target:starbase_target_6.star = { set_planet_flag = leviathan_summon_defense_project } }
+		enable_special_project = {
+			name = LEVIATHAN_MASTER_SUMMON_DEFENSE
+			location = event_target:starbase_target_6.star
+			owner = root
+		}
+		hidden_effect = {
+			event_target:starbase_target_6.star = { set_planet_flag = leviathan_summon_defense_project }
+		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.1061.Starbase.Another" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1061 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = "UniqueAscensionPerksEvents.1061.Starbase.Another"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1061 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -1186,19 +1987,36 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = "UniqueAscensionPerksEvents.1057.a"
 		allow = {
 			has_country_resource = { type = food amount > 1500 }
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req02 NOT = { has_modifier = leviathan_sharing_knowledge } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req02
+				NOT = { has_modifier = leviathan_sharing_knowledge }
+			}
 		}
 		add_resource = { food = -1500 }
 		add_modifier = { modifier = leviathan_sharing_knowledge years = 10 }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
 	}
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -1208,26 +2026,85 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
-		random_owned_planet = { limit = { num_sapient_pops > 19 }
+		random_owned_planet = {
+			limit = { sapient_pop_amount > 1900 }
 			save_event_target_as = planet_target_1
-			root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOT = { is_planet = event_target:planet_target_1 } }
-				save_event_target_as = planet_target_2
-				root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_planet = event_target:planet_target_1 is_planet = event_target:planet_target_2 } }
-					save_event_target_as = planet_target_3
-					root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_planet = event_target:planet_target_1 is_planet = event_target:planet_target_2 is_planet = event_target:planet_target_3 } }
-						save_event_target_as = planet_target_4
-						root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_planet = event_target:planet_target_1 is_planet = event_target:planet_target_2 is_planet = event_target:planet_target_3 is_planet = event_target:planet_target_4 } }
-							save_event_target_as = planet_target_5
-							root = { random_owned_planet = { limit = { num_sapient_pops > 19 NOR = { is_planet = event_target:planet_target_1 is_planet = event_target:planet_target_2 is_planet = event_target:planet_target_3 is_planet = event_target:planet_target_4 is_planet = event_target:planet_target_5 } } save_event_target_as = planet_target_6 } }
-						} }
-					} }
-				} }
-			} }
+			root = {
+				random_owned_planet = {
+					limit = {
+						NOR = {
+							sapient_pop_amount <= 1900
+							is_planet = event_target:planet_target_1
+						}
+					}
+					save_event_target_as = planet_target_2
+					root = {
+						random_owned_planet = {
+							limit = {
+								NOR = {
+									sapient_pop_amount <= 1900
+									is_planet = event_target:planet_target_1
+									is_planet = event_target:planet_target_2
+								}
+							}
+							save_event_target_as = planet_target_3
+							root = {
+								random_owned_planet = {
+									limit = {
+										NOR = {
+											sapient_pop_amount <= 1900
+											is_planet = event_target:planet_target_1
+											is_planet = event_target:planet_target_2
+											is_planet = event_target:planet_target_3
+										}
+									}
+									save_event_target_as = planet_target_4
+									root = {
+										random_owned_planet = {
+											limit = {
+												NOR = {
+													sapient_pop_amount <= 1900
+													is_planet = event_target:planet_target_1
+													is_planet = event_target:planet_target_2
+													is_planet = event_target:planet_target_3
+													is_planet = event_target:planet_target_4
+												}
+											}
+											save_event_target_as = planet_target_5
+											root = {
+												random_owned_planet = {
+													limit = {
+														NOR = {
+															sapient_pop_amount <= 1900
+															is_planet = event_target:planet_target_1
+															is_planet = event_target:planet_target_2
+															is_planet = event_target:planet_target_3
+															is_planet = event_target:planet_target_4
+															is_planet = event_target:planet_target_5
+														}
+													}
+													save_event_target_as = planet_target_6
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
+
 	after = {
 		if = {
 			limit = { exists = event_target:planet_target }
@@ -1235,7 +2112,7 @@ country_event = {
 				event_target:planet_target = {
 					# leviathan_master_consume_planet = yes
 					planet_event = { id = UniqueAscensionPerksEvents.1072 }
-					every_owned_pop = { kill_pop = yes }
+					every_owned_pop_group = { kill_all_pop = yes }
 					destroy_colony = yes
 					change_pc = pc_molten
 				}
@@ -1250,49 +2127,99 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = UniqueAscensionPerksEvents.1058.Planet.1
 		trigger = { exists = event_target:planet_target_1 }
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1058.Planet.1.tooltip"
-		hidden_effect = { event_target:planet_target_1 = { save_event_target_as = planet_target } }
+		hidden_effect = {
+			event_target:planet_target_1 = { save_event_target_as = planet_target }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1058.Planet.2
 		trigger = { exists = event_target:planet_target_2 }
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1058.Planet.1.tooltip"
-		hidden_effect = { event_target:planet_target_2 = { save_event_target_as = planet_target } }
+		hidden_effect = {
+			event_target:planet_target_2 = { save_event_target_as = planet_target }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1058.Planet.3
 		trigger = { exists = event_target:planet_target_3 }
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1058.Planet.1.tooltip"
-		hidden_effect = { event_target:planet_target_3 = { save_event_target_as = planet_target } }
+		hidden_effect = {
+			event_target:planet_target_3 = { save_event_target_as = planet_target }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1058.Planet.4
 		trigger = { exists = event_target:planet_target_4 }
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1058.Planet.1.tooltip"
-		hidden_effect = { event_target:planet_target_4 = { save_event_target_as = planet_target } }
+		hidden_effect = {
+			event_target:planet_target_4 = { save_event_target_as = planet_target }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1058.Planet.5
 		trigger = { exists = event_target:planet_target_5 }
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1058.Planet.1.tooltip"
-		hidden_effect = { event_target:planet_target_5 = { save_event_target_as = planet_target } }
+		hidden_effect = {
+			event_target:planet_target_5 = { save_event_target_as = planet_target }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1058.Planet.6
 		trigger = { exists = event_target:planet_target_6 }
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req04 has_leviathan_master_sacrified_world_modifier = no } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req04
+				has_leviathan_master_sacrified_world_modifier = no
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.1058.Planet.1.tooltip"
-		hidden_effect = { event_target:planet_target_6 = { save_event_target_as = planet_target } }
+		hidden_effect = {
+			event_target:planet_target_6 = { save_event_target_as = planet_target }
+		}
 	}
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -1302,20 +2229,54 @@ country_event = {
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
-		random_relation = { limit = { ROOT = { is_rival = prev } }
+		random_relation = {
+			limit = { root = { is_rival = prev } }
 			save_event_target_as = rival_target_1
-			root = { random_relation = { limit = { ROOT = { is_rival = prev } NOT = { is_same_empire = event_target:rival_target_1 } }
-				save_event_target_as = rival_target_2
-				root = { random_relation = { limit = { ROOT = { is_rival = prev } NOR = { is_same_empire = event_target:rival_target_1 is_same_empire = event_target:rival_target_2 } }
-					save_event_target_as = rival_target_3
-					root = { random_relation = { limit = { ROOT = { is_rival = prev } NOR = { is_same_empire = event_target:rival_target_1 is_same_empire = event_target:rival_target_2 is_same_empire = event_target:rival_target_3 } } save_event_target_as = rival_target_4 } }
-				} }
-			} }
+			root = {
+				random_relation = {
+					limit = {
+						root = { is_rival = prev }
+						NOT = { is_same_empire = event_target:rival_target_1 }
+					}
+					save_event_target_as = rival_target_2
+					root = {
+						random_relation = {
+							limit = {
+								root = { is_rival = prev }
+								NOR = {
+									is_same_empire = event_target:rival_target_1
+									is_same_empire = event_target:rival_target_2
+								}
+							}
+							save_event_target_as = rival_target_3
+							root = {
+								random_relation = {
+									limit = {
+										root = { is_rival = prev }
+										NOR = {
+											is_same_empire = event_target:rival_target_1
+											is_same_empire = event_target:rival_target_2
+											is_same_empire = event_target:rival_target_3
+										}
+									}
+									save_event_target_as = rival_target_4
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
+
 	after = {
 		hidden_effect = {
 			if = {
@@ -1324,83 +2285,169 @@ country_event = {
 					country_event = { id = UniqueAscensionPerksEvents.1073 }
 					# leviathan_master_attack_rivals = yes
 					if = {
-						limit = { NOT = { exists = event_target:leviathan_master_country } }
+						limit = {
+							NOT = { exists = event_target:leviathan_master_country }
+						}
 						create_leviathan_master_country = yes
 					}
-					set_faction_hostility = { target = event_target:leviathan_master_country set_hostile = yes }
-					while = { count = 3 leviathan_master_enraged_leviathan = yes }
+					set_faction_hostility = {
+						target = event_target:leviathan_master_country
+						set_hostile = yes
+					}
+					while = {
+						count = 3
+						leviathan_master_enraged_leviathan = yes
+					}
 				}
 				country_event = { id = UniqueAscensionPerksEvents.1055 }
 			}
 		}
 	}
+
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.1
 		trigger = { exists = event_target:rival_target_1 }
-		allow = { num_sapient_pops > 10 has_country_resource = { type = exotic_gases amount > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = {
+			sapient_pop_amount > 1000
+			has_country_resource = { type = exotic_gases amount > 3000 }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req06
+				NOT = { has_country_flag = leviathan_attacked_rival_cooldown }
+			}
+		}
 		add_resource = { exotic_gases = -3000 }
-		while = { count = 10 random_owned_pop = { kill_pop = yes } }
+		while = {
+			count = 10
+			weighted_random_owned_pop_group = { kill_single_pop = yes }
+		}
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
 		event_target:rival_target_1 = { save_event_target_as = target_country }
-
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.2
 		trigger = { exists = event_target:rival_target_2 }
-		allow = { num_sapient_pops > 10 has_country_resource = { type = exotic_gases amount > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = {
+			sapient_pop_amount > 1000
+			has_country_resource = { type = exotic_gases amount > 3000 }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req06
+				NOT = { has_country_flag = leviathan_attacked_rival_cooldown }
+			}
+		}
 		add_resource = { exotic_gases = -3000 }
-		while = { count = 10 random_owned_pop = { kill_pop = yes } }
+		while = {
+			count = 10
+			weighted_random_owned_pop_group = { kill_single_pop = yes }
+		}
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
 		event_target:rival_target_2 = { save_event_target_as = target_country }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.3
 		trigger = { exists = event_target:rival_target_3 }
-		allow = { num_sapient_pops > 10 has_country_resource = { type = exotic_gases amount > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = {
+			sapient_pop_amount > 1000
+			has_country_resource = { type = exotic_gases amount > 3000 }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req06
+				NOT = { has_country_flag = leviathan_attacked_rival_cooldown }
+			}
+		}
 		add_resource = { exotic_gases = -3000 }
-		while = { count = 10 random_owned_pop = { kill_pop = yes } }
+		while = {
+			count = 10
+			weighted_random_owned_pop_group = { kill_single_pop = yes }
+		}
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
 		event_target:rival_target_3 = { save_event_target_as = target_country }
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.1059.Target.4
 		trigger = { exists = event_target:rival_target_4 }
-		allow = { num_sapient_pops > 10 has_country_resource = { type = exotic_gases amount > 3000 } custom_tooltip = { fail_text = UniqueAscensionPerksEvents.1055.Req06 NOT = { has_country_flag = leviathan_attacked_rival_cooldown } } }
+		allow = {
+			sapient_pop_amount > 1000
+			has_country_resource = { type = exotic_gases amount > 3000 }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.1055.Req06
+				NOT = { has_country_flag = leviathan_attacked_rival_cooldown }
+			}
+		}
 		add_resource = { exotic_gases = -3000 }
-		while = { count = 10 random_owned_pop = { kill_pop = yes } }
+		while = {
+			count = 10
+			weighted_random_owned_pop_group = { kill_single_pop = yes }
+		}
 		set_timed_country_flag = { flag = leviathan_attacked_rival_cooldown years = 5 }
 		event_target:rival_target_4 = { save_event_target_as = target_country }
 	}
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.1060
 	title = "ap_leviathan_master"
+
 	desc = {
 		trigger = {
-			success_text = { text = "UniqueAscensionPerksEvents.1060.Ignore" has_country_flag = leviathan_master_provocation_ignore }
-			success_text = { text = "UniqueAscensionPerksEvents.1060.Occupied" has_country_flag = leviathan_master_provocation_occupied }
-			success_text = { text = "UniqueAscensionPerksEvents.1060.Amused" has_country_flag = leviathan_master_provocation_amused }
-			success_text = { text = "UniqueAscensionPerksEvents.1060.VeryAmused" has_country_flag = leviathan_master_provocation_very_amused }
-			success_text = { text = "UniqueAscensionPerksEvents.1060.Pissed" has_country_flag = leviathan_master_provocation_pissed }
-			success_text = { text = "UniqueAscensionPerksEvents.1060.VeryPissed" has_country_flag = leviathan_master_provocation_very_pissed }
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1060.Ignore"
+				has_country_flag = leviathan_master_provocation_ignore
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1060.Occupied"
+				has_country_flag = leviathan_master_provocation_occupied
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1060.Amused"
+				has_country_flag = leviathan_master_provocation_amused
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1060.VeryAmused"
+				has_country_flag = leviathan_master_provocation_very_amused
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1060.Pissed"
+				has_country_flag = leviathan_master_provocation_pissed
+			}
+			success_text = {
+				text = "UniqueAscensionPerksEvents.1060.VeryPissed"
+				has_country_flag = leviathan_master_provocation_very_pissed
+			}
 		}
 	}
+
 	show_sound = event_mystic_reveal
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = leviathan_master_room }
+
+	picture_event_data = {
+		room = leviathan_master_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = "UniqueAscensionPerksEvents.1060.a"
 		trigger = { has_country_flag = leviathan_master_provocation_ignore }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } remove_country_flag = leviathan_master_provocation_ignore }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+			remove_country_flag = leviathan_master_provocation_ignore
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1060.b"
 		trigger = { has_country_flag = leviathan_master_provocation_occupied }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } remove_country_flag = leviathan_master_provocation_occupied }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+			remove_country_flag = leviathan_master_provocation_occupied
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1060.c"
@@ -1419,7 +2466,9 @@ country_event = {
 			5 = { add_resource = { sr_dark_matter = 1000 } }
 			5 = { add_resource = { sr_zro = 1000 } }
 		}
-		hidden_effect = { remove_country_flag = leviathan_master_provocation_amused }
+		hidden_effect = {
+			remove_country_flag = leviathan_master_provocation_amused
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.1060.d"
@@ -1436,7 +2485,12 @@ country_event = {
 		trigger = { has_country_flag = leviathan_master_provocation_pissed }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.1055 }
-			while = { count = 2 random_owned_leader = { kill_leader = { show_notification = yes } } }
+			while = {
+				count = 2
+				random_owned_leader = {
+					kill_leader = { show_notification = yes }
+				}
+			}
 			remove_country_flag = leviathan_master_provocation_pissed
 		}
 	}
@@ -1449,16 +2503,28 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.1071 }
 			# leviathan_master_attack_rivals = yes
 			if = {
-				limit = { NOT = { exists = event_target:leviathan_master_country } }
+				limit = {
+					NOT = { exists = event_target:leviathan_master_country }
+				}
 				create_leviathan_master_country = yes
 			}
-			set_faction_hostility = { target = event_target:leviathan_master_country set_hostile = yes }
-			while = { count = 3 leviathan_master_enraged_leviathan = yes }
+			set_faction_hostility = {
+				target = event_target:leviathan_master_country
+				set_hostile = yes
+			}
+			while = {
+				count = 3
+				leviathan_master_enraged_leviathan = yes
+			}
 		}
 	}
 	option = {
 		name = BACK
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.1055 } } ai_chance = { factor = 0.1 } default_hide_option = yes
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.1055 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
 	}
 }
 
@@ -1470,7 +2536,11 @@ country_event = {
 	picture = GFX_evt_leviathan_master
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	after = {
 		hidden_effect = {
 			# leviathan_clear_summoning_flags
@@ -1486,28 +2556,151 @@ country_event = {
 			# remove_country_flag = summoning_leviathan_machine
 		}
 	}
+
 	option = {
 		name = EXCELLENT
-		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = 8
+			min = 2000
+			max = 3000
+		}
 		# leviathan_master_summon_leviathan = {
 		hidden_effect = {
 			create_fleet = {
 				name = summoned_leviathan
-				settings = { is_boss = yes spawn_debris = no can_upgrade = no can_change_composition = no uses_naval_capacity = no can_disband = no }
 				effect = {
 					set_owner = root
-					if		= { limit = { ROOT = { has_country_flag = summoning_leviathan_drake }		} root = { remove_country_flag = summoning_leviathan_drake			} create_ship = { name = NAME_Sum_Ether_Drake			design = NAME_Sum_Ether_Drake			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_stellarite }	} root = { remove_country_flag = summoning_leviathan_stellarite		} create_ship = { name = NAME_Sum_Stellarite_Devourer	design = NAME_Sum_Stellarite_Devourer	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_spectre }		} root = { remove_country_flag = summoning_leviathan_spectre		} create_ship = { name = NAME_Sum_Spectral_Wraith		design = NAME_Sum_Spectral_Wraith		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_dreadnought }	} root = { remove_country_flag = summoning_leviathan_dreadnought	} create_ship = { name = NAME_Sum_Automated_Dreadnought	design = NAME_Sum_Automated_Dreadnought effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "npf_01" } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_scavenger }	} root = { remove_country_flag = summoning_leviathan_scavenger		} create_ship = { name = NAME_Sum_Scavenger_Bot			design = NAME_Sum_Scavenger_Bot		effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_matriarch }	} root = { remove_country_flag = summoning_leviathan_matriarch		} create_ship = { name = NAME_Sum_Tiyanki_Matriarch		design = NAME_Sum_Tiyanki_Matriarch	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_voidspawn }	} root = { remove_country_flag = summoning_leviathan_voidspawn		} create_ship = { name = NAME_Sum_Voidspawn				design = NAME_Sum_Voidspawn			effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-					else_if = { limit = { ROOT = { has_country_flag = summoning_leviathan_machine }		} root = { remove_country_flag = summoning_leviathan_machine		} create_ship = { name = NAME_Sum_Infinity_Machine		design = NAME_Sum_Infinity_Machine	effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } graphical_culture = "techno" } }
-					set_location = { target = event_target:capital_planet distance = 5 angle = random }
+					if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_drake }
+						}
+						root = { remove_country_flag = summoning_leviathan_drake }
+						create_ship = {
+							name = NAME_Sum_Ether_Drake
+							design = NAME_Sum_Ether_Drake
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_stellarite }
+						}
+						root = { remove_country_flag = summoning_leviathan_stellarite }
+						create_ship = {
+							name = NAME_Sum_Stellarite_Devourer
+							design = NAME_Sum_Stellarite_Devourer
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_spectre }
+						}
+						root = { remove_country_flag = summoning_leviathan_spectre }
+						create_ship = {
+							name = NAME_Sum_Spectral_Wraith
+							design = NAME_Sum_Spectral_Wraith
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_dreadnought }
+						}
+						root = { remove_country_flag = summoning_leviathan_dreadnought }
+						create_ship = {
+							name = NAME_Sum_Automated_Dreadnought
+							design = NAME_Sum_Automated_Dreadnought
+							graphical_culture = "npf_01"
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_scavenger }
+						}
+						root = { remove_country_flag = summoning_leviathan_scavenger }
+						create_ship = {
+							name = NAME_Sum_Scavenger_Bot
+							design = NAME_Sum_Scavenger_Bot
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_matriarch }
+						}
+						root = { remove_country_flag = summoning_leviathan_matriarch }
+						create_ship = {
+							name = NAME_Sum_Tiyanki_Matriarch
+							design = NAME_Sum_Tiyanki_Matriarch
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_voidspawn }
+						}
+						root = { remove_country_flag = summoning_leviathan_voidspawn }
+						create_ship = {
+							name = NAME_Sum_Voidspawn
+							design = NAME_Sum_Voidspawn
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					else_if = {
+						limit = {
+							root = { has_country_flag = summoning_leviathan_machine }
+						}
+						root = { remove_country_flag = summoning_leviathan_machine }
+						create_ship = {
+							name = NAME_Sum_Infinity_Machine
+							design = NAME_Sum_Infinity_Machine
+							graphical_culture = "techno"
+							effect = {
+								set_ship_flag = summoned_leviathan
+								add_modifier = { modifier = summoned_leviathan }
+							}
+						}
+					}
+					set_location = {
+						target = event_target:capital_planet
+						distance = 5
+						angle = random
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 1000
+				}
+				settings = {
+					is_boss = yes
+					spawn_debris = no
+					can_upgrade = no
+					can_change_composition = no
+					uses_naval_capacity = no
+					can_disband = no
 				}
 			}
 		}
@@ -1521,10 +2714,14 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1071 } }
 	}
-	option = { name = BATTLESTATIONS }
+
+	option = {
+		name = BATTLESTATIONS
+	}
 }
 
 planet_event = {
@@ -1534,14 +2731,21 @@ planet_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
+
 	trigger = {
 		NAND = {
 			exists = from
-			from = { has_active_event = { UniqueAscensionPerksEvents.1072 } }
+			from = {
+				has_active_event = { UniqueAscensionPerksEvents.1072 }
+			}
 		}
 	}
+
 	location = root
-	option = { name = OK }
+
+	option = {
+		name = OK
+	}
 }
 
 country_event = {
@@ -1551,10 +2755,14 @@ country_event = {
 	show_sound = event_mystic_reveal
 	picture = GFX_evt_leviathan_master
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.1073 } }
 	}
-	option = { name = BATTLESTATIONS }
+
+	option = {
+		name = BATTLESTATIONS
+	}
 }
 
 country_event = {
@@ -1565,6 +2773,7 @@ country_event = {
 	picture = GFX_evt_leviathan_master
 	location = event_target:look_location
 	is_triggered_only = yes
+
 	immediate = {
 		random_planet_within_border = {
 			limit = { has_planet_flag = leviathan_summon_defense_project }
@@ -1572,6 +2781,7 @@ country_event = {
 		}
 		save_event_target_as = main_country
 	}
+
 	after = {
 		hidden_effect = {
 			# leviathan_clear_summoning_flags
@@ -1579,42 +2789,120 @@ country_event = {
 			remove_country_flag = summoning_leviathan_present
 		}
 	}
+
 	option = {
 		name = EXCELLENT
-		add_monthly_resource_mult = { resource = society_research value = 8 min = 2000 max = 3000 }
+		add_monthly_resource_mult = {
+			resource = society_research
+			value = 8
+			min = 2000
+			max = 3000
+		}
 		# leviathan_master_summon_leviathan_defense = yes
 		hidden_effect = {
-			random_planet_within_border = { limit = { has_planet_flag = leviathan_summon_defense_project } remove_planet_flag = leviathan_summon_defense_project save_event_target_as = spawn_location }
+			random_planet_within_border = {
+				limit = { has_planet_flag = leviathan_summon_defense_project }
+				remove_planet_flag = leviathan_summon_defense_project
+				save_event_target_as = spawn_location
+			}
 			create_domestication_spaceborn_alien_country = yes
 			event_target:domesticated_spaceborn_alien = {
 				create_fleet = {
 					name = summoned_leviathan
-					settings = { is_boss = yes spawn_debris = no }
 					effect = {
 						set_owner = event_target:domesticated_spaceborn_alien
 						event_target:main_country = {
 							if = {
 								limit = { has_country_flag = summoning_leviathan_horror }
 								remove_country_flag = summoning_leviathan_horror
-								prev = { create_ship = { name = NAME_Sum_Dimensional_Horror design = "NAME_Dimensional_Horror" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+								prev = {
+									create_ship = {
+										name = NAME_Sum_Dimensional_Horror
+										design = "NAME_Dimensional_Horror"
+										effect = {
+											set_ship_flag = summoned_leviathan
+											add_modifier = { modifier = summoned_leviathan }
+										}
+									}
+								}
 							}
 							else_if = {
 								limit = { has_country_flag = summoning_leviathan_fortress }
 								remove_country_flag = summoning_leviathan_fortress
 								prev = {
-									create_ship = { name = NAME_Sum_Enigmatic_Fortress design = "NAME_Ancient_Vault" graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } }
-									while = { count = 2 create_ship = { name = NAME_Sum_Enigmatic_Fortress design = "NAME_Ancient_Guardian"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-									while = { count = 2 create_ship = { name = NAME_Sum_Enigmatic_Fortress design = "NAME_Ancient_Warden"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-									while = { count = 4 create_ship = { name = NAME_Sum_Enigmatic_Fortress design = "NAME_Ancient_Defender"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
-									while = { count = 8 create_ship = { name = NAME_Sum_Enigmatic_Fortress design = "NAME_Ancient_Sentinel"	graphical_culture = "ancient" effect = { set_ship_flag = summoned_leviathan add_modifier = { modifier = summoned_leviathan } } } }
+									create_ship = {
+										name = NAME_Sum_Enigmatic_Fortress
+										design = "NAME_Ancient_Vault"
+										graphical_culture = "ancient"
+										effect = {
+											set_ship_flag = summoned_leviathan
+											add_modifier = { modifier = summoned_leviathan }
+										}
+									}
+									while = {
+										count = 2
+										create_ship = {
+											name = NAME_Sum_Enigmatic_Fortress
+											design = "NAME_Ancient_Guardian"
+											graphical_culture = "ancient"
+											effect = {
+												set_ship_flag = summoned_leviathan
+												add_modifier = { modifier = summoned_leviathan }
+											}
+										}
+									}
+									while = {
+										count = 2
+										create_ship = {
+											name = NAME_Sum_Enigmatic_Fortress
+											design = "NAME_Ancient_Warden"
+											graphical_culture = "ancient"
+											effect = {
+												set_ship_flag = summoned_leviathan
+												add_modifier = { modifier = summoned_leviathan }
+											}
+										}
+									}
+									while = {
+										count = 4
+										create_ship = {
+											name = NAME_Sum_Enigmatic_Fortress
+											design = "NAME_Ancient_Defender"
+											graphical_culture = "ancient"
+											effect = {
+												set_ship_flag = summoned_leviathan
+												add_modifier = { modifier = summoned_leviathan }
+											}
+										}
+									}
+									while = {
+										count = 8
+										create_ship = {
+											name = NAME_Sum_Enigmatic_Fortress
+											design = "NAME_Ancient_Sentinel"
+											graphical_culture = "ancient"
+											effect = {
+												set_ship_flag = summoned_leviathan
+												add_modifier = { modifier = summoned_leviathan }
+											}
+										}
+									}
 								}
 							}
 						}
 						set_formation_scale = 3.0
-						set_location = { target = event_target:spawn_location distance = 100 angle = random }
+						set_location = {
+							target = event_target:spawn_location
+							distance = 100
+							angle = random
+						}
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
 						set_aggro_range = 1000
+					}
+					settings = {
+						is_boss = yes
+						spawn_debris = no
 					}
 				}
 			}

@@ -1,34 +1,61 @@
+
 namespace = SpecialProjectFleetEvents
 
 event = {
 	id = SpecialProjectFleetEvents.0
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		if = {
-			limit = { NOT = { has_global_flag = amoeba_breeding_grand_mother_spawned } any_ambient_object = { has_ambient_object_flag = amoeba_breeding_grand_mother } }
+			limit = {
+				NOT = { has_global_flag = amoeba_breeding_grand_mother_spawned }
+				any_ambient_object = { has_ambient_object_flag = amoeba_breeding_grand_mother }
+			}
 			set_timed_global_flag = { flag = amoeba_breeding_grand_mother_spawned years = 2 }
-			random_playable_country = { country_event = { id = SpecialProjectFleetEvents.1 days = 15 random = 180 } }
+			random_playable_country = {
+				country_event = { id = SpecialProjectFleetEvents.1 days = 15 random = 180 }
+			}
 		}
 		if = {
-			limit = { NOT = { has_global_flag = hostile_from_wormhole_spawned } any_ambient_object = { has_ambient_object_flag = hostile_from_wormhole } }
+			limit = {
+				NOT = { has_global_flag = hostile_from_wormhole_spawned }
+				any_ambient_object = { has_ambient_object_flag = hostile_from_wormhole }
+			}
 			set_timed_global_flag = { flag = hostile_from_wormhole_spawned years = 2 }
-			random_playable_country = { country_event = { id = SpecialProjectFleetEvents.3 days = 15 random = 180 } }
+			random_playable_country = {
+				country_event = { id = SpecialProjectFleetEvents.3 days = 15 random = 180 }
+			}
 		}
 		if = {
-			limit = { NOT = { has_global_flag = drone_ancient_base_spawned } any_ambient_object = { has_ambient_object_flag = drone_ancient_base } }
+			limit = {
+				NOT = { has_global_flag = drone_ancient_base_spawned }
+				any_ambient_object = { has_ambient_object_flag = drone_ancient_base }
+			}
 			set_timed_global_flag = { flag = drone_ancient_base_spawned years = 1 }
-			random_playable_country = { country_event = { id = SpecialProjectFleetEvents.5 days = 15 random = 180 } }
+			random_playable_country = {
+				country_event = { id = SpecialProjectFleetEvents.5 days = 15 random = 180 }
+			}
 		}
 		if = {
-			limit = { NOT = { has_global_flag = tyanki_ancient_meeting_spawned } any_ambient_object = { has_ambient_object_flag = tyanki_ancient_meeting } }
+			limit = {
+				NOT = { has_global_flag = tyanki_ancient_meeting_spawned }
+				any_ambient_object = { has_ambient_object_flag = tyanki_ancient_meeting }
+			}
 			set_timed_global_flag = { flag = tyanki_ancient_meeting_spawned years = 1 }
-			random_playable_country = { country_event = { id = SpecialProjectFleetEvents.6 days = 15 random = 180 } }
+			random_playable_country = {
+				country_event = { id = SpecialProjectFleetEvents.6 days = 15 random = 180 }
+			}
 		}
 		if = {
-			limit = { NOT = { has_global_flag = hive_crystal_spawner_spawned } any_ambient_object = { has_ambient_object_flag = hive_crystal_spawner }  }
+			limit = {
+				NOT = { has_global_flag = hive_crystal_spawner_spawned }
+				any_ambient_object = { has_ambient_object_flag = hive_crystal_spawner }
+			}
 			set_timed_global_flag = { flag = hive_crystal_spawner_spawned years = 2 }
-			random_playable_country = { country_event = { id = SpecialProjectFleetEvents.7 days = 15 random = 180 } }
+			random_playable_country = {
+				country_event = { id = SpecialProjectFleetEvents.7 days = 15 random = 180 }
+			}
 		}
 	}
 }
@@ -38,7 +65,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 36 }
-	immediate =	{
+	immediate = {
 		every_ambient_object = {
 			limit = { has_ambient_object_flag = amoeba_breeding_grand_mother }
 			create_special_project_amoeba_country = yes
@@ -46,10 +73,28 @@ country_event = {
 				name = "Space Amoeba Monsters"
 				effect = {
 					set_owner = event_target:special_project_amoeba_country
-					while = { count = 4 create_ship = { name = "" design = "NAME_Small_Space_Organism_Blue" } }
-					while = { count = 1 create_ship = { name = "" design = "NAME_Large_Space_Organism_Blue" } }
-					while = { count = 12 random = { chance = 25 create_ship = { name = "" design = "NAME_Small_Space_Organism_Blue" } } }
-					while = { count = 4 random = { chance = 17 create_ship = { name = "" design = "NAME_Large_Space_Organism_Blue" } } }
+					while = {
+						count = 4
+						create_ship = { name = "" design = "NAME_Small_Space_Organism_Blue" }
+					}
+					while = {
+						count = 1
+						create_ship = { name = "" design = "NAME_Large_Space_Organism_Blue" }
+					}
+					while = {
+						count = 12
+						random = {
+							chance = 25
+							create_ship = { name = "" design = "NAME_Small_Space_Organism_Blue" }
+						}
+					}
+					while = {
+						count = 4
+						random = {
+							chance = 17
+							create_ship = { name = "" design = "NAME_Large_Space_Organism_Blue" }
+						}
+					}
 					set_location = prev
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
@@ -79,48 +124,113 @@ fleet_event = {
 	id = SpecialProjectFleetEvents.2
 	hide_window = yes
 	is_triggered_only = yes
-	immediate =	{
+
+	immediate = {
 		if = {
 			limit = { has_fleet_flag = special_project_create_amoeba_fleet_move }
-			solar_system ={
-				closest_system ={
-					limit = { any_system_planet = { merg_is_toxic = yes NOT = { has_planet_flag = special_project_create_amoeba_fleet_planet } } }
+			solar_system = {
+				closest_system = {
+					limit = {
+						any_system_planet = {
+							merg_is_toxic = yes
+							NOT = {
+								has_planet_flag = special_project_create_amoeba_fleet_planet
+							}
+						}
+					}
 					random_system_planet = {
-						limit = { merg_is_toxic = yes NOT = { has_planet_flag = special_project_create_amoeba_fleet_planet } }
+						limit = {
+							merg_is_toxic = yes
+							NOT = {
+								has_planet_flag = special_project_create_amoeba_fleet_planet
+							}
+						}
 						save_event_target_as = destination
-						set_timed_planet_flag = { flag = special_project_create_amoeba_fleet_planet years = 1 }
+						set_timed_planet_flag = {
+							flag = special_project_create_amoeba_fleet_planet
+							years = 1
+						}
 					}
 				}
 			}
-			set_timed_fleet_flag = { flag = special_project_create_amoeba_fleet_action years = 2 }
-			auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+			set_timed_fleet_flag = {
+				flag = special_project_create_amoeba_fleet_action
+				years = 2
+			}
+			auto_move_to_planet = {
+				target = event_target:destination
+				destroy_on_arrival = no
+				clear_auto_move_on_arrival = yes
+			}
 		}
 		else_if = {
 			limit = { has_fleet_flag = special_project_create_amoeba_fleet_defend }
-			solar_system = { random_system_planet = { save_event_target_as = destination } }
-			set_timed_fleet_flag = { flag = special_project_create_amoeba_fleet_action years = 2 }
-			auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+			solar_system = {
+				random_system_planet = { save_event_target_as = destination }
+			}
+			set_timed_fleet_flag = {
+				flag = special_project_create_amoeba_fleet_action
+				years = 2
+			}
+			auto_move_to_planet = {
+				target = event_target:destination
+				destroy_on_arrival = no
+				clear_auto_move_on_arrival = yes
+			}
 		}
 		else_if = {
 			limit = { has_fleet_flag = pecial_project_crystal_country_fleet_move }
 			solar_system = {
 				closest_system = {
-					limit = { any_system_planet = { merg_is_frozen = yes NOT = { has_planet_flag = special_project_crystal_country_fleet_planet } } }
+					limit = {
+						any_system_planet = {
+							merg_is_frozen = yes
+							NOT = {
+								has_planet_flag = special_project_crystal_country_fleet_planet
+							}
+						}
+					}
 					random_system_planet = {
-						limit = { merg_is_frozen = yes NOT = { has_planet_flag = special_project_crystal_country_fleet_planet } }
+						limit = {
+							merg_is_frozen = yes
+							NOT = {
+								has_planet_flag = special_project_crystal_country_fleet_planet
+							}
+						}
 						save_event_target_as = destination
-						set_timed_planet_flag = { flag = special_project_crystal_country_fleet_planet years = 1 }
+						set_timed_planet_flag = {
+							flag = special_project_crystal_country_fleet_planet
+							years = 1
+						}
 					}
 				}
 			}
-			set_timed_fleet_flag = { flag = special_project_crystal_country_fleet_action years = 2 }
-			auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+			set_timed_fleet_flag = {
+				flag = special_project_crystal_country_fleet_action
+				years = 2
+			}
+			auto_move_to_planet = {
+				target = event_target:destination
+				destroy_on_arrival = no
+				clear_auto_move_on_arrival = yes
+			}
 		}
 		else_if = {
-			limit = { has_fleet_flag = special_project_crystal_country_fleet_defend }
-			solar_system = { random_system_planet = { save_event_target_as = destination } }
-			set_timed_fleet_flag = { flag = special_project_crystal_country_fleet_action years = 2 }
-			auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+			limit = {
+				has_fleet_flag = special_project_crystal_country_fleet_defend
+			}
+			solar_system = {
+				random_system_planet = { save_event_target_as = destination }
+			}
+			set_timed_fleet_flag = {
+				flag = special_project_crystal_country_fleet_action
+				years = 2
+			}
+			auto_move_to_planet = {
+				target = event_target:destination
+				destroy_on_arrival = no
+				clear_auto_move_on_arrival = yes
+			}
 		}
 	}
 }
@@ -130,21 +240,84 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 48 }
-	immediate =	{
-		every_ambient_object ={
+	immediate = {
+		every_ambient_object = {
 			limit = { has_ambient_object_flag = hostile_from_wormhole }
 			create_hostile_killer_faction_country = yes
 			create_fleet = {
-				settings = { spawn_debris = no }
+				settings = {
+					spawn_debris = no
+				}
 				effect = {
 					set_owner = event_target:hostile_killer_faction_country
-					while = { count = 5 create_ship = { name = random random_existing_design = corvette graphical_culture = event_target:hostile_killer_faction_country } }
-					while = { count = 2 create_ship = { name = random random_existing_design = destroyer graphical_culture = event_target:hostile_killer_faction_country } }
-					while = { count = 1 create_ship = { name = random random_existing_design = cruiser graphical_culture = event_target:hostile_killer_faction_country } }
-					while = { count = 10 random = { chance = 25 create_ship = { name = random random_existing_design = corvette graphical_culture = event_target:hostile_killer_faction_country } } }
-					while = { count = 4 random = { chance = 17 create_ship = { name = random random_existing_design = destroyer graphical_culture = event_target:hostile_killer_faction_country } } }
-					while = { count = 2 random = { chance = 17 create_ship = { name = random random_existing_design = cruiser graphical_culture = event_target:hostile_killer_faction_country } } }
-					while = { count = 1 random = { chance = 17 create_ship = { name = random random_existing_design = battleship graphical_culture = event_target:hostile_killer_faction_country } } }
+					while = {
+						count = 5
+						create_ship = {
+							name = random
+							random_existing_design = corvette
+							graphical_culture = event_target:hostile_killer_faction_country
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							random_existing_design = destroyer
+							graphical_culture = event_target:hostile_killer_faction_country
+						}
+					}
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							random_existing_design = cruiser
+							graphical_culture = event_target:hostile_killer_faction_country
+						}
+					}
+					while = {
+						count = 10
+						random = {
+							chance = 25
+							create_ship = {
+								name = random
+								random_existing_design = corvette
+								graphical_culture = event_target:hostile_killer_faction_country
+							}
+						}
+					}
+					while = {
+						count = 4
+						random = {
+							chance = 17
+							create_ship = {
+								name = random
+								random_existing_design = destroyer
+								graphical_culture = event_target:hostile_killer_faction_country
+							}
+						}
+					}
+					while = {
+						count = 2
+						random = {
+							chance = 17
+							create_ship = {
+								name = random
+								random_existing_design = cruiser
+								graphical_culture = event_target:hostile_killer_faction_country
+							}
+						}
+					}
+					while = {
+						count = 1
+						random = {
+							chance = 17
+							create_ship = {
+								name = random
+								random_existing_design = battleship
+								graphical_culture = event_target:hostile_killer_faction_country
+							}
+						}
+					}
 					set_location = prev
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
@@ -157,7 +330,10 @@ country_event = {
 			}
 			event_target:hostile_killer_faction_country = {
 				every_owned_fleet = {
-					limit = { NOT = { has_fleet_flag = hostile_killer_faction_country_action } is_fleet_idle = yes }
+					limit = {
+						NOT = { has_fleet_flag = hostile_killer_faction_country_action }
+						is_fleet_idle = yes
+					}
 					fleet_event = { id = SpecialProjectFleetEvents.4 days = 1 random = 2 }
 				}
 			}
@@ -169,27 +345,46 @@ fleet_event = {
 	id = SpecialProjectFleetEvents.4
 	hide_window = yes
 	is_triggered_only = yes
-	immediate =	{
+
+	immediate = {
 		if = {
 			limit = { has_fleet_flag = hostile_killer_faction_country_move }
-			solar_system ={
-				closest_system ={
-					limit = { any_system_planet = { is_star = yes NOT = { has_planet_flag = hostile_killer_faction_country_planet } } }
+			solar_system = {
+				closest_system = {
+					limit = {
+						any_system_planet = {
+							is_star = yes
+							NOT = { has_planet_flag = hostile_killer_faction_country_planet }
+						}
+					}
 					random_system_planet = {
-						limit = { is_star = yes NOT = { has_planet_flag = hostile_killer_faction_country_planet } }
+						limit = {
+							is_star = yes
+							NOT = { has_planet_flag = hostile_killer_faction_country_planet }
+						}
 						save_event_target_as = destination
 						set_timed_planet_flag = { flag = hostile_killer_faction_country_planet years = 1 }
 					}
 				}
 			}
 			set_timed_fleet_flag = { flag = hostile_killer_faction_country_action years = 2 }
-			auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+			auto_move_to_planet = {
+				target = event_target:destination
+				destroy_on_arrival = no
+				clear_auto_move_on_arrival = yes
+			}
 		}
 		else_if = {
 			limit = { has_fleet_flag = hostile_killer_faction_country_defend }
-			solar_system = { random_system_planet = { save_event_target_as = destination } }
+			solar_system = {
+				random_system_planet = { save_event_target_as = destination }
+			}
 			set_timed_fleet_flag = { flag = hostile_killer_faction_country_action years = 2 }
-			auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+			auto_move_to_planet = {
+				target = event_target:destination
+				destroy_on_arrival = no
+				clear_auto_move_on_arrival = yes
+			}
 		}
 	}
 }
@@ -199,7 +394,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 24 }
-	immediate =	{
+	immediate = {
 		every_ambient_object = {
 			limit = { has_ambient_object_flag = drone_ancient_base }
 			create_special_project_drone_country = yes
@@ -207,11 +402,35 @@ country_event = {
 				name = "NAME_Ancient_Mining_Drones"
 				effect = {
 					set_owner = event_target:special_project_drone_country
-					while = { count = 8 create_ship = { name = "" design = "New Ancient Mining Drone" } }
-					while = { count = 4 create_ship = { name = "" design = "New Ancient Combat Drone" } }
-					while = { count = 22 random = { chance = 25 create_ship = { name = "" design = "New Ancient Mining Drone" } } }
-					while = { count = 14 random = { chance = 17 create_ship = { name = "" design = "New Ancient Combat Drone" } } }
-					while = { count = 6 random = { chance = 17 create_ship = { name = "" design = "New Ancient Destroyer" } } }
+					while = {
+						count = 8
+						create_ship = { name = "" design = "New Ancient Mining Drone" }
+					}
+					while = {
+						count = 4
+						create_ship = { name = "" design = "New Ancient Combat Drone" }
+					}
+					while = {
+						count = 22
+						random = {
+							chance = 25
+							create_ship = { name = "" design = "New Ancient Mining Drone" }
+						}
+					}
+					while = {
+						count = 14
+						random = {
+							chance = 17
+							create_ship = { name = "" design = "New Ancient Combat Drone" }
+						}
+					}
+					while = {
+						count = 6
+						random = {
+							chance = 17
+							create_ship = { name = "" design = "New Ancient Destroyer" }
+						}
+					}
 					set_location = prev
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
@@ -221,21 +440,36 @@ country_event = {
 						15 = { set_fleet_flag = special_project_drone_country_fleet_defend }
 						85 = { set_fleet_flag = special_project_drone_country_fleet_move }
 					}
-				}
-			}
-			last_created_fleet = {
-				if = {
-					limit = { has_fleet_flag = special_project_drone_country_fleet_move }
-					random_system = {
-						limit = { distance = { source = last_created_fleet use_bypasses = no min_jumps = 1 max_jumps = 2 } }
-						random_system_planet = { save_event_target_as = destination }
+					if = {
+						limit = { has_fleet_flag = special_project_drone_country_fleet_move }
+						random_system = {
+							limit = {
+								distance = {
+									source = last_created_fleet
+									use_bypasses = no
+									min_jumps = 1
+									max_jumps = 2
+								}
+							}
+							random_system_planet = { save_event_target_as = destination }
+						}
+						auto_move_to_planet = {
+							target = event_target:destination
+							destroy_on_arrival = no
+							clear_auto_move_on_arrival = yes
+						}
 					}
-					auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
-				}
-				else_if = {
-					limit = { has_fleet_flag = special_project_drone_country_fleet_defend }
-					solar_system = { random_system_planet = { save_event_target_as = destination } }
-					auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+					else_if = {
+						limit = { has_fleet_flag = special_project_drone_country_fleet_defend }
+						solar_system = {
+							random_system_planet = { save_event_target_as = destination }
+						}
+						auto_move_to_planet = {
+							target = event_target:destination
+							destroy_on_arrival = no
+							clear_auto_move_on_arrival = yes
+						}
+					}
 				}
 			}
 		}
@@ -247,7 +481,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 24 }
-	immediate =	{
+	immediate = {
 		every_ambient_object = {
 			limit = { has_ambient_object_flag = tyanki_ancient_meeting }
 			create_special_project_tiyanki_country = yes
@@ -255,35 +489,78 @@ country_event = {
 				name = "NAME_Tiyanki_Space_Whale"
 				effect = {
 					set_owner = event_target:special_project_tiyanki_country
-					while = { count = 3 create_ship = { name = "" design = "NAME_Tiyanki_Calf" } }
-					while = { count = 1 create_ship = { name = "" design = "NAME_Tiyanki_Bull" } }
-					while = { count = 20 random = { chance = 25 create_ship = { name = "" design = "NAME_Tiyanki_Calf" } } }
-					while = { count = 13 random = { chance = 17 create_ship = { name = "" design = "NAME_Tiyanki_Bull" } } }
-					while = { count = 5 random = { chance = 17 create_ship = { name = "" design = "NAME_Tiyanki_Cow" } } }
+					while = {
+						count = 3
+						create_ship = { name = "" design = "NAME_Tiyanki_Calf" }
+					}
+					while = {
+						count = 1
+						create_ship = { name = "" design = "NAME_Tiyanki_Bull" }
+					}
+					while = {
+						count = 20
+						random = {
+							chance = 25
+							create_ship = { name = "" design = "NAME_Tiyanki_Calf" }
+						}
+					}
+					while = {
+						count = 13
+						random = {
+							chance = 17
+							create_ship = { name = "" design = "NAME_Tiyanki_Bull" }
+						}
+					}
+					while = {
+						count = 5
+						random = {
+							chance = 17
+							create_ship = { name = "" design = "NAME_Tiyanki_Cow" }
+						}
+					}
 					set_location = prev
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
 					set_fleet_flag = special_project_tiyanki_country_fleet
 					random_list = {
-						25 = { set_fleet_flag = special_project_tiyanki_country_fleet_defend }
+						25 = {
+							set_fleet_flag = special_project_tiyanki_country_fleet_defend
+						}
 						75 = { set_fleet_flag = special_project_tiyanki_country_fleet_move }
 					}
-				}
-			}
-			last_created_fleet = {
-				if = {
-					limit = { has_fleet_flag = special_project_tiyanki_country_fleet_move }
-					random_system = {
-						limit = { distance = { source = last_created_fleet use_bypasses = no min_jumps = 1 max_jumps = 2 } }
-						random_system_planet = { save_event_target_as = destination }
+					if = {
+						limit = { has_fleet_flag = special_project_tiyanki_country_fleet_move }
+						random_system = {
+							limit = {
+								distance = {
+									source = last_created_fleet
+									use_bypasses = no
+									min_jumps = 1
+									max_jumps = 2
+								}
+							}
+							random_system_planet = { save_event_target_as = destination }
+						}
+						auto_move_to_planet = {
+							target = event_target:destination
+							destroy_on_arrival = no
+							clear_auto_move_on_arrival = yes
+						}
 					}
-					auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
-				}
-				else_if = {
-					limit = { has_fleet_flag = special_project_tiyanki_country_fleet_defend }
-					solar_system = { random_system_planet = { save_event_target_as = destination } }
-					auto_move_to_planet = { target = event_target:destination destroy_on_arrival = no clear_auto_move_on_arrival = yes }
+					else_if = {
+						limit = {
+							has_fleet_flag = special_project_tiyanki_country_fleet_defend
+						}
+						solar_system = {
+							random_system_planet = { save_event_target_as = destination }
+						}
+						auto_move_to_planet = {
+							target = event_target:destination
+							destroy_on_arrival = no
+							clear_auto_move_on_arrival = yes
+						}
+					}
 				}
 			}
 		}
@@ -295,7 +572,7 @@ country_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	# mean_time_to_happen = { months = 36 }
-	immediate =	{
+	immediate = {
 		every_ambient_object = {
 			limit = { has_ambient_object_flag = hive_crystal_spawner }
 			create_special_project_crystal_country = yes
@@ -303,17 +580,40 @@ country_event = {
 				name = "NAME_Sapphire_Lurkers"
 				effect = {
 					set_owner = event_target:special_project_crystal_country
-					while = { count = 5 create_ship = { name = "" design = "New Small Crystal Entity Blue" } }
-					while = { count = 15 random = { chance = 50 create_ship = { name = "" design = "New Small Crystal Entity Blue" } } }
-					while = { count = 6 random = { chance = 20 create_ship = { name = "" design = "New Medium Crystal Entity Blue" } } }
-					while = { count = 1 random = { chance = 14 create_ship = { name = "" design = "New Large Crystal Entity Blue" } } }
+					while = {
+						count = 5
+						create_ship = { name = "" design = "New Small Crystal Entity Blue" }
+					}
+					while = {
+						count = 15
+						random = {
+							chance = 50
+							create_ship = { name = "" design = "New Small Crystal Entity Blue" }
+						}
+					}
+					while = {
+						count = 6
+						random = {
+							chance = 20
+							create_ship = { name = "" design = "New Medium Crystal Entity Blue" }
+						}
+					}
+					while = {
+						count = 1
+						random = {
+							chance = 14
+							create_ship = { name = "" design = "New Large Crystal Entity Blue" }
+						}
+					}
 					set_location = prev
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 1000
 					set_fleet_flag = special_project_crystal_country_fleet
 					random_list = {
-						10 = { set_fleet_flag = special_project_crystal_country_fleet_defend }
+						10 = {
+							set_fleet_flag = special_project_crystal_country_fleet_defend
+						}
 						90 = { set_fleet_flag = pecial_project_crystal_country_fleet_move }
 					}
 				}
@@ -322,7 +622,9 @@ country_event = {
 				every_owned_fleet = {
 					limit = {
 						has_fleet_flag = special_project_crystal_country_fleet
-						NOT = { has_fleet_flag = special_project_crystal_country_fleet_action }
+						NOT = {
+							has_fleet_flag = special_project_crystal_country_fleet_action
+						}
 						is_fleet_idle = yes
 					}
 					fleet_event = { id = SpecialProjectFleetEvents.2 days = 1 random = 2 }

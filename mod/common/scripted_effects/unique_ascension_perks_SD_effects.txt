@@ -3,19 +3,30 @@
 ######### Space Domestication #########
 #									 #
 ######################################
-
 # This = master country
 create_domestication_spaceborn_alien_country = {
 	if = {
-		limit = { NOT = { exists = event_target:main_country } }
+		limit = {
+			NOT = { exists = event_target:main_country }
+		}
 		save_event_target_as = main_country
 	}
 	if = {
-		limit = { NOT = { exists = event_target:domesticated_spaceborn_alien } }
+		limit = {
+			NOT = { exists = event_target:domesticated_spaceborn_alien }
+		}
 		if = {
-			limit = { any_relation = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } } }
+			limit = {
+				any_relation = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+				}
+			}
 			random_relation = {
-				limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
+				limit = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+				}
 				save_event_target_as = domesticated_spaceborn_alien
 			}
 		}
@@ -30,9 +41,17 @@ create_domestication_spaceborn_alien_country = {
 		# 	}
 		# }
 		else_if = {
-			limit = { any_country = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } } }
+			limit = {
+				any_country = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+				}
+			}
 			random_country = {
-				limit = { is_country_type = domesticated_spaceborn_alien has_relation_flag = { who = prev flag = domesticated_spaceborn_alien } }
+				limit = {
+					is_country_type = domesticated_spaceborn_alien
+					has_relation_flag = { who = prev flag = domesticated_spaceborn_alien }
+				}
 				save_event_target_as = domesticated_spaceborn_alien
 			}
 		}
@@ -42,7 +61,7 @@ create_domestication_spaceborn_alien_country = {
 				type = domesticated_spaceborn_alien
 				flag = {
 					icon = { category = "zoological" file = "flag_zoological_1.dds" }
-					background= { category = "backgrounds" file = "00_solid.dds" }
+					background = { category = "backgrounds" file = "00_solid.dds" }
 					colors = { "black" "black" "null" "null" }
 				}
 				auto_delete = no
@@ -52,7 +71,10 @@ create_domestication_spaceborn_alien_country = {
 					set_country_flag = first_alien_life
 					set_country_flag = has_encountered_other_empire
 					every_country = {
-						limit = { is_country_type_with_subjects = yes has_communications = event_target:main_country }
+						limit = {
+							is_country_type_with_subjects = yes
+							has_communications = event_target:main_country
+						}
 						establish_communications_no_message = prev
 					}
 					add_modifier = { modifier = domesticated_aliens }
@@ -70,7 +92,10 @@ create_domestication_spaceborn_alien_country = {
 					add_opinion_modifier = { who = event_target:main_country modifier = opinion_enlightened_us }
 					add_opinion_modifier = { who = event_target:main_country modifier = opinion_nurtured }
 					random_agreement = {
-						limit = { is_owned_by = event_target:main_country target = { is_same_empire = prev } }
+						limit = {
+							is_owned_by = event_target:main_country
+							target = { is_same_empire = prev }
+						}
 						add_loyalty = 95
 					}
 					add_modifier = { modifier = pledged_allegiance }
@@ -90,22 +115,37 @@ create_domestication_spaceborn_alien_country = {
 		}
 	}
 	if = {
-		limit = { NOT = { exists = event_target:spawn_location } }
+		limit = {
+			NOT = { exists = event_target:spawn_location }
+		}
 		if = {
 			limit = {
 				any_system_within_border = {
-					is_capital_system = no
-					NAND = { exists = sector any_system_colony = { is_sector_capital = yes } }
+					NOR = {
+						is_capital_system = yes
+						AND = {
+							exists = sector
+							any_system_colony = { is_sector_capital = yes }
+						}
+					}
 				}
 			}
 			random_system_within_border = {
 				limit = {
-					is_capital_system = no
-					NAND = { exists = sector any_system_colony = { is_sector_capital = yes } }
+					NOR = {
+						is_capital_system = yes
+						AND = {
+							exists = sector
+							any_system_colony = { is_sector_capital = yes }
+						}
+					}
 				}
 				random_system_planet = {
 					limit = { is_colony = no }
-					weights = { base = 1 modifier = { add = 50 has_planet_flag = domesticated_alien_home } }
+					weights = {
+						base = 1
+						modifier = { add = 50 has_planet_flag = domesticated_alien_home }
+					}
 					save_event_target_as = spawn_location
 				}
 			}
@@ -123,7 +163,10 @@ create_domestication_spaceborn_alien_country = {
 						solar_system = { is_capital_system = yes }
 					}
 				}
-				weights = { base = 1 modifier = { add = 50 has_planet_flag = domesticated_alien_home } }
+				weights = {
+					base = 1
+					modifier = { add = 50 has_planet_flag = domesticated_alien_home }
+				}
 				save_event_target_as = spawn_location
 			}
 		}
@@ -142,12 +185,14 @@ create_domestication_spaceborn_alien_country = {
 		}
 		add_trust = { amount = 5 who = prev }
 		random_agreement = {
-			limit = { is_owned_by = prevprev target = { is_same_empire = prev } }
+			limit = {
+				is_owned_by = prevprev
+				target = { is_same_empire = prev }
+			}
 			add_loyalty = 10
 		}
 		create_fleet = {
 			name = "Domesticated Fertilized Aliens"
-			settings = { spawn_debris = no is_boss = yes }
 			effect = {
 				set_owner = prev
 				prev = {
@@ -159,13 +204,21 @@ create_domestication_spaceborn_alien_country = {
 						domesticated_spaceborn_alien_drone		= { prev = { create_ship = { name = "" design = "Reprogrammed Ancient Replicator Drone" } } }
 					}
 				}
-				set_location = { target = event_target:spawn_location distance = 250 angle = random }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 250
+					angle = random
+				}
 				set_fleet_stance = aggressive
 				set_aggro_range_measure_from = self
 				set_aggro_range = 5000
 				set_formation_scale = 4.0
 				set_fleet_flag = domesticated_fleet
 				set_fleet_flag = domesticated_mother_fleet
+			}
+			settings = {
+				spawn_debris = no
+				is_boss = yes
 			}
 		}
 		# last_created_fleet = { }
@@ -186,40 +239,88 @@ resources_gathering_protocol = {
 	random_planet_within_border = {
 		limit = { has_planet_flag = domesticated_alien_home }
 		if = {
-			limit = { ROOT = { has_country_flag = space_domestication_tiyanki } merg_is_gas_giant = yes }
+			limit = {
+				root = { has_country_flag = space_domestication_tiyanki }
+				merg_is_gas_giant = yes
+			}
 			random_list = {
 				10 = { add_deposit = d_food_v2_7 }
 				10 = { add_deposit = d_food_v2_8 }
 				10 = { add_deposit = d_food_v2_9 }
 				10 = { add_deposit = d_food_v2_10 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_exotic_gases } } } add_deposit = d_exotic_gases_v2_2 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_exotic_gases } } } add_deposit = d_exotic_gases_v2_3 }
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_exotic_gases } }
+					}
+					add_deposit = d_exotic_gases_v2_2
+				}
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_exotic_gases } }
+					}
+					add_deposit = d_exotic_gases_v2_3
+				}
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_amoeba } merg_is_toxic = yes }
+			limit = {
+				root = { has_country_flag = space_domestication_amoeba }
+				merg_is_toxic = yes
+			}
 			random_list = {
 				10 = { add_deposit = d_energy_v2_7 }
 				10 = { add_deposit = d_energy_v2_8 }
 				10 = { add_deposit = d_energy_v2_9 }
 				10 = { add_deposit = d_energy_v2_10 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_volatile_motes } } } add_deposit = d_volatile_motes_v2_2 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_volatile_motes } } } add_deposit = d_volatile_motes_v2_3 }
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_volatile_motes } }
+					}
+					add_deposit = d_volatile_motes_v2_2
+				}
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_volatile_motes } }
+					}
+					add_deposit = d_volatile_motes_v2_3
+				}
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_crystal } merg_is_frozen = yes }
+			limit = {
+				root = { has_country_flag = space_domestication_crystal }
+				merg_is_frozen = yes
+			}
 			random_list = {
 				10 = { add_deposit = d_minerals_v2_7 }
 				10 = { add_deposit = d_minerals_v2_8 }
 				10 = { add_deposit = d_minerals_v2_9 }
 				10 = { add_deposit = d_minerals_v2_10 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_rare_crystals } } } add_deposit = d_rare_crystals_v2_2 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_rare_crystals } } } add_deposit = d_rare_crystals_v2_3 }
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_rare_crystals } }
+					}
+					add_deposit = d_rare_crystals_v2_2
+				}
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_rare_crystals } }
+					}
+					add_deposit = d_rare_crystals_v2_3
+				}
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_cloud } is_planet_class = pc_black_hole }
+			limit = {
+				root = { has_country_flag = space_domestication_cloud }
+				is_planet_class = pc_black_hole
+			}
 			random_list = {
 				10 = { add_deposit = d_energy_v2_7 }
 				10 = { add_deposit = d_energy_v2_8 }
@@ -228,7 +329,10 @@ resources_gathering_protocol = {
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_drone } is_planet_class = pc_asteroid }
+			limit = {
+				root = { has_country_flag = space_domestication_drone }
+				is_planet_class = pc_asteroid
+			}
 			random_list = {
 				10 = { add_deposit = d_minerals_v2_7 }
 				10 = { add_deposit = d_minerals_v2_8 }
@@ -245,7 +349,10 @@ research_assistance_protocol = {
 	random_planet_within_border = {
 		limit = { has_planet_flag = domesticated_alien_home }
 		if = {
-			limit = { ROOT = { has_country_flag = space_domestication_tiyanki } merg_is_gas_giant = yes }
+			limit = {
+				root = { has_country_flag = space_domestication_tiyanki }
+				merg_is_gas_giant = yes
+			}
 			random_list = {
 				10 = { add_deposit = d_society_7 }
 				10 = { add_deposit = d_society_8 }
@@ -254,7 +361,10 @@ research_assistance_protocol = {
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_amoeba } merg_is_toxic = yes }
+			limit = {
+				root = { has_country_flag = space_domestication_amoeba }
+				merg_is_toxic = yes
+			}
 			random_list = {
 				10 = { add_deposit = d_society_7 }
 				10 = { add_deposit = d_society_8 }
@@ -263,7 +373,10 @@ research_assistance_protocol = {
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_crystal } merg_is_frozen = yes }
+			limit = {
+				root = { has_country_flag = space_domestication_crystal }
+				merg_is_frozen = yes
+			}
 			random_list = {
 				10 = { add_deposit = d_physics_7 }
 				10 = { add_deposit = d_physics_8 }
@@ -272,24 +385,48 @@ research_assistance_protocol = {
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_cloud } is_planet_class = pc_black_hole }
+			limit = {
+				root = { has_country_flag = space_domestication_cloud }
+				is_planet_class = pc_black_hole
+			}
 			random_list = {
 				10 = { add_deposit = d_physics_7 }
 				10 = { add_deposit = d_physics_8 }
 				10 = { add_deposit = d_physics_9 }
 				10 = { add_deposit = d_physics_10 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_dark_matter } } } add_deposit = d_dark_matter_deposit_1 }
-				5 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_dark_matter } } } add_deposit = d_dark_matter_deposit_2 }
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_dark_matter } }
+					}
+					add_deposit = d_dark_matter_deposit_1
+				}
+				5 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_dark_matter } }
+					}
+					add_deposit = d_dark_matter_deposit_2
+				}
 			}
 		}
 		else_if = {
-			limit = { ROOT = { has_country_flag = space_domestication_drone } is_planet_class = pc_asteroid }
+			limit = {
+				root = { has_country_flag = space_domestication_drone }
+				is_planet_class = pc_asteroid
+			}
 			random_list = {
 				10 = { add_deposit = d_engineering_7 }
 				10 = { add_deposit = d_engineering_8 }
 				10 = { add_deposit = d_engineering_9 }
 				10 = { add_deposit = d_engineering_10 }
-				3 = { modifier = { factor = 0 NOT = { ROOT = { has_technology = tech_mine_living_metal } } } add_deposit = d_living_metal_deposit }
+				3 = {
+					modifier = {
+						factor = 0
+						NOT = { root = { has_technology = tech_mine_living_metal } }
+					}
+					add_deposit = d_living_metal_deposit
+				}
 			}
 		}
 	}
@@ -297,7 +434,9 @@ research_assistance_protocol = {
 
 create_leviathan_master_country = {
 	if = {
-		limit = { any_country = { has_country_flag = leviathan_master_country } }
+		limit = {
+			any_country = { has_country_flag = leviathan_master_country }
+		}
 		random_country = {
 			limit = { has_country_flag = leviathan_master_country }
 			save_event_target_as = leviathan_master_country
@@ -309,7 +448,7 @@ create_leviathan_master_country = {
 			type = leviathan_master
 			flag = {
 				icon = { category = "zoological" file = "flag_zoological_5.dds" }
-				background= { category = "backgrounds" file = "00_solid.dds" }
+				background = { category = "backgrounds" file = "00_solid.dds" }
 				colors = { "red" "red" "null" "null" }
 			}
 			effect = {
@@ -340,32 +479,60 @@ create_leviathan_master_country = {
 # }
 
 leviathan_master_enraged_leviathan = {
-	random_owned_planet = { save_event_target_as = destination_location }
-	random_rim_system = { star = { save_event_target_as = spawn_location } }
+	random_owned_planet = {
+		save_event_target_as = destination_location
+	}
+
+	random_rim_system = {
+		star = { save_event_target_as = spawn_location }
+	}
+
 	event_target:leviathan_master_country = {
 		create_fleet = {
 			name = summoned_leviathan
-			settings = { spawn_debris = no is_boss = yes }
 			effect = {
 				set_owner = event_target:leviathan_master_country
 				random_list = {
 					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Ether_Drake } }
 					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Stellarite_Devourer } }
 					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Spectral_Wraith } }
-					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Automated_Dreadnought graphical_culture = "npf_01" } }
+					10 = {
+						create_ship = {
+							name = NAME_Enraged_Leviathan
+							design = NAME_Sum_Automated_Dreadnought
+							graphical_culture = "npf_01"
+						}
+					}
 					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Scavenger_Bot } }
 					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Tiyanki_Matriarch } }
 					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Voidspawn } }
-					10 = { create_ship = { name = NAME_Enraged_Leviathan design = NAME_Sum_Infinity_Machine graphical_culture = "techno" } }
+					10 = {
+						create_ship = {
+							name = NAME_Enraged_Leviathan
+							design = NAME_Sum_Infinity_Machine
+							graphical_culture = "techno"
+						}
+					}
 				}
-				set_location = { target = event_target:spawn_location distance = 5 angle = random }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 5
+					angle = random
+				}
 				set_fleet_stance = aggressive
 				set_aggro_range_measure_from = self
 				set_aggro_range = 1000
 			}
+			settings = {
+				spawn_debris = no
+				is_boss = yes
+			}
 		}
 		last_created_fleet = {
-			auto_move_to_planet = { target = event_target:destination_location clear_auto_move_on_arrival = yes }
+			auto_move_to_planet = {
+				target = event_target:destination_location
+				clear_auto_move_on_arrival = yes
+			}
 		}
 	}
 }

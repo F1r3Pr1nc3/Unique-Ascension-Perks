@@ -1,3 +1,4 @@
+
 custom_anomalies = {
 	potential = {
 		OR = {
@@ -6,13 +7,28 @@ custom_anomalies = {
 			has_ascension_perk = ap_expansionist_development
 		}
 	}
+
 	option = {
 		name = "policy_custom_anomalies_activated_name"
 		policy_flags = { policy_custom_anomalies_activated }
-		on_enabled = { hidden_effect = { set_global_flag = custom_anomalies_activated set_global_flag = anomalies_respawner_active } }
+		on_enabled = {
+			hidden_effect = {
+				set_global_flag = custom_anomalies_activated
+				set_global_flag = anomalies_respawner_active
+			}
+		}
 		on_disabled = {
 			hidden_effect = {
-				if = { limit = { count_playable_country = { limit = { NOT = { is_same_empire = prev } has_policy_flag = policy_custom_anomalies_activated } count = 0 } }
+				if = {
+					limit = {
+						count_playable_country = {
+							count = 0
+							limit = {
+								has_policy_flag = policy_custom_anomalies_activated
+								NOT = { is_same_empire = prev }
+							}
+						}
+					}
 					remove_global_flag = custom_anomalies_activated
 				}
 			}
@@ -24,7 +40,16 @@ custom_anomalies = {
 		policy_flags = { policy_custom_anomalies_deactivated }
 		on_enabled = {
 			hidden_effect = {
-				if = { limit = { count_playable_country = { limit = { NOT = { is_same_empire = prev } has_policy_flag = policy_custom_anomalies_activated } count = 0 } }
+				if = {
+					limit = {
+						count_playable_country = {
+							count = 0
+							limit = {
+								has_policy_flag = policy_custom_anomalies_activated
+								NOT = { is_same_empire = prev }
+							}
+						}
+					}
 					remove_global_flag = custom_anomalies_activated
 				}
 			}
@@ -34,13 +59,21 @@ custom_anomalies = {
 	option = {
 		name = "policy_custom_anomalies_more_name"
 		policy_flags = { policy_custom_anomalies_activated policy_custom_anomalies_more }
-		on_enabled = { hidden_effect = { set_global_flag = anomalies_respawner_active } }
+		on_enabled = {
+			hidden_effect = {
+				set_global_flag = anomalies_respawner_active
+			}
+		}
 		ai_weight = { weight = 0 }
 	}
 	option = {
 		name = "policy_custom_anomalies_lots_name"
 		policy_flags = { policy_custom_anomalies_activated policy_custom_anomalies_lots }
-		on_enabled = { hidden_effect = { set_global_flag = anomalies_respawner_active } }
+		on_enabled = {
+			hidden_effect = {
+				set_global_flag = anomalies_respawner_active
+			}
+		}
 		ai_weight = { weight = 0 }
 	}
 	option = {
@@ -48,7 +81,17 @@ custom_anomalies = {
 		policy_flags = { policy_custom_anomalies_activated policy_custom_anomalies_less }
 		on_enabled = {
 			hidden_effect = {
-				if = { limit = { has_global_flag = anomalies_respawner_active count_playable_country = { limit = { NOT = { is_same_empire = prev } has_policy_flag = policy_custom_anomalies_activated } count = 0 } }
+				if = {
+					limit = {
+						has_global_flag = anomalies_respawner_active
+						count_playable_country = {
+							count = 0
+							limit = {
+								has_policy_flag = policy_custom_anomalies_activated
+								NOT = { is_same_empire = prev }
+							}
+						}
+					}
 					remove_global_flag = anomalies_respawner_active
 				}
 			}
@@ -60,7 +103,17 @@ custom_anomalies = {
 		policy_flags = { policy_custom_anomalies_activated policy_custom_anomalies_rare }
 		on_enabled = {
 			hidden_effect = {
-				if = { limit = { has_global_flag = anomalies_respawner_active count_playable_country = { limit = { NOT = { is_same_empire = prev } has_policy_flag = policy_custom_anomalies_activated } count = 0 } }
+				if = {
+					limit = {
+						has_global_flag = anomalies_respawner_active
+						count_playable_country = {
+							count = 0
+							limit = {
+								has_policy_flag = policy_custom_anomalies_activated
+								NOT = { is_same_empire = prev }
+							}
+						}
+					}
 					remove_global_flag = anomalies_respawner_active
 				}
 			}
@@ -77,16 +130,28 @@ custom_discovery_chances = {
 			has_ascension_perk = ap_expansionist_development
 		}
 	}
+
 	option = {
 		name = "policy_custom_discovery_chances_normal"
 		on_enabled = {
 			hidden_effect = {
-				if = { limit = { has_global_flag = anomalies_respawner_active count_playable_country = { limit = { has_policy_flag = policy_custom_anomalies_activated } count = 0 } }
+				if = {
+					limit = {
+						has_global_flag = anomalies_respawner_active
+						count_playable_country = {
+							count = 0
+							limit = { has_policy_flag = policy_custom_anomalies_activated }
+						}
+					}
 					remove_global_flag = anomalies_respawner_active
 				}
 			}
 		}
-		on_disabled = { hidden_effect = { set_global_flag = anomalies_respawner_active } }
+		on_disabled = {
+			hidden_effect = {
+				set_global_flag = anomalies_respawner_active
+			}
+		}
 		ai_weight = { weight = 100 }
 	}
 	option = {
@@ -111,6 +176,7 @@ custom_discovery_chances = {
 		modifier = { ship_anomaly_generation_chance_mult = 2.0 }
 		ai_weight = { weight = 0 }
 	}
+
 	# option = {
 	# 	name = "policy_custom_discovery_chances_total_chaos"
 	# 	modifier = { ship_anomaly_generation_chance_mult = 4.0 }

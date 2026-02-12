@@ -1,3 +1,4 @@
+
 namespace = UniqueAscensionPerksMenuEvents
 # AI weight values - needs match UniqueAscensionPerksMenuEvents.100
 # All value = 3 are default disabled
@@ -65,27 +66,41 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = UniqueAscensionPerksMenuEvents.Perks.Description
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.Perks.Description.tooltip"
-		hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Add.Slots
-		trigger = { NOT = { has_modifier = unique_perk_ascension_slots } }
+		trigger = {
+			NOT = { has_modifier = unique_perk_ascension_slots }
+		}
 		add_modifier = { modifier = unique_perk_ascension_slots }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Remove.Slots
 		trigger = { has_modifier = unique_perk_ascension_slots }
 		remove_modifier = unique_perk_ascension_slots
-		hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Districts.On
-		trigger = { NOT = { has_global_flag = ap_pyramidal_society } }
+		trigger = {
+			NOT = { has_global_flag = ap_pyramidal_society }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Districts.On.tooltip"
 		hidden_effect = {
 			set_global_flag = ap_pyramidal_society
@@ -107,33 +122,75 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.LeaderTraits.On
-		trigger = { NOT = { has_global_flag = ap_expandable_brain_1 } }
+		trigger = {
+			NOT = { has_global_flag = ap_expandable_brain_1 }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.LeaderTraits.On.tooltip"
-		hidden_effect = { set_global_flag = ap_expandable_brain_1 country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			set_global_flag = ap_expandable_brain_1
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.LeaderTraits.Off
 		trigger = { has_global_flag = ap_expandable_brain_1 }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.LeaderTraits.Off.tooltip"
-		hidden_effect = { remove_global_flag = ap_expandable_brain_1 country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			remove_global_flag = ap_expandable_brain_1
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.LeaderPowerful.On
-		trigger = { NOT = { has_global_flag = ap_expandable_brain_2 } }
+		trigger = {
+			NOT = { has_global_flag = ap_expandable_brain_2 }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.LeaderPowerful.On.tooltip"
 		hidden_effect = {
 			set_global_flag = ap_expandable_brain_2
 			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
 			every_country = {
 				every_owned_leader = {
-					if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
-					if = { limit = { NOT = { has_leader_flag = first_cheated_trait } } set_leader_flag = first_cheated_trait BR_add_random_leader_trait = yes }
-					if = { limit = { NOT = { has_leader_flag = first_second_trait } } set_leader_flag = first_second_trait BR_add_random_leader_trait = yes }
+					if = {
+						limit = { has_total_skill < 5 }
+						set_skill = 3
+						add_skill = 2
+					} # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+					if = {
+						limit = {
+							NOT = { has_leader_flag = first_cheated_trait }
+						}
+						set_leader_flag = first_cheated_trait
+						BR_add_random_leader_trait = yes
+					}
+					if = {
+						limit = {
+							NOT = { has_leader_flag = first_second_trait }
+						}
+						set_leader_flag = first_second_trait
+						BR_add_random_leader_trait = yes
+					}
 				}
 				every_pool_leader = {
-					if = { limit = { has_skill < 5 } set_skill = 3 add_skill = 2 } # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
-					if = { limit = { NOT = { has_leader_flag = first_cheated_trait } } set_leader_flag = first_cheated_trait BR_add_random_leader_trait = yes }
-					if = { limit = { NOT = { has_leader_flag = first_second_trait } } set_leader_flag = first_second_trait BR_add_random_leader_trait = yes }
+					if = {
+						limit = { has_total_skill < 5 }
+						set_skill = 3
+						add_skill = 2
+					} # prev = { country_event = { id = paragon_2.2095 scopes = { from = prev } } }
+					if = {
+						limit = {
+							NOT = { has_leader_flag = first_cheated_trait }
+						}
+						set_leader_flag = first_cheated_trait
+						BR_add_random_leader_trait = yes
+					}
+					if = {
+						limit = {
+							NOT = { has_leader_flag = first_second_trait }
+						}
+						set_leader_flag = first_second_trait
+						BR_add_random_leader_trait = yes
+					}
 				}
 			}
 		}
@@ -142,36 +199,57 @@ country_event = {
 		name = UniqueAscensionPerksMenuEvents.1.LeaderPowerful.Off
 		trigger = { has_global_flag = ap_expandable_brain_2 }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.LeaderPowerful.Off.tooltip"
-		hidden_effect = { remove_global_flag = ap_expandable_brain_2 country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			remove_global_flag = ap_expandable_brain_2
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.SelfAware.On
-		trigger = { NOT = { has_global_flag = ap_self_aware_colony } }
+		trigger = {
+			NOT = { has_global_flag = ap_self_aware_colony }
+		}
 		allow = { always = no } # Beta: bad performance
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.SelfAware.On.tooltip"
-		hidden_effect = { set_global_flag = ap_self_aware_colony country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			set_global_flag = ap_self_aware_colony
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.SelfAware.Off
 		trigger = { has_global_flag = ap_self_aware_colony }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.SelfAware.Off.tooltip"
-		hidden_effect = { remove_global_flag = ap_self_aware_colony country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			remove_global_flag = ap_self_aware_colony
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Manipulation.On
-		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		trigger = {
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Manipulation.On.tooltip"
-		hidden_effect = { set_global_flag = ap_stellar_manipulation country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			set_global_flag = ap_stellar_manipulation
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Manipulation.Off
 		trigger = { has_global_flag = ap_stellar_manipulation }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Manipulation.Off.tooltip"
-		hidden_effect = { remove_global_flag = ap_stellar_manipulation country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			remove_global_flag = ap_stellar_manipulation
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.Heritage.On
-		trigger = { NOT = { has_global_flag = ap_lost_heritage } }
+		trigger = {
+			NOT = { has_global_flag = ap_lost_heritage }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Heritage.On.tooltip"
 		hidden_effect = {
 			set_global_flag = ap_lost_heritage
@@ -186,16 +264,23 @@ country_event = {
 		# allow = { always = no } ?
 		trigger = { has_global_flag = ap_lost_heritage }
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.Heritage.Off.tooltip"
-		hidden_effect = { remove_global_flag = ap_lost_heritage country_event = { id = UniqueAscensionPerksMenuEvents.1 } }
+		hidden_effect = {
+			remove_global_flag = ap_lost_heritage
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.BuildingUpkeep.On
-		trigger = { NOT = { has_global_flag = ap_no_strategic_resources_building_upkeep } }
+		trigger = {
+			NOT = { has_global_flag = ap_no_strategic_resources_building_upkeep }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.BuildingUpkeep.On.tooltip"
 		hidden_effect = {
 			set_global_flag = ap_no_strategic_resources_building_upkeep
 			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
-			every_country = { add_modifier = { modifier = no_strategic_resources_building_upkeep } }
+			every_country = {
+				add_modifier = { modifier = no_strategic_resources_building_upkeep }
+			}
 		}
 	}
 	option = {
@@ -210,7 +295,9 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.AIequality.On
-		trigger = { NOT = { has_global_flag = uap_AIequality } }
+		trigger = {
+			NOT = { has_global_flag = uap_AIequality }
+		}
 		custom_tooltip = "UniqueAscensionPerksMenuEvents.1.AIequality.On.tooltip"
 		hidden_effect = {
 			set_global_flag = uap_AIequality
@@ -230,7 +317,10 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.AIequality.All
-		trigger = { has_global_flag = uap_AIequality NOT = { event_target:global_event_country = { has_country_flag = uap_AIequality } } }
+		trigger = {
+			has_global_flag = uap_AIequality
+			NOT = { event_target:global_event_country = { has_country_flag = uap_AIequality } }
+		}
 		allow = { exists = event_target:global_event_country }
 		# custom_tooltip = "UniqueAscensionPerksMenuEvents.1.AIequality.All.tooltip"
 		hidden_effect = {
@@ -242,7 +332,12 @@ country_event = {
 	}
 	option = {
 		name = UniqueAscensionPerksMenuEvents.1.AIequality.None
-		trigger = { OR = { event_target:global_event_country = { has_country_flag = uap_AIequality } NOT = { has_global_flag = uap_AIequality } } }
+		trigger = {
+			OR = {
+				event_target:global_event_country = { has_country_flag = uap_AIequality }
+				NOT = { has_global_flag = uap_AIequality }
+			}
+		}
 		allow = { exists = event_target:global_event_country }
 		# custom_tooltip = "UniqueAscensionPerksMenuEvents.1.AIequality.All.tooltip"
 		hidden_effect = {
@@ -252,7 +347,9 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksMenuEvents.1002 } # All out
 		}
 	}
-	option = { name = EXIT }
+	option = {
+		name = EXIT
+	}
 }
 
 country_event = {
@@ -263,19 +360,97 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "ap_space_engineers" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.101 } } }
-	option = { name = "ap_stellar_manipulation" custom_tooltip = "UniqueAscensionPerksMenuEvents.102.Desc" allow = { custom_tooltip = { fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality" always = no } } hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.102 } } }
-	option = { name = "ap_lost_heritage" custom_tooltip = "UniqueAscensionPerksMenuEvents.103.Desc" allow = { custom_tooltip = { fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality" always = no } } hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.103 } } }
-	option = { name = "ap_expandable_brain_1" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.104 } } }
-	option = { name = "ap_expandable_brain_2" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.105 } } }
-	option = { name = "ap_ai_cortana" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.106 } } }
-	option = { name = "ap_nano_drones" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.107 } } }
-	option = { name = "ap_nano_to_nanite" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.108 } } }
-	option = { name = "ap_genius_cloning" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.109 } } }
-	option = { name = "ap_adv_colonisation" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.110 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.next hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "ap_space_engineers"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.101 }
+		}
+	}
+	option = {
+		name = "ap_stellar_manipulation"
+		custom_tooltip = "UniqueAscensionPerksMenuEvents.102.Desc"
+		allow = {
+			custom_tooltip = {
+				fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality"
+				always = no
+			}
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.102 }
+		}
+	}
+	option = {
+		name = "ap_lost_heritage"
+		custom_tooltip = "UniqueAscensionPerksMenuEvents.103.Desc"
+		allow = {
+			custom_tooltip = {
+				fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality"
+				always = no
+			}
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.103 }
+		}
+	}
+	option = {
+		name = "ap_expandable_brain_1"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.104 }
+		}
+	}
+	option = {
+		name = "ap_expandable_brain_2"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.105 }
+		}
+	}
+	option = {
+		name = "ap_ai_cortana"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.106 }
+		}
+	}
+	option = {
+		name = "ap_nano_drones"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.107 }
+		}
+	}
+	option = {
+		name = "ap_nano_to_nanite"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.108 }
+		}
+	}
+	option = {
+		name = "ap_genius_cloning"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.109 }
+		}
+	}
+	option = {
+		name = "ap_adv_colonisation"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.110 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.next
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
+	}
 }
 
 country_event = {
@@ -286,20 +461,89 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "ap_expansion_infinity" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.111 } } }
-	option = { name = "ap_recycling_drones" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.112 } } }
-	option = { name = "ap_emergency_calculation" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.113 } } }
-	option = { name = "ap_economic_prospertity" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.114 } } }
-	option = { name = "ap_chosen_ruler" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.115 } } }
-	option = { name = "ap_advanced_security" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.116 } } }
-	option = { name = "ap_space_domestication" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.117 } } }
-	option = { name = "ap_leviathan_master" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.118 } } }
-	option = { name = "ap_friendly_nature" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.119 } } }
-	option = { name = "ap_robot_command" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.120 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.next hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.prev hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "ap_expansion_infinity"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.111 }
+		}
+	}
+	option = {
+		name = "ap_recycling_drones"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.112 }
+		}
+	}
+	option = {
+		name = "ap_emergency_calculation"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.113 }
+		}
+	}
+	option = {
+		name = "ap_economic_prospertity"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.114 }
+		}
+	}
+	option = {
+		name = "ap_chosen_ruler"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.115 }
+		}
+	}
+	option = {
+		name = "ap_advanced_security"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.116 }
+		}
+	}
+	option = {
+		name = "ap_space_domestication"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.117 }
+		}
+	}
+	option = {
+		name = "ap_leviathan_master"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.118 }
+		}
+	}
+	option = {
+		name = "ap_friendly_nature"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.119 }
+		}
+	}
+	option = {
+		name = "ap_robot_command"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.120 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.next
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.prev
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
+	}
 }
 
 country_event = {
@@ -310,20 +554,89 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "ap_recomposer" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.121 } } }
-	option = { name = "ap_megacorp" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.122 } } }
-	option = { name = "ap_fallen_disciple" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.123 } } }
-	option = { name = "ap_stability_celebration" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.124 } } }
-	option = { name = "ap_galaxy_center" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.125 } } }
-	option = { name = "ap_advanced_government_1" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.126 } } }
-	option = { name = "ap_advanced_government_2" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.127 } } }
-	option = { name = "ap_space_merchant" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.128 } } }
-	option = { name = "ap_super_hive_mind" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.129 } } }
-	option = { name = "ap_mega_hive_mind" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.130 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.next hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.prev hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "ap_recomposer"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.121 }
+		}
+	}
+	option = {
+		name = "ap_megacorp"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.122 }
+		}
+	}
+	option = {
+		name = "ap_fallen_disciple"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.123 }
+		}
+	}
+	option = {
+		name = "ap_stability_celebration"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.124 }
+		}
+	}
+	option = {
+		name = "ap_galaxy_center"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.125 }
+		}
+	}
+	option = {
+		name = "ap_advanced_government_1"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.126 }
+		}
+	}
+	option = {
+		name = "ap_advanced_government_2"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.127 }
+		}
+	}
+	option = {
+		name = "ap_space_merchant"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.128 }
+		}
+	}
+	option = {
+		name = "ap_super_hive_mind"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.129 }
+		}
+	}
+	option = {
+		name = "ap_mega_hive_mind"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.130 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.next
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.prev
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
+	}
 }
 
 country_event = {
@@ -334,20 +647,103 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "ap_aggressive_hivemind" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.131 } } }
-	option = { name = "ap_connected_hivemind" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.132 } } }
-	option = { name = "ap_hivemind_reserve" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.133 } } }
-	option = { name = "ap_primitives_creation" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.134 } } }
-	option = { name = "ap_powerful_vassals" custom_tooltip = "UniqueAscensionPerksMenuEvents.135.Desc" allow = { custom_tooltip = { fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality" always = no } } hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.135 } } }
-	option = { name = "ap_void_expedition" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.136 } } }
-	option = { name = "ap_mechanical_prophet" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.137 } } }
-	option = { name = "ap_machine_core" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.138 } } }
-	option = { name = "ap_defense_sentinels" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.139 } } }
-	option = { name = "ap_leadership_transfer" custom_tooltip = "UniqueAscensionPerksMenuEvents.140.Desc" allow = { custom_tooltip = { fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality" always = no } } hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.140 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.next hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.prev hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "ap_aggressive_hivemind"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.131 }
+		}
+	}
+	option = {
+		name = "ap_connected_hivemind"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.132 }
+		}
+	}
+	option = {
+		name = "ap_hivemind_reserve"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.133 }
+		}
+	}
+	option = {
+		name = "ap_primitives_creation"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.134 }
+		}
+	}
+	option = {
+		name = "ap_powerful_vassals"
+		custom_tooltip = "UniqueAscensionPerksMenuEvents.135.Desc"
+		allow = {
+			custom_tooltip = {
+				fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality"
+				always = no
+			}
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.135 }
+		}
+	}
+	option = {
+		name = "ap_void_expedition"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.136 }
+		}
+	}
+	option = {
+		name = "ap_mechanical_prophet"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.137 }
+		}
+	}
+	option = {
+		name = "ap_machine_core"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.138 }
+		}
+	}
+	option = {
+		name = "ap_defense_sentinels"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.139 }
+		}
+	}
+	option = {
+		name = "ap_leadership_transfer"
+		custom_tooltip = "UniqueAscensionPerksMenuEvents.140.Desc"
+		allow = {
+			custom_tooltip = {
+				fail_text = "UniqueAscensionPerksMenuEvents.NO_AIequality"
+				always = no
+			}
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.140 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.next
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.prev
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
+	}
 }
 
 country_event = {
@@ -358,20 +754,89 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "ap_civilian_activities" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.141 } } }
-	option = { name = "ap_pyramidal_society" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.142 } } }
-	option = { name = "ap_orbital_surgical_strike" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.143 } } }
-	option = { name = "ap_wheel_fortune" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.144 } } }
-	option = { name = "ap_underworld" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.145 } } }
-	option = { name = "ap_slow_learner" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.146 } } }
-	option = { name = "ap_utopian_realisation" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.147 } } }
-	option = { name = "ap_antimatter" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.148 } } }
-	option = { name = "ap_deep_scanner" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.149 } } }
-	option = { name = "ap_artifact_hunter" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.150 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.next hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.prev hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "ap_civilian_activities"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.141 }
+		}
+	}
+	option = {
+		name = "ap_pyramidal_society"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.142 }
+		}
+	}
+	option = {
+		name = "ap_orbital_surgical_strike"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.143 }
+		}
+	}
+	option = {
+		name = "ap_wheel_fortune"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.144 }
+		}
+	}
+	option = {
+		name = "ap_underworld"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.145 }
+		}
+	}
+	option = {
+		name = "ap_slow_learner"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.146 }
+		}
+	}
+	option = {
+		name = "ap_utopian_realisation"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.147 }
+		}
+	}
+	option = {
+		name = "ap_antimatter"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.148 }
+		}
+	}
+	option = {
+		name = "ap_deep_scanner"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.149 }
+		}
+	}
+	option = {
+		name = "ap_artifact_hunter"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.150 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.next
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.7 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.prev
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
+	}
 }
 
 country_event = {
@@ -382,16 +847,61 @@ country_event = {
 	picture = GFX_evt_unique_perk_menu
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "ap_self_aware_colony" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.151 } } }
-	option = { name = "ap_flourishing_technocracy" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.152 } } }
-	option = { name = "ap_legendary_forge" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.153 } } }
-	option = { name = "ap_library_wisedom" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.154 } } }
-	option = { name = "ap_expansionist_development" hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.155 } } }
-	option = { name = "ap_sector_z749" allow = { always = no } }
-	option = { name = "ap_dark_galaxy_web" allow = { always = no } }
-	option = { name = UniqueAscensionPerksMenuEvents.2.prev hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.1 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "ap_self_aware_colony"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.151 }
+		}
+	}
+	option = {
+		name = "ap_flourishing_technocracy"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.152 }
+		}
+	}
+	option = {
+		name = "ap_legendary_forge"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.153 }
+		}
+	}
+	option = {
+		name = "ap_library_wisedom"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.154 }
+		}
+	}
+	option = {
+		name = "ap_expansionist_development"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.155 }
+		}
+	}
+	option = {
+		name = "ap_sector_z749"
+		allow = { always = no }
+	}
+	option = {
+		name = "ap_dark_galaxy_web"
+		allow = { always = no }
+	}
+	option = {
+		name = UniqueAscensionPerksMenuEvents.2.prev
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.1 }
+		}
+	}
 }
 
 country_event = {
@@ -402,19 +912,66 @@ country_event = {
 	picture = GFX_evt_space_engineers
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_engineers value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_engineers value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_engineers value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_engineers value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_engineers value = @ap_space_engineers } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_engineers value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_space_engineers value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_space_engineers value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_space_engineers value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_space_engineers value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_space_engineers value = @ap_space_engineers }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_space_engineers value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -425,19 +982,67 @@ country_event = {
 	picture = GFX_evt_planetary_program_2
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_stellar_manipulation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stellar_manipulation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stellar_manipulation value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { always = no hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_stellar_manipulation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stellar_manipulation value = @ap_stellar_manipulation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stellar_manipulation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_stellar_manipulation value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_stellar_manipulation value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_stellar_manipulation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			always = no
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_stellar_manipulation value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_stellar_manipulation value = @ap_stellar_manipulation }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_stellar_manipulation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -448,19 +1053,66 @@ country_event = {
 	picture = GFX_evt_lost_heritage
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_lost_heritage value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_lost_heritage value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_lost_heritage value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_lost_heritage value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_lost_heritage value = @ap_lost_heritage } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_lost_heritage value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_lost_heritage value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_lost_heritage value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_lost_heritage value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_lost_heritage value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_lost_heritage value = @ap_lost_heritage }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_lost_heritage value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -471,19 +1123,66 @@ country_event = {
 	picture = GFX_evt_expandable_brain_2
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_1 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_1 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_1 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expandable_brain_1 value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expandable_brain_1 value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expandable_brain_1 value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expandable_brain_1 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -494,19 +1193,66 @@ country_event = {
 	picture = GFX_evt_expandable_brain_3
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_2 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_2 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expandable_brain_2 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expandable_brain_2 value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expandable_brain_2 value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expandable_brain_2 value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expandable_brain_2 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -517,19 +1263,66 @@ country_event = {
 	picture = GFX_evt_ai_cortana
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_ai_cortana value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_ai_cortana value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_ai_cortana value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_ai_cortana value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_ai_cortana value = @ap_ai_cortana } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_ai_cortana value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_ai_cortana value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_ai_cortana value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_ai_cortana value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_ai_cortana value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_ai_cortana value = @ap_ai_cortana }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_ai_cortana value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -540,19 +1333,66 @@ country_event = {
 	picture = GFX_evt_nano_workers
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_drones value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_drones value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_drones value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_drones value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_drones value = @ap_nano_drones } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_drones value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_nano_drones value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_nano_drones value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_nano_drones value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_nano_drones value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_nano_drones value = @ap_nano_drones }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_nano_drones value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -563,19 +1403,66 @@ country_event = {
 	picture = GFX_evt_nano_to_nanite
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_to_nanite value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_to_nanite value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_nano_to_nanite value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_nano_to_nanite value = @ap_nano_to_nanite } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_nano_to_nanite value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_nano_to_nanite value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_nano_to_nanite value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_nano_to_nanite value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_nano_to_nanite value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_nano_to_nanite value = @ap_nano_to_nanite }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_nano_to_nanite value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -586,19 +1473,66 @@ country_event = {
 	picture = GFX_evt_genious_pregnacy
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_genius_cloning value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_genius_cloning value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_genius_cloning value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_genius_cloning value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_genius_cloning value = @ap_genius_cloning } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_genius_cloning value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_genius_cloning value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_genius_cloning value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_genius_cloning value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_genius_cloning value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_genius_cloning value = @ap_genius_cloning }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_genius_cloning value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -609,19 +1543,66 @@ country_event = {
 	picture = GFX_evt_big_landing_ship
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.2 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_adv_colonisation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_adv_colonisation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_adv_colonisation value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_adv_colonisation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_adv_colonisation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.2 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_adv_colonisation value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_adv_colonisation value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_adv_colonisation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_adv_colonisation value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_adv_colonisation value = @ap_adv_colonisation }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_adv_colonisation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -632,19 +1613,66 @@ country_event = {
 	picture = GFX_evt_expansion_infinity
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansion_infinity value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansion_infinity value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansion_infinity value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansion_infinity value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansion_infinity value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expansion_infinity value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expansion_infinity value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expansion_infinity value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expansion_infinity value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expansion_infinity value = @ap_expansion_infinity }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expansion_infinity value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -655,19 +1683,66 @@ country_event = {
 	picture = GFX_evt_scavenger_bot
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_recycling_drones value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recycling_drones value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recycling_drones value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_recycling_drones value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recycling_drones value = @ap_recycling_drones } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recycling_drones value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_recycling_drones value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_recycling_drones value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_recycling_drones value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_recycling_drones value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_recycling_drones value = @ap_recycling_drones }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_recycling_drones value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -678,19 +1753,66 @@ country_event = {
 	picture = GFX_evt_emergency_calculation
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_emergency_calculation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_emergency_calculation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_emergency_calculation value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_emergency_calculation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_emergency_calculation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_emergency_calculation value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_emergency_calculation value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_emergency_calculation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_emergency_calculation value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_emergency_calculation value = @ap_emergency_calculation }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_emergency_calculation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -701,19 +1823,66 @@ country_event = {
 	picture = GFX_evt_financial_instruments
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_economic_prospertity value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_economic_prospertity value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_economic_prospertity value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_economic_prospertity value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_economic_prospertity value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_economic_prospertity value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_economic_prospertity value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_economic_prospertity value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_economic_prospertity value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -724,19 +1893,66 @@ country_event = {
 	picture = GFX_evt_khan_throne_room
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_chosen_ruler value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_chosen_ruler value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_chosen_ruler value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_chosen_ruler value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_chosen_ruler value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_chosen_ruler value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_chosen_ruler value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_chosen_ruler value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_chosen_ruler value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_chosen_ruler value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -747,19 +1963,66 @@ country_event = {
 	picture = GFX_evt_security_forces
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_security value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_security value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_security value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_security value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_security value = @ap_advanced_security } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_security value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_advanced_security value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_advanced_security value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_advanced_security value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_advanced_security value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_advanced_security value = @ap_advanced_security }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_advanced_security value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -770,19 +2033,66 @@ country_event = {
 	picture = GFX_evt_space_domestication
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_domestication value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_domestication value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_domestication value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_domestication value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_domestication value = @ap_space_domestication } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_domestication value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_space_domestication value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_space_domestication value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_space_domestication value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_space_domestication value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_space_domestication value = @ap_space_domestication }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_space_domestication value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -793,19 +2103,66 @@ country_event = {
 	picture = GFX_evt_leviathan_master
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_leviathan_master value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leviathan_master value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leviathan_master value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_leviathan_master value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leviathan_master value = @ap_leviathan_master } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leviathan_master value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_leviathan_master value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_leviathan_master value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_leviathan_master value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_leviathan_master value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_leviathan_master value = @ap_leviathan_master }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_leviathan_master value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -816,19 +2173,66 @@ country_event = {
 	picture = GFX_evt_friendly_nature
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_friendly_nature value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_friendly_nature value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_friendly_nature value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_friendly_nature value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_friendly_nature value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_friendly_nature value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_friendly_nature value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_friendly_nature value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_friendly_nature value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_friendly_nature value = @ap_friendly_nature }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_friendly_nature value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -839,19 +2243,66 @@ country_event = {
 	picture = GFX_evt_robot_command
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.3 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_robot_command value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_robot_command value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_robot_command value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_robot_command value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_robot_command value = @ap_robot_command } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_robot_command value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.3 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_robot_command value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_robot_command value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_robot_command value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_robot_command value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_robot_command value = @ap_robot_command }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_robot_command value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -862,19 +2313,66 @@ country_event = {
 	picture = GFX_evt_recomposer
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_recomposer value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recomposer value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recomposer value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_recomposer value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_recomposer value = @ap_recomposer } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_recomposer value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_recomposer value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_recomposer value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_recomposer value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_recomposer value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_recomposer value = @ap_recomposer }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_recomposer value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -885,19 +2383,66 @@ country_event = {
 	picture = GFX_evt_megacorp
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_megacorp value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_megacorp value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_megacorp value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_megacorp value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_megacorp value = @ap_megacorp } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_megacorp value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_megacorp value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_megacorp value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_megacorp value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_megacorp value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_megacorp value = @ap_megacorp }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_megacorp value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -908,19 +2453,66 @@ country_event = {
 	picture = GFX_evt_fallen_disciple
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_fallen_disciple value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_fallen_disciple value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_fallen_disciple value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_fallen_disciple value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_fallen_disciple value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_fallen_disciple value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_fallen_disciple value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_fallen_disciple value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_fallen_disciple value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_fallen_disciple value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -931,19 +2523,66 @@ country_event = {
 	picture = GFX_evt_stability_celebration
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_stability_celebration value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stability_celebration value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stability_celebration value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_stability_celebration value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_stability_celebration value = @ap_stability_celebration } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_stability_celebration value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_stability_celebration value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_stability_celebration value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_stability_celebration value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_stability_celebration value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_stability_celebration value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -954,19 +2593,66 @@ country_event = {
 	picture = GFX_evt_galaxy_center
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_galaxy_center value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_galaxy_center value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_galaxy_center value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_galaxy_center value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_galaxy_center value = @ap_galaxy_center } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_galaxy_center value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_galaxy_center value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_galaxy_center value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_galaxy_center value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_galaxy_center value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_galaxy_center value = @ap_galaxy_center }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_galaxy_center value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -977,19 +2663,66 @@ country_event = {
 	picture = GFX_evt_galactic_senate
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_1 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_1 value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_1 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_1 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_advanced_government_1 value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_advanced_government_1 value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_advanced_government_1 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_advanced_government_1 value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_advanced_government_1 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1000,19 +2733,66 @@ country_event = {
 	picture = GFX_evt_unity_symbol
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_2 value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_2 value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_2 value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_advanced_government_2 value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_advanced_government_2 value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_advanced_government_2 value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_advanced_government_2 value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_advanced_government_2 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_advanced_government_2 value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_advanced_government_2 value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1023,19 +2803,66 @@ country_event = {
 	picture = GFX_evt_space_merchant
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_merchant value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_merchant value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_merchant value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_space_merchant value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_space_merchant value = @ap_space_merchant } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_space_merchant value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_space_merchant value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_space_merchant value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_space_merchant value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_space_merchant value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_space_merchant value = @ap_space_merchant }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_space_merchant value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1046,19 +2873,66 @@ country_event = {
 	show_sound = event_alien_nature
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_super_hive_mind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_super_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_super_hive_mind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_super_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_super_hive_mind value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_super_hive_mind value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_super_hive_mind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_super_hive_mind value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_super_hive_mind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1069,19 +2943,66 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.4 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_mega_hive_mind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mega_hive_mind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mega_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_mega_hive_mind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mega_hive_mind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.4 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_mega_hive_mind value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_mega_hive_mind value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_mega_hive_mind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_mega_hive_mind value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_mega_hive_mind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1092,19 +3013,66 @@ country_event = {
 	show_sound = event_ai_started
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_aggressive_hivemind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_aggressive_hivemind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_aggressive_hivemind value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_aggressive_hivemind value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_aggressive_hivemind value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_aggressive_hivemind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1115,19 +3083,66 @@ country_event = {
 	picture = GFX_evt_connected_hivemind
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_connected_hivemind value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_connected_hivemind value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_connected_hivemind value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_connected_hivemind value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_connected_hivemind value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_connected_hivemind value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_connected_hivemind value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_connected_hivemind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_connected_hivemind value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_connected_hivemind value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1138,19 +3153,66 @@ country_event = {
 	show_sound = event_mystic_reveal
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_hivemind_reserve value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_hivemind_reserve value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_hivemind_reserve value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_hivemind_reserve value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_hivemind_reserve value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_hivemind_reserve value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_hivemind_reserve value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_hivemind_reserve value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_hivemind_reserve value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_hivemind_reserve value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1161,19 +3223,66 @@ country_event = {
 	picture = GFX_evt_medieval_alien_civilization
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_primitives_creation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_primitives_creation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_primitives_creation value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_primitives_creation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_primitives_creation value = @ap_primitives_creation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_primitives_creation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_primitives_creation value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_primitives_creation value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_primitives_creation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_primitives_creation value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_primitives_creation value = @ap_primitives_creation }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_primitives_creation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1184,19 +3293,66 @@ country_event = {
 	picture = GFX_evt_powerful_vassals
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_powerful_vassals value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_powerful_vassals value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_powerful_vassals value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_powerful_vassals value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_powerful_vassals value = @ap_powerful_vassals } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_powerful_vassals value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_powerful_vassals value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_powerful_vassals value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_powerful_vassals value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_powerful_vassals value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_powerful_vassals value = @ap_powerful_vassals }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_powerful_vassals value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1207,19 +3363,66 @@ country_event = {
 	picture = GFX_evt_void_expedition
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_void_expedition value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_void_expedition value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_void_expedition value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_void_expedition value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_void_expedition value = @ap_void_expedition } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_void_expedition value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_void_expedition value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_void_expedition value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_void_expedition value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_void_expedition value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_void_expedition value = @ap_void_expedition }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_void_expedition value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1230,19 +3433,66 @@ country_event = {
 	picture = GFX_evt_mechanical_prophet
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_mechanical_prophet value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mechanical_prophet value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mechanical_prophet value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_mechanical_prophet value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_mechanical_prophet value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_mechanical_prophet value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_mechanical_prophet value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_mechanical_prophet value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_mechanical_prophet value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_mechanical_prophet value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1253,19 +3503,66 @@ country_event = {
 	picture = GFX_evt_machine_core
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_machine_core value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_machine_core value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_machine_core value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_machine_core value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_machine_core value = @ap_machine_core } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_machine_core value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_machine_core value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_machine_core value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_machine_core value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_machine_core value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_machine_core value = @ap_machine_core }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_machine_core value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1276,19 +3573,66 @@ country_event = {
 	picture = GFX_evt_defense_sentinels
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_defense_sentinels value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_defense_sentinels value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_defense_sentinels value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_defense_sentinels value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_defense_sentinels value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_defense_sentinels value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_defense_sentinels value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_defense_sentinels value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_defense_sentinels value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_defense_sentinels value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1299,19 +3643,66 @@ country_event = {
 	show_sound = event_psionic
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.5 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_leadership_transfer value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leadership_transfer value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leadership_transfer value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_leadership_transfer value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_leadership_transfer value = @ap_leadership_transfer } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_leadership_transfer value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.5 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_leadership_transfer value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_leadership_transfer value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_leadership_transfer value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_leadership_transfer value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_leadership_transfer value = @ap_leadership_transfer }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_leadership_transfer value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1322,19 +3713,66 @@ country_event = {
 	picture = GFX_evt_civilian_activities
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_civilian_activities value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_civilian_activities value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_civilian_activities value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_civilian_activities value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_civilian_activities value = @ap_civilian_activities } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_civilian_activities value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_civilian_activities value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_civilian_activities value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_civilian_activities value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_civilian_activities value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_civilian_activities value = @ap_civilian_activities }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_civilian_activities value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1345,19 +3783,66 @@ country_event = {
 	picture = GFX_evt_pyramidal_society
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_pyramidal_society value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_pyramidal_society value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_pyramidal_society value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_pyramidal_society value = @ap_pyramidal_society } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_pyramidal_society value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_pyramidal_society value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_pyramidal_society value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_pyramidal_society value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_pyramidal_society value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_pyramidal_society value = @ap_pyramidal_society }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_pyramidal_society value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1368,19 +3853,66 @@ country_event = {
 	picture = GFX_evt_surgical_strike
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_orbital_surgical_strike value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_orbital_surgical_strike value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_orbital_surgical_strike value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_orbital_surgical_strike value = @ap_orbital_surgical_strike } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_orbital_surgical_strike value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_orbital_surgical_strike value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_orbital_surgical_strike value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_orbital_surgical_strike value = @ap_orbital_surgical_strike }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_orbital_surgical_strike value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1391,19 +3923,66 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_wheel_fortune value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_wheel_fortune value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_wheel_fortune value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_wheel_fortune value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_wheel_fortune value = @ap_wheel_fortune } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_wheel_fortune value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_wheel_fortune value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_wheel_fortune value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_wheel_fortune value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_wheel_fortune value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_wheel_fortune value = @ap_wheel_fortune }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_wheel_fortune value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1414,19 +3993,66 @@ country_event = {
 	picture = GFX_evt_underworld
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_underworld value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_underworld value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_underworld value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_underworld value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_underworld value = @ap_underworld } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_underworld value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_underworld value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_underworld value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_underworld value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_underworld value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_underworld value = @ap_underworld }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_underworld value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1437,19 +4063,66 @@ country_event = {
 	picture = GFX_evt_slow_learner
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_slow_learner value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_slow_learner value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_slow_learner value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_slow_learner value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_slow_learner value = @ap_slow_learner } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_slow_learner value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_slow_learner value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_slow_learner value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_slow_learner value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_slow_learner value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_slow_learner value = @ap_slow_learner }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_slow_learner value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1460,19 +4133,66 @@ country_event = {
 	picture = GFX_evt_utopian_realisation
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_utopian_realisation value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_utopian_realisation value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_utopian_realisation value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_utopian_realisation value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_utopian_realisation value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_utopian_realisation value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_utopian_realisation value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_utopian_realisation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_utopian_realisation value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_utopian_realisation value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1483,19 +4203,66 @@ country_event = {
 	picture = GFX_evt_antimatter
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_antimatter value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_antimatter value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_antimatter value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_antimatter value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_antimatter value = @ap_antimatter } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_antimatter value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_antimatter value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_antimatter value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_antimatter value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_antimatter value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_antimatter value = @ap_antimatter }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_antimatter value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1506,19 +4273,66 @@ country_event = {
 	picture = GFX_evt_deep_scanner
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_deep_scanner value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_deep_scanner value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_deep_scanner value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_deep_scanner value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_deep_scanner value = @ap_deep_scanner } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_deep_scanner value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_deep_scanner value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_deep_scanner value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_deep_scanner value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_deep_scanner value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_deep_scanner value = @ap_deep_scanner }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_deep_scanner value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1529,19 +4343,66 @@ country_event = {
 	picture = GFX_evt_artifact_hunter
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.6 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_artifact_hunter value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_artifact_hunter value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_artifact_hunter value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_artifact_hunter value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_artifact_hunter value = @ap_artifact_hunter } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_artifact_hunter value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.6 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_artifact_hunter value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_artifact_hunter value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_artifact_hunter value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_artifact_hunter value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_artifact_hunter value = @ap_artifact_hunter }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_artifact_hunter value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1552,19 +4413,66 @@ country_event = {
 	picture = GFX_evt_self_aware_colony
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_self_aware_colony value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_self_aware_colony value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_self_aware_colony value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_self_aware_colony value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_self_aware_colony value = @ap_self_aware_colony } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_self_aware_colony value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.7 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_self_aware_colony value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_self_aware_colony value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_self_aware_colony value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_self_aware_colony value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_self_aware_colony value = @ap_self_aware_colony }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_self_aware_colony value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1575,19 +4483,66 @@ country_event = {
 	picture = GFX_evt_flourishing_technocracy
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_flourishing_technocracy value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_flourishing_technocracy value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_flourishing_technocracy value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.7 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_flourishing_technocracy value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_flourishing_technocracy value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_flourishing_technocracy value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_flourishing_technocracy value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1598,19 +4553,66 @@ country_event = {
 	picture = GFX_evt_legendary_forge
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_legendary_forge value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_legendary_forge value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_legendary_forge value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_legendary_forge value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_legendary_forge value = @ap_legendary_forge } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_legendary_forge value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.7 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_legendary_forge value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_legendary_forge value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_legendary_forge value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_legendary_forge value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_legendary_forge value = @ap_legendary_forge }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_legendary_forge value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1621,19 +4623,66 @@ country_event = {
 	picture = GFX_evt_library_wisedom
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_library_wisedom value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_library_wisedom value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_library_wisedom value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_library_wisedom value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_library_wisedom value = @ap_library_wisedom } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_library_wisedom value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.7 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_library_wisedom value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_library_wisedom value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_library_wisedom value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_library_wisedom value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_library_wisedom value = @ap_library_wisedom }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_library_wisedom value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 country_event = {
@@ -1644,19 +4693,66 @@ country_event = {
 	picture = GFX_evt_space_station
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	after = { hidden_effect = { country_event = { id = UniqueAscensionPerksMenuEvents.7 } } }
-	option = { name = DISABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_Off" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansionist_development value > 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansionist_development value = 0 } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansionist_development value = 3 } } custom_tooltip = "AP_Default_Off" }
+
+	immediate = {
+		get_capital_planet = yes
 	}
-	option = { name = ENABLE
-		allow = { hidden_trigger = { has_global_flag = uap_AIequality } }
-		custom_tooltip = "AP_On" trigger = { event_target:global_event_country = { check_variable = { which = ap_expansionist_development value = 0 } } } hidden_effect = { event_target:global_event_country = { set_variable = { which = ap_expansionist_development value = @ap_expansionist_development } } }
-		if = { limit = { check_variable_arithmetic = { which = @ap_expansionist_development value = 3 } } custom_tooltip = "AP_Default_Off_warn" }
+
+	after = {
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksMenuEvents.7 }
+		}
 	}
-	option = { name = BACK }
+
+	option = {
+		name = DISABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_Off"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expansionist_development value > 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expansionist_development value = 0 }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expansionist_development value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off"
+		}
+	}
+	option = {
+		name = ENABLE
+		allow = {
+			hidden_trigger = { has_global_flag = uap_AIequality }
+		}
+		custom_tooltip = "AP_On"
+		trigger = {
+			event_target:global_event_country = {
+				check_variable = { which = ap_expansionist_development value = 0 }
+			}
+		}
+		hidden_effect = {
+			event_target:global_event_country = {
+				set_variable = { which = ap_expansionist_development value = @ap_expansionist_development }
+			}
+		}
+		if = {
+			limit = {
+				check_variable_arithmetic = { which = @ap_expansionist_development value = 3 }
+			}
+			custom_tooltip = "AP_Default_Off_warn"
+		}
+	}
+	option = {
+		name = BACK
+	}
 }
 
 # on_single_player_save_game_load
@@ -1682,8 +4778,10 @@ event = {
 				}
 			}
 			if = {
-				limit = { NOT = { has_global_flag = has_uap_mod } }
-				log="INIT UAP MOD"
+				limit = {
+					NOT = { has_global_flag = has_uap_mod }
+				}
+				log = "INIT UAP MOD"
 				set_variable = { which = ap_space_engineers value = @ap_space_engineers }
 				set_variable = { which = ap_stellar_manipulation value = 0 }
 				set_variable = { which = ap_lost_heritage value = 0 }
@@ -1746,23 +4844,46 @@ event = {
 }
 
 ## global
+
 country_event = {
 	id = UniqueAscensionPerksMenuEvents.1000
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		OR = {
-			AND = { has_global_flag = ap_pyramidal_society any_playable_country = { NOT = { has_country_flag = ap_pyramidal_society } } }
-			AND = { NOT = { has_global_flag = ap_pyramidal_society } any_playable_country = { has_country_flag = ap_pyramidal_society } }
+			AND = {
+				has_global_flag = ap_pyramidal_society
+				any_playable_country = {
+					NOT = { has_country_flag = ap_pyramidal_society }
+				}
+			}
+			AND = {
+				NOT = { has_global_flag = ap_pyramidal_society }
+				any_playable_country = { has_country_flag = ap_pyramidal_society }
+			}
 		}
 	}
+
 	immediate = {
-		if = { limit = { has_global_flag = ap_pyramidal_society }
+		if = {
+			limit = { has_global_flag = ap_pyramidal_society }
 			# country_event = { id = UniqueAscensionPerksEvents.9005 }
-			every_playable_country = { limit = { NOR = { has_country_flag = ap_pyramidal_society has_ascension_perk = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
+			every_playable_country = {
+				limit = {
+					NOR = {
+						has_country_flag = ap_pyramidal_society
+						has_ascension_perk = ap_pyramidal_society
+					}
+				}
+				set_country_flag = ap_pyramidal_society
+			}
 		}
 		else = {
-			every_playable_country = { limit = { has_country_flag = ap_pyramidal_society } remove_country_flag = ap_pyramidal_society }
+			every_playable_country = {
+				limit = { has_country_flag = ap_pyramidal_society }
+				remove_country_flag = ap_pyramidal_society
+			}
 		}
 	}
 }
@@ -1773,15 +4894,15 @@ country_event = {
 	is_triggered_only = yes
 	# trigger = {}
 	immediate = {
-		log="UAP MOD: ENABLE ALL APs for AI"
+		log = "UAP MOD: ENABLE ALL APs for AI"
 		event_target:global_event_country = {
 			set_variable = { which = ap_space_engineers value = @ap_space_engineers }
-			set_variable = { which = ap_stellar_manipulation value = @ap_stellar_manipulation } #
-			set_variable = { which = ap_lost_heritage value = @ap_lost_heritage } #
+			set_variable = { which = ap_stellar_manipulation value = @ap_stellar_manipulation }
+			set_variable = { which = ap_lost_heritage value = @ap_lost_heritage }
 			set_variable = { which = ap_void_expedition value = @ap_void_expedition } # # TODO
 			set_variable = { which = ap_expandable_brain_1 value = @ap_expandable_brain_1 }
 			set_variable = { which = ap_expandable_brain_2 value = @ap_expandable_brain_2 }
-			set_variable = { which = ap_ai_cortana value = @ap_ai_cortana } #
+			set_variable = { which = ap_ai_cortana value = @ap_ai_cortana }
 			set_variable = { which = ap_nano_drones value = @ap_nano_drones } # # v3.3 halved values
 			set_variable = { which = ap_nano_to_nanite value = @ap_nano_to_nanite } # # Genius Pregnancy
 			set_variable = { which = ap_genius_cloning value = @ap_genius_cloning } # # TODO may split in 2 AP?
@@ -1792,44 +4913,44 @@ country_event = {
 			set_variable = { which = ap_economic_prospertity value = @ap_economic_prospertity }
 			set_variable = { which = ap_chosen_ruler value = @ap_chosen_ruler }
 			set_variable = { which = ap_advanced_security value = @ap_advanced_security }
-			set_variable = { which = ap_space_domestication value = @ap_space_domestication } #
-			set_variable = { which = ap_leviathan_master value = @ap_leviathan_master } #
+			set_variable = { which = ap_space_domestication value = @ap_space_domestication }
+			set_variable = { which = ap_leviathan_master value = @ap_leviathan_master }
 			set_variable = { which = ap_friendly_nature value = @ap_friendly_nature } # Robotic Assemblers
-			set_variable = { which = ap_robot_command value = @ap_robot_command } #
-			set_variable = { which = ap_recomposer value = @ap_recomposer } #
+			set_variable = { which = ap_robot_command value = @ap_robot_command }
+			set_variable = { which = ap_recomposer value = @ap_recomposer }
 			set_variable = { which = ap_megacorp value = @ap_megacorp }
 			set_variable = { which = ap_fallen_disciple value = @ap_fallen_disciple }
 			set_variable = { which = ap_stability_celebration value = @ap_stability_celebration }
-			set_variable = { which = ap_galaxy_center value = @ap_galaxy_center } #
+			set_variable = { which = ap_galaxy_center value = @ap_galaxy_center }
 			set_variable = { which = ap_advanced_government_1 value = @ap_advanced_government_1 }
 			set_variable = { which = ap_advanced_government_2 value = @ap_advanced_government_2 }
-			set_variable = { which = ap_space_merchant value = @ap_space_merchant } #
+			set_variable = { which = ap_space_merchant value = @ap_space_merchant }
 			set_variable = { which = ap_super_hive_mind value = @ap_super_hive_mind }
 			set_variable = { which = ap_mega_hive_mind value = @ap_mega_hive_mind }
 			set_variable = { which = ap_aggressive_hivemind value = @ap_aggressive_hivemind }
 			set_variable = { which = ap_connected_hivemind value = @ap_connected_hivemind }
 			set_variable = { which = ap_hivemind_reserve value = @ap_hivemind_reserve }
-			set_variable = { which = ap_primitives_creation value = @ap_primitives_creation } #
-			set_variable = { which = ap_powerful_vassals value = @ap_powerful_vassals } #
+			set_variable = { which = ap_primitives_creation value = @ap_primitives_creation }
+			set_variable = { which = ap_powerful_vassals value = @ap_powerful_vassals }
 			set_variable = { which = ap_mechanical_prophet value = @ap_mechanical_prophet }
 			set_variable = { which = ap_machine_core value = @ap_machine_core }
 			set_variable = { which = ap_defense_sentinels value = @ap_defense_sentinels }
-			set_variable = { which = ap_leadership_transfer value = @ap_leadership_transfer } #
+			set_variable = { which = ap_leadership_transfer value = @ap_leadership_transfer }
 			set_variable = { which = ap_civilian_activities value = @ap_civilian_activities } # # Pinnacle Society
-			set_variable = { which = ap_pyramidal_society value = @ap_pyramidal_society } #
-			set_variable = { which = ap_orbital_surgical_strike value = @ap_orbital_surgical_strike } #
-			set_variable = { which = ap_wheel_fortune value = @ap_wheel_fortune } #
-			set_variable = { which = ap_underworld value = @ap_underworld } #
+			set_variable = { which = ap_pyramidal_society value = @ap_pyramidal_society }
+			set_variable = { which = ap_orbital_surgical_strike value = @ap_orbital_surgical_strike }
+			set_variable = { which = ap_wheel_fortune value = @ap_wheel_fortune }
+			set_variable = { which = ap_underworld value = @ap_underworld }
 			set_variable = { which = ap_slow_learner value = @ap_slow_learner }
 			set_variable = { which = ap_utopian_realisation value = @ap_utopian_realisation }
-			set_variable = { which = ap_antimatter value = @ap_antimatter } #
-			set_variable = { which = ap_deep_scanner value = @ap_deep_scanner } #
-			set_variable = { which = ap_artifact_hunter value = @ap_artifact_hunter } #
-			set_variable = { which = ap_self_aware_colony value = @ap_self_aware_colony } #
+			set_variable = { which = ap_antimatter value = @ap_antimatter }
+			set_variable = { which = ap_deep_scanner value = @ap_deep_scanner }
+			set_variable = { which = ap_artifact_hunter value = @ap_artifact_hunter }
+			set_variable = { which = ap_self_aware_colony value = @ap_self_aware_colony }
 			set_variable = { which = ap_flourishing_technocracy value = @ap_flourishing_technocracy }
-			set_variable = { which = ap_legendary_forge value = @ap_legendary_forge } #
-			set_variable = { which = ap_library_wisedom value = @ap_library_wisedom } #
-			set_variable = { which = ap_expansionist_development value = @ap_expansionist_development } #
+			set_variable = { which = ap_legendary_forge value = @ap_legendary_forge }
+			set_variable = { which = ap_library_wisedom value = @ap_library_wisedom }
+			set_variable = { which = ap_expansionist_development value = @ap_expansionist_development }
 		}
 		set_global_flag = has_uap_mod
 	}
@@ -1841,15 +4962,15 @@ country_event = {
 	is_triggered_only = yes
 	# trigger = { }
 	immediate = {
-		log="UAP MOD: DISABLE ALL APs for AI"
+		log = "UAP MOD: DISABLE ALL APs for AI"
 		event_target:global_event_country = {
 			set_variable = { which = ap_space_engineers value = 0 }
-			set_variable = { which = ap_stellar_manipulation value = 0 } #
-			set_variable = { which = ap_lost_heritage value = 0 } #
+			set_variable = { which = ap_stellar_manipulation value = 0 }
+			set_variable = { which = ap_lost_heritage value = 0 }
 			set_variable = { which = ap_void_expedition value = 0 } # # TODO
 			set_variable = { which = ap_expandable_brain_1 value = 0 }
 			set_variable = { which = ap_expandable_brain_2 value = 0 }
-			set_variable = { which = ap_ai_cortana value = 0 } #
+			set_variable = { which = ap_ai_cortana value = 0 }
 			set_variable = { which = ap_nano_drones value = 0 } # # v3.3 halved values
 			set_variable = { which = ap_nano_to_nanite value = 0 } # # Genius Pregnancy
 			set_variable = { which = ap_genius_cloning value = 0 } # # TODO may split in 2 AP?
@@ -1860,44 +4981,44 @@ country_event = {
 			set_variable = { which = ap_economic_prospertity value = 0 }
 			set_variable = { which = ap_chosen_ruler value = 0 }
 			set_variable = { which = ap_advanced_security value = 0 }
-			set_variable = { which = ap_space_domestication value = 0 } #
-			set_variable = { which = ap_leviathan_master value = 0 } #
+			set_variable = { which = ap_space_domestication value = 0 }
+			set_variable = { which = ap_leviathan_master value = 0 }
 			set_variable = { which = ap_friendly_nature value = 0 } # Robotic Assemblers
-			set_variable = { which = ap_robot_command value = 0 } #
-			set_variable = { which = ap_recomposer value = 0 } #
+			set_variable = { which = ap_robot_command value = 0 }
+			set_variable = { which = ap_recomposer value = 0 }
 			set_variable = { which = ap_megacorp value = 0 }
 			set_variable = { which = ap_fallen_disciple value = 0 }
 			set_variable = { which = ap_stability_celebration value = 0 }
-			set_variable = { which = ap_galaxy_center value = 0 } #
+			set_variable = { which = ap_galaxy_center value = 0 }
 			set_variable = { which = ap_advanced_government_1 value = 0 }
 			set_variable = { which = ap_advanced_government_2 value = 0 }
-			set_variable = { which = ap_space_merchant value = 0 } #
+			set_variable = { which = ap_space_merchant value = 0 }
 			set_variable = { which = ap_super_hive_mind value = 0 }
 			set_variable = { which = ap_mega_hive_mind value = 0 }
 			set_variable = { which = ap_aggressive_hivemind value = 0 }
 			set_variable = { which = ap_connected_hivemind value = 0 }
 			set_variable = { which = ap_hivemind_reserve value = 0 }
-			set_variable = { which = ap_primitives_creation value = 0 } #
-			set_variable = { which = ap_powerful_vassals value = 0 } #
+			set_variable = { which = ap_primitives_creation value = 0 }
+			set_variable = { which = ap_powerful_vassals value = 0 }
 			set_variable = { which = ap_mechanical_prophet value = 0 }
 			set_variable = { which = ap_machine_core value = 0 }
 			set_variable = { which = ap_defense_sentinels value = 0 }
-			set_variable = { which = ap_leadership_transfer value = 0 } #
+			set_variable = { which = ap_leadership_transfer value = 0 }
 			set_variable = { which = ap_civilian_activities value = 0 } # # Pinnacle Society
-			set_variable = { which = ap_pyramidal_society value = 0 } #
-			set_variable = { which = ap_orbital_surgical_strike value = 0 } #
-			set_variable = { which = ap_wheel_fortune value = 0 } #
-			set_variable = { which = ap_underworld value = 0 } #
+			set_variable = { which = ap_pyramidal_society value = 0 }
+			set_variable = { which = ap_orbital_surgical_strike value = 0 }
+			set_variable = { which = ap_wheel_fortune value = 0 }
+			set_variable = { which = ap_underworld value = 0 }
 			set_variable = { which = ap_slow_learner value = 0 }
 			set_variable = { which = ap_utopian_realisation value = 0 }
-			set_variable = { which = ap_antimatter value = 0 } #
-			set_variable = { which = ap_deep_scanner value = 0 } #
-			set_variable = { which = ap_artifact_hunter value = 0 } #
-			set_variable = { which = ap_self_aware_colony value = 0 } #
+			set_variable = { which = ap_antimatter value = 0 }
+			set_variable = { which = ap_deep_scanner value = 0 }
+			set_variable = { which = ap_artifact_hunter value = 0 }
+			set_variable = { which = ap_self_aware_colony value = 0 }
 			set_variable = { which = ap_flourishing_technocracy value = 0 }
-			set_variable = { which = ap_legendary_forge value = 0 } #
-			set_variable = { which = ap_library_wisedom value = 0 } #
-			set_variable = { which = ap_expansionist_development value = 0 } #
+			set_variable = { which = ap_legendary_forge value = 0 }
+			set_variable = { which = ap_library_wisedom value = 0 }
+			set_variable = { which = ap_expansionist_development value = 0 }
 		}
 	}
 }
@@ -1909,5 +5030,8 @@ country_event = {
 	picture = GFX_evt_unity_symbol
 	show_sound = event_coronation
 	is_triggered_only = yes
-	option = { name = OK }
+
+	option = {
+		name = OK
+	}
 }

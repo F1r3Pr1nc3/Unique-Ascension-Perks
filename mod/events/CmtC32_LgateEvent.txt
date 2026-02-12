@@ -1,3 +1,4 @@
+
 namespace = CrisisManagerControl
 
 #################################
@@ -9,12 +10,11 @@ namespace = CrisisManagerControl
 #####						#####
 #################################
 #################################
-
 ################
 ###  Common  ###
 ################
-
 ### Open L-Gate Cycle
+
 country_event = {
 	id = CrisisManagerControl.6201
 	hide_window = yes
@@ -31,13 +31,18 @@ country_event = {
 			if = {
 				limit = { has_global_flag = gray_goo_crisis_set }
 				set_variable = { which = CmtVarTemp value = CmtVarLgateCycleGraygoo }
-			} else_if = {
+			}
+			else_if = {
 				limit = { has_global_flag = gray_goo_empire_set }
 				set_variable = { which = CmtVarTemp value = CmtVarLgateCycleDessanu }
-			} else_if = {
+			}
+			else_if = {
 				limit = { has_global_flag = dragon_season }
 				set_variable = { which = CmtVarTemp value = CmtVarLgateCycleLdrake }
-			} else = { set_variable = { which = CmtVarTemp value = CmtVarLgateCycleSilence } }
+			}
+			else = {
+				set_variable = { which = CmtVarTemp value = CmtVarLgateCycleSilence }
+			}
 			### Open L-Gate
 			if = {
 				limit = {
@@ -51,7 +56,8 @@ country_event = {
 					limit = { CmtTriggerIsClosedLgate = yes }
 					CmtEffectOpenLgate = yes
 				}
-			} else_if = {
+			}
+			else_if = {
 				limit = {
 					OR = {
 						check_variable = { which = CmtVarTemp value < 1 }
@@ -65,10 +71,15 @@ country_event = {
 			}
 			### Time Cycle Control
 			if = {
-				limit = { check_variable = { which = CmtVarTemp value = 4 } }
+				limit = {
+					check_variable = { which = CmtVarTemp value = 4 }
+				}
 				country_event = { id = CrisisManagerControl.6201 days = 200 random = 500 }
-			} else_if = {
-				limit = { check_variable = { which = CmtVarTemp value = 3 } }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = CmtVarTemp value = 3 }
+				}
 				country_event = { id = CrisisManagerControl.6201 days = 3600 random = 5400 }		## 10 - 25 yr
 			}
 		}
@@ -76,6 +87,7 @@ country_event = {
 }
 
 ### Open L-Gate after End of Crisis.
+
 country_event = {
 	id = CrisisManagerControl.6202
 	hide_window = yes
@@ -83,7 +95,9 @@ country_event = {
 
 	trigger = {
 		any_megastructure = { CmtTriggerIsClosedLgate = yes }
-		event_target:CmtGlobalVar = { check_variable = { which = CmtVarLgateCycleGraygoo value = 2 } }
+		event_target:CmtGlobalVar = {
+			check_variable = { which = CmtVarLgateCycleGraygoo value = 2 }
+		}
 	}
 
 	immediate = {
@@ -95,6 +109,7 @@ country_event = {
 }
 
 ### Automatically Terraform Nanites
+
 planet_event = {
 	id = CrisisManagerControl.6211
 	hide_window = yes
@@ -115,8 +130,8 @@ planet_event = {
 			10 = { change_pc = pc_arctic }
 			10 = { change_pc = pc_alpine }
 			10 = { change_pc = pc_savannah }
-			 1 = { change_pc = pc_gaia }
-			 1 = { change_pc = pc_nuked }
+			1 = { change_pc = pc_gaia }
+			1 = { change_pc = pc_nuked }
 		}
 		remove_modifier = CmtModifierAutoTerraform
 		reroll_deposits = yes

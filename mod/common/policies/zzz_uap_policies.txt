@@ -2,10 +2,13 @@
 # COMPAT with Empire Expanded
 # NOT COMPAT with E&C BUG BRANCH
 trade_policy = {
-	potential = { is_gestalt = no }
+	potential = {
+		is_gestalt = no
+	}
+
 	# DEFAULT (GAME START)
 	option = {
-		#ALL
+		# ALL
 		name = "trade_policy_default"
 		potential = { is_trade_league_federation = no is_worker_coop_empire = no }
 		# policy_flags = { trade_policy_default } replaced in v3.6
@@ -13,15 +16,22 @@ trade_policy = {
 		valid = { always = yes }
 		AI_weight = { factor = 0.1 }
 	}
+
 	# DEFAULT (NEEDS MERCHANTILE TRADITION)
 	option = {
 		# FREE MARKET
 		name = "trade_policy_consumer_goods"
 		potential = {
 			# is_trade_league_federation = no
-			NAND = { has_federation = yes is_trade_league_federation = yes }
+			NAND = {
+				has_federation = yes
+				is_trade_league_federation = yes
+			}
 			has_tradition = tr_mercantile_adaptive_economic_policies
 			is_worker_coop_empire = no
+		}
+		on_enabled = {
+			set_trade_conversions = { trade = 0.5 consumer_goods = 0.25 }
 		}
 		policy_flags = { trade_conversion_consumer_goods }
 		valid = {
@@ -33,7 +43,7 @@ trade_policy = {
 				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 2 }
 	}
 	option = {
@@ -49,6 +59,9 @@ trade_policy = {
 			has_tradition = tr_mercantile_adaptive_economic_policies
 			is_worker_coop_empire = no
 		}
+		on_enabled = {
+			set_trade_conversions = { trade = 0.50 unity = 0.125 }
+		}
 		policy_flags = { trade_conversion_unity }
 		valid = {
 			merg_is_default_empire = yes
@@ -59,14 +72,14 @@ trade_policy = {
 				toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 0 }
 	}
 	option = {
 		name = "trade_policy_trade_league"
 		potential = { is_trade_league_federation = yes }
 		policy_flags = { trade_conversion_trade_league }
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 200 } # 1000
 	}
 	option = {
@@ -75,18 +88,32 @@ trade_policy = {
 			has_federation = yes
 			federation = { has_federation_perk = unity_trade_1 }
 		}
+		on_enabled = {
+			set_trade_conversions = { trade = 0.50 unity = 0.1875 }
+		}
 		policy_flags = { trade_conversion_holy_covenant }
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 1000 }
 	}
+
 	# V.3.9
 	option = {
 		name = "trade_policy_mutual_aid"
 		potential = { is_worker_coop_empire = yes }
+		on_enabled = {
+			set_trade_conversions = {
+				trade = 0.25
+				energy = 0.20
+				minerals = 0.20
+				food = 0.20
+				unity = 0.075
+			}
+		}
 		policy_flags = { trade_conversion_mutual_aid }
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 1000 }
 	}
+
 	# (Mod) Ethics and Civics Classic
 	# Growth & Development
 	# potential = { merg_has_ethics_classic = yes }
@@ -103,6 +130,7 @@ trade_policy = {
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
+
 	# Development
 	# potential = { merg_has_ethics_classic = yes }
 	inline_script = {
@@ -119,6 +147,7 @@ trade_policy = {
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
+
 	# Innovation
 	# potential = { merg_has_ethics_classic = yes }
 	inline_script = {
@@ -130,7 +159,7 @@ trade_policy = {
 			potential = { merg_is_default_empire = yes }
 			valid = {
 				has_technology = tech_innovations
-				NOR = { has_valid_civic = civic_ultimate_collective has_policy_flag = "economic_stance_market" has_policy_flag = economic_stance_planned }
+				NOR = { has_valid_civic = civic_ultimate_collective has_policy_flag = economic_stance_market has_policy_flag = economic_stance_planned }
 			}
 			modifier = {}
 			AI_weight = { factor = 0 }
@@ -138,6 +167,7 @@ trade_policy = {
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
+
 	# Growth
 	# potential = { merg_has_ethics_classic = yes }
 	inline_script = {
@@ -157,6 +187,7 @@ trade_policy = {
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
+
 	# potential = { merg_has_ethics_classic = yes }
 	inline_script = {
 		script = merger_of_rules/toggled_code
@@ -175,6 +206,7 @@ trade_policy = {
 		"
 		toggle = @[ has_eca_funefork + has_bug_branch + has_ecc_cog + post_revolutionary_re_revolution_years ]
 	}
+
 	# End (Mod) Ethics and Civics Classic
 	option = {
 		name = "trade_policy_adv_conversion_energy_name"
@@ -182,10 +214,13 @@ trade_policy = {
 		potential = {
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
-				AND = { mid_game_years_passed > 0 is_trade_league_federation = no }
+				AND = {
+					mid_game_years_passed > 0
+					is_trade_league_federation = no
+				}
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 5 }
 	}
 	option = {
@@ -194,10 +229,13 @@ trade_policy = {
 		potential = {
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
-				AND = { mid_game_years_passed > 0 is_trade_league_federation = no }
+				AND = {
+					mid_game_years_passed > 0
+					is_trade_league_federation = no
+				}
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 0 }
 	}
 	option = {
@@ -206,10 +244,13 @@ trade_policy = {
 		potential = {
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
-				AND = { mid_game_years_passed > 0 is_trade_league_federation = no }
+				AND = {
+					mid_game_years_passed > 0
+					is_trade_league_federation = no
+				}
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 0 }
 	}
 	option = {
@@ -218,12 +259,16 @@ trade_policy = {
 		potential = {
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
-				AND = { mid_game_years_passed > 0 is_trade_league_federation = no }
+				AND = {
+					mid_game_years_passed > 0
+					is_trade_league_federation = no
+				}
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 0 }
 	}
+
 	# Removed in v3.8.4 - too powerful - by Sindusk
 	# Alloys are the driving force of the galactic economy during the mid-game. Alloys are usually bought in mass because you don't have any.
 	# Or they're sold in mass because it's all you have and selling them makes up for the shortcomings of the rest of your empire.
@@ -248,10 +293,13 @@ trade_policy = {
 		potential = {
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
-				AND = { mid_game_years_passed > 0 is_trade_league_federation = no }
+				AND = {
+					mid_game_years_passed > 0
+					is_trade_league_federation = no
+				}
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 0 }
 	}
 	option = {
@@ -260,10 +308,13 @@ trade_policy = {
 		potential = {
 			OR = {
 				has_ascension_perk = ap_economic_prospertity
-				AND = { mid_game_years_passed > 0 is_trade_league_federation = no }
+				AND = {
+					mid_game_years_passed > 0
+					is_trade_league_federation = no
+				}
 			}
 		}
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 0 }
 	}
 	option = {
@@ -275,16 +326,23 @@ trade_policy = {
 				AND = {
 					is_trade_league_federation = yes
 					OR = {
-						AND = { mid_game_years_passed > 0 federation = { federation_level > 3 } }
-						AND = { is_federation_leader = yes federation = { federation_level > 1 } }
+						AND = {
+							mid_game_years_passed > 0
+							federation = { federation_level > 3 }
+						}
+						AND = {
+							is_federation_leader = yes
+							federation = { federation_level > 1 }
+						}
 					}
 				}
 			}
 		}
 		policy_flags = { trade_policy_adv_conversion_trade_league }
-		modifier = {}
+		modifier = {  }
 		AI_weight = { factor = 220 }
 	}
+
 	# EMEX begin
 	inline_script = {
 		script = merger_of_rules/toggled_code
@@ -310,15 +368,24 @@ trade_policy = {
 		"
 		toggle = @has_emex_mod
 	}
+
 	# EMEX end
 }
+
 # Increased on v3.8
 ruler_raw_resources = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_resources_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
-		modifier = { country_energy_produces_mult = 0.05 country_minerals_produces_mult = 0.05 country_food_produces_mult = 0.05 }
+		modifier = {
+			country_energy_produces_mult = 0.05
+			country_minerals_produces_mult = 0.05
+			country_food_produces_mult = 0.05
+		}
 		ai_weight = { weight = 10 }
 	}
 	option = {
@@ -340,12 +407,20 @@ ruler_raw_resources = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_advanced_resources = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_adv_resources_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
-		modifier = { country_alloys_produces_mult = 0.03 country_consumer_goods_produces_mult = 0.03 country_unity_produces_mult = 0.03 }
+		modifier = {
+			country_alloys_produces_mult = 0.03
+			country_consumer_goods_produces_mult = 0.03
+			country_unity_produces_mult = 0.03
+		}
 		ai_weight = { weight = 10 }
 	}
 	option = {
@@ -367,13 +442,21 @@ ruler_advanced_resources = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 # Increased on v3.8
 ruler_strategic_resources = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_strategic_resources_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
-		modifier = { country_volatile_motes_produces_mult = 0.03 country_exotic_gases_produces_mult = 0.03 country_rare_crystals_produces_mult = 0.03 }
+		modifier = {
+			country_volatile_motes_produces_mult = 0.03
+			country_exotic_gases_produces_mult = 0.03
+			country_rare_crystals_produces_mult = 0.03
+		}
 		ai_weight = { weight = 10 }
 	}
 	option = {
@@ -395,8 +478,12 @@ ruler_strategic_resources = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_research_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_research_nothing_policy_name"
 		policy_flags = { ruler_research_nothing_policy }
@@ -408,32 +495,50 @@ ruler_research_focus = {
 		}
 		ai_weight = { weight = 10 }
 	}
+
 	# v3.3 halved values
 	option = {
 		name = "ruler_research_physics_policy_name"
 		policy_flags = { ruler_research_physics_policy }
-		modifier = { country_physics_tech_research_speed = 0.15 country_physics_research_produces_mult = 0.15 }
+		modifier = {
+			country_physics_tech_research_speed = 0.15
+			country_physics_research_produces_mult = 0.15
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {
 		name = "ruler_research_society_policy_name"
 		policy_flags = { ruler_research_society_policy }
-		modifier = { country_society_tech_research_speed = 0.15 country_society_research_produces_mult = 0.15 }
+		modifier = {
+			country_society_tech_research_speed = 0.15
+			country_society_research_produces_mult = 0.15
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {
 		name = "ruler_research_engineering_policy_name"
 		policy_flags = { ruler_research_engineering_policy }
-		modifier = { country_engineering_tech_research_speed = 0.15 country_engineering_research_produces_mult = 0.15 }
+		modifier = {
+			country_engineering_tech_research_speed = 0.15
+			country_engineering_research_produces_mult = 0.15
+		}
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_weapons_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_weapons_nothing_policy_name"
 		policy_flags = { ruler_weapons_nothing_policy }
-		modifier = { weapon_type_kinetic_weapon_damage_mult = 0.05 weapon_type_energy_weapon_damage_mult = 0.05 weapon_type_explosive_weapon_damage_mult = 0.05 }
+		modifier = {
+			weapon_type_kinetic_weapon_damage_mult = 0.05
+			weapon_type_energy_weapon_damage_mult = 0.05
+			weapon_type_explosive_weapon_damage_mult = 0.05
+		}
 		ai_weight = { weight = 10 }
 	}
 	option = {
@@ -455,8 +560,12 @@ ruler_weapons_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_defense_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_defense_nothing_policy_name"
 		policy_flags = { ruler_defense_nothing_policy }
@@ -486,8 +595,12 @@ ruler_defense_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_construction_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_construction_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
@@ -516,7 +629,11 @@ ruler_construction_focus = {
 	option = {
 		name = "ruler_construction_starbase_policy_name"
 		policy_flags = { ruler_construction_starbase_policy }
-		modifier = { starbase_upgrade_speed_mult = 0.50 starbase_building_build_speed_mult = 0.50 starbase_module_build_speed_mult = 0.50 }
+		modifier = {
+			starbase_upgrade_speed_mult = 0.50
+			starbase_building_build_speed_mult = 0.50
+			starbase_module_build_speed_mult = 0.50
+		}
 		ai_weight = { weight = 5 }
 	}
 	option = {
@@ -526,8 +643,12 @@ ruler_construction_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_capacity_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_capacity_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
@@ -560,18 +681,25 @@ ruler_capacity_focus = {
 	option = {
 		name = "ruler_capacity_starbase_policy_name"
 		policy_flags = { ruler_capacity_starbase_policy }
-		modifier = { country_starbase_capacity_add = 6 country_starbase_capacity_mult = 0.08 }
+		modifier = {
+			country_starbase_capacity_add = 6
+			country_starbase_capacity_mult = 0.08
+		}
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_colony_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_colony_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
 		modifier = {
 			# pop_housing_usage_mult = -0.03
-			planet_housing_add = 10 # 15 < v3.8
+			planet_housing_add = 1000 # 15 < v3.8
 			pop_amenities_usage_mult = -0.03
 			# pop_amenities_usage_no_happiness_mult = -0.03
 			planet_crime_mult = -0.08
@@ -583,7 +711,7 @@ ruler_colony_focus = {
 		policy_flags = { ruler_capacity_administration_policy }
 		modifier = {
 			pop_housing_usage_mult = -0.08
-			planet_housing_add = 5 # 2
+			planet_housing_add = 500 # 2
 		}
 		ai_weight = { weight = 5 }
 	}
@@ -607,8 +735,12 @@ ruler_colony_focus = {
 		ai_weight = { weight = 5 }
 	}
 }
+
 ruler_special_focus = {
-	potential = { has_ascension_perk = ap_chosen_ruler }
+	potential = {
+		has_ascension_perk = ap_chosen_ruler
+	}
+
 	option = {
 		name = "ruler_special_nothing_policy_name"
 		policy_flags = { ruler_resources_nothing_policy }
@@ -616,7 +748,7 @@ ruler_special_focus = {
 			ship_anomaly_research_speed_mult = 0.20
 			planet_colony_development_speed_mult = 0.20
 			terraform_speed_mult = 0.15
-			trade_value_mult = 0.03
+			planet_jobs_trade_produces_mult = 0.03
 		}
 		ai_weight = { weight = 10 }
 	}
@@ -633,8 +765,8 @@ ruler_special_focus = {
 		name = "ruler_special_colony_policy_name"
 		policy_flags = { ruler_special_colony_policy }
 		modifier = {
-			planet_colony_development_speed_mult = 0.5 # 0.65
-			colony_start_num_pops_add = 2 # 1
+			planet_colony_development_speed_mult = 0.65
+			colony_start_urban_districts_add = 2
 		}
 		ai_weight = { weight = 5 }
 	}
@@ -648,10 +780,11 @@ ruler_special_focus = {
 	option = {
 		name = "ruler_special_trading_policy_name"
 		policy_flags = { ruler_special_trading_policy }
-		modifier = { country_trade_fee = -0.03 trade_value_mult = 0.10 }
+		modifier = { country_trade_fee = -0.03 planet_jobs_trade_produces_mult = 0.10 }
 		ai_weight = { weight = 5 }
 	}
 }
+
 # dark_galaxy_web_security_finance = {
 # 	potential = { has_country_flag = ap_dark_galaxy_web_project }
 # 	option = {

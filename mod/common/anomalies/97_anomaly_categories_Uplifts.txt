@@ -1,18 +1,27 @@
 ### ALL Removed in v3.7
+
 UPLIFT_SNAKEOID_CAT = {
 	desc = "UPLIFT_SNAKEOID_CAT_DESC"
 	picture = "GFX_evt_landing_ship"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
-		modifier = { add = 2
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
+		modifier = {
+			add = 2
 			is_planet_class = pc_desert
-			from = {
-				owner = { NOT = { has_country_flag = upl_snakeoid } }
+			NOT = {
+				from = {
+					owner = { has_country_flag = upl_snakeoid }
+				}
 			}
 		}
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6100
 }
 
@@ -21,10 +30,15 @@ UPLIFT_DESERT_CAT = {
 	picture = "GFX_evt_underground_civilization"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 is_planet_class = pc_desert }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -33,10 +47,15 @@ UPLIFT_OCEAN_CAT = {
 	picture = "GFX_evt_ship_in_orbit"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 is_planet_class = pc_ocean }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -45,10 +64,15 @@ UPLIFT_ARID_CAT = {
 	picture = "GFX_evt_landing_ship"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 is_planet_class = pc_arid }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -57,10 +81,15 @@ UPLIFT_CONTINENTAL_CAT = {
 	picture = "GFX_evt_big_landing_ship"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 is_planet_class = pc_continental }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -69,10 +98,15 @@ UPLIFT_TROPICAL_CAT = {
 	picture = "GFX_evt_alien_nature"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 is_planet_class = pc_tropical }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -81,10 +115,15 @@ UPLIFT_TUNDRA_CAT = {
 	picture = "GFX_evt_atmospheric_entry"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 is_planet_class = pc_tundra }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -93,10 +132,15 @@ UPLIFT_ARCTIC_CAT = {
 	picture = "GFX_evt_atmospheric_entry"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
 		modifier = { add = 5 merg_is_arctic = yes }
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6002
 }
 
@@ -105,16 +149,22 @@ UPLIFT_GENERIC_CAT = {
 	picture = "GFX_evt_landing_ship"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
-		modifier = { add = 3
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
+		modifier = {
+			add = 3
 			habitable_planet = yes
-			merg_is_gaia_basic = no
-			from.owner = {
-				NOT = { has_country_flag = upl_ongoing_generic }
+			NOR = {
+				merg_is_gaia_basic = yes
+				from.owner = { has_country_flag = upl_ongoing_generic }
 			}
 		}
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = {
 		1 = { max_once = no anomaly_event = uplift.6002 }
 	}
@@ -125,15 +175,23 @@ UPLIFT_ROACHOID_CAT = {
 	picture = "GFX_evt_atmospheric_entry"
 	level = 1
 	should_ai_and_humans_use = yes
+
 	spawn_chance = {
-		modifier = { add = 2
+		modifier = {
+			factor = 0
+			from.owner = { is_homicidal = yes }
+		}
+		modifier = {
+			add = 2
 			is_planet_class = pc_nuked
-			NOT = { has_planet_flag = nuked_planet_anomalies_disabled }
-			from = {
-				owner = { NOT = { has_country_flag = upl_roachoid } }
+			NOR = {
+				has_planet_flag = nuked_planet_anomalies_disabled
+				from = {
+					owner = { has_country_flag = upl_roachoid }
+				}
 			}
 		}
-		modifier = { factor = 0 from.owner = { is_homicidal = yes } }
 	}
+
 	on_success = uplift.6090
 }

@@ -3,18 +3,68 @@
 lh_basic_system = {
 	class = sc_neutron_star
 	flags = { lh_basic_system lh_special_system }
-	asteroid_belt = { type = rocky_asteroid_belt radius = 130 }
-	asteroid_belt = { type = rocky_asteroid_belt radius = 180 }
-	asteroid_belt = { type = rocky_asteroid_belt radius = 230 }
-	planet = { class = star orbit_distance = 0 }
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 130
+	}
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 180
+	}
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 230
+	}
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
 	change_orbit = 25
-	planet = { count = 1 class = pc_gaia size = { min = 9 max = 25 } }
+
+	planet = {
+		count = 1
+		class = pc_gaia
+		size = { min = 9 max = 25 }
+	}
+
 	change_orbit = 90
-	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_3 } }
+
+	planet = {
+		count = { min = 4 max = 7 }
+		class = pc_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 40 max = 110 }
+		init_effect = {
+			set_deposit = d_minerals_3
+		}
+	}
+
 	change_orbit = 50
-	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_4 } }
+
+	planet = {
+		count = { min = 4 max = 7 }
+		class = pc_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 40 max = 110 }
+		init_effect = {
+			set_deposit = d_minerals_4
+		}
+	}
+
 	change_orbit = 50
-	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_5 } }
+
+	planet = {
+		count = { min = 4 max = 7 }
+		class = pc_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 40 max = 110 }
+		init_effect = {
+			set_deposit = d_minerals_5
+		}
+	}
+
 	init_effect = {
 		save_event_target_as = lh_basic_system
 		create_cloud_country = yes
@@ -24,7 +74,10 @@ lh_basic_system = {
 					name = "NAME_Void_Cloud"
 					effect = {
 						set_owner = event_target:cloud_country
-						while = { count = 1 create_ship = { name = "" design = "NAME_Cloud_Entity" } }
+						while = {
+							count = 1
+							create_ship = { name = "" design = "NAME_Cloud_Entity" }
+						}
 						set_location = prevprev
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
@@ -40,25 +93,80 @@ lh_basic_system = {
 lh_asteroid_system = {
 	class = "rl_standard_stars"
 	flags = { lh_special_system hostile_system }
-	asteroid_belt = { type = rocky_asteroid_belt radius = 130 }
-	asteroid_belt = { type = rocky_asteroid_belt radius = 180 }
-	asteroid_belt = { type = rocky_asteroid_belt radius = 230 }
-	planet = { class = star orbit_distance = 0 }
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 130
+	}
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 180
+	}
+	asteroid_belt = {
+		type = rocky_asteroid_belt
+		radius = 230
+	}
+
+	planet = {
+		class = star
+		orbit_distance = 0
+	}
+
 	change_orbit = 25
-	planet = { count = { min = 1 max = 4 } class = rl_unhabitable_planets orbit_distance = 0 orbit_angle = { min = 30 max = 60 } size = { min = 9 max = 25 } }
+
+	planet = {
+		count = { min = 1 max = 4 }
+		class = rl_unhabitable_planets
+		orbit_distance = 0
+		orbit_angle = { min = 30 max = 60 }
+		size = { min = 9 max = 25 }
+	}
+
 	change_orbit = 90
-	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_3 } }
+
+	planet = {
+		count = { min = 4 max = 7 }
+		class = pc_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 40 max = 110 }
+		init_effect = {
+			set_deposit = d_minerals_3
+		}
+	}
+
 	change_orbit = 50
-	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_4 } }
+
+	planet = {
+		count = { min = 4 max = 7 }
+		class = pc_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 40 max = 110 }
+		init_effect = {
+			set_deposit = d_minerals_4
+		}
+	}
+
 	change_orbit = 50
-	planet = { count = { min = 4 max = 7 } class = pc_asteroid orbit_distance = 0 orbit_angle = { min = 40 max = 110 } init_effect = { set_deposit = d_minerals_5 } }
+
+	planet = {
+		count = { min = 4 max = 7 }
+		class = pc_asteroid
+		orbit_distance = 0
+		orbit_angle = { min = 40 max = 110 }
+		init_effect = {
+			set_deposit = d_minerals_5
+		}
+	}
+
 	init_effect = {
 		save_event_target_as = lh_asteroid_system
 		create_drone_country = yes
 		while = {
 			count = 5
 			random_system_planet = {
-				limit = { is_asteroid = yes NOT = { has_planet_flag = lh_asteroid_spawned_drone } }
+				limit = {
+					is_asteroid = yes
+					NOT = { has_planet_flag = lh_asteroid_spawned_drone }
+				}
 				set_planet_flag = lh_asteroid_spawned_drone
 				event_target:drone_country = {
 					save_event_target_as = mining_drones
@@ -66,19 +174,32 @@ lh_asteroid_system = {
 						name = "NAME_Ancient_Mining_Drones"
 						effect = {
 							set_owner = event_target:drone_country
-							while = { count = 12 create_ship = { name = "" design = "NAME_Ancient_Mining_Drone" } }
-							while = { count = 12 create_ship = { name = "" design = "NAME_Ancient_Combat_Drone" } }
-							while = { count = 4 create_ship = { name = "" design = "NAME_Ancient_Destroyer" } }
+							while = {
+								count = 12
+								create_ship = { name = "" design = "NAME_Ancient_Mining_Drone" }
+							}
+							while = {
+								count = 12
+								create_ship = { name = "" design = "NAME_Ancient_Combat_Drone" }
+							}
+							while = {
+								count = 4
+								create_ship = { name = "" design = "NAME_Ancient_Destroyer" }
+							}
 							set_location = prevprev
 							set_fleet_stance = aggressive
 							set_aggro_range_measure_from = return_point
 							set_aggro_range = 150
-							queue_actions = { repeat = { wait = { duration = 999 random = 10 } } }
+							queue_actions = {
+								repeat = {
+									wait = { duration = 999 random = 10 }
+								}
+							}
 							set_formation_scale = 2
 						}
 					}
 				}
-				create_mining_station = {owner = event_target:mining_drones }
+				create_mining_station = { owner = event_target:mining_drones }
 			}
 		}
 	}
@@ -87,10 +208,32 @@ lh_asteroid_system = {
 lh_black_hole_system = {
 	class = sc_black_hole
 	flags = { lh_special_system hostile_system }
+
 	change_orbit = 325
-	planet = { count = 2 class = star orbit_distance = 0 orbit_angle = 90 size = { min = 30 max = 45 } init_effect = { set_deposit = d_dark_matter_deposit_1 } }
-	planet = { count = 2 class = star orbit_distance = 0 orbit_angle = 90 size = { min = 30 max = 45 } init_effect = { set_deposit = d_physics_3 } }
+
+	planet = {
+		count = 2
+		class = star
+		orbit_distance = 0
+		orbit_angle = 90
+		size = { min = 30 max = 45 }
+		init_effect = {
+			set_deposit = d_dark_matter_deposit_1
+		}
+	}
+	planet = {
+		count = 2
+		class = star
+		orbit_distance = 0
+		orbit_angle = 90
+		size = { min = 30 max = 45 }
+		init_effect = {
+			set_deposit = d_physics_3
+		}
+	}
+
 	change_orbit = 220
+
 	init_effect = {
 		save_event_target_as = lh_black_hole_system
 		create_cloud_country = yes
@@ -100,7 +243,10 @@ lh_black_hole_system = {
 					name = "NAME_Void_Cloud"
 					effect = {
 						set_owner = event_target:cloud_country
-						while = { count = 8 create_ship = { name = "" design = "NAME_Cloud_Entity" } }
+						while = {
+							count = 8
+							create_ship = { name = "" design = "NAME_Cloud_Entity" }
+						}
 						set_location = prevprev
 						set_fleet_stance = aggressive
 						set_aggro_range_measure_from = self
@@ -116,9 +262,22 @@ lh_black_hole_system = {
 lh_neutron_system = {
 	class = sc_neutron_star
 	flags = { lh_special_system hostile_system }
+
 	change_orbit = 315
-	planet = { count = 3 class = star orbit_distance = 0 orbit_angle = 120 size = { min = 30 max = 45 } init_effect = { set_deposit = d_engineering_5 } }
+
+	planet = {
+		count = 3
+		class = star
+		orbit_distance = 0
+		orbit_angle = 120
+		size = { min = 30 max = 45 }
+		init_effect = {
+			set_deposit = d_engineering_5
+		}
+	}
+
 	change_orbit = 125
+
 	init_effect = {
 		save_event_target_as = lh_neutron_system
 		star = {
@@ -126,15 +285,47 @@ lh_neutron_system = {
 			create_fleet = {
 				effect = {
 					set_owner = event_target:pirate_country
-					while = { count = 1 create_ship = { name = random design = "NAME_Pirate_Galleon" graphical_culture = "pirate_01" } }
-					while = { count = 2 create_ship = { name = random design = "NAME_Black_Earl" graphical_culture = "pirate_01" } }
-					while = { count = 5 create_ship = { name = random design = "NAME_Marauder" graphical_culture = "pirate_01" } }
-					while = { count = 11 create_ship = { name = random design = "NAME_Skull" graphical_culture = "pirate_01" } }
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_Pirate_Galleon"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 2
+						create_ship = {
+							name = random
+							design = "NAME_Black_Earl"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 5
+						create_ship = {
+							name = random
+							design = "NAME_Marauder"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 11
+						create_ship = {
+							name = random
+							design = "NAME_Skull"
+							graphical_culture = "pirate_01"
+						}
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_formation_scale = 2
-					set_location = { target = prev distance = 90 angle = 330 }
+					set_location = {
+						target = prev
+						distance = 90
+						angle = 330
+					}
 				}
 			}
 		}
@@ -144,25 +335,106 @@ lh_neutron_system = {
 lh_multi_neutron_system = {
 	class = sc_neutron_star
 	flags = { lh_special_system hostile_system }
-	planet = { class = star orbit_distance = 0 size = 40 }
+	planet = {
+		class = star
+		orbit_distance = 0
+		size = 40
+	}
+
 	change_orbit = 60
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 1 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 1
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 60
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 210 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 210
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 60
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 75 size = 10 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 75
+		size = 10
+		has_ring = no
+	}
+
 	change_orbit = 10
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 120 size = 20 has_ring = no }
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 200 size = 15 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 120
+		size = 20
+		has_ring = no
+	}
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 200
+		size = 15
+		has_ring = no
+	}
+
 	change_orbit = 5
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 90 size = 15 has_ring = no }
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 130 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 90
+		size = 15
+		has_ring = no
+	}
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 130
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 30
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 245 size = 10 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 245
+		size = 10
+		has_ring = no
+	}
+
 	change_orbit = 10
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 110 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 110
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 10
-	planet = { class = pc_neutron_star orbit_distance = 0 orbit_angle = 170 size = 10 has_ring = no }
+
+	planet = {
+		class = pc_neutron_star
+		orbit_distance = 0
+		orbit_angle = 170
+		size = 10
+		has_ring = no
+	}
+
 	init_effect = {
 		save_event_target_as = lh_multi_neutron_system
 		star = {
@@ -170,15 +442,47 @@ lh_multi_neutron_system = {
 			create_fleet = {
 				effect = {
 					set_owner = event_target:pirate_country
-					while = { count = 1 create_ship = { name = random design = "NAME_Pirate_Galleon" graphical_culture = "pirate_01" } }
-					while = { count = 4 create_ship = { name = random design = "NAME_Black_Earl" graphical_culture = "pirate_01" } }
-					while = { count = 10 create_ship = { name = random design = "NAME_Marauder" graphical_culture = "pirate_01" } }
-					while = { count = 24 create_ship = { name = random design = "NAME_Skull" graphical_culture = "pirate_01" } }
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_Pirate_Galleon"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 4
+						create_ship = {
+							name = random
+							design = "NAME_Black_Earl"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 10
+						create_ship = {
+							name = random
+							design = "NAME_Marauder"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 24
+						create_ship = {
+							name = random
+							design = "NAME_Skull"
+							graphical_culture = "pirate_01"
+						}
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_formation_scale = 2
-					set_location = { target = prev distance = 90 angle = 330 }
+					set_location = {
+						target = prev
+						distance = 90
+						angle = 330
+					}
 				}
 			}
 		}
@@ -188,25 +492,106 @@ lh_multi_neutron_system = {
 lh_multi_pulsar_system = {
 	class = sc_pulsar
 	flags = { lh_special_system hostile_system }
-	planet = { class = star orbit_distance = 0 size = 40 }
+	planet = {
+		class = star
+		orbit_distance = 0
+		size = 40
+	}
+
 	change_orbit = 60
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 1 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 1
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 60
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 210 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 210
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 60
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 75 size = 10 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 75
+		size = 10
+		has_ring = no
+	}
+
 	change_orbit = 10
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 120 size = 20 has_ring = no }
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 200 size = 15 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 120
+		size = 20
+		has_ring = no
+	}
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 200
+		size = 15
+		has_ring = no
+	}
+
 	change_orbit = 5
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 90 size = 15 has_ring = no }
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 130 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 90
+		size = 15
+		has_ring = no
+	}
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 130
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 30
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 245 size = 10 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 245
+		size = 10
+		has_ring = no
+	}
+
 	change_orbit = 10
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 110 size = 20 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 110
+		size = 20
+		has_ring = no
+	}
+
 	change_orbit = 10
-	planet = { class = pc_pulsar orbit_distance = 0 orbit_angle = 170 size = 10 has_ring = no }
+
+	planet = {
+		class = pc_pulsar
+		orbit_distance = 0
+		orbit_angle = 170
+		size = 10
+		has_ring = no
+	}
+
 	init_effect = {
 		save_event_target_as = lh_multi_pulsar_system
 		star = {
@@ -214,15 +599,47 @@ lh_multi_pulsar_system = {
 			create_fleet = {
 				effect = {
 					set_owner = event_target:pirate_country
-					while = { count = 1 create_ship = { name = random design = "NAME_Pirate_Galleon" graphical_culture = "pirate_01" } }
-					while = { count = 4 create_ship = { name = random design = "NAME_Black_Earl" graphical_culture = "pirate_01" } }
-					while = { count = 10 create_ship = { name = random design = "NAME_Marauder" graphical_culture = "pirate_01" } }
-					while = { count = 24 create_ship = { name = random design = "NAME_Skull" graphical_culture = "pirate_01" } }
+					while = {
+						count = 1
+						create_ship = {
+							name = random
+							design = "NAME_Pirate_Galleon"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 4
+						create_ship = {
+							name = random
+							design = "NAME_Black_Earl"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 10
+						create_ship = {
+							name = random
+							design = "NAME_Marauder"
+							graphical_culture = "pirate_01"
+						}
+					}
+					while = {
+						count = 24
+						create_ship = {
+							name = random
+							design = "NAME_Skull"
+							graphical_culture = "pirate_01"
+						}
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 250
 					set_formation_scale = 2
-					set_location = { target = prev distance = 90 angle = 330 }
+					set_location = {
+						target = prev
+						distance = 90
+						angle = 330
+					}
 				}
 			}
 		}
@@ -232,7 +649,14 @@ lh_multi_pulsar_system = {
 lh_multi_primitives_system = {
 	class = "rl_trinary_stars"
 	flags = { lh_special_system hostile_system primitive_system }
-	planet = { count = 1 class = star orbit_distance = 0 orbit_angle = 0 size = { min = 30 max = 35 } has_ring = no }
+	planet = {
+		count = 1
+		class = star
+		orbit_distance = 0
+		orbit_angle = 0
+		size = { min = 30 max = 35 }
+		has_ring = no
+	}
 	planet = {
 		count = 1
 		class = star
@@ -311,7 +735,9 @@ lh_multi_primitives_system = {
 			}
 		}
 	}
+
 	change_orbit = -250
+
 	planet = {
 		count = { min = 3 max = 5 }
 		orbit_distance = 20
@@ -340,6 +766,7 @@ lh_multi_primitives_system = {
 			orbit_distance = 5
 		}
 	}
+
 	init_effect = {
 		save_event_target_as = lh_multi_primitives_system
 	}
@@ -348,25 +775,21 @@ lh_multi_primitives_system = {
 # Void Cloud Home System 2.3
 hostile_init_09 = {
 	class = sc_black_hole
-
 	usage = misc_system_init
+
 	usage_odds = {
 		base = 2
 		modifier = {
 			factor = 0
-			NOT = { is_in_cluster = resource_cluster_2 }
-		}
-		modifier = {
-			factor = 0
-			has_star_flag = empire_cluster
-		}
-		modifier = {
-			factor = 0
-			is_bottleneck_system = yes
+			OR = {
+				NOT = { is_in_cluster = resource_cluster_2 }
+				has_star_flag = empire_cluster
+				is_bottleneck_system = yes
+			}
 		}
 	}
-
 	flags = { hostile_system void2_system }
+
 	max_instances = 1
 
 	planet = {
@@ -380,8 +803,9 @@ hostile_init_09 = {
 		count = { min = 0 max = 1 }
 		class = "pc_broken"
 		size = { min = 10 max = 15 }
-
-		init_effect = { prevent_anomaly = yes }
+		init_effect = {
+			prevent_anomaly = yes
+		}
 	}
 
 	change_orbit = 20
@@ -405,10 +829,7 @@ hostile_init_09 = {
 						set_owner = event_target:cloud_country
 						while = {
 							count = 4
-							create_ship = {
-								name = ""
-								design = "NAME_Cloud_Entity"
-							}
+							create_ship = { name = "" design = "NAME_Cloud_Entity" }
 						}
 						set_location = event_target:voidhome_star
 						set_fleet_stance = aggressive
@@ -422,10 +843,7 @@ hostile_init_09 = {
 						set_owner = event_target:cloud_country
 						while = {
 							count = 4
-							create_ship = {
-								name = ""
-								design = "NAME_Cloud_Entity"
-							}
+							create_ship = { name = "" design = "NAME_Cloud_Entity" }
 						}
 						set_location = event_target:voidhome_star
 						set_fleet_stance = aggressive

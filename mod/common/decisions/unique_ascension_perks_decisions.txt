@@ -1,32 +1,61 @@
+
 decision_genious_pregnancy = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	enactment_time = 540
+
 	resources = {
 		category = decisions
-		cost = { energy = 500 } # v3.4 energy = 50 food = 500
-		cost = { trigger = { owner = { is_hive_empire = yes } } energy = 250 } # v3.4 energy = 10 food = 100
-		cost = { trigger = { owner = { is_lithoid = yes } } minerals = 1000 }
-		cost = { trigger = { owner = { is_lithoid = no } } food = 1000 }
+		cost = {
+			energy = 500
+		} # v3.4 energy = 50 food = 500
+		cost = {
+			trigger = {
+				owner = { is_hive_empire = yes }
+			}
+			energy = 250
+		} # v3.4 energy = 10 food = 100
+		cost = {
+			trigger = { owner = { is_lithoid = yes } }
+			minerals = 1000
+		}
+		cost = {
+			trigger = { owner = { is_lithoid = no } }
+			food = 1000
+		}
 	}
+
 	potential = {
 		exists = from
 		from = { has_ascension_perk = ap_genius_cloning }
 		is_under_colonization = no
-		num_sapient_pops > 0
+		sapient_pop_amount > 0
 		# can_generate_trade_value = yes
 	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_1" any_owned_species = { is_robotic = no } }
-		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_2" NOT = { has_planet_flag = decision_genious_pregnancy_cooldown } }
-		custom_tooltip = { fail_text = "decision_genious_pregnancy_req_3" any_owned_pop = { is_valuable_pop = yes } }
+		custom_tooltip = {
+			fail_text = "decision_genious_pregnancy_req_1"
+			any_owned_species = { is_robotic = no }
+		}
+		custom_tooltip = {
+			fail_text = "decision_genious_pregnancy_req_2"
+			NOT = { has_planet_flag = decision_genious_pregnancy_cooldown }
+		}
+		custom_tooltip = {
+			fail_text = "decision_genious_pregnancy_req_3"
+			any_owned_pop_group = { is_valuable_pop = yes }
+		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_genious_pregnancy_tooltip"
 		planet_event = { id = UniqueAscensionPerksEvents.42 }
 		hidden_effect = {
 			if = {
-				limit = { from = { has_country_flag = ap_genius_cloning_auto } }
+				limit = {
+					from = { has_country_flag = ap_genius_cloning_auto }
+				}
 				planet_event = { id = UniqueAscensionPerksEvents.4152 days = 3 }
 			}
 			else = {
@@ -34,71 +63,122 @@ decision_genious_pregnancy = {
 			}
 		}
 	}
+
 	ai_weight = {
 		weight = 1
-		modifier = { factor = 0 free_housing < 1 }
-		modifier = { factor = 5 num_sapient_pops < 30 }
+		modifier = { factor = 0 free_housing < 100 }
+		modifier = { factor = 5 sapient_pop_amount < 3000 }
 	}
 }
+
 # Copy of decision_planet_food_boost
 decision_genious_pregnancy2 = {
 	owned_planets_only = yes
 	sound = event_administrative_work
 	icon = decision_resources
+
 	resources = {
 		category = decisions
-		cost = { food = 1000 }
+		cost = {
+			food = 1000
+		}
 	}
+
 	potential = {
 		exists = from
-		from = { is_regular_empire = yes is_lithoid_empire = no has_ascension_perk = ap_genius_cloning }
+		from = {
+			is_regular_empire = yes
+			is_lithoid_empire = no
+			has_ascension_perk = ap_genius_cloning
+		}
 		NOR = {
-			num_sapient_pops = 0
+			sapient_pop_amount = 0
 			is_under_colonization = yes
 			has_modifier = planet_growth_discouraged
 			has_modifier = planet_population_control
 		}
 		can_generate_trade_value = yes
 	}
+
 	allow = {
 		NOT = { has_modifier = planet_food_boost }
 	}
+
 	effect = {
 		add_modifier = { modifier = "planet_food_boost" years = 10 }
 	}
+
 	ai_weight = {
 		weight = 5
 		# don't encourage growth if there is no free housing
-		modifier = { factor = 0 free_housing < 1 }
-		modifier = { factor = 5 num_sapient_pops < 30 }
+		modifier = { factor = 0 free_housing < 100 }
+		modifier = { factor = 5 sapient_pop_amount < 3000 }
 	}
 }
+
 decision_robot_command = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
 	enactment_time = 1080
+
 	resources = {
 		category = decisions
-		cost = { energy = 500 minerals = 1000 alloys = 100 }
-		cost = { trigger = { owner = { is_machine_empire = yes } } energy = 200 minerals = 500 alloys = 50 }
-		cost = { trigger = { owner = { OR = { has_technology = tech_droid_workers has_technology = tech_synthetic_workers } } } energy = 150 minerals = 300 alloys = 35 }
+		cost = {
+			energy = 500
+			minerals = 1000
+			alloys = 100
+		}
+		cost = {
+			trigger = {
+				owner = { is_machine_empire = yes }
+			}
+			energy = 200
+			minerals = 500
+			alloys = 50
+		}
+		cost = {
+			trigger = {
+				owner = {
+					OR = {
+						has_technology = tech_droid_workers
+						has_technology = tech_synthetic_workers
+					}
+				}
+			}
+			energy = 150
+			minerals = 300
+			alloys = 35
+		}
 	}
+
 	potential = {
 		exists = from
 		from = { has_ascension_perk = ap_robot_command }
 		is_under_colonization = no
 		# can_generate_trade_value = yes
 	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_robot_command_req_1" NOT = { has_planet_flag = decision_robot_command_cooldown } }
-		custom_tooltip = { fail_text = "ap_robot_command_req_4" owner = { any_owned_species = { is_robotic = yes } } }
+		custom_tooltip = {
+			fail_text = "decision_robot_command_req_1"
+			NOT = { has_planet_flag = decision_robot_command_cooldown }
+		}
+		custom_tooltip = {
+			fail_text = "ap_robot_command_req_4"
+			owner = {
+				any_owned_species = { is_robotic = yes }
+			}
+		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_robot_command_tooltip"
 		planet_event = { id = UniqueAscensionPerksEvents.62 }
 		hidden_effect = {
 			if = {
-				limit = { from = { has_country_flag = ap_robot_command_auto } }
+				limit = {
+					from = { has_country_flag = ap_robot_command_auto }
+				}
 				planet_event = { id = UniqueAscensionPerksEvents.4152 days = 3 }
 			}
 			else = {
@@ -106,21 +186,28 @@ decision_robot_command = {
 			}
 		}
 	}
+
 	ai_weight = {
 		weight = 1
-		modifier = { factor = 0 free_housing < 1 }
-		modifier = { factor = 5 num_sapient_pops < 30 }
+		modifier = { factor = 0 free_housing < 100 }
+		modifier = { factor = 5 sapient_pop_amount < 3000 }
 	}
 }
+
 decision_robot_command2 = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
 	enactment_time = 1080
 	icon = decision_cybernetics
+
 	resources = {
 		category = decisions
-		cost = { minerals = 500 alloys = 250 }
+		cost = {
+			minerals = 500
+			alloys = 250
+		}
 	}
+
 	potential = {
 		exists = from
 		from = { has_ascension_perk = ap_robot_command }
@@ -134,31 +221,40 @@ decision_robot_command2 = {
 		}
 		can_generate_trade_value = yes
 	}
+
 	allow = {
 		NOT = { has_modifier = planet_alloy_boost }
 	}
+
 	effect = {
 		add_modifier = { modifier = "planet_alloy_boost" years = 10 }
 	}
+
 	ai_weight = {
 		weight = 4
 		# don't encourage growth if there is no free housing
-		modifier = { factor = 0 free_housing < 1 }
-		modifier = { factor = 5 num_sapient_pops < 30 }
+		modifier = { factor = 0 free_housing < 100 }
+		modifier = { factor = 5 sapient_pop_amount < 3000 }
 	}
 }
+
 decision_recomposer_life_to_ai = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
 	enactment_time = 240 # 480
+
 	resources = {
 		category = decisions
-		cost = { energy = 400 minerals = 400 }
+		cost = {
+			energy = 400
+			minerals = 400
+		}
 	}
+
 	on_queued = {
 		# set_variable = { which = num_non_robot_pop value = value:num_non_robot_pop }
 		export_trigger_value_to_variable = {
-			trigger = count_owned_pop
+			trigger = count_owned_pop_amount
 			parameters = {
 				limit = {
 					is_sapient = yes
@@ -170,21 +266,36 @@ decision_recomposer_life_to_ai = {
 			variable = num_non_robot_pop
 		}
 	}
-	on_unqueued = { clear_variable = num_non_robot_pop }
+
+	on_unqueued = {
+		clear_variable = num_non_robot_pop
+	}
+
 	potential = {
 		exists = from
 		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
 		is_under_colonization = no
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_recomposer_life_to_ai_req_1"
-			count_owned_species = { limit = { is_robotic = no } count > 0 }
+			count_owned_species = {
+				count > 0
+				limit = { is_robotic = no }
+			}
 		}
 		custom_tooltip = {
 			fail_text = "decision_recomposer_life_to_ai_req_2"
 			owner = {
-				count_owned_species = { limit = { is_robotic = yes num_trait_points > 1 num_positive_traits > 0 } count > 0 }
+				count_owned_species = {
+					count > 0
+					limit = {
+						is_robotic = yes
+						num_trait_points > 1
+						num_positive_traits > 0
+					}
+				}
 			}
 		}
 		from = {
@@ -192,11 +303,12 @@ decision_recomposer_life_to_ai = {
 			has_country_resource = { type = minerals amount > 500 }
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_recomposer_life_to_ai_tooltip"
 		hidden_effect = {
 			export_trigger_value_to_variable = {
-				trigger = count_owned_pop
+				trigger = count_owned_pop_amount
 				parameters = {
 					limit = {
 						is_sapient = yes
@@ -210,40 +322,68 @@ decision_recomposer_life_to_ai = {
 			planet_event = { id = UniqueAscensionPerksEvents.65 }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_recomposer_ai_to_life = {
 	owned_planets_only = yes
 	sound = event_ai_started_01
 	enactment_time = 240 # 480
+
 	resources = {
 		category = decisions
-		cost = { energy = 400 food = 400 }
+		cost = {
+			energy = 400
+			food = 400
+		}
 	}
+
 	on_queued = {
 		export_trigger_value_to_variable = {
-			trigger = count_owned_pop
+			trigger = count_owned_pop_amount
 			parameters = {
-				limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 0 }
+				limit = {
+					is_robot_pop = yes
+					num_trait_points > 1
+					num_positive_traits > 0
+				}
 			}
 			variable = num_robot_pop
 		}
 	}
-	on_unqueued = { clear_variable = num_robot_pop }
+
+	on_unqueued = {
+		clear_variable = num_robot_pop
+	}
+
 	potential = {
 		exists = from
 		from = { has_ascension_perk = ap_recomposer has_country_flag = recomposer_project }
 		is_under_colonization = no
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_recomposer_ai_to_life_req_1"
-			count_owned_species = { limit = { is_robotic = yes } count > 0 }
+			count_owned_species = {
+				count > 0
+				limit = { is_robotic = yes }
+			}
 		}
 		custom_tooltip = {
 			fail_text = "decision_recomposer_ai_to_life_req_2"
 			owner = {
-				count_owned_species = { limit = { is_robotic = no num_trait_points > 1 num_positive_traits > 1 } count > 0 }
+				count_owned_species = {
+					count > 0
+					limit = {
+						is_robotic = no
+						num_trait_points > 1
+						num_positive_traits > 1
+					}
+				}
 			}
 		}
 		from = {
@@ -251,47 +391,82 @@ decision_recomposer_ai_to_life = {
 			has_country_resource = { type = food amount > 500 }
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_recomposer_ai_to_life_tooltip"
 		hidden_effect = {
 			export_trigger_value_to_variable = {
-				trigger = count_owned_pop
+				trigger = count_owned_pop_amount
 				parameters = {
-					limit = { is_robot_pop = yes num_trait_points > 1 num_positive_traits > 0 }
+					limit = {
+						is_robot_pop = yes
+						num_trait_points > 1
+						num_positive_traits > 0
+					}
 				}
 				variable = num_robot_pop
 			}
 			planet_event = { id = UniqueAscensionPerksEvents.66 }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_galaxy_center = {
 	owned_planets_only = yes
 	sound = event_cityscape
 	enactment_time = 3600
+
 	resources = {
 		category = decisions
-		cost = { influence = 350 energy = 9600 alloys = 9600 }
+		cost = {
+			influence = 350
+			energy = 9600
+			alloys = 9600
+		}
 	}
+
 	potential = {
 		gpm_is_planet_class_city = yes # is_possible_galaxy_center
 		exists = from
 		from = { has_ascension_perk = ap_galaxy_center }
-		NOT = { has_planet_flag = galaxy_center_planet }
-		distance_to_core_percent < 34
-		custom_tooltip = { fail_text = "ap_galaxy_center_req_6" from = { count_owned_planet = { limit = { has_planet_flag = galaxy_center_planet } count = 0 } } }
-	}
-	allow = {
-		num_sapient_pops > 20
-		controller = { is_same_empire = from }
-		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
-			NOR = {
-				has_planet_flag = decision_galaxy_center_cooldown
-				from = { has_active_event = { UniqueAscensionPerksEvents.83 UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 } }
+		NOR = {
+			has_planet_flag = galaxy_center_planet
+			distance_to_core_percent >= 34
+		}
+		custom_tooltip = {
+			fail_text = "ap_galaxy_center_req_6"
+			from = {
+				count_owned_planet = {
+					count = 0
+					limit = { has_planet_flag = galaxy_center_planet }
+				}
 			}
 		}
 	}
+
+	allow = {
+		sapient_pop_amount > 2000
+		controller = { is_same_empire = from }
+		custom_tooltip = {
+			fail_text = "decision_galaxy_center_cooldown"
+			NOR = {
+				has_planet_flag = decision_galaxy_center_cooldown
+				from = {
+					has_active_event = {
+						UniqueAscensionPerksEvents.83
+						UniqueAscensionPerksEvents.84
+						UniqueAscensionPerksEvents.85
+						UniqueAscensionPerksEvents.3086
+					}
+				}
+			}
+		}
+	}
+
 	effect = {
 		custom_tooltip = "decision_galaxy_center_tooltip"
 		hidden_effect = {
@@ -301,56 +476,91 @@ decision_galaxy_center = {
 			add_modifier = { modifier = center_of_galaxy }
 		}
 	}
-	ai_weight = { weight = 0 }
+
+	ai_weight = {
+		weight = 0
+	}
 }
+
 decision_galaxy_center_menu = {
 	owned_planets_only = yes
 	sound = event_administrative_work
 	icon = decision_galaxy_center
+
 	potential = {
 		has_planet_flag = galaxy_center_planet
 		exists = from
 		from = { has_ascension_perk = ap_galaxy_center }
 	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_galaxy_center_cooldown"
+		custom_tooltip = {
+			fail_text = "decision_galaxy_center_cooldown"
 			NOR = {
 				has_planet_flag = decision_galaxy_center_cooldown
-				from = { has_active_event = { UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 } }
+				from = {
+					has_active_event = { UniqueAscensionPerksEvents.84 UniqueAscensionPerksEvents.85 UniqueAscensionPerksEvents.3086 }
+				}
 			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_galaxy_center_menu_tooltip"
-		hidden_effect = { planet_event = { id = UniqueAscensionPerksEvents.84 } }
+		hidden_effect = {
+			planet_event = { id = UniqueAscensionPerksEvents.84 }
+		}
 	}
-	ai_weight = { weight = 0 }
+
+	ai_weight = {
+		weight = 0
+	}
 }
+
 decision_ethic_shift = {
 	owned_planets_only = yes
 	sound = event_administrative_work
 	icon = decision_alien_propaganda
 	enactment_time = 180
+
 	resources = {
 		category = decisions
-		cost = { unity = 200 }
+		cost = {
+			unity = 200
+		}
 		# v3.4 now on planet event due performance!?
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 20 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 40 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 60 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 80 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 100 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 120 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 140 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 160 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 180 } } unity = 100 }
-		# cost = { trigger = { count_owned_pop = { limit = { pop_has_right_ethics = yes } count >= 200 } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 20 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 40 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 60 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 80 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 100 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 120 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 140 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 160 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 180 limit = { pop_has_right_ethics = yes } } } unity = 100 }
+		# cost = { trigger = { count_owned_pop = { count >= 20 limit = { pop_has_right_ethics = yes }0 } } unity = 100 }
 	}
-	potential = { is_under_colonization = no exists = from from = { has_ascension_perk = ap_advanced_government_1 } }
+
+	potential = {
+		is_under_colonization = no
+		exists = from
+		from = { has_ascension_perk = ap_advanced_government_1 }
+	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_ethic_shift_req_1" count_owned_pop = { limit = { pop_has_right_ethics = yes } count > 9 } }
-		custom_tooltip = { fail_text = "decision_ethic_shift_req_2" NOT = { has_planet_flag = decision_ethic_shift_cooldown } }
+		custom_tooltip = {
+			fail_text = "decision_ethic_shift_req_1"
+			count_owned_pop_amount = {
+				count > 900
+				limit = { pop_has_right_ethics = yes }
+			}
+		}
+		custom_tooltip = {
+			fail_text = "decision_ethic_shift_req_2"
+			NOT = { has_planet_flag = decision_ethic_shift_cooldown }
+		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_ethic_shift_tooltip"
 		# save_event_target_as = ethic_planet
@@ -359,21 +569,47 @@ decision_ethic_shift = {
 		# set_timed_planet_flag = { flag = decision_ethic_shift_cooldown years = 5 }
 		planet_event = { id = UniqueAscensionPerksEvents.4090 days = 1800 }
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_hivemind_reserve = {
 	owned_planets_only = yes
 	sound = event_alien_nature
 	enactment_time = 180
+
 	resources = {
 		category = decisions
-		cost = { influence = 25 }
-		cost = { trigger = { owner = { is_lithoid_empire = no } } food = 700 }
-		cost = { trigger = { owner = { is_lithoid_empire = yes } } minerals = 700 }
+		cost = {
+			influence = 25
+		}
+		cost = {
+			trigger = {
+				owner = { is_lithoid_empire = no }
+			}
+			food = 700
+		}
+		cost = {
+			trigger = {
+				owner = { is_lithoid_empire = yes }
+			}
+			minerals = 700
+		}
 	}
-	potential = { exists = from from = { has_ascension_perk = ap_hivemind_reserve } is_under_colonization = no }
+
+	potential = {
+		exists = from
+		from = { has_ascension_perk = ap_hivemind_reserve }
+		is_under_colonization = no
+	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
+		custom_tooltip = {
+			fail_text = "decision_hivemind_reserve_req_1"
+			NOT = { has_planet_flag = decision_hivemind_reserve_cooldown }
+		}
 		if = {
 			limit = { is_variable_set = hivemind_reserve_happened }
 			custom_tooltip = {
@@ -383,9 +619,13 @@ decision_hivemind_reserve = {
 			}
 		}
 		else = {
-			custom_tooltip = { text = requires_max_5_times_pass_simple always = yes }
+			custom_tooltip = {
+				text = requires_max_5_times_pass_simple
+				always = yes
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_hivemind_reserve_tooltip"
 		add_deposit = d_hivemind_reserve
@@ -397,21 +637,37 @@ decision_hivemind_reserve = {
 		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown years = 2 }
 		planet_event = { id = UniqueAscensionPerksEvents.3128 days = 742 }
 	}
+
 	ai_weight = {
 		weight = 1
-		modifier = { factor = 2 num_sapient_pops > 24 }
-		modifier = { factor = 3 num_sapient_pops > 48 }
+		modifier = { factor = 2 sapient_pop_amount > 2400 }
+		modifier = { factor = 3 sapient_pop_amount > 4800 }
 	}
 }
+
 decision_hivemind_reserve_unhabited = {
 	sound = event_alien_nature
 	icon = decision_hivemind_reserve
+
 	resources = {
 		category = decisions
-		cost = { influence = 25 }
-		cost = { trigger = { from = { is_lithoid_empire = no } } food = 900 }
-		cost = { trigger = { from = { is_lithoid_empire = yes } } minerals = 900 }
+		cost = {
+			influence = 25
+		}
+		cost = {
+			trigger = {
+				from = { is_lithoid_empire = no }
+			}
+			food = 900
+		}
+		cost = {
+			trigger = {
+				from = { is_lithoid_empire = yes }
+			}
+			minerals = 900
+		}
 	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -420,8 +676,12 @@ decision_hivemind_reserve_unhabited = {
 		is_colonizable_planet = yes
 		has_owner = no
 	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_hivemind_reserve_req_1" NOT = { has_planet_flag = decision_hivemind_reserve_cooldown } }
+		custom_tooltip = {
+			fail_text = "decision_hivemind_reserve_req_1"
+			NOT = { has_planet_flag = decision_hivemind_reserve_cooldown }
+		}
 		if = {
 			limit = { is_variable_set = hivemind_reserve_happened }
 			custom_tooltip = {
@@ -431,9 +691,13 @@ decision_hivemind_reserve_unhabited = {
 			}
 		}
 		else = {
-			custom_tooltip = { text = requires_max_5_times_pass_simple always = yes }
+			custom_tooltip = {
+				text = requires_max_5_times_pass_simple
+				always = yes
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_hivemind_reserve_tooltip"
 		add_deposit = d_hivemind_reserve
@@ -445,15 +709,26 @@ decision_hivemind_reserve_unhabited = {
 		set_timed_planet_flag = { flag = decision_hivemind_reserve_cooldown years = 2 }
 		planet_event = { id = UniqueAscensionPerksEvents.3128 days = 742 }
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_primitive_creation = {
 	sound = event_pre_ftl_civilization
 	enactment_time = 330
+
 	resources = {
 		category = decisions
-		cost = { influence = 10 food = 800 minerals = 1800 energy = 1800 }
+		cost = {
+			influence = 10
+			food = 800
+			minerals = 1800
+			energy = 1800
+		}
 	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -474,14 +749,19 @@ decision_primitive_creation = {
 			# uninhabitable_regular_planet = yes ## decision_primitive_creation_unhabitable
 		}
 	}
+
 	allow = {
 		NOR = {
 			has_orbital_bombardment = yes
 			is_occupied_flag = yes
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
-			from = { num_owned_planets < 3 }
-			from = { has_active_event = { leng_project_event.3 } }
+			from = {
+				OR = {
+					num_owned_planets < 3
+					has_active_event = { leng_project_event.3 }
+				}
+			}
 			# num_sapient_pops > 31
 		}
 		# OR = { ## decision_primitive_creation_unhabitable
@@ -494,21 +774,36 @@ decision_primitive_creation = {
 		# 	}
 		# }
 	}
+
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
 		planet_event = { id = leng_project_event.3 } # create_primitive_retro_country
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_primitive_creation_unhabitable = {
 	icon = decision_primitive_creation
 	sound = event_pre_ftl_civilization
 	enactment_time = 300
+
 	resources = {
 		category = decisions
-		cost = { influence = 20 food = 1600 minerals = 3600 energy = 5000 }
+		cost = {
+			influence = 20
+			food = 1600
+			minerals = 3600
+			energy = 5000
+		}
 	}
-	prerequisites = { tech_climate_restoration }
+
+	prerequisites = {
+		tech_climate_restoration
+	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -525,35 +820,69 @@ decision_primitive_creation_unhabitable = {
 		}
 		uninhabitable_regular_planet = yes
 	}
+
 	allow = {
 		NOR = {
 			has_orbital_bombardment = yes
 			is_occupied_flag = yes
 			has_planet_flag = primitive_creation_done
 			has_planet_flag = new_primitive_world
-			from = { num_owned_planets < 3 }
-			from = { has_active_event = { leng_project_event.3 } }
+			from = {
+				OR = {
+					num_owned_planets < 3
+					has_active_event = { leng_project_event.3 }
+				}
+			}
 			# num_sapient_pops > 31
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_primitive_creation_tooltip"
-		if		= { limit = { merg_is_molten = yes }		change_pc = pc_arid } # pc_desert
-		else_if = { limit = { merg_is_toxic = yes }			change_pc = pc_continental }
-		else_if = { limit = { merg_is_frozen = yes }		change_pc = pc_arctic } # pc_alpine
-		else_if = { limit = { merg_is_barren = yes }		change_pc = pc_desert }
-		else_if = { limit = { merg_is_barren_cold = yes }	change_pc = pc_alpine } # pc_tundra
-		else = { change_pc = pc_ocean }
+		if = {
+			limit = { merg_is_molten = yes }
+			change_pc = pc_arid
+		} # pc_desert
+		else_if = {
+			limit = { merg_is_toxic = yes }
+			change_pc = pc_continental
+		}
+		else_if = {
+			limit = { merg_is_frozen = yes }
+			change_pc = pc_arctic
+		} # pc_alpine
+		else_if = {
+			limit = { merg_is_barren = yes }
+			change_pc = pc_desert
+		}
+		else_if = {
+			limit = { merg_is_barren_cold = yes }
+			change_pc = pc_alpine
+		} # pc_tundra
+		else = {
+			change_pc = pc_ocean
+		}
 		reset_planet = yes
 		planet_event = { id = leng_project_event.3 } # create_primitive_retro_country = yes
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 # v3.4 reduced deposit chance
 decision_nanite_extraction = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 1250 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			nanites = 1250
+		}
+	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -562,12 +891,16 @@ decision_nanite_extraction = {
 		is_colonizable_planet = yes
 		is_artificial = no
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_extraction_req_1"
-			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_exploitation } }
+			hidden_trigger = {
+				NOT = { has_planet_flag = planet_nanite_exploitation }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nanite_extraction_tooltip"
 		change_pc = pc_gray_goo
@@ -591,26 +924,44 @@ decision_nanite_extraction = {
 			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_nanite_extraction_molten = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 350 } } # 500
+
+	resources = {
+		category = decisions
+		cost = {
+			nanites = 350
+		}
+	} # 500
+
 	potential = {
 		exists = from
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		from = { has_ascension_perk = ap_nano_to_nanite }
 		has_owner = no
-		OR = { merg_is_molten = yes is_planet_class = pc_legendary_forge }
+		OR = {
+			merg_is_molten = yes
+			is_planet_class = pc_legendary_forge
+		}
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_extraction_req_1"
-			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_exploitation_molten } }
+			hidden_trigger = {
+				NOT = { has_planet_flag = planet_nanite_exploitation_molten }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nanite_extraction_molten_tooltip"
 		random = { chance = 25 add_deposit = d_minerals_10 }
@@ -622,17 +973,28 @@ decision_nanite_extraction_molten = {
 		add_deposit = d_nanites_deposit
 		add_deposit = d_nanites_deposit
 		hidden_effect = {
-			every_owned_pop = { kill_pop = yes }
+			every_owned_pop_group = { kill_all_pop = yes }
 			set_planet_flag = planet_nanite_exploitation_molten
 			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_nanite_extraction_toxic = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 350 } } # 500
+
+	resources = {
+		category = decisions
+		cost = {
+			nanites = 350
+		}
+	} # 500
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -641,12 +1003,16 @@ decision_nanite_extraction_toxic = {
 		has_owner = no
 		merg_is_toxic = yes
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_extraction_req_1"
-			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_exploitation_toxic } }
+			hidden_trigger = {
+				NOT = { has_planet_flag = planet_nanite_exploitation_toxic }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nanite_extraction_toxic_tooltip"
 		random = { chance = 25 add_deposit = d_energy_10 }
@@ -658,17 +1024,28 @@ decision_nanite_extraction_toxic = {
 		add_deposit = d_nanites_deposit
 		add_deposit = d_nanites_deposit
 		hidden_effect = {
-			every_owned_pop = { kill_pop = yes }
+			every_owned_pop_group = { kill_all_pop = yes }
 			set_planet_flag = planet_nanite_exploitation_toxic
 			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_nanite_extraction_barren = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 350 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			nanites = 350
+		}
+	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -677,12 +1054,16 @@ decision_nanite_extraction_barren = {
 		has_owner = no
 		merg_is_barren = yes
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_extraction_req_1"
-			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_exploitation_barren } }
+			hidden_trigger = {
+				NOT = { has_planet_flag = planet_nanite_exploitation_barren }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nanite_extraction_barren_tooltip"
 		random = { chance = 25 add_deposit = d_minerals_5 }
@@ -694,17 +1075,28 @@ decision_nanite_extraction_barren = {
 		add_deposit = d_nanites_deposit
 		add_deposit = d_nanites_deposit
 		hidden_effect = {
-			every_owned_pop = { kill_pop = yes }
+			every_owned_pop_group = { kill_all_pop = yes }
 			set_planet_flag = planet_nanite_exploitation_barren
 			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_nanite_purification = {
 	sound = event_alien_signal
 	icon = decision_consecrated_worlds
-	resources = { category = decisions cost = { nanites = 3000 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			nanites = 3000
+		}
+	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -713,23 +1105,46 @@ decision_nanite_purification = {
 		is_planet_class = pc_gray_goo
 		# has_owner = no
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_purification_req_1"
 			from = {
-				OR = { has_ascension_perk = ap_world_shaper has_ascension_perk = ap_hive_worlds has_ascension_perk = ap_machine_worlds }
+				OR = {
+					has_ascension_perk = ap_world_shaper
+					has_ascension_perk = ap_hive_worlds
+					has_ascension_perk = ap_machine_worlds
+				}
 			}
 		}
 		custom_tooltip = {
 			fail_text = "decision_nanite_extraction_req_1"
-			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_purification } }
+			hidden_trigger = {
+				NOT = { has_planet_flag = planet_nanite_purification }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nanite_purification_tooltip"
-		if = { limit = { from = { has_ascension_perk = ap_world_shaper } } change_pc = pc_gaia }
-		else_if = { limit = { from = { has_ascension_perk = ap_hive_worlds } } change_pc = pc_hive }
-		else_if = { limit = { from = { has_ascension_perk = ap_machine_worlds } } change_pc = pc_machine }
+		if = {
+			limit = {
+				from = { has_ascension_perk = ap_world_shaper }
+			}
+			change_pc = pc_gaia
+		}
+		else_if = {
+			limit = {
+				from = { has_ascension_perk = ap_hive_worlds }
+			}
+			change_pc = pc_hive
+		}
+		else_if = {
+			limit = {
+				from = { has_ascension_perk = ap_machine_worlds }
+			}
+			change_pc = pc_machine
+		}
 		reroll_deposits = yes
 		reroll_planet_modifiers = yes
 		hidden_effect = {
@@ -737,12 +1152,23 @@ decision_nanite_purification = {
 			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_nanite_extraction_gas = {
 	sound = event_ai_started_01
 	icon = decision_drilling_for_gas
-	resources = { category = decisions cost = { nanites = 350 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			nanites = 350
+		}
+	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -751,12 +1177,16 @@ decision_nanite_extraction_gas = {
 		has_owner = no
 		merg_is_gas_giant = yes
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_nanite_extraction_req_1"
-			hidden_trigger = { NOT = { has_planet_flag = planet_nanite_exploitation_gas } }
+			hidden_trigger = {
+				NOT = { has_planet_flag = planet_nanite_exploitation_gas }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nanite_extraction_gas_tooltip"
 		add_deposit = d_energy_2
@@ -769,12 +1199,23 @@ decision_nanite_extraction_gas = {
 			set_surveyed = { surveyed = yes surveyor = from }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_deep_scanner = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
-	resources = { category = decisions cost = { energy = 200 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			energy = 200
+		}
+	}
+
 	potential = {
 		exists = from
 		from = {
@@ -783,7 +1224,7 @@ decision_deep_scanner = {
 				inline_script = { # Compat. E&CC
 					script = merger_of_rules/toggled_code
 					code = "
-				has_valid_civic = civic_exploration
+					has_valid_civic = civic_exploration
 					"
 					toggle = @[ has_eca_funefork + has_ecc_cog + post_revolutionary_re_revolution_years ]
 				}
@@ -791,11 +1232,15 @@ decision_deep_scanner = {
 		}
 		# has_active_building = building_deep_space_scanner
 	}
+
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_deep_scanner_req_1"
-			NOR = { has_modifier = pm_deep_scanner has_planet_flag = decision_deep_scanner_cooldown }
-	 	}
+			NOR = {
+				has_modifier = pm_deep_scanner
+				has_planet_flag = decision_deep_scanner_cooldown
+			}
+		}
 		custom_tooltip = {
 			fail_text = "decision_deep_scanner_req_2"
 			# can_deep_scan_a_new_anomaly = yes
@@ -804,46 +1249,183 @@ decision_deep_scanner = {
 			# num_buildings = { type = building_deep_space_scanner disabled = no value > 0 }
 			has_active_building = building_deep_space_scanner
 			OR = {
-				from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 2 } any_system_planet = { anomaly_possible = yes } } }
-				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 2 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 1 max_jumps = 4 } any_system_planet = { anomaly_possible = yes } } }
+				from = {
+					any_system_within_border = {
+						distance = {
+							source = root
+							use_bypasses = no
+							min_jumps = 1
+							max_jumps = 2
+						}
+						any_system_planet = { anomaly_possible = yes }
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 3 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 2 max_jumps = 6 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 2
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 1
+								max_jumps = 4
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 4 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 4 max_jumps = 8 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 3
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 2
+								max_jumps = 6
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 5 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 6 max_jumps = 10 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 4
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 4
+								max_jumps = 8
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 6 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 8 max_jumps = 12 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 5
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 6
+								max_jumps = 10
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 7 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 10 max_jumps = 14 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 6
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 8
+								max_jumps = 12
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 8 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 12 max_jumps = 16 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 7
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 10
+								max_jumps = 14
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 9 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 14 max_jumps = 18 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 8
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 12
+								max_jumps = 16
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 				AND = {
-					num_buildings = { type = building_deep_space_scanner disabled = no value >= 10 }
-					from = { any_system_within_border = { distance = { source = root use_bypasses = no min_jumps = 16 max_jumps = 20 } any_system_planet = { anomaly_possible = yes } } }
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 9
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 14
+								max_jumps = 18
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
+				}
+				AND = {
+					num_buildings = {
+						type = building_deep_space_scanner
+						disabled = no
+						value >= 10
+					}
+					from = {
+						any_system_within_border = {
+							distance = {
+								source = root
+								use_bypasses = no
+								min_jumps = 16
+								max_jumps = 20
+							}
+							any_system_planet = { anomaly_possible = yes }
+						}
+					}
 				}
 			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_deep_scanner_tooltip"
 		save_event_target_as = deep_scanner_planet
@@ -853,13 +1435,21 @@ decision_deep_scanner = {
 			planet_event = { id = UniqueAscensionPerksEvents.441 days = 360 } # Notify + rescan
 		}
 	}
-	ai_weight = { weight = event_target:global_event_country.ap_deep_scanner }
+
+	ai_weight = {
+		weight = event_target:global_event_country.ap_deep_scanner
+	}
 }
+
 decision_end_deep_scanner = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	icon = decision_deep_scanner
-	resources = { category = decisions }
+
+	resources = {
+		category = decisions
+	}
+
 	potential = {
 		exists = from
 		from = {
@@ -868,56 +1458,127 @@ decision_end_deep_scanner = {
 				inline_script = { # Compat. E&CC
 					script = merger_of_rules/toggled_code
 					code = "
-				has_valid_civic = civic_exploration
+					has_valid_civic = civic_exploration
 					"
 					toggle = @[ has_eca_funefork + has_ecc_cog + post_revolutionary_re_revolution_years ]
 				}
 			}
 		}
-		has_active_building = building_deep_space_scanner has_modifier = pm_deep_scanner
+		has_active_building = building_deep_space_scanner
+		has_modifier = pm_deep_scanner
 	}
+
 	allow = {
-		custom_tooltip = { fail_text = "decision_deep_scanner_req_1" has_modifier = pm_deep_scanner NOT = { has_planet_flag = decision_deep_scanner_cooldown } }
+		custom_tooltip = {
+			fail_text = "decision_deep_scanner_req_1"
+			has_modifier = pm_deep_scanner
+			NOT = { has_planet_flag = decision_deep_scanner_cooldown }
+		}
 	}
-	effect = { remove_modifier = pm_deep_scanner }
+
+	effect = {
+		remove_modifier = pm_deep_scanner
+	}
+
 	ai_weight = {
 		weight = 1
-		modifier = { factor = 5 NOT = { has_active_building = building_deep_space_scanner } }
+		modifier = {
+			factor = 5
+			NOT = { has_active_building = building_deep_space_scanner }
+		}
 	}
 }
+
 decision_civilian_cargo_focus = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
-	resources = { category = decisions cost = {} }
-	potential = { is_capital = no exists = from from = { has_country_flag = ap_civilian_activities_project count_owned_planet = { limit = { has_planet_flag = civilian_cargo_focus } count = 0 } } }
-	effect = { custom_tooltip = "decision_civilian_cargo_focus_tooltip" hidden_effect = { set_planet_flag = civilian_cargo_focus } }
-	ai_weight = { weight = 1 }
+
+	resources = {
+		category = decisions
+		cost = {
+		}
+	}
+
+	potential = {
+		is_capital = no
+		exists = from
+		from = {
+			has_country_flag = ap_civilian_activities_project
+			count_owned_planet = {
+				count = 0
+				limit = { has_planet_flag = civilian_cargo_focus }
+			}
+		}
+	}
+
+	effect = {
+		custom_tooltip = "decision_civilian_cargo_focus_tooltip"
+		hidden_effect = {
+			set_planet_flag = civilian_cargo_focus
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_civilian_cargo_focus_off = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
 	icon = decision_civilian_cargo_focus
-	resources = { category = decisions cost = {} }
-	potential = { is_capital = no exists = from from = { has_country_flag = ap_civilian_activities_project } has_planet_flag = civilian_cargo_focus }
-	effect = { custom_tooltip = "decision_civilian_cargo_focus_off_tooltip" hidden_effect = { remove_planet_flag = civilian_cargo_focus } }
-	ai_weight = { weight = 1 }
+
+	resources = {
+		category = decisions
+		cost = {
+		}
+	}
+
+	potential = {
+		is_capital = no
+		exists = from
+		from = { has_country_flag = ap_civilian_activities_project }
+		has_planet_flag = civilian_cargo_focus
+	}
+
+	effect = {
+		custom_tooltip = "decision_civilian_cargo_focus_off_tooltip"
+		hidden_effect = {
+			remove_planet_flag = civilian_cargo_focus
+		}
+	}
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 decision_self_aware_colony = {
 	owned_planets_only = yes
 	sound = event_laboratory_sound
-	resources = { category = decisions cost = {} }
+
+	resources = {
+		category = decisions
+		cost = {
+		}
+	}
+
 	potential = {
 		exists = from
 		# OR = { has_global_flag = ap_self_aware_colony
 		# NOT = { has_modifier = self_aware_colony }
 		from = { has_ascension_perk = ap_self_aware_colony }
 	}
+
 	allow = {
 		NOR = {
 			has_planet_flag = self_aware_planet
-			from = { has_active_event = { UniqueAscensionPerksEvents.461 UniqueAscensionPerksEvents.465 UniqueAscensionPerksEvents.466 } }
+			from = {
+				has_active_event = { UniqueAscensionPerksEvents.461 UniqueAscensionPerksEvents.465 UniqueAscensionPerksEvents.466 }
+			}
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_self_aware_colony_tooltip"
 		hidden_effect = {
@@ -933,8 +1594,12 @@ decision_self_aware_colony = {
 			}
 		}
 	}
-	ai_weight = { weight = 0.5 }
+
+	ai_weight = {
+		weight = 0.5
+	}
 }
+
 # decision_self_aware_colony_menu = {
 # 	owned_planets_only = yes
 # 	sound = event_laboratory_sound
@@ -947,9 +1612,19 @@ decision_self_aware_colony = {
 # 	}
 # 	ai_weight = { weight = 1 }
 # }
+
 decision_legendary_forge = {
 	sound = event_mystic_reveal
-	resources = { category = decisions cost = { minerals = 15000 alloys = 1000 sr_living_metal = 75 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			minerals = 15000
+			alloys = 1000
+			sr_living_metal = 75
+		}
+	}
+
 	potential = {
 		exists = from
 		exists = space_owner
@@ -958,36 +1633,60 @@ decision_legendary_forge = {
 		merg_is_molten = yes
 		has_owner = no
 	}
+
 	effect = {
 		custom_tooltip = "decision_legendary_forge_tooltip"
 		change_pc = pc_legendary_forge
 		save_event_target_as = legendary_forge_planet
-		from = { country_event = { id = UniqueAscensionPerksEvents.481 } }
+		from = {
+			country_event = { id = UniqueAscensionPerksEvents.481 }
+		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 # ENREGISTRER LES IMAGES EN .dds option A8R8G8B8
 decision_stellar_manipulation = {
 	sound = event_alien_nature
+
 	resources = {
 		category = decisions
 		cost = {
-			trigger = { exists = owner owner = { has_ascension_perk = ap_stellar_manipulation } NOT = { has_global_flag = ap_stellar_manipulation } }
-			minerals = 4000 food = 2000 exotic_gases = 50
+			trigger = {
+				exists = owner
+				owner = { has_ascension_perk = ap_stellar_manipulation }
+				NOT = { has_global_flag = ap_stellar_manipulation }
+			}
+			minerals = 4000
+			food = 2000
+			exotic_gases = 50
 		}
-		cost = { trigger = { has_global_flag = ap_stellar_manipulation } food = 500 minerals = 500 }
+		cost = {
+			trigger = { has_global_flag = ap_stellar_manipulation }
+			food = 500
+			minerals = 500
+		}
 	}
+
 	potential = {
 		exists = from
 		# exists = space_owner
 		# space_owner = { is_same_empire = from }
-		OR = { has_global_flag = ap_stellar_manipulation from = { has_ascension_perk = ap_stellar_manipulation } }
+		OR = {
+			has_global_flag = ap_stellar_manipulation
+			from = { has_ascension_perk = ap_stellar_manipulation }
+		}
 		is_a_habitable_planet_megastructure = yes
 	}
+
 	allow = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 	}
+
 	# prerequisites = { "tech_penal_colonies" }
 	effect = {
 		custom_tooltip = "decision_stellar_manipulation_tooltip"
@@ -1002,22 +1701,38 @@ decision_stellar_manipulation = {
 				"
 				toggle = @has_guillis_planet_modifiers
 			}
-			while = { count = 15 random = { chance = 50 add_random_non_blocker_deposit = yes } }
+			while = {
+				count = 15
+				random = { chance = 50 add_random_non_blocker_deposit = yes }
+			}
 			planet_event = { id = UniqueAscensionPerksEvents.4025 }
 		}
 	}
-	ai_weight = { weight = 1 }
+
+	ai_weight = {
+		weight = 1
+	}
 }
+
 #####################################
 #									#
 ########## Friendly Nature ##########
 #									#
 #####################################
+
 decision_nature_pacification = {
 	# owned_planets_only = yes # Changed in v3.14
 	sound = event_alien_nature
 	enactment_time = 360
-	resources = { category = decisions cost = { energy = 1000 food = 1500 } }
+
+	resources = {
+		category = decisions
+		cost = {
+			energy = 1000
+			food = 1500
+		}
+	}
+
 	potential = {
 		exists = from
 		# exists = space_owner
@@ -1026,7 +1741,11 @@ decision_nature_pacification = {
 		NOT = { has_planet_flag = planet_nature_pacified }
 		can_find_rare_deposits = yes
 		OR = { # Since v3.14
-			NOR = { has_owner = yes is_colony = yes from = { is_ai = yes } }
+			NOR = {
+				has_owner = yes
+				is_colony = yes
+				from = { is_ai = yes }
+			}
 			AND = {
 				has_owner = yes
 				is_colony = yes
@@ -1038,18 +1757,25 @@ decision_nature_pacification = {
 				}
 			}
 		}
-		NOR = { is_terraforming = yes has_designation = col_nanotech_world }
+		NOR = {
+			is_terraforming = yes
+			has_designation = col_nanotech_world
+		}
 	}
+
 	allow = {
 		exists = space_owner
 		space_owner = { is_same_empire = from }
 		NOR = {
 			has_orbital_bombardment = yes
 			is_occupied_flag = yes
-			from = { has_active_event = { UniqueAscensionPerksEvents.60 } }
+			from = {
+				has_active_event = { UniqueAscensionPerksEvents.60 }
+			}
 			# from = { num_owned_planets < 3 }
 		}
 	}
+
 	effect = {
 		custom_tooltip = "decision_nature_pacification_tooltip"
 		hidden_effect = {
@@ -1059,15 +1785,46 @@ decision_nature_pacification = {
 			planet_event = { id = UniqueAscensionPerksEvents.60 }
 			# Green Modifers (Unused) ===> titanic_life asteroid_belt carbon_world
 			# Yellow Modifiers ( 70% Chances to be Removed & 80% Chances to Add Their Opposite Green Modifier if it exists)
-			if = { limit = { has_modifier = hazardous_weather } random = { chance = 30 remove_modifier = hazardous_weather } }
-			if = { limit = { has_modifier = dangerous_wildlife } random = { chance = 30 remove_modifier = dangerous_wildlife } }
-			if = { limit = { has_modifier = asteroid_impacts } random = { chance = 30 remove_modifier = asteroid_impacts } }
-			if = { limit = { has_modifier = wild_storms } random = { chance = 30 remove_modifier = wild_storms } }
-			if = { limit = { has_modifier = asteroid_impacts } random = { chance = 30 remove_modifier = asteroid_impacts } }
-			if = { limit = { has_modifier = low_gravity } random = { chance = 30 remove_modifier = low_gravity } }
-			if = { limit = { has_modifier = high_gravity } random = { chance = 30 remove_modifier = high_gravity } }
-			if = { limit = { has_modifier = atmospheric_aphrodisiac } random = { chance = 30 remove_modifier = atmospheric_aphrodisiac } }
-			if = { limit = { has_modifier = atmospheric_hallucinogen } random = { chance = 30 remove_modifier = atmospheric_hallucinogen } random = { chance = 80 add_modifier = { modifier = atmospheric_hallucinogen_good } } }
+			if = {
+				limit = { has_modifier = hazardous_weather }
+				random = { chance = 30 remove_modifier = hazardous_weather }
+			}
+			if = {
+				limit = { has_modifier = dangerous_wildlife }
+				random = { chance = 30 remove_modifier = dangerous_wildlife }
+			}
+			if = {
+				limit = { has_modifier = asteroid_impacts }
+				random = { chance = 30 remove_modifier = asteroid_impacts }
+			}
+			if = {
+				limit = { has_modifier = wild_storms }
+				random = { chance = 30 remove_modifier = wild_storms }
+			}
+			if = {
+				limit = { has_modifier = asteroid_impacts }
+				random = { chance = 30 remove_modifier = asteroid_impacts }
+			}
+			if = {
+				limit = { has_modifier = low_gravity }
+				random = { chance = 30 remove_modifier = low_gravity }
+			}
+			if = {
+				limit = { has_modifier = high_gravity }
+				random = { chance = 30 remove_modifier = high_gravity }
+			}
+			if = {
+				limit = { has_modifier = atmospheric_aphrodisiac }
+				random = { chance = 30 remove_modifier = atmospheric_aphrodisiac }
+			}
+			if = {
+				limit = { has_modifier = atmospheric_hallucinogen }
+				random = { chance = 30 remove_modifier = atmospheric_hallucinogen }
+				random = {
+					chance = 80
+					add_modifier = { modifier = atmospheric_hallucinogen_good }
+				}
+			}
 			### (Mod) Guilli Planet Modifier - Yellow Modifiers
 			# if = { limit = { has_modifier = frequent_thunderstorms } random = { chance = 30 remove_modifier = frequent_thunderstorms } }
 			# if = { limit = { has_modifier = gpm_strong_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_strong_magnetic_field_2 } }
@@ -1075,127 +1832,188 @@ decision_nature_pacification = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-			if = { limit = { has_modifier = gpm_global_thunderstorms } random = { chance = 30 remove_modifier = gpm_global_thunderstorms } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_thin_atmospheres } random = { chance = 30 remove_modifier = gpm_thin_atmospheres } random = { chance = 80 add_modifier = { modifier = gpm_dense_atmospheres } } }
-			if = { limit = { has_modifier = gpm_strong_volcanism } random = { chance = 30 remove_modifier = gpm_strong_volcanism } }
-			if = { limit = { has_modifier = gpm_weak_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_weak_magnetic_field_2 } }
-			if = { limit = { has_modifier = gpm_asteroid_impacts_2 } random = { chance = 30 remove_modifier = gpm_asteroid_impacts_2 } }
-			if = { limit = { has_modifier = gpm_high_gravity_2 } random = { chance = 30 remove_modifier = gpm_high_gravity_2 } }
-			if = { limit = { has_modifier = gpm_magma_ocean } random = { chance = 30 remove_modifier = gpm_magma_ocean } }
-			if = { limit = { has_modifier = gpm_titanic_predators } random = { chance = 30 remove_modifier = gpm_titanic_predators } }
-			if = { limit = { has_modifier = gpm_artificial_water } random = { chance = 30 remove_modifier = gpm_artificial_water } }
-			if = { limit = { has_modifier = gpm_windy } random = { chance = 30 remove_modifier = gpm_windy } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_flat_terrain } random = { chance = 30 remove_modifier = gpm_flat_terrain } }
-			if = { limit = { has_modifier = gpm_rugged_terrain } random = { chance = 30 remove_modifier = gpm_rugged_terrain } }
-			if = { limit = { has_modifier = gpm_ice_age } random = { chance = 30 remove_modifier = gpm_ice_age } }
-			if = { limit = { has_modifier = gpm_seasonal_flooding } random = { chance = 30 remove_modifier = gpm_seasonal_flooding } }
-			if = { limit = { has_modifier = gpm_lingering_pollution } random = { chance = 30 remove_modifier = gpm_lingering_pollution } }
-			if = { limit = { has_modifier = gpm_thin_ozone_layer } random = { chance = 30 remove_modifier = gpm_thin_ozone_layer } }
+				if = { limit = { has_modifier = gpm_global_thunderstorms } random = { chance = 30 remove_modifier = gpm_global_thunderstorms } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
+				if = { limit = { has_modifier = gpm_thin_atmospheres } random = { chance = 30 remove_modifier = gpm_thin_atmospheres } random = { chance = 80 add_modifier = { modifier = gpm_dense_atmospheres } } }
+				if = { limit = { has_modifier = gpm_strong_volcanism } random = { chance = 30 remove_modifier = gpm_strong_volcanism } }
+				if = { limit = { has_modifier = gpm_weak_magnetic_field_2 } random = { chance = 30 remove_modifier = gpm_weak_magnetic_field_2 } }
+				if = { limit = { has_modifier = gpm_asteroid_impacts_2 } random = { chance = 30 remove_modifier = gpm_asteroid_impacts_2 } }
+				if = { limit = { has_modifier = gpm_high_gravity_2 } random = { chance = 30 remove_modifier = gpm_high_gravity_2 } }
+				if = { limit = { has_modifier = gpm_magma_ocean } random = { chance = 30 remove_modifier = gpm_magma_ocean } }
+				if = { limit = { has_modifier = gpm_titanic_predators } random = { chance = 30 remove_modifier = gpm_titanic_predators } }
+				if = { limit = { has_modifier = gpm_artificial_water } random = { chance = 30 remove_modifier = gpm_artificial_water } }
+				if = { limit = { has_modifier = gpm_windy } random = { chance = 30 remove_modifier = gpm_windy } random = { chance = 80 add_modifier = { modifier = gpm_pleasant_weather } } }
+				if = { limit = { has_modifier = gpm_flat_terrain } random = { chance = 30 remove_modifier = gpm_flat_terrain } }
+				if = { limit = { has_modifier = gpm_rugged_terrain } random = { chance = 30 remove_modifier = gpm_rugged_terrain } }
+				if = { limit = { has_modifier = gpm_ice_age } random = { chance = 30 remove_modifier = gpm_ice_age } }
+				if = { limit = { has_modifier = gpm_seasonal_flooding } random = { chance = 30 remove_modifier = gpm_seasonal_flooding } }
+				if = { limit = { has_modifier = gpm_lingering_pollution } random = { chance = 30 remove_modifier = gpm_lingering_pollution } }
+				if = { limit = { has_modifier = gpm_thin_ozone_layer } random = { chance = 30 remove_modifier = gpm_thin_ozone_layer } }
 				"
 				toggle = @has_guillis_planet_modifiers
 			}
 			# Red Modifiers ( Removed & 66% Chances to Add Their Opposite Green Modifier if it exists)
-			if = { limit = { has_modifier = weak_magnetic_field } remove_modifier = weak_magnetic_field random = { chance = 66 add_modifier = { modifier = strong_magnetic_field } } }
-			if = { limit = { has_modifier = unstable_tectonics } remove_modifier = unstable_tectonics }
-			if = { limit = { has_modifier = tidal_locked } remove_modifier = tidal_locked }
-			if = { limit = { has_modifier = mineral_poor } remove_modifier = mineral_poor random = { chance = 66 add_modifier = { modifier = mineral_rich } } }
-			if = { limit = { has_modifier = bleak_planet } remove_modifier = bleak_planet random = { chance = 66 add_modifier = { modifier = lush_planet } } }
-			if = { limit = { has_modifier = irradiated_planet } remove_modifier = irradiated_planet }
+			if = {
+				limit = { has_modifier = weak_magnetic_field }
+				remove_modifier = weak_magnetic_field
+				random = {
+					chance = 66
+					add_modifier = { modifier = strong_magnetic_field }
+				}
+			}
+			if = {
+				limit = { has_modifier = unstable_tectonics }
+				remove_modifier = unstable_tectonics
+			}
+			if = {
+				limit = { has_modifier = tidal_locked }
+				remove_modifier = tidal_locked
+			}
+			if = {
+				limit = { has_modifier = mineral_poor }
+				remove_modifier = mineral_poor
+				random = {
+					chance = 66
+					add_modifier = { modifier = mineral_rich }
+				}
+			}
+			if = {
+				limit = { has_modifier = bleak_planet }
+				remove_modifier = bleak_planet
+				random = {
+					chance = 66
+					add_modifier = { modifier = lush_planet }
+				}
+			}
+			if = {
+				limit = { has_modifier = irradiated_planet }
+				remove_modifier = irradiated_planet
+			}
 			### (Mod)  Guilli's Planet Modifiers and Features  Red Modifiers (patch version) 3365265900 has_global_flag = has_guillis_planet_modifiers_mod
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-			if = { limit = { has_modifier = gpm_unstable_tectonics_2 } remove_modifier = gpm_unstable_tectonics_2 }
-			if = { limit = { has_modifier = gpm_hostile_flora } remove_modifier = gpm_hostile_flora random = { chance = 66 add_modifier = { modifier = gpm_friendly_wildlife } } }
-			if = { limit = { has_modifier = gpm_toxic_gas } remove_modifier = gpm_toxic_gas }
-			if = { limit = { has_modifier = gpm_unusual_seasons } remove_modifier = gpm_unusual_seasons random = { chance = 66 add_modifier = { modifier = gpm_perfect_seasons } } }
-			if = { limit = { has_modifier = gpm_living_planet } remove_modifier = gpm_living_planet }
-			if = { limit = { has_modifier = gpm_simple_organisms } remove_modifier = gpm_simple_organisms random = { chance = 66 add_modifier = { modifier = gpm_newly_evolved_complex_organisms } } }
-			if = { limit = { has_modifier = gpm_unusual_formations } remove_modifier = gpm_unusual_formations }
-			if = { limit = { has_modifier = gpm_great_temperature_variation } remove_modifier = gpm_great_temperature_variation }
-			if = { limit = { has_modifier = gpm_locust_plagues } remove_modifier = gpm_locust_plagues }
-			if = { limit = { has_modifier = gpm_acidic_seas } remove_modifier = gpm_acidic_seas }
-			if = { limit = { has_modifier = gpm_resilent_parasites } remove_modifier = gpm_resilent_parasites random = { chance = 66 add_modifier = { modifier = gpm_symbiotic_life } } }
-			if = { limit = { has_modifier = gpm_arachnophobia } remove_modifier = gpm_arachnophobia }
-			if = { limit = { has_modifier = gpm_sandstorms } remove_modifier = gpm_sandstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
-			if = { limit = { has_modifier = gpm_sand_tornadoes } remove_modifier = gpm_sand_tornadoes random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_quicksand } remove_modifier = gpm_quicksand }
-			if = { limit = { has_modifier = gpm_furry_packs } remove_modifier = gpm_furry_packs }
-			if = { limit = { has_modifier = gpm_blizzards } remove_modifier = gpm_blizzards random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
-			if = { limit = { has_modifier = gpm_abominable_predators } remove_modifier = gpm_abominable_predators random = { chance = 66 add_modifier = { modifier = gpm_empathic_life } } }
-			if = { limit = { has_modifier = gpm_carnivorous_flies } remove_modifier = gpm_carnivorous_flies }
-			if = { limit = { has_modifier = gpm_torrential_rainstorms } remove_modifier = gpm_torrential_rainstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
-			if = { limit = { has_modifier = gpm_massive_waves } remove_modifier = gpm_massive_waves random = { chance = 66 add_modifier = { modifier = gpm_ocean_currents } } }
-			if = { limit = { has_modifier = gpm_toxic_garbage } remove_modifier = gpm_toxic_garbage }
-			if = { limit = { has_modifier = gpm_oppressive_laws } remove_modifier = gpm_oppressive_laws random = { chance = 66 add_modifier = { modifier = gpm_rights_movement } } }
-			if = { limit = { has_modifier = gpm_synopsys_overload } remove_modifier = gpm_synopsys_overload }
-			if = { limit = { has_modifier = gpm_falling_behind } remove_modifier = gpm_falling_behind }
-			if = { limit = { has_modifier = gpm_solar_storm } remove_modifier = gpm_solar_storm }
+				if = { limit = { has_modifier = gpm_unstable_tectonics_2 } remove_modifier = gpm_unstable_tectonics_2 }
+				if = { limit = { has_modifier = gpm_hostile_flora } remove_modifier = gpm_hostile_flora random = { chance = 66 add_modifier = { modifier = gpm_friendly_wildlife } } }
+				if = { limit = { has_modifier = gpm_toxic_gas } remove_modifier = gpm_toxic_gas }
+				if = { limit = { has_modifier = gpm_unusual_seasons } remove_modifier = gpm_unusual_seasons random = { chance = 66 add_modifier = { modifier = gpm_perfect_seasons } } }
+				if = { limit = { has_modifier = gpm_living_planet } remove_modifier = gpm_living_planet }
+				if = { limit = { has_modifier = gpm_simple_organisms } remove_modifier = gpm_simple_organisms random = { chance = 66 add_modifier = { modifier = gpm_newly_evolved_complex_organisms } } }
+				if = { limit = { has_modifier = gpm_unusual_formations } remove_modifier = gpm_unusual_formations }
+				if = { limit = { has_modifier = gpm_great_temperature_variation } remove_modifier = gpm_great_temperature_variation }
+				if = { limit = { has_modifier = gpm_locust_plagues } remove_modifier = gpm_locust_plagues }
+				if = { limit = { has_modifier = gpm_acidic_seas } remove_modifier = gpm_acidic_seas }
+				if = { limit = { has_modifier = gpm_resilent_parasites } remove_modifier = gpm_resilent_parasites random = { chance = 66 add_modifier = { modifier = gpm_symbiotic_life } } }
+				if = { limit = { has_modifier = gpm_arachnophobia } remove_modifier = gpm_arachnophobia }
+				if = { limit = { has_modifier = gpm_sandstorms } remove_modifier = gpm_sandstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
+				if = { limit = { has_modifier = gpm_sand_tornadoes } remove_modifier = gpm_sand_tornadoes random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
+				if = { limit = { has_modifier = gpm_quicksand } remove_modifier = gpm_quicksand }
+				if = { limit = { has_modifier = gpm_furry_packs } remove_modifier = gpm_furry_packs }
+				if = { limit = { has_modifier = gpm_blizzards } remove_modifier = gpm_blizzards random = { chance = 66 add_modifier = { modifier = gpm_pleasant_weather } } }
+				if = { limit = { has_modifier = gpm_abominable_predators } remove_modifier = gpm_abominable_predators random = { chance = 66 add_modifier = { modifier = gpm_empathic_life } } }
+				if = { limit = { has_modifier = gpm_carnivorous_flies } remove_modifier = gpm_carnivorous_flies }
+				if = { limit = { has_modifier = gpm_torrential_rainstorms } remove_modifier = gpm_torrential_rainstorms random = { chance = 66 add_modifier = { modifier = gpm_gorgeous_sky } } }
+				if = { limit = { has_modifier = gpm_massive_waves } remove_modifier = gpm_massive_waves random = { chance = 66 add_modifier = { modifier = gpm_ocean_currents } } }
+				if = { limit = { has_modifier = gpm_toxic_garbage } remove_modifier = gpm_toxic_garbage }
+				if = { limit = { has_modifier = gpm_oppressive_laws } remove_modifier = gpm_oppressive_laws random = { chance = 66 add_modifier = { modifier = gpm_rights_movement } } }
+				if = { limit = { has_modifier = gpm_synopsys_overload } remove_modifier = gpm_synopsys_overload }
+				if = { limit = { has_modifier = gpm_falling_behind } remove_modifier = gpm_falling_behind }
+				if = { limit = { has_modifier = gpm_solar_storm } remove_modifier = gpm_solar_storm }
 				"
 				toggle = @has_guillis_planet_modifiers
 			}
 			# Add Green Modifiers
-			while = { count = 4
+			while = {
+				count = 4
 				random_list = {
-					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = mineral_rich } }
-					10 = { modifier = { factor = 0 OR = { has_modifier = mineral_rich has_modifier = ultra_rich } } add_modifier = { modifier = ultra_rich } }
-					10 = { modifier = { factor = 0 OR = { has_modifier = lush_planet gpm_is_planet_wet_hot = no } } add_modifier = { modifier = lush_planet } }
-					10 = { modifier = { factor = 0 has_modifier = natural_beauty } add_modifier = { modifier = natural_beauty } }
+					10 = {
+						modifier = {
+							factor = 0
+							OR = {
+								has_modifier = mineral_rich
+								has_modifier = ultra_rich
+							}
+						}
+						add_modifier = { modifier = mineral_rich }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							OR = {
+								has_modifier = mineral_rich
+								has_modifier = ultra_rich
+							}
+						}
+						add_modifier = { modifier = ultra_rich }
+					}
+					10 = {
+						modifier = {
+							factor = 0
+							OR = {
+								has_modifier = lush_planet
+								gpm_is_planet_wet_hot = no
+							}
+						}
+						add_modifier = { modifier = lush_planet }
+					}
+					10 = {
+						modifier = { factor = 0 has_modifier = natural_beauty }
+						add_modifier = { modifier = natural_beauty }
+					}
 					# 10 = { modifier = { factor = 0 OR = { has_modifier = extensive_moon_system has_moon = no } } add_modifier = { modifier = extensive_moon_system } }
 					### (Mod) Guilli Planet Modifier - Green Modifiers
 					inline_script = {
 						script = merger_of_rules/toggled_code
 						code = "
-					10 = { modifier = { factor = 0 has_modifier = gpm_highly_charged_air_particles } add_modifier = { modifier = gpm_highly_charged_air_particles } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_single_biome } add_modifier = { modifier = gpm_single_biome } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_hyper_complex_biome } add_modifier = { modifier = gpm_hyper_complex_biome } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_dense_atmospheres } add_modifier = { modifier = gpm_dense_atmospheres } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_mineral_rich_2 } add_modifier = { modifier = gpm_mineral_rich_2 } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_ultra_rich_2 } add_modifier = { modifier = gpm_ultra_rich_2 } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_low_gravity_2 } add_modifier = { modifier = gpm_low_gravity_2 } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_floating_islands } add_modifier = { modifier = gpm_floating_islands } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_extensive_cavern_system } add_modifier = { modifier = gpm_extensive_cavern_system } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_unnatural_world } add_modifier = { modifier = gpm_unnatural_world } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_atmospheric_stimulant } add_modifier = { modifier = gpm_atmospheric_stimulant } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_perfect_seasons } add_modifier = { modifier = gpm_perfect_seasons } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_gemstones } add_modifier = { modifier = gpm_gemstones } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_ideal_for_life } add_modifier = { modifier = gpm_ideal_for_life } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_endless_fish } add_modifier = { modifier = gpm_endless_fish } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_clear_skies } add_modifier = { modifier = gpm_clear_skies } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_melted_ice_caps } add_modifier = { modifier = gpm_melted_ice_caps } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_newly_evolved_complex_organisms } add_modifier = { modifier = gpm_newly_evolved_complex_organisms } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_delicious_ingredients } add_modifier = { modifier = gpm_delicious_ingredients } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_recent_mass_extinction } add_modifier = { modifier = gpm_recent_mass_extinction } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_friendly_wildlife } add_modifier = { modifier = gpm_friendly_wildlife } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_pleasant_weather } add_modifier = { modifier = gpm_pleasant_weather } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_many_extremophiles } add_modifier = { modifier = gpm_many_extremophiles } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_gorgeous_sky } add_modifier = { modifier = gpm_gorgeous_sky } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_dense_core } add_modifier = { modifier = gpm_dense_core } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_radioactive_mantle } add_modifier = { modifier = gpm_radioactive_mantle } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_empathic_life } add_modifier = { modifier = gpm_empathic_life } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_symbiotic_life } add_modifier = { modifier = gpm_symbiotic_life } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_ice_flora } add_modifier = { modifier = gpm_ice_flora } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_strange_ice_river } add_modifier = { modifier = gpm_strange_ice_river } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_juggernaut_manta_rays } add_modifier = { modifier = gpm_juggernaut_manta_rays } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_old_world } add_modifier = { modifier = gpm_old_world } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_extensive_reef_systems } add_modifier = { modifier = gpm_extensive_reef_systems } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_very_hot_core } add_modifier = { modifier = gpm_very_hot_core } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_beautiful_lakes } add_modifier = { modifier = gpm_beautiful_lakes } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_proto_forests } add_modifier = { modifier = gpm_proto_forests } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_artificial_core } add_modifier = { modifier = gpm_artificial_core } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_fast_rotation } add_modifier = { modifier = gpm_fast_rotation } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_exotic_spices } add_modifier = { modifier = gpm_exotic_spices } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_silicon_crystals } add_modifier = { modifier = gpm_silicon_crystals } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_never_ending_aurora } add_modifier = { modifier = gpm_never_ending_aurora } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_rich_soil } add_modifier = { modifier = gpm_rich_soil } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_ecological_nervous_system } add_modifier = { modifier = gpm_ecological_nervous_system } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_algae_boom } add_modifier = { modifier = gpm_algae_boom } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_ocean_currents } add_modifier = { modifier = gpm_ocean_currents } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_surface_of_bones } add_modifier = { modifier = gpm_surface_of_bones } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_musical_creatures } add_modifier = { modifier = gpm_musical_creatures } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_odd_cloud_shapes } add_modifier = { modifier = gpm_odd_cloud_shapes } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_mushroom_forest } add_modifier = { modifier = gpm_mushroom_forest } }
-					10 = { modifier = { factor = 0 has_modifier = gpm_planet_wonder_ruined } add_modifier = { modifier = gpm_planet_wonder_ruined } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_highly_charged_air_particles } add_modifier = { modifier = gpm_highly_charged_air_particles } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_single_biome } add_modifier = { modifier = gpm_single_biome } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_hyper_complex_biome } add_modifier = { modifier = gpm_hyper_complex_biome } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_dense_atmospheres } add_modifier = { modifier = gpm_dense_atmospheres } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_mineral_rich_2 } add_modifier = { modifier = gpm_mineral_rich_2 } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_ultra_rich_2 } add_modifier = { modifier = gpm_ultra_rich_2 } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_low_gravity_2 } add_modifier = { modifier = gpm_low_gravity_2 } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_floating_islands } add_modifier = { modifier = gpm_floating_islands } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_extensive_cavern_system } add_modifier = { modifier = gpm_extensive_cavern_system } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_unnatural_world } add_modifier = { modifier = gpm_unnatural_world } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_atmospheric_stimulant } add_modifier = { modifier = gpm_atmospheric_stimulant } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_perfect_seasons } add_modifier = { modifier = gpm_perfect_seasons } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_gemstones } add_modifier = { modifier = gpm_gemstones } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_ideal_for_life } add_modifier = { modifier = gpm_ideal_for_life } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_endless_fish } add_modifier = { modifier = gpm_endless_fish } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_clear_skies } add_modifier = { modifier = gpm_clear_skies } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_melted_ice_caps } add_modifier = { modifier = gpm_melted_ice_caps } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_newly_evolved_complex_organisms } add_modifier = { modifier = gpm_newly_evolved_complex_organisms } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_delicious_ingredients } add_modifier = { modifier = gpm_delicious_ingredients } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_recent_mass_extinction } add_modifier = { modifier = gpm_recent_mass_extinction } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_friendly_wildlife } add_modifier = { modifier = gpm_friendly_wildlife } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_pleasant_weather } add_modifier = { modifier = gpm_pleasant_weather } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_many_extremophiles } add_modifier = { modifier = gpm_many_extremophiles } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_gorgeous_sky } add_modifier = { modifier = gpm_gorgeous_sky } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_dense_core } add_modifier = { modifier = gpm_dense_core } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_radioactive_mantle } add_modifier = { modifier = gpm_radioactive_mantle } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_empathic_life } add_modifier = { modifier = gpm_empathic_life } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_symbiotic_life } add_modifier = { modifier = gpm_symbiotic_life } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_ice_flora } add_modifier = { modifier = gpm_ice_flora } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_strange_ice_river } add_modifier = { modifier = gpm_strange_ice_river } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_juggernaut_manta_rays } add_modifier = { modifier = gpm_juggernaut_manta_rays } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_old_world } add_modifier = { modifier = gpm_old_world } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_extensive_reef_systems } add_modifier = { modifier = gpm_extensive_reef_systems } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_very_hot_core } add_modifier = { modifier = gpm_very_hot_core } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_beautiful_lakes } add_modifier = { modifier = gpm_beautiful_lakes } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_proto_forests } add_modifier = { modifier = gpm_proto_forests } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_artificial_core } add_modifier = { modifier = gpm_artificial_core } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_fast_rotation } add_modifier = { modifier = gpm_fast_rotation } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_exotic_spices } add_modifier = { modifier = gpm_exotic_spices } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_silicon_crystals } add_modifier = { modifier = gpm_silicon_crystals } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_never_ending_aurora } add_modifier = { modifier = gpm_never_ending_aurora } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_rich_soil } add_modifier = { modifier = gpm_rich_soil } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_ecological_nervous_system } add_modifier = { modifier = gpm_ecological_nervous_system } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_algae_boom } add_modifier = { modifier = gpm_algae_boom } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_ocean_currents } add_modifier = { modifier = gpm_ocean_currents } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_surface_of_bones } add_modifier = { modifier = gpm_surface_of_bones } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_musical_creatures } add_modifier = { modifier = gpm_musical_creatures } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_odd_cloud_shapes } add_modifier = { modifier = gpm_odd_cloud_shapes } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_mushroom_forest } add_modifier = { modifier = gpm_mushroom_forest } }
+						10 = { modifier = { factor = 0 has_modifier = gpm_planet_wonder_ruined } add_modifier = { modifier = gpm_planet_wonder_ruined } }
 						"
 						toggle = @has_guillis_planet_modifiers
 					}
@@ -1212,13 +2030,23 @@ decision_nature_pacification = {
 					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_beautiful_planet_rings } } add_modifier = { modifier = gpm_beautiful_planet_rings } } #
 					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_rights_movement } } add_modifier = { modifier = gpm_rights_movement } } #
 					# 10 = { modifier = { factor = 0 OR = { NOT = { has_global_flag = guillis_planet_modifiers_active } has_modifier = gpm_cybernetic_breaktroughs } } add_modifier = { modifier = gpm_cybernetic_breaktroughs } } #
-					30 = { modifier = { factor = 0 OR = { has_planet_flag = planet_pacification_first_green_modifier } } }
+					30 = {
+						modifier = {
+							factor = 0
+							has_planet_flag = planet_pacification_first_green_modifier
+						}
+					}
 				}
 				set_planet_flag = planet_pacification_first_green_modifier
 			}
-			while = { count = 2 add_random_non_blocker_deposit = yes random = { chance = 10 add_random_non_blocker_deposit = yes } }
+			while = {
+				count = 2
+				add_random_non_blocker_deposit = yes
+				random = { chance = 10 add_random_non_blocker_deposit = yes }
+			}
 		}
 	}
+
 	ai_weight = {
 		weight = 1
 		modifier = { factor = 0 has_owner = no }

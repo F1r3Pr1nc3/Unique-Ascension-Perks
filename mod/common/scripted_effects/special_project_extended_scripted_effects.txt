@@ -1,20 +1,27 @@
+
 check_special_project_target = {
 	if = {
-		limit = { NOT = { exists = event_target:special_project_target }}
+		limit = {
+			NOT = { exists = event_target:special_project_target }
+		}
 		log_error = "Event missing special_project_target"
 	}
 }
 
 special_project_destroy_ship = {
 	random_owned_ship = {
-		limit = { fleet = { is_same_value = event_target:special_project_fleet } }
+		limit = {
+			fleet = { is_same_value = event_target:special_project_fleet }
+		}
 		destroy_ship = this
 	}
 }
 
 create_special_project_amoeba_country = {
 	if = {
-		limit = { NOT = { exists = event_target:special_project_amoeba_country } }
+		limit = {
+			NOT = { exists = event_target:special_project_amoeba_country }
+		}
 		create_country = {
 			name = "NAME_Spaceborne_Organics"
 			type = special_project_aliens
@@ -26,7 +33,10 @@ create_special_project_amoeba_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_amoeba_country
-			every_country = { limit = { is_amoeba_country_type = yes } set_faction_hostility = { target = prev set_neutral = yes } }
+			every_country = {
+				limit = { is_amoeba_country_type = yes }
+				set_faction_hostility = { target = prev set_neutral = yes }
+			}
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -34,7 +44,9 @@ create_special_project_amoeba_country = {
 
 create_special_project_drone_country = {
 	if = {
-		limit = { NOT = { exists = event_target:special_project_drone_country } }
+		limit = {
+			NOT = { exists = event_target:special_project_drone_country }
+		}
 		create_country = {
 			name = "NAME_Mineral_Extraction_Operation"
 			type = special_project_aliens
@@ -46,7 +58,10 @@ create_special_project_drone_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_drone_country
-			every_country = { limit = { is_drone_country_type = yes } set_faction_hostility = { target = prev set_neutral = yes } }
+			every_country = {
+				limit = { is_drone_country_type = yes }
+				set_faction_hostility = { target = prev set_neutral = yes }
+			}
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -54,7 +69,9 @@ create_special_project_drone_country = {
 
 create_special_project_crystal_country = {
 	if = {
-		limit = { NOT = { exists = event_target:special_project_crystal_country } }
+		limit = {
+			NOT = { exists = event_target:special_project_crystal_country }
+		}
 		create_country = {
 			name = "NAME_Prism"
 			type = special_project_aliens
@@ -66,7 +83,10 @@ create_special_project_crystal_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_crystal_country
-			every_country = { limit = { is_crystal_country_type = yes } set_faction_hostility = { target = prev set_neutral = yes } }
+			every_country = {
+				limit = { is_crystal_country_type = yes }
+				set_faction_hostility = { target = prev set_neutral = yes }
+			}
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -74,7 +94,9 @@ create_special_project_crystal_country = {
 
 create_special_project_tiyanki_country = {
 	if = {
-		limit = { NOT = { exists = event_target:special_project_tiyanki_country } }
+		limit = {
+			NOT = { exists = event_target:special_project_tiyanki_country }
+		}
 		create_country = {
 			name = "NAME_Placid_Leviathans"
 			type = special_project_aliens
@@ -86,7 +108,10 @@ create_special_project_tiyanki_country = {
 		}
 		last_created_country = {
 			save_global_event_target_as = special_project_tiyanki_country
-			every_country = { limit = { is_tiyanki_country_type = yes } set_faction_hostility = { target = prev set_neutral = yes } }
+			every_country = {
+				limit = { is_tiyanki_country_type = yes }
+				set_faction_hostility = { target = prev set_neutral = yes }
+			}
 			every_country = { establish_communications_no_message = last_created_country }
 		}
 	}
@@ -94,7 +119,9 @@ create_special_project_tiyanki_country = {
 
 create_special_project_monster_country = {
 	if = {
-		limit = { NOT = { exists = event_target:special_project_monster_country } }
+		limit = {
+			NOT = { exists = event_target:special_project_monster_country }
+		}
 		create_country = {
 			name = "Space Monsters"
 			type = special_project_aliens
@@ -124,7 +151,9 @@ create_special_project_monster_country = {
 
 create_hostile_killer_faction_country = {
 	if = {
-		limit = { NOT = { exists = event_target:hostile_killer_faction_country } }
+		limit = {
+			NOT = { exists = event_target:hostile_killer_faction_country }
+		}
 		create_country = {
 			name = "Hostile Killer Faction"
 			type = special_project_faction
@@ -143,8 +172,14 @@ create_hostile_killer_faction_country = {
 				10 = { set_graphical_culture = arthropoid_01 }
 				10 = { set_graphical_culture = molluscoid_01 }
 				10 = { set_graphical_culture = fungoid_01 }
-				10 = { modifier = { factor = 0 has_plantoids = no } set_graphical_culture = plantoid_01 }
-				10 = { modifier = { factor = 0 has_humanoids = no } set_graphical_culture = humanoid_01 }
+				10 = {
+					modifier = { factor = 0 has_plantoids = no }
+					set_graphical_culture = plantoid_01
+				}
+				10 = {
+					modifier = { factor = 0 has_humanoids = no }
+					set_graphical_culture = humanoid_01
+				}
 			}
 			give_technology = { tech = tech_titans }
 			give_technology = { tech = tech_arc_emitter_1 }
@@ -164,6 +199,7 @@ create_hostile_random_faction_country = {
 			colors = { "blue" "black" "null" "null" }
 		}
 	}
+
 	last_created_country = {
 		set_country_flag = random_killer_faction
 		random_list = {
@@ -172,8 +208,14 @@ create_hostile_random_faction_country = {
 			10 = { set_graphical_culture = arthropoid_01 }
 			10 = { set_graphical_culture = molluscoid_01 }
 			10 = { set_graphical_culture = fungoid_01 }
-			10 = { modifier = { factor = 0 has_plantoids = no } set_graphical_culture = plantoid_01 }
-			10 = { modifier = { factor = 0 has_humanoids = no } set_graphical_culture = humanoid_01 }
+			10 = {
+				modifier = { factor = 0 has_plantoids = no }
+				set_graphical_culture = plantoid_01
+			}
+			10 = {
+				modifier = { factor = 0 has_humanoids = no }
+				set_graphical_culture = humanoid_01
+			}
 		}
 		give_technology = { tech = tech_titans }
 		give_technology = { tech = tech_arc_emitter_1 }
@@ -210,7 +252,6 @@ create_hostile_random_faction_country = {
 # 		every_country = { establish_communications_no_message = last_created_country }
 # 	}
 # }
-
 # create_special_project_pirate_country = {
 # 	create_country = {
 # 		name = "NAME_Pirates"
@@ -228,138 +269,1215 @@ create_hostile_random_faction_country = {
 special_project_selection = {
 	random_list = {
 		### Tier 1
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_asteroid_crash_harvestage = yes } } modifier = { factor = 0.3 has_country_flag = can_asteroid_crash_harvestage } set_timed_country_flag = { flag = can_asteroid_crash_harvestage years = 5 } country_event = { id = SpecialProjectExtendedEvents.1 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_planet_mineral_extraction = yes } } modifier = { factor = 0.3 has_country_flag = can_planet_mineral_extraction } set_timed_country_flag = { flag = can_planet_mineral_extraction years = 5 } country_event = { id = SpecialProjectExtendedEvents.2 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_planet_energy_extraction = yes } } modifier = { factor = 0.3 has_country_flag = can_planet_energy_extraction } set_timed_country_flag = { flag = can_planet_energy_extraction years = 5 } country_event = { id = SpecialProjectExtendedEvents.3 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_asteroid_mineral_surface = yes } } modifier = { factor = 0.3 has_country_flag = can_asteroid_mineral_surface } set_timed_country_flag = { flag = can_asteroid_mineral_surface years = 5 } country_event = { id = SpecialProjectExtendedEvents.4 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_cracked_asteroid_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_cracked_asteroid_exploration } set_timed_country_flag = { flag = can_cracked_asteroid_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.5 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_ice_asteroid_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_ice_asteroid_exploration } set_timed_country_flag = { flag = can_ice_asteroid_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.6 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_gas_giant_overflow = yes } } modifier = { factor = 0.3 has_country_flag = can_gas_giant_overflow } set_timed_country_flag = { flag = can_gas_giant_overflow years = 5 } country_event = { id = SpecialProjectExtendedEvents.7 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_warm_barren_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_warm_barren_exploration } set_timed_country_flag = { flag = can_warm_barren_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.8 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_cold_barren_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_cold_barren_exploration } set_timed_country_flag = { flag = can_cold_barren_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.9 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_frozen_world_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_frozen_world_exploration } set_timed_country_flag = { flag = can_frozen_world_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.10 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_molten_world_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_molten_world_exploration } set_timed_country_flag = { flag = can_molten_world_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.11 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_toxic_world_exploration = yes } } modifier = { factor = 0.3 has_country_flag = can_toxic_world_exploration } set_timed_country_flag = { flag = can_toxic_world_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.12 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_continental_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_continental_landing_test } set_timed_country_flag = { flag = can_continental_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.13 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_tropical_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_tropical_landing_test } set_timed_country_flag = { flag = can_tropical_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.14 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_ocean_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_ocean_landing_test } set_timed_country_flag = { flag = can_ocean_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.15 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_desert_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_desert_landing_test } set_timed_country_flag = { flag = can_desert_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.16 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_savannah_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_savannah_landing_test } set_timed_country_flag = { flag = can_savannah_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.17 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_arid_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_arid_landing_test } set_timed_country_flag = { flag = can_arid_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.18 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_arctic_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_arctic_landing_test } set_timed_country_flag = { flag = can_arctic_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.19 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_tundra_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_tundra_landing_test } set_timed_country_flag = { flag = can_tundra_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.20 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alpine_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_alpine_landing_test } set_timed_country_flag = { flag = can_alpine_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.21 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_purple_star_reflection = yes } } modifier = { factor = 0.3 has_country_flag = can_purple_star_reflection } set_timed_country_flag = { flag = can_purple_star_reflection years = 5 } country_event = { id = SpecialProjectExtendedEvents.22 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_blue_star_observation = yes } } modifier = { factor = 0.3 has_country_flag = can_blue_star_observation } set_timed_country_flag = { flag = can_blue_star_observation years = 5 } country_event = { id = SpecialProjectExtendedEvents.23 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_orange_star_observation = yes } } modifier = { factor = 0.3 has_country_flag = can_orange_star_observation } set_timed_country_flag = { flag = can_orange_star_observation years = 5 } country_event = { id = SpecialProjectExtendedEvents.24 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_red_star_jeweler = yes } } modifier = { factor = 0.3 has_country_flag = can_red_star_jeweler } set_timed_country_flag = { flag = can_red_star_jeweler years = 5 } country_event = { id = SpecialProjectExtendedEvents.25 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_white_star_captain = yes } } modifier = { factor = 0.3 has_country_flag = can_white_star_captain } set_timed_country_flag = { flag = can_white_star_captain years = 5 } country_event = { id = SpecialProjectExtendedEvents.26 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_yellow_star_energy = yes } } modifier = { factor = 0.3 has_country_flag = can_yellow_star_energy } set_timed_country_flag = { flag = can_yellow_star_energy years = 5 } country_event = { id = SpecialProjectExtendedEvents.27 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = ABANDONED_SHIP_ORBIT } set_timed_country_flag = { flag = ABANDONED_SHIP_ORBIT years = 5 } country_event = { id = SpecialProjectExtendedEvents.28 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = SATELLITE_GONE_WRONG } set_timed_country_flag = { flag = SATELLITE_GONE_WRONG years = 5 } country_event = { id = SpecialProjectExtendedEvents.29 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = CIVILIAN_SHIP_MALFUNCTION } set_timed_country_flag = { flag = CIVILIAN_SHIP_MALFUNCTION years = 5 } country_event = { id = SpecialProjectExtendedEvents.30 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = EXPLODED_SHIP_RECOVER } set_timed_country_flag = { flag = EXPLODED_SHIP_RECOVER years = 5 } country_event = { id = SpecialProjectExtendedEvents.31 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = OLD_TRANSPORT_RECOVER } set_timed_country_flag = { flag = OLD_TRANSPORT_RECOVER years = 5 } country_event = { id = SpecialProjectExtendedEvents.32 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = SMALL_DEBRIS_ANALYZE } set_timed_country_flag = { flag = SMALL_DEBRIS_ANALYZE years = 5 } country_event = { id = SpecialProjectExtendedEvents.33 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = MEDIUM_DEBRIS_ANALYZE } set_timed_country_flag = { flag = MEDIUM_DEBRIS_ANALYZE years = 5 } country_event = { id = SpecialProjectExtendedEvents.34 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = BIG_DEBRIS_ANALYZE } set_timed_country_flag = { flag = BIG_DEBRIS_ANALYZE years = 5 } country_event = { id = SpecialProjectExtendedEvents.35 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_city_study = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_city_study } set_timed_country_flag = { flag = can_alien_city_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.36 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_floral_study = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_floral_study } set_timed_country_flag = { flag = can_alien_floral_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.37 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_fauna_study = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_fauna_study } set_timed_country_flag = { flag = can_alien_fauna_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.38 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_planet_study = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_planet_study } set_timed_country_flag = { flag = can_alien_planet_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.39 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_ruins_study = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_ruins_study } set_timed_country_flag = { flag = can_alien_ruins_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.40 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_temple_discovery = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_temple_discovery } set_timed_country_flag = { flag = can_alien_temple_discovery years = 5 } country_event = { id = SpecialProjectExtendedEvents.41 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_stronghold_discovery = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_stronghold_discovery } set_timed_country_flag = { flag = can_alien_stronghold_discovery years = 5 } country_event = { id = SpecialProjectExtendedEvents.42 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_activity = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_activity } set_timed_country_flag = { flag = can_alien_activity years = 5 } country_event = { id = SpecialProjectExtendedEvents.43 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_alien_dead_city = yes } } modifier = { factor = 0.3 has_country_flag = can_alien_dead_city } set_timed_country_flag = { flag = can_alien_dead_city years = 5 } country_event = { id = SpecialProjectExtendedEvents.44 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_nuclear_test = yes } } modifier = { factor = 0.3 has_country_flag = can_nuclear_test } set_timed_country_flag = { flag = can_nuclear_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.45 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_microscopic_life_study = yes } } modifier = { factor = 0.3 has_country_flag = can_microscopic_life_study } set_timed_country_flag = { flag = can_microscopic_life_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.46 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_microscopic_life_study = yes } } modifier = { factor = 0.3 has_country_flag = can_microscopic_life_study } set_timed_country_flag = { flag = can_microscopic_life_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.47 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_science_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_science_landing_test } set_timed_country_flag = { flag = can_science_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.48 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_construction_landing_test = yes } } modifier = { factor = 0.3 has_country_flag = can_construction_landing_test } set_timed_country_flag = { flag = can_construction_landing_test years = 5 } country_event = { id = SpecialProjectExtendedEvents.49 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_military_exercice = yes } } modifier = { factor = 0.3 has_country_flag = can_military_exercice } set_timed_country_flag = { flag = can_military_exercice years = 5 } country_event = { id = SpecialProjectExtendedEvents.50 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_military_exercice = yes } } modifier = { factor = 0.3 has_country_flag = can_military_exercice } set_timed_country_flag = { flag = can_military_exercice years = 5 } country_event = { id = SpecialProjectExtendedEvents.51 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_starbase = { can_starbase_inspection = yes } } modifier = { factor = 0.3 has_country_flag = can_starbase_inspection } set_timed_country_flag = { flag = can_starbase_inspection years = 5 } country_event = { id = SpecialProjectExtendedEvents.52 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_starbase = { can_starbase_hangar_repair = yes } } modifier = { factor = 0.3 has_country_flag = can_starbase_hangar_repair } set_timed_country_flag = { flag = can_starbase_hangar_repair years = 5 } country_event = { id = SpecialProjectExtendedEvents.53 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_starbase = { can_starbase_ships_repair = yes } } modifier = { factor = 0.3 has_country_flag = can_starbase_ships_repair } set_timed_country_flag = { flag = can_starbase_ships_repair years = 5 } country_event = { id = SpecialProjectExtendedEvents.54 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_governor_council } } modifier = { factor = 0.15 has_country_flag = GOVERNOR_COUNCIL } set_timed_country_flag = { flag = GOVERNOR_COUNCIL years = 5 } country_event = { id = SpecialProjectExtendedEvents.55 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_scientist_meeting } } modifier = { factor = 0.15 has_country_flag = SCIENTIST_MEETING } set_timed_country_flag = { flag = SCIENTIST_MEETING years = 5 } country_event = { id = SpecialProjectExtendedEvents.56 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_space_funerals } } modifier = { factor = 0.15 has_country_flag = SPACE_FUNERALS } set_timed_country_flag = { flag = SPACE_FUNERALS years = 5 } country_event = { id = SpecialProjectExtendedEvents.57 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = project_news_interview is_authoritarian = yes } } modifier = { factor = 0.15 has_country_flag = NEWS_INTERVIEW } set_timed_country_flag = { flag = NEWS_INTERVIEW years = 5 } country_event = { id = SpecialProjectExtendedEvents.58 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = project_senate_reunion is_authoritarian = yes } } modifier = { factor = 0.15 has_country_flag = SENATE_REUNION } set_timed_country_flag = { flag = SENATE_REUNION years = 5 } country_event = { id = SpecialProjectExtendedEvents.59 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = project_military_tactics is_pacifist = yes } } modifier = { factor = 0.15 has_country_flag = MILITARY_TACTICS } set_timed_country_flag = { flag = MILITARY_TACTICS years = 5 } country_event = { id = SpecialProjectExtendedEvents.60 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_ruler_celebration } } modifier = { factor = 0.15 has_country_flag = RULER_CELEBRATION } set_timed_country_flag = { flag = RULER_CELEBRATION years = 5 } country_event = { id = SpecialProjectExtendedEvents.61 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_physicist_congress } } modifier = { factor = 0.15 has_country_flag = PHYSICIST_CONGRESS } set_timed_country_flag = { flag = PHYSICIST_CONGRESS years = 5 } country_event = { id = SpecialProjectExtendedEvents.62 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_biologist_congress } } modifier = { factor = 0.15 has_country_flag = BIOLOGIST_CONGRESS } set_timed_country_flag = { flag = BIOLOGIST_CONGRESS years = 5 } country_event = { id = SpecialProjectExtendedEvents.63 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_engineer_congress } } modifier = { factor = 0.15 has_country_flag = ENGINEERS_CONGRESS } set_timed_country_flag = { flag = ENGINEERS_CONGRESS years = 5 } country_event = { id = SpecialProjectExtendedEvents.64 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_improve_city_district = yes } } modifier = { factor = 0.15 has_country_flag = can_improve_city_district } set_timed_country_flag = { flag = can_improve_city_district years = 5 } country_event = { id = SpecialProjectExtendedEvents.65 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_improve_mining_district = yes } } modifier = { factor = 0.15 has_country_flag = can_improve_mining_district } set_timed_country_flag = { flag = can_improve_mining_district years = 5 } country_event = { id = SpecialProjectExtendedEvents.66 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_improve_energy_district = yes } } modifier = { factor = 0.15 has_country_flag = can_improve_energy_district } set_timed_country_flag = { flag = can_improve_energy_district years = 5 } country_event = { id = SpecialProjectExtendedEvents.67 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_improve_agrian_district = yes } } modifier = { factor = 0.15 has_country_flag = can_improve_agrian_district } set_timed_country_flag = { flag = can_improve_agrian_district years = 5 } country_event = { id = SpecialProjectExtendedEvents.68 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_system_within_border = { any_neighbor_system = { can_small_carrier_assault = yes } } } modifier = { factor = 0.15 has_country_flag = can_small_carrier_assault } set_timed_country_flag = { flag = can_small_carrier_assault years = 5 } country_event = { id = SpecialProjectExtendedEvents.69 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_system_within_border = { any_neighbor_system = { can_mining_drone_station = yes } } } modifier = { factor = 0.15 has_country_flag = can_mining_drone_station } set_timed_country_flag = { flag = can_mining_drone_station years = 5 } country_event = { id = SpecialProjectExtendedEvents.70 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_system_within_border = { any_neighbor_system = { can_small_terrorist_fleet = yes } } } modifier = { factor = 0.15 has_country_flag = can_small_terrorist_fleet } set_timed_country_flag = { flag = can_small_terrorist_fleet years = 5 } country_event = { id = SpecialProjectExtendedEvents.71 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 has_technology = tech_robotic_workers any_owned_planet = { can_robot_assault = yes } } modifier = { factor = 0.15 has_country_flag = can_robot_assault } set_timed_country_flag = { flag = can_robot_assault years = 5 } country_event = { id = SpecialProjectExtendedEvents.72 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_urban_combat = yes } } modifier = { factor = 0.15 has_country_flag = can_urban_combat } set_timed_country_flag = { flag = can_urban_combat years = 5 } country_event = { id = SpecialProjectExtendedEvents.73 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_search_betharian_stone = yes } } modifier = { factor = 0.15 has_country_flag = can_search_betharian_stone } set_timed_country_flag = { flag = can_search_betharian_stone years = 5 } country_event = { id = SpecialProjectExtendedEvents.74 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_building_dev_project = yes } } modifier = { factor = 0.15 has_country_flag = can_building_dev_project } set_timed_country_flag = { flag = can_building_dev_project years = 5 } country_event = { id = SpecialProjectExtendedEvents.75 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_security_reinforcement = yes } } modifier = { factor = 0.15 has_country_flag = can_security_reinforcement } set_timed_country_flag = { flag = can_security_reinforcement years = 5 } country_event = { id = SpecialProjectExtendedEvents.76 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_researcher } } modifier = { factor = 0.15 has_country_flag = RESEARCHER_CONGRESS } set_timed_country_flag = { flag = RESEARCHER_CONGRESS years = 5 } country_event = { id = SpecialProjectExtendedEvents.77 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = project_military_service has_modifier = military_service } } modifier = { factor = 0.15 has_country_flag = MILITARY_SERVICE } set_timed_country_flag = { flag = MILITARY_SERVICE years = 5 } country_event = { id = SpecialProjectExtendedEvents.78 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = project_machine_construction has_modifier = robot_construction_project } OR = { has_technology = tech_robotic_workers is_machine_empire = yes } } modifier = { factor = 0.15 has_country_flag = MACHINE_RAPID_CONSTRUCTION } set_timed_country_flag = { flag = MACHINE_RAPID_CONSTRUCTION years = 5 } country_event = { id = SpecialProjectExtendedEvents.79 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = project_rapid_assembly has_modifier = shipyard_assembly_project } } modifier = { factor = 0.15 has_country_flag = SHIPYARD_RAPID_ASSEMBLY } set_timed_country_flag = { flag = SHIPYARD_RAPID_ASSEMBLY years = 5 } country_event = { id = SpecialProjectExtendedEvents.82 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = project_combats_simulation } } modifier = { factor = 0.15 has_country_flag = COMBAT_SIMILATION } set_timed_country_flag = { flag = COMBAT_SIMILATION years = 5 } country_event = { id = SpecialProjectExtendedEvents.81 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_bright_sun_view = yes } } modifier = { factor = 0.15 has_country_flag = can_bright_sun_view } set_timed_country_flag = { flag = can_bright_sun_view years = 5 } country_event = { id = SpecialProjectExtendedEvents.82 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_brown_dwarf_study = yes } } modifier = { factor = 0.15 has_country_flag = can_brown_dwarf_study } set_timed_country_flag = { flag = can_brown_dwarf_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.83 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_plasmoid_life_study = yes } } modifier = { factor = 0.15 has_country_flag = can_plasmoid_life_study } set_timed_country_flag = { flag = can_plasmoid_life_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.84 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_canyon_biome_exploration = yes } } modifier = { factor = 0.15 has_country_flag = can_canyon_biome_exploration } set_timed_country_flag = { flag = can_canyon_biome_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.85 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_continental_world_exploration = yes } } modifier = { factor = 0.15 has_country_flag = can_continental_world_exploration } set_timed_country_flag = { flag = can_continental_world_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.86 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_tropical_world_exploration = yes } } modifier = { factor = 0.15 has_country_flag = can_tropical_world_exploration } set_timed_country_flag = { flag = can_tropical_world_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.87 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_ice_biome_exploration = yes } } modifier = { factor = 0.15 has_country_flag = can_ice_biome_exploration } set_timed_country_flag = { flag = can_ice_biome_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.88 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_frozen_expedition = yes } } modifier = { factor = 0.15 has_country_flag = can_frozen_expedition } set_timed_country_flag = { flag = can_frozen_expedition years = 5 } country_event = { id = SpecialProjectExtendedEvents.89 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_micro_forest_study = yes } } modifier = { factor = 0.15 has_country_flag = can_micro_forest_study } set_timed_country_flag = { flag = can_micro_forest_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.90 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_volcano_biome_exploration = yes } } modifier = { factor = 0.15 has_country_flag = can_volcano_biome_exploration } set_timed_country_flag = { flag = can_volcano_biome_exploration years = 5 } country_event = { id = SpecialProjectExtendedEvents.91 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_thunderstorms_study = yes } } modifier = { factor = 0.15 has_country_flag = can_thunderstorms_study } set_timed_country_flag = { flag = can_thunderstorms_study years = 5 } country_event = { id = SpecialProjectExtendedEvents.92 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_titanic_tornado = yes } } modifier = { factor = 0.15 has_country_flag = can_titanic_tornado } set_timed_country_flag = { flag = can_titanic_tornado years = 5 } country_event = { id = SpecialProjectExtendedEvents.93 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_spaceship_graveyard = yes } } modifier = { factor = 0.15 has_country_flag = can_spaceship_graveyard } set_timed_country_flag = { flag = can_spaceship_graveyard years = 5 } country_event = { id = SpecialProjectExtendedEvents.94 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_monster_fossil = yes } } modifier = { factor = 0.15 has_country_flag = can_monster_fossil } set_timed_country_flag = { flag = can_monster_fossil years = 5 } country_event = { id = SpecialProjectExtendedEvents.95 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_minerals_overflow = yes } } modifier = { factor = 0.15 has_country_flag = can_minerals_overflow } set_timed_country_flag = { flag = can_minerals_overflow years = 5 } country_event = { id = SpecialProjectExtendedEvents.96 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_rogue_laboratory = yes } } modifier = { factor = 0.15 has_country_flag = can_rogue_laboratory } set_timed_country_flag = { flag = can_rogue_laboratory years = 5 } country_event = { id = SpecialProjectExtendedEvents.97 days = 20 random = 320 } }
-
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_wildlife_track = yes } } modifier = { factor = 0.3 has_country_flag = can_wildlife_track } set_timed_country_flag = { flag = can_wildlife_track years = 5 } country_event = { id = SpecialProjectExtendedEvents.98 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_asteroid_cracking = yes } } modifier = { factor = 0.3 has_country_flag = can_asteroid_cracking } set_timed_country_flag = { flag = can_asteroid_cracking years = 5 } country_event = { id = SpecialProjectExtendedEvents.99 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_asteroid_lab = yes } } modifier = { factor = 0.3 has_country_flag = can_asteroid_lab } set_timed_country_flag = { flag = can_asteroid_lab years = 5 } country_event = { id = SpecialProjectExtendedEvents.1001 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_beautiful_lake = yes } } modifier = { factor = 0.3 has_country_flag = can_beautiful_lake } set_timed_country_flag = { flag = can_beautiful_lake years = 5 } country_event = { id = SpecialProjectExtendedEvents.1002 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_multiple_moons = yes } } modifier = { factor = 0.3 has_country_flag = can_multiple_moons } set_timed_country_flag = { flag = can_multiple_moons years = 5 } country_event = { id = SpecialProjectExtendedEvents.1003 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_planet_asteroid_belt = yes } } modifier = { factor = 0.3 has_country_flag = can_planet_asteroid_belt } set_timed_country_flag = { flag = can_planet_asteroid_belt years = 5 } country_event = { id = SpecialProjectExtendedEvents.1004 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_planet_surface = yes } } modifier = { factor = 0.3 has_country_flag = can_planet_surface } set_timed_country_flag = { flag = can_planet_surface years = 5 } country_event = { id = SpecialProjectExtendedEvents.1005 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_unknow_lightsource = yes } } modifier = { factor = 0.3 has_country_flag = can_unknow_lightsource } set_timed_country_flag = { flag = can_unknow_lightsource years = 5 } country_event = { id = SpecialProjectExtendedEvents.1006 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_strange_place = yes } } modifier = { factor = 0.3 has_country_flag = can_strange_place } set_timed_country_flag = { flag = can_strange_place years = 5 } country_event = { id = SpecialProjectExtendedEvents.1007 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_planet_within_border = { can_unusual_world = yes } } modifier = { factor = 0.3 has_country_flag = can_unusual_world } set_timed_country_flag = { flag = can_unusual_world years = 5 } country_event = { id = SpecialProjectExtendedEvents.1008 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_busy_spaceport = yes } } modifier = { factor = 0.15 has_country_flag = can_busy_spaceport } set_timed_country_flag = { flag = can_busy_spaceport years = 5 } country_event = { id = SpecialProjectExtendedEvents.1009 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_retirement_place = yes } } modifier = { factor = 0.15 has_country_flag = can_retirement_place } set_timed_country_flag = { flag = can_retirement_place years = 5 } country_event = { id = SpecialProjectExtendedEvents.1010 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_trade_improvement = yes } } modifier = { factor = 0.15 has_country_flag = can_trade_improvement } set_timed_country_flag = { flag = can_trade_improvement years = 5 } country_event = { id = SpecialProjectExtendedEvents.1011 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_clear_moon = yes } } modifier = { factor = 0.15 has_country_flag = can_clear_moon } set_timed_country_flag = { flag = can_clear_moon years = 5 } country_event = { id = SpecialProjectExtendedEvents.1012 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_peak_colony = yes } } modifier = { factor = 0.15 has_country_flag = can_peak_colony } set_timed_country_flag = { flag = can_peak_colony years = 5 } country_event = { id = SpecialProjectExtendedEvents.1013 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_underworld_infiltration = yes } } modifier = { factor = 0.15 has_country_flag = can_underworld_infiltration } set_timed_country_flag = { flag = can_underworld_infiltration years = 5 } country_event = { id = SpecialProjectExtendedEvents.1014 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_more_fauna = yes } } modifier = { factor = 0.15 has_country_flag = can_more_fauna } set_timed_country_flag = { flag = can_more_fauna years = 5 } country_event = { id = SpecialProjectExtendedEvents.1015 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_perfect_night = yes } } modifier = { factor = 0.15 has_country_flag = can_perfect_night } set_timed_country_flag = { flag = can_perfect_night years = 5 } country_event = { id = SpecialProjectExtendedEvents.1016 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_local_industry = yes } } modifier = { factor = 0.15 has_country_flag = can_local_industry } set_timed_country_flag = { flag = can_local_industry years = 5 } country_event = { id = SpecialProjectExtendedEvents.1017 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_consumer_delivery = yes } } modifier = { factor = 0.15 has_country_flag = can_consumer_delivery } set_timed_country_flag = { flag = can_consumer_delivery years = 5 } country_event = { id = SpecialProjectExtendedEvents.1018 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_shooting_stars = yes } } modifier = { factor = 0.15 has_country_flag = can_shooting_stars } set_timed_country_flag = { flag = can_shooting_stars years = 5 } country_event = { id = SpecialProjectExtendedEvents.1019 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_owned_planet = { can_solar_eclipse = yes } } modifier = { factor = 0.15 has_country_flag = can_solar_eclipse } set_timed_country_flag = { flag = can_solar_eclipse years = 5 } country_event = { id = SpecialProjectExtendedEvents.1020 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = leaders_meeting has_modifier = leaders_meeting is_gestalt = yes } } modifier = { factor = 0.15 has_country_flag = LEADERS_MEETING } set_timed_country_flag = { flag = LEADERS_MEETING years = 5 } country_event = { id = SpecialProjectExtendedEvents.1021 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOT = { has_country_flag = country_review } } modifier = { factor = 0.15 has_country_flag = COUNTRY_REVIEW } set_timed_country_flag = { flag = COUNTRY_REVIEW years = 5 } country_event = { id = SpecialProjectExtendedEvents.1022 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = national_market has_modifier = national_market is_gestalt = yes } } modifier = { factor = 0.15 has_country_flag = NATIONAL_MARKET } set_timed_country_flag = { flag = NATIONAL_MARKET years = 5 } country_event = { id = SpecialProjectExtendedEvents.1023 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = machine_upkeep has_modifier = machine_upkeep } OR = { has_technology = tech_robotic_workers is_machine_empire = yes } } modifier = { factor = 0.15 has_country_flag = MACHINE_UPKEEP } set_timed_country_flag = { flag = MACHINE_UPKEEP years = 5 } country_event = { id = SpecialProjectExtendedEvents.1024 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = radar_upgrade has_modifier = radar_upgrade } } modifier = { factor = 0.15 has_country_flag = RADAR_UPGRADE } set_timed_country_flag = { flag = RADAR_UPGRADE years = 5 } country_event = { id = SpecialProjectExtendedEvents.1025 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = gravity_manipulation has_modifier = gravity_manipulation } } modifier = { factor = 0.15 has_country_flag = GRAVITY_MANIPULATION } set_timed_country_flag = { flag = GRAVITY_MANIPULATION years = 5 } country_event = { id = SpecialProjectExtendedEvents.1026 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 NOR = { has_country_flag = trade_protection has_modifier = trade_protection is_gestalt = yes } } modifier = { factor = 0.15 has_country_flag = TRADE_PROTECTION } set_timed_country_flag = { flag = TRADE_PROTECTION years = 5 } country_event = { id = SpecialProjectExtendedEvents.1027 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 always = yes } modifier = { factor = 0.15 has_country_flag = PROBE_RETRIEVING } set_timed_country_flag = { flag = PROBE_RETRIEVING years = 5 } country_event = { id = SpecialProjectExtendedEvents.1028 days = 20 random = 320 } }
-		1 = { modifier = { factor = 1000 any_system_within_border = { can_navy_wormhole_training = yes } } modifier = { factor = 0.3 has_country_flag = can_navy_wormhole_training } set_timed_country_flag = { flag = can_navy_wormhole_training years = 5 } country_event = { id = SpecialProjectExtendedEvents.1029 days = 20 random = 320 } }
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_asteroid_crash_harvestage = yes }
+			}
+			modifier = {
+				factor = 0.3
+				has_country_flag = can_asteroid_crash_harvestage
+			}
+			set_timed_country_flag = { flag = can_asteroid_crash_harvestage years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_planet_mineral_extraction = yes }
+			}
+			modifier = {
+				factor = 0.3
+				has_country_flag = can_planet_mineral_extraction
+			}
+			set_timed_country_flag = { flag = can_planet_mineral_extraction years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.2 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_planet_energy_extraction = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_planet_energy_extraction }
+			set_timed_country_flag = { flag = can_planet_energy_extraction years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.3 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_asteroid_mineral_surface = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_asteroid_mineral_surface }
+			set_timed_country_flag = { flag = can_asteroid_mineral_surface years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.4 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_cracked_asteroid_exploration = yes }
+			}
+			modifier = {
+				factor = 0.3
+				has_country_flag = can_cracked_asteroid_exploration
+			}
+			set_timed_country_flag = { flag = can_cracked_asteroid_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.5 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_ice_asteroid_exploration = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_ice_asteroid_exploration }
+			set_timed_country_flag = { flag = can_ice_asteroid_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.6 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_gas_giant_overflow = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_gas_giant_overflow }
+			set_timed_country_flag = { flag = can_gas_giant_overflow years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.7 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_warm_barren_exploration = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_warm_barren_exploration }
+			set_timed_country_flag = { flag = can_warm_barren_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.8 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_cold_barren_exploration = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_cold_barren_exploration }
+			set_timed_country_flag = { flag = can_cold_barren_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.9 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_frozen_world_exploration = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_frozen_world_exploration }
+			set_timed_country_flag = { flag = can_frozen_world_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.10 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_molten_world_exploration = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_molten_world_exploration }
+			set_timed_country_flag = { flag = can_molten_world_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.11 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_toxic_world_exploration = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_toxic_world_exploration }
+			set_timed_country_flag = { flag = can_toxic_world_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.12 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_continental_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_continental_landing_test }
+			set_timed_country_flag = { flag = can_continental_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.13 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_tropical_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_tropical_landing_test }
+			set_timed_country_flag = { flag = can_tropical_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.14 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_ocean_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_ocean_landing_test }
+			set_timed_country_flag = { flag = can_ocean_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.15 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_desert_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_desert_landing_test }
+			set_timed_country_flag = { flag = can_desert_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.16 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_savannah_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_savannah_landing_test }
+			set_timed_country_flag = { flag = can_savannah_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.17 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_arid_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_arid_landing_test }
+			set_timed_country_flag = { flag = can_arid_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.18 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_arctic_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_arctic_landing_test }
+			set_timed_country_flag = { flag = can_arctic_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.19 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_tundra_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_tundra_landing_test }
+			set_timed_country_flag = { flag = can_tundra_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.20 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alpine_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alpine_landing_test }
+			set_timed_country_flag = { flag = can_alpine_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.21 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_purple_star_reflection = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_purple_star_reflection }
+			set_timed_country_flag = { flag = can_purple_star_reflection years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.22 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_blue_star_observation = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_blue_star_observation }
+			set_timed_country_flag = { flag = can_blue_star_observation years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.23 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_orange_star_observation = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_orange_star_observation }
+			set_timed_country_flag = { flag = can_orange_star_observation years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.24 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_red_star_jeweler = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_red_star_jeweler }
+			set_timed_country_flag = { flag = can_red_star_jeweler years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.25 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_white_star_captain = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_white_star_captain }
+			set_timed_country_flag = { flag = can_white_star_captain years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.26 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_yellow_star_energy = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_yellow_star_energy }
+			set_timed_country_flag = { flag = can_yellow_star_energy years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.27 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = ABANDONED_SHIP_ORBIT }
+			set_timed_country_flag = { flag = ABANDONED_SHIP_ORBIT years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.28 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = SATELLITE_GONE_WRONG }
+			set_timed_country_flag = { flag = SATELLITE_GONE_WRONG years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.29 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = CIVILIAN_SHIP_MALFUNCTION }
+			set_timed_country_flag = { flag = CIVILIAN_SHIP_MALFUNCTION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.30 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = EXPLODED_SHIP_RECOVER }
+			set_timed_country_flag = { flag = EXPLODED_SHIP_RECOVER years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.31 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = OLD_TRANSPORT_RECOVER }
+			set_timed_country_flag = { flag = OLD_TRANSPORT_RECOVER years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.32 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = SMALL_DEBRIS_ANALYZE }
+			set_timed_country_flag = { flag = SMALL_DEBRIS_ANALYZE years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.33 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = MEDIUM_DEBRIS_ANALYZE }
+			set_timed_country_flag = { flag = MEDIUM_DEBRIS_ANALYZE years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.34 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = BIG_DEBRIS_ANALYZE }
+			set_timed_country_flag = { flag = BIG_DEBRIS_ANALYZE years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.35 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_city_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_city_study }
+			set_timed_country_flag = { flag = can_alien_city_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.36 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_floral_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_floral_study }
+			set_timed_country_flag = { flag = can_alien_floral_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.37 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_fauna_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_fauna_study }
+			set_timed_country_flag = { flag = can_alien_fauna_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.38 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_planet_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_planet_study }
+			set_timed_country_flag = { flag = can_alien_planet_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.39 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_ruins_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_ruins_study }
+			set_timed_country_flag = { flag = can_alien_ruins_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.40 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_temple_discovery = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_temple_discovery }
+			set_timed_country_flag = { flag = can_alien_temple_discovery years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.41 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_stronghold_discovery = yes }
+			}
+			modifier = {
+				factor = 0.3
+				has_country_flag = can_alien_stronghold_discovery
+			}
+			set_timed_country_flag = { flag = can_alien_stronghold_discovery years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.42 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_activity = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_activity }
+			set_timed_country_flag = { flag = can_alien_activity years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.43 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_alien_dead_city = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_alien_dead_city }
+			set_timed_country_flag = { flag = can_alien_dead_city years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.44 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_nuclear_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_nuclear_test }
+			set_timed_country_flag = { flag = can_nuclear_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.45 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_microscopic_life_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_microscopic_life_study }
+			set_timed_country_flag = { flag = can_microscopic_life_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.46 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_microscopic_life_study = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_microscopic_life_study }
+			set_timed_country_flag = { flag = can_microscopic_life_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.47 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_science_landing_test = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_science_landing_test }
+			set_timed_country_flag = { flag = can_science_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.48 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_construction_landing_test = yes }
+			}
+			modifier = {
+				factor = 0.3
+				has_country_flag = can_construction_landing_test
+			}
+			set_timed_country_flag = { flag = can_construction_landing_test years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.49 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_military_exercice = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_military_exercice }
+			set_timed_country_flag = { flag = can_military_exercice years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.50 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_military_exercice = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_military_exercice }
+			set_timed_country_flag = { flag = can_military_exercice years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.51 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_starbase = { can_starbase_inspection = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_starbase_inspection }
+			set_timed_country_flag = { flag = can_starbase_inspection years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.52 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_starbase = { can_starbase_hangar_repair = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_starbase_hangar_repair }
+			set_timed_country_flag = { flag = can_starbase_hangar_repair years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.53 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_starbase = { can_starbase_ships_repair = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_starbase_ships_repair }
+			set_timed_country_flag = { flag = can_starbase_ships_repair years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.54 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_governor_council }
+			}
+			modifier = { factor = 0.15 has_country_flag = GOVERNOR_COUNCIL }
+			set_timed_country_flag = { flag = GOVERNOR_COUNCIL years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.55 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_scientist_meeting }
+			}
+			modifier = { factor = 0.15 has_country_flag = SCIENTIST_MEETING }
+			set_timed_country_flag = { flag = SCIENTIST_MEETING years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.56 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_space_funerals }
+			}
+			modifier = { factor = 0.15 has_country_flag = SPACE_FUNERALS }
+			set_timed_country_flag = { flag = SPACE_FUNERALS years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.57 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = project_news_interview
+					is_authoritarian = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = NEWS_INTERVIEW }
+			set_timed_country_flag = { flag = NEWS_INTERVIEW years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.58 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = project_senate_reunion
+					is_authoritarian = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = SENATE_REUNION }
+			set_timed_country_flag = { flag = SENATE_REUNION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.59 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = project_military_tactics
+					is_pacifist = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = MILITARY_TACTICS }
+			set_timed_country_flag = { flag = MILITARY_TACTICS years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.60 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_ruler_celebration }
+			}
+			modifier = { factor = 0.15 has_country_flag = RULER_CELEBRATION }
+			set_timed_country_flag = { flag = RULER_CELEBRATION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.61 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_physicist_congress }
+			}
+			modifier = { factor = 0.15 has_country_flag = PHYSICIST_CONGRESS }
+			set_timed_country_flag = { flag = PHYSICIST_CONGRESS years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.62 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_biologist_congress }
+			}
+			modifier = { factor = 0.15 has_country_flag = BIOLOGIST_CONGRESS }
+			set_timed_country_flag = { flag = BIOLOGIST_CONGRESS years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.63 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_engineer_congress }
+			}
+			modifier = { factor = 0.15 has_country_flag = ENGINEERS_CONGRESS }
+			set_timed_country_flag = { flag = ENGINEERS_CONGRESS years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.64 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_improve_city_district = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_improve_city_district }
+			set_timed_country_flag = { flag = can_improve_city_district years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.65 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_improve_mining_district = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_improve_mining_district }
+			set_timed_country_flag = { flag = can_improve_mining_district years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.66 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_improve_energy_district = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_improve_energy_district }
+			set_timed_country_flag = { flag = can_improve_energy_district years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.67 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_improve_agrian_district = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_improve_agrian_district }
+			set_timed_country_flag = { flag = can_improve_agrian_district years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.68 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_system_within_border = {
+					any_neighbor_system = { can_small_carrier_assault = yes }
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = can_small_carrier_assault }
+			set_timed_country_flag = { flag = can_small_carrier_assault years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.69 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_system_within_border = {
+					any_neighbor_system = { can_mining_drone_station = yes }
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = can_mining_drone_station }
+			set_timed_country_flag = { flag = can_mining_drone_station years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.70 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_system_within_border = {
+					any_neighbor_system = { can_small_terrorist_fleet = yes }
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = can_small_terrorist_fleet }
+			set_timed_country_flag = { flag = can_small_terrorist_fleet years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.71 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				has_technology = tech_robotic_workers
+				any_owned_planet = { can_robot_assault = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_robot_assault }
+			set_timed_country_flag = { flag = can_robot_assault years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.72 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_urban_combat = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_urban_combat }
+			set_timed_country_flag = { flag = can_urban_combat years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.73 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_search_betharian_stone = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_search_betharian_stone }
+			set_timed_country_flag = { flag = can_search_betharian_stone years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.74 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_building_dev_project = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_building_dev_project }
+			set_timed_country_flag = { flag = can_building_dev_project years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.75 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_security_reinforcement = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_security_reinforcement }
+			set_timed_country_flag = { flag = can_security_reinforcement years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.76 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_researcher }
+			}
+			modifier = { factor = 0.15 has_country_flag = RESEARCHER_CONGRESS }
+			set_timed_country_flag = { flag = RESEARCHER_CONGRESS years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.77 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = project_military_service
+					has_modifier = military_service
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = MILITARY_SERVICE }
+			set_timed_country_flag = { flag = MILITARY_SERVICE years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.78 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = project_machine_construction
+					has_modifier = robot_construction_project
+				}
+				OR = {
+					has_technology = tech_robotic_workers
+					is_machine_empire = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = MACHINE_RAPID_CONSTRUCTION }
+			set_timed_country_flag = { flag = MACHINE_RAPID_CONSTRUCTION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.79 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = project_rapid_assembly
+					has_modifier = shipyard_assembly_project
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = SHIPYARD_RAPID_ASSEMBLY }
+			set_timed_country_flag = { flag = SHIPYARD_RAPID_ASSEMBLY years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.82 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = project_combats_simulation }
+			}
+			modifier = { factor = 0.15 has_country_flag = COMBAT_SIMILATION }
+			set_timed_country_flag = { flag = COMBAT_SIMILATION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.81 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_bright_sun_view = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_bright_sun_view }
+			set_timed_country_flag = { flag = can_bright_sun_view years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.82 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_brown_dwarf_study = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_brown_dwarf_study }
+			set_timed_country_flag = { flag = can_brown_dwarf_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.83 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_plasmoid_life_study = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_plasmoid_life_study }
+			set_timed_country_flag = { flag = can_plasmoid_life_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.84 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_canyon_biome_exploration = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_canyon_biome_exploration }
+			set_timed_country_flag = { flag = can_canyon_biome_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.85 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_continental_world_exploration = yes }
+			}
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_continental_world_exploration
+			}
+			set_timed_country_flag = { flag = can_continental_world_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.86 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_tropical_world_exploration = yes }
+			}
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_tropical_world_exploration
+			}
+			set_timed_country_flag = { flag = can_tropical_world_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.87 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_ice_biome_exploration = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_ice_biome_exploration }
+			set_timed_country_flag = { flag = can_ice_biome_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.88 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_frozen_expedition = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_frozen_expedition }
+			set_timed_country_flag = { flag = can_frozen_expedition years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.89 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_micro_forest_study = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_micro_forest_study }
+			set_timed_country_flag = { flag = can_micro_forest_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.90 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_volcano_biome_exploration = yes }
+			}
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_volcano_biome_exploration
+			}
+			set_timed_country_flag = { flag = can_volcano_biome_exploration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.91 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_thunderstorms_study = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_thunderstorms_study }
+			set_timed_country_flag = { flag = can_thunderstorms_study years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.92 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_titanic_tornado = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_titanic_tornado }
+			set_timed_country_flag = { flag = can_titanic_tornado years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.93 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_spaceship_graveyard = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_spaceship_graveyard }
+			set_timed_country_flag = { flag = can_spaceship_graveyard years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.94 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_monster_fossil = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_monster_fossil }
+			set_timed_country_flag = { flag = can_monster_fossil years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.95 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_minerals_overflow = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_minerals_overflow }
+			set_timed_country_flag = { flag = can_minerals_overflow years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.96 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_rogue_laboratory = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_rogue_laboratory }
+			set_timed_country_flag = { flag = can_rogue_laboratory years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.97 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_wildlife_track = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_wildlife_track }
+			set_timed_country_flag = { flag = can_wildlife_track years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.98 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_asteroid_cracking = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_asteroid_cracking }
+			set_timed_country_flag = { flag = can_asteroid_cracking years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.99 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_asteroid_lab = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_asteroid_lab }
+			set_timed_country_flag = { flag = can_asteroid_lab years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1001 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_beautiful_lake = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_beautiful_lake }
+			set_timed_country_flag = { flag = can_beautiful_lake years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1002 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_multiple_moons = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_multiple_moons }
+			set_timed_country_flag = { flag = can_multiple_moons years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1003 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_planet_asteroid_belt = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_planet_asteroid_belt }
+			set_timed_country_flag = { flag = can_planet_asteroid_belt years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1004 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_planet_surface = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_planet_surface }
+			set_timed_country_flag = { flag = can_planet_surface years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1005 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_unknow_lightsource = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_unknow_lightsource }
+			set_timed_country_flag = { flag = can_unknow_lightsource years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1006 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_strange_place = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_strange_place }
+			set_timed_country_flag = { flag = can_strange_place years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1007 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_planet_within_border = { can_unusual_world = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_unusual_world }
+			set_timed_country_flag = { flag = can_unusual_world years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1008 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_busy_spaceport = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_busy_spaceport }
+			set_timed_country_flag = { flag = can_busy_spaceport years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1009 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_retirement_place = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_retirement_place }
+			set_timed_country_flag = { flag = can_retirement_place years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1010 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_trade_improvement = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_trade_improvement }
+			set_timed_country_flag = { flag = can_trade_improvement years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1011 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_clear_moon = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_clear_moon }
+			set_timed_country_flag = { flag = can_clear_moon years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1012 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_peak_colony = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_peak_colony }
+			set_timed_country_flag = { flag = can_peak_colony years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1013 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_underworld_infiltration = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_underworld_infiltration }
+			set_timed_country_flag = { flag = can_underworld_infiltration years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1014 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_more_fauna = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_more_fauna }
+			set_timed_country_flag = { flag = can_more_fauna years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1015 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_perfect_night = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_perfect_night }
+			set_timed_country_flag = { flag = can_perfect_night years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1016 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_local_industry = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_local_industry }
+			set_timed_country_flag = { flag = can_local_industry years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1017 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_consumer_delivery = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_consumer_delivery }
+			set_timed_country_flag = { flag = can_consumer_delivery years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1018 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_shooting_stars = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_shooting_stars }
+			set_timed_country_flag = { flag = can_shooting_stars years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1019 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_owned_planet = { can_solar_eclipse = yes }
+			}
+			modifier = { factor = 0.15 has_country_flag = can_solar_eclipse }
+			set_timed_country_flag = { flag = can_solar_eclipse years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1020 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = leaders_meeting
+					has_modifier = leaders_meeting
+					is_gestalt = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = LEADERS_MEETING }
+			set_timed_country_flag = { flag = LEADERS_MEETING years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1021 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOT = { has_country_flag = country_review }
+			}
+			modifier = { factor = 0.15 has_country_flag = COUNTRY_REVIEW }
+			set_timed_country_flag = { flag = COUNTRY_REVIEW years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1022 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = national_market
+					has_modifier = national_market
+					is_gestalt = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = NATIONAL_MARKET }
+			set_timed_country_flag = { flag = NATIONAL_MARKET years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1023 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = machine_upkeep
+					has_modifier = machine_upkeep
+				}
+				OR = {
+					has_technology = tech_robotic_workers
+					is_machine_empire = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = MACHINE_UPKEEP }
+			set_timed_country_flag = { flag = MACHINE_UPKEEP years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1024 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = radar_upgrade
+					has_modifier = radar_upgrade
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = RADAR_UPGRADE }
+			set_timed_country_flag = { flag = RADAR_UPGRADE years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1025 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = gravity_manipulation
+					has_modifier = gravity_manipulation
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = GRAVITY_MANIPULATION }
+			set_timed_country_flag = { flag = GRAVITY_MANIPULATION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1026 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				NOR = {
+					has_country_flag = trade_protection
+					has_modifier = trade_protection
+					is_gestalt = yes
+				}
+			}
+			modifier = { factor = 0.15 has_country_flag = TRADE_PROTECTION }
+			set_timed_country_flag = { flag = TRADE_PROTECTION years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1027 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = { factor = 1000 always = yes }
+			modifier = { factor = 0.15 has_country_flag = PROBE_RETRIEVING }
+			set_timed_country_flag = { flag = PROBE_RETRIEVING years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1028 days = 20 random = 320 }
+		}
+		1 = {
+			modifier = {
+				factor = 1000
+				any_system_within_border = { can_navy_wormhole_training = yes }
+			}
+			modifier = { factor = 0.3 has_country_flag = can_navy_wormhole_training }
+			set_timed_country_flag = { flag = can_navy_wormhole_training years = 5 }
+			country_event = { id = SpecialProjectExtendedEvents.1029 days = 20 random = 320 }
+		}
 		### Tier 2
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_gaia_world_tourism = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_gaia_world_tourism = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_gaia_world_tourism }
@@ -367,7 +1485,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.101 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_tomb_world_desolation = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_tomb_world_desolation = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_tomb_world_desolation }
@@ -375,7 +1496,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.102 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_black_hole_darkmatter = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_black_hole_darkmatter = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_black_hole_darkmatter }
@@ -383,7 +1507,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.103 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_neutron_magnetic_field = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_neutron_magnetic_field = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_neutron_magnetic_field }
@@ -391,7 +1518,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.104 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_pulsar_physics_force = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_pulsar_physics_force = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_pulsar_physics_force }
@@ -399,7 +1529,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.105 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_sapient_ai_activated = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_sapient_ai_activated = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_sapient_ai_activated }
@@ -407,7 +1540,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.106 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_hidden_treasure_search = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_hidden_treasure_search = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_hidden_treasure_search }
@@ -415,7 +1551,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.107 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_fissure_exploration = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_fissure_exploration = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_fissure_exploration }
@@ -423,7 +1562,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.108 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_ringworld_investigation = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_ringworld_investigation = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_ringworld_investigation }
@@ -431,15 +1573,24 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.109 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_STRATEGIC_RESOURCE_DISCOVERY = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_STRATEGIC_RESOURCE_DISCOVERY = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
-			modifier = { factor = 0.15 has_country_flag = can_STRATEGIC_RESOURCE_DISCOVERY }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_STRATEGIC_RESOURCE_DISCOVERY
+			}
 			set_timed_country_flag = { flag = can_STRATEGIC_RESOURCE_DISCOVERY years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.110 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_pulsar_physics_force = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_pulsar_physics_force = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_pulsar_physics_force }
@@ -462,9 +1613,15 @@ special_project_selection = {
 			set_timed_country_flag = { flag = ANCIENT_CONSTRUCTION_SITE years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.113 days = 20 random = 320 }
 		}
-
 		1 = {
-			modifier = { factor = 870 NOT = { has_country_flag = robo_modding_opportunity } OR = { has_technology = tech_robomodding has_technology = tech_robomodding_m } }
+			modifier = {
+				factor = 870
+				NOT = { has_country_flag = robo_modding_opportunity }
+				OR = {
+					has_technology = tech_robomodding
+					has_technology = tech_robomodding_m
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = ROBO_MODDING_OPPORTUNITY1 }
@@ -472,7 +1629,11 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.114 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOT = { has_country_flag = gene_modif_opportunity } has_technology = tech_gene_tailoring }
+			modifier = {
+				factor = 870
+				NOT = { has_country_flag = gene_modif_opportunity }
+				has_technology = tech_gene_tailoring
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = GENE_MODIF_OPPORTUNITY1 }
@@ -480,7 +1641,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.115 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOT = { has_country_flag = weaponry_amelioration } }
+			modifier = {
+				factor = 870
+				NOT = { has_country_flag = weaponry_amelioration }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = WEAPONARY_AMELIORATION1 }
@@ -488,7 +1652,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.116 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOT = { has_country_flag = physics_revolution } }
+			modifier = {
+				factor = 870
+				NOT = { has_country_flag = physics_revolution }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = PHYSICS_REVOLUTION1 }
@@ -496,7 +1663,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.117 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOT = { has_country_flag = unity_ambition } }
+			modifier = {
+				factor = 870
+				NOT = { has_country_flag = unity_ambition }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = UNITY_AMBITION1 }
@@ -504,7 +1674,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.118 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOT = { has_country_flag = hacking_possibility } }
+			modifier = {
+				factor = 870
+				NOT = { has_country_flag = hacking_possibility }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = HACKING_POSSIBILITY1 }
@@ -512,7 +1685,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.119 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_scientist_clone_army = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_scientist_clone_army = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_scientist_clone_army }
@@ -520,7 +1696,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.120 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_hive_minded_horde = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_hive_minded_horde = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_hive_minded_horde }
@@ -536,7 +1715,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.122 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_monster_from_deepth = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_monster_from_deepth = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_monster_from_deepth }
@@ -544,7 +1726,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.123 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_aggressive_primitives = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_aggressive_primitives = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_aggressive_primitives }
@@ -552,7 +1737,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.124 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_cybernetic_troops = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_cybernetic_troops = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_cybernetic_troops }
@@ -560,7 +1748,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.125 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_terrorist_group = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_terrorist_group = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_terrorist_group }
@@ -568,16 +1759,23 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.126 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_paramilitarist_group = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_paramilitarist_group = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_paramilitarist_group }
 			set_timed_country_flag = { flag = can_paramilitarist_group years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.127 days = 20 random = 320 }
 		}
-
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_amoeba_system_invasion = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_amoeba_system_invasion = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_amoeba_system_invasion }
@@ -585,7 +1783,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.128 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_hostile_from_wormhole = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_hostile_from_wormhole = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_hostile_from_wormhole }
@@ -593,7 +1796,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.129 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_medium_carrier_assault = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_medium_carrier_assault = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_medium_carrier_assault }
@@ -601,7 +1809,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.130 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_civilian_pirate_attack = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_civilian_pirate_attack = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_civilian_pirate_attack }
@@ -609,7 +1822,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.131 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_space_battle_debris = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_space_battle_debris = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_space_battle_debris }
@@ -617,7 +1835,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.132 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_space_station_destroyed = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_space_station_destroyed = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_space_station_destroyed }
@@ -625,7 +1848,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.133 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { can_crystal_hive_system = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = { can_crystal_hive_system = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_crystal_hive_system }
@@ -633,7 +1861,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.134 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { can_binary_stars_study = yes } }
+			modifier = {
+				factor = 870
+				any_system_within_border = { can_binary_stars_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_binary_stars_study }
@@ -641,7 +1872,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.135 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_collapstar_study = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_collapstar_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_collapstar_study }
@@ -649,23 +1883,38 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.136 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_ancient_tower_exploration = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_ancient_tower_exploration = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
-			modifier = { factor = 0.15 has_country_flag = can_ancient_tower_exploration }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_ancient_tower_exploration
+			}
 			set_timed_country_flag = { flag = can_ancient_tower_exploration years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.137 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_dangerous_world_exploration = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_dangerous_world_exploration = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
-			modifier = { factor = 0.15 has_country_flag = can_dangerous_world_exploration }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_dangerous_world_exploration
+			}
 			set_timed_country_flag = { flag = can_dangerous_world_exploration years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.138 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_floating_islands_study = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_floating_islands_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_floating_islands_study }
@@ -673,7 +1922,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.139 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_infernal_forest_study = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_infernal_forest_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_infernal_forest_study }
@@ -681,15 +1933,24 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.140 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_lava_fortress_exploration = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_lava_fortress_exploration = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
-			modifier = { factor = 0.15 has_country_flag = can_lava_fortress_exploration }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_lava_fortress_exploration
+			}
 			set_timed_country_flag = { flag = can_lava_fortress_exploration years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.141 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_magnetic_activity_study = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_magnetic_activity_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_magnetic_activity_study }
@@ -697,7 +1958,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.142 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_moon_palace_discovery = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_moon_palace_discovery = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_moon_palace_discovery }
@@ -705,7 +1969,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.143 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_precursor_city_discovery = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_precursor_city_discovery = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_precursor_city_discovery }
@@ -713,15 +1980,24 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.144 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_ancient_battlefield_study = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_ancient_battlefield_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
-			modifier = { factor = 0.15 has_country_flag = can_ancient_battlefield_study }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_ancient_battlefield_study
+			}
 			set_timed_country_flag = { flag = can_ancient_battlefield_study years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.145 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_titanic_alien_fossil = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_titanic_alien_fossil = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_titanic_alien_fossil }
@@ -729,16 +2005,21 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.146 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_wondrous_world_study = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_wondrous_world_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_wondrous_world_study }
 			set_timed_country_flag = { flag = can_wondrous_world_study years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.147 days = 20 random = 320 }
 		}
-
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_advanced_power_plant = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_advanced_power_plant = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_advanced_power_plant }
@@ -746,15 +2027,24 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.148 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_augmented_integrated_systems = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_augmented_integrated_systems = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
-			modifier = { factor = 0.15 has_country_flag = can_augmented_integrated_systems }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_augmented_integrated_systems
+			}
 			set_timed_country_flag = { flag = can_augmented_integrated_systems years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.149 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_energy_grid = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_energy_grid = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_energy_grid }
@@ -762,7 +2052,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.150 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_great_city_project = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_great_city_project = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_great_city_project }
@@ -770,7 +2063,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.151 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_mining_upgrate_project = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_mining_upgrate_project = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_mining_upgrate_project }
@@ -778,7 +2074,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.152 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_native_interaction = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_native_interaction = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_native_interaction }
@@ -786,7 +2085,13 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.153 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_university_devloppement has_modifier = has_university } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_university_devloppement
+					has_modifier = has_university
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = UNIVERSITY_DEVELOPPEMENT }
@@ -794,7 +2099,13 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.154 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_entrepot_devloppement has_modifier = entrepot_developpement } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_entrepot_devloppement
+					has_modifier = entrepot_developpement
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = ENTREPOT_DEVELOPPEMENT }
@@ -802,7 +2113,13 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.155 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_productivity_center has_modifier = apparatus_working } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_productivity_center
+					has_modifier = apparatus_working
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = PRODUCTIVITY_CENTER }
@@ -810,7 +2127,13 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.156 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_thrusters_modification has_modifier = ship_thrusters_modif } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_thrusters_modification
+					has_modifier = ship_thrusters_modif
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = THRUSTERS_MODIFICATION }
@@ -818,7 +2141,14 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.157 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_palace_project has_modifier = palace_throne_working is_egalitarian = yes } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_palace_project
+					has_modifier = palace_throne_working
+					is_egalitarian = yes
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = PALACE_PROJECT }
@@ -826,7 +2156,14 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.158 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_alien_union_contract has_modifier = alien_union_done is_xenophobe = yes } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_alien_union_contract
+					has_modifier = alien_union_done
+					is_xenophobe = yes
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = ALIEN_UNION_CONTRACT }
@@ -834,7 +2171,14 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.159 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 NOR = { has_country_flag = project_alien_hierarchy has_modifier = alien_segregation_done is_xenophile = yes } }
+			modifier = {
+				factor = 870
+				NOR = {
+					has_country_flag = project_alien_hierarchy
+					has_modifier = alien_segregation_done
+					is_xenophile = yes
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = ALIEN_HIERARCHY }
@@ -842,7 +2186,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.160 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_owned_planet = { can_rebel_battles = yes } }
+			modifier = {
+				factor = 870
+				any_owned_planet = { can_rebel_battles = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_rebel_battles }
@@ -850,7 +2197,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.161 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_sea_monster_hunt = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_sea_monster_hunt = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_sea_monster_hunt }
@@ -858,7 +2208,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.162 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_planet_within_border = { can_sea_monster_hunt = yes } }
+			modifier = {
+				factor = 870
+				any_planet_within_border = { can_sea_monster_hunt = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_sea_monster_hunt }
@@ -866,7 +2219,14 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.163 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_neighbor_system = { any_system_planet = { can_pierce_the_blocus = yes } } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_neighbor_system = {
+						any_system_planet = { can_pierce_the_blocus = yes }
+					}
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_pierce_the_blocus }
@@ -874,7 +2234,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.164 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 870 any_system_within_border = { any_system_megastructure = { can_gateway_investigation = yes } } }
+			modifier = {
+				factor = 870
+				any_system_within_border = {
+					any_system_megastructure = { can_gateway_investigation = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 40 }
 			modifier = { factor = 0.15 has_country_flag = can_gateway_investigation }
@@ -883,7 +2248,12 @@ special_project_selection = {
 		}
 		### Tier 3
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_large_carrier_assault = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_large_carrier_assault = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_large_carrier_assault }
@@ -891,7 +2261,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.201 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_rogue_laboratory = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_rogue_laboratory = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_rogue_laboratory }
@@ -899,7 +2272,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.202 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_black_hole_growing = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_black_hole_growing = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_black_hole_growing }
@@ -907,7 +2283,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.203 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_exploding_planet = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_exploding_planet = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_exploding_planet }
@@ -915,7 +2294,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.204 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_exploding_planet = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_exploding_planet = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_exploding_planet }
@@ -923,7 +2305,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.205 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_gaia_world_study = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_gaia_world_study = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_gaia_world_study }
@@ -931,7 +2316,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.206 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_terraforming_structures = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_terraforming_structures = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_terraforming_structures }
@@ -939,7 +2327,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.207 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_pulsar_clock_changed = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_pulsar_clock_changed = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_pulsar_clock_changed }
@@ -947,7 +2338,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.208 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_time_freeze_planet = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_time_freeze_planet = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_time_freeze_planet }
@@ -955,7 +2349,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.209 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_system_megastructure = { can_lgate_investigation = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_system_megastructure = { can_lgate_investigation = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_lgate_investigation }
@@ -971,7 +2370,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.211 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_alien_prototype_work = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_alien_prototype_work = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_alien_prototype_work }
@@ -979,7 +2381,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.212 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_improved_drydocks = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_improved_drydocks = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_improved_drydocks }
@@ -987,7 +2392,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.213 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_ring_world_improvement = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_ring_world_improvement = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_ring_world_improvement }
@@ -995,7 +2403,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.214 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_mineral_fast_growth = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_mineral_fast_growth = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_mineral_fast_growth }
@@ -1003,7 +2414,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.215 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_planetary_space_elevator = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_planetary_space_elevator = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_planetary_space_elevator }
@@ -1011,7 +2425,17 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.216 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 NOR = { has_country_flag = project_psionic_training has_modifier = psionics_training } OR = { has_ascension_perk = ap_mind_over_matter has_tradition = tr_psionics_finish } }
+			modifier = {
+				factor = 700
+				NOR = {
+					has_country_flag = project_psionic_training
+					has_modifier = psionics_training
+				}
+				OR = {
+					has_ascension_perk = ap_mind_over_matter
+					has_tradition = tr_psionics_finish
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = PSIONIC_TRAINING }
@@ -1019,7 +2443,18 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.217 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 NOR = { has_country_flag = project_sapient_ai_transcendence has_modifier = sapient_ai_transcendence } OR = { is_machine_empire = yes has_technology = tech_synthetic_workers has_ascension_perk = ap_synthetic_evolution } }
+			modifier = {
+				factor = 700
+				NOR = {
+					has_country_flag = project_sapient_ai_transcendence
+					has_modifier = sapient_ai_transcendence
+				}
+				OR = {
+					is_machine_empire = yes
+					has_technology = tech_synthetic_workers
+					has_ascension_perk = ap_synthetic_evolution
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = SAPIENT_AI_TRANSCENDENCE }
@@ -1027,7 +2462,14 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.218 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 NOR = { has_country_flag = project_sapient_xeno_alliance has_modifier = synth_xeno_relations is_spiritualist = yes } }
+			modifier = {
+				factor = 700
+				NOR = {
+					has_country_flag = project_sapient_xeno_alliance
+					has_modifier = synth_xeno_relations
+					is_spiritualist = yes
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = SAPIENT_XENO_ALLIANCE }
@@ -1035,7 +2477,13 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.219 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 NOR = { has_country_flag = project_unity_resistance has_modifier = unity_resistance_done } }
+			modifier = {
+				factor = 700
+				NOR = {
+					has_country_flag = project_unity_resistance
+					has_modifier = unity_resistance_done
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = UNITY_RESISTANCE }
@@ -1043,7 +2491,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.220 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_taskforce_overturn = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_taskforce_overturn = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_taskforce_overturn }
@@ -1051,7 +2502,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.221 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_horror_in_the_dark = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_horror_in_the_dark = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_horror_in_the_dark }
@@ -1059,7 +2513,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.222 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_robot_auto_factories = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_robot_auto_factories = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_robot_auto_factories }
@@ -1067,15 +2524,24 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.223 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_giant_machine_destruction = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_giant_machine_destruction = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
-			modifier = { factor = 0.15 has_country_flag = can_giant_machine_destruction }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_giant_machine_destruction
+			}
 			set_timed_country_flag = { flag = can_giant_machine_destruction years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.224 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_planet_within_border = { can_massive_war_ongoing = yes } }
+			modifier = {
+				factor = 700
+				any_planet_within_border = { can_massive_war_ongoing = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_massive_war_ongoing }
@@ -1083,7 +2549,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.225 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_owned_planet = { can_civil_war_raging = yes } }
+			modifier = {
+				factor = 700
+				any_owned_planet = { can_civil_war_raging = yes }
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_civil_war_raging }
@@ -1091,7 +2560,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.226 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_unknow_enemy_assault = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_unknow_enemy_assault = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_unknow_enemy_assault }
@@ -1099,15 +2573,28 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.227 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_system_controlled_station = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_system_controlled_station = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
-			modifier = { factor = 0.15 has_country_flag = can_system_controlled_station }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_system_controlled_station
+			}
 			set_timed_country_flag = { flag = can_system_controlled_station years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.228 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_space_monster_invasion = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_space_monster_invasion = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_space_monster_invasion }
@@ -1115,7 +2602,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.229 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_abandoned_titan = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_abandoned_titan = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_abandoned_titan }
@@ -1123,7 +2615,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.230 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_fe_techonology_cache = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_fe_techonology_cache = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_fe_techonology_cache }
@@ -1131,7 +2628,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.231 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_ai_core_study = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_ai_core_study = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_ai_core_study }
@@ -1139,7 +2641,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.232 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_ancient_tyanki_meeting = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_ancient_tyanki_meeting = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_ancient_tyanki_meeting }
@@ -1147,16 +2654,25 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.233 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_neighbor_system = { can_ancient_mining_station = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_neighbor_system = { can_ancient_mining_station = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_ancient_mining_station }
 			set_timed_country_flag = { flag = can_ancient_mining_station years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.234 days = 20 random = 320 }
 		}
-
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_system_megastructure = { can_dyson_sphere_output = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_system_megastructure = { can_dyson_sphere_output = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_dyson_sphere_output }
@@ -1164,7 +2680,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.235 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_system_megastructure = { can_science_nexus_congress = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_system_megastructure = { can_science_nexus_congress = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_science_nexus_congress }
@@ -1172,7 +2693,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.236 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 700 any_system_within_border = { any_system_megastructure = { can_spy_orb_observation = yes } } }
+			modifier = {
+				factor = 700
+				any_system_within_border = {
+					any_system_megastructure = { can_spy_orb_observation = yes }
+				}
+			}
 			modifier = { factor = 0.5 years_passed < 120 }
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.15 has_country_flag = can_spy_orb_observation }
@@ -1181,7 +2707,12 @@ special_project_selection = {
 		}
 		### Tier 4
 		1 = {
-			modifier = { factor = 500 any_system_within_border = { any_neighbor_system = { can_cybrex_core_study = yes } } }
+			modifier = {
+				factor = 500
+				any_system_within_border = {
+					any_neighbor_system = { can_cybrex_core_study = yes }
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_cybrex_core_study }
@@ -1189,7 +2720,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.301 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_system_within_border = { any_neighbor_system = { can_cybrex_core_study = yes } } }
+			modifier = {
+				factor = 500
+				any_system_within_border = {
+					any_neighbor_system = { can_cybrex_core_study = yes }
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_cybrex_core_study }
@@ -1197,7 +2733,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.301 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_planet_within_border = { can_shourding_planet = yes } }
+			modifier = {
+				factor = 500
+				any_planet_within_border = { can_shourding_planet = yes }
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_shourding_planet }
@@ -1205,15 +2744,28 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.302 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_system_within_border = { any_neighbor_system = { can_destroyed_auto_dreadnought = yes } } }
+			modifier = {
+				factor = 500
+				any_system_within_border = {
+					any_neighbor_system = { can_destroyed_auto_dreadnought = yes }
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
-			modifier = { factor = 0.15 has_country_flag = can_destroyed_auto_dreadnought }
+			modifier = {
+				factor = 0.15
+				has_country_flag = can_destroyed_auto_dreadnought
+			}
 			set_timed_country_flag = { flag = can_destroyed_auto_dreadnought years = 5 }
 			country_event = { id = SpecialProjectExtendedEvents.303 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_system_within_border = { any_neighbor_system = { can_lost_fe_titan = yes } } }
+			modifier = {
+				factor = 500
+				any_system_within_border = {
+					any_neighbor_system = { can_lost_fe_titan = yes }
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_lost_fe_titan }
@@ -1221,7 +2773,13 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.304 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 NOR = { has_country_flag = project_time_machine has_modifier = view_the_future } }
+			modifier = {
+				factor = 500
+				NOR = {
+					has_country_flag = project_time_machine
+					has_modifier = view_the_future
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = TIME_MACHINE }
@@ -1229,7 +2787,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.305 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 NOT = { has_country_flag = project_dark_intergalaxynet } }
+			modifier = {
+				factor = 500
+				NOT = { has_country_flag = project_dark_intergalaxynet }
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = DARK_INTERGALAXYNET }
@@ -1237,7 +2798,10 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.306 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_planet_within_border = { can_ground_living_desaster = yes } }
+			modifier = {
+				factor = 500
+				any_planet_within_border = { can_ground_living_desaster = yes }
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_ground_living_desaster }
@@ -1245,7 +2809,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.307 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_system_within_border = { any_neighbor_system = { can_fe_remnants_assault = yes } } }
+			modifier = {
+				factor = 500
+				any_system_within_border = {
+					any_neighbor_system = { can_fe_remnants_assault = yes }
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_fe_remnants_assault }
@@ -1253,7 +2822,12 @@ special_project_selection = {
 			country_event = { id = SpecialProjectExtendedEvents.308 days = 20 random = 320 }
 		}
 		1 = {
-			modifier = { factor = 500 any_system_within_border = { any_neighbor_system = { can_space_guardian_spotted = yes } } }
+			modifier = {
+				factor = 500
+				any_system_within_border = {
+					any_neighbor_system = { can_space_guardian_spotted = yes }
+				}
+			}
 			modifier = { factor = 0.01 years_passed < 80 }
 			modifier = { factor = 0.01 years_passed < 120 }
 			modifier = { factor = 0.15 has_country_flag = can_space_guardian_spotted }

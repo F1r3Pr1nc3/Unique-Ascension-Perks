@@ -1,4 +1,6 @@
+
 namespace = UniqueAscensionPerksEvents
+
 ######################################
 #									 #
 ########### Space Engineers ###########
@@ -13,9 +15,22 @@ country_event = {
 	picture = GFX_evt_space_engineers
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT add_monthly_resource_mult = { resource = engineering_research value = 22 min = 5000 max = 15000 } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+		add_monthly_resource_mult = {
+			resource = engineering_research
+			value = 22
+			min = 5000
+			max = 15000
+		}
+	}
 }
+
 # on_ship_order
 ship_event = {
 	id = UniqueAscensionPerksEvents.2
@@ -25,22 +40,31 @@ ship_event = {
 	show_sound = event_ship_bridge
 	location = root
 	is_triggered_only = yes
+
 	trigger = {
 		is_ship_size = constructor
 		exists = solar_system
 		exists = owner
 		owner = {
-			OR = {
-				is_ai = no
-				event_target:global_event_country = { check_variable = { which = ap_space_engineers value > 0 } }
+			NAND = {
+				is_ai = yes
+				event_target:global_event_country = {
+					check_variable = { which = ap_space_engineers value <= 0 }
+				}
 			}
 			has_edict = enable_spacen_engineers_project
 			NOT = { has_active_event = { UniqueAscensionPerksEvents.2 } }
 		}
 	}
+
 	immediate = {
 		if = {
-			limit = { NAND = { exists = event_target:ship_special_project is_same_value = event_target:ship_special_project } }
+			limit = {
+				NAND = {
+					exists = event_target:ship_special_project
+					is_same_value = event_target:ship_special_project
+				}
+			}
 			save_event_target_as = ship_special_project
 		}
 		owner = { save_event_target_as = project_owner }
@@ -48,16 +72,33 @@ ship_event = {
 			limit = { exists = orbit }
 			orbit = { save_event_target_as = project_location }
 		}
-		else = { save_event_target_as = project_location }
+		else = {
+			save_event_target_as = project_location
+		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.2.a"
-		allow = { owner = { has_country_resource = { type = alloys amount > 6000 } } }
-		owner = { add_resource = { alloys = -3000 } }
-		hidden_effect = { set_ship_flag = ship_has_space_engineer_project }
-		enable_special_project = { name = SPACE_ENGINEERS_PROJECT location = event_target:project_location owner = event_target:project_owner }
+		allow = {
+			owner = {
+				has_country_resource = { type = alloys amount > 6000 }
+			}
+		}
+		owner = {
+			add_resource = { alloys = -3000 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_space_engineer_project
+		}
+		enable_special_project = {
+			name = SPACE_ENGINEERS_PROJECT
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
-	option = { name = ABORT }
+	option = {
+		name = ABORT
+	}
 }
 
 ship_event = {
@@ -67,24 +108,42 @@ ship_event = {
 	# trigger = {}
 	immediate = {
 		if = {
-			limit = { NAND = { exists = event_target:ship_special_project is_same_value = event_target:ship_special_project } }
+			limit = {
+				NAND = {
+					exists = event_target:ship_special_project
+					is_same_value = event_target:ship_special_project
+				}
+			}
 			save_event_target_as = ship_special_project
 		}
 		remove_ship_flag = ship_has_space_engineer_project
-		owner = { country_event = { id = UniqueAscensionPerksEvents.4 } }
+		owner = {
+			country_event = { id = UniqueAscensionPerksEvents.4 }
+		}
 		create_fleet = {
 			name = "Space Engineer Citadel"
-			settings = { spawn_debris = no uses_naval_capacity = no }
 			effect = {
 				set_owner = root.owner
 				create_ship = { name = random design = "Space Engineer Citadel" }
-				set_location = { target = event_target:ship_special_project distance = 5 angle = random }
+				set_location = {
+					target = event_target:ship_special_project
+					distance = 5
+					angle = random
+				}
 				set_fleet_flag = space_engineer_starbase
 				add_modifier = { modifier = eternal_vigilance_fleet }
 			}
+			settings = {
+				spawn_debris = no
+				uses_naval_capacity = no
+			}
 		}
 	}
-	after = { set_disabled = no fleet = { set_event_locked = no } }
+
+	after = {
+		set_disabled = no
+		fleet = { set_event_locked = no }
+	}
 }
 
 country_event = {
@@ -95,8 +154,13 @@ country_event = {
 	show_sound = event_construction
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = {}
-	option = { name = EXCELLENT }
+
+	immediate = {
+	}
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -107,6 +171,7 @@ country_event = {
 	show_sound = event_structural_collapse
 	is_triggered_only = yes
 	location = event_target:ship_special_project
+
 	immediate = {
 		if = {
 			limit = {
@@ -118,10 +183,14 @@ country_event = {
 		}
 		event_target:ship_special_project = {
 			remove_ship_flag = ship_has_space_engineer_project
-			set_disabled = no fleet = { set_event_locked = no }
+			set_disabled = no
+			fleet = { set_event_locked = no }
 		}
 	}
-	option = { name = OK }
+
+	option = {
+		name = OK
+	}
 }
 
 ######################################
@@ -138,9 +207,17 @@ country_event = {
 	picture = GFX_evt_planetary_program_2
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT add_research_option = tech_stellar_manipulation_1 }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+		add_research_option = tech_stellar_manipulation_1
+	}
 }
+
 # on_ship_order
 ship_event = {
 	id = UniqueAscensionPerksEvents.11
@@ -150,6 +227,7 @@ ship_event = {
 	show_sound = event_ship_bridge
 	location = root
 	is_triggered_only = yes
+
 	trigger = {
 		is_ship_size = constructor
 		exists = owner
@@ -161,17 +239,24 @@ ship_event = {
 			has_edict = enable_planetary_project
 			NOT = { has_active_event = { UniqueAscensionPerksEvents.11 } }
 		}
-		NOR = { has_ship_flag = ship_has_planetary_program has_ship_flag = ship_has_space_engineer_project }
+		NOR = {
+			has_ship_flag = ship_has_planetary_program
+			has_ship_flag = ship_has_space_engineer_project
+		}
 		exists = solar_system
 	}
+
 	immediate = {
 		owner = { save_event_target_as = project_owner }
 		if = {
 			limit = { exists = orbit }
 			orbit = { save_event_target_as = project_location }
 		}
-		else = { save_event_target_as = project_location }
+		else = {
+			save_event_target_as = project_location
+		}
 	}
+
 	after = {
 		hidden_effect = {
 			if = {
@@ -184,24 +269,37 @@ ship_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "PLANETARY_PROJECT_1"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		trigger = {
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
 		allow = {
 			owner = {
 				has_technology = tech_stellar_manipulation_1
 				has_country_resource = { type = energy amount > 2000 }
 			}
 		}
-		owner = { add_resource = { energy = -2000 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_1 }
-		enable_special_project = { name = PLANETARY_PROJECT_1 location = event_target:project_location owner = event_target:project_owner }
+		owner = {
+			add_resource = { energy = -2000 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_1
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_1
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_2"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		trigger = {
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
 		allow = {
 			owner = {
 				has_technology = tech_stellar_manipulation_2
@@ -209,14 +307,27 @@ ship_event = {
 				has_country_resource = { type = minerals amount > 5000 }
 			}
 		}
-		owner = { add_resource = { energy = -5000 minerals = -5000 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_2 }
-		enable_special_project = { name = PLANETARY_PROJECT_2 location = event_target:project_location owner = event_target:project_owner }
+		owner = {
+			add_resource = {
+				energy = -5000
+				minerals = -5000
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_2
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_2
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_3"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		trigger = {
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
 		allow = {
 			owner = {
 				has_technology = tech_stellar_manipulation_3
@@ -225,14 +336,28 @@ ship_event = {
 				has_country_resource = { type = alloys amount > 2500 }
 			}
 		}
-		owner = { add_resource = { energy = -15000 minerals = -7500 alloys = -2500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_3 }
-		enable_special_project = { name = PLANETARY_PROJECT_3 location = event_target:project_location owner = event_target:project_owner }
+		owner = {
+			add_resource = {
+				energy = -15000
+				minerals = -7500
+				alloys = -2500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_3
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_3
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_0"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { NOT = { has_global_flag = ap_stellar_manipulation } }
+		trigger = {
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
 		allow = {
 			owner = {
 				has_technology = tech_habitat_1
@@ -240,28 +365,40 @@ ship_event = {
 				has_country_resource = { type = alloys amount > 3000 }
 			}
 		}
-		owner = { add_resource = { energy = -5000 alloys = -3000 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_0 }
-		enable_special_project = { name = PLANETARY_PROJECT_0 location = event_target:project_location owner = event_target:project_owner }
+		owner = {
+			add_resource = {
+				energy = -5000
+				alloys = -3000
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_0
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_0
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
+
 	# Gigastructural Engineering & More
 	inline_script = {
 		script = merger_of_rules/toggled_code
 		code = "
-	option = {
-		name = PLANETARY_PROJECT_0a
-		custom_tooltip = PLANETARY_PROJECT_WARNING
-		trigger = { has_global_flag = gigastructures_enabled NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = {
-			owner = {
-				has_technology = tech_orbital_elysium
-				has_country_resource = { type = alloys amount > 3000 }
+		option = {
+			name = PLANETARY_PROJECT_0a
+			custom_tooltip = PLANETARY_PROJECT_WARNING
+			trigger = { has_global_flag = gigastructures_enabled NOT = { has_global_flag = ap_stellar_manipulation } }
+			allow = {
+				owner = {
+					has_technology = tech_orbital_elysium
+					has_country_resource = { type = alloys amount > 3000 }
+				}
 			}
+			owner = { add_resource = { alloys = -3000 } }
+			hidden_effect = { set_ship_flag = ship_has_planetary_program_0a }
+			enable_special_project = { name = PLANETARY_PROJECT_0a location = event_target:project_location owner = event_target:project_owner }
 		}
-		owner = { add_resource = { alloys = -3000 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_0a }
-		enable_special_project = { name = PLANETARY_PROJECT_0a location = event_target:project_location owner = event_target:project_owner }
-	}
 		"
 		toggle = @has_gigastructures
 	}
@@ -269,159 +406,432 @@ ship_event = {
 	option = {
 		name = "PLANETARY_PROJECT_100a"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = { owner = { has_technology = tech_master_of_planet has_country_resource = { type = minerals amount > 10000 } has_country_resource = { type = alloys amount > 1500 } } }
-		owner = { add_resource = { minerals = -10000 alloys = -1500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100a }
-		enable_special_project = { name = PLANETARY_PROJECT_100a location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = Masteroftheplanet_active
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
+		allow = {
+			owner = {
+				has_technology = tech_master_of_planet
+				has_country_resource = { type = minerals amount > 10000 }
+				has_country_resource = { type = alloys amount > 1500 }
+			}
+		}
+		owner = {
+			add_resource = {
+				minerals = -10000
+				alloys = -1500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100a
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100a
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_100b"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = { owner = { has_technology = tech_master_of_planet has_country_resource = { type = food amount > 10000 } has_country_resource = { type = alloys amount > 1500 } } }
-		owner = { add_resource = { energy = -10000 alloys = -1500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100b }
-		enable_special_project = { name = PLANETARY_PROJECT_100b location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = Masteroftheplanet_active
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
+		allow = {
+			owner = {
+				has_technology = tech_master_of_planet
+				has_country_resource = { type = food amount > 10000 }
+				has_country_resource = { type = alloys amount > 1500 }
+			}
+		}
+		owner = {
+			add_resource = {
+				energy = -10000
+				alloys = -1500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100b
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100b
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_100c"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = { owner = { has_technology = tech_master_of_planet has_country_resource = { type = food amount > 10000 } has_country_resource = { type = alloys amount > 1500 } } }
-		owner = { add_resource = { food = -10000 alloys = -1500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100c }
-		enable_special_project = { name = PLANETARY_PROJECT_100c location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = Masteroftheplanet_active
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
+		allow = {
+			owner = {
+				has_technology = tech_master_of_planet
+				has_country_resource = { type = food amount > 10000 }
+				has_country_resource = { type = alloys amount > 1500 }
+			}
+		}
+		owner = {
+			add_resource = {
+				food = -10000
+				alloys = -1500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100c
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100c
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_100d"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = { owner = { has_technology = tech_master_of_planet has_country_resource = { type = food amount > 10000 } has_country_resource = { type = alloys amount > 1500 } } }
-		owner = { add_resource = { food = -10000 alloys = -1500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100d }
-		enable_special_project = { name = PLANETARY_PROJECT_100d location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = Masteroftheplanet_active
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
+		allow = {
+			owner = {
+				has_technology = tech_master_of_planet
+				has_country_resource = { type = food amount > 10000 }
+				has_country_resource = { type = alloys amount > 1500 }
+			}
+		}
+		owner = {
+			add_resource = {
+				food = -10000
+				alloys = -1500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100d
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100d
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_100e"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = { owner = { has_technology = tech_master_of_planet has_country_resource = { type = energy amount > 10000 } has_country_resource = { type = alloys amount > 1500 } } }
-		owner = { add_resource = { energy = -10000 alloys = -1500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100e }
-		enable_special_project = { name = PLANETARY_PROJECT_100e location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = Masteroftheplanet_active
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
+		allow = {
+			owner = {
+				has_technology = tech_master_of_planet
+				has_country_resource = { type = energy amount > 10000 }
+				has_country_resource = { type = alloys amount > 1500 }
+			}
+		}
+		owner = {
+			add_resource = {
+				energy = -10000
+				alloys = -1500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100e
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100e
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = "PLANETARY_PROJECT_100f"
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = Masteroftheplanet_active NOT = { has_global_flag = ap_stellar_manipulation } }
-		allow = { owner = { has_technology = tech_master_of_planet has_country_resource = { type = energy amount > 10000 } has_country_resource = { type = alloys amount > 1500 } } }
-		owner = { add_resource = { energy = -10000 alloys = -1500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100f }
-		enable_special_project = { name = PLANETARY_PROJECT_100f location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = Masteroftheplanet_active
+			NOT = { has_global_flag = ap_stellar_manipulation }
+		}
+		allow = {
+			owner = {
+				has_technology = tech_master_of_planet
+				has_country_resource = { type = energy amount > 10000 }
+				has_country_resource = { type = alloys amount > 1500 }
+			}
+		}
+		owner = {
+			add_resource = {
+				energy = -10000
+				alloys = -1500
+			}
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100f
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100f
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.11
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
 		trigger = { has_global_flag = ap_stellar_manipulation }
-		allow = { owner = { has_country_resource = { type = energy amount > 200 } } }
-		owner = { add_resource = { energy = -200 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_1 }
-		enable_special_project = { name = "PLANETARY_PROJECT_1" location = event_target:project_location owner = event_target:project_owner }
+		allow = {
+			owner = {
+				has_country_resource = { type = energy amount > 200 }
+			}
+		}
+		owner = {
+			add_resource = { energy = -200 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_1
+		}
+		enable_special_project = {
+			name = "PLANETARY_PROJECT_1"
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.12
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
 		trigger = { has_global_flag = ap_stellar_manipulation }
-		allow = { owner = { has_country_resource = { type = energy amount > 1000 } } }
-		owner = { add_resource = { energy = -1000 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_2 }
-		enable_special_project = { name = "PLANETARY_PROJECT_2" location = event_target:project_location owner = event_target:project_owner }
+		allow = {
+			owner = {
+				has_country_resource = { type = energy amount > 1000 }
+			}
+		}
+		owner = {
+			add_resource = { energy = -1000 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_2
+		}
+		enable_special_project = {
+			name = "PLANETARY_PROJECT_2"
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.13
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
 		trigger = { has_global_flag = ap_stellar_manipulation }
-		allow = { owner = { has_country_resource = { type = energy amount > 2500 } } }
-		owner = { add_resource = { energy = -2500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_3 }
-		enable_special_project = { name = "PLANETARY_PROJECT_3" location = event_target:project_location owner = event_target:project_owner }
+		allow = {
+			owner = {
+				has_country_resource = { type = energy amount > 2500 }
+			}
+		}
+		owner = {
+			add_resource = { energy = -2500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_3
+		}
+		enable_special_project = {
+			name = "PLANETARY_PROJECT_3"
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.10
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
 		trigger = { has_global_flag = ap_stellar_manipulation }
-		allow = { owner = { has_country_resource = { type = alloys amount > 500 } } }
-		owner = { add_resource = { alloys = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_0 }
-		enable_special_project = { name = PLANETARY_PROJECT_0 location = event_target:project_location owner = event_target:project_owner }
+		allow = {
+			owner = {
+				has_country_resource = { type = alloys amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { alloys = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_0
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_0
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.10a
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = gigastructures_enabled }
-		allow = { owner = { has_country_resource = { type = alloys amount > 500 } } }
-		owner = { add_resource = { alloys = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_0a }
-		enable_special_project = { name = PLANETARY_PROJECT_0a location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = gigastructures_enabled
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = alloys amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { alloys = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_0a
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_0a
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.a
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
-		allow = { owner = { has_country_resource = { type = minerals amount > 500 } } }
-		owner = { add_resource = { minerals = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100a }
-		enable_special_project = { name = PLANETARY_PROJECT_100a location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = Masteroftheplanet_active
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = minerals amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { minerals = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100a
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100a
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.b
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
-		allow = { owner = { has_country_resource = { type = energy amount > 500 } } }
-		owner = { add_resource = { energy = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100b }
-		enable_special_project = { name = PLANETARY_PROJECT_100b location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = Masteroftheplanet_active
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = energy amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { energy = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100b
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100b
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.c
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
-		allow = { owner = { has_country_resource = { type = food amount > 500 } } }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = Masteroftheplanet_active
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = food amount > 500 }
+			}
+		}
 		owner = { add_resource = { food = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100c }
-		enable_special_project = { name = PLANETARY_PROJECT_100c location = event_target:project_location owner = event_target:project_owner }
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100c
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100c
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.d
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
-		allow = { owner = { has_country_resource = { type = minerals amount > 500 } } }
-		owner = { add_resource = { minerals = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100d }
-		enable_special_project = { name = PLANETARY_PROJECT_100d location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = Masteroftheplanet_active
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = minerals amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { minerals = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100d
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100d
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.e
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
-		allow = { owner = { has_country_resource = { type = minerals amount > 500 } } }
-		owner = { add_resource = { minerals = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100e }
-		enable_special_project = { name = PLANETARY_PROJECT_100e location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = Masteroftheplanet_active
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = minerals amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { minerals = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100e
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100e
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.100.f
 		custom_tooltip = "PLANETARY_PROJECT_WARNING"
-		trigger = { has_global_flag = ap_stellar_manipulation has_global_flag = Masteroftheplanet_active }
-		allow = { owner = { has_country_resource = { type = minerals amount > 500 } } }
-		owner = { add_resource = { minerals = -500 } }
-		hidden_effect = { set_ship_flag = ship_has_planetary_program_100f }
-		enable_special_project = { name = PLANETARY_PROJECT_100f location = event_target:project_location owner = event_target:project_owner }
+		trigger = {
+			has_global_flag = ap_stellar_manipulation
+			has_global_flag = Masteroftheplanet_active
+		}
+		allow = {
+			owner = {
+				has_country_resource = { type = minerals amount > 500 }
+			}
+		}
+		owner = {
+			add_resource = { minerals = -500 }
+		}
+		hidden_effect = {
+			set_ship_flag = ship_has_planetary_program_100f
+		}
+		enable_special_project = {
+			name = PLANETARY_PROJECT_100f
+			location = event_target:project_location
+			owner = event_target:project_owner
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.11.Program.Z
-		hidden_effect = { set_timed_ship_flag = { flag = planetary_program_cancel days = 7 } }
+		hidden_effect = {
+			set_timed_ship_flag = { flag = planetary_program_cancel days = 7 }
+		}
 		default_hide_option = yes
 	}
 }
@@ -430,14 +840,21 @@ ship_event = {
 	id = UniqueAscensionPerksEvents.12
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		# exists = event_target:ship_special_project
 		has_ship_flag = ship_has_planetary_program
 		exists = solar_system
 	}
+
 	immediate = {
 		if = {
-			limit = { NAND = { exists = event_target:ship_special_project is_same_value = event_target:ship_special_project } }
+			limit = {
+				NAND = {
+					exists = event_target:ship_special_project
+					is_same_value = event_target:ship_special_project
+				}
+			}
 			save_event_target_as = ship_special_project
 		}
 		# finish_plantery_program = yes
@@ -461,7 +878,7 @@ ship_event = {
 							inline_script = {
 								script = merger_of_rules/toggled_code
 								code = "
-							spawn_planet = { class = rl_CM_PD_planet_spawner location = prev has_ring = no size = 13 init_effect = { save_event_target_as = new_planet } }
+								spawn_planet = { class = rl_CM_PD_planet_spawner location = prev has_ring = no size = 13 init_effect = { save_event_target_as = new_planet } }
 								"
 								toggle = @has_planetary_diversity
 							}
@@ -469,7 +886,7 @@ ship_event = {
 							inline_script = {
 								script = merger_of_rules/toggled_code_inverse
 								code = "
-							spawn_planet = { class = rl_CM_planet_spawner location = prev has_ring = no size = 13 init_effect = { save_event_target_as = new_planet } }
+								spawn_planet = { class = rl_CM_planet_spawner location = prev has_ring = no size = 13 init_effect = { save_event_target_as = new_planet } }
 								"
 								toggle = @has_planetary_diversity
 							}
@@ -542,9 +959,15 @@ ship_event = {
 		}
 		# clear_planteary_program_ship_flags = yes
 		remove_ship_flag = ship_has_planetary_program
-		owner = { country_event = { id = UniqueAscensionPerksEvents.18 days = 7 random = 5 } }
+		owner = {
+			country_event = { id = UniqueAscensionPerksEvents.18 days = 7 random = 5 }
+		}
 	}
-	after = { set_disabled = no fleet = { set_event_locked = no } }
+
+	after = {
+		set_disabled = no
+		fleet = { set_event_locked = no }
+	}
 }
 
 country_event = {
@@ -555,8 +978,14 @@ country_event = {
 	show_sound = event_ship_bridge
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = { change_variable = { which = "random_asteroid_name" value = 1 } }
-	option = { name = EXCELLENT }
+
+	immediate = {
+		change_variable = { which = "random_asteroid_name" value = 1 }
+	}
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 planet_event = {
@@ -567,16 +996,20 @@ planet_event = {
 	show_sound = event_ship_bridge
 	is_triggered_only = yes
 	location = event_target:ship_special_project
+
 	immediate = {
 		random_list = {
-			76	= {}
-			8	= { add_deposit = d_dark_matter_deposit_2 }
-			8	= { add_deposit = d_zro_deposit_2 }
-			8	= { add_deposit = d_living_metal_deposit }
+			76 = {  }
+			8 = { add_deposit = d_dark_matter_deposit_2 }
+			8 = { add_deposit = d_zro_deposit_2 }
+			8 = { add_deposit = d_living_metal_deposit }
 		}
 		remove_planet_flag = new_planet_unnamed
 	}
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -587,8 +1020,13 @@ country_event = {
 	show_sound = event_ship_bridge
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = {}
-	option = { name = EXCELLENT }
+
+	immediate = {
+	}
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -599,11 +1037,17 @@ country_event = {
 	show_sound = event_structural_collapse
 	is_triggered_only = yes
 	location = event_target:ship_special_project
+
 	immediate = {
 		if = {
-			limit = { NOT = { exists = event_target:ship_special_project } }
+			limit = {
+				NOT = { exists = event_target:ship_special_project }
+			}
 			if = {
-				limit = { exists = fromfrom fromfrom = { is_scope_type = ship } }
+				limit = {
+					exists = fromfrom
+					fromfrom = { is_scope_type = ship }
+				}
 				fromfrom = { save_event_target_as = ship_special_project }
 			}
 		}
@@ -613,12 +1057,34 @@ country_event = {
 			event_target:ship_special_project = {
 				if = {
 					limit = { has_ship_flag = ship_has_planetary_program_2 }
-					solar_system = { spawn_planet = { class = pc_shattered location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
+					solar_system = {
+						spawn_planet = {
+							class = pc_shattered
+							location = prev
+							has_ring = no
+							init_effect = {
+								set_name = "Random World"
+								set_planet_flag = new_planet
+								set_planet_flag = new_planet_unnamed
+							}
+						}
+					}
 					remove_ship_flag = ship_has_planetary_program_2
 				}
 				else_if = {
 					limit = { has_ship_flag = ship_has_planetary_program_3 }
-					solar_system = { spawn_planet = { class = pc_nuked location = prev has_ring = no init_effect = { set_name = "Random World" set_planet_flag = new_planet set_planet_flag = new_planet_unnamed } } }
+					solar_system = {
+						spawn_planet = {
+							class = pc_nuked
+							location = prev
+							has_ring = no
+							init_effect = {
+								set_name = "Random World"
+								set_planet_flag = new_planet
+								set_planet_flag = new_planet_unnamed
+							}
+						}
+					}
 					remove_ship_flag = ship_has_planetary_program_3
 				}
 				# clear_planteary_program_ship_flags
@@ -632,14 +1098,19 @@ country_event = {
 				remove_ship_flag = ship_has_planetary_program_100d
 				remove_ship_flag = ship_has_planetary_program_100e
 				remove_ship_flag = ship_has_planetary_program_100f
-				set_disabled = no fleet = { set_event_locked = no }
+				set_disabled = no
+				fleet = { set_event_locked = no }
 			}
 		}
 	}
+
 	after = {
 		country_event = { id = UniqueAscensionPerksEvents.18 days = 7 random = 5 }
 	}
-	option = { name = OK }
+
+	option = {
+		name = OK
+	}
 }
 
 # Naming New Asteroid
@@ -663,27 +1134,29 @@ planet_event = {
 		# }
 		# TODO: cloning is just awful
 		random_galaxy_planet = {
-			limit = { is_asteroid = yes NOT = { has_planet_flag = new_asteroid } }
+			limit = {
+				is_asteroid = yes
+				NOT = { has_planet_flag = new_asteroid }
+			}
 			save_event_target_as = current_planet_name
 		}
-
 		# event_target:planet_to_rename = {
 		remove_planet_flag = new_asteroid_unnamed
 		clear_deposits = yes
 		# Created asteroids have 65% +20 minerals, 20% +10 energy and to have 15% +3 advanced resource (mole, gas or crystall, each around 33%);
 		random_list = {
-			5	= { add_deposit = d_minerals_6 }
-			10	= { add_deposit = d_minerals_8 }
-			15	= { add_deposit = d_minerals_10 }
-			10	= { add_deposit = d_minerals_4 add_deposit = d_alloys_2 }
-			10	= { add_deposit = d_minerals_1 add_deposit = d_alloys_3 }
-			5	= { add_deposit = d_alloys_4 }
-			10	= { add_deposit = d_energy_10 }
-			10	= { add_deposit = d_minerals_3 add_deposit = d_energy_3 }
-			10	= { add_deposit = d_minerals_2 add_deposit = d_energy_5 }
-			5	= { add_deposit = d_volatile_motes_3 }
-			5	= { add_deposit = d_rare_crystals_3 }
-			5	= { add_deposit = d_exotic_gases_3 }
+			5 = { add_deposit = d_minerals_6 }
+			10 = { add_deposit = d_minerals_8 }
+			15 = { add_deposit = d_minerals_10 }
+			10 = { add_deposit = d_minerals_4 add_deposit = d_alloys_2 }
+			10 = { add_deposit = d_minerals_1 add_deposit = d_alloys_3 }
+			5 = { add_deposit = d_alloys_4 }
+			10 = { add_deposit = d_energy_10 }
+			10 = { add_deposit = d_minerals_3 add_deposit = d_energy_3 }
+			10 = { add_deposit = d_minerals_2 add_deposit = d_energy_5 }
+			5 = { add_deposit = d_volatile_motes_3 }
+			5 = { add_deposit = d_rare_crystals_3 }
+			5 = { add_deposit = d_exotic_gases_3 }
 		}
 		set_name = {
 			key = "ASTEROID_RANDOM_NAME"
@@ -698,7 +1171,11 @@ country_event = {
 	id = UniqueAscensionPerksEvents.18
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { any_galaxy_planet = { has_planet_flag = new_planet_unnamed } }
+
+	trigger = {
+		any_galaxy_planet = { has_planet_flag = new_planet_unnamed }
+	}
+
 	# mean_time_to_happen = { days = 10 }
 	immediate = {
 		change_variable = { which = "random_planet_name" value = 1 }
@@ -721,16 +1198,25 @@ planet_event = {
 	# trigger = { any_galaxy_planet = { has_planet_flag = new_habitat_unnamed } }
 	# mean_time_to_happen = { days = 10 }
 	is_triggered_only = yes
+
 	immediate = {
 		if = {
-			limit = { NAND = { exists = from from = { is_scope_type = country } } }
-			log="No country from planet spawn!"
+			limit = {
+				NAND = {
+					exists = from
+					from = { is_scope_type = country }
+				}
+			}
+			log = "No country from planet spawn!"
 		}
 		# from = { change_variable = { which = "random_habitat_name" value = 1 } } not sure from is country
 		# random_galaxy_planet = { limit = { has_planet_flag = new_habitat_unnamed }
 		remove_planet_flag = new_habitat_unnamed
 		add_modifier = { modifier = pm_stellar_manipulation_habitat } # +20% resource output and -10% pop job upkeep, +4 max districts and +4 building slots.
-		set_name = { key = "HABITAT_RANDOM_NAME" variable_string = "[Root.random_habitat_name]" }
+		set_name = {
+			key = "HABITAT_RANDOM_NAME"
+			variable_string = "[Root.random_habitat_name]"
+		}
 	}
 }
 
@@ -742,8 +1228,14 @@ country_event = {
 	show_sound = event_mystic_reveal
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = { change_variable = { which = "random_habitat_name" value = 1 } }
-	option = { name = EXCELLENT }
+
+	immediate = {
+		change_variable = { which = "random_habitat_name" value = 1 }
+	}
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -754,8 +1246,14 @@ country_event = {
 	show_sound = event_mystic_reveal
 	is_triggered_only = yes
 	location = event_target:ship_special_project
-	immediate = { change_variable = { which = "random_elysium_name" value = 1 } }
-	option = { name = EXCELLENT }
+
+	immediate = {
+		change_variable = { which = "random_elysium_name" value = 1 }
+	}
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 planet_event = {
@@ -766,15 +1264,23 @@ planet_event = {
 	# mean_time_to_happen = { days = 10 }
 	immediate = {
 		if = {
-			limit = { NAND = { exists = from from = { is_scope_type = country } } }
-			log="planet spawn from is not country"
+			limit = {
+				NAND = {
+					exists = from
+					from = { is_scope_type = country }
+				}
+			}
+			log = "planet spawn from is not country"
 		}
 		# from = { change_variable = { which = "random_elysium_name" value = 1 } } not sure from is country
 		# random_galaxy_planet = {
 		# 	limit = { has_planet_flag = new_elysium_unnamed }
 		remove_planet_flag = new_elysium_unnamed
 		# set_name = "ELYSIUM_RANDOM_NAME"
-		set_name = { key = "ELYSIUM_RANDOM_NAME" variable_string = "[Root.random_elysium_name]" }
+		set_name = {
+			key = "ELYSIUM_RANDOM_NAME"
+			variable_string = "[Root.random_elysium_name]"
+		}
 	}
 }
 
@@ -787,7 +1293,10 @@ planet_event = {
 	picture = GFX_evt_planetary_program_2
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 # Missing pictures are from Masteroftheplanet
@@ -799,7 +1308,10 @@ system_event = {
 	picture = GFX_evt_mining_planet
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 system_event = {
@@ -810,7 +1322,10 @@ system_event = {
 	picture = GFX_evt_energy_planet
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 system_event = {
@@ -821,7 +1336,10 @@ system_event = {
 	picture = GFX_evt_farming_planet
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 system_event = {
@@ -832,7 +1350,10 @@ system_event = {
 	picture = GFX_evt_eco_planet
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 system_event = {
@@ -843,7 +1364,10 @@ system_event = {
 	picture = GFX_evt_training_planet
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 system_event = {
@@ -854,5 +1378,8 @@ system_event = {
 	picture = GFX_evt_trade_planet
 	location = root
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }

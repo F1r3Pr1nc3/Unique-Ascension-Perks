@@ -1,14 +1,17 @@
+
 namespace = syndaw
+
 ########## Leadership Upload #########
 # Leader backed up
 # This = owner of fleet 1 (destroyed)
 # From = owner of fleet 2 (combatant)
-# FromFrom = fleet 1
-# FromFromFrom = fleet 2
+# fromfrom = fleet 1
+# fromfromfrom = fleet 2
 country_event = {
 	id = syndaw.30
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		is_robot_empire = yes
 		has_ascension_perk = ap_leadership_transfer
@@ -18,10 +21,15 @@ country_event = {
 			leader = { has_trait = leader_trait_restore_point }
 		}
 	}
+
 	immediate = {
-		random = { chance = 70
+		random = {
+			chance = 70
 			fromfrom = {
-				leader = { exile_leader_as = restore_point_leader save_event_target_as = restore_point_leader }
+				leader = {
+					exile_leader_as = restore_point_leader
+					save_event_target_as = restore_point_leader
+				}
 			}
 			country_event = { id = syndaw.31 days = 30 }
 		}
@@ -36,6 +44,7 @@ country_event = {
 	show_sound = event_ship_bridge
 	location = event_target:restored_leader.fleet
 	is_triggered_only = yes
+
 	immediate = {
 		return_leader_from_exile = restore_point_leader
 		if = {
@@ -47,7 +56,10 @@ country_event = {
 						root = {
 							any_owned_fleet = {
 								is_ship_class = shipclass_science_ship
-								NOR = { exists = leader is_in_combat = yes }
+								NOR = {
+									exists = leader
+									is_in_combat = yes
+								}
 							}
 						}
 					}
@@ -55,7 +67,10 @@ country_event = {
 						random_owned_fleet = {
 							limit = {
 								is_ship_class = shipclass_science_ship
-								NOR = { exists = leader is_in_combat = yes }
+								NOR = {
+									exists = leader
+									is_in_combat = yes
+								}
 							}
 							set_leader = prevprev # restore_point_leader
 							leader = { save_event_target_as = restored_leader }
@@ -139,6 +154,7 @@ country_event = {
 			}
 		}
 	}
+
 	after = {
 		hidden_effect = {
 			if = {
@@ -146,11 +162,12 @@ country_event = {
 					exists = event_target:restored_leader
 					NOT = { exists = event_target:restored_leader.fleet }
 				}
-				event_target:restored_leader = {
-					recruitable = yes
-				}
+				event_target:restored_leader = { recruitable = yes }
 			}
 		}
 	}
-	option = { name = OK }
+
+	option = {
+		name = OK
+	}
 }

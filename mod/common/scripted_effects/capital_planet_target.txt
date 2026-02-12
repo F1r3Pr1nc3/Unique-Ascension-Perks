@@ -2,13 +2,18 @@
 # This = country
 get_capital_planet = {
 	if = {
-		limit = { NOT = { exists = event_target:capital_planet } }
+		limit = {
+			NOT = { exists = event_target:capital_planet }
+		}
 		if = {
 			limit = { exists = capital_scope }
 			capital_scope = { save_event_target_as = capital_planet }
 		}
 		else_if = {
-			limit = { num_owned_planets > 0 any_owned_planet = { is_colony = yes } }
+			limit = {
+				num_owned_planets > 0
+				any_owned_planet = { is_colony = yes }
+			}
 			if = {
 				limit = {
 					num_sectors > 0
@@ -17,7 +22,7 @@ get_capital_planet = {
 				ordered_owned_sector = {
 					limit = { exists = sector_capital }
 					position = 0
-					order_by = trigger:num_pops
+					order_by = trigger:pop_amount
 					sector_capital = { save_event_target_as = capital_planet }
 				}
 			}
@@ -30,18 +35,23 @@ get_capital_planet = {
 						solar_system = { exists = starbase }
 					}
 					position = 0
-					order_by = trigger:num_sapient_pops
+					order_by = trigger:sapient_pop_amount
 					save_event_target_as = capital_planet
 				}
 			}
 			if = {
-				limit = { NOT = { exists = event_target:capital_planet } }
+				limit = {
+					NOT = { exists = event_target:capital_planet }
+				}
 				ordered_planet_within_border = {
 					limit = {
 						has_owner = yes
 						is_colony = yes
 						OR = {
-							AND = { exists = owner is_owned_by = prev }
+							AND = {
+								exists = owner
+								is_owned_by = prev
+							}
 							AND = {
 								exists = controller
 								controller = { is_same_empire = prev }
@@ -49,17 +59,24 @@ get_capital_planet = {
 						}
 					}
 					position = 0
-					order_by = trigger:num_sapient_pops
+					order_by = trigger:sapient_pop_amount
 					save_event_target_as = capital_planet
 				}
 			}
 			else = {
 				random_owned_planet = {
-					limit = { has_owner = yes num_pops > 0 }
-					weights = { base = 1
-						modifier = { add = 4 solar_system = { is_capital_system = yes } }
-						modifier = { add = 1 num_pops > 5 }
-						modifier = { add = 3 num_pops > 30 }
+					limit = {
+						has_owner = yes
+						pop_amount > 0
+					}
+					weights = {
+						base = 1
+						modifier = {
+							add = 4
+							solar_system = { is_capital_system = yes }
+						}
+						modifier = { add = 1 pop_amount > 500 }
+						modifier = { add = 3 pop_amount > 3000 }
 					}
 					save_event_target_as = capital_planet
 				}
@@ -68,11 +85,18 @@ get_capital_planet = {
 		}
 		else = {
 			random_owned_planet = {
-				limit = { has_owner = yes num_pops > 0 }
-				weights = { base = 1
-					modifier = { add = 4 solar_system = { is_capital_system = yes } }
-					modifier = { add = 1 num_pops > 5 }
-					modifier = { add = 3 num_pops > 30 }
+				limit = {
+					has_owner = yes
+					pop_amount > 0
+				}
+				weights = {
+					base = 1
+					modifier = {
+						add = 4
+						solar_system = { is_capital_system = yes }
+					}
+					modifier = { add = 1 pop_amount > 500 }
+					modifier = { add = 3 pop_amount > 3000 }
 				}
 				save_event_target_as = capital_planet
 			}

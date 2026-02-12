@@ -7,135 +7,270 @@
 # From = solar_system
 deploy_outpost = {
 	custom_tooltip = "UniqueAscensionPerksED.tooltip"
+
 	hidden_effect = {
 		solar_system = {
 			create_starbase = { size = starbase_outpost owner = prev } # event_target:science_ship_owner
 		}
 		owner = { # event_target:science_ship_owner
 			if = {
-				limit = { check_variable = { which = expansionist_development_res value = 1 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 1 }
+				}
 				if = {
-					limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = influence amount > 100 } } } }
+					limit = {
+						prev = {
+							NOR = {
+								fleet = { has_fleet_flag = no_expansionist_development_yet }
+								owner = { has_country_flag = no_expansionist_development_yet }
+							}
+							owner = {
+								has_country_resource = { type = influence amount > 100 }
+							}
+						}
+					}
 					add_resource = { influence = -100 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = influence amount < 100 } }
+					limit = {
+						has_country_resource = { type = influence amount < 100 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 2 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 2 }
+				}
 				if = {
-					limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = energy amount > 3000 } } } }
+					limit = {
+						prev = {
+							NOR = {
+								fleet = { has_fleet_flag = no_expansionist_development_yet }
+								owner = { has_country_flag = no_expansionist_development_yet }
+							}
+							owner = {
+								has_country_resource = { type = energy amount > 3000 }
+							}
+						}
+					}
 					add_resource = { energy = -3000 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = energy amount < 3000 } }
+					limit = {
+						has_country_resource = { type = energy amount < 3000 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 3 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 3 }
+				}
 				if = {
-					limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = minerals amount > 2500 } } } }
+					limit = {
+						prev = {
+							NOR = {
+								fleet = { has_fleet_flag = no_expansionist_development_yet }
+								owner = { has_country_flag = no_expansionist_development_yet }
+							}
+							owner = {
+								has_country_resource = { type = minerals amount > 2500 }
+							}
+						}
+					}
 					add_resource = { minerals = -2500 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = minerals amount < 2500 } }
+					limit = {
+						has_country_resource = { type = minerals amount < 2500 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 4 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 4 }
+				}
 				if = {
-					limit = { has_country_resource = { type = alloys amount > 900 } }
+					limit = {
+						has_country_resource = { type = alloys amount > 900 }
+					}
 					add_resource = { alloys = -900 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = alloys amount < 900 } }
+					limit = {
+						has_country_resource = { type = alloys amount < 900 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 5 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 5 }
+				}
 				if = {
-					limit = { has_country_resource = { type = alloys amount > 1100 } }
+					limit = {
+						has_country_resource = { type = alloys amount > 1100 }
+					}
 					add_resource = { alloys = -1100 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = alloys amount < 1100 } }
+					limit = {
+						has_country_resource = { type = alloys amount < 1100 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 6 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 6 }
+				}
 				if = {
-					limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = unity amount > 1750 } } } }
+					limit = {
+						prev = {
+							NOR = {
+								fleet = { has_fleet_flag = no_expansionist_development_yet }
+								owner = { has_country_flag = no_expansionist_development_yet }
+							}
+							owner = {
+								has_country_resource = { type = unity amount > 1750 }
+							}
+						}
+					}
 					add_resource = { unity = -1750 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = unity amount < 1750 } }
+					limit = {
+						has_country_resource = { type = unity amount < 1750 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 7 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 7 }
+				}
 				if = {
-					limit = { prev = { NOR = { fleet = { has_fleet_flag = no_expansionist_development_yet } owner = { has_country_flag = no_expansionist_development_yet } } owner = { has_country_resource = { type = food amount > 3200 } } } }
+					limit = {
+						prev = {
+							NOR = {
+								fleet = { has_fleet_flag = no_expansionist_development_yet }
+								owner = { has_country_flag = no_expansionist_development_yet }
+							}
+							owner = {
+								has_country_resource = { type = food amount > 3200 }
+							}
+						}
+					}
 					add_resource = { food = -3200 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = food amount < 3200 } }
+					limit = {
+						has_country_resource = { type = food amount < 3200 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 8 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 8 }
+				}
 				if = {
-					limit = { has_country_resource = { type = treasures amount > 320 } }
+					limit = {
+						has_country_resource = { type = treasures amount > 320 }
+					}
 					add_resource = { treasures = -320 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = treasures amount < 320 } }
+					limit = {
+						has_country_resource = { type = treasures amount < 320 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
 			else_if = {
-				limit = { check_variable = { which = expansionist_development_res value = 9 } }
+				limit = {
+					check_variable = { which = expansionist_development_res value = 9 }
+				}
 				if = {
-					limit = { has_country_resource = { type = automatic_drone amount > 1200 } }
+					limit = {
+						has_country_resource = { type = automatic_drone amount > 1200 }
+					}
 					add_resource = { automatic_drone = -1200 }
 				}
-				else = { clear_variable = expansionist_development_res break = yes }
+				else = {
+					clear_variable = expansionist_development_res
+					break = yes
+				}
 				if = {
-					limit = { has_country_resource = { type = automatic_drone amount < 1200 } }
+					limit = {
+						has_country_resource = { type = automatic_drone amount < 1200 }
+					}
 					clear_variable = expansionist_development_res
 				}
 			}
-			else = { clear_variable = expansionist_development_res break = yes }
-
+			else = {
+				clear_variable = expansionist_development_res
+				break = yes
+			}
 			set_timed_country_flag = { flag = no_expansionist_development_yet months = 1 }
 			if = {
 				limit = {
 					mid_game_years_passed > 0
 					prev.solar_system = {
-						NOR = { has_megastructure = hyper_relay has_megastructure = hyper_relay_restored }
+						NOR = {
+							has_megastructure = hyper_relay
+							has_megastructure = hyper_relay_restored
+						}
 					}
 					has_technology = tech_hyper_relays
-					OR = { has_edict = relay_network_dummy has_edict = relay_network_amenities has_edict = relay_network_amenities_gestalt }
+					OR = {
+						has_edict = relay_network_dummy
+						has_edict = relay_network_amenities
+						has_edict = relay_network_amenities_gestalt
+					}
 					has_country_resource = { type = alloys amount > 500 }
 					has_country_resource = { type = rare_crystals amount > 100 }
 					has_country_resource = { type = influence amount > 25 }
 				}
-				add_resource = { alloys = -500 rare_crystals = -100 influence = -25 }
+				add_resource = {
+					alloys = -500
+					rare_crystals = -100
+					influence = -25
+				}
 				prev.solar_system = {
 					if = {
 						limit = { has_megastructure = hyper_relay_ruined }
@@ -148,7 +283,11 @@ deploy_outpost = {
 						}
 					}
 					else = {
-						spawn_megastructure = { type = "hyper_relay" random_pos = yes orbit_angle = 360 }
+						spawn_megastructure = {
+							type = "hyper_relay"
+							random_pos = yes
+							orbit_angle = 360
+						}
 					}
 				}
 			}
@@ -165,7 +304,10 @@ sync_subjects_virtual_relation = {
 	# Hostile
 	every_country = {
 		limit = {
-			NOR = { is_same_empire = prev is_same_empire = prevprev }
+			NOR = {
+				is_same_empire = prev
+				is_same_empire = prevprev
+			}
 			has_communications = prev
 			prevprev = {
 				OR = {
@@ -177,32 +319,53 @@ sync_subjects_virtual_relation = {
 				is_hostile = prev
 				is_hostile_to = prev
 				has_attitude_behavior = { target = prev behavior = attack }
-				AND = { is_default_or_fallen = yes is_at_war_with = prev }
+				AND = {
+					is_default_or_fallen = yes
+					is_at_war_with = prev
+				}
 				is_marauder = yes
 			}
 			NOR = {
 				is_in_federation_with = prev
 				has_defensive_pact = prev
 				is_overlord_to = prev
-				AND = { is_subject = yes overlord = { is_same_empire = prevprev } }
-				prevprev = { is_country_type = civilian_activities }
+				AND = {
+					is_subject = yes
+					overlord = { is_same_empire = prevprev }
+				}
+				prevprev = {
+					OR = {
+						is_country_type = civilian_activities
+						is_hostile = prev
+					}
+				}
 				is_neutral_to = prev
 				is_friendly_to = prev
-				prevprev = { is_hostile = prev }
 			}
 		}
 		prevprev = {
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
+			if = {
+				limit = {
+					NOT = { has_communications = prev }
+				}
+				establish_communications_no_message = prev
+			}
 			set_faction_hostility = { target = prev set_hostile = yes }
 		}
 	}
+
 	## Friendly
 	# Overlord relation must be friendly
 	prev = {
 		if = {
 			# limit = { NOT = { is_friendly_to = prev } }
 			limit = { is_hostile = prev }
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
+			if = {
+				limit = {
+					NOT = { has_communications = prev }
+				}
+				establish_communications_no_message = prev
+			}
 			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 		if = {
@@ -211,14 +374,22 @@ sync_subjects_virtual_relation = {
 				# NOT = { is_friendly_to = prev.overlord }
 				is_hostile = prev.overlord
 			}
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev.overlord }
+			if = {
+				limit = {
+					NOT = { has_communications = prev }
+				}
+				establish_communications_no_message = prev.overlord
+			}
 			set_faction_hostility = { target = prev.overlord set_friendly = yes }
 		}
 		if = {
-			limit = { count_owned_starbase = { count > 0 } }
+			limit = {
+				count_owned_starbase = { count > 0 }
+			}
 			every_owned_starbase = { set_owner = prevprev }
 		}
 	}
+
 	# every_relation = {
 	every_country = {
 		limit = {
@@ -237,37 +408,59 @@ sync_subjects_virtual_relation = {
 				has_defensive_pact = prev
 				is_overlord_to = prev
 				is_fallen_empire = yes
-				AND = { has_global_flag = galactic_crisis_recently_fired is_galactic_community_member = yes prev = { is_galactic_community_member = yes } }
-				AND = { is_subject = yes overlord = { is_same_empire = prevprev } }
+				AND = {
+					has_global_flag = galactic_crisis_recently_fired
+					is_galactic_community_member = yes
+					prev = { is_galactic_community_member = yes }
+				}
+				AND = {
+					is_subject = yes
+					overlord = { is_same_empire = prevprev }
+				}
 				# AND = { is_subject = yes overlord = { is_overlord_to = prevprev } } subjects can have war between
-				AND = { is_non_hostile_to_wraith = yes is_marauder = no }
+				AND = {
+					is_non_hostile_to_wraith = yes
+					is_marauder = no
+				}
 				is_country_type = caravaneer_home
 				is_country_type = caravaneer_fleet
 				is_country_type = guardian_sphere
 				is_country_type = ratlings
 				is_country_type = ldragon_country
-				is_country_type = enclave_mercenary
+				is_mercenary = yes
 			}
 			NOR = {
 				is_hostile = prev
 				# is_same_empire = prev
 				is_same_empire = prevprev
 				has_attitude_behavior = { target = prev behavior = attack }
-				AND = { is_default_or_fallen = yes is_at_war_with = prev }
+				AND = {
+					is_default_or_fallen = yes
+					is_at_war_with = prev
+				}
 			}
 		}
 		prevprev = {
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
+			if = {
+				limit = {
+					NOT = { has_communications = prev }
+				}
+				establish_communications_no_message = prev
+			}
 			set_faction_hostility = { target = prev set_neutral = yes }
 		}
 	}
+
 	# TODO Test relation?
 	# Own Mercenary are friendly
 	random_country = {
 		limit = {
-			NOR = { is_same_empire = prev is_same_empire = prevprev }
+			NOR = {
+				is_same_empire = prev
+				is_same_empire = prevprev
+			}
 			has_communications = prev
-			is_country_type = enclave_mercenary
+			is_mercenary = yes
 			prevprev = {
 				OR = {
 					is_hostile = prev
@@ -284,7 +477,12 @@ sync_subjects_virtual_relation = {
 			}
 		}
 		prevprev = {
-			if = { limit = { NOT = { has_communications = prev } } establish_communications_no_message = prev }
+			if = {
+				limit = {
+					NOT = { has_communications = prev }
+				}
+				establish_communications_no_message = prev
+			}
 			set_faction_hostility = { target = prev set_friendly = yes }
 		}
 	}

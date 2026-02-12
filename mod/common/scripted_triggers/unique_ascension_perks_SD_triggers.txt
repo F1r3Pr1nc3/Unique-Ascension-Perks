@@ -52,6 +52,7 @@ is_valid_target_neigthbor_for_domesticated_aliens_military = {
 		NOT = { is_same_empire = root.from }
 		is_hostile = root.from
 	}
+
 	# OR = {
 	# 	is_ship_class = shipclass_transport
 	# 	is_ship_class = shipclass_military
@@ -64,8 +65,11 @@ is_valid_target_neigthbor_for_domesticated_aliens_military = {
 		has_fleet_flag = domesticated_military_fleet_target_no_more_hunters
 		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
-	root = { can_access_system = prevprev } # Performance intense
+	root = {
+		can_access_system = prevprev
+	} # Performance intense
 }
+
 # This = hostile fleet
 # Prevprev = event_target:main_country
 # Prevprevprev = domesticated_aliens fleet
@@ -82,11 +86,12 @@ is_valid_target_for_domesticated_aliens_security = {
 		is_disabled = yes
 		has_fleet_flag = domesticated_security_fleet_defend_against_no_more_defenders
 	}
-	prevprevprev = { can_access_system = prevprev } # Performance intense
+	prevprevprev = {
+		can_access_system = prevprev
+	} # Performance intense
 }
 
 # can_breeding_fertilization_protocol = {
-
 # Only used twice
 # can_resources_gathering_protocol = {
 # 	optimize_memory
@@ -100,16 +105,30 @@ is_valid_target_for_domesticated_aliens_security = {
 # }
 # Only used twice - replaced with can_resources_gathering_protocol
 # can_research_assistance_protocol = {
-
 # Needs RSC No.
 can_SD_protocol = {
 	optimize_memory
 	OR = {
-		AND = { has_country_flag = space_domestication_tiyanki	resource_stockpile_compare = { resource = food value >= $RSC|800$ } }
-		AND = { has_country_flag = space_domestication_amoeba	resource_stockpile_compare = { resource = food value >= $RSC|800$ } }
-		AND = { has_country_flag = space_domestication_crystal	resource_stockpile_compare = { resource = minerals value >= $RSC|800$ } }
-		AND = { has_country_flag = space_domestication_cloud	resource_stockpile_compare = { resource = energy value >= $RSC|800$ } }
-		AND = { has_country_flag = space_domestication_drone	resource_stockpile_compare = { resource = energy value >= $RSC|800$ } }
+		AND = {
+			has_country_flag = space_domestication_tiyanki
+			resource_stockpile_compare = { resource = food value >= $RSC|800$ }
+		}
+		AND = {
+			has_country_flag = space_domestication_amoeba
+			resource_stockpile_compare = { resource = food value >= $RSC|800$ }
+		}
+		AND = {
+			has_country_flag = space_domestication_crystal
+			resource_stockpile_compare = { resource = minerals value >= $RSC|800$ }
+		}
+		AND = {
+			has_country_flag = space_domestication_cloud
+			resource_stockpile_compare = { resource = energy value >= $RSC|800$ }
+		}
+		AND = {
+			has_country_flag = space_domestication_drone
+			resource_stockpile_compare = { resource = energy value >= $RSC|800$ }
+		}
 	}
 }
 

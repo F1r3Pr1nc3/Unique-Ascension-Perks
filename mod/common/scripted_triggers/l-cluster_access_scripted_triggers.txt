@@ -1,4 +1,5 @@
 ## country
+
 can_set_lcluster_policiy = {
 	exists = capital_scope
 	has_technology = tech_lcluster_access
@@ -15,11 +16,11 @@ can_set_lcluster_policiy = {
 }
 
 controls_lcluster = {
-	# exists = capital_scope
+	can_set_lcluster_policiy = yes
+
 	any_system_within_border = {
 		has_star_flag = lcluster1
 	}
-	has_technology = tech_lcluster_access
 	OR = {
 		NOT = { has_global_flag = active_gray_goo }
 		inline_script = { # L-Cluster PLus 2293169684
@@ -35,6 +36,5 @@ controls_lcluster = {
 			"
 			toggle = @armor_nanite_8L # PENDING
 		}
-
 	}
 }

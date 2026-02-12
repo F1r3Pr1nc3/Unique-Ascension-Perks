@@ -1,3 +1,4 @@
+
 is_unique_perk_special_subject = {
 	OR = {
 		is_country_type = security_forces
@@ -33,7 +34,9 @@ is_on_border = {
 				count_country_neighbor_to_system = { count > 0 }
 				any_neighbor_system = {
 					has_owner = no
-					count_country_neighbor_to_system = { limit = { NOT = { is_same_empire = prevprev.owner } } count > 0 }
+					any_country_neighbor_to_system = {
+						NOT = { is_same_empire = prevprev.owner }
+					}
 				}
 			}
 		}
@@ -59,10 +62,12 @@ is_valuable_pop = {
 	is_sapient = yes
 	NOR = {
 		is_pop_category = bio_trophy
-		is_pop_category = purge
+		is_being_purged = yes
 		is_pop_category = assimilation
 		# is_pop_category = pre_sapients
 		is_pop_category = criminal
+		prev = {
+			habitability = { who = prev value < 0.55 }
+		}
 	}
-	prev = { habitability = { who = prev value >= 0.55 } }
 }

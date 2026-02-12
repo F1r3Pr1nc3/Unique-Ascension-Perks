@@ -1,4 +1,6 @@
+
 namespace = a_deadly_tempest
+
 ####################################################
 ####################################################
 #####										  #####
@@ -8,13 +10,16 @@ namespace = a_deadly_tempest
 #####										  #####
 ####################################################
 ####################################################
-
 # Gray Goo Friendship
 country_event = {
 	id = a_deadly_tempest.137
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { exists = event_target:graygoo_country }
+
+	trigger = {
+		exists = event_target:graygoo_country
+	}
+
 	immediate = {
 		event_target:graygoo_country = {
 			# set_faction_neutral = { TARGET = event_target:gate_builders } # Gatebuilders
@@ -27,7 +32,6 @@ country_event = {
 			set_faction_neutral = { TARGET = event_target:fortress_country }
 			# Enigmatic Cache (guardian_fortress)
 			set_faction_neutral = { TARGET = event_target:enigmatic_cache_present_host }
-
 			#################
 			# SPACE MONSTERS
 			#################
@@ -53,19 +57,18 @@ ship_event = {
 	id = a_deadly_tempest.224
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		has_global_flag = l_cluster_opened
 		exists = starbase
 	}
+
 	immediate = {
 		if = {
 			limit = {
 				NAND = {
 					exists = owner
-					owner = {
-						is_robot_empire = yes
-						has_technology = tech_nanite_ships
-					}
+					owner = { is_robot_empire = yes has_technology = tech_nanite_ships }
 				}
 			}
 			starbase = {
@@ -78,7 +81,9 @@ ship_event = {
 			if = {
 				limit = {
 					exists = fleet
-					fleet = { any_owned_ship = { is_ship_size = military_station_nanite_bulwark } }
+					fleet = {
+						any_owned_ship = { is_ship_size = military_station_nanite_bulwark }
+					}
 				}
 				fleet = {
 					every_owned_ship = {
@@ -94,7 +99,9 @@ ship_event = {
 			limit = {
 				has_global_flag = a_deadly_tempest_mod_active
 				exists = fleet
-				fleet = { any_owned_ship = { is_ship_size = military_station_nanite_bulwark } }
+				fleet = {
+					any_owned_ship = { is_ship_size = military_station_nanite_bulwark }
+				}
 			}
 			fleet = {
 				every_owned_ship = {
@@ -112,9 +119,15 @@ ship_event = {
 				# exists = owner
 				# owner = { CmtTriggerIsPlayableEmpire = no }
 			}
-			if = { limit = { exists = from }
-				from = { random_owned_planet = { open_terminal_egress = yes } }
-			} else = { open_terminal_egress = yes }
+			if = {
+				limit = { exists = from }
+				from = {
+					random_owned_planet = { open_terminal_egress = yes }
+				}
+			}
+			else = {
+				open_terminal_egress = yes
+			}
 		}
 	}
 }
@@ -126,12 +139,14 @@ starbase_event = {
 	id = a_deadly_tempest.225
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		has_global_flag = l_cluster_opened
 		exists = solar_system
 		solar_system = { has_star_flag = lcluster1 }
 		NOT = { has_global_flag = lgates_activated_globally }
 	}
+
 	immediate = {
 		open_terminal_egress = yes
 	}
@@ -150,18 +165,18 @@ country_event = {
 			is_ai = yes
 			# has_country_flag = gray_owner
 			has_country_flag = disco_gray
-		}
-		# controls_lcluster = yes
-		NAND = {
-			exists = event_target:graygoo_country
-			event_target:graygoo_country = { is_country_type = gray_goo }
-			any_country = { is_country_type = gray_goo }
-		}
-		NAND = {
-			exists = event_target:gray_owner
-			# exists = event_target:gray_country
-			# event_target:gray_country = { is_country_type = gray }
-			any_country = { is_country_type = gray }
+			# controls_lcluster = yes
+			AND = {
+				exists = event_target:graygoo_country
+				event_target:graygoo_country = { is_country_type = gray_goo }
+				any_country = { is_country_type = gray_goo }
+			}
+			AND = {
+				exists = event_target:gray_owner
+				# exists = event_target:gray_country
+				# event_target:gray_country = { is_country_type = gray }
+				any_country = { is_country_type = gray }
+			}
 		}
 		any_system = {
 			has_star_flag = lcluster
@@ -169,7 +184,7 @@ country_event = {
 			any_system_planet = {
 				OR = {
 					is_planet_class = pc_gray_goo
-					is_planet_class = pc_gaia
+					merg_is_gaia_basic = yes
 				}
 				is_colony = no
 				has_anomaly = no
@@ -185,14 +200,15 @@ country_event = {
 				}
 				any_system_planet = {
 					# OR = {
-						is_planet_class = pc_gray_goo
-						# is_planet_class = pc_gaia
+					is_planet_class = pc_gray_goo
+					# merg_is_gaia_basic = yes
 					# }
 					has_anomaly = yes
 				}
 			}
 		}
 	}
+
 	immediate = {
 		# random_system_within_border = {
 		random_system = {
@@ -202,7 +218,7 @@ country_event = {
 				any_system_planet = {
 					OR = {
 						is_planet_class = pc_gray_goo
-						is_planet_class = pc_gaia
+						merg_is_gaia_basic = yes
 					}
 					is_colony = no
 					has_anomaly = no
@@ -213,20 +229,20 @@ country_event = {
 				limit = {
 					OR = {
 						is_planet_class = pc_gray_goo
-						is_planet_class = pc_gaia
+						merg_is_gaia_basic = yes
 					}
 					is_colony = no
 					has_anomaly = no
 					is_preventing_anomaly = no
 				}
-				weights = { base = 1 modifier = { add = 40 is_moon = yes } }
+				weights = {
+					base = 1
+					modifier = { add = 40 is_moon = yes }
+				}
 				random = {
 					chance = 40
 					set_planet_flag = hatchling_egg
-					random = {
-						chance = 40
-						set_planet_flag = hatchling_will_trigger
-					}
+					random = { chance = 40 set_planet_flag = hatchling_will_trigger }
 				}
 				set_surveyed = { surveyed = no surveyor = prevprev } # Was bugged in 3.0
 				add_anomaly = { category = disco_gray_cat target = prevprev }
@@ -234,6 +250,7 @@ country_event = {
 			}
 		}
 	}
+
 	# option = { name = PECULIAR }
 }
 
@@ -243,14 +260,20 @@ country_event = {
 	id = a_deadly_tempest.2404
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		NOT = { has_global_flag = lgates_activated_globally }
 		has_country_flag = lcluster_closer
 	}
+
 	immediate = {
-		if = { limit = { exists = from }
-			from = { random_owned_planet = { open_terminal_egress = yes } }
-		} else = {
+		if = {
+			limit = { exists = from }
+			from = {
+				random_owned_planet = { open_terminal_egress = yes }
+			}
+		}
+		else = {
 			open_terminal_egress = yes
 		}
 		# set_global_flag = lgates_activated_globally
@@ -265,6 +288,7 @@ country_event = {
 	id = a_deadly_tempest.13006
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		OR = {
 			has_global_flag = gray_goo_crisis_set
@@ -272,6 +296,7 @@ country_event = {
 		}
 		# has_global_flag = dragon_season
 	}
+
 	immediate = {
 		if = {
 			limit = {
@@ -321,16 +346,8 @@ country_event = {
 				set_country_flag = first_alien_life
 				set_country_flag = has_encountered_other_empire
 				establish_communications_no_message = event_target:spawning_dragons
-				add_trust = {
-					who = event_target:spawning_dragons
-					amount = 2000
-				}
-				set_faction_hostility = {
-					set_hostile = no
-					# set_neutral = no
-					set_friendly = yes
-					target = event_target:spawning_dragons
-				}
+				add_trust = { who = event_target:spawning_dragons amount = 2000 }
+				set_faction_hostility = { set_friendly = yes target = event_target:spawning_dragons }
 				country_event = { id = a_deadly_tempest.13007 days = 3 }
 			}
 			event_target:spawning_dragons = {
@@ -338,16 +355,8 @@ country_event = {
 				set_country_flag = has_encountered_other_empire
 				# establish_contact = { who = event_target:graygoo_country location = }
 				establish_communications_no_message = event_target:graygoo_country
-				add_trust = {
-					who = event_target:graygoo_country
-					amount = 2000
-				}
-				set_faction_hostility = {
-					set_hostile = no
-					# set_neutral = no
-					set_friendly = yes
-					target = event_target:graygoo_country
-				}
+				add_trust = { who = event_target:graygoo_country amount = 2000 }
+				set_faction_hostility = { set_friendly = yes target = event_target:graygoo_country }
 				# country_event = { id = a_deadly_tempest.13007 days = 4 }
 			}
 			# log = "goo_dragon_friendship" # [spawning_dragons.GetName] - [graygoo_country.GetName]
@@ -369,7 +378,9 @@ country_event = {
 				exists = event_target:graygoo_country
 			}
 			if = {
-				limit = { NOT = { exists = event_target:gate_builders } }
+				limit = {
+					NOT = { exists = event_target:gate_builders }
+				}
 				random_country = {
 					limit = { is_country_type = gate_builders }
 					save_global_event_target_as = gate_builders
@@ -387,7 +398,9 @@ country_event = {
 			}
 			# Fallback (savegame comp.) re-save event_targets
 			if = {
-				limit = { NOT = { exists = event_target:nanite_factory } }
+				limit = {
+					NOT = { exists = event_target:nanite_factory }
+				}
 				event_target:lcluster_factory_system = {
 					random_ship_in_system = {
 						limit = { is_ship_size = graygoo_factory }
@@ -404,6 +417,7 @@ country_event = {
 	id = a_deadly_tempest.13007
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		# every_owned_fleet = {	limit = { has_fleet_flag = trait_biothrall_tolerance }
 		every_owned_ship = {
@@ -412,14 +426,17 @@ country_event = {
 		}
 	}
 }
+
 country_event = {
 	id = a_deadly_tempest.13008
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		exists = event_target:nanite_factory
 		exists = event_target:graygoo_country
 	}
+
 	immediate = {
 		event_target:graygoo_country = {
 			every_owned_fleet = {
@@ -436,6 +453,7 @@ country_event = {
 country_event = {
 	id = a_deadly_tempest.13080
 	title = "apoc.1.name"
+
 	desc = {
 		text = apoc.3.desc
 		trigger = {
@@ -446,9 +464,11 @@ country_event = {
 		text = apoc.3.b.desc
 		trigger = { has_country_flag = encountered_first_gateway }
 	}
+
 	picture = GFX_evt_drifting_gateway
 	show_sound = event_radio_chatter
 	is_triggered_only = yes
+
 	trigger = {
 		NOR = {
 			has_country_flag = encountered_first_lgate
@@ -456,7 +476,6 @@ country_event = {
 		}
 		is_scope_valid = yes
 		has_federation = yes
-		exists = federation
 		federation = {
 			count_member = { count > 1 }
 			any_member = {
@@ -466,6 +485,7 @@ country_event = {
 			}
 		}
 	}
+
 	immediate = {
 		federation = {
 			random_member = {
@@ -490,7 +510,9 @@ country_event = {
 		}
 		set_country_flag = encountered_first_lgate
 	}
+
 	location = event_target:gateway_system
+
 	option = {
 		name = INTRIGUING
 		start_lcluster_chain = yes
@@ -502,7 +524,10 @@ ship_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { always = no }
+
+	trigger = {
+		always = no
+	}
 }
 
 ship_event = {
@@ -510,5 +535,8 @@ ship_event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { always = no }
+
+	trigger = {
+		always = no
+	}
 }

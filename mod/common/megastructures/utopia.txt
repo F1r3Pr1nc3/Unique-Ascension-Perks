@@ -1,3 +1,4 @@
+
 utopia_site = {
 	entity = "construction_platform_entity"
 	construction_entity = "construction_platform_entity"
@@ -6,20 +7,40 @@ utopia_site = {
 	# show_in_outliner = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
+
 	build_time = 900
+
 	resources = {
 		category = megastructures
-		cost = { alloys = 5000 influence = 200 }
-		upkeep = { energy = 3 }
+		cost = {
+			alloys = 5000
+			influence = 200
+		}
+		upkeep = {
+			energy = 3
+		}
 	}
+
 	construction_blocks_and_blocked_by = self_type # none
-	potential = { has_ascension_perk = ap_advanced_government_2 }
+
+	potential = {
+		has_ascension_perk = ap_advanced_government_2
+	}
+
 	possible = {
 		exists = starbase
-		custom_tooltip = { fail_text = "requires_inside_border" is_inside_border = from }
+		custom_tooltip = {
+			fail_text = "requires_inside_border"
+			is_inside_border = from
+		}
 		custom_tooltip = {
 			fail_text = "requires_surveyed_system"
-			count_system_planet = { limit = { is_surveyed = { who = prev.from status = no } } count = 0 }
+			count_system_planet = {
+				count = 0
+				limit = {
+					is_surveyed = { who = prev.from status = no }
+				}
+			}
 		}
 		# custom_tooltip = {
 		# 	fail_text = "requires_no_existing_megastructure" # "requires_no_existing_utopia_built"
@@ -65,6 +86,7 @@ utopia_site = {
 			}
 		}
 	}
+
 	placement_rules = {
 		planet_possible = {
 			custom_tooltip = {
@@ -77,16 +99,28 @@ utopia_site = {
 				is_surveyed = { who = prev.from status = yes } # # Prevent leaking habitability information
 				colonizable_planet = no
 			}
-			custom_tooltip = { fail_text = "requires_no_anomaly" has_anomaly = no }
- 			# Balance for think tanks
+			custom_tooltip = {
+				fail_text = "requires_no_anomaly"
+				has_anomaly = no
+			}
+			# Balance for think tanks
 			custom_tooltip = {
 				fail_text = "requires_not_minor_planetary_body"
 				is_asteroid = no
 				is_moon = no
 			}
-			custom_tooltip = { fail_text = "requires_not_star" is_star = no } # Use these for all non-star megastructures
-			custom_tooltip = { fail_text = "requires_not_astral_scar" is_astral_scar = no }
-			custom_tooltip = { fail_text = "requires_not_ring_world" has_ringworld_output_boost = no }
+			custom_tooltip = {
+				fail_text = "requires_not_star"
+				is_star = no
+			} # Use these for all non-star megastructures
+			custom_tooltip = {
+				fail_text = "requires_not_astral_scar"
+				is_astral_scar = no
+			}
+			custom_tooltip = {
+				fail_text = "requires_not_ring_world"
+				has_ringworld_output_boost = no
+			}
 		}
 	}
 
@@ -96,7 +130,9 @@ utopia_site = {
 		factor = event_target:global_event_country.ap_advanced_government_2
 		modifier = {
 			factor = 0.1
-			starbase = { NOT = { has_starbase_size >= starbase_starfortress } }
+			starbase = {
+				NOT = { has_starbase_size >= starbase_starfortress }
+			}
 		}
 		modifier = {
 			factor = 0.1
@@ -110,8 +146,12 @@ utopia_site = {
 			from = { is_authoritarian = yes }
 		}
 	}
+
 	# on_build_start = { set_star_flag = utopia_built }
-	on_build_cancel = { remove_star_flag = utopia_built }
+	on_build_cancel = {
+		remove_star_flag = utopia_built
+	}
+
 	on_build_complete = {
 		set_star_flag = utopia_built
 		from = {
@@ -132,15 +172,29 @@ utopia_1 = {
 	# show_in_outliner = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
-	upgrade_from = { utopia_site }
+	upgrade_from = {
+		utopia_site
+	}
+
 	build_time = 1800
+
 	resources = {
 		category = megastructures
-		cost = { alloys = 5000 }
-		produces = { unity = 90 } # 100
-		upkeep = { energy = 50 }
+		cost = {
+			alloys = 5000
+		}
+		produces = {
+			unity = 90
+		} # 100
+		upkeep = {
+			energy = 50
+		}
 	}
-	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
+
+	possible = {
+		from = { has_ascension_perk = ap_advanced_government_2 }
+	}
+
 	# on_build_start = { set_star_flag = utopia_built }
 	on_build_complete = {
 		from = {
@@ -158,15 +212,29 @@ utopia_2 = {
 	# show_in_outliner = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
-	upgrade_from = { utopia_1 }
+	upgrade_from = {
+		utopia_1
+	}
+
 	build_time = 1800
+
 	resources = {
 		category = megastructures
-		cost = { alloys = 5000 }
-		produces = { unity = 215 } # 250
-		upkeep = { energy = 75 }
+		cost = {
+			alloys = 5000
+		}
+		produces = {
+			unity = 215
+		} # 250
+		upkeep = {
+			energy = 75
+		}
 	}
-	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
+
+	possible = {
+		from = { has_ascension_perk = ap_advanced_government_2 }
+	}
+
 	# on_build_start = { set_star_flag = utopia_built }
 	on_build_complete = {
 		from = {
@@ -184,15 +252,29 @@ utopia_3 = {
 	# show_in_outliner = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
-	upgrade_from = { utopia_2 }
+	upgrade_from = {
+		utopia_2
+	}
+
 	build_time = 1800
+
 	resources = {
 		category = megastructures
-		cost = { alloys = 5000 }
-		produces = { unity = 425 } # 500
-		upkeep = { energy = 120 }
+		cost = {
+			alloys = 5000
+		}
+		produces = {
+			unity = 425
+		} # 500
+		upkeep = {
+			energy = 120
+		}
 	}
-	possible = { from = { has_ascension_perk = ap_advanced_government_2 } }
+
+	possible = {
+		from = { has_ascension_perk = ap_advanced_government_2 }
+	}
+
 	# on_build_start = { set_star_flag = utopia_built }
 	on_build_complete = {
 		from = {
@@ -210,21 +292,39 @@ utopia_4 = {
 	# show_in_outliner = no
 	place_entity_on_planet_plane = no
 	entity_offset = { x = -7 y = -7 }
-	upgrade_from = { utopia_3 }
+	upgrade_from = {
+		utopia_3
+	}
+
 	build_time = 1800
+
 	resources = {
 		category = megastructures
-		cost = { alloys = 5000 }
-		produces = { unity = 850 } # 1000
-		upkeep = { energy = 150 }
+		cost = {
+			alloys = 5000
+		}
+		produces = {
+			unity = 850
+		} # 1000
+		upkeep = {
+			energy = 150
+		}
 	}
-	prerequisites = { "tech_ascension_theory" }
+
+	prerequisites = {
+		"tech_ascension_theory"
+	}
+
 	possible = {
 		from = {
 			has_ascension_perk = ap_advanced_government_2
-			custom_tooltip = { fail_text = "ap_advanced_government_2_req_4" has_technology = tech_ascension_theory }
+			custom_tooltip = {
+				fail_text = "ap_advanced_government_2_req_4"
+				has_technology = tech_ascension_theory
+			}
 		}
 	}
+
 	# on_build_start = { set_star_flag = utopia_built }
 	on_build_complete = {
 		from = {

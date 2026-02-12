@@ -1,4 +1,6 @@
+
 namespace = UniqueAscensionPerksEvents
+
 ######################################
 #									 #
 ########## Underworld Access ##########
@@ -12,8 +14,13 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = underworld_room }
+
+	picture_event_data = {
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = EXCELLENT
 		hidden_effect = {
@@ -29,8 +36,13 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = underworld_room }
+
+	picture_event_data = {
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = UniqueAscensionPerksEvents.371.Smuggler
 		allow = {
@@ -62,7 +74,7 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.383.Name"
-		allow = { host_has_dlc = "Apocalypse" }
+		allow = { has_apocalypse_dlc = yes }
 		hidden_effect = {
 			country_event = { id = UniqueAscensionPerksEvents.383 }
 		}
@@ -85,6 +97,7 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.388 }
 		}
 	}
+
 	# option = { name = UniqueAscensionPerksEvents.371.Country hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.10000 } } }
 	option = {
 		name = UniqueAscensionPerksEvents.371.Fallen
@@ -113,8 +126,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = UniqueAscensionPerksEvents.372.Food
 		allow = {
@@ -179,8 +198,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = GOODBYE
 		ai_chance = { factor = 0.1 }
@@ -197,8 +222,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		# underworld_smuggler_resources_loot_selection =
 		if = {
@@ -246,6 +277,7 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = OK
 		# underworld_smuggler_resources_loot_collection = yes
@@ -459,8 +491,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = "UniqueAscensionPerksEvents.375.a"
 		allow = {
@@ -494,14 +532,31 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		random_playable_country = {
-			limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root } }
+			limit = {
+				NOR = {
+					has_modifier = underworld_crime_contract
+					is_same_empire = root
+				}
+			}
 			save_event_target_as = country_1
 			random_playable_country = {
-				limit = { NOR = { has_modifier = underworld_crime_contract is_same_empire = root is_same_empire = event_target:country_1 } }
+				limit = {
+					NOR = {
+						has_modifier = underworld_crime_contract
+						is_same_empire = root
+						is_same_empire = event_target:country_1
+					}
+				}
 				save_event_target_as = country_2
 				random_playable_country = {
 					limit = {
@@ -556,6 +611,7 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
@@ -625,9 +681,15 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
 	location = from
+
 	immediate = {
 		from = {
 			random_owned_planet = {
@@ -644,14 +706,21 @@ country_event = {
 							random_owned_planet = {
 								limit = {
 									can_planet_crime_attack = yes
-									NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 }
+									NOR = {
+										is_planet = event_target:planet_1
+										is_planet = event_target:planet_2
+									}
 								}
 								save_event_target_as = planet_3
 								root.from = {
 									random_owned_planet = {
 										limit = {
 											can_planet_crime_attack = yes
-											NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 }
+											NOR = {
+												is_planet = event_target:planet_1
+												is_planet = event_target:planet_2
+												is_planet = event_target:planet_3
+											}
 										}
 										save_event_target_as = planet_4
 										root.from = {
@@ -692,6 +761,7 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.388.Planet.1"
 		trigger = { exists = event_target:planet_1 }
@@ -791,9 +861,15 @@ planet_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = from room = underworld_room }
+
+	picture_event_data = {
+		portrait = from
+		room = underworld_room
+	}
+
 	location = root
 	is_triggered_only = yes
+
 	option = {
 		name = EXCELLENT
 		add_modifier = { modifier = underworld_crime_attack years = 20 }
@@ -807,8 +883,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = "UniqueAscensionPerksEvents.375.a"
 		allow = {
@@ -842,14 +924,21 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	trigger = {
 		any_playable_country = {
 			can_pirate_attack = yes
 			NOT = { is_same_empire = root }
 		}
 	}
+
 	immediate = {
 		random_playable_country = {
 			limit = {
@@ -861,13 +950,20 @@ country_event = {
 		random_playable_country = {
 			limit = {
 				can_pirate_attack = yes
-				NOR = { is_same_empire = root is_same_empire = event_target:country_1 }
+				NOR = {
+					is_same_empire = root
+					is_same_empire = event_target:country_1
+				}
 			}
 			save_event_target_as = country_2
 			random_playable_country = {
 				limit = {
 					can_pirate_attack = yes
-					NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 }
+					NOR = {
+						is_same_empire = root
+						is_same_empire = event_target:country_1
+						is_same_empire = event_target:country_2
+					}
 				}
 				save_event_target_as = country_3
 				random_playable_country = {
@@ -912,6 +1008,7 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
@@ -1004,26 +1101,38 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		event_target:CountryPirateTarget = {
 			set_timed_country_flag = { flag = underworld_pirates_cooldown years = 4 }
 			country_event = { id = UniqueAscensionPerksEvents.382 days = 5 random = 5 }
 			country_event = { id = UniqueAscensionPerksEvents.382 days = 10 random = 10 }
 			country_event = { id = UniqueAscensionPerksEvents.382 days = 20 random = 20 }
-			random = { chance = 50
+			random = {
+				chance = 50
 				country_event = { id = UniqueAscensionPerksEvents.382 days = 30 random = 30 }
 			}
-			random = { chance = 50
+			random = {
+				chance = 50
 				country_event = { id = UniqueAscensionPerksEvents.382 days = 40 random = 40 }
 			}
-			random = { chance = 50
+			random = {
+				chance = 50
 				country_event = { id = UniqueAscensionPerksEvents.382 days = 50 random = 50 }
 			}
 		}
 	}
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -1034,9 +1143,12 @@ country_event = {
 	show_sound = event_ship_bridge
 	location = event_target:pirate_system
 	is_triggered_only = yes
+
 	immediate = {
 		random_system_within_border = {
-			limit = { NOT = { has_star_flag = underworld_pirates_cooldown } }
+			limit = {
+				NOT = { has_star_flag = underworld_pirates_cooldown }
+			}
 			set_timed_star_flag = { flag = underworld_pirates_cooldown years = 1 }
 			save_event_target_as = pirate_system
 		}
@@ -1046,7 +1158,10 @@ country_event = {
 		create_normal_pirate_country = yes
 		create_pirate_fleet = yes
 	}
-	option = { name = pirate.50.a }
+
+	option = {
+		name = pirate.50.a
+	}
 }
 
 country_event = {
@@ -1056,8 +1171,13 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = underworld_room }
+
+	picture_event_data = {
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		random_country = {
 			limit = { can_marauder_contact = yes }
@@ -1071,13 +1191,20 @@ country_event = {
 				random_country = {
 					limit = {
 						can_marauder_contact = yes
-						NOR = { is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 }
+						NOR = {
+							is_same_empire = event_target:country_1
+							is_same_empire = event_target:country_2
+						}
 					}
 					save_event_target_as = country_3
 					random_country = {
 						limit = {
 							can_marauder_contact = yes
-							NOR = { is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 }
+							NOR = {
+								is_same_empire = event_target:country_1
+								is_same_empire = event_target:country_2
+								is_same_empire = event_target:country_3
+							}
 						}
 						save_event_target_as = country_4
 						random_country = {
@@ -1110,64 +1237,47 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.384
-				scopes = { from = event_target:country_1 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.384 scopes = { from = event_target:country_1 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.384
-				scopes = { from = event_target:country_2 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.384 scopes = { from = event_target:country_2 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.384
-				scopes = { from = event_target:country_3 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.384 scopes = { from = event_target:country_3 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.384
-				scopes = { from = event_target:country_4 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.384 scopes = { from = event_target:country_4 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.384
-				scopes = { from = event_target:country_5 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.384 scopes = { from = event_target:country_5 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.384
-				scopes = { from = event_target:country_6 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.384 scopes = { from = event_target:country_6 } }
 		}
 	}
 	option = {
@@ -1193,8 +1303,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = from room = underworld_room }
+
+	picture_event_data = {
+		portrait = from
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		from = {
 			save_event_target_as = marauder_country
@@ -1208,10 +1324,15 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.375.a"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.384.Req01 has_country_flag = raid_target_of@event_target:marauder_country has_country_flag = under_marauder_attack }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.384.Req01
+				has_country_flag = raid_target_of@event_target:marauder_country
+				has_country_flag = under_marauder_attack
+			}
 			has_country_resource = { type = treasures amount > 200 }
 		}
 		add_resource = { treasures = -200 }
@@ -1239,10 +1360,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerksEvents.375.b"
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.385
-				scopes = { from = from }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.385 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -1260,14 +1378,31 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = from room = underworld_room }
+
+	picture_event_data = {
+		portrait = from
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		random_playable_country = {
-			limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root } }
+			limit = {
+				NOR = {
+					has_country_flag = under_marauder_attack
+					is_same_empire = root
+				}
+			}
 			save_event_target_as = countr_1
 			random_playable_country = {
-				limit = { NOR = { has_country_flag = under_marauder_attack is_same_empire = root is_same_empire = event_target:countr_1 } }
+				limit = {
+					NOR = {
+						has_country_flag = under_marauder_attack
+						is_same_empire = root
+						is_same_empire = event_target:countr_1
+					}
+				}
 				save_event_target_as = countr_2
 				random_playable_country = {
 					limit = {
@@ -1322,6 +1457,7 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = UniqueAscensionPerksEvents.385.Country.1
 		trigger = { exists = event_target:countr_1 }
@@ -1409,10 +1545,7 @@ country_event = {
 	option = {
 		name = "UniqueAscensionPerks.select_country"
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.385
-				scopes = { from = from }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.385 scopes = { from = from } }
 		}
 	}
 	option = {
@@ -1431,8 +1564,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = fromfrom room = underworld_room }
+
+	picture_event_data = {
+		portrait = fromfrom
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		# underworld_marauder_begin_raid = yes
 		from = {
@@ -1440,15 +1579,12 @@ country_event = {
 			species = { save_event_target_as = marauder_species }
 		}
 	}
+
 	option = {
 		name = EXCELLENT
 		hidden_effect = {
 			fromfrom = {
-				country_event = {
-					id = UniqueAscensionPerksEvents.387
-					days = 1
-					scopes = { from = root.from }
-				}
+				country_event = { id = UniqueAscensionPerksEvents.387 days = 1 scopes = { from = root.from } }
 			}
 		}
 	}
@@ -1461,15 +1597,23 @@ country_event = {
 	title = "UniqueAscensionPerksEvents.383.Name"
 	desc = "UniqueAscensionPerksEvents.387.Desc"
 	diplomatic = yes
-	picture_event_data = { portrait = event_target:raiding_marauder room = underworld_room }
+
+	picture_event_data = {
+		portrait = event_target:raiding_marauder
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		# underworld_marauder_raid = yes
 		# set_timed_country_flag = { flag = recently_raided_or_threatened years = 5 }
 		set_country_flag = raid_target_of@event_target:raiding_marauder
 		set_country_flag = under_marauder_attack
 		if = {
-			limit = { event_target:raiding_marauder = { has_country_flag = marauder_1 } }
+			limit = {
+				event_target:raiding_marauder = { has_country_flag = marauder_1 }
+			}
 			random_system = {
 				limit = { has_star_flag = marauder_capital_1 }
 				save_event_target_as = marauder_system
@@ -1480,7 +1624,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { event_target:raiding_marauder = { has_country_flag = marauder_2 } }
+			limit = {
+				event_target:raiding_marauder = { has_country_flag = marauder_2 }
+			}
 			random_system = {
 				limit = { has_star_flag = marauder_capital_2 }
 				save_event_target_as = marauder_system
@@ -1491,7 +1637,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { event_target:raiding_marauder = { has_country_flag = marauder_3 } }
+			limit = {
+				event_target:raiding_marauder = { has_country_flag = marauder_3 }
+			}
 			random_system = {
 				limit = { has_star_flag = marauder_capital_3 }
 				save_event_target_as = marauder_system
@@ -1525,10 +1673,15 @@ country_event = {
 			}
 		}
 		event_target:marauder_raiding_country = {
-			every_country = { establish_communications_no_message = event_target:marauder_raiding_country }
+			every_country = {
+				establish_communications_no_message = event_target:marauder_raiding_country
+			}
 			event_target:raiding_marauder = {
 				set_country_flag = parent_of@event_target:marauder_raiding_country
-				set_faction_hostility = { target = event_target:marauder_raiding_country set_friendly = yes }
+				set_faction_hostility = {
+					target = event_target:marauder_raiding_country
+					set_friendly = yes
+				}
 			}
 			create_leader = {
 				class = commander
@@ -1561,31 +1714,40 @@ country_event = {
 					limit = {
 						is_colony = yes
 						is_occupied_flag = no
-						num_sapient_pops > 2
+						sapient_pop_amount > 200
 						is_owned_by = prev
 						has_orbital_bombardment = no
 						has_ground_combat = no
-						solar_system = { is_owned_by = root last_created_fleet = { can_access_system = prev } }
+						solar_system = {
+							is_owned_by = root
+							last_created_fleet = { can_access_system = prev }
+						}
 					}
 					solar_system = { save_event_target_as = raid_system }
 					save_event_target_as = raid_planet
 				}
 			}
 			if = {
-				limit = { exists = event_target:raid_planet can_access_system = event_target:raid_planet.solar_system }
-				auto_move_to_planet = { target = event_target:raid_planet clear_auto_move_on_arrival = no }
+				limit = {
+					exists = event_target:raid_planet
+					can_access_system = event_target:raid_planet.solar_system
+				}
+				auto_move_to_planet = {
+					target = event_target:raid_planet
+					clear_auto_move_on_arrival = no
+				}
 			}
 			else = {
 				# Special fallback
-				fleet_event = {
-					id = marauder.29
-					scopes = { from = event_target:marauder_target }
-				}
+				fleet_event = { id = marauder.29 scopes = { from = event_target:marauder_target } }
 			}
 			set_faction_hostility = { target = event_target:marauder_target set_hostile = yes }
 		}
 	}
-	option = { name = BATTLESTATIONS }
+
+	option = {
+		name = BATTLESTATIONS
+	}
 }
 
 country_event = {
@@ -1596,7 +1758,12 @@ country_event = {
 	diplomatic = yes
 	force_open = yes
 	is_triggered_only = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	immediate = {
 		random_owned_planet = {
 			limit = { is_colony = yes }
@@ -1612,14 +1779,21 @@ country_event = {
 						random_owned_planet = {
 							limit = {
 								is_colony = yes
-								NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 }
+								NOR = {
+									is_planet = event_target:planet_1
+									is_planet = event_target:planet_2
+								}
 							}
 							save_event_target_as = planet_3
 							root = {
 								random_owned_planet = {
 									limit = {
 										is_colony = yes
-										NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 }
+										NOR = {
+											is_planet = event_target:planet_1
+											is_planet = event_target:planet_2
+											is_planet = event_target:planet_3
+										}
 									}
 									save_event_target_as = planet_4
 									root = {
@@ -1659,6 +1833,7 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.388.Planet.1"
 		trigger = { exists = event_target:planet_1 }
@@ -1735,23 +1910,43 @@ planet_event = {
 	diplomatic = yes
 	force_open = yes
 	is_triggered_only = yes
-	picture_event_data = { portrait = from room = underworld_room }
+
+	picture_event_data = {
+		portrait = from
+		room = underworld_room
+	}
+
 	location = root
-	pre_triggers = { has_owner = yes }
+
+	pre_triggers = {
+		has_owner = yes
+	}
+
 	after = {
 		from = {
+			save_event_target_as = underworld_owner
 			if = {
 				limit = { is_variable_set = create_underworld_slave }
-				while = { count = create_underworld_slave
-					random_playable_country = {
-						limit = {
-							NOR = { is_same_empire = prev  is_gestalt = yes }
+				random_playable_country = {
+					limit = {
+						NOR = {
+							is_same_empire = prev
+							is_gestalt = yes
 						}
-						root = {
-							create_pop = { species = prev.species }
-							last_created_pop = {
-								set_citizenship_type = { type = citizenship_slavery cooldown = no }
+					}
+					root = {
+						create_pop_group = {
+							species = prev.species
+							size = event_target:underworld_owner.create_underworld_slave
+							effect = {
+								save_event_target_as = last_created_pop_group
 							}
+						}
+						event_target:last_created_pop_group = {
+							set_citizenship_type = {
+								country = event_target:underworld_owner
+								type = citizenship_slavery
+								cooldown = no }
 						}
 					}
 				}
@@ -1759,6 +1954,7 @@ planet_event = {
 			clear_variable = create_underworld_slave
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.98.5"
 		allow = {
@@ -1768,7 +1964,7 @@ planet_event = {
 		}
 		from = {
 			add_resource = { treasures = -250 }
-			set_variable = { which = create_underworld_slave value = 5 }
+			set_variable = { which = create_underworld_slave value = 500 }
 			hidden_effect = {
 				set_timed_country_flag = { flag = underworld_slaves_cooldown years = 1 }
 				country_event = { id = UniqueAscensionPerksEvents.391 days = 360 }
@@ -1785,7 +1981,7 @@ planet_event = {
 		}
 		from = {
 			add_resource = { treasures = -500 }
-			set_variable = { which = create_underworld_slave value = 10 }
+			set_variable = { which = create_underworld_slave value = 1000 }
 			hidden_effect = {
 				set_timed_country_flag = { flag = underworld_slaves_cooldown years = 2 }
 				country_event = { id = UniqueAscensionPerksEvents.391 days = 720 }
@@ -1802,7 +1998,7 @@ planet_event = {
 		}
 		from = {
 			add_resource = { treasures = -1000 }
-			set_variable = { which = create_underworld_slave value = 20 }
+			set_variable = { which = create_underworld_slave value = 2000 }
 			hidden_effect = {
 				set_timed_country_flag = { flag = underworld_slaves_cooldown years = 4 }
 				country_event = { id = UniqueAscensionPerksEvents.391 days = 1440 }
@@ -1819,7 +2015,7 @@ planet_event = {
 		}
 		from = {
 			add_resource = { treasures = -2000 }
-			set_variable = { which = create_underworld_slave value = 40 }
+			set_variable = { which = create_underworld_slave value = 4000 }
 			hidden_effect = {
 				set_timed_country_flag = { flag = underworld_slaves_cooldown years = 8 }
 				country_event = { id = UniqueAscensionPerksEvents.391 days = 2880 }
@@ -1843,9 +2039,15 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	location = from
 	is_triggered_only = yes
+
 	option = {
 		name = EXCELLENT
 		hidden_effect = {
@@ -1861,9 +2063,17 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = root room = underworld_room }
+
+	picture_event_data = {
+		portrait = root
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -1873,8 +2083,13 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { room = underworld_room }
+
+	picture_event_data = {
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	immediate = {
 		random_country = {
 			limit = {
@@ -1885,13 +2100,20 @@ country_event = {
 			random_country = {
 				limit = {
 					can_fallen_empire_contact = yes
-					NOR = { is_same_empire = root is_same_empire = event_target:country_1 }
+					NOR = {
+						is_same_empire = root
+						is_same_empire = event_target:country_1
+					}
 				}
 				save_event_target_as = country_2
 				random_country = {
 					limit = {
 						can_fallen_empire_contact = yes
-						NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 }
+						NOR = {
+							is_same_empire = root
+							is_same_empire = event_target:country_1
+							is_same_empire = event_target:country_2
+						}
 					}
 					save_event_target_as = country_3
 					random_country = {
@@ -1937,64 +2159,47 @@ country_event = {
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.393
-				scopes = { from = event_target:country_1 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.393 scopes = { from = event_target:country_1 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.393
-				scopes = { from = event_target:country_2 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.393 scopes = { from = event_target:country_2 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.393
-				scopes = { from = event_target:country_3 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.393 scopes = { from = event_target:country_3 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.393
-				scopes = { from = event_target:country_4 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.393 scopes = { from = event_target:country_4 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.393
-				scopes = { from = event_target:country_5 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.393 scopes = { from = event_target:country_5 } }
 		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
 		hidden_effect = {
-			country_event = {
-				id = UniqueAscensionPerksEvents.393
-				scopes = { from = event_target:country_6 }
-			}
+			country_event = { id = UniqueAscensionPerksEvents.393 scopes = { from = event_target:country_6 } }
 		}
 	}
 	option = {
@@ -2020,36 +2225,41 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = from room = underworld_room }
-	is_triggered_only = yes
-	trigger = {
-		NOT = { has_active_event = { UniqueAscensionPerksEvents.393 } }
-		NOT = { has_country_flag = FallenEmpireContact }
+
+	picture_event_data = {
+		portrait = from
+		room = underworld_room
 	}
-	immediate = { set_country_flag = FallenEmpireContact }
+
+	is_triggered_only = yes
+
+	trigger = {
+		NOR = {
+			has_active_event = { UniqueAscensionPerksEvents.393 }
+			has_country_flag = FallenEmpireContact
+		}
+	}
+
+	immediate = {
+		set_country_flag = FallenEmpireContact
+	}
+
 	after = {
 		if = {
 			limit = { has_country_flag = FallenEmpireContact }
 			# underworld_fallen_empire_notice_transaction = yes
 			hidden_effect = {
 				set_timed_country_flag = { flag = underworld_fallen_empire_cooldown years = 5 }
-				country_event = {
-					id = UniqueAscensionPerksEvents.394
-					days = 1800
-					scopes = { from = from }
-				}
-				random = { chance = 50
-					country_event = {
-						id = UniqueAscensionPerksEvents.395
-						days = 30
-						random = 180
-						scopes = { from = from }
-					}
+				country_event = { id = UniqueAscensionPerksEvents.394 days = 1800 scopes = { from = from } }
+				random = {
+					chance = 50
+					country_event = { id = UniqueAscensionPerksEvents.395 days = 30 random = 180 scopes = { from = from } }
 				}
 			}
 			remove_country_flag = FallenEmpireContact
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.393.PowerCore"
 		allow = {
@@ -2059,7 +2269,10 @@ country_event = {
 			}
 			has_country_resource = { type = treasures amount > 7500 }
 			has_technology = tech_zero_point_power
-			NOR = { has_technology = tech_dark_matter_power_core has_tech_option = tech_dark_matter_power_core }
+			NOR = {
+				has_technology = tech_dark_matter_power_core
+				has_tech_option = tech_dark_matter_power_core
+			}
 		}
 		add_resource = { treasures = -7500 }
 		add_research_option = tech_dark_matter_power_core
@@ -2075,7 +2288,10 @@ country_event = {
 			}
 			has_country_resource = { type = treasures amount > 7500 }
 			has_technology = tech_shields_5
-			NOR = { has_technology = tech_dark_matter_deflector has_tech_option = tech_dark_matter_deflector }
+			NOR = {
+				has_technology = tech_dark_matter_deflector
+				has_tech_option = tech_dark_matter_deflector
+			}
 		}
 		add_resource = { treasures = -7500 }
 		add_research_option = tech_dark_matter_deflector
@@ -2091,7 +2307,10 @@ country_event = {
 			}
 			has_country_resource = { type = treasures amount > 7500 }
 			has_technology = tech_thrusters_4
-			NOR = { has_technology = tech_dark_matter_propulsion has_tech_option = tech_dark_matter_propulsion }
+			NOR = {
+				has_technology = tech_dark_matter_propulsion
+				has_tech_option = tech_dark_matter_propulsion
+			}
 		}
 		add_resource = { treasures = -7500 }
 		add_research_option = tech_dark_matter_propulsion
@@ -2119,7 +2338,11 @@ country_event = {
 				effect = {
 					set_owner = from					# For ship names
 					create_fallen_empire_titan = yes
-					set_location = { target = event_target:capital_planet distance = 50 angle = random }
+					set_location = {
+						target = event_target:capital_planet
+						distance = 50
+						angle = random
+					}
 				}
 			}
 			last_created_fleet = { set_owner = root }
@@ -2147,8 +2370,15 @@ country_event = {
 				name = "Fallen Empire Stolen Fleet"
 				effect = {
 					set_owner = from					# For ship names
-					while = { count = 4 create_fallen_empire_large_ship = yes }
-					set_location = { target = event_target:capital_planet distance = 50 angle = random }
+					while = {
+						count = 4
+						create_fallen_empire_large_ship = yes
+					}
+					set_location = {
+						target = event_target:capital_planet
+						distance = 50
+						angle = random
+					}
 				}
 			}
 			last_created_fleet = { set_owner = root }
@@ -2177,36 +2407,75 @@ country_event = {
 				effect = {
 					set_owner = from					# For ship names
 					if = {
-						limit = { from = { has_ethic = ethic_fanatic_xenophile } }
-						while = { count = 8 # NAME_Warden
-							create_ship = { name = random design = "NAME_Overseer" graphical_culture = from }
+						limit = {
+							from = { has_ethic = ethic_fanatic_xenophile }
+						}
+						while = {
+							count = 8 # NAME_Warden
+							create_ship = {
+								name = random
+								design = "NAME_Overseer"
+								graphical_culture = from
+							}
 						}
 					}
 					else_if = {
-						limit = { from = { has_ethic = ethic_fanatic_xenophobe } }
-						while = { count = 8
-							create_ship = { name = random design = "NAME_Glory" graphical_culture = from }
+						limit = {
+							from = { has_ethic = ethic_fanatic_xenophobe }
+						}
+						while = {
+							count = 8
+							create_ship = {
+								name = random
+								design = "NAME_Glory"
+								graphical_culture = from
+							}
 						}
 					}
 					else_if = {
-						limit = { from = { has_ethic = ethic_fanatic_materialist } }
-						while = { count = 8
-							create_ship = { name = random design = "NAME_Sage" graphical_culture = from }
+						limit = {
+							from = { has_ethic = ethic_fanatic_materialist }
+						}
+						while = {
+							count = 8
+							create_ship = {
+								name = random
+								design = "NAME_Sage"
+								graphical_culture = from
+							}
 						}
 					}
 					else_if = {
-						limit = { from = { has_ethic = ethic_fanatic_spiritualist } }
-						while = { count = 8
-							create_ship = { name = random design = "NAME_Zealot" graphical_culture = from }
+						limit = {
+							from = { has_ethic = ethic_fanatic_spiritualist }
+						}
+						while = {
+							count = 8
+							create_ship = {
+								name = random
+								design = "NAME_Zealot"
+								graphical_culture = from
+							}
 						}
 					}
 					else_if = {
-						limit = { from = { is_machine_empire = yes } }
-						while = { count = 8
-							create_ship = { name = random design = "NAME_Gamma" graphical_culture = from }
+						limit = {
+							from = { is_machine_empire = yes }
+						}
+						while = {
+							count = 8
+							create_ship = {
+								name = random
+								design = "NAME_Gamma"
+								graphical_culture = from
+							}
 						}
 					}
-					set_location = { target = event_target:capital_planet distance = 50 angle = random }
+					set_location = {
+						target = event_target:capital_planet
+						distance = 50
+						angle = random
+					}
 				}
 			}
 			last_created_fleet = { set_owner = root }
@@ -2217,7 +2486,9 @@ country_event = {
 		name = GOODBYE
 		ai_chance = { factor = 0.1 }
 		default_hide_option = yes
-		hidden_effect = { remove_country_flag = FallenEmpireContact }
+		hidden_effect = {
+			remove_country_flag = FallenEmpireContact
+		}
 	}
 }
 
@@ -2229,8 +2500,14 @@ country_event = {
 	show_sound = event_conversation
 	diplomatic = yes
 	force_open = yes
-	picture_event_data = { portrait = from room = underworld_room }
+
+	picture_event_data = {
+		portrait = from
+		room = underworld_room
+	}
+
 	is_triggered_only = yes
+
 	option = {
 		name = EXCELLENT
 		hidden_effect = {
@@ -2247,6 +2524,7 @@ country_event = {
 	show_sound = event_conversation
 	is_triggered_only = yes
 	diplomatic = yes
+
 	picture_event_data = {
 		portrait = from
 		planet_background = from
@@ -2254,6 +2532,7 @@ country_event = {
 		city_level = from
 		room = from.ruler
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.395.a"
 		allow = {
@@ -2268,12 +2547,18 @@ country_event = {
 		if = {
 			limit = { has_country_flag = fallen_empire_remnant_of@from }
 			from = {
-				add_opinion_modifier = { modifier = opinion_fallen_empire_remnant_contact_again who = root }
+				add_opinion_modifier = {
+					modifier = opinion_fallen_empire_remnant_contact_again
+					who = root
+				}
 			}
 		}
 		else = {
 			from = {
-				add_opinion_modifier = { modifier = opinion_fallen_empire_remnant_contact who = root }
+				add_opinion_modifier = {
+					modifier = opinion_fallen_empire_remnant_contact
+					who = root
+				}
 			}
 		}
 		set_timed_country_flag = { flag = fallen_empire_remnant_of@from years = 20 }

@@ -8,11 +8,21 @@
 create_security_forces_country = {
 	# save_event_target_as = main_country
 	if = {
-		limit = { NOT = { exists = event_target:security_forces_country } }
+		limit = {
+			NOT = { exists = event_target:security_forces_country }
+		}
 		if = {
-			limit = { any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } } }
+			limit = {
+				any_relation = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = security_strike_force }
+				}
+			}
 			random_relation = {
-				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } }
+				limit = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = security_strike_force }
+				}
 				save_event_target_as = security_forces_country
 				copy_random_tech_from = { who = root }
 			}
@@ -28,9 +38,17 @@ create_security_forces_country = {
 		# 	}
 		# }
 		else_if = {
-			limit = { any_country = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } } }
+			limit = {
+				any_country = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = security_strike_force }
+				}
+			}
 			random_country = {
-				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = security_strike_force } }
+				limit = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = security_strike_force }
+				}
 				save_event_target_as = security_forces_country
 			}
 		}
@@ -95,7 +113,10 @@ create_security_forces_country = {
 						}
 					}
 					random_agreement = {
-						limit = { is_owned_by = root target = { is_same_empire = prev } }
+						limit = {
+							is_owned_by = root
+							target = { is_same_empire = prev }
+						}
 						add_loyalty = 95
 					}
 					add_modifier = { modifier = pledged_allegiance }
@@ -109,13 +130,18 @@ create_security_forces_country = {
 	if = {
 		limit = { exists = event_target:security_forces_country }
 		event_target:security_forces_country = {
-			root = { sync_subjects_virtual_relation = yes }
+			root = {
+				sync_subjects_virtual_relation = yes
+				add_trust = { amount = 10 who = prev }
+			}
 			random_agreement = {
-				limit = { is_owned_by = root target = { is_same_empire = prev } }
+				limit = {
+					is_owned_by = root
+					target = { is_same_empire = prev }
+				}
 				add_loyalty = 10
 			}
 			add_trust = { amount = 10 who = root }
-			root = { add_trust = { amount = 10 who = prev } }
 		}
 	}
 }

@@ -1,11 +1,12 @@
+
 namespace = UniqueAscensionPerksEvents
+
 ######################################
 #									 #
 ####### Private Galactic Market #######
 #									 #
 ######################################
 # TODO: Omit save slaves as global_targets. Create Enclave!?
-
 country_event = {
 	id = UniqueAscensionPerksEvents.91
 	title = "ap_space_merchant"
@@ -14,21 +15,36 @@ country_event = {
 	picture = GFX_evt_space_merchant
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.93 } } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.93 }
+		}
+	}
 }
+
 # on_bi_yearly_pulse
 event = {
 	id = UniqueAscensionPerksEvents.92
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		every_playable_country = {
 			limit = { has_ascension_perk = ap_space_merchant }
-			if = { limit = { has_country_flag = ap_space_merchant_cooldown } # Only every 4 years
+			if = {
+				limit = { has_country_flag = ap_space_merchant_cooldown } # Only every 4 years
 				country_event = { id = UniqueAscensionPerksEvents.93 days = 20 random = 120 }
 				remove_country_flag = ap_space_merchant_cooldown
-			} else = { set_country_flag = ap_space_merchant_cooldown }
+			}
+			else = {
+				set_country_flag = ap_space_merchant_cooldown
+			}
 		}
 	}
 }
@@ -41,73 +57,97 @@ country_event = {
 	picture = GFX_evt_space_merchant
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	immediate = {
 		get_capital_planet = yes
 		set_variable = { which = private_galactic_market_tmp value = 0 }
 	}
+
 	after = {
 		clear_variable = private_galactic_market_tmp
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.93.Buy"
-		ai_chance = { factor = 0.1 } default_hide_option = yes
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
 		hidden_effect = {
 			# private_galactic_market_available_resources_set
 			while = {
 				count = 15
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_minerals value = 650 } }
 					10 = { change_variable = { which = private_galactic_market_minerals value = 1300 } }
 					10 = { change_variable = { which = private_galactic_market_minerals value = 1950 } }
 				}
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_food value = 800 } }
 					10 = { change_variable = { which = private_galactic_market_food value = 1600 } }
 					10 = { change_variable = { which = private_galactic_market_food value = 2400 } }
 				}
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_alloys value = 250 } }
 					10 = { change_variable = { which = private_galactic_market_alloys value = 500 } }
 					10 = { change_variable = { which = private_galactic_market_alloys value = 750 } }
 				}
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_consumers value = 300 } }
 					10 = { change_variable = { which = private_galactic_market_consumers value = 600 } }
 					10 = { change_variable = { which = private_galactic_market_consumers value = 900 } }
 				}
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_gases value = 100 } }
 					10 = { change_variable = { which = private_galactic_market_gases value = 200 } }
 					10 = { change_variable = { which = private_galactic_market_gases value = 300 } }
 				}
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_motes value = 100 } }
 					10 = { change_variable = { which = private_galactic_market_motes value = 200 } }
 					10 = { change_variable = { which = private_galactic_market_motes value = 300 } }
 				}
 				random_list = {
-					10 = {}
+					10 = {  }
 					20 = { change_variable = { which = private_galactic_market_crystals value = 100 } }
 					10 = { change_variable = { which = private_galactic_market_crystals value = 200 } }
 					10 = { change_variable = { which = private_galactic_market_crystals value = 300 } }
 				}
 			}
-			set_variable_to_random_value = { which = private_galactic_market_tmp min = 0 max = 195 rounded = yes }
+			set_variable_to_random_value = {
+				which = private_galactic_market_tmp
+				min = 0
+				max = 195
+				rounded = yes
+			}
 			multiply_variable = { which = private_galactic_market_alloys value = 100 }
 			change_variable = { which = private_galactic_market_minerals value = private_galactic_market_tmp }
-			set_variable_to_random_value = { which = private_galactic_market_tmp min = 0 max = 240 rounded = yes }
+			set_variable_to_random_value = {
+				which = private_galactic_market_tmp
+				min = 0
+				max = 240
+				rounded = yes
+			}
 			multiply_variable = { which = private_galactic_market_alloys value = 100 }
 			change_variable = { which = private_galactic_market_food value = private_galactic_market_tmp }
-			set_variable_to_random_value = { which = private_galactic_market_tmp min = 0 max = 75 rounded = yes }
+			set_variable_to_random_value = {
+				which = private_galactic_market_tmp
+				min = 0
+				max = 75
+				rounded = yes
+			}
 			multiply_variable = { which = private_galactic_market_alloys value = 100 }
 			change_variable = { which = private_galactic_market_consumers value = private_galactic_market_tmp }
-			set_variable_to_random_value = { which = private_galactic_market_tmp min = 0 max = 90 rounded = yes }
+			set_variable_to_random_value = {
+				which = private_galactic_market_tmp
+				min = 0
+				max = 90
+				rounded = yes
+			}
 			multiply_variable = { which = private_galactic_market_tmp value = 100 }
 			change_variable = { which = private_galactic_market_consumers value = private_galactic_market_tmp }
 			country_event = { id = UniqueAscensionPerksEvents.94 }
@@ -128,7 +168,12 @@ country_event = {
 			# }
 			while = {
 				count = 5
-				set_variable_to_random_value = { which = private_galactic_market_tmp min = 0 max = 72 rounded = yes }
+				set_variable_to_random_value = {
+					which = private_galactic_market_tmp
+					min = 0
+					max = 72
+					rounded = yes
+				}
 				multiply_variable = { which = private_galactic_market_tmp value = 100 }
 				change_variable = { which = private_galactic_market_credits value = private_galactic_market_tmp }
 			}
@@ -140,39 +185,96 @@ country_event = {
 		name = "UniqueAscensionPerksEvents.93.Slave"
 		allow = {
 			has_technology = tech_private_slaves
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.93.Req01 NOT = { has_country_flag = private_slaves_cooldown } }
-			OR = { has_valid_civic = civic_barbaric_despoilers has_ascension_perk = ap_nihilistic_acquisition has_policy_flag = slavery_allowed is_gestalt = yes }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.93.Req01
+				NOT = { has_country_flag = private_slaves_cooldown }
+			}
+			OR = {
+				has_valid_civic = civic_barbaric_despoilers
+				has_ascension_perk = ap_nihilistic_acquisition
+				has_policy_flag = slavery_allowed
+				is_gestalt = yes
+			}
 		}
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.96 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.96 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.93.Robot"
 		allow = {
 			has_technology = tech_private_robots
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.93.Req02 NOT = { has_country_flag = private_robot_cooldown } }
-			NOR = { has_policy_flag = robots_outlawed is_hive_empire = yes }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.93.Req02
+				NOT = { has_country_flag = private_robot_cooldown }
+			}
+			NOR = {
+				has_policy_flag = robots_outlawed
+				is_hive_empire = yes
+			}
 		}
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3090 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.3090 }
+		}
 	}
 	option = {
-		name = "UniqueAscensionPerksEvents.93.Army" allow = { has_technology = tech_private_armies }
+		name = "UniqueAscensionPerksEvents.93.Army"
+		allow = { has_technology = tech_private_armies }
 		hidden_effect = {
 			# private_galactic_market_available_armies_set (v3.7 new syntax)
-			set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 1 max = 30 rounded = yes }
-			set_variable_to_random_value = { which = private_galactic_market_mercenary_armies min = 0 max = 15 rounded = yes }
-			set_variable_to_random_value = { which = private_galactic_market_robotic_armies min = 0 max = 12 rounded = yes }
-			set_variable_to_random_value = { which = private_galactic_market_gene_armies min = 0 max = 5 rounded = yes }
+			set_variable_to_random_value = {
+				which = private_galactic_market_slave_armies
+				min = 1
+				max = 30
+				rounded = yes
+			}
+			set_variable_to_random_value = {
+				which = private_galactic_market_mercenary_armies
+				min = 0
+				max = 15
+				rounded = yes
+			}
+			set_variable_to_random_value = {
+				which = private_galactic_market_robotic_armies
+				min = 0
+				max = 12
+				rounded = yes
+			}
+			set_variable_to_random_value = {
+				which = private_galactic_market_gene_armies
+				min = 0
+				max = 5
+				rounded = yes
+			}
 			# Create more average
-			if = { limit = { check_variable = { which = private_galactic_market_slave_armies value < 16 } }
-				set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 0 max = 28 rounded = yes }
-			} else_if = { limit = { check_variable = { which = private_galactic_market_slave_armies value > 24 } }
-				set_variable_to_random_value = { which = private_galactic_market_slave_armies min = 8 max = 31 rounded = yes }
+			if = {
+				limit = {
+					check_variable = { which = private_galactic_market_slave_armies value < 16 }
+				}
+				set_variable_to_random_value = {
+					which = private_galactic_market_slave_armies
+					min = 0
+					max = 28
+					rounded = yes
+				}
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = private_galactic_market_slave_armies value > 24 }
+				}
+				set_variable_to_random_value = {
+					which = private_galactic_market_slave_armies
+					min = 8
+					max = 31
+					rounded = yes
+				}
 			}
 			country_event = { id = UniqueAscensionPerksEvents.3096 }
 		}
 	}
 	option = {
-		name = "UniqueAscensionPerksEvents.93.Ship" allow = { has_technology = tech_private_ships }
+		name = "UniqueAscensionPerksEvents.93.Ship"
+		allow = { has_technology = tech_private_ships }
 		hidden_effect = {
 			# private_galactic_market_available_ships_set = yes
 			set_variable = { which = private_galactic_market_corvette value = 0 }
@@ -212,12 +314,15 @@ country_event = {
 			country_event = { id = UniqueAscensionPerksEvents.3097 }
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.69.b" }
+	option = {
+		name = "UniqueAscensionPerksEvents.69.b"
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.94
 	title = "UniqueAscensionPerksEvents.94.Name"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.94.Desc"
@@ -231,98 +336,165 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.94.Available.Crystals"
 		}
 	}
+
 	diplomatic = yes
 	force_open = yes
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = "space_merchant_room" }
+
+	picture_event_data = {
+		portrait = root
+		room = "space_merchant_room"
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Minerals"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_minerals value > 650 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_minerals value > 650 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_minerals value = -650 } }
-		add_resource = { minerals = 650 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_minerals value = -650 }
+		}
+		add_resource = {
+			minerals = 650
+			energy = -1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Food"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_food value > 800 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_food value > 800 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_food value = -800 } }
-		add_resource = { food = 800 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_food value = -800 }
+		}
+		add_resource = {
+			food = 800
+			energy = -1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Alloys"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_alloys value > 250 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_alloys value > 250 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_alloys value = -250 } }
-		add_resource = { alloys = 250 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_alloys value = -250 }
+		}
+		add_resource = {
+			alloys = 250
+			energy = -1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Consumers"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_consumers value > 300 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_consumers value > 300 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_consumers value = -300 } }
-		add_resource = { consumer_goods = 300 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_consumers value = -300 }
+		}
+		add_resource = {
+			consumer_goods = 300
+			energy = -1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Gases"
 		allow = {
 			has_technology = tech_mine_exotic_gases
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_gases value > 100 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_gases value > 100 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_gases value = -100 } }
-		add_resource = { exotic_gases = 100 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_gases value = -100 }
+		}
+		add_resource = {
+			exotic_gases = 100
+			energy = -1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Motes"
 		allow = {
 			has_technology = tech_mine_volatile_motes
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_motes value > 100 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_motes value > 100 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_motes value = -100 } }
-		add_resource = { volatile_motes = 100 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_motes value = -100 }
+		}
+		add_resource = {
+			volatile_motes = 100
+			energy = -1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.94.Crystals"
 		allow = {
 			has_technology = tech_mine_rare_crystals
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.94.Req01 check_variable = { which = private_galactic_market_crystals value > 100 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.94.Req01
+				check_variable = { which = private_galactic_market_crystals value > 100 }
+			}
 			has_country_resource = { type = energy amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.94.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_crystals value = -100 } }
-		add_resource = { rare_crystals = 100 energy = -1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_crystals value = -100 }
+		}
+		add_resource = {
+			rare_crystals = 100
+			energy = -1000
+		}
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.95
 	title = "UniqueAscensionPerksEvents.94.Name"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.95.Desc"
@@ -330,90 +502,156 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.95.Available.Credits"
 		}
 	}
+
 	diplomatic = yes
 	force_open = yes
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Minerals"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = minerals amount > 800 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { minerals = -800 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			minerals = -800
+			energy = 1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Food"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = food amount > 1000 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { food = -1000 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			food = -1000
+			energy = 1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Alloys"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = alloys amount > 300 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { alloys = -300 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			alloys = -300
+			energy = 1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Consumers"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = consumer_goods amount > 400 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { consumer_goods = -400 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			consumer_goods = -400
+			energy = 1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Gases"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = exotic_gases amount > 150 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { exotic_gases = -150 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			exotic_gases = -150
+			energy = 1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Motes"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = volatile_motes amount > 150 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { volatile_motes = -150 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			volatile_motes = -150
+			energy = 1000
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.95.Crystals"
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.95.Req01 check_variable = { which = private_galactic_market_credits value > 1000 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.95.Req01
+				check_variable = { which = private_galactic_market_credits value > 1000 }
+			}
 			has_country_resource = { type = rare_crystals amount > 150 }
 		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.95.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_credits value = -1000 } }
-		add_resource = { rare_crystals = -150 energy = 1000 }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_credits value = -1000 }
+		}
+		add_resource = {
+			rare_crystals = -150
+			energy = 1000
+		}
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -425,11 +663,18 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
 	immediate = {
 		# private_slaves_species_set = yes
 		if = {
-			limit = { NOT = { exists = event_target:private_slave_miner } }
+			limit = {
+				NOT = { exists = event_target:private_slave_miner }
+			}
 			create_species = {
 				name = random
 				class = random_non_machine
@@ -449,7 +694,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:private_slave_technician } }
+			limit = {
+				NOT = { exists = event_target:private_slave_technician }
+			}
 			create_species = {
 				name = random
 				class = random_non_machine
@@ -469,7 +716,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:private_slave_farmer } }
+			limit = {
+				NOT = { exists = event_target:private_slave_farmer }
+			}
 			create_species = {
 				name = random
 				class = random_non_machine
@@ -488,31 +737,134 @@ country_event = {
 				}
 			}
 		}
-		random_owned_planet = { limit = { is_colony = yes }
+		random_owned_planet = {
+			limit = { is_colony = yes }
 			save_event_target_as = planet_1
-			root = { random_owned_planet = { limit = { is_colony = yes NOT = { is_planet = event_target:planet_1 } }
-				save_event_target_as = planet_2
-				root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 } }
-					save_event_target_as = planet_3
-					root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 } }
-						save_event_target_as = planet_4
-						root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 is_planet = event_target:planet_4 } }
-							save_event_target_as = planet_5
-							root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 is_planet = event_target:planet_4 is_planet = event_target:planet_5 } } save_event_target_as = planet_6 } }
-						} }
-					} }
-				} }
-			} }
+			root = {
+				random_owned_planet = {
+					limit = {
+						is_colony = yes
+						NOT = { is_planet = event_target:planet_1 }
+					}
+					save_event_target_as = planet_2
+					root = {
+						random_owned_planet = {
+							limit = {
+								is_colony = yes
+								NOR = {
+									is_planet = event_target:planet_1
+									is_planet = event_target:planet_2
+								}
+							}
+							save_event_target_as = planet_3
+							root = {
+								random_owned_planet = {
+									limit = {
+										is_colony = yes
+										NOR = {
+											is_planet = event_target:planet_1
+											is_planet = event_target:planet_2
+											is_planet = event_target:planet_3
+										}
+									}
+									save_event_target_as = planet_4
+									root = {
+										random_owned_planet = {
+											limit = {
+												is_colony = yes
+												NOR = {
+													is_planet = event_target:planet_1
+													is_planet = event_target:planet_2
+													is_planet = event_target:planet_3
+													is_planet = event_target:planet_4
+												}
+											}
+											save_event_target_as = planet_5
+											root = {
+												random_owned_planet = {
+													limit = {
+														is_colony = yes
+														NOR = {
+															is_planet = event_target:planet_1
+															is_planet = event_target:planet_2
+															is_planet = event_target:planet_3
+															is_planet = event_target:planet_4
+															is_planet = event_target:planet_5
+														}
+													}
+													save_event_target_as = planet_6
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
-	option = { name = UniqueAscensionPerksEvents.96.Planet.1 trigger = { exists = event_target:planet_1 } hidden_effect = { event_target:planet_1 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.2 trigger = { exists = event_target:planet_2 } hidden_effect = { event_target:planet_2 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.3 trigger = { exists = event_target:planet_3 } hidden_effect = { event_target:planet_3 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.4 trigger = { exists = event_target:planet_4 } hidden_effect = { event_target:planet_4 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.97 } } }
-	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.96 } } }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.1
+		trigger = { exists = event_target:planet_1 }
+		hidden_effect = {
+			event_target:planet_1 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.97 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.2
+		trigger = { exists = event_target:planet_2 }
+		hidden_effect = {
+			event_target:planet_2 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.97 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.3
+		trigger = { exists = event_target:planet_3 }
+		hidden_effect = {
+			event_target:planet_3 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.97 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.4
+		trigger = { exists = event_target:planet_4 }
+		hidden_effect = {
+			event_target:planet_4 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.97 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.5
+		trigger = { exists = event_target:planet_5 }
+		hidden_effect = {
+			event_target:planet_5 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.97 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.6
+		trigger = { exists = event_target:planet_6 }
+		hidden_effect = {
+			event_target:planet_6 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.97 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerks.select_planet"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.96 }
+		}
+	}
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -524,11 +876,41 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = "UniqueAscensionPerksEvents.97.Industrial" hidden_effect = { event_target:private_slave_miner = { save_event_target_as = selected_slave } country_event = { id = UniqueAscensionPerksEvents.98 } } custom_tooltip = "UniqueAscensionPerksEvents.97.Industrial.tooltip" }
-	option = { name = "UniqueAscensionPerksEvents.97.Ingenious" hidden_effect = { event_target:private_slave_technician = { save_event_target_as = selected_slave } country_event = { id = UniqueAscensionPerksEvents.98 } } custom_tooltip = "UniqueAscensionPerksEvents.97.Ingenious.tooltip" }
-	option = { name = "UniqueAscensionPerksEvents.97.Farmer" hidden_effect = { event_target:private_slave_farmer = { save_event_target_as = selected_slave } country_event = { id = UniqueAscensionPerksEvents.98 } } custom_tooltip = "UniqueAscensionPerksEvents.97.Farmer.tooltip" }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
+	option = {
+		name = "UniqueAscensionPerksEvents.97.Industrial"
+		hidden_effect = {
+			event_target:private_slave_miner = { save_event_target_as = selected_slave }
+			country_event = { id = UniqueAscensionPerksEvents.98 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.97.Industrial.tooltip"
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.97.Ingenious"
+		hidden_effect = {
+			event_target:private_slave_technician = { save_event_target_as = selected_slave }
+			country_event = { id = UniqueAscensionPerksEvents.98 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.97.Ingenious.tooltip"
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.97.Farmer"
+		hidden_effect = {
+			event_target:private_slave_farmer = { save_event_target_as = selected_slave }
+			country_event = { id = UniqueAscensionPerksEvents.98 }
+		}
+		custom_tooltip = "UniqueAscensionPerksEvents.97.Farmer.tooltip"
+	}
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -540,11 +922,18 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
 	immediate = {
-		if = { limit = { has_policy_flag = slavery_allowed }
+		if = {
+			limit = { has_policy_flag = slavery_allowed }
 			set_variable = { which = private_slave_costs value = 1 }
-		} else_if = {
+		}
+		else_if = {
 			limit = {
 				OR = {
 					is_authoritarian = yes
@@ -552,29 +941,111 @@ country_event = {
 				}
 			}
 			set_variable = { which = private_slave_costs value = 1.333 }
-		} else = {
+		}
+		else = {
 			set_variable = { which = private_slave_costs value = 2 }
 		}
 	}
+
 	after = {
-		if = { limit = { is_variable_set = create_private_slave }
+		if = {
+			limit = { is_variable_set = create_private_slave }
 			event_target:PlanetTarget = {
-				while = { count = root.create_private_slave
-					create_pop = { species = event_target:selected_slave }
-					last_created_pop = { set_citizenship_type = { type = citizenship_slavery cooldown = no } }
+				create_pop_group = {
+					species = event_target:selected_slave
+					size = root.create_private_slave
+					effect = {
+						save_event_target_as = last_created_pop_group
+					}
+				}
+				event_target:last_created_pop_group = {
+					set_citizenship_type = {
+						country = root
+						type = citizenship_slavery
+						cooldown = no
+					}
 				}
 			}
 			clear_variable = create_private_slave
 		}
 		clear_variable = private_slave_costs
 	}
-	option = { name = "UniqueAscensionPerksEvents.98.5" allow = { resource_stockpile_compare = { resource = energy value > 5000 mult = private_slave_costs } } add_resource = { energy = -5000 } hidden_effect = { set_variable = { which = create_private_slave value = 5 } set_timed_country_flag = { flag = private_slaves_cooldown years = 1 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = "UniqueAscensionPerksEvents.98.10" allow = { resource_stockpile_compare = { resource = energy value > 10000 mult = private_slave_costs } } add_resource = { energy = -10000 } hidden_effect = { set_variable = { which = create_private_slave value = 10 } set_timed_country_flag = { flag = private_slaves_cooldown years = 2 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = "UniqueAscensionPerksEvents.98.20" allow = { resource_stockpile_compare = { resource = energy value > 20000 mult = private_slave_costs } } add_resource = { energy = -20000 } hidden_effect = { set_variable = { which = create_private_slave value = 20 } set_timed_country_flag = { flag = private_slaves_cooldown years = 4 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = "UniqueAscensionPerksEvents.98.40" allow = { resource_stockpile_compare = { resource = energy value > 40000 mult = private_slave_costs } } add_resource = { energy = -40000 } hidden_effect = { set_variable = { which = create_private_slave value = 40 } set_timed_country_flag = { flag = private_slaves_cooldown years = 8 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = GOODBYE
-		ai_chance = { factor = 0.1 } default_hide_option = yes
-		hidden_effect = { clear_variable = create_private_slave }
+
+	option = {
+		name = "UniqueAscensionPerksEvents.98.5"
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value > 5000
+				mult = private_slave_costs
+			}
+		}
+		add_resource = { energy = -5000 }
+		hidden_effect = {
+			set_variable = { which = create_private_slave value = 500 }
+			set_timed_country_flag = { flag = private_slaves_cooldown years = 1 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.98.10"
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value > 10000
+				mult = private_slave_costs
+			}
+		}
+		add_resource = { energy = -10000 }
+		hidden_effect = {
+			set_variable = { which = create_private_slave value = 1000 }
+			set_timed_country_flag = { flag = private_slaves_cooldown years = 2 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.98.20"
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value > 20000
+				mult = private_slave_costs
+			}
+		}
+		add_resource = { energy = -20000 }
+		hidden_effect = {
+			set_variable = { which = create_private_slave value = 2000 }
+			set_timed_country_flag = { flag = private_slaves_cooldown years = 4 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.98.40"
+		allow = {
+			resource_stockpile_compare = {
+				resource = energy
+				value > 40000
+				mult = private_slave_costs
+			}
+		}
+		add_resource = { energy = -40000 }
+		hidden_effect = {
+			set_variable = { which = create_private_slave value = 4000 }
+			set_timed_country_flag = { flag = private_slaves_cooldown years = 8 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+		hidden_effect = {
+			clear_variable = create_private_slave
+		}
 	}
 }
 
@@ -588,8 +1059,15 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = GOODBYE }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
+	option = {
+		name = GOODBYE
+	}
 }
 
 country_event = {
@@ -601,11 +1079,18 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
 	immediate = {
 		# private_robot_species_set = yes
 		if = {
-			limit = { NOT = { exists = event_target:private_robot_miner } }
+			limit = {
+				NOT = { exists = event_target:private_robot_miner }
+			}
 			create_species = {
 				name = "UniqueAscensionPerksEvents.3091.Industrial"
 				class = ROBOT
@@ -621,7 +1106,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:private_robot_technician } }
+			limit = {
+				NOT = { exists = event_target:private_robot_technician }
+			}
 			create_species = {
 				name = "UniqueAscensionPerksEvents.3091.Ingenious"
 				class = ROBOT
@@ -637,7 +1124,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:private_robot_farmer } }
+			limit = {
+				NOT = { exists = event_target:private_robot_farmer }
+			}
 			create_species = {
 				name = "UniqueAscensionPerksEvents.3091.Farmer"
 				class = ROBOT
@@ -653,7 +1142,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:private_robot_researcher } }
+			limit = {
+				NOT = { exists = event_target:private_robot_researcher }
+			}
 			create_species = {
 				name = "UniqueAscensionPerksEvents.3091.Researcher"
 				class = ROBOT
@@ -669,7 +1160,9 @@ country_event = {
 			}
 		}
 		if = {
-			limit = { NOT = { exists = event_target:private_robot_trader } }
+			limit = {
+				NOT = { exists = event_target:private_robot_trader }
+			}
 			create_species = {
 				name = "UniqueAscensionPerksEvents.3091.Trader"
 				class = ROBOT
@@ -684,31 +1177,134 @@ country_event = {
 				}
 			}
 		}
-		random_owned_planet = { limit = { is_colony = yes }
+		random_owned_planet = {
+			limit = { is_colony = yes }
 			save_event_target_as = planet_1
-			root = { random_owned_planet = { limit = { is_colony = yes NOT = { is_planet = event_target:planet_1 } }
-				save_event_target_as = planet_2
-				root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 } }
-					save_event_target_as = planet_3
-					root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 } }
-						save_event_target_as = planet_4
-						root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 is_planet = event_target:planet_4 } }
-							save_event_target_as = planet_5
-							root = { random_owned_planet = { limit = { is_colony = yes NOR = { is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 is_planet = event_target:planet_4 is_planet = event_target:planet_5 } } save_event_target_as = planet_6 } }
-						} }
-					} }
-				} }
-			} }
+			root = {
+				random_owned_planet = {
+					limit = {
+						is_colony = yes
+						NOT = { is_planet = event_target:planet_1 }
+					}
+					save_event_target_as = planet_2
+					root = {
+						random_owned_planet = {
+							limit = {
+								is_colony = yes
+								NOR = {
+									is_planet = event_target:planet_1
+									is_planet = event_target:planet_2
+								}
+							}
+							save_event_target_as = planet_3
+							root = {
+								random_owned_planet = {
+									limit = {
+										is_colony = yes
+										NOR = {
+											is_planet = event_target:planet_1
+											is_planet = event_target:planet_2
+											is_planet = event_target:planet_3
+										}
+									}
+									save_event_target_as = planet_4
+									root = {
+										random_owned_planet = {
+											limit = {
+												is_colony = yes
+												NOR = {
+													is_planet = event_target:planet_1
+													is_planet = event_target:planet_2
+													is_planet = event_target:planet_3
+													is_planet = event_target:planet_4
+												}
+											}
+											save_event_target_as = planet_5
+											root = {
+												random_owned_planet = {
+													limit = {
+														is_colony = yes
+														NOR = {
+															is_planet = event_target:planet_1
+															is_planet = event_target:planet_2
+															is_planet = event_target:planet_3
+															is_planet = event_target:planet_4
+															is_planet = event_target:planet_5
+														}
+													}
+													save_event_target_as = planet_6
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
-	option = { name = UniqueAscensionPerksEvents.96.Planet.1 trigger = { exists = event_target:planet_1 } hidden_effect = { event_target:planet_1 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.2 trigger = { exists = event_target:planet_2 } hidden_effect = { event_target:planet_2 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.3 trigger = { exists = event_target:planet_3 } hidden_effect = { event_target:planet_3 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.4 trigger = { exists = event_target:planet_4 } hidden_effect = { event_target:planet_4 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } country_event = { id = UniqueAscensionPerksEvents.3091 } } }
-	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.3090 } } }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.1
+		trigger = { exists = event_target:planet_1 }
+		hidden_effect = {
+			event_target:planet_1 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.3091 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.2
+		trigger = { exists = event_target:planet_2 }
+		hidden_effect = {
+			event_target:planet_2 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.3091 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.3
+		trigger = { exists = event_target:planet_3 }
+		hidden_effect = {
+			event_target:planet_3 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.3091 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.4
+		trigger = { exists = event_target:planet_4 }
+		hidden_effect = {
+			event_target:planet_4 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.3091 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.5
+		trigger = { exists = event_target:planet_5 }
+		hidden_effect = {
+			event_target:planet_5 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.3091 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.6
+		trigger = { exists = event_target:planet_6 }
+		hidden_effect = {
+			event_target:planet_6 = { save_event_target_as = PlanetTarget }
+			country_event = { id = UniqueAscensionPerksEvents.3091 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerks.select_planet"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.3090 }
+		}
+	}
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -720,7 +1316,12 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.3091.Industrial"
 		hidden_effect = {
@@ -731,9 +1332,16 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3091.Ingenious"
-		allow = { OR = { has_technology = tech_droid_workers is_machine_empire = yes } }
-		hidden_effect = { event_target:private_robot_technician = { save_event_target_as = selected_robot }
-		country_event = { id = UniqueAscensionPerksEvents.3092 } }
+		allow = {
+			OR = {
+				has_technology = tech_droid_workers
+				is_machine_empire = yes
+			}
+		}
+		hidden_effect = {
+			event_target:private_robot_technician = { save_event_target_as = selected_robot }
+			country_event = { id = UniqueAscensionPerksEvents.3092 }
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.3091.Ingenious.tooltip"
 	}
 	option = {
@@ -746,7 +1354,12 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3091.Researcher"
-		allow = { OR = { has_technology = tech_droid_workers is_machine_empire = yes } }
+		allow = {
+			OR = {
+				has_technology = tech_droid_workers
+				is_machine_empire = yes
+			}
+		}
 		hidden_effect = {
 			event_target:private_robot_researcher = { save_event_target_as = selected_robot }
 			country_event = { id = UniqueAscensionPerksEvents.3092 }
@@ -755,14 +1368,23 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3091.Trader"
-		allow = { OR = { has_technology = tech_synthetic_workers is_machine_empire = yes } }
+		allow = {
+			OR = {
+				has_technology = tech_synthetic_workers
+				is_machine_empire = yes
+			}
+		}
 		hidden_effect = {
 			event_target:private_robot_trader = { save_event_target_as = selected_robot }
 			country_event = { id = UniqueAscensionPerksEvents.3092 }
 		}
 		custom_tooltip = "UniqueAscensionPerksEvents.3091.Trader.tooltip"
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -774,24 +1396,84 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
 	after = {
-		if = { limit = { is_variable_set = create_private_robot }
+		if = {
+			limit = { is_variable_set = create_private_robot }
 			event_target:PlanetTarget = {
-				while = { count = root.create_private_robot
-					create_pop = { species = event_target:selected_robot }
+				while = {
+					count = root.create_private_robot
+					create_pop_group = { species = event_target:selected_robot }
 				}
 			}
 			clear_variable = create_private_robot
 		}
 	}
-	option = { name = "UniqueAscensionPerksEvents.3092.5" allow = { has_country_resource = { type = energy amount > 5000 } } add_resource = { energy = -5000 } hidden_effect = { set_variable = { which = create_private_robot value = 5 } set_timed_country_flag = { flag = private_robot_cooldown years = 1 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = "UniqueAscensionPerksEvents.3092.10" allow = { has_country_resource = { type = energy amount > 10000 } } add_resource = { energy = -10000 } hidden_effect = { set_variable = { which = create_private_robot value = 10 } set_timed_country_flag = { flag = private_robot_cooldown years = 2 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = "UniqueAscensionPerksEvents.3092.20" allow = { has_country_resource = { type = energy amount > 20000 } } add_resource = { energy = -20000 } hidden_effect = { set_variable = { which = create_private_robot value = 20 } set_timed_country_flag = { flag = private_robot_cooldown years = 4 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = "UniqueAscensionPerksEvents.3092.40" allow = { has_country_resource = { type = energy amount > 40000 } } add_resource = { energy = -40000 } hidden_effect = { set_variable = { which = create_private_robot value = 40 } set_timed_country_flag = { flag = private_robot_cooldown years = 8 } country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 } country_event = { id = UniqueAscensionPerksEvents.3093 } } }
-	option = { name = GOODBYE
-		ai_chance = { factor = 0.1 } default_hide_option = yes
-		hidden_effect = { clear_variable = create_private_robot }
+
+	option = {
+		name = "UniqueAscensionPerksEvents.3092.5"
+		allow = {
+			has_country_resource = { type = energy amount > 5000 }
+		}
+		add_resource = { energy = -5000 }
+		hidden_effect = {
+			set_variable = { which = create_private_robot value = 5 }
+			set_timed_country_flag = { flag = private_robot_cooldown years = 1 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 360 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.3092.10"
+		allow = {
+			has_country_resource = { type = energy amount > 10000 }
+		}
+		add_resource = { energy = -10000 }
+		hidden_effect = {
+			set_variable = { which = create_private_robot value = 10 }
+			set_timed_country_flag = { flag = private_robot_cooldown years = 2 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 720 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.3092.20"
+		allow = {
+			has_country_resource = { type = energy amount > 20000 }
+		}
+		add_resource = { energy = -20000 }
+		hidden_effect = {
+			set_variable = { which = create_private_robot value = 20 }
+			set_timed_country_flag = { flag = private_robot_cooldown years = 4 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 1440 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.3092.40"
+		allow = {
+			has_country_resource = { type = energy amount > 40000 }
+		}
+		add_resource = { energy = -40000 }
+		hidden_effect = {
+			set_variable = { which = create_private_robot value = 40 }
+			set_timed_country_flag = { flag = private_robot_cooldown years = 8 }
+			country_event = { id = UniqueAscensionPerksEvents.3095 days = 2880 }
+			country_event = { id = UniqueAscensionPerksEvents.3093 }
+		}
+	}
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+		hidden_effect = {
+			clear_variable = create_private_robot
+		}
 	}
 }
 
@@ -805,8 +1487,17 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -818,8 +1509,15 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = OK }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
+	option = {
+		name = OK
+	}
 }
 
 country_event = {
@@ -831,13 +1529,21 @@ country_event = {
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	option = { name = OK }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
+	}
+
+	option = {
+		name = OK
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.3096
 	title = "UniqueAscensionPerksEvents.94.Name"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.3096.Desc"
@@ -848,16 +1554,31 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.3096.Available.Gene"
 		}
 	}
+
 	diplomatic = yes
 	force_open = yes
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	immediate = {
-		if = { limit = { exists = capital_scope } capital_scope = { save_event_target_as = spawn_location }
-		} else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
 	}
+
+	immediate = {
+		if = {
+			limit = { exists = capital_scope }
+			capital_scope = { save_event_target_as = spawn_location }
+		}
+		else = {
+			random_owned_planet = {
+				limit = { is_colony = yes }
+				save_event_target_as = spawn_location
+			}
+		}
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.3096.Slave"
 		trigger = {
@@ -865,7 +1586,10 @@ country_event = {
 			exists = event_target:private_slave_miner
 		}
 		allow = {
-			custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_slave_armies value > 1 } }
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3096.Req01
+				check_variable = { which = private_galactic_market_slave_armies value > 1 }
+			}
 			has_country_resource = { type = energy amount > 100 }
 		}
 		is_dialog_only = yes
@@ -883,7 +1607,11 @@ country_event = {
 						army_type = "private_slave_army"
 						species = event_target:private_slave_miner
 					}
-					set_location = { target = event_target:spawn_location distance = 50 angle = random }
+					set_location = {
+						target = event_target:spawn_location
+						distance = 50
+						angle = random
+					}
 				}
 			}
 		}
@@ -895,10 +1623,24 @@ country_event = {
 			is_variable_set = private_galactic_market_mercenary_armies
 			exists = event_target:private_slave_miner
 		}
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_mercenary_armies value > 1 } } has_country_resource = { type = energy amount > 150 } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3096.Req01
+				check_variable = {
+					which = private_galactic_market_mercenary_armies
+					value > 1
+				}
+			}
+			has_country_resource = { type = energy amount > 150 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_mercenary_armies value = -1 } }
+		hidden_effect = {
+			change_variable = {
+				which = private_galactic_market_mercenary_armies
+				value = -1
+			}
+		}
 		add_resource = { energy = -150 }
 		create_fleet = {
 			name = "Private Mercenary Army Transport"
@@ -910,7 +1652,11 @@ country_event = {
 					army_type = "private_assault_army"
 					species = event_target:private_slave_miner
 				}
-				set_location = { target = event_target:spawn_location distance = 50 angle = random }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
 			}
 		}
 	}
@@ -947,7 +1693,11 @@ country_event = {
 						army_type = "private_robotic_army"
 						species = event_target:private_robot_miner
 					}
-					set_location = { target = event_target:spawn_location distance = 50 angle = random }
+					set_location = {
+						target = event_target:spawn_location
+						distance = 50
+						angle = random
+					}
 				}
 			}
 		}
@@ -959,10 +1709,18 @@ country_event = {
 			is_variable_set = private_galactic_market_gene_armies
 			exists = event_target:private_slave_miner
 		}
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3096.Req01 check_variable = { which = private_galactic_market_gene_armies value > 1 } } has_country_resource = { type = energy amount > 800 } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3096.Req01
+				check_variable = { which = private_galactic_market_gene_armies value > 1 }
+			}
+			has_country_resource = { type = energy amount > 800 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3096.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_gene_armies value = -1 } }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_gene_armies value = -1 }
+		}
 		add_resource = { energy = -800 }
 		create_fleet = {
 			name = "Private Gene Warrior Army Transport"
@@ -974,16 +1732,25 @@ country_event = {
 					army_type = "private_gene_warrior_army"
 					species = event_target:private_slave_miner
 				}
-				set_location = { target = event_target:spawn_location distance = 50 angle = random }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
 			}
 		}
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.3097
 	title = "UniqueAscensionPerksEvents.94.Name"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.3097.Desc"
@@ -995,60 +1762,178 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.3097.Available.Titan"
 		}
 	}
+
 	diplomatic = yes
 	force_open = yes
 	is_triggered_only = yes
 	custom_gui = "enclave_trader_window"
 	custom_gui_option = "enclave_trader_option"
-	picture_event_data = { portrait = root room = space_merchant_room }
-	immediate = {
-		if = { limit = { exists = capital_scope } capital_scope = { save_event_target_as = spawn_location }
-		} else = { random_owned_planet = { limit = { is_colony = yes } save_event_target_as = spawn_location } }
+
+	picture_event_data = {
+		portrait = root
+		room = space_merchant_room
 	}
+
+	immediate = {
+		if = {
+			limit = { exists = capital_scope }
+			capital_scope = { save_event_target_as = spawn_location }
+		}
+		else = {
+			random_owned_planet = {
+				limit = { is_colony = yes }
+				save_event_target_as = spawn_location
+			}
+		}
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.3097.Corvette"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3097.Req01 check_variable = { which = private_galactic_market_corvette value > 1 } } has_country_resource = { type = energy amount > 300 } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3097.Req01
+				check_variable = { which = private_galactic_market_corvette value > 1 }
+			}
+			has_country_resource = { type = energy amount > 300 }
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3097.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_corvette value = -1 } }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_corvette value = -1 }
+		}
 		add_resource = { energy = -300 }
-		create_fleet = { name = "Private Market Fleet" effect = { set_owner = root create_ship = { name = random design = "Standard Basic Corvette" } set_location = { target = event_target:spawn_location distance = 50 angle = random } } }
+		create_fleet = {
+			name = "Private Market Fleet"
+			effect = {
+				set_owner = root
+				create_ship = { name = random design = "Standard Basic Corvette" }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
+			}
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3097.Destroyer"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3097.Req01 check_variable = { which = private_galactic_market_destroyer value > 1 } } has_country_resource = { type = energy amount > 650 } has_technology = tech_destroyers }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3097.Req01
+				check_variable = { which = private_galactic_market_destroyer value > 1 }
+			}
+			has_country_resource = { type = energy amount > 650 }
+			has_technology = tech_destroyers
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3097.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_destroyer value = -1 } }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_destroyer value = -1 }
+		}
 		add_resource = { energy = -650 }
-		create_fleet = { name = "Private Market Fleet" effect = { set_owner = root create_ship = { name = random design = "Standard Basic Destroyer" } set_location = { target = event_target:spawn_location distance = 50 angle = random } } }
+		create_fleet = {
+			name = "Private Market Fleet"
+			effect = {
+				set_owner = root
+				create_ship = { name = random design = "Standard Basic Destroyer" }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
+			}
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3097.Cruiser"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3097.Req01 check_variable = { which = private_galactic_market_cruiser value > 1 } } has_country_resource = { type = energy amount > 1400 } has_technology = tech_cruisers }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3097.Req01
+				check_variable = { which = private_galactic_market_cruiser value > 1 }
+			}
+			has_country_resource = { type = energy amount > 1400 }
+			has_technology = tech_cruisers
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3097.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_cruiser value = -1 } }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_cruiser value = -1 }
+		}
 		add_resource = { energy = -1400 }
-		create_fleet = { name = "Private Market Fleet" effect = { set_owner = root create_ship = { name = random design = "Standard Basic Cruiser" } set_location = { target = event_target:spawn_location distance = 50 angle = random } } }
+		create_fleet = {
+			name = "Private Market Fleet"
+			effect = {
+				set_owner = root
+				create_ship = { name = random design = "Standard Basic Cruiser" }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
+			}
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3097.Battleship"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3097.Req01 check_variable = { which = private_galactic_market_battleship value > 1 } } has_country_resource = { type = energy amount > 4500 } has_technology = tech_battleships }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3097.Req01
+				check_variable = { which = private_galactic_market_battleship value > 1 }
+			}
+			has_country_resource = { type = energy amount > 4500 }
+			has_technology = tech_battleships
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3097.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_battleship value = -1 } }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_battleship value = -1 }
+		}
 		add_resource = { energy = -4500 }
-		create_fleet = { name = "Private Market Fleet" effect = { set_owner = root create_ship = { name = random design = "Standard Basic Battleship" } set_location = { target = event_target:spawn_location distance = 50 angle = random } } }
+		create_fleet = {
+			name = "Private Market Fleet"
+			effect = {
+				set_owner = root
+				create_ship = { name = random design = "Standard Basic Battleship" }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
+			}
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3097.Titan"
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.3097.Req01 check_variable = { which = private_galactic_market_titan value > 1 } } has_country_resource = { type = energy amount > 11000 } has_technology = tech_titans }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.3097.Req01
+				check_variable = { which = private_galactic_market_titan value > 1 }
+			}
+			has_country_resource = { type = energy amount > 11000 }
+			has_technology = tech_titans
+		}
 		is_dialog_only = yes
 		response_text = "UniqueAscensionPerksEvents.3097.Purchase"
-		hidden_effect = { change_variable = { which = private_galactic_market_titan value = -1 } }
+		hidden_effect = {
+			change_variable = { which = private_galactic_market_titan value = -1 }
+		}
 		add_resource = { energy = -11000 }
-		create_fleet = { name = "Private Market Fleet" effect = { set_owner = root create_ship = { name = random design = "Standard Basic Titan" } set_location = { target = event_target:spawn_location distance = 50 angle = random } } }
+		create_fleet = {
+			name = "Private Market Fleet"
+			effect = {
+				set_owner = root
+				create_ship = { name = random design = "Standard Basic Titan" }
+				set_location = {
+					target = event_target:spawn_location
+					distance = 50
+					angle = random
+				}
+			}
+		}
 	}
-	option = { name = GOODBYE ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = GOODBYE
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }

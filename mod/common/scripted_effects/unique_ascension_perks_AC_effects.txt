@@ -8,38 +8,60 @@ set_advanced_colony = {
 	if = {
 		limit = { merg_is_habitat = yes }
 		if = {
-			limit = { owner = { is_regular_empire = yes } }
-			add_building = building_hospital
-			add_building = building_hospital
+			limit = {
+				owner = { is_regular_empire = yes }
+			}
+			add_building = building_medical_1
+			add_building = building_medical_1
 			add_building = building_precinct_house
-		} else_if = {
-			limit = { owner = { is_hive_empire = yes } }
+		}
+		else_if = {
+			limit = {
+				owner = { is_hive_empire = yes }
+			}
 			add_building = building_spawning_pool
 			add_building = building_spawning_pool
 			add_building = building_sentinel_posts
-		} else_if = {
-			limit = { owner = { is_machine_empire = yes } }
+		}
+		else_if = {
+			limit = {
+				owner = { is_machine_empire = yes }
+			}
 			add_building = building_machine_assembly_plant
 			add_building = building_machine_assembly_plant
 			add_building = building_sentinel_posts
 		}
-	} else = {
+	}
+	else = {
 		if = {
-			limit = { owner = { is_regular_empire = yes } }
+			limit = {
+				owner = { is_regular_empire = yes }
+			}
 			remove_building = building_colony_shelter
 			add_building = building_capital
-			add_building = building_hospital
-		} else_if = {
-			limit = { owner = { is_hive_empire = yes } }
+			add_building = building_medical_1
+		}
+		else_if = {
+			limit = {
+				owner = { is_hive_empire = yes }
+			}
 			add_building = building_spawning_pool
 			add_building = building_spawning_pool
-		} else_if = {
-			limit = { owner = { is_machine_empire = yes } }
+		}
+		else_if = {
+			limit = {
+				owner = { is_machine_empire = yes }
+			}
 			remove_building = building_deployment_post
 			add_building = building_machine_capital
 			add_building = building_machine_assembly_plant
 		}
 	}
-	if = { limit = { owner = { is_gestalt = yes } } add_modifier = { modifier = adv_colonisation_temporal_job_gesalt years = 3 } }
-	else = { add_modifier = { modifier = adv_colonisation_temporal_job years = 3 } }
+	if = {
+		limit = { owner = { is_gestalt = yes } }
+		add_modifier = { modifier = adv_colonisation_temporal_job_gesalt years = 3 }
+	}
+	else = {
+		add_modifier = { modifier = adv_colonisation_temporal_job years = 3 }
+	}
 }

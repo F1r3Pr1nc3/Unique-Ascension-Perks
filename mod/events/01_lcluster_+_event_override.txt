@@ -1,10 +1,10 @@
 ### Compatiblity Fix for ADT and L-Cluster-Access
-
 # Project available
 country_event = {
 	id = distar.10905
 	title = "LCLUSTER_PROJECT" # "distar.10905.name" "lclusterplus.10905.name"
 	desc = "distar.10905.desc"
+
 	inline_script = { # L-Cluster PLus 2293169684
 		script = merger_of_rules/toggled_code
 		code = "
@@ -22,6 +22,7 @@ country_event = {
 		"
 		toggle = @armor_nanite_8L # PENDING
 	}
+
 	trigger = {
 		NOR = {
 			has_active_event = { distar.10905 }
@@ -29,20 +30,24 @@ country_event = {
 			inline_script = { # L-Cluster PLus 2293169684
 				script = merger_of_rules/toggled_code
 				code = "
-			has_special_project = LCLUSTER_PROJECT_OVERWRITE
+				has_special_project = LCLUSTER_PROJECT_OVERWRITE
 				"
 				toggle = @armor_nanite_8L # PENDING
 			}
 		}
 	}
+
 	picture = {
 		picture = GFX_evt_l-gateway
-		trigger = { NOT = { has_global_flag = l_cluster_origin } }
+		trigger = {
+			NOT = { has_global_flag = l_cluster_origin }
+		}
 	}
 
 	show_sound = event_mystic_reveal
 	location = event_target:candidate_gateway
 	is_triggered_only = yes
+
 	immediate = {
 		end_event_chain = "l_cluster_chain"
 		event_target:candidate_gateway = {
@@ -57,15 +62,17 @@ country_event = {
 			inline_script = { # L-Cluster PLus 2293169684
 				script = merger_of_rules/toggled_code
 				code = "
-			if = {
-				limit = { has_global_flag = l_cluster_origin }
-				enable_special_project = { name = LCLUSTER_PROJECT_OVERWRITE location = this }
-			}
+				if = {
+					limit = { has_global_flag = l_cluster_origin }
+					enable_special_project = { name = LCLUSTER_PROJECT_OVERWRITE location = this }
+				}
 				"
 				toggle = @armor_nanite_8L # PENDING
 			}
 			if = {
-				limit = { NOT = { has_global_flag = l_cluster_origin } }
+				limit = {
+					NOT = { has_global_flag = l_cluster_origin }
+				}
 				enable_special_project = { name = LCLUSTER_PROJECT location = this }
 			}
 		}
@@ -73,12 +80,12 @@ country_event = {
 }
 
 namespace = lclusterplus
-
 # Special project completed (overwrite)
 country_event = {
 	id = lclusterplus.2
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		if = {
 			limit = { has_global_flag = l_cluster_origin }
@@ -110,7 +117,9 @@ country_event = {
 			}
 			country_event = { id = lclusterplus.10 }
 		}
-		else = { country_event = { id = distar.10950 } }
+		else = {
+			country_event = { id = distar.10950 }
+		}
 		if = {
 			limit = { has_global_flag = CmtFlagLgatePreludeTriggered }
 			remove_global_flag = CmtFlagLgatePreludeTriggered

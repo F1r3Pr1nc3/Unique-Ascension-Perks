@@ -1,11 +1,17 @@
+
 namespace = UniqueAscensionPerksEvents
+
 ############ Test Events ############
+
 planet_event = {
 	id = UniqueAscensionPerksEvents.9001
 	is_triggered_only = yes
 	hide_window = yes
 	is_test_event = yes
-	immediate = { add_deposit = d_hivemind_reserve }
+
+	immediate = {
+		add_deposit = d_hivemind_reserve
+	}
 }
 
 planet_event = {
@@ -13,7 +19,10 @@ planet_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	is_test_event = yes
-	immediate = { add_deposit = d_hivemind_reserve }
+
+	immediate = {
+		add_deposit = d_hivemind_reserve
+	}
 }
 
 planet_event = {
@@ -21,7 +30,10 @@ planet_event = {
 	is_triggered_only = yes
 	hide_window = yes
 	is_test_event = yes
-	immediate = { add_deposit = d_hivemind_reserve }
+
+	immediate = {
+		add_deposit = d_hivemind_reserve
+	}
 }
 
 # country_event = {
@@ -33,21 +45,31 @@ planet_event = {
 # 		every_playable_country = { limit = { NOR = { has_country_flag = ap_pyramidal_society has_ascension_perk = ap_pyramidal_society } } set_country_flag = ap_pyramidal_society }
 # 	}
 # }
-
-planet_event = { # 50 Pops
+# 50 Pops
+planet_event = {
 	id = UniqueAscensionPerksEvents.9996
 	is_triggered_only = yes
 	hide_window = yes
 	is_test_event = yes
-	immediate = { create_pop = { species = owner_main_species count = 50 } }
+
+	immediate = {
+		create_pop_group = { species = owner_species size = 5000 }
+	}
 }
 
-planet_event = { # Populate Colony & Repesct Housing Limits.
+# Populate Colony & Repesct Housing Limits.
+planet_event = {
 	id = UniqueAscensionPerksEvents.9997
 	is_triggered_only = yes
 	hide_window = yes
 	is_test_event = yes
-	immediate = { while = { limit = { free_housing > 1 } create_pop = { species = owner_main_species } } }
+
+	immediate = {
+		while = {
+			limit = { free_housing > 100 }
+			create_pop_group = { species = owner_species }
+		}
+	}
 }
 
 country_event = {
@@ -56,14 +78,39 @@ country_event = {
 	is_test_event = yes
 	# mean_time_to_happen = { months = 2 }
 	is_triggered_only = yes
+
 	trigger = {
 		OR = {
-			AND = { is_country_type = security_forces				NOT = { any_country = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
-			AND = { is_country_type = security_forces				NOT = { any_country = { reverse_has_relation_flag = { who = root flag = security_strike_force } } } }
-			AND = { is_country_type = domesticated_spaceborn_alien	NOT = { any_country = { reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien } } } }
+			AND = {
+				is_country_type = security_forces
+				NOT = {
+					any_country = {
+						reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+					}
+				}
+			}
+			AND = {
+				is_country_type = security_forces
+				NOT = {
+					any_country = {
+						reverse_has_relation_flag = { who = root flag = security_strike_force }
+					}
+				}
+			}
+			AND = {
+				is_country_type = domesticated_spaceborn_alien
+				NOT = {
+					any_country = {
+						reverse_has_relation_flag = { who = root flag = domesticated_spaceborn_alien }
+					}
+				}
+			}
 		}
 	}
-	immediate = { destroy_country = yes }
+
+	immediate = {
+		destroy_country = yes
+	}
 }
 
 # Pirates Test
@@ -76,14 +123,23 @@ country_event = {
 	location = event_target:pirate_system
 	is_triggered_only = yes
 	is_test_event = yes
+
 	immediate = {
-		random_system_within_border = { limit = { is_capital_system = no } save_event_target_as = pirate_system }
-		capital_scope = { solar_system = { save_event_target_as = capital_system } }
+		random_system_within_border = {
+			limit = { is_capital_system = no }
+			save_event_target_as = pirate_system
+		}
+		capital_scope = {
+			solar_system = { save_event_target_as = capital_system }
+		}
 		owner_species = { save_event_target_as = owner_species }
 		create_drone_pirate_country = yes
 		create_pirate_fleet = yes
 		create_pirate_fleet = yes
 		create_pirate_fleet = yes
 	}
-	option = { name = pirate.50.a }
+
+	option = {
+		name = pirate.50.a
+	}
 }

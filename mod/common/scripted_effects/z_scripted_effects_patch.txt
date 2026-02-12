@@ -7,7 +7,6 @@ end_war_effect = {
 	if = { # Is defenders
 		# Because strange log behavior
 		limit = {
-			exists = this
 			is_scope_valid = yes
 			is_scope_type = war
 			# count_attacker = { count > 0 throws already error
@@ -23,10 +22,8 @@ end_war_effect = {
 			}
 			prev = { remove_war_participant = prev }
 		}
-
 		if = {
 			limit = { # Check again all after remove_war_participant.
-				exists = this
 				is_scope_valid = yes
 				is_scope_type = war
 				any_attacker = { always = yes }
@@ -56,6 +53,7 @@ make_moderately_hostile = {
 	optimize_memory
 	set_country_flag = first_alien_life
 	set_country_flag = has_encountered_other_empire
+
 	every_country = {
 		limit = {
 			# merg_is_default_empire = no
@@ -71,7 +69,6 @@ make_moderately_hostile = {
 				is_crystal_country_type = yes
 				is_drone_country_type = yes
 				is_country_type = vluur
-
 				is_country_type = caravaneer_home
 				is_country_type = caravaneer_fleet
 				is_country_type = guardian_sphere
@@ -88,12 +85,7 @@ make_moderately_hostile = {
 		}
 		establish_communications_no_message = prev
 		prev = {
-			set_faction_hostility = {
-				target = prev
-				set_hostile = no
-				set_neutral = yes
-				# set_friendly = no
-			}
+			set_faction_hostility = { target = prev set_neutral = yes }
 		}
 	}
 }
@@ -114,16 +106,19 @@ create_marauder_merc_admiral = {
 		skill = 3
 		leader_age_min = 25
 		leader_age_max = 45
-		traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_admiral }
+		traits = {
+			trait = leader_trait_mercenary_warrior
+			trait = subclass_commander_admiral
+		}
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
 		effect = {
 			random_list = {
-				1 = { add_trait = leader_trait_aggressive }
-				1 = { add_trait = leader_trait_aggressive_2 }
-				1 = { add_trait = leader_trait_skirmisher }
-				1 = { add_trait = leader_trait_skirmisher_2 }
+				1 = { add_trait = { trait = leader_trait_aggressive } }
+				1 = { add_trait = { trait = leader_trait_aggressive } }
+				1 = { add_trait = { trait = leader_trait_skirmisher } }
+				1 = { add_trait = { trait = leader_trait_skirmisher } }
 			}
 			set_leader_flag = marauder_merc_leader
 		}
@@ -140,16 +135,19 @@ create_marauder_merc_general = {
 		skill = 3
 		leader_age_min = 25
 		leader_age_max = 45
-		traits = { trait = leader_trait_mercenary_warrior trait = subclass_commander_general }
+		traits = {
+			trait = leader_trait_mercenary_warrior
+			trait = subclass_commander_general
+		}
 		background_ethic = "ethic_fanatic_militarist"
 		skip_background_generation = yes
 		custom_description = "custom_mercenary_admiral_desc"
 		effect = {
 			random_list = {
-				1 = { add_trait = leader_trait_dreaded }
-				1 = { add_trait = leader_trait_dreaded_2 }
-				1 = { add_trait = leader_trait_butcher }
-				1 = { add_trait = leader_trait_butcher_2 }
+				1 = { add_trait = { trait = leader_trait_dreaded } }
+				1 = { add_trait = { trait = leader_trait_dreaded_2 } }
+				1 = { add_trait = { trait = leader_trait_butcher } }
+				1 = { add_trait = { trait = leader_trait_butcher } }
 			}
 			set_owner = root
 		}
@@ -173,15 +171,14 @@ deduce_planetary_separatism_species = {
 					}
 				}
 				OR = {
-					root = {
-						NOT = { has_situation_flag = slave_revolt }
-					}
+					NOT = { root = { has_situation_flag = slave_revolt } }
 					has_citizenship_type = { type = citizenship_slavery country = root.owner }
 				}
 			}
-			weights = { base = 100
+			weights = {
+				base = 100
 				complex_trigger_modifier = { # Add 10 for each unhappy pop of this species
-					trigger = count_owned_pop
+					trigger = count_owned_pop_amount
 					trigger_scope = root.target
 					potential = { species_has_happiness_with_owner = root.owner }
 					parameters = {
@@ -191,10 +188,10 @@ deduce_planetary_separatism_species = {
 						}
 					}
 					mode = add
-					mult = 10
+					mult = 0.1
 				}
 				complex_trigger_modifier = { # Multiply it by the percentage of pops on the planet
-					trigger = pop_percentage
+					trigger = pop_amount_percentage
 					trigger_scope = root.target
 					parameters = {
 						limit = { is_same_species = prevprev }
@@ -232,11 +229,12 @@ deduce_planetary_separatism_species = {
 give_planets_former_owner = {
 	optimize_memory
 	# Give former owner
-	while = { count = trigger:num_owned_planets
+	while = {
+		count = trigger:num_owned_planets
 		limit = {
 			exists = event_target:former_owner
 			any_owned_planet = { # Just double check
-				exists = owner
+				has_owner = yes
 				is_owned_by = event_target:former_owner
 				owner = { is_ai = yes }
 				solar_system = { is_capital_system = no }
@@ -257,7 +255,10 @@ give_planets_former_owner = {
 					set_owner = prev
 					set_controller = prev
 					if = {
-						limit = { exists = starbase NOT = { starbase.fleet = { is_owned_by = prevprev } } }
+						limit = {
+							exists = starbase
+							NOT = { starbase.fleet = { is_owned_by = prevprev } }
+						}
 						starbase = { set_owner = prevprev }
 					}
 				}
@@ -265,18 +266,17 @@ give_planets_former_owner = {
 			}
 		}
 	}
+
 	# Give system owner
-	while = { count = trigger:controlled_systems
+	while = {
+		count = trigger:controlled_systems
 		limit = {
 			exists = event_target:former_owner
 			any_owned_planet = {
 				has_owner = yes
 				is_owned_by = event_target:former_owner
 				owner = { is_ai = yes }
-				solar_system = {
-					is_capital_system = no
-					can_generate_trade_value = yes
-				}
+				solar_system = { is_capital_system = no can_generate_trade_value = yes }
 				exists = space_owner
 				space_owner = {
 					NOT = { is_same_empire = event_target:former_owner }
@@ -289,10 +289,7 @@ give_planets_former_owner = {
 				has_owner = yes
 				is_owned_by = event_target:former_owner
 				owner = { is_ai = yes }
-				solar_system = {
-					is_capital_system = no
-					can_generate_trade_value = yes
-				}
+				solar_system = { is_capital_system = no can_generate_trade_value = yes }
 				exists = space_owner
 				space_owner = {
 					NOT = { is_same_empire = event_target:former_owner }
@@ -302,8 +299,10 @@ give_planets_former_owner = {
 			set_owner = space_owner
 		}
 	}
+
 	# Give system owner 2 # Another colony
-	while = { count = trigger:num_owned_planets
+	while = {
+		count = trigger:num_owned_planets
 		limit = {
 			exists = event_target:former_owner
 			any_owned_planet = {
@@ -313,6 +312,7 @@ give_planets_former_owner = {
 				solar_system = {
 					is_capital_system = no
 					any_system_colony = {
+						has_owner = yes
 						NOR = {
 							is_planet = prevprev
 							is_owned_by = event_target:former_owner
@@ -347,7 +347,10 @@ give_planets_former_owner = {
 							is_owned_by = event_target:former_owner
 						}
 					}
-					weights = { base = 1 modifier = { add = 3 is_colonizable = no } }
+					weights = {
+						base = 1
+						modifier = { add = 3 is_colonizable = no }
+					}
 					prevprev = { set_owner = prev.owner }
 				}
 			}
@@ -362,7 +365,9 @@ marauder_path_attack = {
 	optimize_memory
 	# log = "MARAUDER PATH ATTACK"
 	if = {
-		limit = { NOT = { exists = event_target:marauder_target } }
+		limit = {
+			NOT = { exists = event_target:marauder_target }
+		}
 		if = {
 			limit = { exists = solar_system.starbase }
 			solar_system.starbase.owner = { save_event_target_as = marauder_target }
@@ -387,8 +392,16 @@ marauder_path_attack = {
 							has_relation_flag = { who = prev flag = current_target }
 						}
 					}
-					weights = { base = 1 # Passive raid flag
-						modifier = { add = 10 NOT = { has_country_flag = under_marauder_attack } any_playable_country = { is_ai = no has_relation_flag = { who = prevprev flag = hired_fleet } } }
+					weights = {
+						base = 1 # Passive raid flag
+						modifier = {
+							add = 10
+							NOT = { has_country_flag = under_marauder_attack }
+							any_playable_country = {
+								is_ai = no
+								has_relation_flag = { who = prevprev flag = hired_fleet }
+							}
+						}
 						modifier = { factor = 2 is_hostile = prev }
 						modifier = { factor = 2 is_ai = yes }
 					}

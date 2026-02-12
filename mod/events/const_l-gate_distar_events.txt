@@ -1,4 +1,6 @@
+
 namespace = distar
+
 #################################
 #
 # Anomaly Events
@@ -8,13 +10,13 @@ namespace = distar
 # distar.2050 - distar.5055
 #
 #################################
-
 ### Empty outcome removed ###
 # Randomize L-Cluster outcome on_game_start
 event = {
 	id = distar.8000
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		random_list = {
 			5 = {
@@ -22,14 +24,9 @@ event = {
 				set_global_flag = active_gray_goo
 				set_global_flag = dragon_season
 			}
-			3 = {
-				set_global_flag = gray_goo_empire_set
-				set_global_flag = dragon_season
-			}
+			3 = { set_global_flag = gray_goo_empire_set set_global_flag = dragon_season }
 			# 3 = {}
-			4 = {
-				set_global_flag = dragon_season
-			}
+			4 = { set_global_flag = dragon_season }
 		}
 	}
 }
@@ -40,19 +37,19 @@ event = {
 	id = distar.2050
 	is_triggered_only = yes
 	hide_window = yes
+
 	trigger = {
 		has_distar = yes
 		count_system = {
-			limit = {
-				has_star_flag = enigmatic_cache_system
-			}
 			count = 0
+			limit = { has_star_flag = enigmatic_cache_system }
 		}
 		any_playable_country = {
 			is_ai = no
 			# is_at_war = no
 		}
 	}
+
 	immediate = {
 		# Spawn tube by random gateway
 		random_system = {
@@ -78,16 +75,13 @@ event = {
 country_event = {
 	id = distar.5055
 	hide_window = yes
-
 	is_triggered_only = yes
 
 	trigger = {
-	# Shouldn't trigger if the enigmatic cache country already has an enigmatic cache in rotation
+		# Shouldn't trigger if the enigmatic cache country already has an enigmatic cache in rotation
 		count_owned_ship = {
-			limit = {
-				has_ship_flag = enigmatic_cache_ship
-			}
 			count = 0
+			limit = { has_ship_flag = enigmatic_cache_ship }
 		}
 	}
 
@@ -95,7 +89,11 @@ country_event = {
 		if = {
 			limit = {
 				any_playable_country = {
-					NOR = { is_ai = yes is_at_war = yes is_hostile = root.owner }
+					NOR = {
+						is_ai = yes
+						is_at_war = yes
+						is_hostile = root.owner
+					}
 					any_owned_planet = {
 						NOT = { has_planet_flag = has_been_scanned }
 					}
@@ -105,20 +103,24 @@ country_event = {
 				limit = {
 					has_owner = yes
 					owner = {
-						NOR = { is_ai = yes is_at_war = yes is_hostile = root.owner }
+						NOR = {
+							is_ai = yes
+							is_at_war = yes
+							is_hostile = root.owner
+						}
 					}
 					any_system_colony = {
+						has_owner = yes
 						NOT = { has_planet_flag = has_been_scanned }
 					}
 				}
 				random_system_colony = {
 					limit = {
+						has_owner = yes
 						NOT = { has_planet_flag = has_been_scanned }
 					}
 					save_event_target_as = new_location
-					solar_system = {
-						set_star_flag = enigmatic_cache_system
-					}
+					solar_system = { set_star_flag = enigmatic_cache_system }
 				}
 			}
 			create_enigmatic_cache_fleet = yes
@@ -161,9 +163,7 @@ country_event = {
 						}
 					}
 					save_event_target_as = new_location
-					solar_system = {
-						set_star_flag = enigmatic_cache_system
-					}
+					solar_system = { set_star_flag = enigmatic_cache_system }
 				}
 			}
 			create_enigmatic_cache_fleet = yes
@@ -172,8 +172,8 @@ country_event = {
 		else_if = {
 			limit = {
 				any_system = {
-					has_owner = no
 					NOR = {
+						has_owner = yes
 						has_star_flag = guardian
 						has_star_flag = hostile_system
 					}
@@ -181,20 +181,16 @@ country_event = {
 			}
 			random_system = {
 				limit = {
-					has_owner = no
 					NOR = {
+						has_owner = yes
 						has_star_flag = guardian
 						has_star_flag = hostile_system
 					}
 				}
 				random_system_planet = {
-					limit = {
-						has_owner = no
-					}
+					limit = { has_owner = no }
 					save_event_target_as = new_location
-					solar_system = {
-						set_star_flag = enigmatic_cache_system
-					}
+					solar_system = { set_star_flag = enigmatic_cache_system }
 				}
 			}
 			create_enigmatic_cache_fleet = yes
@@ -218,26 +214,33 @@ country_event = {
 
 	immediate = {
 		if = {
-			limit = { NOT = { exists = event_target:lcluster1 } }
+			limit = {
+				NOT = { exists = event_target:lcluster1 }
+			}
 			country_event = { id = distar.11000 }
 		}
 		every_playable_country = {
 			limit = {
-				NOR = { is_same_empire = from has_country_flag = lcluster_opener }
+				NOR = {
+					is_same_empire = from
+					has_country_flag = lcluster_opener
+				}
 			}
 			if = {
 				limit = { has_special_project = LCLUSTER_PROJECT }
 				country_event = { id = distar.10952 days = 1 }
-			} else_if = {
+			}
+			else_if = {
 				limit = { has_event_chain = l_cluster_chain }
 				country_event = { id = distar.10953 days = 1 }
-			} else = {
+			}
+			else = {
 				country_event = { id = distar.10954 days = 1 }
 			}
 		}
 		observer_event = { id = observer.62 }
-
 	}
+
 	option = {
 		name = "distar.10951.a"
 	}
@@ -248,6 +251,7 @@ event = {
 	id = distar.999
 	is_triggered_only = yes
 	hide_window = yes
+
 	trigger = {
 		has_distar = yes
 		has_global_flag = l_cluster_opened
@@ -259,19 +263,17 @@ event = {
 			}
 		}
 	}
+
 	immediate = {
 		every_playable_country = {
 			limit = {
 				# is_ai = no
 				NOT = { has_seen_any_bypass = lgate }
 				# has_lgate = yes
-				any_owned_megastructure = {
-					is_megastructure_type = lgate_base
-				}
+				any_owned_megastructure = { is_megastructure_type = lgate_base }
 			}
 			add_seen_bypass_type = lgate
 		}
-
 		every_megastructure = {
 			limit = { is_megastructure_type = lgate_base }
 			CmtEffectOpenLgate = yes

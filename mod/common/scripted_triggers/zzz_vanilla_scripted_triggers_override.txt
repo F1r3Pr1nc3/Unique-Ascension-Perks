@@ -20,7 +20,10 @@ has_total_war_cb = {
 			OR = {
 				merg_is_awakened_fe = yes
 				has_valid_civic = civic_hive_devouring_swarm
+				has_menace_perk = menp_behemoth_ever_hungry # since v4.0
 				has_valid_civic = civic_machine_assimilator
+				has_valid_civic = civic_scorched_earth
+				has_valid_civic = civic_hive_scorched_earth
 				AND = {
 					has_valid_civic = civic_machine_terminator
 					from = { is_synthetic_empire = no }
@@ -53,9 +56,10 @@ has_total_war_cb = {
 			}
 			from = {
 				OR = {
-					merg_is_awakened_fe = yes # is_country_type = awakened_fallen_empire
+					merg_is_awakened_fe = yes
 					is_homicidal = yes
 					has_valid_civic = civic_machine_assimilator
+					has_menace_perk = menp_behemoth_ever_hungry # since v4.0
 					# inline_script = { # ACOT SBTG
 					# 	script = merger_of_rules/toggled_code
 					# 	code = " is_progenitor_empires = yes"
@@ -63,6 +67,13 @@ has_total_war_cb = {
 					# }
 				}
 			}
+		}
+		# EotC Total War
+		has_country_flag = reached_eotc_situation_stage2
+		# Total War against EotC
+		AND = {
+			has_country_flag = can_declare_total_war_to_eotc
+			from = { has_covenant_with_end_of_the_cycle = yes }
 		}
 	}
 }
@@ -76,10 +87,10 @@ planet_is_hostile_or_crisis = {
 			is_at_war_with = from.owner
 			is_crisis_faction = yes
 			from.owner = { # Aggressive Crisis Engine
-				is_hostile = prev				# Fix for empires which cannot be at war (crises).
+				is_hostile = prev # Fix for empires which cannot be at war (crises).
 				OR = {
-					has_country_flag = acemod_can_target_hostile_with_colossus					# Fallback flag in case needed.
-					is_crisis_faction = yes					# Narrow down to just crises as to not alter more than needed.
+					has_country_flag = acemod_can_target_hostile_with_colossus # Fallback flag in case needed.
+					is_crisis_faction = yes # Narrow down to just crises as to not alter more than needed.
 				}
 			}
 			## Safety Off for Planet Killer Weapons (used in ACE) but here on the wrong place as it breaks megastructure built like in Giga mod
@@ -145,7 +156,9 @@ is_potential_diadochi_system = {
 	optimize_memory
 	has_owner = yes
 	exists = space_owner
-	space_owner = { is_same_empire = root }
+	space_owner = {
+		is_same_empire = root
+	}
 	OR = {
 		NOT = { exists = starbase }
 		starbase = {

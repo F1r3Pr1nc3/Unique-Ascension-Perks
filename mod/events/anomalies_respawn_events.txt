@@ -1,45 +1,77 @@
-namespace = anomaly
-namespace = AnomaliesRespawnEvent
 
+namespace = anomaly
+
+namespace = AnomaliesRespawnEvent
 # on_yearly_pulse
 event = {
 	id = AnomaliesRespawnEvent.1
 	hide_window = yes
 	is_triggered_only = yes
 	# is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { random = { chance = 25 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } }
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		random = {
+			chance = 25
+			random_galaxy_planet = {
+				limit = { anomaly_possible = yes }
+				anomaly_spawner = yes
+			}
+		}
+	}
 }
+
 # on_bi_yearly_pulse
 event = {
 	id = AnomaliesRespawnEvent.3
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
 	immediate = {
 		if = {
 			limit = {
 				has_global_flag = custom_anomalies_activated
-				count_playable_country = { limit = { has_policy_flag = policy_custom_anomalies_activated } count = 0 }
+				count_playable_country = {
+					count = 0
+					limit = { has_policy_flag = policy_custom_anomalies_activated }
+				}
 			}
 			remove_global_flag = custom_anomalies_activated
 		}
-		while = { count = 3
+		while = {
+			count = 3
 			reroll_random = yes
 			# random_system = { limit = { NOT = { has_star_flag = system_has_new_anomaly } } random_system_planet = { limit = { anomaly_possible = yes } random = { chance = 50 anomaly_spawner = yes } }
-			random = { chance = 50 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } }
+			random = {
+				chance = 50
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
 		}
 		event_target:global_event_country = {
 			country_event = { id = AnomaliesRespawnEvent.2000 days = 5 random = 5 }
 		}
 	}
 }
+
 # on_five_year_pulse
 event = {
 	id = AnomaliesRespawnEvent.5
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
 	immediate = {
 		if = {
 			limit = {
@@ -56,10 +88,17 @@ event = {
 			remove_global_flag = anomalies_respawner_active
 		}
 		else = {
-			while = { count = 5
+			while = {
+				count = 5
 				reroll_random = yes
 				# random_system = { limit = { NOT = { has_star_flag = system_has_new_anomaly } } random_system_planet = { limit = { anomaly_possible = yes } random = { chance = 75 anomaly_spawner = yes } } }
-				random = { chance = 50 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } }
+				random = {
+					chance = 50
+					random_galaxy_planet = {
+						limit = { anomaly_possible = yes }
+						anomaly_spawner = yes
+					}
+				}
 			}
 		}
 	}
@@ -70,8 +109,23 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 10 random = { chance = 90 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } } }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		while = {
+			count = 10
+			random = {
+				chance = 90
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
+		}
+	}
 }
 
 event = {
@@ -79,8 +133,23 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 50 random = { chance = 90 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } } }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		while = {
+			count = 50
+			random = {
+				chance = 90
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
+		}
+	}
 }
 
 event = {
@@ -88,8 +157,23 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 100 random = { chance = 90 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } } }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		while = {
+			count = 100
+			random = {
+				chance = 90
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
+		}
+	}
 }
 
 event = {
@@ -97,8 +181,23 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 250 random = { chance = 90 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } } }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		while = {
+			count = 250
+			random = {
+				chance = 90
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
+		}
+	}
 }
 
 event = {
@@ -106,8 +205,23 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 500 random = { chance = 90 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } } }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		while = {
+			count = 500
+			random = {
+				chance = 90
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
+		}
+	}
 }
 
 event = {
@@ -115,8 +229,23 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { while = { count = 1000 random = { chance = 90 random_galaxy_planet = { limit = { anomaly_possible = yes } anomaly_spawner = yes } } } }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		while = {
+			count = 1000
+			random = {
+				chance = 90
+				random_galaxy_planet = {
+					limit = { anomaly_possible = yes }
+					anomaly_spawner = yes
+				}
+			}
+		}
+	}
 }
 
 # on_five_year_pulse (Notify + cleanup)
@@ -124,19 +253,34 @@ country_event = {
 	id = AnomaliesRespawnEvent.2000
 	hide_window = yes
 	is_triggered_only = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
 	immediate = {
 		every_playable_country = {
 			limit = {
-				OR = { has_ascension_perk = ap_deep_scanner has_ascension_perk = ap_artifact_hunter has_ascension_perk = ap_expansionist_development }
+				OR = {
+					has_ascension_perk = ap_deep_scanner
+					has_ascension_perk = ap_artifact_hunter
+					has_ascension_perk = ap_expansionist_development
+				}
 				any_planet_within_border = { has_planet_flag = planet_has_new_anomaly has_anomaly = yes }
 			}
 			random_planet_within_border = {
-				limit = { has_planet_flag = planet_has_new_anomaly has_anomaly = yes }
+				limit = {
+					has_planet_flag = planet_has_new_anomaly
+					has_anomaly = yes
+				}
 				# save_event_target_as = anomaly_location
 				remove_planet_flag = planet_has_new_anomaly
 				if = {
-					limit = { prev = { NOT = { has_country_flag = new_anomalies_no_warning } } }
+					limit = {
+						prev = {
+							NOT = { has_country_flag = new_anomalies_no_warning }
+						}
+					}
 					planet_event = { id = AnomaliesRespawnEvent.2001 days = 30 random = 90 scopes = { from = prev } }
 				}
 			}
@@ -157,14 +301,26 @@ planet_event = {
 	show_sound = event_ship_bridge
 	location = root # event_target:anomaly_location
 	is_triggered_only = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
 	# immediate = {	}
-	option = { name = INTERESTING ai_chance = { factor = 0.1 } default_hide_option = yes }
-	option = { name = UniqueAscensionPerks.no_message from = { set_country_flag = new_anomalies_no_warning } }
+	option = {
+		name = INTERESTING
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
+	option = {
+		name = UniqueAscensionPerks.no_message
+		from = { set_country_flag = new_anomalies_no_warning }
+	}
 }
 
 # Removed in vanilla 3.11
 #### Wildcat Miners
+
 ship_event = {
 	id = anomaly.700
 	title = "anomaly.700.name"
@@ -173,6 +329,7 @@ ship_event = {
 	show_sound = event_ship_bridge
 	location = from
 	is_triggered_only = yes
+
 	option = {
 		name = INTERESTING
 		from = {
@@ -187,6 +344,15 @@ event = {
 	hide_window = yes
 	is_triggered_only = yes
 	is_test_event = yes
-	trigger = { has_global_flag = anomalies_respawner_active }
-	immediate = { every_galaxy_planet = { limit = { has_anomaly = yes } add_anomaly = { category = delete_anomaly_slot } } } # HACK
+
+	trigger = {
+		has_global_flag = anomalies_respawner_active
+	}
+
+	immediate = {
+		every_galaxy_planet = {
+			limit = { has_anomaly = yes }
+			add_anomaly = { category = delete_anomaly_slot }
+		}
+	} # HACK
 }

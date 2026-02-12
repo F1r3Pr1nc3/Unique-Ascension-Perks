@@ -7,11 +7,21 @@
 # This = root
 create_defense_sentinels_country = {
 	if = {
-		limit = { NOT = { exists = event_target:defense_sentinels } }
+		limit = {
+			NOT = { exists = event_target:defense_sentinels }
+		}
 		if = {
-			limit = { any_relation = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } } }
+			limit = {
+				any_relation = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = defense_sentinels }
+				}
+			}
 			random_relation = {
-				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+				limit = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = defense_sentinels }
+				}
 				save_event_target_as = defense_sentinels
 				copy_random_tech_from = { who = root }
 			}
@@ -27,9 +37,17 @@ create_defense_sentinels_country = {
 		# 	}
 		# }
 		else_if = {
-			limit = { any_country = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } } }
+			limit = {
+				any_country = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = defense_sentinels }
+				}
+			}
 			random_country = {
-				limit = { is_country_type = security_forces has_relation_flag = { who = root flag = defense_sentinels } }
+				limit = {
+					is_country_type = security_forces
+					has_relation_flag = { who = root flag = defense_sentinels }
+				}
 				save_event_target_as = defense_sentinels
 			}
 		}
@@ -96,7 +114,10 @@ create_defense_sentinels_country = {
 						}
 					}
 					random_agreement = {
-						limit = { is_owned_by = root target = { is_same_empire = prev } }
+						limit = {
+							is_owned_by = root
+							target = { is_same_empire = prev }
+						}
 						add_loyalty = 95
 					}
 					add_modifier = { modifier = pledged_allegiance }
@@ -112,7 +133,9 @@ create_defense_sentinels_country = {
 			NOR = {
 				exists = event_target:spawn_location
 				any_planet_within_border = { has_planet_flag = defense_sentinels_home }
-				event_target:defense_sentinels = { any_owned_planet = { has_planet_flag = defense_sentinels_home } }
+				event_target:defense_sentinels = {
+					any_owned_planet = { has_planet_flag = defense_sentinels_home }
+				}
 			}
 		}
 		# get_capital_planet = yes
@@ -127,7 +150,8 @@ create_defense_sentinels_country = {
 					solar_system = { is_capital_system = yes }
 				}
 			}
-			weights = { base = 1
+			weights = {
+				base = 1
 				modifier = { add = 2 is_colonizable_planet = yes }
 				modifier = { add = 3 can_spawn_archaeological_site = yes }
 			}
@@ -136,11 +160,14 @@ create_defense_sentinels_country = {
 		event_target:defense_sentinels = {
 			create_fleet = {
 				name = NAME_defense_sentinels
-				settings = { garrison = yes spawn_debris = no }
 				effect = {
 					set_owner = prev
 					defense_sentinels_spawn_default_fleet = yes
-					set_location = { target = event_target:spawn_location distance = 250 angle = random }
+					set_location = {
+						target = event_target:spawn_location
+						distance = 250
+						angle = random
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = return_point
 					set_aggro_range = 5000
@@ -162,13 +189,21 @@ create_defense_sentinels_country = {
 						}
 					}
 				}
+				settings = {
+					garrison = yes
+					spawn_debris = no
+				}
 			}
 		}
 	}
 	else_if = {
-		limit = { NOT = { exists = event_target:spawn_location } }
+		limit = {
+			NOT = { exists = event_target:spawn_location }
+		}
 		if = {
-			limit = { any_planet_within_border = { has_planet_flag = defense_sentinels_home } }
+			limit = {
+				any_planet_within_border = { has_planet_flag = defense_sentinels_home }
+			}
 			random_planet_within_border = {
 				limit = { has_planet_flag = defense_sentinels_home }
 				save_event_target_as = spawn_location
@@ -185,28 +220,52 @@ create_defense_sentinels_country = {
 	}
 	event_target:defense_sentinels = {
 		root = {
-			every_planet_within_border = { set_surveyed = { surveyed = yes surveyor = prevprev } }
+			every_planet_within_border = {
+				set_surveyed = { surveyed = yes surveyor = prevprev }
+			}
 			add_trust = { amount = 10 who = prev }
 			sync_subjects_virtual_relation = yes
 		}
 		add_trust = { amount = 5 who = root }
 		random_agreement = {
-			limit = { is_owned_by = root target = { is_same_empire = prev } }
+			limit = {
+				is_owned_by = root
+				target = { is_same_empire = prev }
+			}
 			add_loyalty = 10
 		}
 		if = {
-			limit = { exists = event_target:spawn_location count_owned_fleet = { limit = { is_ship_size = blue_core_ai } count = 0 } }
+			limit = {
+				exists = event_target:spawn_location
+				count_owned_fleet = {
+					count = 0
+					limit = { is_ship_size = blue_core_ai }
+				}
+			}
 			event_target:spawn_location = {
 				set_surveyed = { surveyed = yes surveyor = root }
-				solar_system = { set_surveyed = { surveyed = yes surveyor = root } }
+				solar_system = {
+					set_surveyed = { surveyed = yes surveyor = root }
+				}
 				create_fleet = {
 					name = NAME_defense_sentinels
-					settings = { spawn_debris = no garrison = yes is_boss = yes }
 					effect = {
 						set_owner = prevprev
-						create_ship = { name = "" design = "Defense Sentinel - Main Core" graphical_culture = "ai_01" }
-						set_location = { target = prev distance = 15 angle = random }
-						# set_fleet_flag = defense_sentinels_main_core
+						create_ship = {
+							name = ""
+							design = "Defense Sentinel - Main Core"
+							graphical_culture = "ai_01"
+						}
+						set_location = {
+							target = prev
+							distance = 15
+							angle = random
+						}
+					}
+					settings = {
+						spawn_debris = no
+						garrison = yes
+						is_boss = yes
 					}
 				}
 			}
@@ -215,42 +274,133 @@ create_defense_sentinels_country = {
 }
 
 defense_sentinels_spawn_default_fleet = {
-	while = { count = 7 create_ship = { name = "" design = "Defense Sentinel" graphical_culture = "ai_01" } }
-	while = { count = 7 random = { chance = 50 create_ship = { name = "" design = "Defense Sentinel" graphical_culture = "ai_01" } } }
+	while = {
+		count = 7
+		create_ship = {
+			name = ""
+			design = "Defense Sentinel"
+			graphical_culture = "ai_01"
+		}
+	}
+	while = {
+		count = 7
+		random = {
+			chance = 50
+			create_ship = {
+				name = ""
+				design = "Defense Sentinel"
+				graphical_culture = "ai_01"
+			}
+		}
+	}
 	if = {
-		limit = { root = { has_country_flag = ap_defense_sentinels_retriever_project } event_target:defense_sentinels = { count_owned_ship = { limit = { is_ship_size = large_ship_ai } count < 20 } } }
-		while = { count = 1 create_ship = { name = "" design = "Defense Retriever Sentinel" graphical_culture = "ai_01" } }
-		while = { count = 1 random = { chance = 50 create_ship = { name = "" design = "Defense Retriever Sentinel" effect = { add_modifier = { modifier = retriever_sentinel } } graphical_culture = "ai_01" } } }
+		limit = {
+			root = { has_country_flag = ap_defense_sentinels_retriever_project }
+			event_target:defense_sentinels = {
+				count_owned_ship = {
+					count < 20
+					limit = { is_ship_size = large_ship_ai }
+				}
+			}
+		}
+		while = {
+			count = 1
+			create_ship = {
+				name = ""
+				design = "Defense Retriever Sentinel"
+				graphical_culture = "ai_01"
+			}
+		}
+		while = {
+			count = 1
+			random = {
+				chance = 50
+				create_ship = {
+					name = ""
+					design = "Defense Retriever Sentinel"
+					graphical_culture = "ai_01"
+					effect = {
+						add_modifier = { modifier = retriever_sentinel }
+					}
+				}
+			}
+		}
 	}
 }
+
 # DEFENSE_SENTINELS_SPAWN_RETRIEVER_FLEET
 create_retriever_sentinels_fleet = {
 	if = {
-		limit = { NOT = { exists = event_target:spawn_location } }
+		limit = {
+			NOT = { exists = event_target:spawn_location }
+		}
 		random_planet_within_border = {
 			limit = { has_planet_flag = defense_sentinels_home }
-			weights = { base = 1 modifier = { add = 10 is_sector_capital = no } }
+			weights = {
+				base = 1
+				modifier = { add = 10 is_sector_capital = no }
+			}
 			save_event_target_as = spawn_location
 		}
 	}
 	event_target:defense_sentinels = {
 		if = {
-			# limit = { prev = { count_owned_ship = { limit = { is_ship_size = small_ship_ai } count < 300 } } }
+			# limit = { prev = { count_owned_ship = { count < 300 limit = { is_ship_size = small_ship_ai } } } }
 			limit = { prev = { num_ships < 300 } }
 			create_fleet = {
 				name = NAME_defense_sentinels
-				settings = { garrison = yes spawn_debris = no }
 				effect = {
 					set_owner = prev
-					create_ship = { name = "" design = "Defense Retriever Sentinel" effect = { add_modifier = { modifier = retriever_sentinel } } graphical_culture = "ai_01" }
-					while = { count = 2 random = { chance = 35 create_ship = { name = "" design = "Defense Retriever Sentinel" effect = { add_modifier = { modifier = retriever_sentinel } } graphical_culture = "ai_01" } } }
-					while = { count = 7 random = { chance = 50 create_ship = { name = "" design = "Defense Sentinel" effect = { add_modifier = { modifier = retriever_sentinel } } graphical_culture = "ai_01" } } }
-					set_location = { target = event_target:spawn_location distance = 10 angle = random }
+					create_ship = {
+						name = ""
+						design = "Defense Retriever Sentinel"
+						graphical_culture = "ai_01"
+						effect = {
+							add_modifier = { modifier = retriever_sentinel }
+						}
+					}
+					while = {
+						count = 2
+						random = {
+							chance = 35
+							create_ship = {
+								name = ""
+								design = "Defense Retriever Sentinel"
+								graphical_culture = "ai_01"
+								effect = {
+									add_modifier = { modifier = retriever_sentinel }
+								}
+							}
+						}
+					}
+					while = {
+						count = 7
+						random = {
+							chance = 50
+							create_ship = {
+								name = ""
+								design = "Defense Sentinel"
+								graphical_culture = "ai_01"
+								effect = {
+									add_modifier = { modifier = retriever_sentinel }
+								}
+							}
+						}
+					}
+					set_location = {
+						target = event_target:spawn_location
+						distance = 10
+						angle = random
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = return_point
 					set_aggro_range = 5000
 					set_formation_scale = 1.0
 					set_fleet_flag = defense_sentinels_fleet
+				}
+				settings = {
+					garrison = yes
+					spawn_debris = no
 				}
 			}
 		}

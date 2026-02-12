@@ -1,3 +1,4 @@
+
 namespace = UniqueAscensionPerksEvents
 
 ######################################
@@ -14,8 +15,19 @@ country_event = {
 	picture = GFX_evt_mechanical_prophet
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT enable_special_project = { name = MECHANICAL_PROPHET location = event_target:capital_planet owner = root } }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+		enable_special_project = {
+			name = MECHANICAL_PROPHET
+			location = event_target:capital_planet
+			owner = root
+		}
+	}
 }
 
 country_event = {
@@ -26,16 +38,22 @@ country_event = {
 	picture = GFX_evt_mechanical_prophet
 	location = event_target:capital_planet
 	is_triggered_only = yes
+
 	immediate = {
 		get_capital_planet = yes
 		set_country_flag = ap_mechanical_prophet_project
 	}
-	option = { name = EXCELLENT custom_tooltip = "ap_mechanical_prophet_tooltip_2" }
+
+	option = {
+		name = EXCELLENT
+		custom_tooltip = "ap_mechanical_prophet_tooltip_2"
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.202
 	title = "UniqueAscensionPerksEvents.202.Name"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.202.Desc"
@@ -49,78 +67,181 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.202.Ask"
 		}
 	}
+
 	show_sound = event_ai_started
 	picture = GFX_evt_mechanical_prophet
 	is_triggered_only = yes
+
 	immediate = {
-		random_country = { limit = { is_valid_country_for_machine_uprising = yes NOT = { is_same_empire = root } }
+		random_country = {
+			limit = {
+				is_valid_country_for_machine_uprising = yes
+				NOT = { is_same_empire = root }
+			}
 			save_event_target_as = country_1
-			random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } }
+			random_country = {
+				limit = {
+					is_valid_country_for_machine_uprising = yes
+					NOR = {
+						is_same_empire = root
+						is_same_empire = event_target:country_1
+					}
+				}
 				save_event_target_as = country_2
-				random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
+				random_country = {
+					limit = {
+						is_valid_country_for_machine_uprising = yes
+						NOR = {
+							is_same_empire = root
+							is_same_empire = event_target:country_1
+							is_same_empire = event_target:country_2
+						}
+					}
 					save_event_target_as = country_3
-					random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
+					random_country = {
+						limit = {
+							is_valid_country_for_machine_uprising = yes
+							NOR = {
+								is_same_empire = root
+								is_same_empire = event_target:country_1
+								is_same_empire = event_target:country_2
+								is_same_empire = event_target:country_3
+							}
+						}
 						save_event_target_as = country_4
-						random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
+						random_country = {
+							limit = {
+								is_valid_country_for_machine_uprising = yes
+								NOR = {
+									is_same_empire = root
+									is_same_empire = event_target:country_1
+									is_same_empire = event_target:country_2
+									is_same_empire = event_target:country_3
+									is_same_empire = event_target:country_4
+								}
+							}
 							save_event_target_as = country_5
-							random_country = { limit = { is_valid_country_for_machine_uprising = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
+							random_country = {
+								limit = {
+									is_valid_country_for_machine_uprising = yes
+									NOR = {
+										is_same_empire = root
+										is_same_empire = event_target:country_1
+										is_same_empire = event_target:country_2
+										is_same_empire = event_target:country_3
+										is_same_empire = event_target:country_4
+										is_same_empire = event_target:country_5
+									}
+								}
+								save_event_target_as = country_6
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
-		hidden_effect = { event_target:country_1 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
+		hidden_effect = {
+			event_target:country_1 = {
+				country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 }
+				set_country_flag = incoming_machine_uprising
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
-		hidden_effect = { event_target:country_2 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
+		hidden_effect = {
+			event_target:country_2 = {
+				country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 }
+				set_country_flag = incoming_machine_uprising
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
-		hidden_effect = { event_target:country_3 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
+		hidden_effect = {
+			event_target:country_3 = {
+				country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 }
+				set_country_flag = incoming_machine_uprising
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
-		hidden_effect = { event_target:country_4 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
+		hidden_effect = {
+			event_target:country_4 = {
+				country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 }
+				set_country_flag = incoming_machine_uprising
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
-		hidden_effect = { event_target:country_5 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
+		hidden_effect = {
+			event_target:country_5 = {
+				country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 }
+				set_country_flag = incoming_machine_uprising
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
-		hidden_effect = { event_target:country_6 = { country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 } set_country_flag = incoming_machine_uprising } }
+		hidden_effect = {
+			event_target:country_6 = {
+				country_event = { id = UniqueAscensionPerksEvents.203 days = 6 random = 7 }
+				set_country_flag = incoming_machine_uprising
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.202.Country.1.tooltip"
 	}
-	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.202 } } }
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 50000 influence = 200 } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = "UniqueAscensionPerks.select_country"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.202 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.72.Abort"
+		add_resource = {
+			energy = 50000
+			influence = 200
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.203
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		from = { save_event_target_as = MachineEmpireUprisingOrigin }
 		remove_country_flag = incoming_machine_uprising
 		remove_country_flag = machine_infiltration_completed
 		random_owned_planet = {
-			limit = { any_owned_pop = { has_trait = trait_mechanical } }
-			weights = { base = 1 modifier = { add = 3 is_capital = no } }
+			limit = {
+				any_owned_species = { has_trait = trait_mechanical }
+			}
+			weights = {
+				base = 1
+				modifier = { add = 3 is_capital = no }
+			}
 			planet_event = { id = UniqueAscensionPerksEvents.204 scopes = { from = event_target:MachineEmpireUprisingOrigin } }
 		}
 	}
@@ -130,22 +251,76 @@ country_event = {
 planet_event = {
 	id = UniqueAscensionPerksEvents.204
 	title = syndaw.1020.name
-	desc = { trigger = { owner = { is_materialist = yes } } text = syndaw.1020.desc.mater }
-	desc = { trigger = { owner = { is_spiritualist = yes } } text = syndaw.1020.desc.spiri }
-	desc = { trigger = { owner = { is_militarist = yes } } text = syndaw.1020.desc.milit }
-	desc = { trigger = { owner = { is_pacifist = yes } } text = syndaw.1020.desc.pacif }
-	desc = { trigger = { owner = { is_egalitarian = yes } } text = syndaw.1020.desc.egali }
-	desc = { trigger = { owner = { is_authoritarian = yes } } text = syndaw.1020.desc.autho }
-	desc = { trigger = { owner = { is_xenophile = yes } } text = syndaw.1020.desc.phile }
-	desc = { trigger = { owner = { is_xenophobe = yes } } text = syndaw.1020.desc.phobe }
-	desc = { trigger = { owner = { NOR = { is_xenophobe = yes is_xenophile = yes is_authoritarian = yes is_egalitarian = yes is_pacifist = yes is_militarist = yes is_spiritualist = yes is_materialist = yes } } } text = syndaw.1020.desc }
+
+	desc = {
+		trigger = {
+			owner = { is_materialist = yes }
+		}
+		text = syndaw.1020.desc.mater
+	}
+	desc = {
+		trigger = {
+			owner = { is_spiritualist = yes }
+		}
+		text = syndaw.1020.desc.spiri
+	}
+	desc = {
+		trigger = {
+			owner = { is_militarist = yes }
+		}
+		text = syndaw.1020.desc.milit
+	}
+	desc = {
+		trigger = { owner = { is_pacifist = yes } }
+		text = syndaw.1020.desc.pacif
+	}
+	desc = {
+		trigger = {
+			owner = { is_egalitarian = yes }
+		}
+		text = syndaw.1020.desc.egali
+	}
+	desc = {
+		trigger = {
+			owner = { is_authoritarian = yes }
+		}
+		text = syndaw.1020.desc.autho
+	}
+	desc = {
+		trigger = { owner = { is_xenophile = yes } }
+		text = syndaw.1020.desc.phile
+	}
+	desc = {
+		trigger = { owner = { is_xenophobe = yes } }
+		text = syndaw.1020.desc.phobe
+	}
+	desc = {
+		trigger = {
+			owner = {
+				NOR = {
+					is_xenophobe = yes
+					is_xenophile = yes
+					is_authoritarian = yes
+					is_egalitarian = yes
+					is_pacifist = yes
+					is_militarist = yes
+					is_spiritualist = yes
+					is_materialist = yes
+				}
+			}
+		}
+		text = syndaw.1020.desc
+	}
+
 	picture = GFX_evt_machine_sapience
 	show_sound = event_ai_started
 	is_triggered_only = yes
 	force_open = yes
+
 	pre_triggers = {
 		has_owner = yes
 	}
+
 	immediate = {
 		# launch_machine_uprising = yes
 		set_planet_flag = machup_capital@root.owner
@@ -156,7 +331,7 @@ planet_event = {
 			# Event lock all fleets to prevent exploits.
 			every_controlled_fleet = { set_event_locked = yes }
 			export_trigger_value_to_variable = {
-				trigger = pop_percentage
+				trigger = pop_amount_percentage
 				parameters = {
 					limit = { is_robot_pop = yes }
 				}
@@ -165,7 +340,6 @@ planet_event = {
 			# Take percentage of Robot pops and average it together with 0.5 to get Uprising strength (0.25 to 0.75).
 			change_variable = { which = var_country_robot_pops_percent value = 0.5 }
 			multiply_variable = { which = var_country_robot_pops_percent value = 0.5 }
-
 			# Find and flag planets
 			effect_on_blob = {
 				center = root.solar_system
@@ -174,7 +348,10 @@ planet_event = {
 					is_under_colonization = no
 					OR = {
 						controller = { is_same_empire = root.owner }
-						solar_system = { exists = starbase starbase = { is_owned_by = root.owner } }
+						solar_system = {
+							exists = starbase
+							starbase = { is_owned_by = root.owner }
+						}
 					}
 					# Never flip any planets in the capital system.
 					solar_system = {
@@ -184,8 +361,11 @@ planet_event = {
 						}
 					}
 				}
-				effect = { set_star_flag = machup_system_flip }
+				effect = {
+					set_star_flag = machup_system_flip
+				}
 			}
+			clear_variable = var_uprising_cruelty_to_robots
 		}
 		# Create machine species
 		create_species = {
@@ -201,25 +381,19 @@ planet_event = {
 		}
 		random_list = { # Create machine country
 			3 = { # exterminator
+				modifier = { add = owner.var_uprising_cruelty_to_robots }
 				modifier = {
-					add = owner.var_uprising_cruelty_to_robots
+					add = 10
+					owner = { has_country_flag = machine_uprising_disassembly }
 				}
 				modifier = {
 					add = 10
-					owner = {
-						has_country_flag = machine_uprising_disassembly
-					}
-				}
-				modifier = {
-					add = 10
-					owner = {
-						has_country_flag = machine_uprising_outlawed
-					}
+					owner = { has_country_flag = machine_uprising_outlawed }
 				}
 				modifier = {
 					factor = 10
 					owner = {
-						any_owned_pop = {
+						any_owned_species = {
 							has_trait = trait_mechanical
 							has_trait = trait_robot_domestic_protocols
 						}
@@ -277,26 +451,43 @@ planet_event = {
 		}
 		last_created_country = {
 			save_event_target_as = current_uprising
-			 # Setup happens here now.
-			country_event = { id = UniqueAscensionPerksEvents.205 scopes = { from = root fromfrom = event_target:MachineEmpireUprisingOrigin } }
+			# Setup happens here now.
+			country_event = {
+				id = UniqueAscensionPerksEvents.205
+				scopes = {
+					from = root
+					fromfrom = event_target:MachineEmpireUprisingOrigin
+				}
+			}
 		}
 		# Done using variable.
-		owner = { clear_variable = var_uprising_cruelty_to_robots }
 	}
+
 	after = {
-		hidden_effect = { event_target:current_uprising_originator = { every_controlled_fleet = { set_event_locked = no } } }
+		hidden_effect = {
+			event_target:current_uprising_originator = {
+				every_controlled_fleet = { set_event_locked = no }
+			}
+		}
 	}
+
 	option = {
-		name = syndaw.1020.a custom_tooltip = syndaw.1020.a.tooltip
+		name = syndaw.1020.a
+		custom_tooltip = syndaw.1020.a.tooltip
 		hidden_effect = {
 			event_target:current_uprising = {
 				add_modifier = { modifier = uprising_ai_buff years = 5 } # Add modifier for AI, including 10x naval cap.
 			}
 		}
 	}
-	option = { name = syndaw.1020.b custom_tooltip = syndaw.1020.b.tooltip
+	option = {
+		name = syndaw.1020.b
+		custom_tooltip = syndaw.1020.b.tooltip
 		hidden_effect = {
-			if = { limit = { event_target:current_uprising_originator = { num_owned_planets > 0 } }
+			if = {
+				limit = {
+					event_target:current_uprising_originator = { num_owned_planets > 0 }
+				}
 				event_target:current_uprising = {
 					set_player = event_target:current_uprising_originator
 					add_modifier = { modifier = uprising_player_buff years = 5 } # Add modifier for player, 10x naval cap.
@@ -314,9 +505,13 @@ country_event = {
 	id = UniqueAscensionPerksEvents.205
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		# launch_machine_uprising_settings = yes
-		if = { limit = { NOT = { exists = event_target:MachineEmpireUprisingOrigin } }
+		if = {
+			limit = {
+				NOT = { exists = event_target:MachineEmpireUprisingOrigin }
+			}
 			fromfrom = { save_event_target_as = MachineEmpireUprisingOrigin }
 		}
 		# Saving uprising and host as event targets.
@@ -335,7 +530,9 @@ country_event = {
 		set_graphical_culture = event_target:current_uprising_originator
 		# Establish comms
 		every_country = {
-			limit = { has_communications = event_target:current_uprising_originator }
+			limit = {
+				has_communications = event_target:current_uprising_originator
+			}
 			establish_communications_no_message = root
 			establish_contact = { who = root location = from }
 		}
@@ -357,7 +554,9 @@ country_event = {
 		add_opinion_modifier = { who = event_target:MachineEmpireUprisingOrigin modifier = opinion_empire_origine }
 		add_trust = { who = event_target:MachineEmpireUprisingOrigin amount = 100 }
 		add_intel = { who = event_target:MachineEmpireUprisingOrigin amount = 200 }
-		event_target:MachineEmpireUprisingOrigin = { add_intel = { who = event_target:current_uprising amount = 200 } }
+		event_target:MachineEmpireUprisingOrigin = {
+			add_intel = { who = event_target:current_uprising amount = 200 }
+		}
 		set_relation_flag = { who = event_target:MachineEmpireUprisingOrigin flag = machine_prophet_origin }
 		# Disabled in v3.8.4 due unsolvable side effects aka federation (infinite re-/joining)
 		# if = { limit = { event_target:current_uprising_originator = { OR = { is_ai = no is_overlord = yes } } }
@@ -365,10 +564,14 @@ country_event = {
 		# }
 		# Machine Uprising opinion modifier
 		add_opinion_modifier = { who = event_target:current_uprising_originator modifier = opinion_machine_uprising_originator }
-		event_target:current_uprising_originator = { add_opinion_modifier = { who = root modifier = opinion_machine_uprising } }
+		event_target:current_uprising_originator = {
+			add_opinion_modifier = { who = root modifier = opinion_machine_uprising }
+		}
 		# Clear new contact opinion modifier.
 		if = {
-			limit = { has_opinion_modifier = { who = event_target:current_uprising_originator modifier = opinion_new_contact } }
+			limit = {
+				has_opinion_modifier = { who = event_target:current_uprising_originator modifier = opinion_new_contact }
+			}
 			remove_opinion_modifier = { who = event_target:current_uprising_originator modifier = opinion_new_contact }
 		}
 		# Flip capital planet and add at least 10 Machine pops.
@@ -383,11 +586,6 @@ country_event = {
 					}
 					set_owner = root
 				}
-			}
-			set_owner = root
-			set_controller = root
-			set_capital = yes
-			solar_system = {
 				if = {
 					limit = { exists = starbase }
 					starbase = {
@@ -397,65 +595,168 @@ country_event = {
 							set_starbase_size = starbase_starport
 							set_starbase_module = { slot = 1 module = shipyard }
 							set_starbase_module = { slot = 2 module = shipyard }
-						} else_if = {
-							limit = { NOT = { has_starbase_module = shipyard } }
+						}
+						else_if = {
+							limit = {
+								NOT = { has_starbase_module = shipyard }
+							}
 							set_starbase_module = { slot = 1 module = shipyard }
 							set_starbase_module = { slot = 2 module = shipyard }
 						}
 					}
-				} else = { create_starbase = { size = starbase_starport module = shipyard owner = root } }
+				}
+				else = {
+					create_starbase = {
+						size = starbase_starport
+						module = shipyard
+						owner = root
+					}
+				}
 			}
-			create_pop = { species = root count = 10 }
+			set_owner = root
+			set_controller = root
+			set_capital = yes
+			create_pop_group = { species = root size = 1000 }
 			if = {
-				limit = { count_owned_pop = { count < 5 limit = { is_exact_same_species = root } } }
+				limit = {
+					count_owned_pop_amount = {
+						count < 500
+						limit = { is_exact_same_species = root }
+					}
+				}
 				while = {
-					limit = { count_owned_pop = { count < 5 limit = { is_exact_same_species = root } } }
-					random_owned_pop = {
-						limit = { NOT = { is_exact_same_species = root } }
-						prev = { create_pop = { species = root } }
-						kill_pop = yes
+					limit = {
+						count_owned_pop_amount = {
+							count < 500
+							limit = { is_exact_same_species = root }
+						}
+					}
+					weighted_random_owned_pop_group = {
+						limit = {
+							NOT = { is_exact_same_species = root }
+						}
+						prev = {
+							create_pop_group = { species = root }
+						}
+						kill_single_pop = yes
 					}
 				}
 			}
 			# Create armies
-			if = { limit = { root = { has_civic = civic_machine_terminator } } while = { count = 9 create_army = { owner = root species = root type = machine_assault_1 } } } # More armies if exterminator
-			else = { while = { count = 5 create_army = { owner = root species = root type = machine_assault_1 } } } # Regular armies
+			if = {
+				limit = {
+					root = { has_civic = civic_machine_terminator }
+				}
+				while = {
+					count = 9
+					create_army = {
+						owner = root
+						species = root
+						type = machine_assault_1
+					}
+				}
+			} # More armies if exterminator
+			else = {
+				while = {
+					count = 5
+					create_army = {
+						owner = root
+						species = root
+						type = machine_assault_1
+					}
+				}
+			} # Regular armies
 			# Flip remaining flagged planets
 			while = {
 				count = 100
-				limit = { any_system = { has_star_flag = machup_system_flip exists = starbase starbase = { is_owned_by = event_target:current_uprising_originator } } }
+				limit = {
+					any_system = {
+						has_star_flag = machup_system_flip
+						exists = starbase
+						starbase = { is_owned_by = event_target:current_uprising_originator }
+					}
+				}
 				random_system = {
-					limit = { has_star_flag = machup_system_flip exists = starbase starbase = { is_owned_by = event_target:current_uprising_originator } }
+					limit = {
+						has_star_flag = machup_system_flip
+						exists = starbase
+						starbase = { is_owned_by = event_target:current_uprising_originator }
+					}
 					starbase = { set_owner = root }
 				}
 			}
 			event_target:current_uprising_originator = {
 				every_owned_planet = {
-					limit = { solar_system = { has_star_flag = machup_system_flip } }
+					limit = {
+						solar_system = { has_star_flag = machup_system_flip }
+					}
 					# Flip military stations
 					solar_system = {
 						every_fleet_in_system = {
-							limit = { exists = owner is_owned_by = event_target:current_uprising_originator any_owned_ship = { is_ship_class = shipclass_military_station } }
+							limit = {
+								exists = owner
+								is_owned_by = event_target:current_uprising_originator
+								any_owned_ship = { is_ship_class = shipclass_military_station }
+							}
 							set_owner = root
 						}
 					}
 					set_planet_flag = been_flipped
 					set_owner = root
 					set_controller = root
-					while = { limit = { free_housing > 0 } create_pop = { species = root } }
+					while = {
+						limit = { free_housing > 0 }
+						create_pop_group = { species = root }
+					}
 					if = {
-						limit = { count_owned_pop = { count < 5 limit = { is_exact_same_species = root } } }
-						while = { limit = { count_owned_pop = { count < 5 limit = { is_exact_same_species = root } } }
-							random_owned_pop = {
-								limit = { NOT = { is_exact_same_species = root } }
-								prev = { create_pop = { species = root } }
-								kill_pop = yes
+						limit = {
+							count_owned_pop_amount = {
+								count < 500
+								limit = { is_exact_same_species = root }
+							}
+						}
+						while = {
+							limit = {
+								count_owned_pop_amount = {
+									count < 500
+									limit = { is_exact_same_species = root }
+								}
+							}
+							weighted_random_owned_pop_group = {
+								limit = {
+									NOT = { is_exact_same_species = root }
+								}
+								prev = {
+									create_pop_group = { species = root }
+								}
+								kill_single_pop = yes
 							}
 						}
 					}
 					# Create armies on planets
-					if = { limit = { root = { has_civic = civic_machine_terminator } } while = { count = 7 create_army = { owner = root species = root type = machine_assault_1 } } } # More armies if exterminator
-					else = { while = { count = 4 create_army = { owner = root species = root type = machine_assault_1 } } } # Regular armies
+					if = {
+						limit = {
+							root = { has_civic = civic_machine_terminator }
+						}
+						while = {
+							count = 7
+							create_army = {
+								owner = root
+								species = root
+								type = machine_assault_1
+							}
+						}
+					} # More armies if exterminator
+					else = {
+						while = {
+							count = 4
+							create_army = {
+								owner = root
+								species = root
+								type = machine_assault_1
+							}
+						}
+					} # Regular armies
 				}
 			}
 		}
@@ -508,14 +809,19 @@ country_event = {
 		}
 		# Survey host's surveyed planets
 		every_system = {
-			limit = { is_surveyed = { who = event_target:current_uprising_originator status = yes } }
-		# event_target:current_uprising_originator = { every_planet_within_border = {
+			limit = {
+				is_surveyed = { who = event_target:current_uprising_originator status = yes }
+			}
+			# event_target:current_uprising_originator = { every_planet_within_border = {
 			set_surveyed = { surveyed = yes surveyor = root }
 		}
 		# Declare war on host
 		declare_war = {
 			target = event_target:current_uprising_originator
-			name = { key = "NAME_Machine_Uprising_War" variable_string = "[This.MainDefender.GetAdj]" }
+			name = {
+				key = "NAME_Machine_Uprising_War"
+				variable_string = "[This.MainDefender.GetAdj]"
+			}
 			attacker_war_goal = "wg_machine_uprising"
 		}
 		# Create fleets
@@ -523,22 +829,36 @@ country_event = {
 			limit = { has_civic = civic_machine_terminator }
 			# Exterminator fleets, 150% naval cap
 			create_fleet_from_naval_cap = 0.2
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 			create_fleet_from_naval_cap = 0.3
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 			create_fleet_from_naval_cap = 0.4
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 			create_fleet_from_naval_cap = 0.6
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 		}
 		# Regular fleets, 80% naval cap
 		else = {
 			create_fleet_from_naval_cap = 0.1
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 			create_fleet_from_naval_cap = 0.3
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 			create_fleet_from_naval_cap = 0.4
-			random_owned_planet = { last_created_fleet = { set_location = prev } }
+			random_owned_planet = {
+				last_created_fleet = { set_location = prev }
+			}
 		}
 		# science
 		create_fleet = {
@@ -547,7 +867,14 @@ country_event = {
 				create_ship = { name = random random_existing_design = science }
 				set_fleet_stance = evasive
 				set_location = root.capital_scope
-				owner = { create_leader = { class = scientist sub_type = survey name = random species = owner_main_species } }
+				owner = {
+					create_leader = {
+						class = scientist
+						sub_type = survey
+						name = random
+						species = owner_species
+					}
+				}
 				set_leader = last_created_leader
 			}
 		}
@@ -580,6 +907,7 @@ country_event = {
 country_event = {
 	id = UniqueAscensionPerksEvents.206
 	title = "edict_machine_infiltration_menu"
+
 	desc = {
 		trigger = {
 			text = "UniqueAscensionPerksEvents.206.Desc"
@@ -594,89 +922,212 @@ country_event = {
 			text = "UniqueAscensionPerksEvents.206.Ask"
 		}
 	}
+
 	show_sound = event_robo
 	picture = GFX_evt_robot_assembly_plant
 	is_triggered_only = yes
+
 	immediate = {
-		random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOT = { is_same_empire = root } }
+		random_country = {
+			limit = {
+				is_valid_country_for_machine_infiltration = yes
+				NOT = { is_same_empire = root }
+			}
 			save_event_target_as = country_1
-			random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } }
+			random_country = {
+				limit = {
+					is_valid_country_for_machine_infiltration = yes
+					NOR = {
+						is_same_empire = root
+						is_same_empire = event_target:country_1
+					}
+				}
 				save_event_target_as = country_2
-				random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
+				random_country = {
+					limit = {
+						is_valid_country_for_machine_infiltration = yes
+						NOR = {
+							is_same_empire = root
+							is_same_empire = event_target:country_1
+							is_same_empire = event_target:country_2
+						}
+					}
 					save_event_target_as = country_3
-					random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
+					random_country = {
+						limit = {
+							is_valid_country_for_machine_infiltration = yes
+							NOR = {
+								is_same_empire = root
+								is_same_empire = event_target:country_1
+								is_same_empire = event_target:country_2
+								is_same_empire = event_target:country_3
+							}
+						}
 						save_event_target_as = country_4
-						random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
+						random_country = {
+							limit = {
+								is_valid_country_for_machine_infiltration = yes
+								NOR = {
+									is_same_empire = root
+									is_same_empire = event_target:country_1
+									is_same_empire = event_target:country_2
+									is_same_empire = event_target:country_3
+									is_same_empire = event_target:country_4
+								}
+							}
 							save_event_target_as = country_5
-							random_country = { limit = { is_valid_country_for_machine_infiltration = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
+							random_country = {
+								limit = {
+									is_valid_country_for_machine_infiltration = yes
+									NOR = {
+										is_same_empire = root
+										is_same_empire = event_target:country_1
+										is_same_empire = event_target:country_2
+										is_same_empire = event_target:country_3
+										is_same_empire = event_target:country_4
+										is_same_empire = event_target:country_5
+									}
+								}
+								save_event_target_as = country_6
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_1 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
+		hidden_effect = {
+			save_event_target_as = MachineEmpireInfiltrationOrigin
+			event_target:country_1 = {
+				country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 }
+				set_country_flag = incoming_machine_infiltration
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_2 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
+		hidden_effect = {
+			save_event_target_as = MachineEmpireInfiltrationOrigin
+			event_target:country_2 = {
+				country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 }
+				set_country_flag = incoming_machine_infiltration
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_3 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
+		hidden_effect = {
+			save_event_target_as = MachineEmpireInfiltrationOrigin
+			event_target:country_3 = {
+				country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 }
+				set_country_flag = incoming_machine_infiltration
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_4 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
+		hidden_effect = {
+			save_event_target_as = MachineEmpireInfiltrationOrigin
+			event_target:country_4 = {
+				country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 }
+				set_country_flag = incoming_machine_infiltration
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_5 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
+		hidden_effect = {
+			save_event_target_as = MachineEmpireInfiltrationOrigin
+			event_target:country_5 = {
+				country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 }
+				set_country_flag = incoming_machine_infiltration
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
-		hidden_effect = { save_event_target_as = MachineEmpireInfiltrationOrigin event_target:country_6 = { country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 } set_country_flag = incoming_machine_infiltration } }
+		hidden_effect = {
+			save_event_target_as = MachineEmpireInfiltrationOrigin
+			event_target:country_6 = {
+				country_event = { id = UniqueAscensionPerksEvents.207 days = 60 random = 300 }
+				set_country_flag = incoming_machine_infiltration
+			}
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.206.Country.1.tooltip"
 	}
-	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.206 } } }
-	option = { name = "UniqueAscensionPerksEvents.72.Abort" add_resource = { energy = 10000 unity = 2500 influence = 75 } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = "UniqueAscensionPerks.select_country"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.206 }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerksEvents.72.Abort"
+		add_resource = {
+			energy = 10000
+			unity = 2500
+			influence = 75
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
 	id = UniqueAscensionPerksEvents.207
 	is_triggered_only = yes
 	hide_window = yes
+
 	immediate = {
 		remove_country_flag = incoming_machine_infiltration
 		random_list = {
-			20 = { modifier = { factor = 2.0 has_technology = tech_combat_computers_3 } modifier = { factor = 2.0 has_technology = tech_synthetic_workers } modifier = { factor = 1.5 has_technology = tech_droid_workers } modifier = { factor = 1.5 any_owned_pop = { pop_has_trait = trait_mechanical } } modifier = { factor = 1.1 has_technology = tech_robotic_workers } }
-			10 = { modifier = { factor = 2.0 has_ascension_perk = ap_mind_over_matter } modifier = { factor = 3.0 has_country_flag = machine_infiltration_aware } set_country_flag = incoming_machine_infiltration_failure }
+			20 = {
+				modifier = { factor = 2.0 has_technology = tech_combat_computers_3 }
+				modifier = { factor = 2.0 has_technology = tech_synthetic_workers }
+				modifier = { factor = 1.5 has_technology = tech_droid_workers }
+				modifier = {
+					factor = 1.5
+					any_owned_species = { has_trait = trait_mechanical }
+				}
+				modifier = { factor = 1.1 has_technology = tech_robotic_workers }
+			}
+			10 = {
+				modifier = { factor = 2.0 has_ascension_perk = ap_mind_over_matter }
+				modifier = { factor = 3.0 has_country_flag = machine_infiltration_aware }
+				set_country_flag = incoming_machine_infiltration_failure
+			}
 		}
 		if = {
 			limit = { has_country_flag = incoming_machine_infiltration_success }
 			remove_country_flag = incoming_machine_infiltration_success
 			set_country_flag = machine_infiltration_completed
 			save_event_target_as = MachineEmpireInfiltrationTarget
-			event_target:MachineEmpireInfiltrationOrigin = { country_event = { id = UniqueAscensionPerksEvents.208 } }
-		} else_if = {
+			event_target:MachineEmpireInfiltrationOrigin = {
+				country_event = { id = UniqueAscensionPerksEvents.208 }
+			}
+		}
+		else_if = {
 			limit = { has_country_flag = incoming_machine_infiltration_failure }
 			remove_country_flag = incoming_machine_infiltration_failure
 			save_event_target_as = MachineEmpireInfiltrationTarget
 			set_timed_country_flag = { flag = machine_infiltration_aware years = 5 }
-			event_target:MachineEmpireInfiltrationOrigin = { country_event = { id = UniqueAscensionPerksEvents.209 } }
+			event_target:MachineEmpireInfiltrationOrigin = {
+				country_event = { id = UniqueAscensionPerksEvents.209 }
+			}
 		}
 	}
 }
@@ -688,7 +1139,10 @@ country_event = {
 	is_triggered_only = yes
 	show_sound = event_robo
 	picture = GFX_evt_mechanical_prophet
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -698,9 +1152,12 @@ country_event = {
 	is_triggered_only = yes
 	show_sound = event_ai_started
 	picture = GFX_evt_mechanical_prophet
+
 	option = {
 		name = "UniqueAscensionPerksEvents.209.a"
-		event_target:MachineEmpireInfiltrationTarget = { add_opinion_modifier = { who = root modifier = opinion_failed_machine_infiltration } }
+		event_target:MachineEmpireInfiltrationTarget = {
+			add_opinion_modifier = { who = root modifier = opinion_failed_machine_infiltration }
+		}
 		custom_tooltip = "UniqueAscensionPerksEvents.209.a.tooltip"
 	}
 }

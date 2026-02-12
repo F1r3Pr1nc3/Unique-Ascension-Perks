@@ -1,7 +1,9 @@
 # From ancient_relics_arcsite_events_1.txt & precursor_events.txt
 # Enable All Precursor Sites
 namespace = ancrel
+
 namespace = precursor
+
 ######################################
 #									 #
 ########## Artifacts Hunter ##########
@@ -10,7 +12,6 @@ namespace = precursor
 # TODO add all unique_ascension_perks_sites_events.txt
 # Compat. With The Ancient Gods 2577706209?
 # Compat. With Archaeology Story Pack 1993869579?
-
 # Zroni Introduction
 # Via on_survey = {} | this = surveying vessel
 ship_event = {
@@ -22,6 +23,7 @@ ship_event = {
 	location = from
 	fire_only_once = yes
 	is_triggered_only = yes
+
 	trigger = {
 		has_ancrel = yes
 		owner = {
@@ -52,6 +54,7 @@ ship_event = {
 			habitable_planet = yes
 		}
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -62,12 +65,14 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		owner = { set_country_flag = zroni_intro }
 		set_global_flag = zroni_started
 		solar_system = { set_star_flag = first_zroni_site@root.owner }
 		from = { prevent_anomaly = yes }
 	}
+
 	option = {
 		name = CURIOUS
 		hidden_effect = {
@@ -102,6 +107,7 @@ ship_event = {
 	location = from
 	fire_only_once = yes
 	is_triggered_only = yes
+
 	trigger = {
 		has_ancrel = yes
 		owner = {
@@ -116,11 +122,13 @@ ship_event = {
 		}
 		solar_system = {
 			has_star_flag = precursor_baol_1
-			NAND = {
-				is_capital_system = yes
-				is_same_value = root.owner.capital_scope.solar_system
+			NOR = {
+				AND = {
+					is_capital_system = yes
+					is_same_value = root.owner.capital_scope.solar_system
+				}
+				has_star_flag = sol_system
 			}
-			NOT = { has_star_flag = sol_system }
 		}
 		from = {
 			NOR = {
@@ -134,6 +142,7 @@ ship_event = {
 			}
 		}
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -144,11 +153,13 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		set_global_flag = baol_started
 		owner = { set_country_flag = baol_intro }
 		solar_system = { set_star_flag = first_grunur_site@root.owner }
 	}
+
 	option = {
 		name = CURIOUS
 		hidden_effect = {
@@ -170,7 +181,9 @@ ship_event = {
 	location = from
 	event_chain = vultaum_chain
 	is_triggered_only = yes
+
 	trigger = {
+		exists = owner
 		owner = {
 			is_ai = no
 			OR = {
@@ -188,11 +201,9 @@ ship_event = {
 				is_same_value = root.owner.capital_scope.solar_system
 			}
 		}
-		from = {
-			has_anomaly = no
-			is_star = no
-		}
+		from = { has_anomaly = no is_star = no }
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -203,9 +214,11 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		owner = { set_country_flag = vultaum_intro }
 	}
+
 	option = {
 		name = INTERESTING
 		hidden_effect = {
@@ -214,11 +227,9 @@ ship_event = {
 			}
 		}
 		owner = {
-			begin_event_chain = {
-				event_chain = "vultaum_chain"
-				target = this
-			}
-			if = { limit = { has_ancrel = yes }
+			begin_event_chain = { event_chain = "vultaum_chain" target = this }
+			if = {
+				limit = { has_ancrel = yes }
 				small_artifact_reward = yes
 			}
 		}
@@ -235,6 +246,7 @@ ship_event = {
 	location = from
 	event_chain = yuht_chain
 	is_triggered_only = yes
+
 	trigger = {
 		exists = solar_system # Unsure why this error would occur, instant_survery?
 		solar_system = {
@@ -254,11 +266,9 @@ ship_event = {
 				}
 			}
 		}
-		from = {
-			has_anomaly = no
-			is_star = no
-		}
+		from = { has_anomaly = no is_star = no }
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -269,9 +279,11 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		owner = { set_country_flag = yuht_intro }
 	}
+
 	option = {
 		name = INTERESTING
 		hidden_effect = {
@@ -280,11 +292,9 @@ ship_event = {
 			}
 		}
 		owner = {
-			begin_event_chain = {
-				event_chain = "yuht_chain"
-				target = this
-			}
-			if = { limit = { has_ancrel = yes }
+			begin_event_chain = { event_chain = "yuht_chain" target = this }
+			if = {
+				limit = { has_ancrel = yes }
 				small_artifact_reward = yes
 			}
 		}
@@ -301,6 +311,7 @@ ship_event = {
 	location = from
 	event_chain = first_league_chain
 	is_triggered_only = yes
+
 	trigger = {
 		solar_system = {
 			has_star_flag = precursor_3
@@ -319,11 +330,9 @@ ship_event = {
 				}
 			}
 		}
-		from = {
-			has_anomaly = no
-			is_star = no
-		}
+		from = { has_anomaly = no is_star = no }
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -334,9 +343,11 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		owner = { set_country_flag = first_league_intro }
 	}
+
 	option = {
 		name = INTERESTING
 		hidden_effect = {
@@ -345,11 +356,9 @@ ship_event = {
 			}
 		}
 		owner = {
-			begin_event_chain = {
-				event_chain = "first_league_chain"
-				target = this
-			}
-			if = { limit = { has_ancrel = yes }
+			begin_event_chain = { event_chain = "first_league_chain" target = this }
+			if = {
+				limit = { has_ancrel = yes }
 				small_artifact_reward = yes
 			}
 		}
@@ -366,6 +375,7 @@ ship_event = {
 	location = from
 	event_chain = irassian_chain
 	is_triggered_only = yes
+
 	trigger = {
 		solar_system = {
 			has_star_flag = precursor_4
@@ -384,11 +394,9 @@ ship_event = {
 				}
 			}
 		}
-		from = {
-			has_anomaly = no
-			is_star = no
-		}
+		from = { has_anomaly = no is_star = no }
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -399,9 +407,11 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		owner = { set_country_flag = irassian_intro }
 	}
+
 	option = {
 		name = INTERESTING
 		hidden_effect = {
@@ -410,11 +420,9 @@ ship_event = {
 			}
 		}
 		owner = {
-			begin_event_chain = {
-				event_chain = "irassian_chain"
-				target = root
-			}
-			if = { limit = { has_ancrel = yes }
+			begin_event_chain = { event_chain = "irassian_chain" target = root }
+			if = {
+				limit = { has_ancrel = yes }
 				small_artifact_reward = yes
 			}
 		}
@@ -432,6 +440,7 @@ ship_event = {
 	location = from
 	event_chain = cybrex_chain
 	is_triggered_only = yes
+
 	trigger = {
 		solar_system = {
 			has_star_flag = precursor_5
@@ -450,11 +459,9 @@ ship_event = {
 				}
 			}
 		}
-		from = {
-			has_anomaly = no
-			is_star = no
-		}
+		from = { has_anomaly = no is_star = no }
 	}
+
 	weight_multiplier = {
 		factor = 1
 		modifier = {
@@ -465,9 +472,11 @@ ship_event = {
 			}
 		}
 	}
+
 	immediate = {
 		owner = { set_country_flag = cybrex_intro }
 	}
+
 	option = {
 		name = INTERESTING
 		hidden_effect = {
@@ -476,11 +485,9 @@ ship_event = {
 			}
 		}
 		owner = {
-			begin_event_chain = {
-				event_chain = "cybrex_chain"
-				target = root
-			}
-			if = { limit = { has_ancrel = yes }
+			begin_event_chain = { event_chain = "cybrex_chain" target = root }
+			if = {
+				limit = { has_ancrel = yes }
 				small_artifact_reward = yes
 			}
 		}

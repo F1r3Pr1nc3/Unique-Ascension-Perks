@@ -1,9 +1,30 @@
 ## For compatibility: Dummy triggers - to be overwritten by their respective mods.
-merg_is_molten = { optimize_memory is_planet_class = pc_molten }
-merg_is_toxic = { optimize_memory is_planet_class = pc_toxic }
-merg_is_frozen = { optimize_memory is_planet_class = pc_frozen }
-merg_is_barren = { optimize_memory is_planet_class = pc_barren }
-merg_is_barren_cold = { optimize_memory is_planet_class = pc_barren_cold }
+
+merg_is_molten = {
+	optimize_memory
+	is_planet_class = pc_molten
+}
+
+merg_is_toxic = {
+	optimize_memory
+	is_planet_class = pc_toxic
+}
+
+merg_is_frozen = {
+	optimize_memory
+	is_planet_class = pc_frozen
+}
+
+merg_is_barren = {
+	optimize_memory
+	is_planet_class = pc_barren
+}
+
+merg_is_barren_cold = {
+	optimize_memory
+	is_planet_class = pc_barren_cold
+}
+
 merg_is_arctic = {
 	optimize_memory
 	# OR = {
@@ -14,6 +35,7 @@ merg_is_arctic = {
 	# 	atw_is_arctic = yes
 	# }
 }
+
 merg_is_gaia_basic = {
 	optimize_memory
 	OR = {
@@ -52,6 +74,7 @@ merg_is_shielded_world = {
 		}
 	}
 }
+
 ## Gigastructural Engineering & More
 # is_giga_habitat = { always = no }
 # is_pc_ringworld_hive = { always = no }
@@ -68,6 +91,7 @@ is_dessanu_relic = {
 	optimize_memory
 	always = no
 }
+
 is_ds_skycatcher = {
 	optimize_memory
 	always = no
@@ -91,8 +115,8 @@ merg_is_habitat = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-		giga_is_pc_giga_elysium = yes
-		giga_is_pc_giga_orbital = yes
+			giga_is_pc_giga_elysium = yes
+			giga_is_pc_giga_orbital = yes
 			"
 			toggle = @has_gigastructures
 		}
@@ -208,8 +232,8 @@ merg_is_hive_world = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-		is_planet_class = pc_utopian_hive
-		is_planet_class = pc_utopian_hive_ringworld
+			is_planet_class = pc_utopian_hive
+			is_planet_class = pc_utopian_hive_ringworld
 			"
 			toggle = @has_zofe_vanilla
 		}
@@ -280,8 +304,8 @@ merg_is_machine_world = {
 		inline_script = {
 			script = merger_of_rules/toggled_code
 			code = "
-		is_planet_class = pc_utopian_machine
-		is_planet_class = pc_utopian_machine_ringworld
+			is_planet_class = pc_utopian_machine
+			is_planet_class = pc_utopian_machine_ringworld
 			"
 			toggle = @has_zofe_vanilla
 		}
@@ -305,62 +329,70 @@ merg_is_relic_world = {
 		# is_planet_class = pc_midas_relic # Midas
 	}
 }
+
 ### Guilli's Planet Modifiers and Features
+
 gpm_is_planet_class_city = {
 	optimize_memory
 	OR = {
-		merg_is_arcology = yes # is_planet_class = pc_city
+		is_planet_class = pc_city # is_planet_class = pc_city
 		merg_is_relic_world = yes # is_planet_class = pc_relic
 		# is_planet_class = pc_matryoshka ### (Mod) Additional Mega Planets merged into Forgotten Queens
 		# is_planet_class = pc_hollow ### (Mod) Additional Mega Planets merged into Forgotten Queens
 	}
 }
+
 #############################
 ### Used for Terraforming ###
 #############################
+
 gpm_is_planet_wet_hot = {
 	optimize_memory
 	OR = {
-		merg_is_gaia_basic = yes
+		is_planet_class = pc_gaia
 		is_wet = yes
 		# is_planet_class = pc_continental		# Vanilla
 		# is_planet_class = pc_tropical			# Vanilla
 		# is_planet_class = pc_ocean			# Vanilla
 	}
 }
+
 gpm_is_planet_wet_cold = {
 	optimize_memory
 	OR = {
-		merg_is_gaia_basic = yes				# Vanilla
+		is_planet_class = pc_gaia				# Vanilla
 		is_planet_class = pc_alpine				# Vanilla
 		is_planet_class = pc_continental		# Vanilla
 		is_planet_class = pc_ocean				# Vanilla
 	}
 }
+
 gpm_is_planet_dry_hot = {
 	optimize_memory
 	OR = {
-		merg_is_gaia_basic = yes				# Vanilla
+		is_planet_class = pc_gaia				# Vanilla
 		is_dry = yes							# Vanilla
 		# is_planet_class = pc_savannah			# Vanilla
 		# is_planet_class = pc_arid				# Vanilla
 		# is_planet_class = pc_desert			# Vanilla
 	}
 }
+
 gpm_is_planet_dry_cold = {
 	optimize_memory
 	OR = {
-		merg_is_gaia_basic = yes				# Vanilla
+		is_planet_class = pc_gaia				# Vanilla
 		# is_cold = yes
 		# is_planet_class = pc_alpine				# Vanilla
 		is_planet_class = pc_arctic				# Vanilla
 		is_planet_class = pc_tundra				# Vanilla
 	}
 }
+
 gpm_is_planet_water = {
 	optimize_memory
 	OR = {
-		merg_is_gaia_basic = yes				# Vanilla
+		is_planet_class = pc_gaia				# Vanilla
 		is_planet_class = pc_continental		# Vanilla
 		is_planet_class = pc_ocean				# Vanilla
 		is_planet_class = pc_arctic				# Vanilla

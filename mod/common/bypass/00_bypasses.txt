@@ -3,36 +3,36 @@
 # These can be added to megastructures.
 #
 # bypass_type = {
-#	name = GATEWAY_GALACTIC		# The localization key used in triggers and effects for the type
-#	is_pathfind = yes			# Whether this type can be automatically used by the pathfinding (otherwise you'll have to right click the object containing it)
-#	requires_exploration = no	# Whether this bypass type needs to be 'seen' before it can be used
-#	uses_action = no			# Whether this type needs an action or can be used automagically
-#	always_active = no			# Whether bypasses of these types are automatically active on creation, or if they need to be researched/upgraded to be activated
-#	windup_time = 0.0			# Days preparing before travel, translated into ticks on load.
-#	winddown_time = 0.0			# Days preparing after travel, translated into ticks on load.
+#	name = GATEWAY_GALACTIC		# the localization key used in triggers and effects for the type
+#	is_pathfind = yes			# whether this type can be automatically used by the pathfinding (otherwise you'll have to right click the object containing it)
+#	requires_exploration = no	# whether this bypass type needs to be 'seen' before it can be used
+#	uses_action = no			# whether this type needs an action or can be used automagically
+#	always_active = no			# whether bypasses of these types are automatically active on creation, or if they need to be researched/upgraded to be activated
+#	windup_time = 0.0			# days preparing before travel, translated into ticks on load.
+#	winddown_time = 0.0			# days preparing after travel, translated into ticks on load.
 #	ftl_multiplier = 0			# 0 is supposed to mean instant, WARNING: not implemented correctly.
-#	extends_sensors = yes		# Whether you can "see through" the bypass and extends your sensor range to the other side
+#	extends_sensors = yes		# whether you can "see through" the bypass and extends your sensor range to the other side
 #	icon_frame = 25
-#	remember_instances = no	# Whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+#	remember_instances = no	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
 #	galactic_map_tooltip_header=GATEWAY_GALACTIC
 #	galactic_map_tooltip_desc=GATEWAY_GALACTIC_DESC
 #	connection_type = any_other
-#	ftl_ship_effect	= "gateway_ftl_ship_effect_entity"		# What effect to spawn on the ship when they jump through the bypass
-#	ftl_bypass_effect	= "gateway_ftl_bypass_effect_entity"	# What effect to spawn on the bypass when a ship jumps through
+#	ftl_ship_effect	= "gateway_ftl_ship_effect_entity"		# what effect to spawn on the ship when they jump through the bypass
+#	ftl_bypass_effect	= "gateway_ftl_bypass_effect_entity"	# what effect to spawn on the bypass when a ship jumps through
 #	bypass_effect		= ""
-#	animation_time = 3				# Number of days to wait for the jump animation to be played
+#	animation_time = 3				# number of days to wait for the jump animation to be played
 #	prerequisites = {
 #		tech_gateway_activation
 #	}
-#	on_pre_explore = {					# An effect that is called just before the jump of a right click "explore" action of a fleet
+#	on_pre_explore = {					# an effect that is called just before the jump of a right click "explore" action of a fleet
 #
 #	}
-#	country_can_use = {					# Trigger to evaluate if a country can use bypasses of this type. this: country, from: (optional) system owner; default: { always = yes }
+#	country_can_use = {					# trigger to evaluate if a country can use bypasses of this type. this: country, from: (optional) system owner; default: { always = yes }
 #	}
 #	on_action = "on_entering_bypass"	# The name of the on-action event that will be fired upon entering FTL (if set)
 #										# THIS = Fleet
 #										# FROM = System jumping to
-#										# fromfrom = System jumped from
+#										# FROMFROM = System jumped from
 # }
 
 gateway = {
@@ -153,6 +153,47 @@ wormhole = {
 	# 	}
 	# }
 	on_action = "on_entering_wormhole"
+}
+
+lgate = {
+	name = LGATE_GALACTIC
+	is_pathfind = yes
+	uses_action = no
+	always_active = no
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0			# 0 means instant
+	icon_frame = 30
+	remember_instances = no	# whether countries remember meeting a specific instance of that type, or if they just remember seeing the type in general
+	galactic_map_tooltip_header = LGATE_GALACTIC
+	galactic_map_tooltip_desc = LGATE_GALACTIC_DESC
+	connection_type = scripted_connection
+	animation_time = 1
+	ftl_ship_effect = "gateway_ftl_ship_effect_entity"
+	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
+	can_bypass_be_locked = yes
+
+	country_can_use = {
+		custom_tooltip = {
+			fail_text = LGATE_COUNTRY_CANNOT_USE
+			has_global_flag = lgates_activated_globally
+		}
+	}
+
+	scripted_connection = {
+
+		# defines endpoints that can only reach the "nexus"
+		node = {
+			# system scope
+			has_star_flag = lgate
+		}
+
+		# defines endpoint(s) that can reach all "nodes" (but not other nexuses)
+		nexus = {
+			# system scope
+			has_star_flag = lcluster1
+		}
+	}
 }
 
 relay_bypass = {
@@ -281,7 +322,6 @@ shroud_tunnel = {
 	on_action = "on_entering_shroud_tunnel" # To be fired upon entering FTL into this bypass | this = fleet; from = system being jumped to; fromfrom = system being jumped from
 }
 
-# v3.10
 strange_wormhole = {
 	name = STRANGE_WORMHOLE
 	is_pathfind = yes
@@ -364,4 +404,84 @@ gateway_ness = {
 
 	respect_closed_borders = yes
 	block_access_if_hostile = yes
+}
+
+#Unique Wormholes for Starlit Citadel system initializer
+starlit_wormhole = {
+	name = STARLIT_WORMHOLE_GALACTIC
+	is_pathfind = yes
+	uses_action = no
+	requires_exploration = no
+	always_active = yes
+	windup_time = 0
+	winddown_time = 0
+	ftl_multiplier = 0
+	extends_sensors = yes
+	icon_frame = 59
+	remember_instances = no
+	animation_time = 1
+	galactic_map_tooltip_header = STARLIT_WORMHOLE_GALACTIC
+	galactic_map_tooltip_desc = STARLIT_WORMHOLE_DESC
+	connection_type = scripted_connection
+	ftl_ship_effect = "wormhole_ftl_ship_effect_entity"
+	ftl_bypass_effect = "wormhole_ftl_bypass_effect_entity"
+	can_bypass_be_locked = yes
+
+	prerequisites = {
+		tech_wormhole_stabilization
+	}
+
+	scripted_connection = {
+		node = { #system scope
+			has_star_flag = starlit_sealed_system_flag
+		}
+		nexus = { #system scope
+			has_star_flag = starlit_nexus_system
+		}
+	}
+
+	country_can_use = { # this = country; from = system owner | default = yes
+		OR = {
+			is_country_type_with_subjects = yes
+			is_country_type = abandoned_hatchery
+			is_crisis_faction = yes
+			has_global_flag = open_hatchery
+		}
+	}
+	on_action = "on_entering_wormhole"
+}
+
+entropy_wormhole = {
+	name = ENTROPY_WORMHOLE
+	is_pathfind = yes
+	uses_action = no
+	requires_exploration = no
+	always_active = yes
+	windup_time = 15
+	winddown_time = 0
+	ftl_multiplier = 0
+	extends_sensors = yes
+	icon_frame = 12
+	remember_instances = no
+	animation_time = 1
+	galactic_map_tooltip_header=ENTROPY_WORMHOLE_GALACTIC
+	galactic_map_tooltip_desc=ENTROPY_WORMHOLE_DESC
+	connection_type = scripted_connection
+	ftl_ship_effect = "wormhole_ftl_ship_effect_entity"
+	ftl_bypass_effect = "wormhole_ftl_bypass_effect_entity"
+	can_bypass_be_locked = no
+
+	scripted_connection = {
+		node = {
+			has_star_flag = hyperthermia_system
+		}
+		nexus = {
+			has_star_flag = hyperthermia_nexus
+		}
+	}
+
+	potential = {
+		has_ascension_perk = ap_galactic_hyperthermia
+	}
+	on_action = "on_entering_wormhole"
 }

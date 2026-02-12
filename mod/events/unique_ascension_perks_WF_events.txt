@@ -1,3 +1,4 @@
+
 namespace = UniqueAscensionPerksEvents
 
 ######################################
@@ -14,8 +15,13 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
 		give_tech_option_or_progress_effect = { TECH = tech_treasures }
 		add_resource = { treasures = 50 }
 		hidden_effect = {
@@ -40,16 +46,34 @@ country_event = {
 		# NOT = { has_country_flag = treasures_found_cooldown }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.341 } }
 		any_planet_within_border = {
-			NOR = { merg_is_gas_giant = yes has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes colonizable_planet = yes }
+			NOR = {
+				merg_is_gas_giant = yes
+				has_deposit = yes
+				has_owner = yes
+				is_star = yes
+				is_asteroid = yes
+				colonizable_planet = yes
+			}
 		}
 	}
+
 	immediate = {
 		random_planet_within_border = {
-			limit = { NOR = { merg_is_gas_giant = yes has_deposit = yes has_owner = yes is_star = yes is_asteroid = yes colonizable_planet = yes } }
+			limit = {
+				NOR = {
+					merg_is_gas_giant = yes
+					has_deposit = yes
+					has_owner = yes
+					is_star = yes
+					is_asteroid = yes
+					colonizable_planet = yes
+				}
+			}
 			save_event_target_as = spawn_location
 		}
 		# set_timed_country_flag = { flag = treasures_found_cooldown years = 6 }
 	}
+
 	option = {
 		name = EXCELLENT
 		add_resource = { treasures = 25 }
@@ -76,7 +100,11 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.343.Name"
 		allow = {
@@ -96,37 +124,73 @@ country_event = {
 			}
 		}
 		hidden_effect = {
-			if = { limit = { is_gestalt = no } country_event = { id = UniqueAscensionPerksEvents.343 } }
-			else = { country_event = { id = UniqueAscensionPerksEvents.346 } }
+			if = {
+				limit = { is_gestalt = no }
+				country_event = { id = UniqueAscensionPerksEvents.343 }
+			}
+			else = {
+				country_event = { id = UniqueAscensionPerksEvents.346 }
+			}
 		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.348.Name
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.342.Req02 NOT = { has_country_flag = pirates_treasures_cooldown } } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.342.Req02
+				NOT = { has_country_flag = pirates_treasures_cooldown }
+			}
+		}
 		trigger = { hidden_trigger = { is_ai = no } } # TODO for AI? Similar to Cultist Flagship!?
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.348 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.348 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.352.Name
-		allow = { custom_tooltip = { fail_text = UniqueAscensionPerksEvents.342.Req03 NOT = { has_country_flag = artefacts_treasures_cooldown } } has_ancrel = yes }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.352 } }
+		allow = {
+			custom_tooltip = {
+				fail_text = UniqueAscensionPerksEvents.342.Req03
+				NOT = { has_country_flag = artefacts_treasures_cooldown }
+			}
+			has_ancrel = yes
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.352 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.357.Name
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.357 } }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.357 }
+		}
 	}
 	option = {
 		name = UniqueAscensionPerksEvents.359.Name
 		allow = {
 			has_country_resource = { type = treasures amount > 500 }
-			NOR = { has_modifier = treasures_distribution has_modifier = treasures_distribution_gesalt }
+			NOR = {
+				has_modifier = treasures_distribution
+				has_modifier = treasures_distribution_gesalt
+			}
 		}
 		add_resource = { treasures = -500 }
-		if = { limit = { is_gestalt = no } add_modifier = { modifier = treasures_distribution years = 20 } }
-		else = { add_modifier = { modifier = treasures_distribution_gesalt years = 20 } }
-		hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } }
+		if = {
+			limit = { is_gestalt = no }
+			add_modifier = { modifier = treasures_distribution years = 20 }
+		}
+		else = {
+			add_modifier = { modifier = treasures_distribution_gesalt years = 20 }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
 	}
-	option = { name = EXIT ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = EXIT
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -136,38 +200,142 @@ country_event = {
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
 	is_triggered_only = yes
+
 	immediate = {
-		random_owned_planet = { limit = { has_treasures_deal = no }
+		random_owned_planet = {
+			limit = { has_treasures_deal = no }
 			save_event_target_as = planet_1
-			root = { random_owned_planet = { limit = { NOR = { has_treasures_deal = yes is_planet = event_target:planet_1 } }
-				save_event_target_as = planet_2
-				root = { random_owned_planet = { limit = { NOR = { has_treasures_deal = yes is_planet = event_target:planet_1 is_planet = event_target:planet_2 } }
-					save_event_target_as = planet_3
-					root = { random_owned_planet = { limit = { NOR = { has_treasures_deal = yes is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 } }
-						save_event_target_as = planet_4
-						root = { random_owned_planet = { limit = { NOR = { has_treasures_deal = yes is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 is_planet = event_target:planet_4 } }
-							save_event_target_as = planet_5
-							root = { random_owned_planet = { limit = { NOR = { has_treasures_deal = yes is_planet = event_target:planet_1 is_planet = event_target:planet_2 is_planet = event_target:planet_3 is_planet = event_target:planet_4 is_planet = event_target:planet_5 } } save_event_target_as = planet_6 } }
-						} }
-					} }
-				} }
-			} }
+			root = {
+				random_owned_planet = {
+					limit = {
+						NOR = {
+							has_treasures_deal = yes
+							is_planet = event_target:planet_1
+						}
+					}
+					save_event_target_as = planet_2
+					root = {
+						random_owned_planet = {
+							limit = {
+								NOR = {
+									has_treasures_deal = yes
+									is_planet = event_target:planet_1
+									is_planet = event_target:planet_2
+								}
+							}
+							save_event_target_as = planet_3
+							root = {
+								random_owned_planet = {
+									limit = {
+										NOR = {
+											has_treasures_deal = yes
+											is_planet = event_target:planet_1
+											is_planet = event_target:planet_2
+											is_planet = event_target:planet_3
+										}
+									}
+									save_event_target_as = planet_4
+									root = {
+										random_owned_planet = {
+											limit = {
+												NOR = {
+													has_treasures_deal = yes
+													is_planet = event_target:planet_1
+													is_planet = event_target:planet_2
+													is_planet = event_target:planet_3
+													is_planet = event_target:planet_4
+												}
+											}
+											save_event_target_as = planet_5
+											root = {
+												random_owned_planet = {
+													limit = {
+														NOR = {
+															has_treasures_deal = yes
+															is_planet = event_target:planet_1
+															is_planet = event_target:planet_2
+															is_planet = event_target:planet_3
+															is_planet = event_target:planet_4
+															is_planet = event_target:planet_5
+														}
+													}
+													save_event_target_as = planet_6
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}
+			}
 		}
 	}
+
 	after = {
 		if = {
 			limit = { exists = event_target:PlanetTarget }
 			country_event = { id = UniqueAscensionPerksEvents.344 }
 		}
 	}
-	option = { name = UniqueAscensionPerksEvents.96.Planet.1 trigger = { exists = event_target:planet_1 } hidden_effect = { event_target:planet_1 = { save_event_target_as = PlanetTarget } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.2 trigger = { exists = event_target:planet_2 } hidden_effect = { event_target:planet_2 = { save_event_target_as = PlanetTarget } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.3 trigger = { exists = event_target:planet_3 } hidden_effect = { event_target:planet_3 = { save_event_target_as = PlanetTarget } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.4 trigger = { exists = event_target:planet_4 } hidden_effect = { event_target:planet_4 = { save_event_target_as = PlanetTarget } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.5 trigger = { exists = event_target:planet_5 } hidden_effect = { event_target:planet_5 = { save_event_target_as = PlanetTarget } } }
-	option = { name = UniqueAscensionPerksEvents.96.Planet.6 trigger = { exists = event_target:planet_6 } hidden_effect = { event_target:planet_6 = { save_event_target_as = PlanetTarget } } }
-	option = { name = "UniqueAscensionPerks.select_planet" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.343 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.1
+		trigger = { exists = event_target:planet_1 }
+		hidden_effect = {
+			event_target:planet_1 = { save_event_target_as = PlanetTarget }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.2
+		trigger = { exists = event_target:planet_2 }
+		hidden_effect = {
+			event_target:planet_2 = { save_event_target_as = PlanetTarget }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.3
+		trigger = { exists = event_target:planet_3 }
+		hidden_effect = {
+			event_target:planet_3 = { save_event_target_as = PlanetTarget }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.4
+		trigger = { exists = event_target:planet_4 }
+		hidden_effect = {
+			event_target:planet_4 = { save_event_target_as = PlanetTarget }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.5
+		trigger = { exists = event_target:planet_5 }
+		hidden_effect = {
+			event_target:planet_5 = { save_event_target_as = PlanetTarget }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.96.Planet.6
+		trigger = { exists = event_target:planet_6 }
+		hidden_effect = {
+			event_target:planet_6 = { save_event_target_as = PlanetTarget }
+		}
+	}
+	option = {
+		name = "UniqueAscensionPerks.select_planet"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.343 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -178,12 +346,77 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:PlanetTarget
 	is_triggered_only = yes
-	option = { name = UniqueAscensionPerksEvents.344.100	allow = { has_country_resource = { type = treasures amount > 100 } } add_resource = { treasures = -100 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_100 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = UniqueAscensionPerksEvents.344.250	allow = { has_country_resource = { type = treasures amount > 250 } } add_resource = { treasures = -250 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_250 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = UniqueAscensionPerksEvents.344.500	allow = { has_country_resource = { type = treasures amount > 500 } } add_resource = { treasures = -500 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_500 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = UniqueAscensionPerksEvents.344.1000	allow = { has_country_resource = { type = treasures amount > 1000 } } add_resource = { treasures = -1000 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_1000 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = UniqueAscensionPerksEvents.344.2000	allow = { has_country_resource = { type = treasures amount > 2000 } } add_resource = { treasures = -2000 } event_target:PlanetTarget = {	add_modifier = { modifier = treasures_trade_2000 months = 6 } } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.345 } } }
-	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	option = {
+		name = UniqueAscensionPerksEvents.344.100
+		allow = {
+			has_country_resource = { type = treasures amount > 100 }
+		}
+		add_resource = { treasures = -100 }
+		event_target:PlanetTarget = {
+			add_modifier = { modifier = treasures_trade_100 months = 6 }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.345 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.250
+		allow = {
+			has_country_resource = { type = treasures amount > 250 }
+		}
+		add_resource = { treasures = -250 }
+		event_target:PlanetTarget = {
+			add_modifier = { modifier = treasures_trade_250 months = 6 }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.345 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.500
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
+		add_resource = { treasures = -500 }
+		event_target:PlanetTarget = {
+			add_modifier = { modifier = treasures_trade_500 months = 6 }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.345 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.1000
+		allow = {
+			has_country_resource = { type = treasures amount > 1000 }
+		}
+		add_resource = { treasures = -1000 }
+		event_target:PlanetTarget = {
+			add_modifier = { modifier = treasures_trade_1000 months = 6 }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.345 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.2000
+		allow = {
+			has_country_resource = { type = treasures amount > 2000 }
+		}
+		add_resource = { treasures = -2000 }
+		event_target:PlanetTarget = {
+			add_modifier = { modifier = treasures_trade_2000 months = 6 }
+		}
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.345 }
+		}
+	}
+	option = {
+		name = ABORT
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -194,7 +427,10 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:PlanetTarget
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -205,13 +441,76 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = UniqueAscensionPerksEvents.344.100	allow = { has_country_resource = { type = treasures amount > 100 } }	add_resource = { treasures = -100 }	add_modifier = { modifier = treasures_trade_100_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = UniqueAscensionPerksEvents.344.250	allow = { has_country_resource = { type = treasures amount > 250 } }	add_resource = { treasures = -250 }	add_modifier = { modifier = treasures_trade_250_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = UniqueAscensionPerksEvents.344.500	allow = { has_country_resource = { type = treasures amount > 500 } }	add_resource = { treasures = -500 }	add_modifier = { modifier = treasures_trade_500_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = UniqueAscensionPerksEvents.344.1000	allow = { has_country_resource = { type = treasures amount > 1000 } }	add_resource = { treasures = -1000 }	add_modifier = { modifier = treasures_trade_1000_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = UniqueAscensionPerksEvents.344.2000	allow = { has_country_resource = { type = treasures amount > 2000 } }	add_resource = { treasures = -2000 }	add_modifier = { modifier = treasures_trade_2000_gesalt months = 7 } hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.354 days = 420 } country_event = { id = UniqueAscensionPerksEvents.347 } } }
-	option = { name = ABORT ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = UniqueAscensionPerksEvents.344.100
+		allow = {
+			has_country_resource = { type = treasures amount > 100 }
+		}
+		add_resource = { treasures = -100 }
+		add_modifier = { modifier = treasures_trade_100_gesalt months = 7 }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.354 days = 420 }
+			country_event = { id = UniqueAscensionPerksEvents.347 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.250
+		allow = {
+			has_country_resource = { type = treasures amount > 250 }
+		}
+		add_resource = { treasures = -250 }
+		add_modifier = { modifier = treasures_trade_250_gesalt months = 7 }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.354 days = 420 }
+			country_event = { id = UniqueAscensionPerksEvents.347 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.500
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
+		add_resource = { treasures = -500 }
+		add_modifier = { modifier = treasures_trade_500_gesalt months = 7 }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.354 days = 420 }
+			country_event = { id = UniqueAscensionPerksEvents.347 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.1000
+		allow = {
+			has_country_resource = { type = treasures amount > 1000 }
+		}
+		add_resource = { treasures = -1000 }
+		add_modifier = { modifier = treasures_trade_1000_gesalt months = 7 }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.354 days = 420 }
+			country_event = { id = UniqueAscensionPerksEvents.347 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.344.2000
+		allow = {
+			has_country_resource = { type = treasures amount > 2000 }
+		}
+		add_resource = { treasures = -2000 }
+		add_modifier = { modifier = treasures_trade_2000_gesalt months = 7 }
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.354 days = 420 }
+			country_event = { id = UniqueAscensionPerksEvents.347 }
+		}
+	}
+	option = {
+		name = ABORT
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -222,8 +521,14 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = EXCELLENT }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -233,8 +538,21 @@ country_event = {
 	show_sound = event_default
 	picture = GFX_evt_pirates_attacking_cargo
 	is_triggered_only = yes
-	option = { name = "UniqueAscensionPerksEvents.348.a" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.349 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	option = {
+		name = "UniqueAscensionPerksEvents.348.a"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.349 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -245,6 +563,7 @@ country_event = {
 	picture = GFX_evt_pirates_attacking_cargo
 	location = event_target:special_project_target
 	is_triggered_only = yes
+
 	immediate = {
 		# treasures_pirate_mission_generation = yes
 		random_system_within_border = {
@@ -252,9 +571,14 @@ country_event = {
 			random_system_planet = { save_event_target_as = special_project_target }
 			# create_treasures_pirate_country = yes
 			if = {
-				limit = { any_country = { is_pirate_country = yes has_country_flag = treasures_pirate_country } }
+				limit = {
+					any_country = { is_pirate_country = yes has_country_flag = treasures_pirate_country }
+				}
 				random_country = {
-					limit = { is_pirate_country = yes has_country_flag = treasures_pirate_country }
+					limit = {
+						is_pirate_country = yes
+						has_country_flag = treasures_pirate_country
+					}
 					save_event_target_as = treasures_pirate_country
 				}
 			}
@@ -267,13 +591,15 @@ country_event = {
 						randomize_flag_symbol = "pirate"
 						save_event_target_as = treasures_pirate_country
 						set_country_flag = treasures_pirate_country
-						every_country = { limit = { is_country_type_with_subjects = yes } establish_communications_no_message = prev }
+						every_country = {
+							limit = { is_country_type_with_subjects = yes }
+							establish_communications_no_message = prev
+						}
 					}
 				}
 			}
 			create_fleet = {
 				name = "NAME_Pirate_Fleet"
-				settings = { spawn_debris = no }
 				effect = {
 					set_owner = event_target:treasures_pirate_country
 					create_pirate_ships_3 = yes
@@ -285,20 +611,38 @@ country_event = {
 					create_ship = {
 						name = random
 						design = "NAME_Corsair"
-						effect = { set_ship_flag = target_ship_project set_disable_at_health = 0.05 save_event_target_as = target_ship_project_ship }
+						effect = {
+							set_ship_flag = target_ship_project
+							set_disable_at_health = 0.05
+							save_event_target_as = target_ship_project_ship
+						}
 					}
-					set_location = { target = event_target:special_project_target distance = 50 angle = random }
+					set_location = {
+						target = event_target:special_project_target
+						distance = 50
+						angle = random
+					}
 					set_fleet_stance = aggressive
 					set_aggro_range_measure_from = self
 					set_aggro_range = 150
 				}
+				settings = {
+					spawn_debris = no
+				}
 			}
 		}
-		enable_special_project = { name = "TREASURES_PIRATES" location = event_target:target_ship_project_ship owner = root }
+		enable_special_project = {
+			name = "TREASURES_PIRATES"
+			location = event_target:target_ship_project_ship
+			owner = root
+		}
 		set_timed_country_flag = { flag = pirates_treasures_cooldown years = 4 }
 		country_event = { id = UniqueAscensionPerksEvents.355 days = 1440 }
 	}
-	option = { name = OK }
+
+	option = {
+		name = OK
+	}
 }
 
 # Special Project TREASURES_PIRATES
@@ -310,21 +654,30 @@ ship_event = {
 	show_sound = event_ground_battle
 	location = fleet
 	is_triggered_only = yes
-	immediate =	{
+
+	immediate = {
 		# treasures_project_finish_select_ship = yes
 		if = {
-			limit = { NOT = { exists = event_target:target_ship_project_ship } }
-			if = { limit = { exists = solar_system }
+			limit = {
+				NOT = { exists = event_target:target_ship_project_ship }
+			}
+			if = {
+				limit = { exists = solar_system }
 				solar_system = {
 					random_ship_in_system = {
-						limit = { has_ship_flag = target_ship_project is_disabled = yes }
+						limit = {
+							has_ship_flag = target_ship_project
+							is_disabled = yes
+						}
 						save_event_target_as = target_ship_project_ship
 					}
 				}
 			}
 			# Strong Fallback
 			if = {
-				limit = { NOT = { exists = event_target:target_ship_project_ship } }
+				limit = {
+					NOT = { exists = event_target:target_ship_project_ship }
+				}
 				random_country = {
 					limit = {
 						is_pirate_country = yes
@@ -336,16 +689,27 @@ ship_event = {
 						}
 					}
 					random_owned_ship = {
-						limit = { has_ship_flag = target_ship_project is_disabled = yes }
+						limit = {
+							has_ship_flag = target_ship_project
+							is_disabled = yes
+						}
 						save_event_target_as = target_ship_project_ship
 					}
 				}
 			}
 		}
 	}
+
 	option = {
 		name = EXCELLENT
-		owner = { add_monthly_resource_mult = { resource = treasures value = 4 min = 250 max = 1000 } }
+		owner = {
+			add_monthly_resource_mult = {
+				resource = treasures
+				value = 4
+				min = 250
+				max = 1000
+			}
+		}
 		hidden_effect = {
 			if = {
 				limit = { exists = event_target:target_ship_project_ship }
@@ -362,12 +726,14 @@ ship_event = {
 	id = UniqueAscensionPerksEvents.3596
 	hide_window = yes
 	is_triggered_only = yes
+
 	trigger = {
 		exists = owner
 		owner = { is_country_type = pirate has_country_flag = treasures_pirate_country }
 		has_ship_flag = target_ship_project
 		exists = fleet
 	}
+
 	immediate = {
 		# save_event_target_as = target_ship_project_ship
 		fleet = {
@@ -380,11 +746,13 @@ ship_event = {
 		}
 	}
 }
+
 # From = treasure pirates
 fleet_event = {
 	id = UniqueAscensionPerksEvents.3597
 	hide_window = yes
 	is_triggered_only = yes
+
 	immediate = {
 		set_owner = from.owner
 		set_event_locked = yes # no
@@ -447,7 +815,6 @@ fleet_event = {
 # 		}
 # 	}
 # }
-
 # # TEMP BACKWARD COMPAT. SAVES FIX (on_single_player_save_game_load) remove in > 3.4.3
 event = {
 	id = UniqueAscensionPerksEvents.3600
@@ -603,20 +970,30 @@ country_event = {
 	picture = GFX_evt_analyzing_artifacts
 	location = event_target:spawn_location
 	is_triggered_only = yes
+
 	trigger = {
 		# has_ascension_perk = ap_wheel_fortune
 		# NOT = { has_country_flag = treasures_on_colony_found_cooldown }
 		# any_owned_planet = { is_colony = yes NOT = { has_deposit = d_treasures_planet } }
 		NOT = { has_active_event = { UniqueAscensionPerksEvents.351 } }
 	}
+
 	immediate = {
 		random_owned_planet = {
-			limit = { is_colony = yes NOT = { has_deposit = d_treasures_planet } }
+			limit = {
+				is_colony = yes
+				NOT = { has_deposit = d_treasures_planet }
+			}
 			save_event_target_as = spawn_location
 		}
 		set_timed_country_flag = { flag = treasures_on_colony_found_cooldown years = 8 }
 	}
-	option = { name = EXCELLENT add_resource = { treasures = 50 } event_target:spawn_location = { add_deposit = d_treasures_planet } }
+
+	option = {
+		name = EXCELLENT
+		add_resource = { treasures = 50 }
+		event_target:spawn_location = { add_deposit = d_treasures_planet }
+	}
 }
 
 country_event = {
@@ -626,11 +1003,75 @@ country_event = {
 	show_sound = event_finding_loot
 	picture = GFX_evt_analyzing_artifacts
 	is_triggered_only = yes
-	option = { name = UniqueAscensionPerksEvents.352.100 allow = { has_country_resource = { type = treasures amount > 100 } } add_resource = { treasures = -100 minor_artifacts = 50 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 10 } country_event = { id = UniqueAscensionPerksEvents.356 days = 300 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.200 allow = { has_country_resource = { type = treasures amount > 200 } } add_resource = { treasures = -200 minor_artifacts = 100 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 } country_event = { id = UniqueAscensionPerksEvents.356 days = 600 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.400 allow = { has_country_resource = { type = treasures amount > 400 } } add_resource = { treasures = -400 minor_artifacts = 200 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 } country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = UniqueAscensionPerksEvents.352.800 allow = { has_country_resource = { type = treasures amount > 800 } } add_resource = { treasures = -800 minor_artifacts = 400 } hidden_effect = { set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 } country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 } country_event = { id = UniqueAscensionPerksEvents.353 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	option = {
+		name = UniqueAscensionPerksEvents.352.100
+		allow = {
+			has_country_resource = { type = treasures amount > 100 }
+		}
+		add_resource = {
+			treasures = -100
+			minor_artifacts = 50
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 10 }
+			country_event = { id = UniqueAscensionPerksEvents.356 days = 300 }
+			country_event = { id = UniqueAscensionPerksEvents.353 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.352.200
+		allow = {
+			has_country_resource = { type = treasures amount > 200 }
+		}
+		add_resource = {
+			treasures = -200
+			minor_artifacts = 100
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 20 }
+			country_event = { id = UniqueAscensionPerksEvents.356 days = 600 }
+			country_event = { id = UniqueAscensionPerksEvents.353 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.352.400
+		allow = {
+			has_country_resource = { type = treasures amount > 400 }
+		}
+		add_resource = {
+			treasures = -400
+			minor_artifacts = 200
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 40 }
+			country_event = { id = UniqueAscensionPerksEvents.356 days = 1200 }
+			country_event = { id = UniqueAscensionPerksEvents.353 }
+		}
+	}
+	option = {
+		name = UniqueAscensionPerksEvents.352.800
+		allow = {
+			has_country_resource = { type = treasures amount > 800 }
+		}
+		add_resource = {
+			treasures = -800
+			minor_artifacts = 400
+		}
+		hidden_effect = {
+			set_timed_country_flag = { flag = artefacts_treasures_cooldown months = 80 }
+			country_event = { id = UniqueAscensionPerksEvents.356 days = 2400 }
+			country_event = { id = UniqueAscensionPerksEvents.353 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -640,7 +1081,10 @@ country_event = {
 	show_sound = event_finding_loot
 	picture = GFX_evt_analyzing_artifacts
 	is_triggered_only = yes
-	option = { name = EXCELLENT }
+
+	option = {
+		name = EXCELLENT
+	}
 }
 
 country_event = {
@@ -651,9 +1095,22 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+	}
+	option = {
+		name = OK
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -664,9 +1121,22 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+	}
+	option = {
+		name = OK
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -677,9 +1147,22 @@ country_event = {
 	picture = GFX_evt_wheel_fortune
 	location = event_target:capital_planet
 	is_triggered_only = yes
-	immediate = { get_capital_planet = yes }
-	option = { name = "UniqueAscensionPerks.lets_see" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } }
-	option = { name = OK ai_chance = { factor = 0.1 } default_hide_option = yes }
+
+	immediate = {
+		get_capital_planet = yes
+	}
+
+	option = {
+		name = "UniqueAscensionPerks.lets_see"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+	}
+	option = {
+		name = OK
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -689,68 +1172,163 @@ country_event = {
 	show_sound = event_finding_loot
 	picture = GFX_evt_wheel_fortune
 	is_triggered_only = yes
+
 	immediate = {
-		random_playable_country = { limit = { can_recieve_treasures_donation = yes NOT = { is_same_empire = root } }
+		random_playable_country = {
+			limit = {
+				can_recieve_treasures_donation = yes
+				NOT = { is_same_empire = root }
+			}
 			save_event_target_as = country_1
-			random_playable_country = { limit = { can_recieve_treasures_donation = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 } }
+			random_playable_country = {
+				limit = {
+					can_recieve_treasures_donation = yes
+					NOR = {
+						is_same_empire = root
+						is_same_empire = event_target:country_1
+					}
+				}
 				save_event_target_as = country_2
-				random_playable_country = { limit = { can_recieve_treasures_donation = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 } }
+				random_playable_country = {
+					limit = {
+						can_recieve_treasures_donation = yes
+						NOR = {
+							is_same_empire = root
+							is_same_empire = event_target:country_1
+							is_same_empire = event_target:country_2
+						}
+					}
 					save_event_target_as = country_3
-					random_playable_country = { limit = { can_recieve_treasures_donation = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 } }
+					random_playable_country = {
+						limit = {
+							can_recieve_treasures_donation = yes
+							NOR = {
+								is_same_empire = root
+								is_same_empire = event_target:country_1
+								is_same_empire = event_target:country_2
+								is_same_empire = event_target:country_3
+							}
+						}
 						save_event_target_as = country_4
-						random_playable_country = { limit = { can_recieve_treasures_donation = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 } }
+						random_playable_country = {
+							limit = {
+								can_recieve_treasures_donation = yes
+								NOR = {
+									is_same_empire = root
+									is_same_empire = event_target:country_1
+									is_same_empire = event_target:country_2
+									is_same_empire = event_target:country_3
+									is_same_empire = event_target:country_4
+								}
+							}
 							save_event_target_as = country_5
-							random_playable_country = { limit = { can_recieve_treasures_donation = yes NOR = { is_same_empire = root is_same_empire = event_target:country_1 is_same_empire = event_target:country_2 is_same_empire = event_target:country_3 is_same_empire = event_target:country_4 is_same_empire = event_target:country_5 } } save_event_target_as = country_6 }
+							random_playable_country = {
+								limit = {
+									can_recieve_treasures_donation = yes
+									NOR = {
+										is_same_empire = root
+										is_same_empire = event_target:country_1
+										is_same_empire = event_target:country_2
+										is_same_empire = event_target:country_3
+										is_same_empire = event_target:country_4
+										is_same_empire = event_target:country_5
+									}
+								}
+								save_event_target_as = country_6
+							}
 						}
 					}
 				}
 			}
 		}
 	}
+
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.1"
 		trigger = { exists = event_target:country_1 }
-		allow = { has_country_resource = { type = treasures amount > 500 } }
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
 		add_resource = { treasures = -500 }
-		hidden_effect = { event_target:country_1 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
+		hidden_effect = {
+			event_target:country_1 = { save_event_target_as = CountryTargetForPresent }
+			country_event = { id = UniqueAscensionPerksEvents.358 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.2"
 		trigger = { exists = event_target:country_2 }
-		allow = { has_country_resource = { type = treasures amount > 500 } }
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
 		add_resource = { treasures = -500 }
-		hidden_effect = { event_target:country_2 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
+		hidden_effect = {
+			event_target:country_2 = { save_event_target_as = CountryTargetForPresent }
+			country_event = { id = UniqueAscensionPerksEvents.358 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.3"
 		trigger = { exists = event_target:country_3 }
-		allow = { has_country_resource = { type = treasures amount > 500 } }
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
 		add_resource = { treasures = -500 }
-		hidden_effect = { event_target:country_3 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
+		hidden_effect = {
+			event_target:country_3 = { save_event_target_as = CountryTargetForPresent }
+			country_event = { id = UniqueAscensionPerksEvents.358 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.4"
 		trigger = { exists = event_target:country_4 }
-		allow = { has_country_resource = { type = treasures amount > 500 } }
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
 		add_resource = { treasures = -500 }
-		hidden_effect = { event_target:country_4 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
+		hidden_effect = {
+			event_target:country_4 = { save_event_target_as = CountryTargetForPresent }
+			country_event = { id = UniqueAscensionPerksEvents.358 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.5"
 		trigger = { exists = event_target:country_5 }
-		allow = { has_country_resource = { type = treasures amount > 500 } }
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
 		add_resource = { treasures = -500 }
-		hidden_effect = { event_target:country_5 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
+		hidden_effect = {
+			event_target:country_5 = { save_event_target_as = CountryTargetForPresent }
+			country_event = { id = UniqueAscensionPerksEvents.358 }
+		}
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.206.Country.6"
 		trigger = { exists = event_target:country_6 }
-		allow = { has_country_resource = { type = treasures amount > 500 } }
+		allow = {
+			has_country_resource = { type = treasures amount > 500 }
+		}
 		add_resource = { treasures = -500 }
-		hidden_effect = { event_target:country_6 = { save_event_target_as = CountryTargetForPresent } country_event = { id = UniqueAscensionPerksEvents.358 } }
+		hidden_effect = {
+			event_target:country_6 = { save_event_target_as = CountryTargetForPresent }
+			country_event = { id = UniqueAscensionPerksEvents.358 }
+		}
 	}
-	option = { name = "UniqueAscensionPerks.select_country" hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.357 } } }
-	option = { name = BACK hidden_effect = { country_event = { id = UniqueAscensionPerksEvents.342 } } ai_chance = { factor = 0.1 } default_hide_option = yes }
+	option = {
+		name = "UniqueAscensionPerks.select_country"
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.357 }
+		}
+	}
+	option = {
+		name = BACK
+		hidden_effect = {
+			country_event = { id = UniqueAscensionPerksEvents.342 }
+		}
+		ai_chance = { factor = 0.1 }
+		default_hide_option = yes
+	}
 }
 
 country_event = {
@@ -759,6 +1337,7 @@ country_event = {
 	desc = "UniqueAscensionPerksEvents.358.Desc"
 	is_triggered_only = yes
 	diplomatic = yes
+
 	picture_event_data = {
 		portrait = event_target:CountryTargetForPresent
 		planet_background = event_target:CountryTargetForPresent
@@ -766,23 +1345,46 @@ country_event = {
 		city_level = event_target:CountryTargetForPresent
 		room = event_target:CountryTargetForPresent.ruler
 	}
+
 	location = event_target:CountryTargetForPresent.capital_scope
+
 	option = {
 		name = "UniqueAscensionPerksEvents.358.a"
 		# treasures_opinion_set = yes
 		event_target:CountryTargetForPresent = {
 			if = {
-				limit = { OR = { is_hostile = root is_rival = root } }
-				add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = root } }
+				limit = {
+					OR = {
+						is_hostile = root
+						is_rival = root
+					}
+				}
+				add_opinion_modifier = { modifier = opinion_treasures_present_hostile who = root }
+			}
 			else_if = {
-				limit = { OR = { is_domineering_to = root is_unfriendly_to = root is_dismissive_to = root } }
-				add_opinion_modifier = { modifier = opinion_treasures_present_unfriendly who = root } }
+				limit = {
+					OR = {
+						is_domineering_to = root
+						is_unfriendly_to = root
+						is_dismissive_to = root
+					}
+				}
+				add_opinion_modifier = { modifier = opinion_treasures_present_unfriendly who = root }
+			}
 			else_if = {
-				limit = { OR = { is_neutral_to = root } }
-				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+				limit = { is_neutral_to = root }
+				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root }
+			}
 			else_if = {
-				limit = { OR = { is_patronizing_to = root is_friendly_to = root is_cordial_to = root } }
-				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root } }
+				limit = {
+					OR = {
+						is_patronizing_to = root
+						is_friendly_to = root
+						is_cordial_to = root
+					}
+				}
+				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root }
+			}
 			else = {
 				add_opinion_modifier = { modifier = opinion_treasures_present_normal who = root }
 			}

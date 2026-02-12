@@ -4,7 +4,7 @@ unique_perk_ascension_slots = { ascension_perks_add = 100 }
 expandable_brain_1 = {
 	planet_jobs_specialist_only_physics_research_produces_mult = 0.025	# 0.05
 	planet_jobs_specialist_only_society_research_produces_mult = 0.04	# 0.05
-	planet_jobs_specialist_only_engineering_research_produces_mult = 0.05 #
+	planet_jobs_specialist_only_engineering_research_produces_mult = 0.05
 	# Added with v3.12
 	country_base_physics_research_produces_mult = 0.02
 	country_base_society_research_produces_mult = 0.025
@@ -36,18 +36,18 @@ expandable_brain_3_offense = {
 
 # v3.4: nerfed again
 expandable_brain_3_expansion = {
-	pop_growth_speed = 1 # 6.00
+	logistic_growth_mult = 1 # 6.00
 	planet_pop_assembly_mult = 1 # 6.00
-	planet_pop_assembly_organic_mult = 0.75 # 1.5 new
-	colony_start_num_pops_add = 4 # 10
+	bonus_pop_growth_mult = 0.75 # 1.5 new
+	colony_start_urban_districts_add = 4 planet_colony_development_speed_mult = 1.0 # 10
 	planet_colony_development_speed_mult = 1.75 # 3.5 # 10.00
 	shipsize_colonizer_build_speed_mult = 1 # 3.00
 	pop_housing_usage_mult = -0.1 # -0.40
 	pop_amenities_usage_mult = -0.15 # -0.40
 	# pop_amenities_usage_no_happiness_mult = -0.15 # -0.40
 	# planet_migration_all_mult = 0.75 # 2.00 TODO INVALID with 3.4
-	planet_immigration_pull_mult = 0.75 # Added with 3.4
-	pop_demotion_time_mult = -0.3 # -0.90
+	planet_resettlement_unemployed_destination_mult = 1.125 # Added with 3.4
+	pop_unemployment_demotion_time_mult = -0.3 # -0.90
 	country_resettlement_cost_mult = -0.3 # -0.90
 }
 
@@ -84,7 +84,7 @@ expandable_brain_3_production = {
 	planet_buildings_produces_mult = 0.2 # 0.50
 	planet_districts_produces_mult = 0.2 # 0.50
 	planet_amenities_mult = 0.2 # 0.50
-	trade_value_mult = 0.15 # 0.40
+	planet_jobs_trade_produces_mult = 0.15 # 0.40
 	station_gatherers_produces_mult = 0.35 # 1.00
 	station_researchers_produces_mult = 0.35 # 1.00
 	megastructures_produces_mult = 0.1 # 0.33 needs megastructure scope?
@@ -182,13 +182,13 @@ stability_celebration_gestalt = {
 # v3.4 values reduced by 2/3
 center_of_galaxy = {
 	planet_jobs_produces_mult = 0.15
-	pop_growth_speed = 0.25 # 0.50
+	logistic_growth_mult = 0.25 # 0.50
 	planet_max_buildings_add = 10 # 30
 	planet_max_branch_office_buildings_add = 6 # Needs other gui mod to be visible
 	pop_amenities_usage_mult = -0.1 # -0.25
 	pop_housing_usage_mult = -0.1 # -0.25
 	pop_happiness = 0.1 # 0.25
-	planet_immigration_pull_add = 100
+	planet_resettlement_unemployed_destination_mult = 20.0
 	icon = "gfx/interface/icons/planet_modifiers/pm_galaxy_center.dds"
 	icon_frame = 1
 }
@@ -205,9 +205,9 @@ mega_hivemind_society_failure = { country_base_society_research_produces_add = -
 mega_hivemind_engineering_success = { country_base_engineering_research_produces_add = 200 }
 mega_hivemind_engineering_perfect = { country_base_engineering_research_produces_add = 750 }
 mega_hivemind_engineering_failure = { country_base_engineering_research_produces_add = -150 }
-mega_hivemind_breeding_success = { pop_growth_speed = 0.75 } # 1.5
-mega_hivemind_breeding_perfect = { pop_growth_speed = 2 } # 4
-mega_hivemind_breeding_failure = { pop_growth_speed = -0.80 }
+mega_hivemind_breeding_success = { logistic_growth_mult = 0.75 } # 1.5
+mega_hivemind_breeding_perfect = { logistic_growth_mult = 2 } # 4
+mega_hivemind_breeding_failure = { logistic_growth_mult = -0.80 }
 
 # ap_megacorp
 aggressive_marketing_target = { planet_max_branch_office_buildings_add = 4 } # 5 < v3.8
@@ -236,13 +236,13 @@ vassal_navy_capacity_boost = {
 pm_perfect_vassal_colony = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_perfect_vassal_colony.dds"
 	icon_frame = 2
-	pop_growth_speed = 1 # 2 # Category: Planets
+	logistic_growth_mult = 1 # 2 # Category: Planets
 	pop_environment_tolerance = 0.2 # 0.35 Category: Planets
 	planet_jobs_produces_mult = 0.1
 	planet_pop_assembly_mult = 1 # 2
 	planet_building_build_speed_mult = 1 # 2
 	planet_buildings_cost_mult = -0.25 # -0.50
-	planet_housing_add = 20 # 30
+	planet_housing_add = 2000 # 30
 }
 perfect_vassal_colony = {
 	# icon = "gfx/interface/icons/planet_modifiers/pm_land_appropriated.dds"
@@ -337,50 +337,50 @@ chosen_ruler_maintenance_campaign = {
 }
 
 chosen_ruler_temporal_housing = {
-	planet_housing_add = 15 # 20
+	planet_housing_add = 1500 # 20
 	icon = "gfx/interface/icons/planet_modifiers/pm_arcology_project.dds"
 	icon_frame = 1
 }
 
 chosen_ruler_job_orientation_normal = {
-	job_clerk_add = 15
+	job_clerk_add = 1500
 	icon = "gfx/interface/icons/planet_modifiers/pm_galactic_senate.dds"
 	icon_frame = 1
 }
 
 chosen_ruler_job_orientation_gesalt = {
-	job_technician_drone_add = 5 # 7
-	job_maintenance_drone_add = 5 # 7
+	job_technician_drone_add = 500 # 7
+	job_maintenance_drone_add = 500 # 7
 	icon = "gfx/interface/icons/planet_modifiers/pm_galactic_senate.dds"
 	icon_frame = 1
 }
 
 treasures_trade_100 = {
-	trade_value_add = 100
+	planet_jobs_trade_produces_add = 100
 	icon = "gfx/interface/icons/planet_modifiers/pm_treasures_trade.dds"
 	icon_frame = 1
 }
 
 treasures_trade_250 = {
-	trade_value_add = 250
+	planet_jobs_trade_produces_add = 250
 	icon = "gfx/interface/icons/planet_modifiers/pm_treasures_trade.dds"
 	icon_frame = 1
 }
 
 treasures_trade_500 = {
-	trade_value_add = 500
+	planet_jobs_trade_produces_add = 500
 	icon = "gfx/interface/icons/planet_modifiers/pm_treasures_trade.dds"
 	icon_frame = 1
 }
 
 treasures_trade_1000 = {
-	trade_value_add = 1000
+	planet_jobs_trade_produces_add = 1000
 	icon = "gfx/interface/icons/planet_modifiers/pm_treasures_trade.dds"
 	icon_frame = 1
 }
 
 treasures_trade_2000 = {
-	trade_value_add = 2000
+	planet_jobs_trade_produces_add = 2000
 	icon = "gfx/interface/icons/planet_modifiers/pm_treasures_trade.dds"
 	icon_frame = 1
 }
@@ -415,7 +415,7 @@ underworld_crime_contract = { planet_crime_mult = -5.00 planet_crime_no_happines
 underworld_crime_attack = {
 	planet_crime_add = 500 # 1000
 	job_criminal_per_crime = 0.06 # 0.03
-	job_criminal_add = 2 # 1
+	job_criminal_add = 200 # 1
 	icon = "gfx/interface/icons/planet_modifiers/pm_crime.dds"
 	icon_frame = 3
 }
@@ -473,11 +473,11 @@ anti_matter_upkeep = {
 }
 
 adv_colonisation_temporal_job = {
-	job_technician_add = 9
-	job_farmer_add = 8
-	job_miner_add = 8
-	job_enforcer_add = 2
-	job_entertainer_add = 3
+	job_technician_add = 900
+	job_farmer_add = 800
+	job_miner_add = 800
+	job_enforcer_add = 200
+	job_entertainer_add = 300
 	planet_building_build_speed_mult = 2
 	planet_amenities_add = 20
 	icon = "gfx/interface/icons/planet_modifiers/capital.dds"
@@ -485,11 +485,11 @@ adv_colonisation_temporal_job = {
 }
 
 adv_colonisation_temporal_job_gesalt = {
-	job_technician_drone_add = 8
-	job_agri_drone_add = 8
-	job_mining_drone_add = 7
-	job_patrol_drone_add = 2
-	job_maintenance_drone_add = 5
+	job_technician_drone_add = 800
+	job_agri_drone_add = 800
+	job_mining_drone_add = 700
+	job_patrol_drone_add = 200
+	job_maintenance_drone_add = 500
 	planet_building_build_speed_mult = 2
 	planet_amenities_no_happiness_add = 20
 	icon = "gfx/interface/icons/planet_modifiers/capital.dds"
@@ -503,7 +503,7 @@ self_aware_colony = {
 	planet_buildings_cost_mult = 5 # 10
 	# planet_pop_assembly_mult = 10 # 99
 	# pop_growth_speed = 10 # 99
-	pop_demotion_time_mult = -10
+	pop_unemployment_demotion_time_mult = -10
 	icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_colony.dds"
 	icon_frame = 2
 }
@@ -515,12 +515,12 @@ self_aware_food = { planet_jobs_food_produces_mult = 0.20 icon = "gfx/interface/
 self_aware_consumers = { planet_jobs_consumer_goods_produces_mult = 0.20 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_consumers.dds" icon_frame = 1 }
 self_aware_alloys = { planet_jobs_alloys_produces_mult = 0.10 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_alloys.dds" icon_frame = 1 }
 self_aware_research = { planet_jobs_physics_research_produces_mult = 0.10 planet_jobs_society_research_produces_mult = 0.10 planet_jobs_engineering_research_produces_mult = 0.10 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_research.dds" icon_frame = 1 }
-self_aware_trade = { trade_value_mult = 0.20 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_trade.dds" icon_frame = 1 }
+self_aware_trade = { planet_jobs_trade_produces_mult = 0.2 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_trade.dds" icon_frame = 1 }
 self_aware_army = { planet_orbital_bombardment_damage = -0.5 army_starting_experience_add = 100 planet_army_build_speed_mult = 0.75 army_defense_health_mult = 0.20 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_army.dds" icon_frame = 1 }
 self_aware_strategic = { planet_jobs_volatile_motes_produces_mult = 0.05 planet_jobs_exotic_gases_produces_mult = 0.05 planet_jobs_rare_crystals_produces_mult = 0.05 icon = "gfx/interface/icons/planet_modifiers/pm_self_aware_strategic.dds" icon_frame = 1 }
 
 flourishing_technocracy = {
-	job_researcher_add = 1
+	job_researcher_add = 100
 	job_head_researcher_per_pop = 0.02 # 1 Every 50 Pops
 	job_researcher_per_pop = 0.04 # 1 Every 25 Pops
 	# planet_researchers_consumer_goods_upkeep_add = -1
@@ -528,14 +528,14 @@ flourishing_technocracy = {
 }
 
 flourishing_technocracy_hivemind = {
-	job_brain_drone_add = 2
+	job_brain_drone_add = 200
 	job_brain_drone_per_pop = 0.06 # 1 Every 16.6 Pops
 	# planet_researchers_minerals_upkeep_add = -4
 	planet_researchers_minerals_upkeep_mult = -0.1 # v3.9.1
 }
 
 flourishing_technocracy_machine = {
-	job_calculator_add = 2
+	job_calculator_add = 200
 	job_calculator_per_pop = 0.05 # 1 Every 20 Pops
 	# planet_researchers_minerals_upkeep_add = -4
 	planet_researchers_minerals_upkeep_mult = -0.1 # v3.9.1
@@ -587,9 +587,9 @@ pm_stellar_manipulation_habitat = {
 }
 utopian_gaia_world = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_lush.dds"
-	pop_growth_speed = 0.20
-	planet_immigration_pull_mult = 0.20
-	pop_growth_from_immigration = 0.20
+	logistic_growth_mult = 0.20
+	planet_resettlement_unemployed_destination_mult = 0.30000000000000004
+	planet_resettlement_unemployed_mult = 0.20
 	planet_housing_mult = 0.20
 	planet_jobs_upkeep_mult = -0.1
 	planet_jobs_produces_mult = 0.1
@@ -597,9 +597,9 @@ utopian_gaia_world = {
 # TODO +Center of the Galaxy??
 utopian_ecumenopolis_world = {
 	icon = "gfx/interface/icons/planet_modifiers/pm_lush.dds"
-	pop_growth_speed = 0.30
-	planet_immigration_pull_mult = 0.40
-	pop_growth_from_immigration = 0.4
+	logistic_growth_mult = 0.30
+	planet_resettlement_unemployed_destination_mult = 0.6000000000000001
+	planet_resettlement_unemployed_mult = 0.4
 	planet_housing_mult = 0.25
 	planet_jobs_upkeep_mult = -0.15
 	planet_jobs_produces_mult = 0.15

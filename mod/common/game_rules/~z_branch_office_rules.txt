@@ -13,6 +13,7 @@ can_build_branch_office_on_planet = {
 			}
 		}
 	}
+
 	# Normal Megacorps can't build on other corps, only Imposed Megacorp allows branch offices (MOD)
 	# Unique Ascension Perks
 	inline_script = {
@@ -34,6 +35,7 @@ can_build_branch_office_on_planet = {
 		"
 		toggle = @has_uap_mod
 	}
+
 	# Vanilla
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NO_OBSERVATION_OUTPOST
@@ -43,9 +45,10 @@ can_build_branch_office_on_planet = {
 				owner = { is_primitive = yes }
 			}
 			has_observation_outpost = yes
-			observation_outpost_owner = { is_same_empire = root }
+			observation_outpost_owner = { is_same_value = root }
 		}
 	}
+
 	# Vanilla
 	custom_tooltip = {
 		fail_text = BRANCH_OFFICE_NOT_COMMERCIAL_PACT
@@ -58,7 +61,7 @@ can_build_branch_office_on_planet = {
 					inline_script = {
 						script = merger_of_rules/toggled_code
 						code = "
-							has_authority = auth_AL_democratic
+						has_authority = auth_AL_democratic
 						"
 						toggle = @change_planet_size_bullet_num
 					}
@@ -66,10 +69,10 @@ can_build_branch_office_on_planet = {
 					inline_script = {
 						script = merger_of_rules/toggled_code
 						code = "
-							root = {
-								exists = event_target:elizabeth_leader
-								has_country_flag = azur_lane_leader_elizabeth
-							}
+						root = {
+							exists = event_target:elizabeth_leader
+							has_country_flag = azur_lane_leader_elizabeth
+						}
 						"
 						toggle = @azl_mod
 					}
@@ -77,7 +80,7 @@ can_build_branch_office_on_planet = {
 					inline_script = {
 						script = merger_of_rules/toggled_code
 						code = "
-							KZ_VOY_can_build_branch_offices = yes
+						KZ_VOY_can_build_branch_offices = yes
 						"
 						toggle = @vte_mod
 					}
@@ -85,7 +88,7 @@ can_build_branch_office_on_planet = {
 					inline_script = {
 						script = merger_of_rules/toggled_code
 						code = "
-							has_civic = civic_sh_criminal_syndicate
+						has_civic = civic_sh_criminal_syndicate
 						"
 						toggle = @wsg_mod
 					}
@@ -93,70 +96,78 @@ can_build_branch_office_on_planet = {
 					inline_script = {
 						script = merger_of_rules/toggled_code
 						code = "
-							has_ascension_perk = ap_megacorp
+						has_ascension_perk = ap_megacorp
 						"
 						toggle = @has_uap_mod
 					}
-				}
-			}
-			owner = { has_commercial_pact = root }
-			owner = { is_in_federation_with = root }
-			AND = {
-				has_observation_outpost = yes
-				observation_outpost = { has_modifier = preftl_action_trade_pact }
-			}
-			# Expanded Traits, Civics, Pops, and More
-			inline_script = {
-				script = merger_of_rules/toggled_code
-				code = "
-					owner = { has_country_flag = cb_markets_opened@root }
-				"
-				toggle = @expops_compatch_var
-			}
-			# Warship Girls R And MIST Species
-			inline_script = {
-				script = merger_of_rules/toggled_code
-				code = "
+					# Expanded Traits, Civics, Pops, and More
+					# Warship Girls R And MIST Species
+					# Vanilla
+					# Allow branch offices in subsidiaries and vice versa (and fellow subjects)
 					AND = {
-						owner = { has_country_flag = lose_wg_shop_war }
-						root = { has_country_flag = pantsu_shop_origin }
-					}
-				"
-				toggle = @wsg_mod
-			}
-			# Vanilla
-			# Allow branch offices in subsidiaries and vice versa (and fellow subjects)
-			root = {
-				is_subject = yes # exists = overlord
-				OR = {
-					is_megacorp = yes
-					has_civic = civic_galactic_sovereign_megacorp
-				}
-				overlord = {
-					OR = {
-						is_same_empire = prevprev.owner
-						AND = {
-							exists = prevprev.owner.overlord
-							is_same_empire = prevprev.owner.overlord
+						is_subject = yes # exists = overlord
+						OR = {
+							is_megacorp = yes
+							has_civic = civic_galactic_sovereign_megacorp
+						}
+						overlord = {
+							OR = {
+								is_same_empire = prevprev.owner
+								AND = {
+									exists = prevprev.owner.overlord
+									is_same_empire = prevprev.owner.overlord
+								}
+							}
 						}
 					}
 				}
 			}
 			owner = {
-				is_subject = yes # exists = overlord
-				overlord = {
-					OR = {
-						is_same_empire = root
-						AND = {
-							exists = root.overlord
-							is_same_empire = root.overlord
+				OR = {
+					has_commercial_pact = root
+					is_in_federation_with = root
+					# Expanded Traits, Civics, Pops, and More
+					# Warship Girls R And MIST Species
+					# Vanilla
+					# Allow branch offices in subsidiaries and vice versa (and fellow subjects)
+					AND = {
+						is_subject = yes # exists = overlord
+						overlord = {
+							OR = {
+								is_same_empire = root
+								AND = {
+									exists = root.overlord
+									is_same_empire = root.overlord
+								}
+							}
+							OR = {
+								is_megacorp = yes
+								has_civic = civic_galactic_sovereign_megacorp
+							}
 						}
 					}
-					OR = {
-						is_megacorp = yes
-						has_civic = civic_galactic_sovereign_megacorp
-					}
 				}
+			}
+			AND = {
+				has_observation_outpost = yes
+				observation_outpost = { has_modifier = preftl_action_trade_pact }
+			}
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
+				owner = { has_country_flag = cb_markets_opened@root }
+				"
+				toggle = @expops_compatch_var
+			}
+			inline_script = {
+				script = merger_of_rules/toggled_code
+				code = "
+				AND = {
+					owner = { has_country_flag = lose_wg_shop_war }
+					root = { has_country_flag = pantsu_shop_origin }
+				}
+				"
+				toggle = @wsg_mod
 			}
 			AND = {
 				root = {
@@ -171,24 +182,24 @@ can_build_branch_office_on_planet = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-					OR = {
-						root = {
-							is_subject = yes
-							overlord = {
-								OR = {
-									is_same_empire = prevprev.owner
-									AND = {
-										exists = prevprev.owner.overlord
-										is_same_empire = prevprev.owner.overlord
-									}
+				OR = {
+					root = {
+						is_subject = yes
+						overlord = {
+							OR = {
+								is_same_empire = prevprev.owner
+								AND = {
+									exists = prevprev.owner.overlord
+									is_same_empire = prevprev.owner.overlord
 								}
 							}
 						}
-						owner = {
-							is_subject = yes
-							overlord = { is_same_empire = root }
-						}
 					}
+					owner = {
+						is_subject = yes
+						overlord = { is_same_empire = root }
+					}
+				}
 				"
 				toggle = @has_vear_f_mod
 			}
@@ -196,10 +207,10 @@ can_build_branch_office_on_planet = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-					owner = {
-						has_authority = auth_traveler
-						is_same_empire = root
-					}
+				owner = {
+					has_authority = auth_traveler
+					is_same_empire = root
+				}
 				"
 				toggle = @eda_mod
 			}
@@ -271,7 +282,9 @@ can_build_branch_office_on_planet = {
 		OR = {
 			AND = {
 				root = { is_criminal_syndicate = yes }
-				NOT = { has_planet_flag = criminal_branch_closed_cooldown_planet@root }
+				NOT = {
+					has_planet_flag = criminal_branch_closed_cooldown_planet@root
+				}
 			}
 			root = {
 				OR = {
@@ -288,12 +301,13 @@ can_build_branch_office_on_planet = {
 			inline_script = {
 				script = merger_of_rules/toggled_code
 				code = "
-					root = { is_criminal_syndicate = yes has_country_flag = prob_no_criminal_branch@root.owner }
+				root = { is_criminal_syndicate = yes has_country_flag = prob_no_criminal_branch@root.owner }
 				"
 				toggle = @has_prob_mod
 			}
 		}
 	}
+
 	# Warship Girls R And MIST Species
 	inline_script = {
 		script = merger_of_rules/toggled_code
@@ -317,6 +331,7 @@ can_build_branch_office_on_planet = {
 		"
 		toggle = @wsg_mod
 	}
+
 	# More Corporate Authorities
 	inline_script = {
 		script = merger_of_rules/toggled_code
@@ -331,6 +346,11 @@ can_build_branch_office_on_planet = {
 		"
 		toggle = @has_more_corporate_authorities
 	}
+
+	custom_tooltip = {
+		fail_text = NO_BRANCH_OFFICE_ON_AI_WORLD
+		NOT = { is_planet_class = pc_ai }
+	}
 	custom_tooltip = {
 		fail_text = NO_BRANCH_OFFICE_ON_NANITE_WORLD
 		NOT = { is_planet_class = pc_gray_goo }
@@ -339,6 +359,7 @@ can_build_branch_office_on_planet = {
 		fail_text = NO_BRANCH_OFFICE_ON_SYNAPTIC_LATHE
 		NOT = { is_planet_class = pc_cosmogenesis_world }
 	}
+
 	# Ethics and Civics Alternative - FunEFork
 	inline_script = {
 		script = merger_of_rules/toggled_code
