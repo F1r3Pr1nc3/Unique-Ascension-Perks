@@ -183,11 +183,12 @@ building_foundry_2 = {
 	}
 
 	destroy_trigger = {
+		has_owner = yes
 		OR = {
-			has_owner = no
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 			has_modifier = gestation_colony
+			owner = { is_wilderness_empire = yes }
 			AND = {
 				owner = { is_ai = yes }
 				has_any_industry_zone = no
@@ -211,6 +212,19 @@ building_foundry_2 = {
 		tech_alloys_1
 	}
 
+	show_tech_unlock_if = {
+		is_wilderness_empire = no
+	}
+
+	inline_script = {
+		script = jobs/foundry_add
+		AMOUNT = @building_static_jobs_high
+	}
+
+	upgrades = {
+		"building_foundry_3"
+	}
+
 	planet_modifier = {
 		planet_metallurgists_alloys_produces_add = 1
 	}
@@ -221,13 +235,6 @@ building_foundry_2 = {
 			owner = { is_catalytic_empire = no }
 		}
 		planet_metallurgists_minerals_upkeep_add = 2
-	}
-	triggered_planet_modifier = {
-		potential = {
-			has_owner = yes
-			owner = { is_gestalt = no is_catalytic_empire = no }
-		}
-		job_foundry_add = @b1_jobs
 	}
 	triggered_planet_modifier = {
 		potential = {
@@ -273,13 +280,6 @@ building_foundry_2 = {
 		job_industrialist_add = 100
 	}
 
-	triggered_desc = {
-		trigger = {
-			has_owner = yes
-			owner = { is_gestalt = no is_catalytic_empire = no }
-		}
-		text = job_foundry_effect_desc
-	}
 	triggered_desc = {
 		trigger = {
 			has_owner = yes
@@ -529,17 +529,17 @@ building_factory_1 = {
 	}
 
 	destroy_trigger = {
+		# Vfix sync
+		has_owner = yes
 		OR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 			has_modifier = gestation_colony
-			NAND = {
-				has_owner = yes
-				owner = {
-					OR = {
-						country_uses_consumer_goods = yes
-						has_origin = origin_fear_of_the_dark
-					}
+			owner = {
+				NOR = {
+
+					country_uses_consumer_goods = yes
+					has_origin = origin_fear_of_the_dark
 				}
 			}
 			AND = {
@@ -663,14 +663,12 @@ building_factory_2 = {
 	}
 
 	destroy_trigger = {
+		has_owner = yes
 		OR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 			has_modifier = gestation_colony
-			NAND = {
-				has_owner = yes
-				owner = { country_uses_consumer_goods = yes }
-			}
+			owner = { country_uses_consumer_goods = no }
 			AND = {
 				owner = { is_ai = yes }
 				has_any_industry_zone = no
@@ -795,14 +793,11 @@ building_factory_3 = {
 	}
 
 	destroy_trigger = {
+		has_owner = yes
 		OR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
-			has_modifier = gestation_colony
-			NAND = {
-				has_owner = yes
-				owner = { country_uses_consumer_goods = yes }
-			}
+			owner = { country_uses_consumer_goods = no }
 			AND = {
 				owner = { is_ai = yes }
 				has_any_industry_zone = no
@@ -936,9 +931,9 @@ building_ministry_production = {
 	destroy_trigger = {
 		has_owner = yes
 		OR = {
-			owner = { is_gestalt = yes }
 			has_modifier = resort_colony
 			has_modifier = slave_colony
+			owner = { is_gestalt = yes } # Vfix opt
 			AND = {
 				owner = { is_ai = yes }
 				has_any_industry_zone = no

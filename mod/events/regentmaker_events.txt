@@ -789,9 +789,14 @@ planet_event = {
 			random_list = {
 				# Indentured Assets (Megacorp) # Allows direct population control.
 				1 = {
-
 					force_add_civic = civic_indentured_assets
-
+					modifier = {
+						factor = 10
+						OR = {
+							is_megacorp = yes
+							has_civic = civic_galactic_sovereign_megacorp
+						}
+					}
 					modifier = {
 						factor = 0
 						OR = {
@@ -802,20 +807,10 @@ planet_event = {
 							has_civic = civic_pleasure_seekers
 						}
 					}
-
-					modifier = {
-						factor = 10
-						OR = {
-							is_megacorp = yes
-							has_civic = civic_galactic_sovereign_megacorp
-						}
-					}
 				}
 				# Police State # Keeps stability high, making them obedient.
 				1 = {
-
 					force_add_civic = civic_police_state
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -828,9 +823,7 @@ planet_event = {
 				}
 				# Efficient Bureaucracy # Makes administration smoother.
 				1 = {
-
 					force_add_civic = civic_efficient_bureaucracy
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -842,9 +835,7 @@ planet_event = {
 				}
 				# Functional Architecture # Keeps the vassal efficient without being too independent.
 				1 = {
-
 					force_add_civic = civic_functional_architecture
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -856,9 +847,11 @@ planet_event = {
 				}
 				# Anglers (if aquatic) # Generates strong economy with low micromanagement.
 				1 = {
-
 					force_add_civic = civic_anglers
-
+					modifier = {
+						factor = 10
+						event_target:vassal_species = { has_trait = trait_aquatic }
+					}
 					modifier = {
 						factor = 0
 						OR = {
@@ -872,20 +865,14 @@ planet_event = {
 							is_megacorp = yes
 						}
 					}
-
-					modifier = {
-						factor = 10
-
-						event_target:vassal_species = {
-							has_trait = trait_aquatic
-						}
-					}
 				}
 				# Anglers (if aquatic) # Generates strong economy with low micromanagement.
 				1 = {
-
 					force_add_civic = civic_machine_anglers
-
+					modifier = {
+						factor = 10
+						event_target:vassal_species = { is_archetype = MACHINE has_trait = trait_robot_aquatic }
+					}
 					modifier = {
 						factor = 0
 						OR = {
@@ -899,15 +886,6 @@ planet_event = {
 							is_subterranean_empire = yes
 							is_gestalt = yes
 							is_megacorp = yes
-						}
-					}
-
-					modifier = {
-						factor = 10
-
-						event_target:vassal_species = {
-							is_archetype = MACHINE
-							has_trait = trait_robot_aquatic
 						}
 					}
 				}
@@ -1221,13 +1199,7 @@ planet_event = {
 					}
 					else_if = {
 						limit = {
-							count_system_colony = {
-								count = 0
-								limit = {
-									is_star = no
-									is_asteroid = no
-								}
-							}
+							NOT = { any_system_colony = { is_star = no is_asteroid = no } }
 						}
 						starbase = { set_owner = root.owner }
 					}
@@ -1941,10 +1913,7 @@ country_event = {
 			every_subject = { # count < 11
 				limit = {
 					merg_is_default_empire = yes
-					count_agreement = {
-						count = 0
-						limit = { agreement_preset = preset_devstate }
-					}
+					NOT = { any_agreement = { agreement_preset = preset_devstate } }
 				}
 				if = {
 					limit = {
@@ -3744,63 +3713,31 @@ country_event = {
 			limit = { num_ethics = 1 }
 			random_list = {
 				1 = {
-
 					country_add_ethic = ethic_fanatic_materialist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_materialist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_materialist }
 				}
 				1 = {
-
 					country_add_ethic = ethic_fanatic_spiritualist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_spiritualist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_spiritualist }
 				}
 				1 = {
-
 					country_add_ethic = ethic_fanatic_militarist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_militarist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_militarist }
 				}
 				1 = {
-
 					country_add_ethic = ethic_fanatic_pacifist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_pacifist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_pacifist }
 				}
 				1 = {
-
 					country_add_ethic = ethic_fanatic_xenophile
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_xenophile
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_xenophile }
 				}
 				1 = {
-
 					country_add_ethic = ethic_fanatic_xenophobe
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_xenophobe
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_xenophobe }
 				}
 				4 = {
-
 					country_add_ethic = ethic_fanatic_egalitarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3813,9 +3750,7 @@ country_event = {
 					}
 				}
 				3 = {
-
 					country_add_ethic = ethic_fanatic_authoritarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3840,9 +3775,7 @@ country_event = {
 			}
 			random_list = {
 				1 = {
-
 					country_add_ethic = ethic_materialist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3853,9 +3786,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					country_add_ethic = ethic_spiritualist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3866,9 +3797,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					country_add_ethic = ethic_militarist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3879,9 +3808,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					country_add_ethic = ethic_pacifist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3892,9 +3819,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					country_add_ethic = ethic_xenophile
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3905,9 +3830,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					country_add_ethic = ethic_xenophobe
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3918,9 +3841,7 @@ country_event = {
 					}
 				}
 				3 = {
-
 					country_add_ethic = ethic_egalitarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3933,9 +3854,7 @@ country_event = {
 					}
 				}
 				2 = {
-
 					country_add_ethic = ethic_authoritarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -3963,63 +3882,31 @@ country_event = {
 			limit = { num_ethics > 0 }
 			random_list = {
 				1 = {
-
 					shift_ethic = ethic_fanatic_materialist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_materialist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_materialist }
 				}
 				1 = {
-
 					shift_ethic = ethic_fanatic_spiritualist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_spiritualist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_spiritualist }
 				}
 				1 = {
-
 					shift_ethic = ethic_fanatic_militarist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_militarist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_militarist }
 				}
 				1 = {
-
 					shift_ethic = ethic_fanatic_pacifist
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_pacifist
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_pacifist }
 				}
 				1 = {
-
 					shift_ethic = ethic_fanatic_xenophile
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_xenophile
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_xenophile }
 				}
 				1 = {
-
 					shift_ethic = ethic_fanatic_xenophobe
-
-					modifier = {
-						factor = 0
-						has_ethic = ethic_fanatic_xenophobe
-					}
+					modifier = { factor = 0 has_ethic = ethic_fanatic_xenophobe }
 				}
 				4 = {
-
 					shift_ethic = ethic_fanatic_egalitarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4032,9 +3919,7 @@ country_event = {
 					}
 				}
 				3 = {
-
 					shift_ethic = ethic_fanatic_authoritarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4059,9 +3944,7 @@ country_event = {
 			}
 			random_list = {
 				1 = {
-
 					shift_ethic = ethic_materialist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4072,9 +3955,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					shift_ethic = ethic_spiritualist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4085,9 +3966,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					shift_ethic = ethic_militarist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4098,9 +3977,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					shift_ethic = ethic_pacifist
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4111,9 +3988,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					shift_ethic = ethic_xenophile
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4124,9 +3999,7 @@ country_event = {
 					}
 				}
 				1 = {
-
 					shift_ethic = ethic_xenophobe
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4137,9 +4010,7 @@ country_event = {
 					}
 				}
 				3 = {
-
 					shift_ethic = ethic_egalitarian
-
 					modifier = {
 						factor = 0
 						OR = {
@@ -4152,9 +4023,7 @@ country_event = {
 					}
 				}
 				2 = {
-
 					shift_ethic = ethic_authoritarian
-
 					modifier = {
 						factor = 0
 						OR = {

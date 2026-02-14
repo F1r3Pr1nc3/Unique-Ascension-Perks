@@ -43,20 +43,14 @@ country_event = {
 				any_system_within_border = {
 					exists = starbase
 					has_natural_wormhole = no
-					count_system_colony = {
-						count > 0
-						limit = { sapient_pop_amount > 300 }
-					}
+					any_system_colony = { sapient_pop_amount > 300 }
 				}
 			}
 			random_system_within_border = {
 				limit = {
 					exists = starbase
 					has_natural_wormhole = no
-					count_system_colony = {
-						count > 0
-						limit = { sapient_pop_amount > 300 }
-					}
+					any_system_colony = { sapient_pop_amount > 300 }
 				}
 				weights = {
 					base = 1
@@ -150,7 +144,9 @@ country_event = {
 	# }
 	option = {
 		name = EXCELLENT
-		give_tech_option_or_progress_effect = { TECH = tech_new_systems_localization } # add_research_option = tech_new_systems_localization
+		give_tech_option_or_progress_effect = {
+			TECH = tech_new_systems_localization
+		} # add_research_option = tech_new_systems_localization
 		hidden_effect = {
 			country_event = { id = distar.13060 scopes = { from = event_target:lh_empire_capital_system } }
 		}
@@ -194,7 +190,7 @@ system_event = {
 			limit = { is_variable_set = basic_distance }
 			if = {
 				limit = {
-					count_neighbor_system = { count = 0 limit = {  } }
+					NOT = { any_neighbor_system = {  } }
 					is_variable_set = basic_distance
 				}
 				random_neighbor_system_euclidean = {
@@ -494,355 +490,256 @@ country_event = {
 							random_list = {
 								## NORMAL SYSTEMS
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = basic_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "basic_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = basic_init_01
-										}
+										prev = { has_star_flag = basic_init_01 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = basic_init_02 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "basic_init_02"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = basic_init_02
-										}
+										prev = { has_star_flag = basic_init_02 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = basic_init_03 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "basic_init_03"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = basic_init_03
-										}
+										prev = { has_star_flag = basic_init_03 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = basic_init_04 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "basic_init_04"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = basic_init_04
-										}
+										prev = { has_star_flag = basic_init_04 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = basic_init_05 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "basic_init_05"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = basic_init_05
-										}
+										prev = { has_star_flag = basic_init_05 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = basic_init_06 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "basic_init_06"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = basic_init_06
-										}
+										prev = { has_star_flag = basic_init_06 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = asteroid_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "asteroid_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = asteroid_init_01
-										}
+										prev = { has_star_flag = asteroid_init_01 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = binary_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "binary_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = binary_init_01
-										}
+										prev = { has_star_flag = binary_init_01 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = binary_init_02 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "binary_init_02"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = binary_init_02
-										}
+										prev = { has_star_flag = binary_init_02 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = trinary_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "trinary_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = trinary_init_01
-										}
+										prev = { has_star_flag = trinary_init_01 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = trinary_init_02 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "trinary_init_02"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = trinary_init_02
-										}
+										prev = { has_star_flag = trinary_init_02 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = special_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "special_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = special_init_01
-										}
+										prev = { has_star_flag = special_init_01 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = special_init_08 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "special_init_08"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = special_init_08
-										}
+										prev = { has_star_flag = special_init_08 }
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = special_init_09 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "special_init_09"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = special_init_09
-										}
+										prev = { has_star_flag = special_init_09 }
 									}
 								}
 								## Pre-FTL
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = pre_ftl_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "pre_ftl_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = pre_ftl_init_01
-										}
+										prev = { has_star_flag = pre_ftl_init_01 }
 									}
 								} # Former special_init_02
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = pre_ftl_hive_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "pre_ftl_hive_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = pre_ftl_hive_init_01
-										}
+										prev = { has_star_flag = pre_ftl_hive_init_01 }
 									}
 								} # Former special_init_03
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = deneb_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "pre_ftl_deneb_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -852,18 +749,15 @@ country_event = {
 									}
 								}
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = shattered_ring_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "pre_ftl_shattered_ring"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -874,80 +768,76 @@ country_event = {
 								}
 								## Sol System
 								5 = {
-
 									reroll_random = yes
-
 									prev = {
 										set_timed_star_flag = { flag = sol days = 3 }
 									}
-
 									random_list = {
-																			9 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "pre_ftl_init_sol"
-																					hyperlane = no
-																				}
-																			} # Former special_init_03 (Pre-FTL Humans)
-																			3 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_04"
-																					hyperlane = no
-																				}
-																			} # Nuclear Wasteland
-																			2 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "sol_system_initializer"
-																					hyperlane = no
-																				}
-																			} # custom_empire
-																			1 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "com_sol_system"
-																					hyperlane = no
-																				}
-																			} # (Commonwealth of Man SP) misc_system_init
-																			1 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "lost_colony_sol_system"
-																					hyperlane = no
-																				}
-																			} # (Human Lost Colony SP) misc_system_init
-																			1 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "toxic_knights_sol_start"
-																					hyperlane = no
-																				}
-																			} # Knights of the Toxic God Origin
-																			1 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "sol_system_fear_of_the_dark_system"
-																					hyperlane = no
-																				}
-																			} # Fear of the Dark Sol System	Origin
-																			1 = {
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "sol_system_void_dweller_system"
-																					hyperlane = no
-																				}
-																			} # Void-Dweller Origins Edition Origin
+										9 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "pre_ftl_init_sol"
+												hyperlane = no
+											}
+										} # Former special_init_03 (Pre-FTL Humans)
+										3 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_04"
+												hyperlane = no
+											}
+										} # Nuclear Wasteland
+										2 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "sol_system_initializer"
+												hyperlane = no
+											}
+										} # custom_empire
+										1 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "com_sol_system"
+												hyperlane = no
+											}
+										} # (Commonwealth of Man SP) misc_system_init
+										1 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "lost_colony_sol_system"
+												hyperlane = no
+											}
+										} # (Human Lost Colony SP) misc_system_init
+										1 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "toxic_knights_sol_start"
+												hyperlane = no
+											}
+										} # Knights of the Toxic God Origin
+										1 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "sol_system_fear_of_the_dark_system"
+												hyperlane = no
+											}
+										} # Fear of the Dark Sol System	Origin
+										1 = {
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "sol_system_void_dweller_system"
+												hyperlane = no
+											}
+										} # Void-Dweller Origins Edition Origin
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1015,57 +905,54 @@ country_event = {
 									}
 								}
 								3 = {
-
 									reroll_random = yes
-
 									random_list = {
-																			5 = {
-																				modifier = { factor = 0.1 exists = event_target:white_hole_system_1 }
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "white_hole_system_1"
-																					hyperlane = no
-																				}
-																			}
-																			4 = {
-																				modifier = { factor = 0.2 exists = event_target:white_hole_system_2 }
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "white_hole_system_2"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = { factor = 0.3 exists = event_target:white_hole_system_3 }
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "white_hole_system_3"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = { factor = 0.4 exists = event_target:white_hole_system_4 }
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "white_hole_system_4"
-																					hyperlane = no
-																				}
-																			}
-																			1 = {
-																				modifier = { factor = 0.5 exists = event_target:white_hole_system_5 }
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "white_hole_system_5"
-																					hyperlane = no
-																				}
-																			}
+										5 = {
+											modifier = { factor = 0.1 exists = event_target:white_hole_system_1 }
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "white_hole_system_1"
+												hyperlane = no
+											}
+										}
+										4 = {
+											modifier = { factor = 0.2 exists = event_target:white_hole_system_2 }
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "white_hole_system_2"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = { factor = 0.3 exists = event_target:white_hole_system_3 }
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "white_hole_system_3"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = { factor = 0.4 exists = event_target:white_hole_system_4 }
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "white_hole_system_4"
+												hyperlane = no
+											}
+										}
+										1 = {
+											modifier = { factor = 0.5 exists = event_target:white_hole_system_5 }
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "white_hole_system_5"
+												hyperlane = no
+											}
+										}
 									}
-
 									modifier = {
 										factor = 0
 										NOT = { root = { has_ascension_perk = ap_antimatter } }
@@ -1073,18 +960,15 @@ country_event = {
 								}
 								## ORIGIN SYSTEMS (first_contact)
 								5 = {
-
 									prev = {
 										set_timed_star_flag = { flag = MSI_home_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "msi_home_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1094,18 +978,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = fotd_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "fear_of_the_dark_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1117,18 +998,15 @@ country_event = {
 								}
 								# 1 = { modifier = { factor = 0 OR = { prev = { has_star_flag = fotd_system } any_playable_country = { has_origin = "origin_fear_of_the_dark" } any_system = { has_star_flag = fotd_system } } } prev = { set_timed_star_flag = { flag = fotd_system days = 3 } } spawn_system = { min_distance >= 8 max_distance <= 24 initializer = "hunter_of_the_dark_system" hyperlane = no } }
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = broken_shackles_parent_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "broken_shackles_parent_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1138,18 +1016,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = solarpunk_system_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "solarpunk_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1159,18 +1034,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = solarpunk_system_02 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "solarpunk_02"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1181,333 +1053,240 @@ country_event = {
 								}
 								## HOSTILE SYSTEMS
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_01
-										}
+										prev = { has_star_flag = hostile_init_01 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_02 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_02"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_02
-										}
+										prev = { has_star_flag = hostile_init_02 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_03 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_03"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_03
-										}
+										prev = { has_star_flag = hostile_init_03 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_04 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_04"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_04
-										}
+										prev = { has_star_flag = hostile_init_04 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_05 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_05"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_05
-										}
+										prev = { has_star_flag = hostile_init_05 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_06 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_06"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_06
-										}
+										prev = { has_star_flag = hostile_init_06 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_07 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_07"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_07
-										}
+										prev = { has_star_flag = hostile_init_07 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_08 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_08"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_08
-										}
+										prev = { has_star_flag = hostile_init_08 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_10 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_10"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_10
-										}
+										prev = { has_star_flag = hostile_init_10 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_11 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_11"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_11
-										}
+										prev = { has_star_flag = hostile_init_11 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_12 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_12"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_12
-										}
+										prev = { has_star_flag = hostile_init_12 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_13 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_13"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_13
-										}
+										prev = { has_star_flag = hostile_init_13 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_14 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_14"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_14
-										}
+										prev = { has_star_flag = hostile_init_14 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_15 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_15"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_15
-										}
+										prev = { has_star_flag = hostile_init_15 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hostile_init_18 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_18"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = hostile_init_18
-										}
+										prev = { has_star_flag = hostile_init_18 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = amoeba_2_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_10_small_amoeba_pack"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1517,18 +1296,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = drone_system_2 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_12_mining_drones"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1538,18 +1314,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = drone_destroyer_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_12_drone_destroyer"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1559,18 +1332,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = drone_system_4 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_mining_drones"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1580,18 +1350,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = amoeba_4_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_amoeba"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1601,18 +1368,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = void2_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_09"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1622,18 +1386,15 @@ country_event = {
 									}
 								} # Removed in v2.4
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = void3_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hostile_init_void_cloud"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -1643,22 +1404,18 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = great_wound_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance >= 8
 										max_distance <= 24
 										initializer = "great_wound_system"
 										hyperlane = no
-
 										effect = {
 											set_star_flag = great_wound_system
 										}
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2060,18 +1817,15 @@ country_event = {
 								}
 								## SPECIAL SYSTEMS
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = hyacinth_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "hyacinth_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2081,18 +1835,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = parvus_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "parvus_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2102,18 +1853,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = polaris_civilization days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "polaris_civilization"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2123,18 +1871,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = special_init_06 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "special_init_06"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2144,39 +1889,30 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = special_init_07 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "special_init_07"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = special_init_07
-										}
+										prev = { has_star_flag = special_init_07 }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = sanctuary_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "sanctuary_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2186,21 +1922,17 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = crystal_manufactory_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "crystal_manufactory_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
 										prev = {
 											has_star_flag = crystal_manufactory_system
 											any_system = { has_star_flag = manufactory_system }
@@ -2208,18 +1940,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = fumongus_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "fumongus_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2229,18 +1958,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = dyson_sphere_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "dyson_sphere_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2250,18 +1976,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = science_nexus_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "science_nexus_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2271,18 +1994,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = sentry_array_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "sentry_array_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2294,18 +2014,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = ring_world_init_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "ring_world_init_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2315,18 +2032,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = abandoned_gateways_01 days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "abandoned_gateways_01"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2336,81 +2050,60 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = star_lifting_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "star_lifting_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = star_lifting_system
-										}
+										prev = { has_star_flag = star_lifting_system }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = big_rip_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "big_rip_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = big_rip_system
-										}
+										prev = { has_star_flag = big_rip_system }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = time_loop_world_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "time_loop_world_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = time_loop_world_system
-										}
+										prev = { has_star_flag = time_loop_world_system }
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = toxic_moon_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "toxic_planet_toxic_moon"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2420,18 +2113,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = shattered_world_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "shattered_world_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2441,18 +2131,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = asteroid_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "asteroid_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2462,18 +2149,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = ice_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "ice_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2483,18 +2167,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = high_energy_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "high_energy_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2504,18 +2185,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = superflare_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "superflare_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2525,18 +2203,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = collapse_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "collapse_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2546,18 +2221,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = old_foes_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "old_foes_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2567,18 +2239,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = primitive_robot_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "primitive_robot_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2588,18 +2257,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = living_planet_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "living_planet_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2609,18 +2275,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = distar_crystal_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "distar_crystal_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2630,18 +2293,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = distar_pod_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "distar_pod_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2651,18 +2311,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = distar_phaseshift_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "distar_phaseshift_system"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2672,18 +2329,15 @@ country_event = {
 									}
 								}
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = holibrae_system days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "Holibrae_initializer"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2693,40 +2347,29 @@ country_event = {
 									}
 								}
 								1 = {
-
-									prev = {
-										set_star_flag = debris_belt_initializer
-									}
-
+									prev = { set_star_flag = debris_belt_initializer }
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "debris_belt_initializer"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
-
-										prev = {
-											has_star_flag = debris_belt_initializer
-										}
+										prev = { has_star_flag = debris_belt_initializer }
 									}
 								}
 								### (Mod) Guilli Planet Modifier - Systems
 								1 = {
-
 									prev = {
 										set_timed_star_flag = { flag = gpm_guardians_init_ego days = 3 }
 									}
-
 									spawn_system = {
 										min_distance = 8
 										max_distance = 24
 										initializer = "gpm_guardians_init_ego"
 										hyperlane = no
 									}
-
 									modifier = {
 										factor = 0
 										OR = {
@@ -2737,372 +2380,369 @@ country_event = {
 								}
 								### (Mod) Real Space - compatibility
 								72 = {
-
 									reroll_random = yes
-
 									random_list = {
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_1 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_1 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_1"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_2 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_2 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_2"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_3 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_3 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_3"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_4 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_4 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_4"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_5 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_5 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_5"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_6 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_6 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_6"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_9 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_9 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_9"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_10 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_10 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_10"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_11 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_11 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_11"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_12 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_12 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_12"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_13 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_13 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_13"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_14 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_14 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_14"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_15 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_15 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_15"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_16 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_16 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_16"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_17 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_17 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_17"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_18 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_18 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_18"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_19 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_19 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_19"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_20 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_20 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_20"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_21 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_21 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_21"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_22 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_22 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_22"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_23 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_23 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_23"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_24 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_24 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_24"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_25 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_25 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_25"
-																					hyperlane = no
-																				}
-																			}
-																			3 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = rs_special_init_26 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = rs_special_init_26 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "rs_special_init_26"
-																					hyperlane = no
-																				}
-																			}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_1 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_1 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_1"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_2 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_2 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_2"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_3 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_3 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_3"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_4 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_4 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_4"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_5 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_5 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_5"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_6 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_6 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_6"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_9 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_9 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_9"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_10 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_10 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_10"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_11 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_11 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_11"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_12 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_12 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_12"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_13 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_13 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_13"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_14 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_14 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_14"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_15 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_15 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_15"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_16 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_16 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_16"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_17 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_17 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_17"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_18 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_18 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_18"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_19 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_19 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_19"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_20 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_20 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_20"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_21 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_21 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_21"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_22 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_22 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_22"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_23 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_23 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_23"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_24 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_24 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_24"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_25 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_25 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_25"
+												hyperlane = no
+											}
+										}
+										3 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = rs_special_init_26 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = rs_special_init_26 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "rs_special_init_26"
+												hyperlane = no
+											}
+										}
 									}
-
 									modifier = {
 										factor = 0
 										NAND = {
@@ -3140,237 +2780,234 @@ country_event = {
 								}
 								### (Mod) Hypothetical Stars - compatibility
 								30 = {
-
 									reroll_random = yes
-
 									random_list = {
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_09 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_09 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_09"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_01 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_01 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_01"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_02 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_02 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_02"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_04 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_04 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_04"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_06 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_06 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_06"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_07 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_07 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_07"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = special_init_hyp_stars_div_08 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = special_init_hyp_stars_div_08 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "special_init_hyp_stars_div_08"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_01 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_01 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_01"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_02 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_02 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_02"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_03 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_03 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_03"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_04 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_04 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_04"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_05 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_05 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_05"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_06 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_06 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_06"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_07 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_07 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_07"
-																					hyperlane = no
-																				}
-																			}
-																			2 = {
-																				modifier = {
-																					factor = 0
-																					prev = { has_star_flag = hypo_binary_init_08 }
-																				}
-																				prev = {
-																					set_timed_star_flag = { flag = hypo_binary_init_08 days = 3 }
-																				}
-																				spawn_system = {
-																					min_distance = 8
-																					max_distance = 24
-																					initializer = "hypo_binary_init_08"
-																					hyperlane = no
-																				}
-																			}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_09 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_09 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_09"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_01 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_01 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_01"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_02 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_02 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_02"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_04 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_04 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_04"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_06 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_06 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_06"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_07 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_07 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_07"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = special_init_hyp_stars_div_08 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = special_init_hyp_stars_div_08 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "special_init_hyp_stars_div_08"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_01 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_01 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_01"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_02 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_02 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_02"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_03 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_03 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_03"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_04 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_04 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_04"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_05 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_05 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_05"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_06 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_06 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_06"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_07 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_07 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_07"
+												hyperlane = no
+											}
+										}
+										2 = {
+											modifier = {
+												factor = 0
+												prev = { has_star_flag = hypo_binary_init_08 }
+											}
+											prev = {
+												set_timed_star_flag = { flag = hypo_binary_init_08 days = 3 }
+											}
+											spawn_system = {
+												min_distance = 8
+												max_distance = 24
+												initializer = "hypo_binary_init_08"
+												hyperlane = no
+											}
+										}
 									}
-
 									modifier = {
 										factor = 0
 										NAND = {
@@ -3585,12 +3222,7 @@ country_event = {
 									reroll_random = yes
 									random_list = {
 										200 = {
-
-											add_hyperlane = {
-												from = this
-												to = event_target:lh_basic_system
-											}
-
+											add_hyperlane = { from = this to = event_target:lh_basic_system }
 											modifier = {
 												factor = 0
 												OR = {
@@ -3606,12 +3238,7 @@ country_event = {
 											}
 										}
 										400 = {
-
-											add_hyperlane = {
-												from = this
-												to = event_target:lh_spawned_system
-											}
-
+											add_hyperlane = { from = this to = event_target:lh_spawned_system }
 											modifier = {
 												factor = 0
 												OR = {
@@ -3627,7 +3254,6 @@ country_event = {
 											}
 										}
 										300 = {
-
 											random_neighbor_system_euclidean = {
 												limit = {
 													NOR = {
@@ -3642,19 +3268,12 @@ country_event = {
 														}
 													}
 												}
-
-												add_hyperlane = {
-													from = this
-													to = prev
-												}
+												add_hyperlane = { from = this to = prev }
 											}
-
 											modifier = {
 												factor = 0
-
-												count_neighbor_system_euclidean = {
-													count = 0
-													limit = {
+												NOT = {
+													any_neighbor_system_euclidean = {
 														NOT = { has_hyperlane_to = prev }
 														distance = {
 															source = prev
@@ -3666,25 +3285,15 @@ country_event = {
 											}
 										}
 										100 = {
-
 											modifier = {
 												factor = 0
-
-												count_neighbor_system = {
-													count = 0
-													limit = {  }
-												}
+												NOT = { any_neighbor_system = {  } }
 											}
 										}
 										90 = {
-
 											modifier = {
 												factor = 0
-
-												count_neighbor_system_euclidean = {
-													count = 0
-													limit = { has_hyperlane_to = prev }
-												}
+												NOT = { any_neighbor_system_euclidean = { has_hyperlane_to = prev } }
 											}
 										}
 										1 = {

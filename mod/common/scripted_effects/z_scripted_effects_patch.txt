@@ -12,8 +12,8 @@ end_war_effect = {
 			# count_attacker = { count > 0 throws already error
 			exists = prev
 			prev = { is_scope_valid = yes is_scope_type = country }
-			any_attacker = { always = yes }
-			any_defender = { always = yes }
+			any_attacker = { is_scope_valid = yes }
+			any_defender = { is_scope_valid = yes }
 		}
 		# Try to omit error.log
 		every_defender = {
@@ -26,7 +26,7 @@ end_war_effect = {
 			limit = { # Check again all after remove_war_participant.
 				is_scope_valid = yes
 				is_scope_type = war
-				any_attacker = { always = yes }
+				any_attacker = { is_scope_valid = yes }
 				# count_war_participants = {
 				# 	count > 0
 				# 	# limit = { }
@@ -56,7 +56,7 @@ make_moderately_hostile = {
 
 	every_country = {
 		limit = {
-			# merg_is_default_empire = no
+			NOT = { is_country_type = default }
 			OR = {
 				# is_fallen_empire = yes # merg_is_fallen_empire = yes
 				# is_non_hostile_to_wraith = yes
@@ -115,10 +115,35 @@ create_marauder_merc_admiral = {
 		custom_description = "custom_mercenary_admiral_desc"
 		effect = {
 			random_list = {
-				1 = { add_trait = { trait = leader_trait_aggressive } }
-				1 = { add_trait = { trait = leader_trait_aggressive } }
-				1 = { add_trait = { trait = leader_trait_skirmisher } }
-				1 = { add_trait = { trait = leader_trait_skirmisher } }
+				6 = {
+					modifier = {
+						factor = 0
+						OR = {
+							has_trait = leader_trait_aggressive
+							has_trait = leader_trait_cautious
+						}
+					}
+					add_trait = { trait = leader_trait_aggressive }
+				}
+				# 1 = { add_trait = leader_trait_skirmisher } council
+				3 = {
+					modifier = { factor = 0 has_trait = leader_trait_engineer }
+					add_trait = { trait = leader_trait_engineer }
+				}
+				1 = {
+					modifier = {
+						factor = 0
+						OR = {
+							has_trait = leader_trait_wrecker
+							has_trait = leader_trait_juryrigger
+						}
+					}
+					add_trait = { trait = leader_trait_wrecker }
+				}
+				1 = {
+					modifier = { factor = 0 has_trait = leader_trait_annihilator }
+					add_trait = { trait = leader_trait_annihilator }
+				}
 			}
 			set_leader_flag = marauder_merc_leader
 		}
@@ -146,7 +171,6 @@ create_marauder_merc_general = {
 			random_list = {
 				1 = { add_trait = { trait = leader_trait_dreaded } }
 				1 = { add_trait = { trait = leader_trait_dreaded_2 } }
-				1 = { add_trait = { trait = leader_trait_butcher } }
 				1 = { add_trait = { trait = leader_trait_butcher } }
 			}
 			set_owner = root
@@ -205,7 +229,7 @@ deduce_planetary_separatism_species = {
 			}
 			save_event_target_as = rebellion_species
 			set_species_flag = rebellion_species@root
-			# Vanilla Bug Fix (v.3.11)
+			# Vfix (v.3.11) for syncretic species https://forum.paradoxplaza.com/forum/threads/stellaris-massive-overlooked-issue-with-syncretic-evolution-origin.1622715/
 			if = {
 				limit = { has_trait = trait_syncretic_proles }
 				prev = {

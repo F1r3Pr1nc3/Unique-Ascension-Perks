@@ -1369,24 +1369,15 @@ planet_event = {
 				# Compare add_pre_ftl_buildings = yes
 				random_list = {
 					30 = {
-
-						modifier = {
-							factor = 0
-							NOT = { root = { has_planet_flag = new_primitive_world_stone_age } }
-						}
-
 						modifier = {
 							factor = 0.1
-
 							root = {
 								check_variable = { which = pop_amount value > 28 }
 							}
 						}
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = stone_age
 						}
-
 						root = {
 							while = {
 								count = @stone_age_pops
@@ -1401,22 +1392,18 @@ planet_event = {
 								create_pop_group = { species = event_target:primitive_world_species }
 							}
 						}
-
 						modifier = {
 							factor = 3
 							NOT = { event_target:owning_empire = { has_ascension_perk = ap_primitives_creation } }
 						}
-					}
-					30 = {
-
 						modifier = {
 							factor = 0
-							NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } }
+							NOT = { root = { has_planet_flag = new_primitive_world_stone_age } }
 						}
-
+					}
+					30 = {
 						modifier = {
 							factor = 0.1
-
 							root = {
 								OR = {
 									check_variable = { which = pop_amount value > 34 }
@@ -1424,25 +1411,20 @@ planet_event = {
 								}
 							}
 						}
-
+						modifier = {
+							factor = 0
+							NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } }
+						}
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = bronze_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = bronze_age
 						}
 					}
 					20 = {
-
-						modifier = {
-							factor = 0
-							NOT = { root = { has_planet_flag = new_primitive_world_iron_age } }
-						}
-
 						modifier = {
 							factor = 0.1
-
 							root = {
 								OR = {
 									check_variable = { which = pop_amount value > 40 }
@@ -1450,70 +1432,60 @@ planet_event = {
 								}
 							}
 						}
-
+						modifier = {
+							factor = 0
+							NOT = { root = { has_planet_flag = new_primitive_world_iron_age } }
+						}
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
 					}
 					16 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = late_medieval_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NOT = { root = { has_planet_flag = new_primitive_world_medieval_age } }
 						}
 					}
 					12 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = renaissance_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NOT = { root = { has_planet_flag = new_primitive_world_renaissance_age } }
 						}
 					}
 					10 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = steam_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NOT = { root = { has_planet_flag = new_primitive_world_steam_age } }
 						}
 					}
 					10 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = industrial_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NAND = {
@@ -1523,15 +1495,12 @@ planet_event = {
 						}
 					}
 					10 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = machine_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NAND = {
@@ -1541,15 +1510,12 @@ planet_event = {
 						}
 					}
 					10 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = atomic_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NAND = {
@@ -1559,15 +1525,12 @@ planet_event = {
 						}
 					}
 					10 = {
-
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = early_space_age
 						}
-
 						increase_pre_ftl_pops_by_age_effect = {
 							PRE_FTL_AGE = iron_age
 						}
-
 						modifier = {
 							factor = 0
 							NAND = {
@@ -1686,92 +1649,36 @@ country_event = {
 			observation_outpost_owner = {
 				random_list = {
 					5 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3143
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_one = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3143 }
+						modifier = { factor = 0 is_primitive_stage_one = no }
 					}
 					15 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3144
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_one = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3144 }
+						modifier = { factor = 0 is_primitive_stage_one = no }
 					}
 					20 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3145
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_one = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3145 }
+						modifier = { factor = 0 is_primitive_stage_one = no }
 					}
 					10 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3146
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_two = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3146 }
+						modifier = { factor = 0 is_primitive_stage_two = no }
 					}
 					10 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3147
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_two = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3147 }
+						modifier = { factor = 0 is_primitive_stage_two = no }
 					}
 					10 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3148
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_two = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3148 }
+						modifier = { factor = 0 is_primitive_stage_two = no }
 					}
 					3 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3149
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_three = yes
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3149 }
+						modifier = { factor = 0 is_primitive_stage_three = yes }
 					}
 					5 = {
-
-						country_event = {
-							id = UniqueAscensionPerksEvents.3150
-						}
-
-						modifier = {
-							factor = 0
-							is_primitive_stage_three = no
-						}
+						country_event = { id = UniqueAscensionPerksEvents.3150 }
+						modifier = { factor = 0 is_primitive_stage_three = no }
 					}
 				}
 			}
@@ -1944,15 +1851,8 @@ country_event = {
 		hidden_effect = {
 			random_list = {
 				999 = {
-
-					country_event = {
-						id = UniqueAscensionPerksEvents.3151
-					}
-
-					modifier = {
-						factor = 0
-						is_primitive_stage_three_contact = yes
-					}
+					country_event = { id = UniqueAscensionPerksEvents.3151 }
+					modifier = { factor = 0 is_primitive_stage_three_contact = yes }
 				}
 				1 = { country_event = { id = UniqueAscensionPerksEvents.3152 } }
 				1 = { country_event = { id = UniqueAscensionPerksEvents.3153 } }

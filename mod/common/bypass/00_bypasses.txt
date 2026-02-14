@@ -177,6 +177,24 @@ lgate = {
 		custom_tooltip = {
 			fail_text = LGATE_COUNTRY_CANNOT_USE
 			has_global_flag = lgates_activated_globally
+			NOR = {
+				is_primitive = yes
+				is_guardian_country = yes
+				is_amoeba_country_type = yes
+				is_tiyanki_country_type = yes
+				is_crystal_country_type = yes
+				is_drone_country_type = yes
+				is_voidworms_country_type = yes
+				is_cutholoids_country_type = yes
+				is_country_type = caravaneer_fleet
+				is_country_type = feral_prethoryn
+				is_country_type = ldragon_country
+				is_country_type = origin_dragon
+				is_country_type = clutch_of_whelps
+				is_country_type = vluur
+				is_primitive = yes
+				is_country_type = nomad
+			}
 		}
 	}
 
@@ -214,8 +232,12 @@ relay_bypass = {
 	ftl_bypass_effect = "gateway_ftl_bypass_effect_entity"
 
 	country_can_use = {
-		NOT = {
-			is_country_type = synth_queen_convoys
+		# Vfix opt: make positive triggers (this is the top worst trigger in vanilla)
+		OR = {
+			is_country_type_with_subjects = yes
+			# is_pirate = yes
+			is_country_type = marauder_raiders
+			# is_endgame_crisis = yes
 		}
 	}
 	# country_can_use = {
@@ -266,6 +288,10 @@ quantum_catapult = {
 				is_in_federation_with = from
 				is_overlord_to = from
 				from = { is_overlord_to = root }
+				AND = {
+					root = { is_galactic_emperor = yes }
+					from = { is_galactic_community_member = yes }
+				}
 			}
 		}
 	}

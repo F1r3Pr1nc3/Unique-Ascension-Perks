@@ -14,6 +14,16 @@ trade_policy = {
 		# policy_flags = { trade_policy_default } replaced in v3.6
 		policy_flags = { trade_conversion_default }
 		valid = { always = yes }
+		on_enabled = {
+			hidden_effect = {
+				set_trade_conversions = { trade = 0.5 energy = 0.5 }
+			}
+		}
+		on_disabled = {
+			hidden_effect = {
+				set_trade_conversions = {  }
+			}
+		}
 		AI_weight = { factor = 0.1 }
 	}
 
@@ -78,6 +88,14 @@ trade_policy = {
 	option = {
 		name = "trade_policy_trade_league"
 		potential = { is_trade_league_federation = yes }
+		on_enabled = {
+			set_trade_conversions = {
+				trade = 0.50
+				energy = 0.15
+				consumer_goods = 0.15
+				unity = 0.075
+			}
+		}
 		policy_flags = { trade_conversion_trade_league }
 		modifier = {  }
 		AI_weight = { factor = 200 } # 1000

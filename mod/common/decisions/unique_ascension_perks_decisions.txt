@@ -280,21 +280,15 @@ decision_recomposer_life_to_ai = {
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_recomposer_life_to_ai_req_1"
-			count_owned_species = {
-				count > 0
-				limit = { is_robotic = no }
-			}
+			any_owned_species = { is_robotic = no }
 		}
 		custom_tooltip = {
 			fail_text = "decision_recomposer_life_to_ai_req_2"
 			owner = {
-				count_owned_species = {
-					count > 0
-					limit = {
-						is_robotic = yes
-						num_trait_points > 1
-						num_positive_traits > 0
-					}
+				any_owned_species = {
+					is_robotic = yes
+					num_trait_points > 1
+					num_positive_traits > 0
 				}
 			}
 		}
@@ -368,21 +362,15 @@ decision_recomposer_ai_to_life = {
 	allow = {
 		custom_tooltip = {
 			fail_text = "decision_recomposer_ai_to_life_req_1"
-			count_owned_species = {
-				count > 0
-				limit = { is_robotic = yes }
-			}
+			any_owned_species = { is_robotic = yes }
 		}
 		custom_tooltip = {
 			fail_text = "decision_recomposer_ai_to_life_req_2"
 			owner = {
-				count_owned_species = {
-					count > 0
-					limit = {
-						is_robotic = no
-						num_trait_points > 1
-						num_positive_traits > 1
-					}
+				any_owned_species = {
+					is_robotic = no
+					num_trait_points > 1
+					num_positive_traits > 1
 				}
 			}
 		}
@@ -440,10 +428,7 @@ decision_galaxy_center = {
 		custom_tooltip = {
 			fail_text = "ap_galaxy_center_req_6"
 			from = {
-				count_owned_planet = {
-					count = 0
-					limit = { has_planet_flag = galaxy_center_planet }
-				}
+				NOT = { any_owned_planet = { has_planet_flag = galaxy_center_planet } }
 			}
 		}
 	}
@@ -1504,10 +1489,7 @@ decision_civilian_cargo_focus = {
 		exists = from
 		from = {
 			has_country_flag = ap_civilian_activities_project
-			count_owned_planet = {
-				count = 0
-				limit = { has_planet_flag = civilian_cargo_focus }
-			}
+			NOT = { any_owned_planet = { has_planet_flag = civilian_cargo_focus } }
 		}
 	}
 

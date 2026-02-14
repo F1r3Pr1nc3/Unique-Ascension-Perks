@@ -237,10 +237,7 @@ create_defense_sentinels_country = {
 		if = {
 			limit = {
 				exists = event_target:spawn_location
-				count_owned_fleet = {
-					count = 0
-					limit = { is_ship_size = blue_core_ai }
-				}
+				NOT = { any_owned_fleet = { is_ship_size = blue_core_ai } }
 			}
 			event_target:spawn_location = {
 				set_surveyed = { surveyed = yes surveyor = root }

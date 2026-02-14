@@ -45,8 +45,10 @@ ap_eternal_vigilance = {
 	}
 
 	ai_weight = {
-		factor = 15
-		modifier = { factor = 2 has_civic = civic_inwards_perfection }
+		factor = 2
+		modifier = { factor = 5 has_civic = civic_inwards_perfection }
+		modifier = { factor = 5 has_civic = civic_sovereign_guardianship }
+		modifier = { factor = 5 has_tradition = tr_unyielding_finish }
 		modifier = { factor = 1.5 is_xenophobe = yes }
 		modifier = {
 			factor = 1.5
@@ -63,6 +65,8 @@ ap_executive_vigor = {
 	modifier = {
 		country_edict_fund_add = 100		# v3.3
 		# edict_length_mult = 0.50
+		council_agenda_progress_speed = 0.15
+		add_attunement_the_instrument_of_desire = @ascension_perk_attunement1
 	}
 
 	potential = {
@@ -89,6 +93,7 @@ ap_transcendent_learning = {
 		country_scientist_cap_add = 2 # country_leader_cap_add = 2 # leader_skill_levels = 2 < v3.8.1
 		species_leader_exp_gain = 0.33 # species_leader_exp_gain = 0.25 # = 0.5 < v3.8.3
 		country_leader_pool_size = 1
+		leaders_upkeep_mult = -0.15
 	}
 
 	on_enabled = {
@@ -177,6 +182,7 @@ ap_defender_of_the_galaxy = {
 		damage_vs_country_type_ai_empire_mult = 0.5
 		damage_vs_country_type_gray_goo_mult = 0.5
 		damage_vs_player_crisis_mult = 0.5
+		add_attunement_the_cradle_of_souls = @ascension_perk_attunement1
 		# ap_galactic_contender
 		diplo_weight_mult = 0.4 # 0.2
 		damage_vs_country_type_fallen_empire_mult = 0.33
@@ -234,7 +240,8 @@ ap_defender_of_the_galaxy = {
 	potential = {
 		NOR = {
 			has_ascension_perk = ap_defender_of_the_galaxy
-			has_ascension_perk = ap_become_the_crisis
+			is_player_crisis = yes
+			has_origin = origin_endbringers # Endbringers are technically a crisis as well
 			has_ascension_perk = ap_cosmogenesis
 			# has_ascension_perk = ap_galactic_contender removed in v3.12
 		}

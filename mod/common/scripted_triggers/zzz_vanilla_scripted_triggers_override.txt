@@ -10,7 +10,7 @@ has_total_war_cb = {
 		# Attacker checks
 		AND = {
 			# OR = {
-			is_default_or_fallen = yes
+			is_default_or_fallen = yes # Vfix flex
 			# 	inline_script = { # ACOT SBTG
 			# 		script = merger_of_rules/toggled_code
 			# 		code = " is_progenitor_empires = yes"
@@ -26,12 +26,13 @@ has_total_war_cb = {
 				has_valid_civic = civic_hive_scorched_earth
 				AND = {
 					has_valid_civic = civic_machine_terminator
-					from = { is_synthetic_empire = no }
+					from = { is_synthetic_empire = no } # Vfix flex
 				}
 				AND = {
 					has_valid_civic = civic_fanatic_purifiers
 					NOT = { is_same_species = from }
 				}
+
 				# inline_script = { # ACOT SBTG
 				# 	script = merger_of_rules/toggled_code
 				# 	code = " is_progenitor_empires = yes"
@@ -50,21 +51,20 @@ has_total_war_cb = {
 			# 	}
 			# }
 			NOR = {
-				# is_country_type = awakened_fallen_empire meaningless
+				# is_country_type = awakened_fallen_empire Vfix meaningless
 				is_homicidal = yes
 				has_valid_civic = civic_machine_assimilator
+				has_valid_civic = civic_scorched_earth
+				has_valid_civic = civic_hive_scorched_earth
 			}
 			from = {
 				OR = {
 					merg_is_awakened_fe = yes
 					is_homicidal = yes
 					has_valid_civic = civic_machine_assimilator
-					has_menace_perk = menp_behemoth_ever_hungry # since v4.0
-					# inline_script = { # ACOT SBTG
-					# 	script = merger_of_rules/toggled_code
-					# 	code = " is_progenitor_empires = yes"
-					# 	toggle = @has_sbtg_mod
-					# }
+					has_valid_civic = civic_scorched_earth
+					has_valid_civic = civic_hive_scorched_earth
+					has_menace_perk = menp_behemoth_ever_hungry
 				}
 			}
 		}

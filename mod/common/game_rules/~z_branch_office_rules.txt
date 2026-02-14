@@ -113,7 +113,7 @@ can_build_branch_office_on_planet = {
 						overlord = {
 							OR = {
 								is_same_empire = prevprev.owner
-								AND = {
+								AND = { # Vfix log
 									exists = prevprev.owner.overlord
 									is_same_empire = prevprev.owner.overlord
 								}
@@ -169,7 +169,7 @@ can_build_branch_office_on_planet = {
 				"
 				toggle = @wsg_mod
 			}
-			AND = {
+			AND = { # Vfix opt (OR merged)
 				root = {
 					OR = {
 						has_valid_civic = civic_galactic_sovereign_megacorp
@@ -359,7 +359,10 @@ can_build_branch_office_on_planet = {
 		fail_text = NO_BRANCH_OFFICE_ON_SYNAPTIC_LATHE
 		NOT = { is_planet_class = pc_cosmogenesis_world }
 	}
-
+	custom_tooltip = {
+		fail_text = NO_BRANCH_OFFICE_ON_SELF
+		NOT = { is_owned_by = root }
+	}
 	# Ethics and Civics Alternative - FunEFork
 	inline_script = {
 		script = merger_of_rules/toggled_code
