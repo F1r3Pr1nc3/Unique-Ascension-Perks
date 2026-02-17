@@ -684,6 +684,7 @@ country_event = {
 		random_list = {
 			80 = { country_event = { id = UniqueAscensionPerksEvents.160 } }
 			10 = {
+				modifier = { factor = 0 has_modifier = expedition_minerals_loot }
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_resources value = 1 }
@@ -705,10 +706,16 @@ country_event = {
 					factor = 4.0
 					check_variable = { which = expedition_sector_resources value = 6 }
 				}
-				modifier = { factor = 0 has_modifier = expedition_minerals_loot }
 				country_event = { id = UniqueAscensionPerksEvents.161 }
 			}
 			10 = {
+				modifier = {
+					factor = 0
+					OR = {
+						check_variable = { which = expedition_sector_resources value = 1 }
+						has_modifier = expedition_energy_loot
+					}
+				}
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_resources value = 2 }
@@ -730,33 +737,9 @@ country_event = {
 					factor = 3.0
 					check_variable = { which = expedition_research_ships value < 5 }
 				}
-				modifier = {
-					factor = 0
-					OR = {
-						check_variable = { which = expedition_sector_resources value = 1 }
-						has_modifier = expedition_energy_loot
-					}
-				}
 				country_event = { id = UniqueAscensionPerksEvents.162 }
 			}
 			10 = {
-				modifier = {
-					factor = 0.1
-					check_variable = { which = expedition_sector_resources value = 2 }
-				}
-				modifier = {
-					factor = 0.5
-					check_variable = { which = expedition_sector_resources value = 3 }
-				}
-				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_resources value = 4 } }
-				modifier = {
-					factor = 1.5
-					check_variable = { which = expedition_sector_resources value = 5 }
-				}
-				modifier = {
-					factor = 2.0
-					check_variable = { which = expedition_sector_resources value = 6 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -765,9 +748,6 @@ country_event = {
 						check_variable = { which = expedition_research_ships value < 15 }
 					}
 				}
-				country_event = { id = UniqueAscensionPerksEvents.163 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_resources value = 2 }
@@ -785,6 +765,9 @@ country_event = {
 					factor = 2.0
 					check_variable = { which = expedition_sector_resources value = 6 }
 				}
+				country_event = { id = UniqueAscensionPerksEvents.163 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -793,14 +776,27 @@ country_event = {
 						has_country_flag = expedition_strategic_resources
 					}
 				}
+				modifier = {
+					factor = 0.1
+					check_variable = { which = expedition_sector_resources value = 2 }
+				}
+				modifier = {
+					factor = 0.5
+					check_variable = { which = expedition_sector_resources value = 3 }
+				}
+				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_resources value = 4 } }
+				modifier = {
+					factor = 1.5
+					check_variable = { which = expedition_sector_resources value = 5 }
+				}
+				modifier = {
+					factor = 2.0
+					check_variable = { which = expedition_sector_resources value = 6 }
+				}
 				set_timed_country_flag = { flag = expedition_strategic_resources years = 3 }
 				country_event = { id = UniqueAscensionPerksEvents.164 }
 			}
 			10 = {
-				modifier = {
-					factor = 0.5
-					check_variable = { which = expedition_sector_science value = 2 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -809,14 +805,14 @@ country_event = {
 						has_modifier = expedition_physics_discovery
 					}
 				}
-				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_science value = 3 } }
-				country_event = { id = UniqueAscensionPerksEvents.165 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.5
 					check_variable = { which = expedition_sector_science value = 2 }
 				}
+				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_science value = 3 } }
+				country_event = { id = UniqueAscensionPerksEvents.165 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -825,14 +821,14 @@ country_event = {
 						has_modifier = expedition_society_discovery
 					}
 				}
-				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_science value = 3 } }
-				country_event = { id = UniqueAscensionPerksEvents.166 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.5
 					check_variable = { which = expedition_sector_science value = 2 }
 				}
+				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_science value = 3 } }
+				country_event = { id = UniqueAscensionPerksEvents.166 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -841,10 +837,21 @@ country_event = {
 						has_modifier = expedition_engineering_discovery
 					}
 				}
+				modifier = {
+					factor = 0.5
+					check_variable = { which = expedition_sector_science value = 2 }
+				}
 				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_science value = 3 } }
 				country_event = { id = UniqueAscensionPerksEvents.167 }
 			}
 			10 = {
+				modifier = {
+					factor = 0
+					OR = {
+						check_variable = { which = expedition_sector_resources value = 1 }
+						check_variable = { which = expedition_research_ships value < 15 }
+					}
+				}
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_resources value = 2 }
@@ -863,25 +870,10 @@ country_event = {
 					check_variable = { which = expedition_sector_resources value = 6 }
 				}
 				modifier = { factor = 3.0 has_country_flag = expedition_strategic_nanites }
-				modifier = {
-					factor = 0
-					OR = {
-						check_variable = { which = expedition_sector_resources value = 1 }
-						check_variable = { which = expedition_research_ships value < 15 }
-					}
-				}
 				set_timed_country_flag = { flag = expedition_strategic_nanites years = 3 }
 				country_event = { id = UniqueAscensionPerksEvents.168 }
 			}
 			10 = {
-				modifier = {
-					factor = 0.25
-					check_variable = { which = expedition_sector_science value = 2 }
-				}
-				modifier = {
-					factor = 0.5
-					check_variable = { which = expedition_sector_science value = 3 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -890,10 +882,6 @@ country_event = {
 						has_country_flag = expedition_discovery_star
 					}
 				}
-				set_country_flag = expedition_discovery_star
-				country_event = { id = UniqueAscensionPerksEvents.169 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.25
 					check_variable = { which = expedition_sector_science value = 2 }
@@ -902,6 +890,10 @@ country_event = {
 					factor = 0.5
 					check_variable = { which = expedition_sector_science value = 3 }
 				}
+				set_country_flag = expedition_discovery_star
+				country_event = { id = UniqueAscensionPerksEvents.169 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -910,10 +902,6 @@ country_event = {
 						has_country_flag = expedition_discovery_blackhole
 					}
 				}
-				set_country_flag = expedition_discovery_blackhole
-				country_event = { id = UniqueAscensionPerksEvents.170 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.25
 					check_variable = { which = expedition_sector_science value = 2 }
@@ -922,6 +910,10 @@ country_event = {
 					factor = 0.5
 					check_variable = { which = expedition_sector_science value = 3 }
 				}
+				set_country_flag = expedition_discovery_blackhole
+				country_event = { id = UniqueAscensionPerksEvents.170 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -930,10 +922,6 @@ country_event = {
 						has_country_flag = expedition_discovery_pulsar
 					}
 				}
-				set_country_flag = expedition_discovery_pulsar
-				country_event = { id = UniqueAscensionPerksEvents.171 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.25
 					check_variable = { which = expedition_sector_science value = 2 }
@@ -942,6 +930,10 @@ country_event = {
 					factor = 0.5
 					check_variable = { which = expedition_sector_science value = 3 }
 				}
+				set_country_flag = expedition_discovery_pulsar
+				country_event = { id = UniqueAscensionPerksEvents.171 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -950,14 +942,18 @@ country_event = {
 						has_country_flag = expedition_discovery_neutron
 					}
 				}
+				modifier = {
+					factor = 0.25
+					check_variable = { which = expedition_sector_science value = 2 }
+				}
+				modifier = {
+					factor = 0.5
+					check_variable = { which = expedition_sector_science value = 3 }
+				}
 				set_country_flag = expedition_discovery_neutron
 				country_event = { id = UniqueAscensionPerksEvents.172 }
 			}
 			10 = {
-				modifier = {
-					factor = 0.5
-					check_variable = { which = expedition_sector_science value = 2 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -965,19 +961,15 @@ country_event = {
 						has_country_flag = expedition_strategic_science
 					}
 				}
+				modifier = {
+					factor = 0.5
+					check_variable = { which = expedition_sector_science value = 2 }
+				}
 				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_science value = 3 } }
 				set_timed_country_flag = { flag = expedition_strategic_science years = 3 }
 				country_event = { id = UniqueAscensionPerksEvents.173 }
 			}
 			10 = {
-				modifier = {
-					factor = 1.5
-					check_variable = { which = expedition_research_ships value >= 10 }
-				}
-				modifier = {
-					factor = 2.0
-					check_variable = { which = expedition_research_ships value >= 20 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -985,10 +977,6 @@ country_event = {
 						has_country_flag = expedition_discovery_fleet
 					}
 				}
-				set_timed_country_flag = { flag = expedition_discovery_fleet years = 5 }
-				country_event = { id = UniqueAscensionPerksEvents.174 }
-			}
-			10 = {
 				modifier = {
 					factor = 1.5
 					check_variable = { which = expedition_research_ships value >= 10 }
@@ -997,6 +985,10 @@ country_event = {
 					factor = 2.0
 					check_variable = { which = expedition_research_ships value >= 20 }
 				}
+				set_timed_country_flag = { flag = expedition_discovery_fleet years = 5 }
+				country_event = { id = UniqueAscensionPerksEvents.174 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -1004,18 +996,18 @@ country_event = {
 						has_country_flag = expedition_discovery_alien
 					}
 				}
+				modifier = {
+					factor = 1.5
+					check_variable = { which = expedition_research_ships value >= 10 }
+				}
+				modifier = {
+					factor = 2.0
+					check_variable = { which = expedition_research_ships value >= 20 }
+				}
 				set_timed_country_flag = { flag = expedition_discovery_alien years = 5 }
 				country_event = { id = UniqueAscensionPerksEvents.175 }
 			}
 			10 = {
-				modifier = {
-					factor = 1.5
-					check_variable = { which = expedition_research_ships value >= 30 }
-				}
-				modifier = {
-					factor = 2.0
-					check_variable = { which = expedition_research_ships value >= 50 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -1029,10 +1021,25 @@ country_event = {
 						has_country_flag = expedition_discovery_titan
 					}
 				}
+				modifier = {
+					factor = 1.5
+					check_variable = { which = expedition_research_ships value >= 30 }
+				}
+				modifier = {
+					factor = 2.0
+					check_variable = { which = expedition_research_ships value >= 50 }
+				}
 				set_timed_country_flag = { flag = expedition_discovery_titan years = 5 }
 				country_event = { id = UniqueAscensionPerksEvents.176 }
 			}
 			10 = {
+				modifier = {
+					factor = 0
+					OR = {
+						check_variable = { which = expedition_research_ships value < 1 }
+						has_country_flag = expedition_danger_pirates
+					}
+				}
 				modifier = {
 					factor = 1.5
 					check_variable = { which = expedition_sector_danger value = 1 }
@@ -1057,17 +1064,17 @@ country_event = {
 					factor = 4.0
 					check_variable = { which = expedition_sector_danger value = 6 }
 				}
-				modifier = {
-					factor = 0
-					OR = {
-						check_variable = { which = expedition_research_ships value < 1 }
-						has_country_flag = expedition_danger_pirates
-					}
-				}
 				set_timed_country_flag = { flag = expedition_danger_pirates years = 2 }
 				country_event = { id = UniqueAscensionPerksEvents.177 }
 			}
 			10 = {
+				modifier = {
+					factor = 0
+					OR = {
+						check_variable = { which = expedition_research_ships value < 5 }
+						has_country_flag = expedition_danger_pirates
+					}
+				}
 				modifier = {
 					factor = 0.5
 					check_variable = { which = expedition_sector_danger value = 1 }
@@ -1089,17 +1096,17 @@ country_event = {
 					factor = 3.0
 					check_variable = { which = expedition_sector_danger value = 6 }
 				}
-				modifier = {
-					factor = 0
-					OR = {
-						check_variable = { which = expedition_research_ships value < 5 }
-						has_country_flag = expedition_danger_pirates
-					}
-				}
 				set_timed_country_flag = { flag = expedition_danger_pirates years = 2 }
 				country_event = { id = UniqueAscensionPerksEvents.178 }
 			}
 			10 = {
+				modifier = {
+					factor = 0
+					OR = {
+						check_variable = { which = expedition_research_ships value < 10 }
+						has_country_flag = expedition_danger_ennemy
+					}
+				}
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_danger value = 1 }
@@ -1121,34 +1128,10 @@ country_event = {
 					factor = 2.5
 					check_variable = { which = expedition_sector_danger value = 6 }
 				}
-				modifier = {
-					factor = 0
-					OR = {
-						check_variable = { which = expedition_research_ships value < 10 }
-						has_country_flag = expedition_danger_ennemy
-					}
-				}
 				set_timed_country_flag = { flag = expedition_danger_ennemy years = 2 }
 				country_event = { id = UniqueAscensionPerksEvents.179 }
 			}
 			10 = {
-				modifier = {
-					factor = 0.1
-					check_variable = { which = expedition_sector_danger value = 2 }
-				}
-				modifier = {
-					factor = 0.5
-					check_variable = { which = expedition_sector_danger value = 3 }
-				}
-				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_danger value = 4 } }
-				modifier = {
-					factor = 1.5
-					check_variable = { which = expedition_sector_danger value = 5 }
-				}
-				modifier = {
-					factor = 2.0
-					check_variable = { which = expedition_sector_danger value = 6 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -1157,10 +1140,6 @@ country_event = {
 						has_country_flag = expedition_danger_tempest
 					}
 				}
-				set_timed_country_flag = { flag = expedition_danger_tempest years = 3 }
-				country_event = { id = UniqueAscensionPerksEvents.180 }
-			}
-			10 = {
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_danger value = 2 }
@@ -1178,6 +1157,10 @@ country_event = {
 					factor = 2.0
 					check_variable = { which = expedition_sector_danger value = 6 }
 				}
+				set_timed_country_flag = { flag = expedition_danger_tempest years = 3 }
+				country_event = { id = UniqueAscensionPerksEvents.180 }
+			}
+			10 = {
 				modifier = {
 					factor = 0
 					OR = {
@@ -1186,10 +1169,35 @@ country_event = {
 						has_country_flag = expedition_danger_machine
 					}
 				}
+				modifier = {
+					factor = 0.1
+					check_variable = { which = expedition_sector_danger value = 2 }
+				}
+				modifier = {
+					factor = 0.5
+					check_variable = { which = expedition_sector_danger value = 3 }
+				}
+				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_danger value = 4 } }
+				modifier = {
+					factor = 1.5
+					check_variable = { which = expedition_sector_danger value = 5 }
+				}
+				modifier = {
+					factor = 2.0
+					check_variable = { which = expedition_sector_danger value = 6 }
+				}
 				set_timed_country_flag = { flag = expedition_danger_machine years = 6 }
 				country_event = { id = UniqueAscensionPerksEvents.181 }
 			}
 			10 = {
+				modifier = {
+					factor = 0
+					OR = {
+						check_variable = { which = expedition_sector_danger value < 3 }
+						check_variable = { which = expedition_research_ships value < 30 }
+						has_country_flag = expedition_danger_monster
+					}
+				}
 				modifier = {
 					factor = 0.1
 					check_variable = { which = expedition_sector_danger value = 3 }
@@ -1203,26 +1211,10 @@ country_event = {
 					factor = 1.5
 					check_variable = { which = expedition_sector_danger value = 6 }
 				}
-				modifier = {
-					factor = 0
-					OR = {
-						check_variable = { which = expedition_sector_danger value < 3 }
-						check_variable = { which = expedition_research_ships value < 30 }
-						has_country_flag = expedition_danger_monster
-					}
-				}
 				set_timed_country_flag = { flag = expedition_danger_monster years = 6 }
 				country_event = { id = UniqueAscensionPerksEvents.182 }
 			}
 			10 = {
-				modifier = {
-					factor = 0.1
-					check_variable = { which = expedition_sector_danger value = 4 }
-				}
-				modifier = {
-					factor = 0.5
-					check_variable = { which = expedition_sector_danger value = 5 }
-				}
 				modifier = {
 					factor = 0
 					OR = {
@@ -1230,6 +1222,14 @@ country_event = {
 						check_variable = { which = expedition_research_ships value < 40 }
 						has_country_flag = expedition_danger_monster
 					}
+				}
+				modifier = {
+					factor = 0.1
+					check_variable = { which = expedition_sector_danger value = 4 }
+				}
+				modifier = {
+					factor = 0.5
+					check_variable = { which = expedition_sector_danger value = 5 }
 				}
 				# modifier = { factor = 1.0 check_variable = { which = expedition_sector_danger value = 6 } }
 				set_timed_country_flag = { flag = expedition_danger_monster years = 12 }
@@ -1563,41 +1563,38 @@ country_event = {
 					}
 					while = {
 						count = 6
-						random_list = {
-							15 = {
-								create_ship = { name = random design = "Standard Basic Destroyer" }
-								modifier = {
-									factor = 0
-									NOT = { root = { has_technology = tech_destroyers } }
-								}
+						if = {
+							limit = {
+								root = { has_technology = tech_destroyers }
 							}
-							20 = {  }
+							random = {
+								chance = 42.9
+								create_ship = { name = random design = "Standard Basic Destroyer" }
+							}
 						}
 					}
 					while = {
 						count = 3
-						random_list = {
-							15 = {
-								create_ship = { name = random design = "Standard Basic Cruiser" }
-								modifier = {
-									factor = 0
-									NOT = { root = { has_technology = tech_cruisers } }
-								}
+						if = {
+							limit = {
+								root = { has_technology = tech_cruisers }
 							}
-							20 = {  }
+							random = {
+								chance = 42.9
+								create_ship = { name = random design = "Standard Basic Cruiser" }
+							}
 						}
 					}
 					while = {
 						count = 1
-						random_list = {
-							15 = {
-								create_ship = { name = random design = "Standard Basic Battleship" }
-								modifier = {
-									factor = 0
-									NOT = { root = { has_technology = tech_battleships } }
-								}
+						if = {
+							limit = {
+								root = { has_technology = tech_battleships }
 							}
-							20 = {  }
+							random = {
+								chance = 42.9
+								create_ship = { name = random design = "Standard Basic Battleship" }
+							}
 						}
 					}
 					set_location = {

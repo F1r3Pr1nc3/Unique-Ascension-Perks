@@ -109,6 +109,16 @@ tech_lgate_construction = {
 	weight_modifier = {
 		factor = 0.5
 		modifier = {
+			factor = 0
+			NOT = {
+				any_planet_within_border = {
+					has_resource = { type = nanites amount > 0 }
+				}
+			}
+			# has_monthly_income = { resource = nanites value < 1 }
+			# has_country_resource = { type = nanites amount < 300 }
+		}
+		modifier = {
 			factor = 0.1
 			NOR = {
 				has_trait_in_council = { TRAIT = leader_trait_expertise_particles }
@@ -127,16 +137,6 @@ tech_lgate_construction = {
 			TECHNOLOGY = tech_nanite_transmutation
 		}
 		modifier = { factor = 4 owns_any_bypass = lgate }
-		modifier = {
-			factor = 0
-			NOT = {
-				any_planet_within_border = {
-					has_resource = { type = nanites amount > 0 }
-				}
-			}
-			# has_monthly_income = { resource = nanites value < 1 }
-			# has_country_resource = { type = nanites amount < 300 }
-		}
 	}
 
 	ai_weight = {

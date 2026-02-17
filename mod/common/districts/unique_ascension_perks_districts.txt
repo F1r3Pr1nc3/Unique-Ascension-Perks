@@ -1,6 +1,5 @@
 @hab_cost = 500
 @hab_maintenance = 2
-
 # Normal Empire
 # v3.3 reduced jobs/increased build_time
 district_governor = {
@@ -8,10 +7,19 @@ district_governor = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 4
 	conversion_ratio = 1
-	convert_to = { district_governor_uncapped }
+
+	is_uncapped = {
+		merg_is_arcology = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -19,9 +27,13 @@ district_governor = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -30,79 +42,43 @@ district_governor = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { unity = 2 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+			unity = 2
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 100
 		job_governor_assitant_add = 100
 		job_judge_add = 100
 		job_influencer_add = 100
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		consumer_goods = 3
-		trigger = { always = yes }
-	}
-}
 
-district_governor_uncapped = {
-	icon = district_governor
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_governor }
-	show_on_uncolonized = {
-		exists = from
-		merg_is_arcology = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		merg_is_arcology = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = { unity = 4 }
-	}
-	planet_modifier = {
-		planet_housing_add = 400
-		job_governor_assitant_add = 100
-		job_judge_add = 200
-		job_influencer_add = 200
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		consumer_goods = 3
 		trigger = { always = yes }
@@ -114,10 +90,19 @@ district_university = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 10
 	conversion_ratio = 1
-	convert_to = { district_university_uncapped }
+
+	is_uncapped = {
+		merg_is_arcology = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -125,9 +110,13 @@ district_university = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -136,19 +125,30 @@ district_university = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
 		# produces = { society_research = 4 }
 	}
+
 	planet_modifier = {
 		planet_housing_add = 500
 		job_director_add = 200 # 1
@@ -156,61 +156,11 @@ district_university = {
 		job_u_biologist_add = 100
 		# job_teacher_add = 400 (pops just ignore them even if in colony can be 100 of them)
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		consumer_goods = 3
-		trigger = { always = yes }
-	}
-}
 
-district_university_uncapped = {
-	icon = district_university
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_university }
-	show_on_uncolonized = {
-		exists = from
-		merg_is_arcology = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		merg_is_arcology = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = { society_research = 8 }
-	}
-	planet_modifier = {
-		planet_housing_add = 1000
-		job_director_add = 300
-		job_builder_add = 100
-		job_u_biologist_add = 100
-		# job_teacher_add = 600 (pops just ignore them even if in colony can be 100 of them)
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		consumer_goods = 3
 		trigger = { always = yes }
@@ -222,10 +172,19 @@ district_defense = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 6
 	conversion_ratio = 1
-	convert_to = { district_defense_uncapped }
+
+	is_uncapped = {
+		merg_is_arcology = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -233,9 +192,13 @@ district_defense = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -244,104 +207,55 @@ district_defense = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
 		produces = {
 			engineering_research = 2
 			unity = 1
 		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 200 # 8
 		# job_ambassador_add = 100
 		job_military_expert_add = 100 # 2
 		job_border_controller_add = 100 # 3
 		job_soldier_add = 100 # 3
-	# }
-	# army_modifier = { does not exists
+		# }
+		# army_modifier = { does not exists
 		army_defense_morale_mult = 0.12
 		army_defense_damage_mult = 0.12
 		army_defense_health_mult = 0.1
 	}
+
 	triggered_planet_modifier = {
-		potential = {
-			merg_is_arcology = no
-		}
+		potential = { merg_is_arcology = no }
 		job_military_expert_add = 100
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		consumer_goods = 3
-		trigger = { always = yes }
-	}
-}
 
-district_defense_uncapped = {
-	icon = district_defense
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_defense }
-	show_on_uncolonized = {
-		exists = from
-		merg_is_arcology = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		merg_is_arcology = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = {
-			engineering_research = 4
-			unity = 2
-		}
-	}
-	# Reduced jobs due the vanilla army overflow bug
-	planet_modifier = {
-		planet_housing_add = 400 # 8
-		job_ambassador_add = 100
-		job_military_expert_add = 100 # 2
-		job_border_controller_add = 100 # 3
-		job_soldier_add = 100 # 3
-	# }
-	# army_modifier = { does not exists
-		army_defense_morale_mult = 0.1
-		army_defense_damage_mult = 0.1
-		army_defense_health_mult = 0.1
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		consumer_goods = 3
 		trigger = { always = yes }
@@ -353,10 +267,19 @@ district_industry = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 6
 	conversion_ratio = 1
-	convert_to = { district_industry_uncapped }
+
+	is_uncapped = {
+		merg_is_arcology = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -364,9 +287,13 @@ district_industry = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -375,75 +302,41 @@ district_industry = {
 			}
 			is_common_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_arcology = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { engineering_research = 3 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+			engineering_research = 3
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 400
 		job_industrialist_add = 400
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		consumer_goods = 3
-		trigger = { always = yes }
-	}
-}
 
-district_industry_uncapped = {
-	icon = district_industry
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_industry }
-	show_on_uncolonized = {
-		exists = from
-		merg_is_arcology = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		merg_is_arcology = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_common_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = { engineering_research = 6 }
-	}
-	planet_modifier = {
-		planet_housing_add = 800
-		job_industrialist_add = 800
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		consumer_goods = 3
 		trigger = { always = yes }
@@ -457,10 +350,19 @@ district_queen = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 4
 	conversion_ratio = 1
-	convert_to = { district_queen_uncapped }
+
+	is_uncapped = {
+		merg_is_hive_world = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -468,9 +370,13 @@ district_queen = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -479,13 +385,19 @@ district_queen = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
 		cost = {
@@ -512,70 +424,21 @@ district_queen = {
 			}
 			minerals = 4
 		}
-		produces = { }
+		produces = {
+		}
 	}
-	planet_modifier = {
-		planet_housing_add = 100
-		planet_amenities_no_happiness_add = 3
-		job_hive_queen_add = 100
-		job_royal_guard_add = 100
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		food = 4
-		trigger = { always = yes }
-	}
-}
 
-district_queen_uncapped = {
-	icon = district_queen
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 2
-	# max_for_deposits_on_planet = 8
-	
-	conversion_ratio = 1
-	convert_to = { district_queen }
-	show_on_uncolonized = {
-		exists = from
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	potential = {
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { energy = 500 }
-		upkeep = { energy = 4 }
-		produces = { }
-	}
 	planet_modifier = {
 		planet_housing_add = 100
 		planet_amenities_no_happiness_add = 3
 		job_hive_queen_add = 100
 		job_royal_guard_add = 100
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		food = 4
 		trigger = { always = yes }
@@ -587,10 +450,19 @@ district_nursery = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 10
 	conversion_ratio = 1
-	convert_to = { district_nursery_uncapped }
+
+	is_uncapped = {
+		merg_is_hive_world = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -598,9 +470,13 @@ district_nursery = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -609,13 +485,19 @@ district_nursery = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
 		cost = {
@@ -644,64 +526,16 @@ district_nursery = {
 		}
 		# produces = { society_research = 2 }
 	}
-	planet_modifier = {
-		planet_housing_add = 500
-		job_nurse_add = 400
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		food = 4
-		trigger = { always = yes }
-	}
-}
 
-district_nursery_uncapped = {
-	icon = district_nursery
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 3
-	# max_for_deposits_on_planet = 15
-	
-	conversion_ratio = 1
-	convert_to = { district_nursery }
-	show_on_uncolonized = {
-		exists = from
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	potential = {
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { energy = 500 }
-		upkeep = { energy = 2 }
-		# produces = { society_research = 2 }
-	}
 	planet_modifier = {
 		planet_housing_add = 500
 		job_nurse_add = 400
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		food = 4
 		trigger = { always = yes }
@@ -713,10 +547,19 @@ district_entrepot = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 4
 	conversion_ratio = 1
-	convert_to = { district_entrepot_uncapped }
+
+	is_uncapped = {
+		merg_is_hive_world = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -724,9 +567,13 @@ district_entrepot = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -735,13 +582,19 @@ district_entrepot = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
 		cost = {
@@ -770,66 +623,17 @@ district_entrepot = {
 		}
 		# produces = { society_research = 2 }
 	}
-	planet_modifier = {
-		planet_housing_add = 500
-		job_stabilizer_add = 200
-		# planet_amenities_no_happiness_add = 400
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		food = 4
-		trigger = { always = yes }
-	}
-}
 
-district_entrepot_uncapped = {
-	icon = district_entrepot
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 2
-	# max_for_deposits_on_planet = 8
-	
-	conversion_ratio = 1
-	convert_to = { district_entrepot }
-	show_on_uncolonized = {
-		exists = from
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	potential = {
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { energy = 500 }
-		upkeep = { energy = 2 }
-		# produces = { society_research = 2 }
-	}
 	planet_modifier = {
 		planet_housing_add = 500
 		job_stabilizer_add = 200
 		# planet_amenities_no_happiness_add = 400
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		food = 4
 		trigger = { always = yes }
@@ -841,10 +645,19 @@ district_forest = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 10
 	conversion_ratio = 1
-	convert_to = { district_forest_uncapped }
+
+	is_uncapped = {
+		merg_is_hive_world = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -852,9 +665,13 @@ district_forest = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -863,13 +680,19 @@ district_forest = {
 			}
 			is_hive_empire = yes
 		}
+		OR = {
+			uses_district_set = standard
+			merg_is_hive_world = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
 		cost = {
@@ -884,67 +707,21 @@ district_forest = {
 			}
 			minerals = 500
 		}
-		produces = { food = 2 }
+		produces = {
+			food = 2
+		}
 	}
-	planet_modifier = {
-		planet_housing_add = 400
-		job_botanist_add = 400
-		job_u_biologist_drone_add = 100
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		food = 4
-		trigger = { always = yes }
-	}
-}
 
-district_forest_uncapped = {
-	icon = district_forest
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 3
-	# max_for_deposits_on_planet = 15
-	
-	conversion_ratio = 1
-	convert_to = { district_forest }
-	show_on_uncolonized = {
-		exists = from
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	potential = {
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_hive_empire = yes
-		}
-		merg_is_hive_world = yes
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { energy = 500 }
-		produces = { food = 2 }
-	}
 	planet_modifier = {
 		planet_housing_add = 400
 		job_botanist_add = 400
 		job_u_biologist_drone_add = 100
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		food = 4
 		trigger = { always = yes }
@@ -958,60 +735,17 @@ district_foundry = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 10
 	conversion_ratio = 1
-	convert_to = { district_foundry_uncapped }
-	show_on_uncolonized = {
-		exists = from
-		uses_district_set = standard
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_machine_empire = yes
-		}
-	}
-	potential = {
-		uses_district_set = standard
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_machine_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { alloys = 1 }
-	}
-	planet_modifier = {
-		planet_housing_add = 300
-		job_constructor_add = 200
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_foundry_uncapped = {
-	icon = district_foundry
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 3
-	# max_for_deposits_on_planet = 15
-	
-	conversion_ratio = 1
-	convert_to = { district_foundry }
+	is_uncapped = {
+		uses_district_set = machine_world
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -1021,8 +755,12 @@ district_foundry_uncapped = {
 			}
 			is_machine_empire = yes
 		}
-		uses_district_set = machine_world
+		OR = {
+			uses_district_set = standard
+			uses_district_set = machine_world
+		}
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -1032,25 +770,41 @@ district_foundry_uncapped = {
 			}
 			is_machine_empire = yes
 		}
-		uses_district_set = machine_world
+		OR = {
+			uses_district_set = standard
+			uses_district_set = machine_world
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { alloys = 1 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+			alloys = 1
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 300
 		job_constructor_add = 200
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -1062,60 +816,17 @@ district_security = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 6
 	conversion_ratio = 1
-	convert_to = { district_security_uncapped }
-	show_on_uncolonized = {
-		exists = from
-		uses_district_set = standard
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_machine_empire = yes
-		}
-	}
-	potential = {
-		uses_district_set = standard
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_machine_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { }
-	}
-	planet_modifier = {
-		# planet_crime_add = -5 v3.8
-		job_protector_add = 300 # 1
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_security_uncapped = {
-	icon = district_security
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 2
-	# max_for_deposits_on_planet = 10
-	
-	conversion_ratio = 1
-	convert_to = { district_security }
+	is_uncapped = {
+		uses_district_set = machine_world
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -1125,8 +836,12 @@ district_security_uncapped = {
 			}
 			is_machine_empire = yes
 		}
-		uses_district_set = machine_world
+		OR = {
+			uses_district_set = standard
+			uses_district_set = machine_world
+		}
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -1136,25 +851,40 @@ district_security_uncapped = {
 			}
 			is_machine_empire = yes
 		}
-		uses_district_set = machine_world
+		OR = {
+			uses_district_set = standard
+			uses_district_set = machine_world
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+		}
 	}
+
 	planet_modifier = {
 		# planet_crime_add = -5 v3.8
 		job_protector_add = 300 # 1
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -1166,60 +896,17 @@ district_upgrade = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 6
 	conversion_ratio = 1
-	convert_to = { district_upgrade_uncapped }
-	show_on_uncolonized = {
-		exists = from
-		uses_district_set = standard
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_machine_empire = yes
-		}
-	}
-	potential = {
-		uses_district_set = standard
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_machine_empire = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { }
-	}
-	planet_modifier = {
-		planet_amenities_no_happiness_add = 4
-		job_improver_add = 200
-	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_upgrade_uncapped = {
-	icon = district_upgrade
-	base_buildtime = 300
-	# min_for_deposits_on_planet = 2
-	# max_for_deposits_on_planet = 10
-	
-	conversion_ratio = 1
-	convert_to = { district_upgrade }
+	is_uncapped = {
+		uses_district_set = machine_world
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -1229,8 +916,12 @@ district_upgrade_uncapped = {
 			}
 			is_machine_empire = yes
 		}
-		uses_district_set = machine_world
+		OR = {
+			uses_district_set = standard
+			uses_district_set = machine_world
+		}
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -1240,152 +931,66 @@ district_upgrade_uncapped = {
 			}
 			is_machine_empire = yes
 		}
-		uses_district_set = machine_world
+		OR = {
+			uses_district_set = standard
+			uses_district_set = machine_world
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+		}
 	}
+
 	planet_modifier = {
 		planet_amenities_no_happiness_add = 4
 		job_improver_add = 200
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
 	}
 }
-
-# TODO v3.8 rework: It's illogical to have in first place.
-# district_recycling = {
-# 	base_buildtime = 300
-# 	min_for_deposits_on_planet = 1
-# 	max_for_deposits_on_planet = 10
-# 	conversion_ratio = 1
-# 	convert_to = { district_recycling_uncapped }
-# 	show_on_uncolonized = {
-# 		exists = from
-# 		uses_district_set = standard
-# 		from = {
-# 			OR = {
-# 				has_ascension_perk = ap_pyramidal_society
-# 				has_country_flag = ap_pyramidal_society
-# 			}
-# 			is_machine_empire = yes
-# 		}
-# 	}
-# 	potential = {
-# 		uses_district_set = standard
-# 		exists = owner
-# 		owner = {
-# 			OR = {
-# 				has_ascension_perk = ap_pyramidal_society
-# 				has_country_flag = ap_pyramidal_society
-# 			}
-# 			is_machine_empire = yes
-# 		}
-# 	}
-# 	allow = {
-# 		NOR = {
-# 			has_modifier = resort_colony
-# 			has_modifier = slave_colony
-# 		}
-# 	}
-# 	resources = {
-# 		category = planet_districts
-# 		cost = { minerals = 500 }
-# 		upkeep = { energy = 2 }
-# 		produces = {
-# 			energy = 1
-# 			food = 1
-# 			minerals = 1
-# 		}
-# 	}
-# 	planet_modifier = { job_recycler_add = 300 }
-# 	ai_weight = { weight = 2 }
-# 	ai_resource_production = {
-# 		energy = 4
-# 		trigger = { always = yes }
-# 	}
-# }
-# # TODO v3.8 rework: It's illogical to have in first place.
-# district_recycling_uncapped = {
-# 	icon = district_recycling
-# 	base_buildtime = 300
-# 	# min_for_deposits_on_planet = 3
-# 	# max_for_deposits_on_planet = 15
-# 	is_capped_by_modifier = no
-# 	conversion_ratio = 1
-# 	convert_to = { district_recycling }
-# 	show_on_uncolonized = {
-# 		exists = from
-# 		from = {
-# 			OR = {
-# 				has_ascension_perk = ap_pyramidal_society
-# 				has_country_flag = ap_pyramidal_society
-# 			}
-# 			is_machine_empire = yes
-# 		}
-# 		OR = {
-# 			uses_district_set = machine_world
-# 		}
-# 	}
-# 	potential = {
-# 		exists = owner
-# 		owner = {
-# 			OR = {
-# 				has_ascension_perk = ap_pyramidal_society
-# 				has_country_flag = ap_pyramidal_society
-# 			}
-# 			is_machine_empire = yes
-# 		}
-# 		OR = {
-# 			uses_district_set = machine_world
-# 		}
-# 	}
-# 	allow = {
-# 		NOR = {
-# 			has_modifier = resort_colony
-# 			has_modifier = slave_colony
-# 		}
-# 	}
-# 	resources = {
-# 		category = planet_districts
-# 		cost = { minerals = 500 }
-# 		upkeep = { energy = 2 }
-# 		produces = {
-# 			energy = 1
-# 			food = 1
-# 			minerals = 1
-# 		}
-# 	}
-# 	planet_modifier = { job_recycler_add = 300 }
-# 	ai_weight = { weight = 2 }
-# 	ai_resource_production = {
-# 		energy = 4
-# 		trigger = { always = yes }
-# 	}
-# }
 
 ### Mega Corporation
+
 district_finance = {
 	base_buildtime = 300
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 10
 	conversion_ratio = 1
-	convert_to = { district_finance_uncapped }
+
+	is_uncapped = {
+		gpm_is_planet_class_city = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -1393,9 +998,13 @@ district_finance = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -1404,79 +1013,42 @@ district_finance = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 200
 		planet_jobs_trade_produces_add = 2
 		job_economist_add = 100
 		job_trading_expert_add = 300
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_finance_uncapped = {
-	icon = district_finance
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_finance }
-	show_on_uncolonized = {
-		exists = from
-		gpm_is_planet_class_city = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		gpm_is_planet_class_city = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = { }
-	}
-	planet_modifier = {
-		planet_housing_add = 600
-		planet_jobs_trade_produces_add = 3
-		job_economist_add = 100
-		job_trading_expert_add = 600
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -1488,10 +1060,19 @@ district_casino = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 10
 	conversion_ratio = 1
-	convert_to = { district_casino_uncapped }
+
+	is_uncapped = {
+		gpm_is_planet_class_city = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -1499,9 +1080,13 @@ district_casino = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -1510,75 +1095,41 @@ district_casino = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { unity = 1 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+			unity = 1
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 500
 		job_player_add = 500
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_casino_uncapped = {
-	icon = district_casino
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_casino }
-	show_on_uncolonized = {
-		exists = from
-		gpm_is_planet_class_city = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		gpm_is_planet_class_city = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = { unity = 2 }
-	}
-	planet_modifier = {
-		planet_housing_add = 1000
-		job_player_add = 1000
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -1590,10 +1141,19 @@ district_bank = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 4
 	conversion_ratio = 1
-	convert_to = { district_bank_uncapped }
+
+	is_uncapped = {
+		gpm_is_planet_class_city = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		uses_district_set = standard
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -1601,9 +1161,13 @@ district_bank = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	potential = {
-		uses_district_set = standard
 		exists = owner
 		owner = {
 			OR = {
@@ -1612,77 +1176,40 @@ district_bank = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 500 }
-		produces = { energy = 3 }
+		cost = {
+			minerals = 500
+		}
+		produces = {
+			energy = 3
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 500
 		job_banker_add = 200
 		job_treasurer_add = 200
 		job_tax_controller_add = 100
 	}
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_bank_uncapped = {
-	icon = district_bank
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_bank }
-	show_on_uncolonized = {
-		exists = from
-		gpm_is_planet_class_city = yes
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
+	ai_weight = {
+		weight = 2
 	}
-	potential = {
-		gpm_is_planet_class_city = yes
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 1000 }
-		produces = { energy = 6 }
-	}
-	planet_modifier = {
-		planet_housing_add = 1000
-		job_banker_add = 300
-		job_treasurer_add = 300
-		job_tax_controller_add = 200
-	}
-	ai_weight = { weight = 2 }
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -1694,58 +1221,19 @@ district_journalism = {
 	min_for_deposits_on_planet = 1
 	max_for_deposits_on_planet = 6
 	conversion_ratio = 1
-	convert_to = { district_journalism_uncapped }
-	show_on_uncolonized = {
-		exists = from
-		uses_district_set = standard
-		from = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
-	}
-	potential = {
-		uses_district_set = standard
-		exists = owner
-		owner = {
-			OR = {
-				has_ascension_perk = ap_pyramidal_society
-				has_country_flag = ap_pyramidal_society
-			}
-			is_megacorp = yes
-		}
-	}
-	allow = {
-		NOR = {
-			has_modifier = resort_colony
-			has_modifier = slave_colony
-		}
-	}
-	resources = {
-		category = planet_districts
-		cost = { minerals = 500 }
-		upkeep = { energy = 2 }
-		produces = { society_research = 2 }
-	}
-	planet_modifier = { planet_housing_add = 200 job_sponsor_add = 200 job_journalist_add = 300 }
-	ai_weight = { weight = 2 }
-	ai_resource_production = {
-		energy = 4
-		trigger = { always = yes }
-	}
-}
 
-district_journalism_uncapped = {
-	icon = district_journalism
-	base_buildtime = 700
-	
-	conversion_ratio = 1
-	convert_to = { district_journalism }
+	is_uncapped = {
+		gpm_is_planet_class_city = yes
+	}
+
+	zone_slots = {
+		slot_city_government
+		slot_city_01
+		slot_city_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
-		gpm_is_planet_class_city = yes
 		from = {
 			OR = {
 				has_ascension_perk = ap_pyramidal_society
@@ -1753,9 +1241,13 @@ district_journalism_uncapped = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	potential = {
-		gpm_is_planet_class_city = yes
 		exists = owner
 		owner = {
 			OR = {
@@ -1764,21 +1256,42 @@ district_journalism_uncapped = {
 			}
 			is_megacorp = yes
 		}
+		OR = {
+			uses_district_set = standard
+			gpm_is_planet_class_city = yes
+		}
 	}
+
 	allow = {
 		NOR = {
 			has_modifier = resort_colony
 			has_modifier = slave_colony
 		}
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 1000 }
-		upkeep = { energy = 4 }
-		produces = { society_research = 4 }
+		cost = {
+			minerals = 500
+		}
+		upkeep = {
+			energy = 2
+		}
+		produces = {
+			society_research = 2
+		}
 	}
-	planet_modifier = { planet_housing_add = 800 job_sponsor_add = 300 job_journalist_add = 600 }
-	ai_weight = { weight = 2 }
+
+	planet_modifier = {
+		planet_housing_add = 200
+		job_sponsor_add = 200
+		job_journalist_add = 300
+	}
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -1788,7 +1301,11 @@ district_journalism_uncapped = {
 # Ring World (Upperground)
 district_rich = {
 	base_buildtime = 700
-	
+
+	zone_slots = {
+		slot_rw_urban_01
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -1799,6 +1316,7 @@ district_rich = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -1809,13 +1327,23 @@ district_rich = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 2400 }
-		upkeep = { energy = 8 } # 4
-		produces = { }
+		cost = {
+			minerals = 2400
+		}
+		upkeep = {
+			energy = 8
+		} # 4
+		produces = {
+		}
 	}
-	planet_modifier = { planet_housing_add = 1000 }
+
+	planet_modifier = {
+		planet_housing_add = 1000
+	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -1843,15 +1371,19 @@ district_rich = {
 			exists = owner
 			owner = { is_hive_empire = yes }
 		}
-		job_hive_queen_add = 300 job_royal_guard_add = 400 job_stabilizer_add = 300
+		job_hive_queen_add = 300
+		job_royal_guard_add = 400
+		job_stabilizer_add = 300
 	}
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
 			owner = { is_machine_empire = yes }
 		}
-		job_improver_add = 500 job_stabilizer_add = 500
+		job_improver_add = 500
+		job_stabilizer_add = 500
 	}
+
 	triggered_desc = {
 		trigger = {
 			exists = owner
@@ -1866,7 +1398,11 @@ district_rich = {
 		}
 		text = job_improver_and_stabilizer_effect_desc
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 6
 		trigger = { always = yes }
@@ -1875,7 +1411,11 @@ district_rich = {
 
 district_underground = {
 	base_buildtime = 700
-	
+
+	zone_slots = {
+		slot_rw_urban_02
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -1886,6 +1426,7 @@ district_underground = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -1896,28 +1437,38 @@ district_underground = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 2400 }
-		upkeep = { energy = 20 }
-		produces = { }
+		cost = {
+			minerals = 2400
+		}
+		upkeep = {
+			energy = 20
+		}
+		produces = {
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 1800 # 50
 	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
 			owner = { is_regular_empire = yes }
 		}
-		job_smuggler_add = 800 job_spy_add = 400
+		job_smuggler_add = 800
+		job_spy_add = 400
 	}
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
 			owner = { is_gestalt = yes }
 		}
-		job_smuggler_drone_add = 800 job_spy_drone_add = 400
+		job_smuggler_drone_add = 800
+		job_spy_drone_add = 400
 	}
 	triggered_planet_modifier = {
 		potential = {
@@ -1926,6 +1477,7 @@ district_underground = {
 		}
 		job_player_add = 400
 	}
+
 	# triggered_planet_modifier = { < v3.7
 	# 	potential = {
 	# 		exists = owner
@@ -1947,6 +1499,7 @@ district_underground = {
 		}
 		job_constructor_add = 200
 	}
+
 	triggered_desc = {
 		trigger = {
 			exists = owner
@@ -1968,7 +1521,11 @@ district_underground = {
 		}
 		text = job_smuggler_and_spy_effect_desc
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 20
 		trigger = { always = yes }
@@ -1977,7 +1534,11 @@ district_underground = {
 
 district_purification = {
 	base_buildtime = 700
-	
+
+	zone_slots = {
+		slot_rw_urban_03
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -1988,6 +1549,7 @@ district_purification = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -1998,15 +1560,23 @@ district_purification = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 2400 }
-		upkeep = { energy = 6 } # 2
-		produces = { }
+		cost = {
+			minerals = 2400
+		}
+		upkeep = {
+			energy = 6
+		} # 2
+		produces = {
+		}
 	}
+
 	planet_modifier = {
 		planet_housing_add = 1000 # 8
 	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2028,7 +1598,11 @@ district_purification = {
 		}
 		job_recycler_add = 400
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 6
 		trigger = { always = yes }
@@ -2037,7 +1611,11 @@ district_purification = {
 
 district_navy_center = {
 	base_buildtime = 700
-	
+
+	zone_slots = {
+		slot_rw_urban_01
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -2048,6 +1626,7 @@ district_navy_center = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -2058,21 +1637,26 @@ district_navy_center = {
 		}
 		has_ringworld_output_boost = yes
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = 2400 }
+		cost = {
+			minerals = 2400
+		}
 		upkeep = {
 			energy = 6 # 2
 			# food = 4 # 2
 			alloys = 6 # 2
 			minerals = 4
 		}
-		produces = { }
+		produces = {
+		}
 	}
 
 	planet_modifier = {
 		planet_housing_add = 600 # 10
 	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2089,7 +1673,11 @@ district_navy_center = {
 		job_navy_pilot_drone_add = 600 # 17
 		job_protector_add = 200
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -2099,7 +1687,11 @@ district_navy_center = {
 # Habitat
 district_control = {
 	base_buildtime = 300
-	
+
+	zone_slots = {
+		slot_habitat_01
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -2110,6 +1702,7 @@ district_control = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -2120,13 +1713,23 @@ district_control = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = @hab_cost }
-		upkeep = { energy = @hab_maintenance }
-		produces = { }
+		cost = {
+			minerals = @hab_cost
+		}
+		upkeep = {
+			energy = @hab_maintenance
+		}
+		produces = {
+		}
 	}
-	planet_modifier = { planet_housing_add = 200 }
+
+	planet_modifier = {
+		planet_housing_add = 200
+	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2155,7 +1758,11 @@ district_control = {
 		}
 		job_border_controller_add = 100
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -2164,7 +1771,11 @@ district_control = {
 
 district_smuggling = {
 	base_buildtime = 300
-	
+
+	zone_slots = {
+		slot_habitat_01
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -2175,6 +1786,7 @@ district_smuggling = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -2185,13 +1797,23 @@ district_smuggling = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = @hab_cost }
-		upkeep = { energy = @hab_maintenance }
-		produces = { }
+		cost = {
+			minerals = @hab_cost
+		}
+		upkeep = {
+			energy = @hab_maintenance
+		}
+		produces = {
+		}
 	}
-	planet_modifier = { planet_housing_add = 300 }
+
+	planet_modifier = {
+		planet_housing_add = 300
+	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2213,7 +1835,11 @@ district_smuggling = {
 		}
 		job_treasurer_add = 100
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
@@ -2222,7 +1848,11 @@ district_smuggling = {
 
 district_intel = {
 	base_buildtime = 300
-	
+
+	zone_slots = {
+		slot_habitat_01
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -2233,6 +1863,7 @@ district_intel = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -2243,13 +1874,23 @@ district_intel = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = @hab_cost }
-		upkeep = { energy = @hab_maintenance }
-		produces = { }
+		cost = {
+			minerals = @hab_cost
+		}
+		upkeep = {
+			energy = @hab_maintenance
+		}
+		produces = {
+		}
 	}
-	planet_modifier = { planet_housing_add = 100 }
+
+	planet_modifier = {
+		planet_housing_add = 100
+	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2269,18 +1910,28 @@ district_intel = {
 			exists = owner
 			owner = { is_hive_empire = yes }
 		}
-		job_spy_drone_add = 100 planet_housing_add = 100
+		job_spy_drone_add = 100
+		planet_housing_add = 100
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }
 	}
 }
+
 # TODO rework: to similar to basic energy district!?
 district_machinery = {
 	base_buildtime = 300
-	
+
+	zone_slots = {
+		slot_habitat_energy
+	}
+
 	show_on_uncolonized = {
 		exists = from
 		from = {
@@ -2291,6 +1942,7 @@ district_machinery = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	potential = {
 		exists = owner
 		owner = {
@@ -2301,13 +1953,23 @@ district_machinery = {
 		}
 		merg_is_habitat = yes # uses_district_set = habitat
 	}
+
 	resources = {
 		category = planet_districts
-		cost = { minerals = @hab_cost }
-		upkeep = { energy = @hab_maintenance }
-		produces = { }
+		cost = {
+			minerals = @hab_cost
+		}
+		upkeep = {
+			energy = @hab_maintenance
+		}
+		produces = {
+		}
 	}
-	planet_modifier = { planet_housing_add = 300 }
+
+	planet_modifier = {
+		planet_housing_add = 300
+	}
+
 	triggered_planet_modifier = {
 		potential = {
 			exists = owner
@@ -2343,6 +2005,7 @@ district_machinery = {
 		}
 		job_industrialist_add = 100
 	}
+
 	triggered_desc = {
 		trigger = {
 			exists = owner
@@ -2357,7 +2020,11 @@ district_machinery = {
 		}
 		text = job_technician_effect_desc
 	}
-	ai_weight = { weight = 2 }
+
+	ai_weight = {
+		weight = 2
+	}
+
 	ai_resource_production = {
 		energy = 4
 		trigger = { always = yes }

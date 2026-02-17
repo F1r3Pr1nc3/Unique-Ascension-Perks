@@ -168,6 +168,15 @@ lgate_disabled = {
 	ai_weight = {
 		factor = 2
 		modifier = {
+			factor = 0
+			OR = {
+				starbase = {
+					NOT = { has_starbase_size >= starbase_starport }
+				}
+				any_neighbor_system = { has_star_flag = lgate }
+			}
+		}
+		modifier = {
 			factor = 0.1
 			starbase = {
 				NOT = { has_starbase_size >= starbase_starfortress }
@@ -181,15 +190,6 @@ lgate_disabled = {
 			}
 		}
 		modifier = { factor = 3 is_star_class = sc_black_hole }
-		modifier = {
-			factor = 0
-			OR = {
-				starbase = {
-					NOT = { has_starbase_size >= starbase_starport }
-				}
-				any_neighbor_system = { has_star_flag = lgate }
-			}
-		}
 		# modifier = {
 		# 	factor = 0.2
 		# 	from = {

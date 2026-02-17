@@ -1370,6 +1370,10 @@ planet_event = {
 				random_list = {
 					30 = {
 						modifier = {
+							factor = 0
+							NOT = { root = { has_planet_flag = new_primitive_world_stone_age } }
+						}
+						modifier = {
 							factor = 0.1
 							root = {
 								check_variable = { which = pop_amount value > 28 }
@@ -1396,12 +1400,12 @@ planet_event = {
 							factor = 3
 							NOT = { event_target:owning_empire = { has_ascension_perk = ap_primitives_creation } }
 						}
-						modifier = {
-							factor = 0
-							NOT = { root = { has_planet_flag = new_primitive_world_stone_age } }
-						}
 					}
 					30 = {
+						modifier = {
+							factor = 0
+							NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } }
+						}
 						modifier = {
 							factor = 0.1
 							root = {
@@ -1410,10 +1414,6 @@ planet_event = {
 									check_variable = { which = pop_amount value < @stone_age_pops }
 								}
 							}
-						}
-						modifier = {
-							factor = 0
-							NOT = { root = { has_planet_flag = new_primitive_world_bronze_age } }
 						}
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = bronze_age
@@ -1424,6 +1424,10 @@ planet_event = {
 					}
 					20 = {
 						modifier = {
+							factor = 0
+							NOT = { root = { has_planet_flag = new_primitive_world_iron_age } }
+						}
+						modifier = {
 							factor = 0.1
 							root = {
 								OR = {
@@ -1431,10 +1435,6 @@ planet_event = {
 									check_variable = { which = pop_amount value < @bronze_age_pops }
 								}
 							}
-						}
-						modifier = {
-							factor = 0
-							NOT = { root = { has_planet_flag = new_primitive_world_iron_age } }
 						}
 						set_pre_ftl_age_effect = {
 							PRE_FTL_AGE = iron_age
@@ -1784,12 +1784,9 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3143.b"
-		random_list = {
-			95 = {  }
-			5 = {
-				modifier = { factor = 0 is_primitive_stage_three = yes }
-				primitive_country_into_next_age = yes
-			}
+		if = {
+			limit = { is_primitive_stage_three = no }
+			random = { chance = 5 primitive_country_into_next_age = yes }
 		}
 	}
 }
@@ -1810,12 +1807,9 @@ country_event = {
 	}
 	option = {
 		name = "UniqueAscensionPerksEvents.3143.b"
-		random_list = {
-			95 = {  }
-			5 = {
-				modifier = { factor = 0 is_primitive_stage_three = yes }
-				primitive_country_into_next_age = yes
-			}
+		if = {
+			limit = { is_primitive_stage_three = no }
+			random = { chance = 5 primitive_country_into_next_age = yes }
 		}
 	}
 }

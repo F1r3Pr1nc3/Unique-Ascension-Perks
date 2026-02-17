@@ -536,19 +536,20 @@ building_factory_1 = {
 			has_modifier = slave_colony
 			has_modifier = gestation_colony
 			owner = {
-				NOR = {
-
-					country_uses_consumer_goods = yes
-					has_origin = origin_fear_of_the_dark
+				OR = {
+					NOR = {
+						country_uses_consumer_goods = yes
+						has_origin = origin_fear_of_the_dark
+					}
+					AND = {
+						should_ai_focus_on_trade = yes
+						has_monthly_income = { resource = consumer_goods value > 30 }
+					}
 				}
 			}
 			AND = {
 				owner = { is_ai = yes }
 				has_any_industry_zone = no
-			}
-			owner = {
-				should_ai_focus_on_trade = yes
-				has_monthly_income = { resource = consumer_goods value > 30 }
 			}
 		}
 	}

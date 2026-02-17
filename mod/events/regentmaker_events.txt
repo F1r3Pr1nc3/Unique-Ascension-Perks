@@ -791,13 +791,6 @@ planet_event = {
 				1 = {
 					force_add_civic = civic_indentured_assets
 					modifier = {
-						factor = 10
-						OR = {
-							is_megacorp = yes
-							has_civic = civic_galactic_sovereign_megacorp
-						}
-					}
-					modifier = {
 						factor = 0
 						OR = {
 							has_civic = civic_indentured_assets
@@ -805,6 +798,13 @@ planet_event = {
 							has_civic = civic_corporate_hedonism
 							has_civic = civic_slaver_guilds
 							has_civic = civic_pleasure_seekers
+						}
+					}
+					modifier = {
+						factor = 10
+						OR = {
+							is_megacorp = yes
+							has_civic = civic_galactic_sovereign_megacorp
 						}
 					}
 				}
@@ -849,10 +849,6 @@ planet_event = {
 				1 = {
 					force_add_civic = civic_anglers
 					modifier = {
-						factor = 10
-						event_target:vassal_species = { has_trait = trait_aquatic }
-					}
-					modifier = {
 						factor = 0
 						OR = {
 							has_civic = civic_anglers
@@ -865,14 +861,14 @@ planet_event = {
 							is_megacorp = yes
 						}
 					}
+					modifier = {
+						factor = 10
+						event_target:vassal_species = { has_trait = trait_aquatic }
+					}
 				}
 				# Anglers (if aquatic) # Generates strong economy with low micromanagement.
 				1 = {
 					force_add_civic = civic_machine_anglers
-					modifier = {
-						factor = 10
-						event_target:vassal_species = { is_archetype = MACHINE has_trait = trait_robot_aquatic }
-					}
 					modifier = {
 						factor = 0
 						OR = {
@@ -887,6 +883,10 @@ planet_event = {
 							is_gestalt = yes
 							is_megacorp = yes
 						}
+					}
+					modifier = {
+						factor = 10
+						event_target:vassal_species = { is_archetype = MACHINE has_trait = trait_robot_aquatic }
 					}
 				}
 			}
