@@ -4763,6 +4763,25 @@ event = {
 	is_triggered_only = yes
 	# trigger = {  }
 	immediate = {
+		if = {
+			limit = {
+				NOT = {
+					any_playable_country = {
+						is_ai = no
+						has_country_flag = is_host_player
+					}
+				}
+			}
+			random_playable_country = {
+				limit = {
+					NOR = {
+						is_ai = yes
+						has_country_flag = is_host_player
+					}
+				}
+				set_country_flag = is_host_player
+			}
+		}
 		event_target:global_event_country = {
 			if = {
 				limit = { # If the version number is not set or is outdated, update the version number and trigger the event

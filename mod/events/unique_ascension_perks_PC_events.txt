@@ -364,7 +364,7 @@ planet_event = {
 					exists = owner_species
 					any_owned_pop_group = { is_exact_same_species = prev.owner_species }
 				}
-				weighted_random_owned_pop_group = {
+				random_owned_pop_group = {
 					limit = { is_exact_same_species = prev.owner_species }
 					save_event_target_as = SdjTargetPop05		## @SdjConstMenuListOffset + 1
 				}
@@ -1143,7 +1143,7 @@ planet_event = {
 		}
 		set_planet_flag = primitive_creation_done
 		### Resettle pops:
-		export_trigger_value_to_variable = { variable = pop_amount trigger = pop_amount }
+		export_trigger_value_to_variable = { variable = pop_amount trigger = count_owned_pop_amount }
 		if = {
 			limit = {
 				has_owner = yes
@@ -1291,7 +1291,7 @@ planet_event = {
 										}
 									}
 								}
-								weighted_random_owned_pop_group = {
+								random_owned_pop_group = {
 									limit = {
 										prevprev = {
 											habitability = { who = prev value >= 0.5 }
@@ -1557,7 +1557,7 @@ planet_event = {
 			while = {
 				count = pops_to_resettle
 				limit = { pop_amount > 100 }
-				weighted_random_owned_pop_group = {
+				random_owned_pop_group = {
 					limit = {
 						can_think = yes
 						NOR = {
@@ -1881,7 +1881,7 @@ country_event = {
 	immediate = {
 		event_target:primitive_creation_country = {
 			set_country_flag = early_space_age_contact
-			weighted_random_owned_pop_group = {
+			random_owned_pop_group = {
 				species = { save_event_target_as = primitive_creation_species }
 			}
 		}

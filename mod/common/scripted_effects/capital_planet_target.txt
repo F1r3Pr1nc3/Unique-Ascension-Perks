@@ -16,6 +16,26 @@ get_capital_planet = {
 			}
 			if = {
 				limit = {
+					exists = capital_star
+					capital_star.solar_system = {
+						any_system_colony = { has_owner = yes pop_amount > 500 }
+					}
+				}
+				capital_star.solar_system = {
+					ordered_system_colony = {
+						limit = {
+							has_owner = yes
+							is_colonizable = no
+							is_under_colonization = no
+						}
+						position = 0
+						order_by = trigger:pop_amount
+						save_event_target_as = capital_planet
+					}
+				}
+			}
+			else_if = {
+				limit = {
 					num_sectors > 0
 					any_owned_sector = { exists = sector_capital }
 				}
@@ -31,11 +51,12 @@ get_capital_planet = {
 					limit = {
 						is_colony = yes
 						is_colonizable = no
+						is_under_colonization = no
 						exists = space_owner
 						solar_system = { exists = starbase }
 					}
 					position = 0
-					order_by = trigger:sapient_pop_amount
+					order_by = trigger:pop_amount
 					save_event_target_as = capital_planet
 				}
 			}
@@ -47,6 +68,7 @@ get_capital_planet = {
 					limit = {
 						has_owner = yes
 						is_colony = yes
+						is_under_colonization = no
 						OR = {
 							AND = {
 								exists = owner
@@ -59,7 +81,7 @@ get_capital_planet = {
 						}
 					}
 					position = 0
-					order_by = trigger:sapient_pop_amount
+					order_by = trigger:pop_amount
 					save_event_target_as = capital_planet
 				}
 			}
@@ -67,6 +89,7 @@ get_capital_planet = {
 				random_owned_planet = {
 					limit = {
 						has_owner = yes
+						is_under_colonization = no
 						pop_amount > 0
 					}
 					weights = {
@@ -80,13 +103,19 @@ get_capital_planet = {
 					}
 					save_event_target_as = capital_planet
 				}
-				log = "FAIL: No planet found for [This.GetName]?!"
+				if = {
+					limit = {
+						NOT = { exists = event_target:capital_planet }
+					}
+					log = "FAIL: No planet found for [This.GetName]?!"
+				}
 			}
 		}
 		else = {
 			random_owned_planet = {
 				limit = {
 					has_owner = yes
+					is_under_colonization = no
 					pop_amount > 0
 				}
 				weights = {
@@ -100,7 +129,12 @@ get_capital_planet = {
 				}
 				save_event_target_as = capital_planet
 			}
-			log = "FAIL: No planet found for [This.GetName]?!"
+			if = {
+				limit = {
+					NOT = { exists = event_target:capital_planet }
+				}
+				log = "FAIL: No planet found for [This.GetName]?!"
+			}
 		}
 	}
 }

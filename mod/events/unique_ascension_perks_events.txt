@@ -11073,37 +11073,184 @@ planet_event = {
 		name = "UniqueAscensionPerksEvents.461.Reset"
 		custom_tooltip = "decision_self_aware_colony_reset_tooltip"
 		hidden_effect = {
-			# set_variable = { which = num_pops_self_aware_planet value = trigger:pop_amount }
+			# set_variable = { which = num_pops_self_aware_planet value = trigger:count_owned_pop_amount }
 			# reset_self_aware_planet = { POPS = "@[Root.num_pops_self_aware_planet]" } # TODO Malformed token
 			remove_self_aware_planet = yes
 			add_modifier = { modifier = self_aware_colony clear_on_owner_change = yes }
 			add_modifier = { modifier = self_aware_no_focus clear_on_owner_change = yes }
 			set_planet_flag = self_aware_planet
-			switch = { trigger = pop_amount
-				5	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 5 } }
-				10	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 10 } }
-				15	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 15 } }
-				20	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 20 } }
-				25	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 25 } }
-				30	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 30 } }
-				35	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 35 } }
-				40	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 40 } }
-				45	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 45 } }
-				50	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 50 } }
-				55	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 55 } }
-				60	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 60 } }
-				65	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 65 } }
-				70	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 70 } }
-				75	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 75 } }
-				80	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 80 } }
-				85	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 85 } }
-				90	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 90 } }
-				95	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 95 } }
-				100	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 100 } }
-				105	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 105 } }
-				110	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 110 } }
-				115	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 115 } }
-				120	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 120 } }
+			export_trigger_value_to_variable = { variable = pop_amount trigger = count_owned_pop_amount }
+			divide_variable = { which = pop_amount value = 100 }
+			# switch = { trigger = count_owned_pop_amount  # Not possible anymore since v4.0
+			# 	5	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 5 } }
+			# 	10	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 10 } }
+			# 	15	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 15 } }
+			# 	20	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 20 } }
+			# 	25	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 25 } }
+			# 	30	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 30 } }
+			# 	35	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 35 } }
+			# 	40	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 40 } }
+			# 	45	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 45 } }
+			# 	50	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 50 } }
+			# 	55	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 55 } }
+			# 	60	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 60 } }
+			# 	65	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 65 } }
+			# 	70	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 70 } }
+			# 	75	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 75 } }
+			# 	80	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 80 } }
+			# 	85	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 85 } }
+			# 	90	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 90 } }
+			# 	95	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 95 } }
+			# 	100	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 100 } }
+			# 	105	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 105 } }
+			# 	110	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 110 } }
+			# 	115	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 115 } }
+			# 	120	<= { planet_event = { id = UniqueAscensionPerksEvents.465 days = 120 } }
+			# }
+			# TODO OPT: The whole chebang because run_event_delayed = { EVENT = UniqueAscensionPerksEvents.465 DAYS = pop_amount } # does not work!?
+			if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 120 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 120 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 115 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 115 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 110 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 110 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 105 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 105 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 100 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 100 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 95 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 95 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 90 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 90 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 85 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 85 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 80 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 80 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 75 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 75 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 70 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 70 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 65 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 65 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 60 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 60 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 55 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 55 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 50 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 50 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 45 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 45 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 40 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 40 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 35 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 35 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 30 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 30 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 25 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 25 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 20 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 20 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 15 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 15 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 10 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 10 }
+			}
+			else_if = {
+				limit = {
+					check_variable = { which = pop_amount value >= 5 }
+				}
+				planet_event = { id = UniqueAscensionPerksEvents.465 days = 5 }
 			}
 		}
 	}
@@ -11248,33 +11395,66 @@ planet_event = {
 					factor = 0
 					is_variable_set = d_aware_administration_building
 					check_variable = { which = d_aware_administration_building value > 0 }
-					switch = { trigger = pop_amount
-						40	> { always = yes }
-						80	> { check_variable = { which = d_aware_administration_building value > 1 } }
-						120	> { check_variable = { which = d_aware_administration_building value > 2 } }
-						160	> { check_variable = { which = d_aware_administration_building value > 3 } }
-						200	> { check_variable = { which = d_aware_administration_building value > 4 } }
-						240	> { check_variable = { which = d_aware_administration_building value > 5 } }
-						280	> { check_variable = { which = d_aware_administration_building value > 6 } }
-						320	> { check_variable = { which = d_aware_administration_building value > 7 } }
-						360	> { check_variable = { which = d_aware_administration_building value > 8 } }
-						400	> { check_variable = { which = d_aware_administration_building value > 9 } }
-						400	<={ check_variable = { which = d_aware_administration_building value > 10 } }
-						default = { always = no }
-					}
-					# OR = {
-					# AND = { check_variable = { which = d_aware_administration_building value > 0 } pop_amount < 4000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 1 } pop_amount < 8000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 2 } pop_amount < 12000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 3 } pop_amount < 16000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 4 } pop_amount < 20000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 5 } pop_amount < 24000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 6 } pop_amount < 28000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 7 } pop_amount < 32000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 8 } pop_amount < 36000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 9 } pop_amount < 40000 }
-					# AND = { check_variable = { which = d_aware_administration_building value > 10 } pop_amount >= 40000 }
+					# switch = { trigger = count_owned_pop_amount not possible anymore since v4.0
+					# 	40	> { always = yes }
+					# 	80	> { check_variable = { which = d_aware_administration_building value > 1 } }
+					# 	120	> { check_variable = { which = d_aware_administration_building value > 2 } }
+					# 	160	> { check_variable = { which = d_aware_administration_building value > 3 } }
+					# 	200	> { check_variable = { which = d_aware_administration_building value > 4 } }
+					# 	240	> { check_variable = { which = d_aware_administration_building value > 5 } }
+					# 	280	> { check_variable = { which = d_aware_administration_building value > 6 } }
+					# 	320	> { check_variable = { which = d_aware_administration_building value > 7 } }
+					# 	360	> { check_variable = { which = d_aware_administration_building value > 8 } }
+					# 	400	> { check_variable = { which = d_aware_administration_building value > 9 } }
+					# 	400	<={ check_variable = { which = d_aware_administration_building value > 10 } }
+					# 	default = { always = no }
 					# }
+					OR = {
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 0 }
+							pop_amount < 4000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 1 }
+							pop_amount < 8000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 2 }
+							pop_amount < 12000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 3 }
+							pop_amount < 16000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 4 }
+							pop_amount < 20000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 5 }
+							pop_amount < 24000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 6 }
+							pop_amount < 28000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 7 }
+							pop_amount < 32000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 8 }
+							pop_amount < 36000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 9 }
+							pop_amount < 40000
+						}
+						AND = {
+							check_variable = { which = d_aware_administration_building value > 10 }
+							pop_amount >= 40000
+						}
+					}
 				}
 			}
 			5 = {
@@ -11514,13 +11694,48 @@ planet_event = {
 							add = -2
 							is_variable_set = d_aware_culture_building
 							check_variable = { which = d_aware_culture_building value > 0 }
-							switch = { trigger = pop_amount
-								30	> { always = yes }
-								60	> { check_variable = { which = d_aware_culture_building value > 1 } }
-								90	> { check_variable = { which = d_aware_culture_building value > 2 } }
-								120	> { check_variable = { which = d_aware_culture_building value > 3 } }
-								150	> { check_variable = { which = d_aware_culture_building value > 4 } }
-								default = { always = no }
+							if = {
+								limit = {
+									check_variable = { which = d_aware_culture_building value >= 1 }
+								}
+								if = {
+									limit = { pop_amount <= 3000 }
+									always = yes
+								}
+								else_if = {
+									limit = {
+										check_variable = { which = d_aware_culture_building value >= 2 }
+									}
+									if = {
+										limit = { pop_amount <= 6000 }
+										always = yes
+									}
+									else_if = {
+										limit = {
+											check_variable = { which = d_aware_culture_building value >= 3 }
+										}
+										if = {
+											limit = { pop_amount <= 9000 }
+											always = yes
+										}
+										else_if = {
+											limit = {
+												check_variable = { which = d_aware_culture_building value >= 4 }
+											}
+											if = {
+												limit = { pop_amount <= 12000 }
+												always = yes
+											}
+											else_if = {
+												limit = {
+													check_variable = { which = d_aware_culture_building value >= 5 }
+													pop_amount <= 15000
+												}
+												always = yes
+											}
+										}
+									}
+								}
 							}
 						}
 						modifier = {
@@ -11541,13 +11756,48 @@ planet_event = {
 								AND = {
 									is_variable_set = d_aware_assembly_building
 									check_variable = { which = d_aware_assembly_building value > 0 }
-									switch = { trigger = pop_amount
-										30	> { always = yes }
-										60	> { check_variable = { which = d_aware_assembly_building value > 1 } }
-										90	> { check_variable = { which = d_aware_assembly_building value > 2 } }
-										120	> { check_variable = { which = d_aware_assembly_building value > 3 } }
-										150	> { check_variable = { which = d_aware_assembly_building value > 4 } }
-										default = { always = no }
+									if = {
+										limit = {
+											check_variable = { which = d_aware_assembly_building value >= 1 }
+										}
+										if = {
+											limit = { pop_amount <= 3000 }
+											always = yes
+										}
+										else_if = {
+											limit = {
+												check_variable = { which = d_aware_assembly_building value >= 2 }
+											}
+											if = {
+												limit = { pop_amount <= 6000 }
+												always = yes
+											}
+											else_if = {
+												limit = {
+													check_variable = { which = d_aware_assembly_building value >= 3 }
+												}
+												if = {
+													limit = { pop_amount <= 9000 }
+													always = yes
+												}
+												else_if = {
+													limit = {
+														check_variable = { which = d_aware_assembly_building value >= 4 }
+													}
+													if = {
+														limit = { pop_amount <= 12000 }
+														always = yes
+													}
+													else_if = {
+														limit = {
+															check_variable = { which = d_aware_assembly_building value >= 5 }
+															pop_amount <= 15000
+														}
+														always = yes
+													}
+												}
+											}
+										}
 									}
 								}
 							}
@@ -11559,13 +11809,48 @@ planet_event = {
 								AND = {
 									is_variable_set = d_aware_growth_building
 									check_variable = { which = d_aware_growth_building value > 0 }
-									switch = { trigger = pop_amount
-										30	> { always = yes }
-										60	> { check_variable = { which = d_aware_growth_building value > 1 } }
-										90	> { check_variable = { which = d_aware_growth_building value > 2 } }
-										120	> { check_variable = { which = d_aware_growth_building value > 3 } }
-										150	> { check_variable = { which = d_aware_growth_building value > 4 } }
-										default = { always = no }
+									if = {
+										limit = {
+											check_variable = { which = d_aware_growth_building value >= 1 }
+										}
+										if = {
+											limit = { pop_amount <= 3000 }
+											always = yes
+										}
+										else_if = {
+											limit = {
+												check_variable = { which = d_aware_growth_building value >= 2 }
+											}
+											if = {
+												limit = { pop_amount <= 6000 }
+												always = yes
+											}
+											else_if = {
+												limit = {
+													check_variable = { which = d_aware_growth_building value >= 3 }
+												}
+												if = {
+													limit = { pop_amount <= 9000 }
+													always = yes
+												}
+												else_if = {
+													limit = {
+														check_variable = { which = d_aware_growth_building value >= 4 }
+													}
+													if = {
+														limit = { pop_amount <= 12000 }
+														always = yes
+													}
+													else_if = {
+														limit = {
+															check_variable = { which = d_aware_growth_building value >= 5 }
+															pop_amount <= 15000
+														}
+														always = yes
+													}
+												}
+											}
+										}
 									}
 								}
 							}
@@ -11576,21 +11861,49 @@ planet_event = {
 									factor = 0
 									is_variable_set = d_aware_culture_building
 									check_variable = { which = d_aware_culture_building value > 0 }
-									switch = { trigger = pop_amount
-										30	> { always = yes }
-										60	> { check_variable = { which = d_aware_culture_building value > 1 } }
-										90	> { check_variable = { which = d_aware_culture_building value > 2 } }
-										120	> { check_variable = { which = d_aware_culture_building value > 3 } }
-										150	> { check_variable = { which = d_aware_culture_building value > 4 } }
-										default = { always = no }
+									if = {
+										limit = {
+											check_variable = { which = d_aware_culture_building value >= 1 }
+										}
+										if = {
+											limit = { pop_amount <= 3000 }
+											always = yes
+										}
+										else_if = {
+											limit = {
+												check_variable = { which = d_aware_culture_building value >= 2 }
+											}
+											if = {
+												limit = { pop_amount <= 6000 }
+												always = yes
+											}
+											else_if = {
+												limit = {
+													check_variable = { which = d_aware_culture_building value >= 3 }
+												}
+												if = {
+													limit = { pop_amount <= 9000 }
+													always = yes
+												}
+												else_if = {
+													limit = {
+														check_variable = { which = d_aware_culture_building value >= 4 }
+													}
+													if = {
+														limit = { pop_amount <= 12000 }
+														always = yes
+													}
+													else_if = {
+														limit = {
+															check_variable = { which = d_aware_culture_building value >= 5 }
+															pop_amount <= 15000
+														}
+														always = yes
+													}
+												}
+											}
+										}
 									}
-									# OR = {
-									# 	AND = { check_variable = { which = d_aware_culture_building value >= 1 } pop_amount <= 3000 }
-									# 	AND = { check_variable = { which = d_aware_culture_building value >= 2 } pop_amount <= 6000 }
-									# 	AND = { check_variable = { which = d_aware_culture_building value >= 3 } pop_amount <= 9000 }
-									# 	AND = { check_variable = { which = d_aware_culture_building value >= 4 } pop_amount <= 12000 }
-									# 	AND = { check_variable = { which = d_aware_culture_building value >= 5 } pop_amount <= 15000 }
-									# }
 								}
 								# modifier = { factor = 0 check_variable = { which = d_aware_culture_building value >= 5 } pop_amount >= 15000 }
 								change_variable = { which = d_aware_culture_building value = 1 }
@@ -11615,21 +11928,49 @@ planet_event = {
 										AND = {
 											is_variable_set = d_aware_assembly_building
 											check_variable = { which = d_aware_assembly_building value > 0 }
-											switch = { trigger = pop_amount
-												30	> { always = yes }
-												60	> { check_variable = { which = d_aware_assembly_building value > 1 } }
-												90	> { check_variable = { which = d_aware_assembly_building value > 2 } }
-												120	> { check_variable = { which = d_aware_assembly_building value > 3 } }
-												150	> { check_variable = { which = d_aware_assembly_building value > 4 } }
-												default = { always = no }
+											if = {
+												limit = {
+													check_variable = { which = d_aware_assembly_building value >= 1 }
+												}
+												if = {
+													limit = { pop_amount <= 3000 }
+													always = yes
+												}
+												else_if = {
+													limit = {
+														check_variable = { which = d_aware_assembly_building value >= 2 }
+													}
+													if = {
+														limit = { pop_amount <= 6000 }
+														always = yes
+													}
+													else_if = {
+														limit = {
+															check_variable = { which = d_aware_assembly_building value >= 3 }
+														}
+														if = {
+															limit = { pop_amount <= 9000 }
+															always = yes
+														}
+														else_if = {
+															limit = {
+																check_variable = { which = d_aware_assembly_building value >= 4 }
+															}
+															if = {
+																limit = { pop_amount <= 12000 }
+																always = yes
+															}
+															else_if = {
+																limit = {
+																	check_variable = { which = d_aware_assembly_building value >= 5 }
+																	pop_amount <= 15000
+																}
+																always = yes
+															}
+														}
+													}
+												}
 											}
-											# OR = {
-											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 1 } pop_amount <= 3000 }
-											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 2 } pop_amount <= 6000 }
-											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 3 } pop_amount <= 9000 }
-											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 4 } pop_amount <= 12000 }
-											# 	AND = { check_variable = { which = d_aware_assembly_building value >= 5 } pop_amount <= 15000 }
-											# }
 										}
 									}
 								}
@@ -11645,29 +11986,54 @@ planet_event = {
 										AND = {
 											is_variable_set = d_aware_growth_building
 											check_variable = { which = d_aware_growth_building value > 0 }
-											switch = { trigger = pop_amount
-												30	> { always = yes }
-												60	> { check_variable = { which = d_aware_growth_building value > 1 } }
-												90	> { check_variable = { which = d_aware_growth_building value > 2 } }
-												120	> { check_variable = { which = d_aware_growth_building value > 3 } }
-												150	> { check_variable = { which = d_aware_growth_building value > 4 } }
-												default = { always = no }
+											if = {
+												limit = {
+													check_variable = { which = d_aware_growth_building value >= 1 }
+												}
+												if = {
+													limit = { pop_amount <= 3000 }
+													always = yes
+												}
+												else_if = {
+													limit = {
+														check_variable = { which = d_aware_growth_building value >= 2 }
+													}
+													if = {
+														limit = { pop_amount <= 6000 }
+														always = yes
+													}
+													else_if = {
+														limit = {
+															check_variable = { which = d_aware_growth_building value >= 3 }
+														}
+														if = {
+															limit = { pop_amount <= 9000 }
+															always = yes
+														}
+														else_if = {
+															limit = {
+																check_variable = { which = d_aware_growth_building value >= 4 }
+															}
+															if = {
+																limit = { pop_amount <= 12000 }
+																always = yes
+															}
+															else_if = {
+																limit = {
+																	check_variable = { which = d_aware_growth_building value >= 5 }
+																	pop_amount <= 15000
+																}
+																always = yes
+															}
+														}
+													}
+												}
 											}
-											# OR = {
-											# 	AND = { check_variable = { which = d_aware_growth_building value >= 1 } pop_amount <= 3000 }
-											# 	AND = { check_variable = { which = d_aware_growth_building value >= 2 } pop_amount <= 6000 }
-											# 	AND = { check_variable = { which = d_aware_growth_building value >= 3 } pop_amount <= 9000 }
-											# 	AND = { check_variable = { which = d_aware_growth_building value >= 4 } pop_amount <= 12000 }
-											# 	AND = { check_variable = { which = d_aware_growth_building value >= 5 } pop_amount <= 15000 }
-											# }
 										}
-									}
-								}
-								modifier = {
-									factor = 0
-									NOR = {
-										has_planet_flag = self_aware_manual_order
-										any_owned_pop_group = { is_unemployed = yes }
+										NOR = {
+											has_planet_flag = self_aware_manual_order
+											any_owned_pop_group = { is_unemployed = yes }
+										}
 									}
 								}
 								# modifier = { factor = 0 check_variable = { which = d_aware_growth_building value >= 5 } pop_amount >= 15000 }
